@@ -22,7 +22,7 @@ namespace UTILS
 
         private static string Mail_Username = !string.IsNullOrEmpty(ConfigurationManager.AppSettings["Mail_Username"])
                                            ? ConfigurationManager.AppSettings["Mail_Username"]
-                                           : "shopdoithe1105@gmail.com";
+                                           : "xxxx@gmail.com";
 
         private static string Mail_Password = !string.IsNullOrEmpty(ConfigurationManager.AppSettings["Mail_Password"])
                                            ? ConfigurationManager.AppSettings["Mail_Password"]
@@ -30,10 +30,10 @@ namespace UTILS
 
         private static string Mail_SenderEmail = !string.IsNullOrEmpty(ConfigurationManager.AppSettings["Mail_SenderEmail"])
                                            ? ConfigurationManager.AppSettings["Mail_SenderEmail"]
-                                           : "shopdoithe1105@gmail.com";
+                                           : "xxxx@gmail.com";
         private static string Mail_SenderName = !string.IsNullOrEmpty(ConfigurationManager.AppSettings["Mail_SenderName"])
                                            ? ConfigurationManager.AppSettings["Mail_SenderName"]
-                                           : "Dịch vụ shoponline";
+                                           : "Dịch vụ xxx";
 
         public static bool SendMail(string subject, string body, string toEmail)
         {
