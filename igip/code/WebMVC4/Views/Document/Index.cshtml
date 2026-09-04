@@ -1,0 +1,247 @@
+﻿@using BIZ
+@using UTILS
+@using WebMVC4.Helper
+@model WebMVC4.Models.DocumentModel
+
+@{
+    var langpage = WorkContext.GetLanguage();
+}
+<div class="document-page container mt20">
+    <div class="row">
+        <div class="col-lg-8 col-md-12 pb40">
+            @{Html.RenderAction("Breadcrumb", "News", new { CategoryId = Model.CategoryId });}
+            <div class="mt30">
+                <!--<div class="text-center search">
+                <div class="form-inline">
+                    <div class="form-group">
+                        <label class="">@Resources.Global.Keyword</label>
+                        <input id="txtkeyword" class="form-control" type="text" value="@ViewBag.keyword">
+                    </div>
+                    <div class="form-group">
+                        <label>@Resources.Global.FromDate</label>
+                        <input id="txtfromdate" placeholder="dd/MM/yyyy" value="@ViewBag.fromdate" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label>@Resources.Global.ToDate</label>
+                        <input id="txttodate" placeholder="dd/MM/yyyy" value="@ViewBag.todate" class="form-control">
+                    </div>-->
+                @*<div>
+                        <a href="javascript:;" onclick="searchdoc();" class="btn-green">@Resources.Global.MenuSearch</a>
+                    </div>*@
+                <!--<button type="button" onclick="searchdoc();" class="btn-search">@Resources.Global.MenuSearch</button>
+                    </div>
+                </div>-->
+                @*<div class="document-tabs">
+                        <ul>
+
+                            @foreach (var item in Model.subcate.Select((value, i) => new { i, value }))
+                            {
+                                <li>
+                                    <a href="@Utils.FormatUrlRewriteByType(item.value.Id, item.value.Name, int.Parse(item.value.Type.ToString()), item.value.Link)">@item.value.Name </a>
+
+                                </li>
+                            }
+                        </ul>
+                    </div>*@
+                @if (langpage == "vi-vn")
+                {
+                    <div class="document-search-02">
+                        <div class="form-group w-50">
+                            <label class="">Số ký hiệu:</label>
+                            <input id="txtcode" class="form-control" value="@ViewBag.code" type="text">
+                        </div>
+                        <div class="form-group w-50">
+                            <label class="">Loại văn bản:</label>
+                            <select class="form-control" id="ddlType">
+                                <option value="0">-- Tất cả --</option>
+                                <option value="1" @if (ViewBag.type == 1) { @Html.Raw("selected='selected'") ; }>Nghị quyết</option>
+                                <option value="6" @if (ViewBag.type == 6) { @Html.Raw("selected='selected'") ; }>Nghị định</option>
+                                <option value="13" @if (ViewBag.type == 13) { @Html.Raw("selected='selected'") ; }>Thông tư</option>
+                                <option value="11" @if (ViewBag.type == 11) { @Html.Raw("selected='selected'") ; }>Quyết định</option>
+                                <option value="4" @if (ViewBag.type == 4) { @Html.Raw("selected='selected'") ; }>Hiệp định</option>
+                                <option value="7" @if (ViewBag.type == 7) { @Html.Raw("selected='selected'") ; }>Nghị định thư</option>
+
+                                <option value="17" @if (ViewBag.type == 17) { @Html.Raw("selected='selected'") ; }>Bản ghi nhớ</option>
+                                <option value="18" @if (ViewBag.type == 18) { @Html.Raw("selected='selected'") ; }>Công điện</option>
+                                <option value="19" @if (ViewBag.type == 19) { @Html.Raw("selected='selected'") ; }>Quy định</option>
+                                <option value="20" @if (ViewBag.type == 20) { @Html.Raw("selected='selected'") ; }>Thông báo</option>
+                                <option value="21" @if (ViewBag.type == 21) { @Html.Raw("selected='selected'") ; }>Kết luận</option>
+                                <option value="22" @if (ViewBag.type == 22) { @Html.Raw("selected='selected'") ; }>Chương trình</option>
+                                <option value="23" @if (ViewBag.type == 23) { @Html.Raw("selected='selected'") ; }>Kế hoạch</option>
+
+                                <option value="30" @(ViewBag.type == 30 ? "selected" : "")>Hiến pháp</option>
+                                <option value="31" @(ViewBag.type == 31 ? "selected" : "")>Luật</option>
+                                <option value="32" @(ViewBag.type == 32 ? "selected" : "")>Lệnh</option>
+                                <option value="33" @(ViewBag.type == 33 ? "selected" : "")>Sắc lệnh</option>
+                                <option value="34" @(ViewBag.type == 34 ? "selected" : "")>Pháp lệnh</option>
+                                <option value="35" @(ViewBag.type == 35 ? "selected" : "")>Văn kiện</option>
+                                <option value="36" @(ViewBag.type == 36 ? "selected" : "")>Văn bản hợp nhất</option>
+                                <option value="37" @(ViewBag.type == 37 ? "selected" : "")>Thông tư liên tịch</option>
+                                <option value="38" @(ViewBag.type == 38 ? "selected" : "")>Công văn hướng dẫn</option>
+                                <option value="39" @(ViewBag.type == 39 ? "selected" : "")>Quy chế</option>
+                                <option value="40" @(ViewBag.type == 40 ? "selected" : "")>Thông cáo</option>
+                                <option value="41" @(ViewBag.type == 41 ? "selected" : "")>Hướng dẫn</option>
+                                <option value="42" @(ViewBag.type == 42 ? "selected" : "")>Phương án</option>
+                                <option value="43" @(ViewBag.type == 43 ? "selected" : "")>Dự án</option>
+                                <option value="44" @(ViewBag.type == 44 ? "selected" : "")>Biên bản</option>
+                                <option value="45" @(ViewBag.type == 45 ? "selected" : "")>Tờ trình</option>
+                                <option value="46" @(ViewBag.type == 46 ? "selected" : "")>Hợp đồng</option>
+                                <option value="47" @(ViewBag.type == 47 ? "selected" : "")>Biên bản thỏa thuận</option>
+                                <option value="48" @(ViewBag.type == 48 ? "selected" : "")>Quy định, Quy chế</option>
+                            </select>
+                        </div>
+                        <div class="form-group w-50">
+                            <label class="">Ngày ban hành:</label>
+                            <input id="txtfromdate" class="form-control" type="text" placeholder="dd/MM/yyyy" value="@ViewBag.fromdate">
+                        </div>
+                        <div class="form-group w-50">
+                            <label class="">Ngày hiệu lực:</label>
+                            <input id="txttodate" class="form-control" type="text" value="@ViewBag.todate">
+                        </div>
+                        <div class="form-group w-50">
+                            <label class="">Lĩnh vực:</label>
+                            <select class="form-control" id="ddlArea">
+                                <option value="0">-- Tất cả --</option>
+
+                                <option value="1" @if (ViewBag.area == 1) { @Html.Raw("selected='selected'") ; }>Khoa học công nghệ và đổi mới sáng tạo</option>
+                                <option value="4" @if (ViewBag.area == 4) { @Html.Raw("selected='selected'") ; }>Chất lượng sản phẩm</option>
+                                <option value="6" @if (ViewBag.area == 6) { @Html.Raw("selected='selected'") ; }>Tiêu chuẩn, QCKT, đo lường và SHTT</option>
+                                <option value="2" @if (ViewBag.area == 2) { @Html.Raw("selected='selected'") ; }>Sử dụng năng lượng TK&HQ</option>
+                                <option value="7" @if (ViewBag.area == 7) { @Html.Raw("selected='selected'") ; }>Sản xuất và tiêu dùng bền vững</option>
+                                <option value="11" @if (ViewBag.area == 11) { @Html.Raw("selected='selected'") ; }>Biến đổi khí hậu và tăng trưởng xanh </option>
+                                <option value="3" @if (ViewBag.area == 3) { @Html.Raw("selected='selected'") ; }>Hoạt động khuyến công</option>
+                                <option value="9" @if (ViewBag.area == 9) { @Html.Raw("selected='selected'") ; }>Cụm công nghiệp</option>
+                                <option value="10" @if (ViewBag.area == 10) { @Html.Raw("selected='selected'") ; }>Tiểu thủ công nghiệp – Làng nghề</option>
+                                <option value="8" @if (ViewBag.area == 8) { @Html.Raw("selected='selected'") ; }>Doanh nghiệp tiểu thủ công nghiệp</option>
+                                <option value="12" @if (ViewBag.area == 12) { @Html.Raw("selected='selected'") ; }>Khác</option>
+                            </select>
+                        </div>
+                        <div class="form-group w-50">
+                            <label class="">Cơ quan ban hành:</label>
+                            @*<input id="ddlAgent" class="form-control" value="@ViewBag.agent" type="text">*@
+                            <select class="form-control" id="ddlAgent">
+                                <option value="0">-- Tất cả --</option>
+
+                                <option value="1" @if (ViewBag.agent == 1) { @Html.Raw("selected='selected'") ; }>Bộ Chính trị</option>
+
+                                <option value="11" @if (ViewBag.agent == 11) { @Html.Raw("selected='selected'") ; }>Quốc hội</option>
+                                <option value="8" @if (ViewBag.agent == 8) { @Html.Raw("selected='selected'") ; }>Chính phủ</option>
+                                <option value="3" @if (ViewBag.agent == 3) { @Html.Raw("selected='selected'") ; }>Văn phòng Chính phủ</option>
+                                <option value="4" @if (ViewBag.agent == 4) { @Html.Raw("selected='selected'") ; }>Văn phòng Trung ương Đảng</option>
+                                <option value="2" @if (ViewBag.agent == 2) { @Html.Raw("selected='selected'") ; }>Bộ Công Thương</option>
+                                <option value="6" @if (ViewBag.agent == 6) { @Html.Raw("selected='selected'") ; }>Bộ Khoa học và Công nghệ</option>
+                                <option value="5" @if (ViewBag.agent == 5) { @Html.Raw("selected='selected'") ; }>Bộ Tài chính</option>
+                                <option value="7" @if (ViewBag.agent == 7) { @Html.Raw("selected='selected'") ; }>Bộ Xây dựng</option>
+                                <option value="9" @if (ViewBag.agent == 9) { @Html.Raw("selected='selected'") ; }>Bộ Giáo dục và Đào tạo</option>
+                                <option value="11" @if (ViewBag.agent == 11) { @Html.Raw("selected='selected'") ; }>Bộ Văn hóa thể thao và Du lịch</option>
+                                <option value="12" @if (ViewBag.agent == 12) { @Html.Raw("selected='selected'") ; }>UBND các địa phương</option>
+                                <option value="10" @if (ViewBag.agent == 10) { @Html.Raw("selected='selected'") ; }>Khác</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="">Từ khóa:</label>
+                            <input id="txtkeyword" class="form-control" value="@ViewBag.keyword" type="text">
+                        </div>
+                        <div class="form-group text-center">
+                            <a href="javascript:;" onclick="searchdoc();" class="btn btn-primary">Tìm kiếm</a>
+                        </div>
+                    </div>
+                }
+                <div class="document-table table-responsive mt20">
+                    <table>
+                        <tbody>
+                            <tr>
+                                <th>@Resources.Global.DocNumber </th>
+                                <th>@Resources.Global.DocCode </th>
+                                <th>@Resources.Global.DocName </th>
+                                <th>@Resources.Global.DocPublishDate </th>
+                                <th>@Resources.Global.DocDownload </th>
+                            </tr>
+                            @if (Model.listdata != null)
+                            {
+
+
+                                foreach (var item in Model.listdata.Select((value, i) => new { i, value }))
+                                {
+                                    <tr>
+                                        <td style="text-align: center" align="center">@(item.i + 1) </td>
+                                        <td>@item.value.Code</td>
+
+                                        <td style="min-width:160px;">
+                                            <a href="@Url.Action("Detail","Document",new { id=item.value.Id})">
+                                                @Html.Raw(item.value.Name)
+                                            </a>
+                                        </td>
+                                        <td style="min-width:120px;"> @Convert.ToDateTime(item.value.PublishDate).ToString(@" dd'/'MM'/'yyyy") </td>
+                                        <td>
+                                            <div>
+                                                <a href="@Url.Action("DownloadFile", "Document", new {id = item.value.Id})" class="document-view">
+                                                    <img src="/Content/images/ico-pdf02.png">
+
+                                                </a><br />
+                                                <a href="@Url.Action("ViewFile", "Document", new {id = item.value.Id})" class="document-view">
+                                                    <span>@Resources.Global.DocViewOnline</span>
+
+                                                </a>
+                                            </div>
+                                        </td>
+
+                                    </tr>
+                                }
+                            }
+
+
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="paging mt50 text-right">
+                    <ul>
+                        @{Html.RenderPartial("Pagination", new WebMVC4.Models.PaginationInfo
+                            {
+                                PageUrl = Url.SetParameter("Page", "!0"),
+                                CurrentPage = Model.pageIndex,
+                                PageSize = Model.pageSize,
+                                TotalItemCount = Model.total,
+                            }); }
+                    </ul>
+                </div>
+            </div>
+
+        </div><!-- end content left-->
+
+        <div class="col-lg-4 col-md-12">
+            <div class="mt20">
+                <div class="gray-box">
+                    @Html.Partial("Site_Right")
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div><!-- end main content-->
+
+<script type="text/javascript">
+
+
+    function searchdoc() {
+        var id = '@Model.CategoryId';
+        var keyword = $("#txtkeyword").val();
+        var fromdate = $("#txtfromdate").val();
+        var todate = $("#txttodate").val();
+        var type = $("#ddlType").val();
+        var area = $("#ddlArea").val();
+        var agent = $("#ddlAgent").val();
+        window.location = '/Document/Index/' + id + '/?keyword=' + keyword + '&fromdate=' + fromdate + '&todate=' + todate + '&type=' + type + '&area=' + area + '&agent=' + agent;
+        //window.location = jQuery.query.set("keyword", keyword).set("fromdate", fromdate).set("todate", todate).set("Page", "1");
+    }
+</script>
+<script type="text/javascript">
+
+ $('#menu_' + '@ViewBag.CurrentCategoryId').addClass("active");
+
+  $('#menu_' + '@ViewBag.ParentCategoryId').addClass("active");
+
+
+
+</script>

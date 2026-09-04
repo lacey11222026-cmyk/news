@@ -1,0 +1,29 @@
+﻿@using BIZ
+@using UTILS
+@using WebMVC4.Helper
+@model List<BIZ.Entity.CONTENT_FULL>
+<h2 class="title-cm title-cm-inline"><a href="#">Bài khác</a></h2>
+@if (Model != null)
+{
+    if (Model.Count > 0)
+    {
+        <ul class="post-other-list">
+            @foreach (var item in Model.Select((value, i) => new { i, value }))
+            {
+                <li class="maxheight08">
+                    <a href="@item.value.LinkUrl">
+                        <img src="@item.value.Avatar?w=88&h=88&mode=crop" alt="">
+                        <div>
+                            <p>@item.value.Title</p>
+                            <ul class="postdate">
+                                <li><p>@item.value.FullName</p></li>
+                                <li><p>@item.value.PublishDate.ToString("dd/MM/yyyy")</p></li>
+                            </ul>
+                        </div>
+                    </a>
+                </li>
+            }
+        </ul>
+
+    }
+}

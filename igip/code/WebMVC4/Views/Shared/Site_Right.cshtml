@@ -1,0 +1,41 @@
+﻿
+@using BIZ
+@using UTILS
+@using WebMVC4.Helper
+
+@if (WorkContext.GetLanguage() == "vi-vn")
+{
+    <div class="bnr-list">
+        <a href="/"><img src="/Content/images/bnr-dck.png" alt=""></a>
+    </div>
+    <div class="link-icon-list mt20">
+        <ul>
+            <li><a href="https://mail.moit.gov.vn/owa/auth/logon.aspx?replaceCurrent=1&url=https%3a%2f%2fmail.moit.gov.vn%2fowa%2f" target="_blank"><span><img src="/Content/images/icon-01.png" alt="" width="18"></span>Thư điện tử</a></li>
+            <li><a href="https://dichvucong.gov.vn/p/home/dvc-trang-chu.html" target="_blank"><span><img src="/Content/images/icon-02.png" alt="" width="15"></span>Dịch vụ công trực tuyến</a></li>
+            <li><a href="/tin-tuc/c53/gop-y-du-thao-van-ban"><span><img src="/Content/images/icon-03.png" alt="" width="18"></span>Góp ý dự thảo, văn bản</a></li>
+            <li><a href="/tin-tuc/c54/tai-lieu"><span><img src="/Content/images/icon-04.png" alt="" width="17"></span>Tài liệu</a></li>
+            <li><a href="https://dataenergy.vn/" target="_blank"><span><img src="/Content/images/icon-05.png" alt="" width="19"></span>CSDL năng lượng trọng điểm</a></li>
+            @*<li><a href="#"><span><img src="/Content/images/icon-06.png" alt="" width="20"></span>CSDL Khoa học và công nghệ</a></li>*@
+            <li><a href="http://csdl.arit.gov.vn/Account/Login" target="_blank"><span><img src="/Content/images/icon-06.png" alt="" width="20"></span>CSDL Công Thương địa phương</a></li>
+            <li><a href="https://nhannangluong.dvctt.gov.vn/" target="_blank"><span><img src="/Content/images/icon-07.png" alt="" width="15"></span>Hệ thống dán nhãn năng lượng</a></li>
+        </ul>
+    </div>
+}
+else
+{
+    <div class="bnr-list">
+        <a href="/"><img src="/Content/images/bnr-dck.png" alt=""></a>
+    </div>
+    <div class="link-icon-list mt20">
+        <ul>
+            <li><a href="https://mail.moit.gov.vn/owa/auth/logon.aspx?replaceCurrent=1&url=https%3a%2f%2fmail.moit.gov.vn%2fowa%2f" target="_blank"><span><img src="/Content/images/icon-01.png" alt="" width="18"></span>Email</a></li>
+            <li><a href="https://dichvucong.gov.vn/p/home/dvc-trang-chu.html" target="_blank"><span><img src="/Content/images/icon-02.png" alt="" width="15"></span>Online public services</a></li>
+            <li><a href="/tin-tuc/c57/feedback-on-draft-documents"><span><img src="/Content/images/icon-03.png" alt="" width="18"></span>Feedback on draft documents</a></li>
+            <li><a href="/tin-tuc/c56/documents"><span><img src="/Content/images/icon-04.png" alt="" width="17"></span>Documents</a></li>
+            <li><a href="#"><span><img src="/Content/images/icon-05.png" alt="" width="19"></span>Energy database</a></li>
+            @*<li><a href="#"><span><img src="/Content/images/icon-06.png" alt="" width="20"></span>Science and Technology database</a></li>*@
+            <li><a href="#"><span><img src="/Content/images/icon-06.png" alt="" width="20"></span>Regional Industry and Trade database</a></li>
+            <li><a href="#"><span><img src="/Content/images/icon-07.png" alt="" width="15"></span>Energy labeling system</a></li>
+        </ul>
+    </div>
+}

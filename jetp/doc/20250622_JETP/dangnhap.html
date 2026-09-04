@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="vn">
+<head>
+    <meta charset="UTF-8">
+    <title>Trang chủ - JETP</title>
+    <meta name="Keywords" content="Trang chủ - JETP,JETP" />
+    <meta name="Description" content="JETP" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="shortcut icon" href="images/icon-logo.png" type="image/x-icon" />
+
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Darker+Grotesque:wght@300..900&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="css/swiper-bundle.min.css"/>
+
+</head>
+<body>
+    <section class="section-login-1" style="background-image: url('images/bg-dangnhap.jpg');">
+        <div class="container-fulid" style="height: inherit;">
+            <div class="content">
+                <div class="col-left">
+                    <div class="header-login">
+                        <div class="logo">
+                            <a href="#">                                                            
+                               <img src="images/logo2025.png" alt="images">
+                            </a>
+                        </div>
+                        <div class="lang">
+                            <button class="bnt-lang">
+                                <img src="images/vn.png" alt="images">         
+                                <span>Tiếng Việt</span>
+                                <i class="fas fa-caret-down"></i>
+                            </button>
+                            <ul class="list-lang">
+                                <li><a href="#"><img src="images/gb.png" alt="images"><span>English</span></a></li><li><a href="#"><img src="images/vn.png" alt="images"><span>Tiếng Việt</span></a></li>            
+                            </ul>
+                        </div>
+                    </div>
+                </div>                                
+                <div class="col-right">                                    
+                    <div class="right-form">                                        
+                        <div class="title">
+                            <h2>Đăng nhập</h2>
+                            <p>Chào mừng bạn đến <br><strong>Quan hệ đối tác chuyển đổi năng lượng công bằng (JETP)</strong> Trang đăng nhập. Đăng nhập để tham gia.</p>
+                        </div>
+                        <form action="" id="form-login" novalidate="novalidate">
+                            <input type="hidden" name="csrfToken" value="c9b0d85b04">
+                            <div class="f-col">
+                                <label for="">Tên đăng nhập</label>
+                                <input type="text" name="username" id="username" placeholder="" class="input-cm">
+                            </div>
+                            <div class="f-col">
+                                <label for="">Mật khẩu</label>
+                                <input type="password" name="password" id="password" placeholder="" class="input-cm">
+                            </div>
+                            <a href="#" class="repass" data-toggle="modal" data-target="#forgotpass">Quên mật khẩu?</a>                            
+                            <button class="btn-cm btn-blue w-100"><span>Đăng nhập</span></button>
+                            <div class="bnt-more mt10">
+                                <p>Chưa có tài khoản? <a href="dang-ky.html" class="textblue">Tạo tài khoản</a></p>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+<!-- Modal -->
+<div class="modal fade" id="forgotpass" tabindex="-1" aria-labelledby="" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+      <p class="">Mật khẩu mới đã được gửi tới email <span>hanguyen1606@gmail.com</span><br> Vui lòng kiểm tra email để lấy lại mật khẩu mới!</p>
+      <div class="text-center mt30 btn-modal-list">
+        <a href="" class="btn-blue btn-cm">TRUY CẬP EMAIL</a>        
+      </div>  
+    </div>
+  </div>
+</div>
+  
+<!-- JS --->
+<script src="js/jquery.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+
+<script src="js/jquery.matchHeight.js" type="text/javascript"></script>
+<script src="js/swiper-bundle.min.js"></script>
+<script src="js/script.js" type="text/javascript"></script>
+
+</body>
+</html>

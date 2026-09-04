@@ -1,0 +1,187 @@
+﻿@using BIZ
+@using UTILS
+@using WebMVC4.Helper
+
+<div class="content01 container mt10">
+    <div class="row">
+        <div class="col-md-8 col-sm-12">
+            @{Html.RenderAction("Slide", "Home", new { IsMobile = ViewBag.IsMobile });}
+        </div>
+        <div class="col-md-4 col-sm-12">
+            @if (!ViewBag.IsMobile)
+            {
+                { Html.RenderAction("RightNews2", "Home", new { CategoryId = 34, MaxLastestNews = 2 }); }
+            }
+            else
+            {
+                { Html.RenderAction("RightNews2", "Home", new { CategoryId = 34, MaxLastestNews = 4 }); }
+            }
+
+
+            <div class="hidden-xs">
+                @{ Html.RenderAction("TopDocument", "Document"); }
+            </div>
+
+        </div>
+    </div><!-- end row-->
+</div><!-- end content 01 -->
+
+@{Html.RenderAction("BannerCenter1", "Banner", new { IsMobile = ViewBag.IsMobile });}
+
+<div class="mt20 content02 container">
+    <div class="row">
+        <div class="col-md-8 col-sm-12 col-xs-12">
+            @{Html.RenderAction("LastestNews", "Home", new { CategoryId = 38, MaxLastestNews = 5, CateName = "Hoạt động chương trình" });}
+
+            @{Html.RenderAction("BannerCenter2", "Banner");}
+
+        </div>
+        <div class="col-md-4 col-sm-12 col-xs-12 hidden-xs">
+            <div class="sidebar-bnr bnr-slider mt20">
+                <ul class="link-list">
+                    @if (ViewBag.CurrentCategoryId != null)
+                    {
+                        <li>@{ Html.RenderAction("BannerRight1", "Banner", new { currentCategoryId = ViewBag.CurrentCategoryId }); }</li>
+                        <li> @{ Html.RenderAction("BannerRight2", "Banner", new { currentCategoryId = ViewBag.CurrentCategoryId }); }</li>
+                        <li>@{ Html.RenderAction("BannerRight3", "Banner", new { currentCategoryId = ViewBag.CurrentCategoryId }); }</li>
+                        <li>@{ Html.RenderAction("BannerRight4", "Banner", new { currentCategoryId = ViewBag.CurrentCategoryId }); }</li>
+                        <li>@{ Html.RenderAction("BannerRight5", "Banner", new { currentCategoryId = ViewBag.CurrentCategoryId }); }</li>
+                    }
+                    else
+                    {
+                        <li>@{ Html.RenderAction("BannerRight1", "Banner"); }</li>
+                        <li>@{ Html.RenderAction("BannerRight2", "Banner"); }</li>
+                        <li>@{ Html.RenderAction("BannerRight3", "Banner"); }</li>
+                        <li>@{ Html.RenderAction("BannerRight4", "Banner"); }</li>
+                        <li>@{ Html.RenderAction("BannerRight5", "Banner"); }</li>
+                    }
+
+                </ul>
+                <div class="clearfix"></div>
+            </div>
+        </div>
+    </div><!-- end row-->
+</div><!-- end content 02-->
+<div class="content04 mt40 container">
+    <ul class="video-title pull-left">
+        <li class="active"><a href="#video" data-toggle="tab">Video</a></li>
+        <li><a href="#multimedia" data-toggle="tab">INFOGRAPHIC </a></li>
+        <li><a href="#Podcast" data-toggle="tab">Podcast</a></li>
+        <li><a href="#e-magazine" data-toggle="tab">e-magazine</a></li>
+    </ul>
+    <!-- <div class="pull-right followbox hidden-xs">
+        <span>Follow us on </span>
+        <img src="images/logo-youtube.png">
+    </div> -->
+    <div class="clearfix"></div>
+
+    <div class="tab-content videotabs-content">
+        <div class="video-content tab-pane active" id="video">
+            @{Html.RenderAction("TopVideo", "Home", new { IsMobile = ViewBag.IsMobile });}
+
+        </div>
+        <div class="multimedia-content tab-pane" id="multimedia">
+            <div class="row row-30">
+                @{Html.RenderAction("LastestNews2", "Home", new { CategoryId = 39, MaxLastestNews = 3, });}
+            </div>
+        </div>
+        <div class="multimedia-content tab-pane" id="Podcast">
+            @{Html.RenderAction("TopPodcast", "Home");}
+
+        </div>
+        <div class="multimedia-content tab-pane" id="e-magazine">
+            @{Html.RenderAction("TopENews", "Home");}
+
+        </div>
+    </div>
+
+
+</div><!-- end content 04-->
+@{Html.RenderAction("BannerCenter3", "Banner", new { IsMobile = ViewBag.IsMobile });}
+<div class="content03 mt40 container">
+    <div class="row">
+        <div class="col-md-4 col-sm-4 col-xs-12 newsbox-cm">
+            @{Html.RenderAction("LastestNews4", "Home", new { CategoryId = 23, MaxLastestNews = 4 });}
+        </div>
+        <div class="col-md-4 col-sm-4 col-xs-12 newsbox-cm">
+            @{Html.RenderAction("LastestNews4", "Home", new { CategoryId = 4, MaxLastestNews = 4 });}
+        </div>
+        <div class="col-md-4 col-sm-4 col-xs-12 newsbox-cm">
+            @{Html.RenderAction("LastestNews4", "Home", new { CategoryId = 7, MaxLastestNews = 4 });}
+        </div>
+
+    </div>
+</div><!-- end content03-->
+
+
+
+
+
+
+<div class="content05 mt40 container">
+    @{Html.RenderAction("LastestNews3", "Home", new { CategoryId = 9, MaxLastestNews = 5, });}
+
+</div><!-- end content 05-->
+
+<div class="content06 mt40 container">
+    <div class="row">
+        <div class="col-md-4 col-sm-4 col-xs-12 newsbox-cm">
+            @{Html.RenderAction("LastestNews5", "Home", new { CategoryId = 6, MaxLastestNews = 4 });}
+        </div>
+        <div class="col-md-4 col-sm-4 col-xs-12 newsbox-cm">
+            @{Html.RenderAction("LastestNews5", "Home", new { CategoryId = 30, MaxLastestNews = 4 });}
+        </div>
+        <div class="col-md-4 col-sm-4 col-xs-12 newsbox-cm">
+            @{Html.RenderAction("LastestNews5", "Home", new { CategoryId = 8, MaxLastestNews = 4 });}
+        </div>
+    </div>
+</div><!-- end content06-->
+
+<div class="content07 mt40">
+    <div class="container">
+        @{Html.RenderAction("LastestNews3", "Home", new { CategoryId = 10, MaxLastestNews = 5, CateName = "Mẹo hữu ích" });}
+    </div>
+</div><!-- end content 05-->
+<div class="block-xs">
+    @{ Html.RenderAction("TopDocument2", "Document"); }
+</div>
+<div class="block-xs">
+    <div class="sidebar-bnr bnr-slider mt20">
+        <ul class="link-list">
+            @if (ViewBag.CurrentCategoryId != null)
+            {
+                <li>@{ Html.RenderAction("BannerRight1", "Banner", new { currentCategoryId = ViewBag.CurrentCategoryId }); }</li>
+                <li> @{ Html.RenderAction("BannerRight2", "Banner", new { currentCategoryId = ViewBag.CurrentCategoryId }); }</li>
+                <li>@{ Html.RenderAction("BannerRight3", "Banner", new { currentCategoryId = ViewBag.CurrentCategoryId }); }</li>
+                <li>@{ Html.RenderAction("BannerRight4", "Banner", new { currentCategoryId = ViewBag.CurrentCategoryId }); }</li>
+                <li>@{ Html.RenderAction("BannerRight5", "Banner", new { currentCategoryId = ViewBag.CurrentCategoryId }); }</li>
+            }
+            else
+            {
+                <li>@{ Html.RenderAction("BannerRight1", "Banner"); }</li>
+                <li>@{ Html.RenderAction("BannerRight2", "Banner"); }</li>
+                <li>@{ Html.RenderAction("BannerRight3", "Banner"); }</li>
+                <li>@{ Html.RenderAction("BannerRight4", "Banner"); }</li>
+                <li>@{ Html.RenderAction("BannerRight5", "Banner"); }</li>
+            }
+
+        </ul>
+        <div class="clearfix"></div>
+    </div>
+</div>
+@section scripts {
+    <script>
+        //$("#menu_home").addClass("active homeactive");
+        $("#foot_home").addClass("active homeactive");
+        //$("#menu_home img").attr("src", "https://media.tietkiemnangluong.com.vn//Content/images/icon-home-green.png")
+        $("#foot_home img").attr("src", "https://media.tietkiemnangluong.com.vn//Content/images/icon-home-green.png")
+    </script>
+}
+
+<style>
+    .fa {
+        margin-left: 3px;
+        color: #e22229;
+        font-size: 15px;
+    }
+</style>

@@ -1,0 +1,122 @@
+﻿@using UTILS
+@using WebMVC4.Helper
+@{
+    var langpage = WorkContext.GetLanguage();
+}
+@{
+    var date = Utils.formatDateofWeek(DateTime.Now.DayOfWeek) + "," + DateTime.Now.ToString(" dd") + "/" + DateTime.Now.ToString("MM") + "/" + DateTime.Now.Year.ToString() + " | " + DateTime.Now.ToString("HH") + ":" + DateTime.Now.ToString("mm");
+    var DateEN = DateTime.Now.DayOfWeek.ToString() + ", " + DateTime.Now.ToString("dd") + "/" + DateTime.Now.ToString("MM") + "/" + DateTime.Now.Year.ToString() + " | " + DateTime.Now.ToString("HH") + ":" + DateTime.Now.ToString("mm");
+}
+
+<div class="header-pc">
+    <div class="container">
+        <div class="head-content-01">
+		@if(langpage=="vi-vn")
+		{
+			<div class="logo float-left"><a href="/"><img src="/Content/images/logo.jpg?vs=01" alt="Chương trình Hợp tác Đối tác Năng lượng Việt Nam – Đan Mạch giai đoạn 2020-2025"></a></div>
+		}
+		else
+		{
+			<div class="logo float-left"><a href="/"><img src="/Content/images/logoEN.jpg?vs=21" alt="Chương trình Hợp tác Đối tác Năng lượng Việt Nam – Đan Mạch giai đoạn 2020-2025"></a></div>
+		
+		}
+            
+            <div class="float-right">
+                <div class="link-top">
+                    <ul class="list-inline">
+                        <li><a href="https://www.youtube.com/channel/UC7PUNqjYXebGzV3OiP8eIWw"><img src="/Content/images/icon-youtube.png" alt=""></a></li>
+                        <li><a href="https://www.facebook.com/profile.php?id=100078258183709"><img src="/Content/images/icon-face.png" alt=""></a></li>
+                        <li><a href="/Home/Language?lang=vi-vn">VN</a></li>
+                        <li><a href="/Home/Language?lang=en-us">EN</a></li>
+                        <li>
+                            <div class="searchbox">
+                                <input type="text" onkeydown="javascript: return AnyInput_KeyDown(this, event);" id="txtKeyword" />
+                                <button class="icon-search" onclick="search()"></button>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="nav-top bg-white">
+        <div class="container">
+            <nav>
+                <ul>
+                    @{Html.RenderAction("Menu", "Home", new { lang = langpage });}
+                    
+                </ul>
+            </nav>
+        </div>
+    </div>
+</div><!-- end header-->
+<div class="nav-mobile">
+    <div class="header-m">
+        @if (langpage == "vi-vn")
+        {
+        <a href="/">
+            <img src="/Content/images/logo.png" alt="Chương trình Hợp tác Đối tác Năng lượng Việt Nam – Đan Mạch giai đoạn 2020-2025" class="m-logo float-left">
+        </a>
+        }
+        else
+        {
+    <a href="/">
+        <img src="/Content/images/logoEN.png?vs=21" alt="Chương trình Hợp tác Đối tác Năng lượng Việt Nam – Đan Mạch giai đoạn 2020-2025" class="m-logo float-left">
+    </a>
+
+        }
+        
+        <a href="#menu">
+            <img src="/Content/images/icon-mb.png" class="ico-menu float-right">
+        </a>
+    </div>
+    <div id="menu">
+        <ul>
+            <li class="m-search">
+                <input type="text" onkeydown="javascript: return MAnyInput_KeyDown(this, event);" id="txtKeywordMobile"  placeholder="@Resources.Global.Keyword">
+                <button class="m-icon-search" onclick="Msearch"></button>
+            </li>
+            @{Html.RenderAction("Menu", "Home", new { lang = langpage });}
+            <li>
+                <a href="/Home/Language?lang=vi-vn" class="icon-flag"><img src="/Content/images/ico-vn.png" alt=""></a>
+                <a href="/Home/Language?lang=en-us" class="icon-flag"><img src="/Content/images/ico-en.png" alt=""></a>
+            </li>
+        </ul>
+    </div>
+</div>
+
+<script type="text/javascript">
+    function search() {
+        var searchtext = $("#txtKeyword").val();
+        window.location = "/News/Search?q=" + searchtext;
+
+    }
+    function AnyInput_KeyDown(sender, e) {
+        if ((e.which && e.which == 13) || (e.keyCode && e.keyCode == 13)) {
+            search();
+
+            return false;
+        }
+
+        return true;
+    }
+
+
+    function Msearch() {
+        var searchtext = $("#txtKeywordMobile").val();
+        window.location = "/News/Search?q=" + searchtext;
+
+    }
+    function MAnyInput_KeyDown(sender, e) {
+        if ((e.which && e.which === 13) || (e.keyCode && e.keyCode === 13)) {
+            Msearch();
+
+            return false;
+        }
+
+        return true;
+    }
+
+
+
+</script>

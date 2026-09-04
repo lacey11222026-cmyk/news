@@ -1,0 +1,451 @@
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="veeieReport" Class="MainDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="AppSettings" ConnectionString="Data Source=203.162.166.134;Initial Catalog=veeieReport;Persist Security Info=True;User ID=dev" SettingsObjectName="Car.Data.Properties.Settings" SettingsPropertyName="veeieReportConnectionString" Provider="System.Data.SqlClient" />
+  <Table Name="dbo.Project" Member="Projects">
+    <Type Name="Project" Id="ID1">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="UserName" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Status" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Time" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(512)" CanBeNull="true" />
+      <Column Name="Investor" Type="System.String" DbType="NVarChar(512)" CanBeNull="true" />
+      <Column Name="Address" Type="System.String" DbType="NVarChar(512)" CanBeNull="true" />
+      <Column Name="Contact" Type="System.String" DbType="NVarChar(512)" CanBeNull="true" />
+      <Column Name="Organ" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="GroupName" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Tel" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Email" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Total" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="Total1" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="Total2" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="TimeExpire" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="[Order]" Member="Order" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Bank" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.PlanStuck" Member="PlanStucks">
+    <Type Name="PlanStuck" Id="ID5">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="PlanId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(250)" CanBeNull="true" />
+      <Column Name="Description" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="Organ" Type="System.String" DbType="NVarChar(250)" CanBeNull="true" />
+      <Column Name="FinishDate" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Result1" Type="System.String" DbType="NVarChar(250)" CanBeNull="true" />
+      <Column Name="Result2" Type="System.String" DbType="NVarChar(250)" CanBeNull="true" />
+      <Column Name="[Order]" Member="Order" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Status" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Finance" Member="Finances">
+    <Type Name="Finance" Id="ID8">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Investor" Type="System.String" DbType="NVarChar(512)" CanBeNull="true" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(512)" CanBeNull="true" />
+      <Column Name="Total" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="Total1" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="Total2" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="Total3" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="Total4" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="Year" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Time" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="UserName" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="[Order]" Member="Order" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Status" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Pay" Member="Pays">
+    <Type Name="Pay" Id="ID7">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Investor" Type="System.String" DbType="NVarChar(512)" CanBeNull="true" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(512)" CanBeNull="true" />
+      <Column Name="Total" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="Total1" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="Total2" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="Total3" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="Total4" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="Year" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Time" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="UserName" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="[Order]" Member="Order" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Status" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.[Plan]" Member="Plans">
+    <Type Name="Plan" Id="ID6">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(512)" CanBeNull="true" />
+      <Column Name="Code" Type="System.String" DbType="NVarChar(512)" CanBeNull="true" />
+      <Column Name="Investor" Type="System.String" DbType="NVarChar(512)" CanBeNull="true" />
+      <Column Name="Total" Type="System.Double" DbType="Float NOT NULL" CanBeNull="false" />
+      <Column Name="Total1" Type="System.Double" DbType="Float NOT NULL" CanBeNull="false" />
+      <Column Name="Total2" Type="System.Double" DbType="Float NOT NULL" CanBeNull="false" />
+      <Column Name="Power" Type="System.Double" DbType="Float NOT NULL" CanBeNull="false" />
+      <Column Name="Result" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="WorkPlan" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="Problem" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="UserName" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Time" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="[Order]" Member="Order" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Status" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Type" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Year" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Result2" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="Result3" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="Result4" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.PlanItem" Member="PlanItems">
+    <Type Name="PlanItem" Id="ID3">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="PlanId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="[Order]" Member="Order" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Status" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Config1" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="Config2" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="Config3" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(250)" CanBeNull="true" />
+      <Column Name="Total1" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="Total2" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="Time" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="NumberPeople" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="WomanRate" Type="System.Double" DbType="Float" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.ProjectReport" Member="ProjectReports">
+    <Type Name="ProjectReport" Id="ID2">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="UserName" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Status" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Time" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="[Order]" Member="Order" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Bank" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Year" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Type" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(512)" CanBeNull="true" />
+      <Column Name="ProjectInfo" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="ProjectId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Job1" Type="System.String" DbType="NVarChar(512)" CanBeNull="true" />
+      <Column Name="Job2" Type="System.String" DbType="NVarChar(512)" CanBeNull="true" />
+      <Column Name="Job3" Type="System.String" DbType="NVarChar(512)" CanBeNull="true" />
+      <Column Name="Stuck" Type="System.String" DbType="NVarChar(512)" CanBeNull="true" />
+      <Column Name="Result1" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Result2" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="NumberPeople" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="WomanRate" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="FileData" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.PlanRequire" Member="PlanRequires">
+    <Type Name="PlanRequire" Id="ID4">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="PlanId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Description" Type="System.String" DbType="NVarChar(250)" CanBeNull="true" />
+      <Column Name="FinishDate" Type="System.String" DbType="NVarChar(250)" CanBeNull="true" />
+      <Column Name="[Order]" Member="Order" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Status" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Total" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="Total1" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="Total2" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="Result" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Place" Type="System.String" DbType="NVarChar(250)" CanBeNull="true" />
+      <Column Name="ResultOther" Type="System.String" DbType="NVarChar(250)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Function Name="dbo.SP_Project_InsertUpdate" Method="SP_Project_InsertUpdate">
+    <Parameter Name="Id" Parameter="id" Type="System.Int32" DbType="Int" />
+    <Parameter Name="Name" Parameter="name" Type="System.String" DbType="NVarChar(512)" />
+    <Parameter Name="Bank" Parameter="bank" Type="System.String" DbType="NVarChar(250)" />
+    <Parameter Name="Investor" Parameter="investor" Type="System.String" DbType="NVarChar(512)" />
+    <Parameter Name="Address" Parameter="address" Type="System.String" DbType="NVarChar(512)" />
+    <Parameter Name="Contact" Parameter="contact" Type="System.String" DbType="NVarChar(512)" />
+    <Parameter Name="Organ" Parameter="organ" Type="System.String" DbType="NVarChar(512)" />
+    <Parameter Name="UserName" Parameter="userName" Type="System.String" DbType="NVarChar(50)" />
+    <Parameter Name="Tel" Parameter="tel" Type="System.String" DbType="NVarChar(50)" />
+    <Parameter Name="Email" Parameter="email" Type="System.String" DbType="NVarChar(50)" />
+    <Parameter Name="TimeExpire" Parameter="timeExpire" Type="System.String" DbType="NVarChar(50)" />
+    <Parameter Name="Total" Parameter="total" Type="System.Double" DbType="Float" />
+    <Parameter Name="Total1" Parameter="total1" Type="System.Double" DbType="Float" />
+    <Parameter Name="Total2" Parameter="total2" Type="System.Double" DbType="Float" />
+    <Parameter Name="GroupName" Parameter="groupName" Type="System.String" DbType="NVarChar(50)" />
+    <Parameter Name="Order" Parameter="order" Type="System.Int32" DbType="Int" />
+    <Parameter Name="Status" Parameter="status" Type="System.Int32" DbType="Int" />
+    <Parameter Name="ErrorCode" Parameter="errorCode" Type="System.Int32" DbType="Int" Direction="InOut" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.sp_Project_SelectDynamic" Method="sp_Project_SelectDynamic">
+    <Parameter Name="SelectQuery" Parameter="selectQuery" Type="System.String" DbType="NVarChar(MAX)" />
+    <Parameter Name="WhereCondition" Parameter="whereCondition" Type="System.String" DbType="NVarChar(MAX)" />
+    <Parameter Name="OrderByExpression" Parameter="orderByExpression" Type="System.String" DbType="NVarChar(250)" />
+    <ElementType IdRef="ID1" />
+  </Function>
+  <Function Name="dbo.SP_Project_UpdateSortOrder" Method="SP_Project_UpdateSortOrder">
+    <Parameter Name="Id" Parameter="id" Type="System.Int32" DbType="Int" />
+    <Parameter Name="UpOrder" Parameter="upOrder" Type="System.Boolean" DbType="Bit" />
+    <Parameter Name="UserName" Parameter="userName" Type="System.String" DbType="NVarChar(200)" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.SP_Project_UpdateStatus" Method="SP_Project_UpdateStatus">
+    <Parameter Name="_Id" Type="System.Int32" DbType="Int" />
+    <Parameter Name="_ResponseCode" Type="System.Int32" DbType="Int" Direction="InOut" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.SP_ProjectReport_UpdateSortOrder" Method="SP_ProjectReport_UpdateSortOrder">
+    <Parameter Name="Id" Parameter="id" Type="System.Int32" DbType="Int" />
+    <Parameter Name="UpOrder" Parameter="upOrder" Type="System.Boolean" DbType="Bit" />
+    <Parameter Name="UserName" Parameter="userName" Type="System.String" DbType="NVarChar(200)" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.SP_ProjectReport_UpdateStatus" Method="SP_ProjectReport_UpdateStatus">
+    <Parameter Name="_Id" Type="System.Int32" DbType="Int" />
+    <Parameter Name="_ResponseCode" Type="System.Int32" DbType="Int" Direction="InOut" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.sp_ProjectReport_SelectDynamic" Method="sp_ProjectReport_SelectDynamic">
+    <Parameter Name="SelectQuery" Parameter="selectQuery" Type="System.String" DbType="NVarChar(MAX)" />
+    <Parameter Name="WhereCondition" Parameter="whereCondition" Type="System.String" DbType="NVarChar(MAX)" />
+    <Parameter Name="OrderByExpression" Parameter="orderByExpression" Type="System.String" DbType="NVarChar(250)" />
+    <ElementType IdRef="ID2" />
+  </Function>
+  <Function Name="dbo.SP_Plan_UpdateSortOrder" Method="SP_Plan_UpdateSortOrder">
+    <Parameter Name="Id" Parameter="id" Type="System.Int32" DbType="Int" />
+    <Parameter Name="UpOrder" Parameter="upOrder" Type="System.Boolean" DbType="Bit" />
+    <Parameter Name="UserName" Parameter="userName" Type="System.String" DbType="NVarChar(200)" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.SP_Plan_UpdateStatus" Method="SP_Plan_UpdateStatus">
+    <Parameter Name="_Id" Type="System.Int32" DbType="Int" />
+    <Parameter Name="_ResponseCode" Type="System.Int32" DbType="Int" Direction="InOut" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.sp_PlanItem_SelectDynamic" Method="sp_PlanItem_SelectDynamic">
+    <Parameter Name="SelectQuery" Parameter="selectQuery" Type="System.String" DbType="NVarChar(MAX)" />
+    <Parameter Name="WhereCondition" Parameter="whereCondition" Type="System.String" DbType="NVarChar(MAX)" />
+    <Parameter Name="OrderByExpression" Parameter="orderByExpression" Type="System.String" DbType="NVarChar(250)" />
+    <ElementType IdRef="ID3" />
+  </Function>
+  <Function Name="dbo.SP_PlanItem_UpdateSortOrder" Method="SP_PlanItem_UpdateSortOrder">
+    <Parameter Name="Id" Parameter="id" Type="System.Int32" DbType="Int" />
+    <Parameter Name="PlanId" Parameter="planId" Type="System.Int32" DbType="Int" />
+    <Parameter Name="UpOrder" Parameter="upOrder" Type="System.Boolean" DbType="Bit" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.SP_PlanItem_UpdateStatus" Method="SP_PlanItem_UpdateStatus">
+    <Parameter Name="_Id" Type="System.Int32" DbType="Int" />
+    <Parameter Name="_ResponseCode" Type="System.Int32" DbType="Int" Direction="InOut" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.sp_PlanRequire_SelectDynamic" Method="sp_PlanRequire_SelectDynamic">
+    <Parameter Name="SelectQuery" Parameter="selectQuery" Type="System.String" DbType="NVarChar(MAX)" />
+    <Parameter Name="WhereCondition" Parameter="whereCondition" Type="System.String" DbType="NVarChar(MAX)" />
+    <Parameter Name="OrderByExpression" Parameter="orderByExpression" Type="System.String" DbType="NVarChar(250)" />
+    <ElementType IdRef="ID4" />
+  </Function>
+  <Function Name="dbo.SP_PlanRequire_UpdateSortOrder" Method="SP_PlanRequire_UpdateSortOrder">
+    <Parameter Name="Id" Parameter="id" Type="System.Int32" DbType="Int" />
+    <Parameter Name="PlanId" Parameter="planId" Type="System.Int32" DbType="Int" />
+    <Parameter Name="UpOrder" Parameter="upOrder" Type="System.Boolean" DbType="Bit" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.SP_PlanRequire_UpdateStatus" Method="SP_PlanRequire_UpdateStatus">
+    <Parameter Name="_Id" Type="System.Int32" DbType="Int" />
+    <Parameter Name="_ResponseCode" Type="System.Int32" DbType="Int" Direction="InOut" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.SP_PlanStuck_InsertUpdate" Method="SP_PlanStuck_InsertUpdate">
+    <Parameter Name="Id" Parameter="id" Type="System.Int32" DbType="Int" />
+    <Parameter Name="Name" Parameter="name" Type="System.String" DbType="NVarChar(250)" />
+    <Parameter Name="Description" Parameter="description" Type="System.String" DbType="NVarChar(MAX)" />
+    <Parameter Name="Organ" Parameter="organ" Type="System.String" DbType="NVarChar(250)" />
+    <Parameter Name="FinishDate" Parameter="finishDate" Type="System.String" DbType="NVarChar(50)" />
+    <Parameter Name="Result1" Parameter="result1" Type="System.String" DbType="NVarChar(250)" />
+    <Parameter Name="Result2" Parameter="result2" Type="System.String" DbType="NVarChar(250)" />
+    <Parameter Name="PlanId" Parameter="planId" Type="System.Int32" DbType="Int" />
+    <Parameter Name="Order" Parameter="order" Type="System.Int32" DbType="Int" />
+    <Parameter Name="Status" Parameter="status" Type="System.Int32" DbType="Int" />
+    <Parameter Name="ErrorCode" Parameter="errorCode" Type="System.Int32" DbType="Int" Direction="InOut" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.sp_PlanStuck_SelectDynamic" Method="sp_PlanStuck_SelectDynamic">
+    <Parameter Name="SelectQuery" Parameter="selectQuery" Type="System.String" DbType="NVarChar(MAX)" />
+    <Parameter Name="WhereCondition" Parameter="whereCondition" Type="System.String" DbType="NVarChar(MAX)" />
+    <Parameter Name="OrderByExpression" Parameter="orderByExpression" Type="System.String" DbType="NVarChar(250)" />
+    <ElementType IdRef="ID5" />
+  </Function>
+  <Function Name="dbo.SP_PlanStuck_UpdateSortOrder" Method="SP_PlanStuck_UpdateSortOrder">
+    <Parameter Name="Id" Parameter="id" Type="System.Int32" DbType="Int" />
+    <Parameter Name="PlanId" Parameter="planId" Type="System.Int32" DbType="Int" />
+    <Parameter Name="UpOrder" Parameter="upOrder" Type="System.Boolean" DbType="Bit" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.SP_PlanStuck_UpdateStatus" Method="SP_PlanStuck_UpdateStatus">
+    <Parameter Name="_Id" Type="System.Int32" DbType="Int" />
+    <Parameter Name="_ResponseCode" Type="System.Int32" DbType="Int" Direction="InOut" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.sp_Plan_SelectDynamic" Method="sp_Plan_SelectDynamic">
+    <Parameter Name="SelectQuery" Parameter="selectQuery" Type="System.String" DbType="NVarChar(MAX)" />
+    <Parameter Name="WhereCondition" Parameter="whereCondition" Type="System.String" DbType="NVarChar(MAX)" />
+    <Parameter Name="OrderByExpression" Parameter="orderByExpression" Type="System.String" DbType="NVarChar(250)" />
+    <ElementType IdRef="ID6" />
+  </Function>
+  <Function Name="dbo.SP_Pay_InsertUpdate" Method="SP_Pay_InsertUpdate">
+    <Parameter Name="Id" Parameter="id" Type="System.Int32" DbType="Int" />
+    <Parameter Name="Name" Parameter="name" Type="System.String" DbType="NVarChar(512)" />
+    <Parameter Name="Investor" Parameter="investor" Type="System.String" DbType="NVarChar(512)" />
+    <Parameter Name="UserName" Parameter="userName" Type="System.String" DbType="NVarChar(200)" />
+    <Parameter Name="Total" Parameter="total" Type="System.Double" DbType="Float" />
+    <Parameter Name="Total1" Parameter="total1" Type="System.Double" DbType="Float" />
+    <Parameter Name="Total2" Parameter="total2" Type="System.Double" DbType="Float" />
+    <Parameter Name="Total3" Parameter="total3" Type="System.Double" DbType="Float" />
+    <Parameter Name="Total4" Parameter="total4" Type="System.Double" DbType="Float" />
+    <Parameter Name="Year" Parameter="year" Type="System.Int32" DbType="Int" />
+    <Parameter Name="Order" Parameter="order" Type="System.Int32" DbType="Int" />
+    <Parameter Name="Status" Parameter="status" Type="System.Int32" DbType="Int" />
+    <Parameter Name="ErrorCode" Parameter="errorCode" Type="System.Int32" DbType="Int" Direction="InOut" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.sp_Pay_SelectDynamic" Method="sp_Pay_SelectDynamic">
+    <Parameter Name="SelectQuery" Parameter="selectQuery" Type="System.String" DbType="NVarChar(MAX)" />
+    <Parameter Name="WhereCondition" Parameter="whereCondition" Type="System.String" DbType="NVarChar(MAX)" />
+    <Parameter Name="OrderByExpression" Parameter="orderByExpression" Type="System.String" DbType="NVarChar(250)" />
+    <ElementType IdRef="ID7" />
+  </Function>
+  <Function Name="dbo.SP_Pay_UpdateSortOrder" Method="SP_Pay_UpdateSortOrder">
+    <Parameter Name="Id" Parameter="id" Type="System.Int32" DbType="Int" />
+    <Parameter Name="UpOrder" Parameter="upOrder" Type="System.Boolean" DbType="Bit" />
+    <Parameter Name="UserName" Parameter="userName" Type="System.String" DbType="NVarChar(200)" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.SP_Pay_UpdateStatus" Method="SP_Pay_UpdateStatus">
+    <Parameter Name="_Id" Type="System.Int32" DbType="Int" />
+    <Parameter Name="_ResponseCode" Type="System.Int32" DbType="Int" Direction="InOut" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.SP_Finance_InsertUpdate" Method="SP_Finance_InsertUpdate">
+    <Parameter Name="Id" Parameter="id" Type="System.Int32" DbType="Int" />
+    <Parameter Name="Name" Parameter="name" Type="System.String" DbType="NVarChar(512)" />
+    <Parameter Name="Investor" Parameter="investor" Type="System.String" DbType="NVarChar(512)" />
+    <Parameter Name="UserName" Parameter="userName" Type="System.String" DbType="NVarChar(200)" />
+    <Parameter Name="Total" Parameter="total" Type="System.Double" DbType="Float" />
+    <Parameter Name="Total1" Parameter="total1" Type="System.Double" DbType="Float" />
+    <Parameter Name="Total2" Parameter="total2" Type="System.Double" DbType="Float" />
+    <Parameter Name="Total3" Parameter="total3" Type="System.Double" DbType="Float" />
+    <Parameter Name="Total4" Parameter="total4" Type="System.Double" DbType="Float" />
+    <Parameter Name="Year" Parameter="year" Type="System.Int32" DbType="Int" />
+    <Parameter Name="Order" Parameter="order" Type="System.Int32" DbType="Int" />
+    <Parameter Name="Status" Parameter="status" Type="System.Int32" DbType="Int" />
+    <Parameter Name="ErrorCode" Parameter="errorCode" Type="System.Int32" DbType="Int" Direction="InOut" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.sp_Finance_SelectDynamic" Method="sp_Finance_SelectDynamic">
+    <Parameter Name="SelectQuery" Parameter="selectQuery" Type="System.String" DbType="NVarChar(MAX)" />
+    <Parameter Name="WhereCondition" Parameter="whereCondition" Type="System.String" DbType="NVarChar(MAX)" />
+    <Parameter Name="OrderByExpression" Parameter="orderByExpression" Type="System.String" DbType="NVarChar(250)" />
+    <ElementType IdRef="ID8" />
+  </Function>
+  <Function Name="dbo.SP_Finance_UpdateStatus" Method="SP_Finance_UpdateStatus">
+    <Parameter Name="_Id" Type="System.Int32" DbType="Int" />
+    <Parameter Name="_ResponseCode" Type="System.Int32" DbType="Int" Direction="InOut" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.SP_Finance_UpdateSortOrder" Method="SP_Finance_UpdateSortOrder">
+    <Parameter Name="Id" Parameter="id" Type="System.Int32" DbType="Int" />
+    <Parameter Name="UpOrder" Parameter="upOrder" Type="System.Boolean" DbType="Bit" />
+    <Parameter Name="Year" Parameter="year" Type="System.Int32" DbType="Int" />
+    <Parameter Name="UserName" Parameter="userName" Type="System.String" DbType="NVarChar(200)" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.SP_PlanItem_UpdateDynamic" Method="SP_PlanItem_UpdateDynamic">
+    <Parameter Name="UpdateCondition" Parameter="updateCondition" Type="System.String" DbType="NVarChar(500)" />
+    <Parameter Name="WhereCondition" Parameter="whereCondition" Type="System.String" DbType="NVarChar(500)" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.SP_PlanStuck_UpdateDynamic" Method="SP_PlanStuck_UpdateDynamic">
+    <Parameter Name="UpdateCondition" Parameter="updateCondition" Type="System.String" DbType="NVarChar(500)" />
+    <Parameter Name="WhereCondition" Parameter="whereCondition" Type="System.String" DbType="NVarChar(500)" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.SP_Plan_InsertUpdate" Method="SP_Plan_InsertUpdate">
+    <Parameter Name="Id" Parameter="id" Type="System.Int32" DbType="Int" />
+    <Parameter Name="Name" Parameter="name" Type="System.String" DbType="NVarChar(512)" />
+    <Parameter Name="Code" Parameter="code" Type="System.String" DbType="NVarChar(512)" />
+    <Parameter Name="Investor" Parameter="investor" Type="System.String" DbType="NVarChar(512)" />
+    <Parameter Name="Result" Parameter="result" Type="System.String" DbType="NVarChar(MAX)" />
+    <Parameter Name="Result2" Parameter="result2" Type="System.String" DbType="NVarChar(MAX)" />
+    <Parameter Name="Result3" Parameter="result3" Type="System.String" DbType="NVarChar(MAX)" />
+    <Parameter Name="Result4" Parameter="result4" Type="System.String" DbType="NVarChar(MAX)" />
+    <Parameter Name="WorkPlan" Parameter="workPlan" Type="System.String" DbType="NVarChar(MAX)" />
+    <Parameter Name="Problem" Parameter="problem" Type="System.String" DbType="NVarChar(MAX)" />
+    <Parameter Name="UserName" Parameter="userName" Type="System.String" DbType="NVarChar(200)" />
+    <Parameter Name="Total" Parameter="total" Type="System.Double" DbType="Float" />
+    <Parameter Name="Total1" Parameter="total1" Type="System.Double" DbType="Float" />
+    <Parameter Name="Year" Parameter="year" Type="System.Int32" DbType="Int" />
+    <Parameter Name="Type" Parameter="type" Type="System.Int32" DbType="Int" />
+    <Parameter Name="Order" Parameter="order" Type="System.Int32" DbType="Int" />
+    <Parameter Name="Status" Parameter="status" Type="System.Int32" DbType="Int" />
+    <Parameter Name="ErrorCode" Parameter="errorCode" Type="System.Int32" DbType="Int" Direction="InOut" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.SP_PlanItem_InsertUpdate" Method="SP_PlanItem_InsertUpdate">
+    <Parameter Name="Id" Parameter="id" Type="System.Int32" DbType="Int" />
+    <Parameter Name="Name" Parameter="name" Type="System.String" DbType="NVarChar(250)" />
+    <Parameter Name="Config1" Parameter="config1" Type="System.String" DbType="NVarChar(MAX)" />
+    <Parameter Name="Config2" Parameter="config2" Type="System.String" DbType="NVarChar(MAX)" />
+    <Parameter Name="Config3" Parameter="config3" Type="System.String" DbType="NVarChar(MAX)" />
+    <Parameter Name="PlanId" Parameter="planId" Type="System.Int32" DbType="Int" />
+    <Parameter Name="Order" Parameter="order" Type="System.Int32" DbType="Int" />
+    <Parameter Name="Status" Parameter="status" Type="System.Int32" DbType="Int" />
+    <Parameter Name="Total1" Parameter="total1" Type="System.Double" DbType="Float" />
+    <Parameter Name="Total2" Parameter="total2" Type="System.Double" DbType="Float" />
+    <Parameter Name="NumberPeople" Parameter="numberPeople" Type="System.Int32" DbType="Int" />
+    <Parameter Name="WomanRate" Parameter="womanRate" Type="System.Double" DbType="Float" />
+    <Parameter Name="Time" Parameter="time" Type="System.DateTime" DbType="DateTime" />
+    <Parameter Name="ErrorCode" Parameter="errorCode" Type="System.Int32" DbType="Int" Direction="InOut" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.SP_ProjectReport_InsertUpdate" Method="SP_ProjectReport_InsertUpdate">
+    <Parameter Name="Id" Parameter="id" Type="System.Int32" DbType="Int" />
+    <Parameter Name="Name" Parameter="name" Type="System.String" DbType="NVarChar(512)" />
+    <Parameter Name="Bank" Parameter="bank" Type="System.String" DbType="NVarChar(250)" />
+    <Parameter Name="ProjectId" Parameter="projectId" Type="System.Int32" DbType="Int" />
+    <Parameter Name="Year" Parameter="year" Type="System.Int32" DbType="Int" />
+    <Parameter Name="Type" Parameter="type" Type="System.Int32" DbType="Int" />
+    <Parameter Name="ProjectInfo" Parameter="projectInfo" Type="System.String" DbType="NVarChar(MAX)" />
+    <Parameter Name="UserName" Parameter="userName" Type="System.String" DbType="NVarChar(50)" />
+    <Parameter Name="Order" Parameter="order" Type="System.Int32" DbType="Int" />
+    <Parameter Name="Status" Parameter="status" Type="System.Int32" DbType="Int" />
+    <Parameter Name="Job1" Parameter="job1" Type="System.String" DbType="NVarChar(512)" />
+    <Parameter Name="Job2" Parameter="job2" Type="System.String" DbType="NVarChar(512)" />
+    <Parameter Name="Job3" Parameter="job3" Type="System.String" DbType="NVarChar(512)" />
+    <Parameter Name="Stuck" Parameter="stuck" Type="System.String" DbType="NVarChar(512)" />
+    <Parameter Name="Result1" Parameter="result1" Type="System.Double" DbType="Float" />
+    <Parameter Name="Result2" Parameter="result2" Type="System.Double" DbType="Float" />
+    <Parameter Name="NumberPeople" Parameter="numberPeople" Type="System.Int32" DbType="Int" />
+    <Parameter Name="WomanRate" Parameter="womanRate" Type="System.Double" DbType="Float" />
+    <Parameter Name="Time" Parameter="time" Type="System.DateTime" DbType="DateTime" />
+    <Parameter Name="FileData" Parameter="fileData" Type="System.String" DbType="NVarChar(MAX)" />
+    <Parameter Name="ErrorCode" Parameter="errorCode" Type="System.Int32" DbType="Int" Direction="InOut" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.SP_PlanRequire_InsertUpdate" Method="SP_PlanRequire_InsertUpdate">
+    <Parameter Name="Id" Parameter="id" Type="System.Int32" DbType="Int" />
+    <Parameter Name="Description" Parameter="description" Type="System.String" DbType="NVarChar(MAX)" />
+    <Parameter Name="FinishDate" Parameter="finishDate" Type="System.String" DbType="NVarChar(50)" />
+    <Parameter Name="PlanId" Parameter="planId" Type="System.Int32" DbType="Int" />
+    <Parameter Name="Order" Parameter="order" Type="System.Int32" DbType="Int" />
+    <Parameter Name="Status" Parameter="status" Type="System.Int32" DbType="Int" />
+    <Parameter Name="Total" Parameter="total" Type="System.Double" DbType="Float" />
+    <Parameter Name="Total1" Parameter="total1" Type="System.Double" DbType="Float" />
+    <Parameter Name="Total2" Parameter="total2" Type="System.Double" DbType="Float" />
+    <Parameter Name="Result" Parameter="result" Type="System.String" DbType="NVarChar(250)" />
+    <Parameter Name="ResultOther" Parameter="resultOther" Type="System.String" DbType="NVarChar(250)" />
+    <Parameter Name="Place" Parameter="place" Type="System.String" DbType="NVarChar(250)" />
+    <Parameter Name="ErrorCode" Parameter="errorCode" Type="System.Int32" DbType="Int" Direction="InOut" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.SP_ProjectReport_Delete" Method="SP_ProjectReport_Delete">
+    <Parameter Name="_Id" Type="System.Int32" DbType="Int" />
+    <Parameter Name="_ResponseCode" Type="System.Int32" DbType="Int" Direction="InOut" />
+    <Return Type="System.Int32" />
+  </Function>
+</Database>

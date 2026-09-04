@@ -1,0 +1,109 @@
+﻿@model DATA.Survey
+
+<script type="text/javascript">
+
+
+    $(document).ready(function () {
+
+        $("#SBeginDate").datepicker({ dateFormat: "dd/mm/yy" });
+        $("#SEndDate").datepicker({ dateFormat: "dd/mm/yy" });
+    });
+
+    function validateForm() {
+        var name = $('#Title').val();
+        if (name == "") {
+
+            alert('Tên không được trống');
+            $('#Title').focus();
+            return false;
+        }
+        var description = $('#Content').val();
+        if (description == "") {
+
+            alert('Content không được trống');
+            $('#Content').focus();
+            return false;
+        }
+        //var params = "";
+        //$("#SelectedNews option").each(function () {
+        //    params = params + $(this).val() + ",";
+
+        //});
+        //$('#CategoryPath').val(params);
+        ShowProgress();
+        return true;
+
+    }
+
+</script>
+
+<div class="login-left">
+    @Html.Label("Tên:")
+</div>
+<div class="login-right">
+    @Html.TextBoxFor(m => m.Title, new { @class = "textbox" })
+    @Html.HiddenFor(m => m.Id)
+    @Html.HiddenFor(m => m.CategoryPath)
+</div>
+<div class="clear">
+</div>
+
+<div class="clear">
+</div>
+<div class="login-left">
+    @Html.Label("Mô tả:")
+</div>
+<div class="login-right">
+    @Html.TextAreaFor(m => m.Content, new { @class = "textbox", style = "height:200px;" })
+</div>
+<div class="clear">
+</div>
+<br/><br/>
+<div class="login-left">
+    @Html.Label("Ngày bắt đầu:")
+</div>
+<div class="login-right">
+@*    @Html.TextBox("SBeginDate",ViewBag.SBeginDate)
+    @Html.TextBoxFor(m => m.BeginDate, "{0:dd/MM/yyyy}", new { @class = "textbox" })*@
+    <input type="text" value="@ViewBag.SBeginDate" id="SBeginDate"/>
+</div>
+<div class="clear">
+</div>
+<div class="login-left">
+    @Html.Label("Ngày kết thúc:")
+</div>
+<div class="login-right">
+   @* @Html.TextBoxFor(m => m.EndDate, "{0:dd/MM/yyyy}", new { @class = "textbox" })*@
+    <input type="text" value="@ViewBag.SEndDate" id="SEndDate"/>
+</div>
+<div class="clear">
+</div>
+<div class="login-left">
+    @Html.Label("Loại:")
+</div>
+<div class="login-right">
+
+
+    @Html.RadioButtonFor(model => model.Type, 1)
+    Chọn một &nbsp;
+                     @Html.RadioButtonFor(model => model.Type, 2)
+
+    Chọn nhiều &nbsp;
+</div>
+<div class="clear">
+</div>
+
+<div class="login-left">
+    @Html.Label("Trạng thái:")
+</div>
+<div class="login-right">
+
+
+    @Html.RadioButtonFor(model => model.Status, 1)
+    Hoạt động &nbsp;
+                     @Html.RadioButtonFor(model => model.Status, 0)
+
+    Khóa &nbsp;
+</div>
+<div class="clear">
+</div>

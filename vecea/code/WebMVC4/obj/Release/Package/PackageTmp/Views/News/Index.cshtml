@@ -1,0 +1,103 @@
+﻿@using BIZ
+@using UTILS
+@using WebMVC4.Helper
+@model WebMVC4.Models.NewsModel
+@if (Model != null)
+{
+    <div class="main-content box-09">
+        @{Html.RenderAction("Breadcrumb", "News", new {CategoryId = Model.CategoryId});}
+            
+        @if (Model.hotnews != null)
+        {
+            <div class="bignews-item mt20 row">
+                @foreach (var item in Model.hotnews.Take(1).Select((value, i) => new { i, value }))
+                {
+                    <div class="col-md-7 col-sm-7 col-xs-12 newslist-big">
+                        <a href="@Utils.FormatUrlRewrite(item.value.Id, item.value.Title, "ArticleDetail")">
+                            <img src="@item.value.MainImage?w=600&h=400&mode=crop"/>
+                            <span>@item.value.Title</span>
+                        </a>
+                        <p>@item.value.IntroText</p>
+                    </div>
+                }
+               
+                <div class="col-md-5 col-sm-5 col-xs-12 ">
+                    <ul class="newslist-item">
+                        @foreach (var item in Model.hotnews.Skip(1).Select((value, i) => new {i, value}))
+                        {
+                            <li>
+                                <a href="@Utils.FormatUrlRewrite(item.value.Id, item.value.Title, "ArticleDetail")">
+                                    <span class="wrap-img"><img src="@item.value.MainImage?w=300&h=200&mode=crop" /></span>
+                                    @item.value.Title
+                                </a>
+                            </li>
+                        }
+                       
+                    </ul>
+                </div>
+            </div>
+        }
+        @if (Model.CategoryId == 9|| Model.CategoryId == 16)
+        {
+            <form class="form-inline mt20">
+                <div class="form-group">
+                    <label>Từ khóa :</label>
+                    <input type="email" id="txtkeyword" value="" class="form-control">
+                </div>
+
+                <button onclick="searchdoc();" class="btn btn-primary">Tìm kiếm</button>
+            </form>
+            <script type="text/javascript">
+       
+
+        function searchdoc() {
+          
+            var keyword = $("#txtkeyword").val();
+           
+            window.location = '/News/Search/?q=' + keyword + '&categoryid=9';
+            //window.location = jQuery.query.set("keyword", keyword).set("fromdate", fromdate).set("todate", todate).set("Page", "1");
+        }
+            </script>
+        }
+        <div class="clearfix"></div>
+        
+
+        <div class="news-list">
+            <ul>
+                @if (Model.listdata != null)
+                {
+                    foreach (var item in Model.listdata.Select((value, i) => new { i, value }))
+                    {
+                        <li>
+                            <a href="@Utils.FormatUrlRewrite(item.value.Id, item.value.Title, "ArticleDetail")"><img src="@item.value.MainImage?w=300&h=200&mode=crop" alt="@item.value.Title"></a>
+                            <div class="news-item">
+                                <a href="@Utils.FormatUrlRewrite(item.value.Id, item.value.Title, "ArticleDetail")">@item.value.Title</a>
+                                <p class="news-date"><span class="glyphicon glyphicon-calendar"></span>@item.value.PublishDate.ToString("HH:mm | dd/MM/yyyy")</p>
+                                <p>@item.value.IntroText</p>
+                            </div>
+                            <div class="clearfix"></div>
+                        </li>
+                    }
+                }
+            </ul>
+        </div>
+        <div class="text-center">
+
+            <ul class="pagination text-center">
+                @{Html.RenderPartial("Pagination", new WebMVC4.Models.PaginationInfo
+                    {
+                        PageUrl = Url.SetParameter("Page", "!0"),
+                        CurrentPage = Model.pageIndex,
+                        PageSize = Model.pageSize,
+                        TotalItemCount = Model.total,
+                    }); }
+            </ul>
+
+
+
+
+        </div>
+
+    </div><!-- end big content-->
+
+                    }

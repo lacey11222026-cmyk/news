@@ -1,0 +1,382 @@
+﻿@{
+    
+    Layout = "~/Views/Shared/_Admin.cshtml";
+}
+
+
+
+    <script type="text/javascript">
+        var redirectUrl = '@Url.Action("CommentAddEdit","AdminNews")';
+        var page_index = 1;
+        var page_size = 10
+        $(document).ready(function () {
+
+            
+
+            BindPageSizeToSelectBox();
+
+            OnLoad(1);
+        });
+
+        function OnLoad(pi) {
+            page_index = pi;
+            $('#select_pagesize').show();
+            $('#paging_container').show();
+            $('#txt_filterbyname').val('');
+            Filter(pi)
+        }
+
+        function Filter(pi) {
+
+            var tit = $('#txt_filterbyname').val();
+            var type = $('#select_filterbytype option:selected').val();
+            var status = $('#select_filterbystatus option:selected').val();
+            $.Services({
+                element: $('#grid_items'),
+                loadingImg: '<tr><td colspan="3">Đang tải dữ liệu ...</td><tr>',
+                serviceName: 'CommentService.ashx',
+                data: {
+                    __m: 'get_filter_comments',
+                    tit: tit,
+                    type: type,
+                    status: status,
+                    _pi: page_index,
+                    _ps: page_size,
+                    itemid:'-1'
+                },
+                success: function (data) {
+                    var html = '<tr><td colspan="7">Không có bình luận nào</td><tr>';
+                    if (data != undefined && data != null && data != '') {
+                        var items = data.Items;
+                        var total = data.Total;
+                        html = BindData(items);
+                        RenderPaging(pi, page_size, total, Filter);
+                        
+                    }
+
+                    $('#grid_items').html(html);
+                }
+            });
+        }
+
+        function BindData(data) {
+            var html = '';
+            $.each(data, function (index, item) {
+                html += '<tr id="item' + item.Id + '">';
+                html += '<td align="center">';
+                html += '<input type="checkbox" name="chk_item" value="' + item.Id + '" />';
+                html += '</td>';
+
+                html += '<td>';
+
+
+                if (item.Type == 0 || item.Type == null || item.Type == undefined)
+                    html += "Sản phẩm";
+                else if (item.Type == 1)
+                    html += "Giới thiệu";
+                else if (item.Type == 2)
+                    html += "Tin tức";
+                else if (item.Type == 4)
+                    html += "Album ảnh";
+
+                html += '</td>';
+
+                html += '<td>';
+                html += item.ItemName;
+                html += '</td>';
+
+                html += '<td>';
+                html += item.UserName;
+                html += '</td>';
+
+                html += '<td>';
+                html += dateFormat(item.CreatedTime, 'dd/mm/yyyy HH:MM');
+                html += '</td>';
+
+                html += '<td>';
+                html += '<a href="' + redirectUrl + '?id=' + item.Id + '" >';
+                html += item.Message;
+                html += '</a>';
+
+                html += '</td>';
+
+
+               
+
+                html += '<td align="center">';
+                if (item.Published == 1)
+                    html += "Duyệt";
+                else
+                    html += "Chưa duyệt";
+                html += '</td>';
+                html += '</tr>';
+            });
+
+            return html;
+        }
+
+        function RenderPaging(pageindex, pagesize, totalrecord, callback) {
+
+            var html = {
+                container: '<div class="pagination"></div>',
+                wrraper: '<div class="button2-left"><div class="page"></div></div>',
+                firstbtn: '<div class="button2-right"><div class="start"><a>Bắt đầu</a></div></div>',
+                prevbtn: '<div class="button2-right"><div class="prev"><a>Trước</a></div></div>',
+                nextbtn: '<div class="button2-left"><div class="next"><a>Tiếp</a></div></div>',
+                lastbtn: '<div class="button2-left"><div class="end"><a>Cuối cùng</a></div></div>'
+            }
+
+            if (totalrecord > page_size) {
+                $("#paging_container").pager({ pagenumber: pageindex, pagecount: Math.ceil(totalrecord / page_size), buttonClickCallback: callback, html: html });
+            }
+            else {
+                $("#paging_container").html("");
+            }
+
+        }
+        function BindPageSizeToSelectBox() {
+            //select_pagesize
+            var html = '';
+            html += '<option value="10">10</option>';
+            html += '<option value="20">20</option>';
+            html += '<option value="30">30</option>';
+            html += '<option value="40">40</option>';
+            html += '<option value="50">50</option>';
+            html += '<option value="60">60</option>';
+            html += '<option value="70">70</option>';
+            html += '<option value="80">80</option>';
+            html += '<option value="90">90</option>';
+            html += '<option value="100">100</option>';
+
+            $('#select_pagesize').html(html).change(function () {
+                page_size = $('#select_pagesize option:selected').val();
+                OnLoad(1);
+            });
+        }
+
+        function Published() {
+
+            DestroyJAlert();
+            var arr_checked_items = [];
+            $('input[type="checkbox"][name="chk_item"]:checked').each(function (i, e) {
+                arr_checked_items.push($(e).val());
+            });
+
+            if (arr_checked_items.length > 0) {
+                var confirmFunc = function () {
+                    $.Services({
+                        isCrossDomain: false,
+                        url: POST_URL + 'CommentService.ashx',
+                        data: {
+                            __m: "published",
+                            'id': arr_checked_items
+                        },
+                        success: function (data) {
+                            if (data != undefined && data != null && data != '') {
+                                var json_data = eval('(' + data + ')');
+
+                                if (json_data.Success) {
+                                    //$.jCache.setItem("LIST_ITEMS_PAGING_" +, null);
+                                    OnLoad();
+                                }
+
+                                var jalert_type = "info";
+                                if (!json_data.Success)
+                                    jalert_type = "fatal";
+                                else {
+                                    $.each(arr_checked_items, function (index, item) {
+                                        $("grid_items").find('tr#item' + item).hide();
+                                    });
+
+                                }
+
+                                $('#jalert_notification').jAlert(json_data.Text, jalert_type, "edit", 400);
+                            }
+                        }
+                    });
+                };
+
+                OpenConfirmDialog('Bạn có muốn duyệt dữ liệu này không ?', confirmFunc);
+            }
+            else {
+                $('#jalert_notification').jAlert('Bạn phải chọn ít nhất 1 bình luận', "warning", "edit", 400);
+            }
+        }
+       
+        function Delete() {
+
+            DestroyJAlert();
+            var arr_checked_items = [];
+            $('input[type="checkbox"][name="chk_item"]:checked').each(function (i, e) {
+                arr_checked_items.push($(e).val());
+            });
+
+            if (arr_checked_items.length > 0) {
+                var confirmFunc = function () {
+                    $.Services({
+                        isCrossDomain: false,
+                        url: POST_URL + 'CommentService.ashx',
+                        data: {
+                            __m: "delete",
+                            'id': arr_checked_items
+                        },
+                        success: function (data) {
+                            if (data != undefined && data != null && data != '') {
+                                var json_data = eval('(' + data + ')');
+
+                                if (json_data.Success) {
+                                    //$.jCache.setItem("LIST_ITEMS_PAGING_" +, null);
+                                    OnLoad(1);
+                                }
+
+                                var jalert_type = "info";
+                                if (!json_data.Success)
+                                    jalert_type = "fatal";
+                                else {
+                                    $.each(arr_checked_items, function (index, item) {
+                                        $("grid_items").find('tr#item' + item).hide();
+                                    });
+
+                                }
+
+                                $('#jalert_notification').jAlert(json_data.Text, jalert_type, "edit", 400);
+                            }
+                        }
+                    });
+                };
+
+                OpenConfirmDialog('Bạn có muốn xóa dữ liệu này không ?', confirmFunc);
+            }
+            else {
+                $('#jalert_notification').jAlert('Bạn phải chọn ít nhất 1 bình luận', "warning", "edit", 400);
+            }
+        }
+
+    </script>
+    <div id="toolbar-box">
+        <div class="t">
+            <div class="t">
+                <div class="t">
+                </div>
+            </div>
+        </div>
+        <div class="m">
+            <div class="toolbar" id="toolbar">
+                <table class="toolbar">
+                    <tr>
+                        
+                        <td class="button" id="toolbar-delete">
+                            <a class="toolbar" onclick="Delete();" href="javascript:void(0);"><span class="icon-32-delete"
+                                title="Delete"></span>Xóa</a>
+                        </td>
+                         <td class="button" id="toolbar-edit">
+                            <a class="toolbar" onclick="Published();" href="javascript:void(0);"><span class="icon-32-edit"
+                                title="Publish"></span>Duyệt</a>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div class="header icon-48-article">
+                Quản lý bình luận
+            </div>
+            <div class="clr">
+            </div>
+        </div>
+        <div class="b">
+            <div class="b">
+                <div class="b">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="clr">
+    </div>
+    <div id="element-box">
+        <div class="t">
+            <div class="t">
+                <div class="t">
+                </div>
+            </div>
+        </div>
+        <div class="m">
+            <div id="jalert_notification">
+                &nbsp;</div>
+            <table width="100%">
+                <tr>
+                    <td>
+                        Tên đối tượng:
+                        <input id="txt_filterbyname" type="text" style="width: 250px;" />
+                        <input id="btn_search" type="button" value="Lọc" onclick="Filter(1);" />
+                        <input id="btn_clear" type="button" value="Làm lại" onclick="OnLoad(1);" />
+                    </td>
+                    <td nowrap="nowrap">
+                        Loại :
+                        <select id="select_filterbytype" onchange="Filter(1);">
+                            <option value="-1">- Tất cả -</option>
+                            <option value="0">Sản phẩm</option>
+                            <option value="2">Tin tức</option>
+                            <option value="4">Album Ảnh</option>
+                        </select>
+                        Trạng thái:<select id="select_filterbystatus" onchange="Filter(1);">
+                            <option value="-1">- Tất cả -</option>
+                            <option value="0">Chưa duyệt</option>
+                            <option value="1">Đã duyệt</option>
+                        </select>
+                    </td>
+                </tr>
+            </table>
+            <table class="adminlist" cellpadding="1">
+                <thead>
+                    <tr>
+                        <th width="1%" class="title">
+                            #
+                        </th>
+                        <th width="10%" class="title" style="text-align: left">
+                            Loại
+                        </th>
+                        <th width="10%" class="title" style="text-align: left">
+                            Tên đối tượng
+                        </th>
+                        <th width="10%" class="title" style="text-align: left">
+                            Người viết
+                        </th>
+                        <th width="10%" class="title" style="text-align: left">
+                            Ngày viết
+                        </th>
+                        <th width="35%" class="title">
+                            Nội dung
+                        </th>
+                        <th width="5%" class="title">
+                            Trạng thái
+                        </th>
+                    </tr>
+                </thead>
+                <tfoot>
+                    <tr>
+                        <td colspan="7">
+                            <del class="container">
+                                <div class="limit">
+                                     <select id="select_pagesize">
+                                    </select>
+                                </div>
+                                  <div id="paging_container">
+                                </div>
+                            </del>
+                        </td>
+                    </tr>
+                </tfoot>
+                <tbody id="grid_items">
+                </tbody>
+            </table>
+            <div class="clr">
+            </div>
+        </div>
+        <div class="b">
+            <div class="b">
+                <div class="b">
+                </div>
+            </div>
+        </div>
+    </div>
+
+

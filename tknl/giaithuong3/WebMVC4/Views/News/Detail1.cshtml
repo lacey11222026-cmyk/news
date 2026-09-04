@@ -1,0 +1,50 @@
+﻿@using BIZ
+@using BIZ.Entity
+@using UTILS
+@using WebMVC4
+@using WebMVC4.Helper
+@model BIZ.Entity.CONTENT_FULL
+@{
+    Layout = "~/Views/Shared/_Temp1.cshtml";
+}
+
+<div class="t-header">
+    <div class="t-header-content">
+        <div class="header-c01">
+            <a href="/" class="btn-back"><img src="/img/icon-back.svg" alt="Back" width="55"></a>
+            <a href="/" class="t-logo-02"><img src="/img/logo-top-02.png" alt="" width="105"></a>
+        </div>
+        <div class="btn-like">
+            <div class="fb-like" data-href="@(Model.LinkUrl)" data-layout="button_count" data-action="like" data-show-faces="false" data-share="true"></div>
+        </div>
+    </div>
+    <a href="/" class="t-logo"><img src="/img/logo.png" alt="e-magazine"></a>
+</div>
+
+@Html.Raw(Model.Contents.Replace("<a data-cke-saved-href=\"#\" href=\"#\"><img data-cke-saved-src=\"/img/like-face.jpg\" src=\"/img/like-face.jpg\" alt=\"\"></a>", ViewBag.FacebookLike).Replace("<a data-cke-saved-href=\"#\" href=\"#\"><img alt=\"\" data-cke-saved-src=\"/img/like-face.jpg\" src=\"/img/like-face.jpg\"></a>", ViewBag.FacebookLike) )
+
+
+<script>
+        $('#NewsContent .news_detail_img').removeAttr('style');
+
+        $('.temp  img').removeAttr('style');
+        $('.temp  img').removeAttr('width');
+        $('.temp  table').removeAttr('style');
+        $('#date').html('@Model.PublishDate.ToString("dd/MM/yyyy")');
+</script>
+
+<style>
+    #date {
+        text-align: center;
+        font-style: italic;
+        margin-top: 30px;
+    }
+
+    img {
+        height: auto !important;
+    }
+    em {
+        font-style: italic;
+    }
+
+</style>

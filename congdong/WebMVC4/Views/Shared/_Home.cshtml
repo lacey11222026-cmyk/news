@@ -1,0 +1,41 @@
+﻿@using WebMVC4.Helper
+@{
+    var langpage = WorkContext.GetLanguage();
+}
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+
+    @Html.Partial("MetaData")
+
+    <link rel="stylesheet" href="/Content2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/Content2/css/common.css">
+    <link rel="stylesheet" href="/Content2/css/style.css?vs=12">
+    <link rel="stylesheet" href="/Content2/css/extend.css?vs=12">
+    <link type="text/css" rel="stylesheet" href="/Content2/css/jquery.mmenu.all.css" />
+
+
+
+    <!-- Script-->
+    <script src="/Content2/js/jquery.min.js"></script>
+    <script src="/Content2/js/bootstrap.min.js"></script>
+
+    <script type="text/javascript" src="/Content2/js/jquery.mmenu.min.all.js"></script>
+    <script type="text/javascript" src="/Content2/js/jquery.flexisel.js"></script>
+    <script type="text/javascript" src="/Content2/js/jquery.matchHeight.js"></script>
+    <script type="text/javascript" src="/Content2/js/marquee.js"></script>
+
+
+</head>
+<body onorientationchange="updateOrientation();">
+
+    @RenderBody()
+   
+
+</body>
+
+
+
+
+
+</html>

@@ -1,0 +1,21 @@
+﻿<div class="bg-yellow">
+    @{Html.RenderAction("LastestNews3", "Home", new { CateName = "", CategoryId = 69, MaxLastestNews = 1, cssClass = "maxheight01" });}
+</div>
+<div class="bg-yellow mt30">
+    @{Html.RenderAction("HomeVideo", "Home", new { CateName = "", CategoryId = 110 });}
+</div>
+<div class="mt30 bg-gray">
+    @{Html.RenderAction("TopDocument", "Home");}
+</div>
+<div class="internal mt30">
+    <ul class="link02-list">
+        <li><a href="http://mail.vnubw.org.vn:2096/" class="ico-cm-02"><span><img src="/Content/img/ico-mail.svg" alt="" width="36"></span>Đăng nhập E-mail</a></li>
+        <li><a href="http://webnoibo.vnubw.org.vn/" class="ico-cm-02"><span><img src="/Content/img/ico-page.svg" alt="" width="19"></span>TRANG NỘI BỘ</a></li>
+        <li><a href="/gui-bao-cao.html" class="ico-cm-02"><span><img src="/Content/img/ico-send.svg" alt="" width="28"></span>GỬI TIN BÀI</a></li>
+    </ul>
+</div>
+
+@{Html.RenderAction("Rate", "Home");}
+<div class="bnr-list">
+    @{Html.RenderAction("BannerRight2", "Home");}
+</div>

@@ -1,0 +1,142 @@
+﻿@using BIZ
+@using UTILS
+@using WebMVC4.Helper
+@model WebMVC4.Models.DocumentModel
+
+@{
+    var langpage = WorkContext.GetLanguage();
+}
+
+<div class="document-page container">
+    <div class="row">
+        <div class="col-lg-9 col-md-12 pb40">
+            @{Html.RenderAction("Breadcrumb", "News", new { CategoryId = Model.CategoryId });}
+            <div class="mt30">
+                <div class="text-center search">
+               
+                    <form class="form-inline">
+                        <div class="form-group">
+                            <label class="">Từ khóa</label>
+                            <input id="txtkeyword" class="form-control" type="text" value="@ViewBag.keyword"  width="190">
+                        </div>
+                        <div class="form-group">
+                            <label>Từ ngày</label>
+                            <input id="txtfromdate" placeholder="dd/MM/yyyy" value="@ViewBag.fromdate" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label>Đến ngày</label>
+                            <input id="txttodate" placeholder="dd/MM/yyyy" value="@ViewBag.todate" class="form-control">
+                        </div>
+                        <button type="button" onclick="searchdoc();" class="btn-search">Tìm kiếm</button>
+                    </form>
+                </div>
+                <div class="document-tabs">
+                    <ul>
+
+                        @foreach (var item in Model.subcate.Select((value, i) => new { i, value }))
+                        {
+                            <li>
+                                <ul>
+                                    <li>
+                                        <a href="@Utils.FormatUrlRewriteByType(item.value.Id, item.value.Name, int.Parse(item.value.Type.ToString()), item.value.Link)">@item.value.Name </a>
+                                    </li>
+                                </ul>
+                            </li>
+                        }
+
+
+
+                    </ul>
+                </div>
+                <div class="document-table table-responsive mt20">
+                    <table>
+                        <tbody>
+                            <tr>
+                                <th>STT </th>
+                                <th>Số hiệu </th>
+                                <th>Tên văn bản </th>
+                                <th>Ngày ban hành </th>
+                                <th>Download </th>
+                            </tr>
+                            @foreach (var item in Model.listdata.Select((value, i) => new { i, value }))
+                            {
+                                <tr>
+                                    <td style="text-align: center" align="center">@(item.i + 1) </td>
+                                    <td>@item.value.Code</td>
+                                    <td >
+                                        <a href="@item.value.LinkUrl">
+                                            @item.value.Name
+                                        </a>
+                                    </td>
+                                    <td> @Convert.ToDateTime(item.value.PublishDate).ToString(@" dd'/'MM'/'yyyy") </td>
+
+                                    <td align="center">
+                                        <div style="width: 99px;">
+                                            <a href="@Url.Action("DownloadFile", "Document", new {id = item.value.Id})">
+                                                <img style="width: 17px;" src="/Content/images/ico-pdf02.png">
+                                            </a>
+                                            
+                                            <a href="@Url.Action("ViewFile", "Document", new {id = item.value.Id})" target="_blank">@Resources.Global.DocViewOnline </a>
+                                        </div>
+
+                                    </td>
+
+                                </tr>
+                            }
+                           
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="paging mt60 text-right">
+                    <ul>
+                        @{Html.RenderPartial("Pagination", new WebMVC4.Models.PaginationInfo
+                            {
+                                PageUrl = Url.SetParameter("Page", "!0"),
+                                CurrentPage = Model.pageIndex,
+                                PageSize = Model.pageSize,
+                                TotalItemCount = Model.total,
+                            }); }
+                    </ul>
+                </div>
+            </div>
+
+        </div><!-- end content left-->
+
+        <div class="col-lg-3 col-md-12">
+            <div class="content01-right">
+                @{Html.RenderAction("BannerRight", "Home");}
+                @{Html.RenderAction("MenuInfo", "Home");}
+            </div>
+
+            @{Html.RenderAction("BannerRight2", "Home");}
+        </div>
+    </div>
+</div><!-- end main content-->
+
+
+
+<script type="text/javascript">
+
+
+    function searchdoc() {
+        var id = '@Model.CategoryId';
+        var keyword = $("#txtkeyword").val();
+        var fromdate = $("#txtfromdate").val();
+        var todate = $("#txttodate").val();
+        window.location = '@ViewBag.Cateurl'+'?keyword=' + keyword + '&fromdate=' + fromdate + '&todate=' + todate;
+        //window.location = jQuery.query.set("keyword", keyword).set("fromdate", fromdate).set("todate", todate).set("Page", "1");
+    }
+</script>
+@section scripts {
+    <script type="text/javascript">
+
+
+    $('#menu_' + '@ViewBag.CurrentCategoryId').addClass("active");
+
+     $('#menu_' + '@ViewBag.ParentCategoryId').addClass("active");
+
+         $('#menu_0').removeClass("active");
+
+    </script>
+}

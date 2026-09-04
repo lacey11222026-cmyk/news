@@ -1,0 +1,40 @@
+﻿@using BIZ
+@using UTILS
+@using WebMVC4.Helper
+@model List<BIZ.Entity.CONTENT_FULL>
+<h2 class="title-blue">@ViewBag.ChannelName</h2>
+<ul class="cap1-news-list mt30" style="border: none">
+    @foreach (var item in Model.Select((value, i) => new { i, value }))
+    {
+        <li>
+            <a href="@item.value.LinkUrl">
+                @*<img src="/Content2/images/new-list.jpg" alt="">*@
+                <img src="@item.value.MainImage?w=239&h=160&mode=crop" />
+            </a>
+            <div class="cap1-content">
+                <h3>
+                    <a href="@item.value.LinkUrl">@item.value.Title </a>
+                </h3>
+                <span>Cập nhật : @item.value.PublishDate.ToString("dd/MM/yyyy")</span>
+                <p>
+                    @item.value.IntroText
+                </p>
+            </div>
+            <div class="clearfix"></div>
+        </li>
+    }
+
+</ul>
+<div class="pagination pull-right mt30">
+    <ul>
+        @{Html.RenderPartial("Pagination", new WebMVC4.Models.PaginationInfo
+            {
+                PageUrl = Url.SetParameter("Page", "!0"),
+                CurrentPage = ViewBag.Page,
+                PageSize = ViewBag.PageSize,
+                TotalItemCount = ViewBag.Total,
+            }); }
+    </ul>
+</div>
+
+

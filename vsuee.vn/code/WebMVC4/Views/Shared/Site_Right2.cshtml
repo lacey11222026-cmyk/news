@@ -1,0 +1,83 @@
+﻿@using WebMVC4.Helper
+@{
+    var langpage = WorkContext.GetLanguage();
+}
+
+@if (langpage == "vi-vn")
+{
+    <div class="news-new">
+        <h2 class="title-cm-02"><a href="#">TIN MỚI</a></h2>
+        @{ Html.RenderAction("RightLastestNews", "News", new { lang = langpage, MaxLastestNews = 5, CategoryId = 0, CateName = "" }); }
+    </div>
+    <div class="document-box mt50">
+        <ul class="nav nav-title-02" role="tablist">
+            <li class="nav-item">
+                <a class="nav-link active" id="document-tab" data-toggle="tab" href="#document" role="tab" aria-controls="document" aria-selected="true">VĂN BẢN</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="document02-tab" data-toggle="tab" href="#document02" role="tab" aria-controls="document02" aria-selected="false">TÀI LIỆU</a>
+            </li>
+        </ul>
+        <div class="tab-content mt30">
+            <div class="tab-pane fade show active" id="document" role="tabpanel" aria-labelledby="document-tab">
+                <ul class="ducoment-list">
+                    @{Html.RenderAction("TopDocument", "Home", new { MaxLastestNews = 4, CateName = "", CategoryId = 3 });}
+                </ul>
+                <div class="text-center mt20">
+                    <a href="/Document/Index/3" class="btn-green">Xem thêm</a>
+                </div>
+            </div>
+            <div class="tab-pane fade" id="document02" role="tabpanel" aria-labelledby="document02-tab">
+                @{Html.RenderAction("LastestNews2", "Home", new { CateName = "Tài liệu", CategoryId = 69, MaxLastestNews = 4, cssClass = "maxheight02", lang = langpage });}
+            </div>
+        </div>
+    </div>
+    <div class="s-event mt50">
+        <h2 class="title-cm-02"><a href="#">SỰ KIỆN</a></h2>
+        <div class="mt30 s-event-content bg-gray">
+            <ul class="s-event-list">
+                @{Html.RenderAction("TopRightMission", "Home", new { lang = langpage });}
+            </ul>
+        </div>
+    </div>
+}
+else
+{
+    <div class="news-new">
+        <h2 class="title-cm-02"><a href="#">LATEST NEWS</a></h2>
+        @{ Html.RenderAction("RightLastestNews", "News", new { lang = langpage, MaxLastestNews = 5, CategoryId = 0, CateName = "" }); }
+    </div>
+    <div class="document-box mt50">
+        <ul class="nav nav-title-02" role="tablist">
+            <li class="nav-item">
+                <a class="nav-link active" id="document-tab" data-toggle="tab" href="#document" role="tab" aria-controls="document" aria-selected="true">Legislation</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="document02-tab" data-toggle="tab" href="#document02" role="tab" aria-controls="document02" aria-selected="false">Materials</a>
+            </li>
+        </ul>
+        <div class="tab-content mt30">
+            <div class="tab-pane fade show active" id="document" role="tabpanel" aria-labelledby="document-tab">
+                <ul class="ducoment-list">
+                    @{Html.RenderAction("TopDocument", "Home", new { MaxLastestNews = 4, CateName = "", CategoryId = 39 });}
+                </ul>
+                <div class="text-center mt20">
+                    <a href="/Document/Index/39" class="btn-green">View More</a>
+                </div>
+            </div>
+            <div class="tab-pane fade" id="document02" role="tabpanel" aria-labelledby="document02-tab">
+                @{Html.RenderAction("LastestNews2", "Home", new { CateName = "Materials", CategoryId = 63, MaxLastestNews = 4, cssClass = "maxheight02", lang = langpage });}
+            </div>
+        </div>
+    </div>
+    <div class="s-event mt50">
+        <h2 class="title-cm-02"><a href="#">EVENTS</a></h2>
+        <div class="mt30 s-event-content bg-gray">
+            <ul class="s-event-list">
+                @{Html.RenderAction("TopRightMission", "Home", new { lang = langpage });}
+            </ul>
+        </div>
+    </div>
+}
+
+

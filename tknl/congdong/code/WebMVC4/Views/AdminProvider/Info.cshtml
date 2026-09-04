@@ -1,0 +1,326 @@
+﻿@{
+    Layout = "~/Views/Shared/_AdminV2.cshtml";
+}
+@using BIZ.Entity
+@using UTILS
+@using DATA
+@using WebMVC4.Helper
+@using DATA.ContentDB
+@model Provider
+
+@{
+    List<TestLocation> ListCate = ViewBag.listLocation;
+}
+
+<div class="well">
+    <span class="label label-danger">
+        Chú ý!
+    </span>
+    <span>
+        Hãy chắc chắn nhập vào đầy đủ thông tin tại các mục bắt buộc đánh dấu (*)
+    </span>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <i class="fa fa-fw fa-user-md"></i><span>@ViewBag.Title </span>
+            </div>
+            <form id="defaultForm" method="post" class="form-horizontal">
+                <div class="panel-group" id="steps">
+                    <div class="messager-body">
+                        <div class="alert alert-success display-hide alert-dismissable">
+                            <button type="button" class="close" data-close="alert" aria-hidden="true">×</button>
+                            <span class="glyphicon glyphicon-ok"></span>
+                            <label>Đã lưu dữ liệu thành công!</label>
+                        </div>
+                        <div class="alert alert-danger display-hide alert-dismissable">
+                            <button type="button" class="close" data-close="alert" aria-hidden="true">×</button>
+                            <span class="glyphicon glyphicon-warning-sign"></span>
+                            <label id="ErrorMessage">Có lỗi trong dữ liệu nhập, vui lòng kiểm tra lại.</label>
+                        </div>
+                    </div>
+
+                    <div class="panel panel-info">
+                        <div class="panel-body">
+                            <div style="padding:10px 0;background-color:#fff !important">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="control-label col-md-3">Tên<span class="required">*</span></label>
+                                        <div class="col-md-9">
+                                            <input type="text" id="txtName" name="name" value="@Model.Name" class="form-control" placeholder="Nhập tên" />
+                                        </div>
+                                    </div>
+
+
+
+                                    <div class="form-group">
+                                        <label class="control-label col-md-3">Ảnh dại diện</label>
+                                        <div class="col-md-8">
+                                            <input type="text" id="txtImages" name="Images" value="@Model.Images" class="form-control" placeholder="Nhập ảnh" />
+                                        </div>
+                                        <div class="col-md-1">
+                                            <a href="javascript:;" onclick="CommonCtrl.PopupManagerImages('txtImages');"><i class="fa fa-file"></i></a>
+                                        </div>
+                                    </div>
+
+
+                                    <div class="form-group">
+                                        <label class="control-label col-md-3">Mã số thuế</label>
+                                        <div class="col-md-9">
+                                            <input type="text" id="txtMST" name="MST" value="@Model.MST" class="form-control" placeholder="Nhập mã số " />
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label col-md-3">Địa chỉ thuế</label>
+                                        <div class="col-md-9">
+                                            <input type="text" id="txtAddress" name="Address" value="@Model.Address" class="form-control" placeholder="Nhập địa chỉ" />
+                                        </div>
+                                    </div>
+
+
+                                    <div class="form-group">
+                                        <label class="control-label col-md-3">Đại diện pháp luật</label>
+                                        <div class="col-md-9">
+                                            <input type="text" id="txtRepresent" name="Represent" value="@Model.Represent" class="form-control" placeholder="Nhập đại diện pháp luật" />
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="control-label col-md-3">Năm thành lập</label>
+                                        <div class="col-md-9">
+                                            <input type="text" id="txtYear" name="Year" value="@Model.Year" class="form-control" placeholder="Nhập năm thành lập" />
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="txtBusiness" class="control-label col-md-3">Ngành nghề kinh doanh </label>
+                                        <div class="col-md-9">
+                                            <div class="input-icon right">
+                                                <textarea id="txtBusiness" style="height: 100px;" cols="20" name="Business" class="form-control">@Model.Business</textarea>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label col-md-3">Tỉnh thành</label>
+                                        <div class="col-md-9">
+                                            <select class="form-control" id="ddlProvince">
+                                                @if (ListCate != null && ListCate.Count > 0)
+                                                {
+
+                                                    foreach (var obj in ListCate)
+                                                    {
+                                                        <option value="@obj.Name" title="@obj.Name" @if (obj.Name.ToString() == Model.Province) { @Html.Raw("selected='selected'") ; }>@obj.Name</option>
+                                                    }
+                                                }
+
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6">
+
+                                    <div class="form-group">
+                                        <label for="txtBusiness" class="control-label col-md-3">Văn phòng đại diện </label>
+                                        <div class="col-md-9">
+                                            <div class="input-icon right">
+                                                <textarea id="txtOffice" style="height: 100px;" cols="20" name="Office" class="form-control">@Model.Office</textarea>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="txtBusiness" class="control-label col-md-3">Thông tin liên hệ </label>
+                                        <div class="col-md-9">
+                                            <div class="input-icon right">
+                                                <textarea id="txtContact" style="height: 100px;" cols="20" name="Contact" class="form-control">@Model.Contact</textarea>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="panel-footer form-horizontal text-center">
+                                    <button type="submit" class="btn btn-primary" id="btnSave"><i class="fa fa-save"></i> Lưu lại</button>
+                                 
+                                    <button type="button" class="btn btn-default" id="btnBack" onclick="GotoListpage()"><i class="fa fa-backward"></i> Trở về</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<style>
+    .input-icon {
+        position: relative;
+        width: 100%;
+    }
+</style>
+<script type="text/javascript">
+    function GotoListpage() {
+        window.location = "/AdminProvider/ManageProvider";
+    }
+    $(document).ready(function () {
+
+        var editor = CKEDITOR.instances['txtBusiness'];
+        if (editor) {
+            CKEDITOR.remove(editor);
+        }
+        CKEDITOR.replace('txtBusiness', {
+            filebrowserBrowseUrl: "/AdminImages/ManageImage",
+            filebrowserWindowWidth: '1200',
+            filebrowserWindowHeight: '800',
+            uiColor: '#FAFAFA',
+            allowedContent: true,
+            extraAllowedContent: '*(*)',
+            height: 250
+        });
+
+        var editor2 = CKEDITOR.instances['txtOffice'];
+        if (editor2) {
+            CKEDITOR.remove(editor2);
+        }
+        CKEDITOR.replace('txtOffice', {
+            filebrowserBrowseUrl: "/AdminImages/ManageImage",
+            filebrowserWindowWidth: '1200',
+            filebrowserWindowHeight: '800',
+            uiColor: '#FAFAFA',
+            allowedContent: true,
+            extraAllowedContent: '*(*)',
+            height: 250
+        });
+
+        var editor3 = CKEDITOR.instances['txtContact'];
+        if (editor3) {
+            CKEDITOR.remove(editor3);
+        }
+        CKEDITOR.replace('txtContact', {
+            filebrowserBrowseUrl: "/AdminImages/ManageImage",
+            filebrowserWindowWidth: '1200',
+            filebrowserWindowHeight: '800',
+            uiColor: '#FAFAFA',
+            allowedContent: true,
+            extraAllowedContent: '*(*)',
+            height: 250
+        });
+        $("#txtOrder").keypress(function (e) {
+            //if the letter is not digit then display error and don't type anything
+            if (e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57)) {
+                //display error message
+                $("#errmsg").html("Chỉ Nhập Được Số").show().fadeOut(1000);
+                return false;
+            }
+        });
+        $("button.close").click(function () {
+            $(this).parent().css("display", "none");
+        });
+        $('#defaultForm').bootstrapValidator({
+            message: 'This value is not valid',
+            //live: 'submitted',
+            feedbackIcons: {
+                valid: 'glyphicon glyphicon-ok',
+                invalid: 'glyphicon glyphicon-remove',
+                validating: 'glyphicon glyphicon-refresh'
+            },
+            fields: {
+
+                name: {
+                    message: 'Nhập tên',
+                    validators: {
+                        notEmpty: {
+                            message: 'Tên không được trống '
+                        },
+
+
+
+                    }
+                },
+
+
+
+            }
+        })
+        .on('success.form.bv', function (e) {
+            // Prevent submit form
+            e.preventDefault();
+
+            var $form = $(e.target),
+                validator = $form.data('bootstrapValidator');
+            SaveData();
+            $(".close").click(function () {
+                $(".alert-success").css("display", "none");
+            });
+        })
+        .on('error.form.bv', function (e) {
+            // Active the panel element containing the first invalid element
+            e.preventDefault();
+            var $form = $(e.target),
+            validator = $form.data('bootstrapValidator');
+            $(".alert-danger label").text("Có một vài lỗi trong khung nhập liệu dưới đây ! kiểm tra lại");
+            $(".alert-danger").css("display", "block");
+            $(".close").click(function () {
+                $(".alert-danger").css("display", "none");
+                $(".alert-success").css("display", "none");
+            });
+        });
+
+        $("#btnReset").click(function () {
+            $('#defaultForm').data('bootstrapValidator').resetForm(true);
+            $(".alert-danger").css("display", "none");
+            $(".alert-success").css("display", "none");
+        });
+        //Save Data
+        function SaveData() {
+            var param = {
+                Id: '@Model.Id',
+                    Name: $("#txtName").val(),
+                     Images: $("#txtImages").val(),
+                MST: $("#txtMST").val(),
+                Type: $("#txtType").val(),
+                Order: $("#txtOrder").val(),
+                Represent: $("#txtRepresent").val(),
+                Address: $("#txtAddress").val(),
+
+                Year: $("#txtYear").val(),
+                Business: CKEDITOR.instances['txtBusiness'].getSnapshot(),
+                Office: CKEDITOR.instances['txtOffice'].getSnapshot(),
+                Contact: CKEDITOR.instances['txtContact'].getSnapshot(),
+
+                Province: $("#ddlProvince").val(),
+
+            }
+            Utils.Loading();
+            $.ajax({
+                type: 'POST',
+                url: "/AdminProvider/SaveData",
+                data: param,
+                async: true,
+                success: function (data) {
+                    Utils.UnLoading();
+                    if (data.ResponseCode >= 0) {
+                        $("html,body").animate({ scrollTop: $('#TemplateContent').offset().top }, 'fast');
+                        $(".alert-success").show("slow");
+                        $(".alert-danger").hide("slow");
+                        setTimeout(function () { $(".alert-success").hide("slow"); GotoListpage(); }, 2000);
+                    }
+                    else {
+                        $("html,body").animate({ scrollTop: $('#TemplateContent').offset().top }, 'fast');
+                        $("#ErrorMessage").text(data.NameEn);
+                        $(".alert-danger").show("slow");
+                        $(".alert-success").hide("slow");
+                        setTimeout(function () { $(".alert-danger").hide("slow"); }, 2000);
+                    }
+                }
+            });
+        };
+    });
+</script>
+<script>
+    $('#menu_manageProvider').addClass("active");
+</script>
+

@@ -1,0 +1,60 @@
+﻿@using BIZ
+@using UTILS
+@using Local.Helper
+@model Local.Models.NewsModel
+<section class="container main-content mt10">
+    <div class="row">
+        <div class="col-md-8 col-sm-12 col-xs-12 schedule">
+            <div class="schedule-title">
+                <h3>@ViewBag.CateName</h3>
+
+                <div class="clearfix"></div>
+            </div>
+            <div class="clearfix"></div>
+            @if (Model.listdata!=null)
+            {
+                <div class="schedule-wrap mt10">
+                    <ul class="list-cm">
+                        @foreach (var item in Model.listdata.Select((value, i) => new { i, value }))
+                        {
+                            <li><a href="@Utils.FormatUrlRewrite(item.value.Id, item.value.Title, "ArticleDetail")">@item.value.Title</a>
+                                @if (item.value.CreatedDate.AddDays(1)>= DateTime.Now)
+                                {
+                                    <span class="c_ic_moi">Mới</span>
+
+                                }
+                        </li>
+                        }
+                    </ul>
+                    <div class="clearfix"></div>
+                    <div class="ctpaging">
+
+                        <ul class="paging">
+                            @{Html.RenderPartial("Pagination", new Local.Models.PaginationInfo
+                                {
+                                    PageUrl = Url.SetParameter("Page", "!0"),
+                                    CurrentPage = Model.pageIndex,
+                                    PageSize = Model.pageSize,
+                                    TotalItemCount = Model.total,
+                                }); }
+                        </ul>
+
+                    </div>
+                </div>
+             }
+        </div>
+        <!-- end schedule -->
+
+        @Html.Partial("Site_Right")
+        <!-- end sidebar-->
+    </div><!-- end row-->
+    <div class="clearfix"></div>
+
+    <style>
+        .schedule-title h3 {
+            background: none;
+        }
+    </style>
+
+</section>
+

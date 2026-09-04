@@ -1,0 +1,73 @@
+﻿@using BIZ
+@using Local.Helper
+@using UTILS
+@{
+    var lstcategory = new CategoryBO().GetAllCategoryFullsByPosition(UTILS.Constants.CategoryPosition.MainMenu, 18, false);
+    var textheader = new SystemConfigBO().GetByKey("TextHeader");
+    var Date = Utils.formatDateofWeek(DateTime.Now.DayOfWeek) + " " + DateTime.Now.ToString("dd") + "/" + DateTime.Now.ToString("MM") + "/" + DateTime.Now.Year.ToString();
+}
+<header>
+    <div class="container">
+        <a href="/">
+            <img src="~/Content/images/logo.png" alt="Công Đoàn Công Thương Việt Nam - Trang nội bộ" class="logo mt10" />
+        </a>
+    </div>
+    <div class="nav-pc mt20">
+        <nav class="container">
+            <ul class="nav-pc-content">
+                <li><a href="http://vuit.org.vn/" target="_blank"> <img src="~/Content/images/icon_home.png" alt="Trang chủ"></a></li>
+                <li><a href="/">Trang chủ nội bộ</a></li>
+                @foreach (var item in lstcategory.Select((value, i) => new { i, value }))
+                {
+                    <li>
+                        <a href="@Utils.FormatUrlRewriteByType(item.value.Id, item.value.Name, int.Parse(item.value.Type.ToString()), item.value.Link)">@item.value.Name</a>
+                        @Html.Raw(HtmlHelpers.BindChildCategories(Convert.ToInt32(item.value.Id), int.Parse(item.value.Type.ToString())))
+                    </li>
+
+                }
+
+            </ul>
+            <div class="clearfix"></div>
+        </nav>
+    </div>
+    <div class="clear"></div>
+    <div class="tool container mt10">
+        <p class="date">@(Date)</p>
+        <div class="search_m">
+            <a class="click" href="#"></a>
+            <input class="submit_m" type="submit">
+            <input class="text_m" type="text">
+        </div>
+        <div class="pull-right">
+            <marquee class="hot" width="620" direction="Left" onmouseover="this.stop()" onmouseout="this.start()"
+                     scrolldelay="200" scrollamount="10" align="center">
+                <h2 class="text-happy">@(textheader.ConfigValue)</h2>
+            </marquee>
+            <div class="search hidden-sm hidden-xs">
+                <input type="text" placeholder="Tìm kiếm ...">
+                <button>Tìm kiếm</button>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- nav mobile-->
+<div id="page">
+    <div class="header-m" style="float:left;">
+        <a href="#menu"> <img src="~/Content/images/nav-m.png"></a>
+    </div>
+    <nav id="menu">
+        <ul>
+            <li><a href="/">Trang chủ nội bộ</a></li>
+            @foreach (var item in lstcategory.Select((value, i) => new { i, value }))
+            {
+                <li>
+                    <a href="@Utils.FormatUrlRewriteByType(item.value.Id, item.value.Name, int.Parse(item.value.Type.ToString()), item.value.Link)">@item.value.Name</a>
+                   
+                </li>
+
+            }
+            
+        </ul>
+    </nav>
+</div><!-- end page mobile-->

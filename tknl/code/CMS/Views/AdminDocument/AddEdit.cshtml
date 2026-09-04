@@ -1,0 +1,213 @@
+﻿@{
+   
+    Layout = "~/Views/Shared/_AdminV2.cshtml";
+
+}
+@model BIZ.Entity.DOCUMENT_FULL
+@*<link href="/Styles/admin/css/blue/tab.css" rel="stylesheet" type="text/css" />*@
+
+<div class="onecolumn" id="product-tabs">
+    <div class="header">
+        <span>@ViewBag.Title</span>
+        @*<div class="menuitem">
+            <ul>
+                <li><a href="#tabs-info">Thông tin cơ bản</a></li>
+                <li><a href="#tabs-image">Ảnh đại diện</a></li>
+
+            </ul>
+        </div>*@
+    </div>
+    <br class="clear">
+    <div class="content">
+        @using (Html.BeginForm(null, null, FormMethod.Post, new { onsubmit = "return validateForm();" }))
+        {
+
+
+            <div class="login">
+
+                <div class="login-left">
+                    @Html.Label("Tên văn bản :")
+                </div>
+                <div class="login-right">
+                    @Html.TextBoxFor(m => m.Name, new { @class = "textbox", maxlength =500 })
+
+                    @Html.HiddenFor(m => m.Id)
+                  
+                    @Html.HiddenFor(m => m.Hits)
+                    @Html.HiddenFor(m => m.CreatedBy)
+                    @Html.HiddenFor(m => m.CreatedDate)
+
+                </div>
+                <div class="clear">
+                </div>
+                <div class="login-left">
+                    @Html.Label("Mã :")
+                </div>
+                <div class="login-right">
+                    @Html.TextBoxFor(m => m.Code, new { @class = "textbox", maxlength = 80 })
+                </div>
+                <div class="clear">
+                </div>
+                <div class="login-left">
+                    @Html.Label("Chuyên mục:")
+                </div>
+                <div class="login-right">
+                    @Html.DropDownList("CategoryId", new SelectList(ViewBag.CategoryList as System.Collections.IEnumerable, "Id", "Name", Model.CategoryId), new { @class = "drl_Publisher" })
+                </div>
+                <div class="clear">
+                </div>
+                <div class="login-left">
+                    @Html.Label("File:")
+                </div>
+                <div class="login-right">
+                    @Html.TextBoxFor(m => m.FilePath, new { @class = "textbox" })
+                    &nbsp;   <a href="javascript:void(0)" onclick="openWin()">
+                                 <b>Upload file</b>
+
+                             </a>
+                </div>
+                <div class="clear">
+                </div>
+                <div class="login-left">
+                    @Html.Label("Tóm lược:")
+                </div>
+                <div class="login-right">
+                    @Html.TextAreaFor(m => m.Description, new { @class = "textbox", style = "height:200px;margin-bottom:10px;", maxlength = 500 })
+                </div>
+                <div class="clear">
+                </div>
+                <div class="login-left">
+                    @Html.Label("Cơ quan ban hành :")
+                </div>
+                <div class="login-right">
+                    @Html.TextBoxFor(m => m.SignedByDesc, new { @class = "textbox", maxlength = 80 })
+                </div>
+                <div class="clear">
+                </div>
+                <div class="login-left">
+                    @Html.Label("Người ký :")
+                </div>
+                <div class="login-right">
+                    @Html.TextBoxFor(m => m.SignedBy, new { @class = "textbox", maxlength = 80 })
+                </div>
+                <div class="clear">
+                </div>
+                <div class="login-left">
+                    @Html.Label("Ngày ban hành :")
+                </div>
+                <div class="login-right">
+                    @Html.TextBoxFor(m => m.SPublishedTime, new { @class = "textbox", maxlength = 10 })
+                </div>
+                <div class="clear">
+                </div>
+                <div class="login-left">
+                    @Html.Label("Ngày có hiệu lực :")
+                </div>
+                <div class="login-right">
+                    @Html.TextBoxFor(m => m.EffectiveDate, new { @class = "textbox", maxlength = 10 })
+                </div>
+                <div class="clear">
+                </div>
+                <div class="login-left">
+                    @Html.Label("Ngày hết hiệu lực :")
+                </div>
+                <div class="login-right">
+                    @Html.TextBoxFor(m => m.ExpiryDate, new { @class = "textbox", maxlength = 10 })
+                </div>
+                <div class="clear">
+                </div>
+                 <div class="login-left">
+                    @Html.Label("Trạng thái :")
+                </div>
+                <div class="login-right">
+                    @Html.RadioButtonFor(model => model.Status, 1)
+                    Hoạt động &nbsp;
+                    @Html.RadioButtonFor(model => model.Status, 0)
+
+                    Khóa &nbsp;
+                </div>
+                <div class="clear">
+                </div>
+            </div>
+            
+            <br />
+            <div class="button_login">
+                <div>
+                    <input type="submit" value="Thêm mới" />
+                    &nbsp;<input type="button" value="Quay lại" onclick="javascript: history.go(-1);" />
+                </div>
+            </div>
+            <div class="clear">
+            </div>
+
+
+        }
+    </div>
+</div>
+<style>
+    
+.login-left {
+    color: #666666;
+    float: left;
+    line-height: 28px;
+    margin-bottom: 8px;
+    padding: 0 10px 0 0;
+    text-align: left;
+    width: 180px;
+}
+</style>
+<script type="text/javascript">
+    var imageUrl = '@ViewBag.imageUrl';
+
+    $(document).ready(function () {
+        $('#menu_document').click();
+        $("#SPublishedTime").datepicker({ dateFormat: "dd/mm/yy" });
+
+    });
+
+    function openWin() {
+        myWindow = window.open('@Url.Action("MultiUpload", "Admin")?tab=1', '', 'width=900,height=768');
+
+        myWindow.focus();
+    }
+
+
+
+</script>
+<script type="text/javascript">
+
+
+    function validateForm() {
+        var name = $('#Name').val();
+        if (name == "") {
+
+            alert('Tên không được trống');
+            $('#Name').focus();
+            return false;
+        }
+        var description = $('#Description').val();
+        if (description == "") {
+
+            alert('Mô tả không được trống');
+            $('#Description').focus();
+            return false;
+        }
+        var code = $('#Code').val();
+        if (code == "") {
+
+            alert('Mã không được trống');
+            $('#Code').focus();
+            return false;
+        }
+        var time = $('#SPublishedTime').val();
+        if (time == "") {
+
+            alert('Ngày phát hình không được trống');
+            $('#SPublishedTime').focus();
+            return false;
+        }
+        return true;
+
+    }
+
+</script>

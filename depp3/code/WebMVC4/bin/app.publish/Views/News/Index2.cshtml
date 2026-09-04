@@ -1,0 +1,70 @@
+﻿@using BIZ
+@using UTILS
+@using WebMVC4.Helper
+@model List<BIZ.Entity.CONTENT_FULL>
+
+@{Html.RenderAction("Breadcrumb", "News", new { CategoryId = 18 });}
+<div class="form-group yearchoos mt20">
+    <label>Chọn năm sản xuất</label>
+    <div class="col-md-4 col-sm-6 col-xs-6">
+        <select id="ddlYear" onchange="searchnews()">
+            <option value="0">--Chọn năm--</option>
+            @for (var i = DateTime.Now.Year; i >= 2015; i--)
+            {
+
+                if (i == ViewBag.Year)
+                {
+                    <option value="@i" selected="selected">Năm @(i)</option>
+                }
+                else
+                {
+                    <option value="@i">Năm @(i)</option>
+                }
+
+            }
+        </select>
+    </div>
+</div>
+<div class="clearfix"></div>
+<ul class="bookslist mt30 row">
+    @if (Model != null)
+    {
+        foreach (var item in Model.Select((value, i) => new { i, value }))
+        {
+            <li class="col-md-4 col-sm-3 col-xs-6">
+                <a href="@item.value.LinkUrl">
+                    <img alt="@item.value.Title" src="@item.value.MainImage?w=220&h=305&mode=crop" />
+                    <span>@item.value.Title</span>
+                </a>
+            </li>
+        }
+    }
+    else
+    {
+        <h4 style="text-align:center"> Không có bài viết nào</h4>
+    }
+
+
+</ul>
+<div class="pagination pull-right mt30">
+    <ul>
+        @{Html.RenderPartial("Pagination", new WebMVC4.Models.PaginationInfo
+            {
+                PageUrl = Url.SetParameter("Page", "!0"),
+                CurrentPage = ViewBag.Page,
+                PageSize = ViewBag.PageSize,
+                TotalItemCount = ViewBag.Total,
+            }); }
+    </ul>
+</div>
+
+<script src="~/Scripts/jquery.query.js"></script>
+<script type="text/javascript">
+
+
+    function searchnews() {
+
+        var Year = $('#ddlYear option:selected').val();
+        window.location = jQuery.query.set("Year", Year).set("Page", "1");
+    }
+</script>

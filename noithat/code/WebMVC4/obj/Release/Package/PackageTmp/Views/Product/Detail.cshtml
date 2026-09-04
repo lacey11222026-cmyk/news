@@ -1,0 +1,233 @@
+﻿@using BIZ
+@using BIZ.Entity
+@using UTILS
+@using WebMVC4.Helper
+@model WebMVC4.Models.ProductDetailModel
+@if (Model != null)
+{
+    <div class="page-title page-title-default title-size-small title-design-default color-scheme-light with-back-btn title-shop" style="">
+        <div class="container">
+            <div class="nav-shop">
+
+                <div class="shop-title-wrapper">
+
+                    <h1 class="entry-title">@Model.Cate.Name</h1>
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+
+    <div class="container-fluid">
+        <div class="row content-layout-wrapper align-items-start">
+
+
+            <div class="site-content shop-content-area col-12 breadcrumbs-location-summary content-with-products" role="main">
+
+
+
+
+                <div id="product-1437" class="single-product-page single-product-content product-design-default tabs-location-standard tabs-type-tabs meta-location-add_to_cart reviews-location-tabs product-no-bg post-1437 product type-product status-publish has-post-thumbnail product_cat-sofa first instock shipping-taxable purchasable product-type-simple">
+
+                    <div class="container">
+
+
+                        <div class="row product-image-summary-wrap">
+                            <div class="product-image-summary col-lg-12 col-12 col-md-12">
+                                <div class="row product-image-summary-inner">
+                                    <div class="col-lg-6 col-12 col-md-6 product-images">
+                                        <div class="product-images-inner">
+                                            <div class="woocommerce-product-gallery woocommerce-product-gallery--with-images woocommerce-product-gallery--with-images woocommerce-product-gallery--columns-4 images images row align-items-start thumbs-position-bottom image-action-zoom" style="opacity: 1; transition: opacity 0.25s ease-in-out 0s;">
+                                                <div class="col-12">
+
+                                                    <figure class="woocommerce-product-gallery__wrapper owl-items-lg-1 owl-items-md-1 owl-items-sm-1 owl-items-xs-1 owl-carousel">
+                                                        <div class="product-image-wrap"><figure data-thumb="@Model.Detail.DescriptImage" class="woocommerce-product-gallery__image"><a href="@Model.Detail.DescriptImage"><img width="600" height="600" src="@Model.Detail.DescriptImage" class="wp-post-image wp-post-image" alt="" title="Altino" data-caption=""></a></figure></div>
+                                                    </figure>
+                                                    @*<div class="product-additional-galleries">
+                                                            <div class="woodmart-show-product-gallery-wrap  wd-gallery-btn"><a href="#" class="woodmart-show-product-gallery"><span>Click to enlarge</span></a></div>
+                                                        </div>*@
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6 col-12 col-md-6 summary entry-summary">
+                                        <div class="summary-inner">
+                                            <div class="single-breadcrumbs-wrapper">
+                                                <div class="single-breadcrumbs">
+                                                    @if (Model.Cate.ParentId == 0)
+                                                    {
+                                                        <nav class="woocommerce-breadcrumb">
+                                                            <a href="/" class="breadcrumb-link ">Trang chủ</a>
+
+                                                            <span class="breadcrumb-last">@Model.Cate.Name</span>
+                                                        </nav>
+                                                    }
+                                                    else
+                                                    {
+                                                        <nav class="woocommerce-breadcrumb">
+                                                            <a href="/" class="breadcrumb-link ">Trang chủ</a>
+                                                            <a href="@Model.CateParrent.Url" class="breadcrumb-link breadcrumb-link-last">
+                                                                @Model.CateParrent.Name
+                                                            </a>
+                                                            <span class="breadcrumb-last"> @Model.Cate.Name</span>
+                                                        </nav>
+                                                    }																							<div class="woodmart-products-nav">
+
+
+
+                                                    </div>
+                                                </div>
+                                            </div>
+
+
+                                            <h1 itemprop="name" class="product_title entry-title">@Model.Detail.Name</h1>
+                                            <p class="price"><span class="woocommerce-Price-amount amount">@Utils.InsertCommaNoStyle(Model.Detail.Price.ToString())</span></p>
+
+
+                                            <div class="cart" action="https://thaituaninterior.com/san-pham/altino/" method="post" enctype="multipart/form-data">
+
+
+                                                <div class="quantity">
+                                                    <input type="button" value="-" class="minus">
+                                                    <label class="screen-reader-text">Số lượng</label>
+                                                    <input type="number" id="input-quantity" class="input-text qty text" step="1" min="1" max="" name="quantity" value="1" title="SL" size="4" pattern="[0-9]*" inputmode="numeric">
+                                                    <input type="button" value="+" class="plus">
+                                                </div>
+
+                                                <button type="button" onclick="addproductdetail()" name="add-to-cart" value="1437" class="single_add_to_cart_button button alt">Thêm vào giỏ</button>
+
+                                            </div>
+
+
+
+                                            @*<div class="woodmart-wishlist-btn wd-action-btn wd-wishlist-btn wd-style-text">
+                                                    <a href="https://thaituaninterior.com/san-pham/altino/" data-key="d12519e4ad" data-product-id="1437" data-added-text="Browse Wishlist">Add to wishlist</a>
+                                                </div>*@
+                                            <div class="product_meta">
+
+
+
+                                                @Html.Raw(Model.Detail.Description)
+
+
+                                            </div>
+
+                                            <div class="product-share">
+                                                <span class="share-title">Share</span>
+
+                                                <div class="woodmart-social-icons text-center icons-design-default icons-size-small color-scheme-dark social-share social-form-circle">
+
+                                                    <a target="_blank" title="Chia sẻ bài viết lên facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://@(Request.Url.Host)@(Utils.FormatUrlRewrite(Model.Detail.Id, Model.Detail.Name, "ProductDetail"))"><i class="fa fa-facebook"></i></a>
+                                                    <span class="inline-space"></span>
+                                                    <a target="_blank" title="Chia sẻ bài viết lên twitter" href="https://twitter.com/intent/tweet?source=webclient&amp;text=@(Model.Detail.Name) - http://@(Request.Url.Host)@(Utils.FormatUrlRewrite(Model.Detail.Id, Model.Detail.Name, "ProductDetail"))"><i class="fa fa-twitter"></i></a>
+                                                    <span class="inline-space"></span>
+                                                    <a target="_blank" title="Chia sẻ bài viết lên google plus" href="https://plus.google.com/share?url=http://@(Request.Url.Host)@(Utils.FormatUrlRewrite(Model.Detail.Id, Model.Detail.Name, "ProductDetail"))"><i class="fa fa-google-plus"></i></a>
+
+
+
+
+
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div><!-- .summary -->
+                            </div>
+
+
+                        </div>
+
+
+                    </div>
+
+                    <div class="product-tabs-wrapper col-lg-12 col-12 col-md-12">
+
+
+                        <div class="woocommerce-tabs wc-tabs-wrapper">
+                            @*<ul class="tabs wc-tabs">
+                                    <li class="description_tab active">
+                                        <a href="#tab-description">Thông số kỹ thuật</a>
+                                    </li>
+
+                                </ul>*@
+                            <div class="woodmart-tab-wrapper">
+                                <a href="#tab-description" class="woodmart-accordion-title tab-title-description">Mô tả</a>
+                                <div class="woocommerce-Tabs-panel woocommerce-Tabs-panel--description panel entry-content wc-tab" id="tab-description" style="display: block;">
+                                    <div class="wc-tab-inner " id="NewsContent">
+                                        @Html.Raw(Model.Detail.Intro)
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="container related-and-upsells">
+                        <div class="related-products">
+
+                            <h3 class="title slider-title">Sản phẩm tương tự</h3>
+
+                            <div id="carousel-508" class="woodmart-carousel-container  slider-type-product woodmart-carousel-spacing-30" data-owl-carousel="" data-desktop="4" data-tablet_landscape="4" data-tablet="3" data-mobile="2">
+                                <div class="owl-carousel owl-items-lg-4 owl-items-md-4 owl-items-sm-3 owl-items-xs-2">
+                                    @{Html.RenderAction("RelateProduct", "Product", new { categoryId = Model.Detail.CategoryId, id = Model.Detail.Id, manuid = 0 });}
+
+
+
+                                </div> <!-- end product-items -->
+                            </div> <!-- end #carousel-508 -->
+
+
+                        </div>
+
+                    </div>
+
+                </div><!-- #product-1437 -->
+
+
+
+
+
+            </div>
+        </div><!-- .main-page-wrapper -->
+    </div>
+
+    <script src="~/Content/js/formvalidate.js?vs=161111"></script>
+    <script>
+        function upnumber() {
+            var amount = parseInt($("#input-quantity").val());
+            amount = amount + 1;
+            $("#input-quantity").val(amount);
+        }
+        function downnumber() {
+            var amount = parseInt($("#input-quantity").val());
+            amount = amount - 1;
+            if (amount <= 0)
+                amount = 1;
+            $("#input-quantity").val(amount);
+        }
+
+
+        function addproductdetail() {
+            var amount = $("#input-quantity").val();
+            if (!isInteger(amount))
+                amount = 1;
+            var url = '@Url.Action("AddProduct","Order",new { productId=Model.Detail.Id})' + '&amount=' + amount;
+            //alert(url);
+            window.location.href = url;
+        }
+
+    </script>
+    <script>
+        $('#NewsContent table').removeAttr('width');
+
+        $('#NewsContent  img').removeAttr('width');
+        $('#NewsContent  img').removeAttr('style');
+    </script>
+
+
+}

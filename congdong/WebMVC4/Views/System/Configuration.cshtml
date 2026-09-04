@@ -1,0 +1,158 @@
+﻿@using BIZ
+@using WebMVC4.Helper
+@{
+    var langpage = WorkContext.GetLanguage();
+}
+@{
+
+    Layout = "~/Views/Shared/_AdminV2.cshtml";
+    ViewBag.Title = "Thiết lập hệ thống";
+}
+@{
+    var Result1 = new SystemConfigBO().GetValueByKey("Result1");
+    var Result2 = new SystemConfigBO().GetValueByKey("Result2");
+    var Result3 = new SystemConfigBO().GetValueByKey("Result3");
+    var Result4 = new SystemConfigBO().GetValueByKey("Result4");
+    var Result5 = new SystemConfigBO().GetValueByKey("Result5");
+}
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <i class="fa fa-fw fa-user-md"></i><span>@ViewBag.Title </span>
+            </div>
+            <form id="defaultForm" method="post" class="form-horizontal">
+                <div class="panel-group" id="steps">
+
+                    <div class="panel panel-info">
+                        <div id="Errordiv" style="margin:20px;color:red;font-size:13pt"><center></center></div><br />
+                        @*<div class="panel-heading">
+                                <h4 class="panel-title"><i class="fa fa-wrench" style="margin-right:7px"></i>Thông Tin Cơ Bản</h4>
+                            </div>*@
+                        <div style="padding: 10px 0 0 0;background-color:#fff !important">
+
+                            <div class="col-md-12">
+                                <div>
+                                    <!-- dành cho UpdateFunction -->
+                                    @*<div class="form-group">
+                                        <label for="ExchangeRate" class="control-label col-md-3">LƯỢNG TIẾT KIỆM NĂNG LƯỢNG :</label>
+                                        <div class="col-md-9">
+                                            <div class="input-icon right">
+                                                <textarea id="Result1" name="appSettings" class="form-control" cols="20" style="height: 90px;font-size: 13px;font-weight: bold">@Result1</textarea>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="InterestRate" class="control-label col-md-3">LƯỢNG GIẢM PHÁT THẢI :</label>
+                                        <div class="col-md-9">
+                                            <div class="input-icon right">
+                                                <textarea id="Result2" name="appSettings" class="form-control" style="height: 90px;font-size: 13px;font-weight: bold" cols="20">@Result2</textarea>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="InterestRate" class="control-label col-md-3">GIẢI NGÂN :</label>
+                                        <div class="col-md-9">
+                                            <div class="input-icon right">
+                                                <textarea id="Result3" name="appSettings" class="form-control" style="height: 90px;font-size: 13px;font-weight: bold" cols="20">@Result3</textarea>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="InterestRate" class="control-label col-md-3">Số doanh nghiệp hưởng lợi :</label>
+                                        <div class="col-md-9">
+                                            <div class="input-icon right">
+                                                <textarea id="Result4" name="appSettings" class="form-control" style="height: 90px;font-size: 13px;font-weight: bold" cols="20">@Result4</textarea>
+
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="InterestRate" class="control-label col-md-3">Số tiểu dự án được hỗ trợ :</label>
+                                        <div class="col-md-9">
+                                            <div class="input-icon right">
+                                                <textarea id="Result5" name="appSettings" class="form-control" style="height: 90px;font-size: 13px;font-weight: bold" cols="20">@Result5</textarea>
+
+                                            </div>
+                                        </div>
+                                    </div>*@
+
+                                    <div class="panel-footer form-horizontal">
+                                        <div class="form-group submit">
+
+
+                                            <button type="button" class="btn btn-primary" id="btsubmit" onclick="SaveAppSettings()" style="display:none"><i class="fa fa-save"></i>Lưu lại</button>
+                                            <button type="button" class="btn btn-primary" id="btsubmit2" onclick="FlushCache()" ><i class="fa fa-save"></i>Xóa cache</button>
+                                        </div>
+                                    </div>
+
+
+                                </div>
+                            </div>
+                            <div style="clear:both"></div>
+                        </div>
+
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    $('#menu_config').addClass("active");
+    $('#menu_1').addClass("active");
+    function FlushCache() {
+
+
+
+        $.ajax({
+            type: 'POST',
+            url: "/Post/SystemService.ashx",
+            data: {
+                __m: 'flush',
+
+            },
+            success: function (data) {
+                Utils.UnLoading();
+                bootbox.alert("Thành công");
+            }
+        });
+
+
+    }
+
+    function SaveAppSettings() {
+
+        var postData = [];
+        var values = '';
+
+        $('#defaultForm').find('textarea').each(function (i, e) {
+
+            values = $(e).attr('id') + '|' + $(e).val();
+            postData.push(values);
+        });
+        Utils.Loading();
+
+        $.ajax({
+            type: 'POST',
+            url: "/Post/SystemService.ashx",
+            data: {
+                __m: 'save_appsettings',
+                'data': postData
+            },
+            success: function (data) {
+                Utils.UnLoading();
+                bootbox.alert("Lưu thông tin thành công");
+            }
+        });
+
+
+    }
+
+</script>

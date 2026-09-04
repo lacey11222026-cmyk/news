@@ -1,0 +1,17 @@
+﻿@model List<DATA.Banner>
+@if (Model != null)
+{
+    <div class="slider mt20">
+        <div class="container">
+            <div class="slide-chantrang">
+                <ul id="flexiselDemo3">
+                    @foreach (var item in Model.Select((value, i) => new { i, value }))
+                    {
+                        <li><a href="@item.value.Url" rel="nofollow" target="_blank"><img src="@item.value.Data" alt=""></a></li>
+                    }
+                    </ul>
+            </div>
+        </div>
+    </div>
+    
+}

@@ -1,0 +1,59 @@
+﻿@using BIZ.Entity
+@using UTILS
+@using WebMVC4.Helper
+@model List<CATEGORY_FULL>
+
+@foreach (var item in Model.Select((value, i) => new { i, value }))
+{
+    if (item.value.Param.IsFooter == 0)
+    {
+        <li id="menu-item-@item.value.Id" class="menu-item menu-item-type-taxonomy menu-item-object-product_cat menu-item-@item.value.Id item-level-0 menu-item-design-default menu-simple-dropdown item-event-hover"><a href="@item.value.Url" class="woodmart-nav-link"><span class="nav-link-text">@item.value.Name</span></a></li>
+    }
+    else
+    {
+        <li id="menu-item-@item.value.Id" class="menu-item menu-item-type-taxonomy menu-item-object-product_cat menu-item-2795 item-level-0 menu-item-design-full-width menu-mega-dropdown item-event-hover menu-item-has-children">
+            <a href="@item.value.Url" class="woodmart-nav-link"><span class="nav-link-text">@item.value.Name</span></a>
+            <div class="sub-menu-dropdown color-scheme-dark">
+
+                <div class="container">
+                    <div class="vc_row wpb_row vc_row-fluid vc_custom_1608199474606 vc_row-o-content-middle vc_row-flex">
+                        <div class="wpb_column vc_column_container vc_col-sm-6">
+                            <div class="vc_column-inner">
+                                <div class="wpb_wrapper">
+                                    <ul class="sub-menu mega-menu-list">
+                                        <li class="">
+                                            <a><span class="nav-link-text"></span></a>
+                                            <ul class="sub-sub-menu">
+
+                                                @Html.Action("SubMenuProduct", "Home", new { CategoryId = item.value.Id })
+
+                                            </ul>
+                                        </li>
+                                    </ul>
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="wpb_column vc_column_container vc_col-sm-6">
+                            <div class="vc_column-inner">
+                                <div class="wpb_wrapper">
+                                    <div class="wpb_single_image wpb_content_element vc_align_left vc_custom_1608196034313">
+
+                                        <figure class="wpb_wrapper vc_figure">
+                                            <div class="vc_single_image-wrapper   vc_box_border_grey"><img width="1000" height="600" src="@item.value.Param.ImageBG" /></div>
+                                        </figure>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </li>
+    }
+    
+}
+
+

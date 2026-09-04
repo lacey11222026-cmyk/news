@@ -1,0 +1,41 @@
+﻿@using BIZ
+@using UTILS
+@using WebMVC4.Helper
+@model WebMVC4.Models.News2Model
+
+<div class="e-magazine-page">
+    <div class="e-banner">
+        <img src="/Content/img/bnr-e-magazine.jpg" alt="" class="w-100 hidden-767">
+        <img src="~/Content/img/bnr-e-magazine-mb.jpg" alt="" class="w-100 block-767">
+        <div><h2><img src="~/Content/img/bnr-e-magazine-txt.png" alt="e-magazine"></h2></div>
+    </div>
+    <div class="container">
+        <div class="mt50 video-wrap">
+            <ul class="newshot row">
+                @if (Model != null)
+                {
+                    foreach (var item in Model.articles.Select((value, i) => new { i, value }))
+                    {
+                        <li class="col-lg-4 col-md-6 col-sm-12">
+                            <a href="@item.value.LinkUrl" class="newshot-item">
+                                <img src="@item.value.MainImage?w=371&h=207&mode=crop">
+                                <span class="mt15">@item.value.Title</span>
+                            </a>
+                        </li>
+                    }
+                }
+
+
+            </ul>
+            <div class="paging mt10">
+
+            </div>
+        </div>
+    </div>
+</div>
+<style>
+    .tool
+    {
+        display:none;
+    }
+</style>

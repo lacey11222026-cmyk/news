@@ -1,0 +1,27 @@
+﻿@using BIZ.Entity
+@using UTILS
+@using WebMVC4.Helper
+@model List<CATEGORY_FULL>
+
+@foreach (var item in Model.Take(4).Select((value, i) => new { i, value }))
+{
+
+    <div class="promo-banner-wrapper owl-item active">
+
+        <div  class="promo-banner banner-vr-align-middle banner-hr-align-center banner- banner-hover-zoom color-scheme-light banner-btn-size-default banner-btn-style-default  with-btn banner-btn-position-hover cursor-pointer" onclick="window.location.href='@item.value.Link'">
+
+            <div class="main-wrapp-img">
+                <div class="banner-image">
+                    <img class="promo-banner-image image-1 " src="@item.value.Image" alt="@item.value.Name" title="sofa-aconcept" width="467" height="700">
+                </div>
+            </div>
+
+            <div class="wrapper-content-banner ">
+                <div class="content-banner text-center content-width-100">
+                    <div class="banner-title-wrap banner-title-default"><h4 class="banner-title woodmart-font-weight-">@item.value.Name</h4></div>
+                    <div class="banner-btn-wrapper"><div id="wd-6010d98b03f76" class="woodmart-button-wrapper text-center"><a class="btn btn-color-default btn-style-default btn-shape-rectangle btn-size-default">Chi tiết</a></div></div>
+                </div>
+            </div>
+        </div>
+    </div>
+}

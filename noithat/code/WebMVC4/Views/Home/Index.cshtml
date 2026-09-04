@@ -1,0 +1,88 @@
+﻿@using BIZ
+@using UTILS
+@using WebMVC4.Helper
+<div class="container">
+    <div class="row content-layout-wrapper align-items-start">
+
+
+
+
+        <div class="site-content col-lg-12 col-12 col-md-12" role="main">
+
+            <article id="post-5" class="post-5 page type-page status-publish has-post-thumbnail hentry">
+
+                <div class="entry-content">
+                    <div class="vc_row wpb_row vc_row-fluid vc_custom_1606564455662">
+                        <div class="wpb_column vc_column_container vc_col-sm-12">
+                            <div class="vc_column-inner">
+                                <div class="wpb_wrapper">
+                                    @Html.Action("Slide", "Home")
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="vc_row wpb_row vc_row-fluid vc_custom_1606638412090">
+                        <div class="wpb_column vc_column_container vc_col-sm-12">
+                            <div class="vc_column-inner">
+                                <div class="wpb_wrapper">
+                                    @Html.Action("Intro", "Home", new { CategoryId = 41 })
+                                    <div id="carousel-244" class="woodmart-carousel-container banners-carousel-wrapper  woodmart-carousel-spacing-30" data-owl-carousel="" data-wrap="no" data-hide_pagination_control="no" data-hide_prev_next_buttons="no" data-dragendspeed="600" data-desktop="4" data-tablet_landscape="4" data-tablet="3" data-mobile="1">
+                                        <div class="owl-carousel banners-carousel owl-items-lg-4 owl-items-md-4 owl-items-sm-3 owl-items-xs-1 owl-loaded owl-drag">
+
+
+                                            <div class="owl-carousel banners-carousel  owl-items-lg-4 owl-items-md-4 owl-items-sm-3 owl-items-xs-1">
+                                                @Html.Action("TopGroup", "Home")
+                                            </div>
+
+
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="vc_row wpb_row vc_row-fluid vc_custom_1610010993434">
+                        @Html.Action("TopGroup2", "Home")
+                    </div>
+
+                    @Html.Action("Intro", "Home", new { CategoryId = 92 })
+
+                    <div class="vc_row wpb_row vc_row-fluid vc_custom_1606667446355">
+                        <div class="wpb_column vc_column_container vc_col-sm-12">
+                            <div class="vc_column-inner">
+                                <div class="wpb_wrapper">
+                                    <div id="wd-5ff6d1983230b" class="title-wrapper  woodmart-title-color-default woodmart-title-style-default woodmart-title-width-100 text-center woodmart-title-size-medium ">
+
+                                        <div class="liner-continer">
+                                            <span class="left-line"></span>
+                                            <div class="woodmart-title-container title  woodmart-font-weight-">DỰ ÁN THI CÔNG NỘI THẤT</div>
+                                            <span class="right-line"></span>
+                                        </div>
+
+                                    </div>
+                                    @{Html.RenderAction("LastestNews2", "Home", new { CategoryId = 114, MaxLastestNews = 6 });}
+                                    
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div data-vc-full-width="true" data-vc-full-width-init="true" class="vc_row wpb_row vc_row-fluid vc_custom_1606635898785 vc_row-has-fill" style="position: relative; left: -340.5px; box-sizing: border-box; width: 1903px; padding-left: 340.5px; padding-right: 340.5px;">
+
+                        <div data-vc-full-width="true" data-vc-full-width-init="true" class="vc_row wpb_row vc_row-fluid vc_custom_1606635898785 vc_row-has-fill" style="position: relative; left: -340.5px; box-sizing: border-box; width: 1903px; padding-left: 340.5px; padding-right: 340.5px;">
+                            @{Html.RenderAction("LastestNews", "Home", new { CategoryId = 40, MaxLastestNews = 3 });}
+                        </div>
+                        <div class="vc_row-full-width vc_clearfix"></div>
+                    </div>
+
+
+            </article><!-- #post -->
+
+
+
+        </div><!-- .site-content -->
+
+
+
+    </div><!-- .main-page-wrapper -->
+</div>

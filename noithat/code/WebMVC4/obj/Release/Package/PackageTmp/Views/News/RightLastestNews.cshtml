@@ -1,0 +1,26 @@
+﻿@using BIZ
+@using UTILS
+@using WebMVC4.Helper
+@model WebMVC4.Models.LastestNewModel
+@if (Model != null)
+{
+    if (Model.lstdata.Count > 0)
+    {
+        <aside id="recent-posts-2" class="widget widget_recent_entries">
+            <h2 class="widget-title">Tin tức mới</h2>
+            <ul>
+                @foreach (var item in Model.lstdata.Select((value, i) => new { i, value }))
+                {
+                    <li>
+                        <a href="@Utils.FormatUrlRewrite(item.value.Id, item.value.Title, "ArticleDetail")"
+                           title="@item.value.Title">
+                            @item.value.Title
+                        </a>
+                    </li>
+
+                }
+            </ul>
+        </aside>
+    }
+    
+}

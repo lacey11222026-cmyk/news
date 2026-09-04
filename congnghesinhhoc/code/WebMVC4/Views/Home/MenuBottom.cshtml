@@ -1,0 +1,90 @@
+﻿@using BIZ
+@using UTILS
+@using WebMVC4.Helper
+@model List<BIZ.Entity.CATEGORY_FULL>
+@{
+    var langpage = WorkContext.GetLanguage();
+}
+@if (langpage == "vi-vn")
+{
+    <div class="tags">
+        <ul class="pull-left tags-list">
+            @foreach (var item in Model.Select((value, i) => new { i, value }))
+            {
+                if (item.i % 2 == 0)
+                {
+                    @Html.Raw("<li><ul>")
+
+
+
+                }
+                <li>
+                    <a href="@Utils.FormatUrlRewriteByType(item.value.Id, item.value.Name, int.Parse(item.value.Type.ToString()), item.value.Link)">@item.value.Name </a>
+
+                </li>
+                if (item.i % 2 == 1 || item.i == Model.Count - 1)
+                {
+                    @Html.Raw("</ul></li>")
+
+
+
+                }
+
+            }
+
+        </ul>
+        <div class="f-nav pull-right">
+            <ul>
+                <li><a href="/">Trang chủ</a></li>
+                <li><a href="/Home/SiteMap">Sơ đồ</a></li>
+                <li><a href="/gioi-thieu/c26/quy-che.html">Quy chế</a></li>
+                <li><a href="/gioi-thieu/c11/lien-he.html">Liên hệ</a></li>
+            </ul>
+            <a href="https://www.facebook.com/KHCNcongthuong/"><img src="/Content2/images/facebook.png" alt=""></a>
+        </div>
+        <div class="clearfix"></div>
+    </div>
+    <div class="clearfix"></div>
+
+}
+else
+{
+    <div class="tags">
+        <ul class="pull-left tags-list">
+            @foreach (var item in Model.Select((value, i) => new { i, value }))
+            {
+                if (item.i % 2 == 0)
+                {
+                    @Html.Raw("<li><ul>")
+
+
+
+                }
+                <li>
+                    <a href="@Utils.FormatUrlRewriteByType(item.value.Id, item.value.Name, int.Parse(item.value.Type.ToString()), item.value.Link)">@item.value.Description </a>
+
+                </li>
+                if (item.i % 2 == 1 || item.i == Model.Count - 1)
+                {
+                    @Html.Raw("</ul></li>")
+
+
+
+                }
+
+            }
+
+        </ul>
+        <div class="f-nav pull-right">
+            <ul>
+                <li><a href="/">Home</a></li>
+                <li><a href="/Home/SiteMap">SiteMap</a></li>
+                <li><a href="/gioi-thieu/c26/quy-che.html">Private Policy</a></li>
+                <li><a href="/gioi-thieu/c11/lien-he.html">Contact</a></li>
+            </ul>
+            <a href="https://www.facebook.com/KHCNcongthuong/"><img src="/Content2/images/facebook.png" alt=""></a>
+        </div>
+        <div class="clearfix"></div>
+    </div>
+    <div class="clearfix"></div>
+}

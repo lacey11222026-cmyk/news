@@ -1,0 +1,14 @@
+﻿@model List<DATA.TechProcess>
+<ul class="pdf-list">
+    @if (Model != null)
+    {
+        foreach (var item in Model.Select((value, i) => new { i, value }))
+        {
+            <li>
+                <div class=" pdf-img"><img src="/Content2/images/icon-pdf.png" alt=""></div>
+                <p class="">@*<a href="@Url.Action("Detail","TechProcess",new { id=item.value.Id})">*@ <a href="#" class="alert">@item.value.Name</a></p>
+                <div class="clearfix"></div>
+            </li>
+        }
+    }
+</ul>

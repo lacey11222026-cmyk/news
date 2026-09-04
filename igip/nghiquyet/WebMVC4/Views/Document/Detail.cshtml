@@ -1,0 +1,133 @@
+﻿@using BIZ
+@using DATA
+@using UTILS
+@using WebMVC4.Helper
+@model BIZ.Entity.DOCUMENT_FULL
+@{
+    var langpage = "vi-vn";
+}
+
+<div class="main-content container mt20">
+    <div class="row">
+        <div class="col-lg-12 col-md-12">
+            @{Html.RenderAction("Breadcrumb", "News", new { CategoryId = Model.CategoryId });}
+            <div class="mt40 manage-detail-page">
+                <table>
+                    <tbody>
+                        <tr>
+                            <th style="min-width:200px">Tên văn bản</th>
+                            <td colspan="3"> @Html.Raw(Model.Name)</td>
+                        </tr>
+                        <tr>
+                            <th>Số hiệu</th>
+                            <td>@Model.Code</td>
+                            <th>Ngày ban hành</th>
+                            <td>
+                                @if (!Model.PublishDate.HasValue)
+                                {
+
+                                    <text>&nbsp;</text>
+                                }
+                                else
+                                {
+                                    if (Model.PublishDate.Value.Year < 9000)
+                                    {
+                                        @Convert.ToDateTime(Model.PublishDate).ToString(@" dd'/'MM'/'yyyy")
+                                    }
+                                    else
+                                    {
+                                        <text>&nbsp;</text>
+                                    }
+
+                                }
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>Ngày có hiệu lực</th>
+                            <td>
+                                @if (!Model.EffectiveDate.HasValue)
+                                {
+
+                                    <text>&nbsp;</text>
+                                }
+                                else
+                                {
+                                    if (Model.EffectiveDate.Value.Year < 9000)
+                                    {
+                                        @Convert.ToDateTime(Model.EffectiveDate).ToString(@" dd'/'MM'/'yyyy")
+                                    }
+                                    else
+                                    {
+                                        <text>&nbsp;</text>
+                                    }
+
+                                }
+                            </td>
+                            <th>Ngày hết hiệu lực</th>
+                            <td>
+                                @if (!Model.ExpiryDate.HasValue)
+                                {
+
+                                    <text>&nbsp;</text>
+                                }
+                                else
+                                {
+                                    if (Model.ExpiryDate.Value.Year < 9000)
+                                    {
+                                        @Convert.ToDateTime(Model.ExpiryDate).ToString(@" dd'/'MM'/'yyyy")
+                                    }
+                                    else
+                                    {
+                                        <text>&nbsp;</text>
+                                    }
+
+                                }
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>Mô tả</th>
+                            <td colspan="3">@Html.Raw(Model.Description)</td>
+                        </tr>
+                        <tr>
+                            <th>Lĩnh vực</th>
+                            <td>@HtmlHelpers.GetDocAre(Model.Area)</td>
+                            <th>Loại văn bản</th>
+                            <td>@HtmlHelpers.GetDocType(Model.Type)</td>
+                        </tr>
+                        <tr>
+                            <th>Cơ quan ban hành</th>
+                            <td>@HtmlHelpers.GetDocAgent(Model.Agent, langpage)</td>
+                            @*<td>
+                                @Model.SignedByDesc
+                            </td>*@
+                            <th>Người ký</th>
+                            <td>
+                                @Model.SignedBy
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>Xem online</th>
+                            <td><a href="@Url.Action("ViewFile","Document",new { id=Model.Id})" class="btn-read">Read Online</a></td>
+                            <th>Tải về</th>
+                            <td><a href="@Url.Action("DownloadFile","Document",new { id=Model.Id})" class="btn-download">Download</a></td>
+                        </tr>
+                       
+                    </tbody>
+                </table>
+            </div>
+
+        </div><!-- end content left-->
+
+
+    </div>
+</div>
+
+<script type="text/javascript">
+
+ $('#menu_' + '@ViewBag.CurrentCategoryId').addClass("active");
+
+  $('#menu_' + '@ViewBag.ParentCategoryId').addClass("active");
+
+
+
+</script>

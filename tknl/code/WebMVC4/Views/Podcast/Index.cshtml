@@ -1,0 +1,128 @@
+﻿@using BIZ
+@using BIZ.Entity
+@using UTILS
+@using WebMVC4
+@using WebMVC4.Helper
+@model BIZ.Entity.CONTENT_FULL
+
+@{var StaticSiteUrl = MvcApplication.StaticSiteUrl;}
+
+<div class="podcast-page mt30">
+    <div class="container">
+        <div class="title-cm02"><a href="#"><i class="icon-mic"></i>podcast</a></div>
+    </div>
+    <div class="mt50 podcast-c1">
+        <div class="container">
+            <div class="podcast-bignew">
+                <div class="podcast-bignew-img"><img src="@Model.MainImage?w=290&mode=crop" alt=""></div>
+                <div class="podcast-bignew-content">
+                    <h3 class="podcast-bigname textwhite">@Model.Title</h3>
+                    <p class="date textwhite mt15">@Model.PublishDate.ToString("dd/MM/yyyy")</p>
+                    <div class="icon-wrap mt15">
+                        <div><div class="fb-like" data-href="@(Model.LinkUrl)" data-layout="button_count" data-action="like" data-show-faces="false" data-share="true"></div></div>
+                        <div class="icon-list">
+                            <a href="javascript:void(0);" onclick="openWin('@ViewBag.FacebookShare');"><img src="@(StaticSiteUrl)/Content/images/icon-face-gray.png" alt=""></a>
+                            <a href="#"><img src="@(StaticSiteUrl)/Content/images/icon-video-gray.png" alt=""></a>
+                            <a href="javascript:void(0);" onclick="openWin('@ViewBag.GoogleShare');"><img src="@(StaticSiteUrl)/Content/images/icon-mail-gray.png" alt=""></a>
+                        </div>
+                    </div>
+                    <p class="mt20 textwhite">
+                        @Model.IntroText
+                    </p>
+                </div>
+            </div>
+            <div class="mp3 mt50">
+                <div class="audio-player">
+                    <audio id="audioFile" src="@Model.Url"></audio>
+                    <button onclick="skipTime(-10)" class="audio-back">10s</button>
+                    <button id="playPauseButton" onclick="togglePlayPause()"></button>
+                    <button onclick="skipTime(10)" class="audio-next">10s</button>
+                    <span id="currentTime">0:00</span>
+                    <div class="progress-bar" id="progressBar">
+                        <div class="progress" id="progress"></div>
+                    </div>
+                    <span id="totalTime">0:00</span>
+                </div>
+            </div>
+        </div>
+    </div><!--/ Edn c1 --->
+    <div class="podcast-02 mt50 pb50">
+        <div class="podcast-news container">
+            <div class="title-podcast">
+                <a href="#">Podcast</a>
+                <a href="#" class="active"><i class="icon-mic-white"></i>mới nhất</a>
+            </div>
+            <div id="lstVideo">
+                @Html.Action("LoadVideo", new { VideoId = Model.Id, page = 1 })
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+
+    function openWin(url) {
+        var myWindow = window.open(url, '', 'width=700,height=500');
+        myWindow.focus();
+    }
+</script>
+<script src="https://kit.fontawesome.com/9d8584fa51.js" crossorigin="anonymous"></script>
+<script>
+    var audio = document.getElementById('audioFile');
+    var progressBar = document.getElementById('progressBar');
+    var progress = document.getElementById('progress');
+    var playPauseButton = document.getElementById('playPauseButton');
+    var audioPlayer = document.querySelector('.audio-player');
+    var currentTimeElem = document.getElementById('currentTime');
+    var totalTimeElem = document.getElementById('totalTime');
+
+    // Toggle play/pause functionality and button appearance
+    function togglePlayPause() {
+        if (audio.paused || audio.ended) {
+            audio.play();
+            audioPlayer.classList.add('audio-playing');
+        } else {
+            audio.pause();
+            audioPlayer.classList.remove('audio-playing');
+        }
+    }
+
+    // Update the progress bar
+    audio.ontimeupdate = function () {
+        var percentage = Math.floor((100 / audio.duration) * audio.currentTime);
+        progress.style.width = percentage + '%';
+    }
+
+    // Click on progress bar to change the time
+    progressBar.addEventListener('click', function (e) {
+        var offset = this.getBoundingClientRect();
+        var x = e.pageX - offset.left;
+        audio.currentTime = (x / progressBar.offsetWidth) * audio.duration;
+    });
+
+    // Adjust progress element to grow from left to right
+    function skipTime(seconds) {
+        audio.currentTime += seconds;
+    }
+
+    // Format time in minutes:seconds
+    function formatTime(seconds) {
+        var minutes = Math.floor(seconds / 60);
+        var seconds = Math.floor(seconds % 60);
+        return minutes + ':' + (seconds < 10 ? '0' + seconds : seconds);
+    }
+
+    // Update the current time display
+    audio.ontimeupdate = function () {
+        var percentage = Math.floor((100 / audio.duration) * audio.currentTime);
+        progress.style.width = percentage + '%';
+        currentTimeElem.textContent = formatTime(audio.currentTime);
+    };
+
+    // Set the total time display
+    audio.onloadedmetadata = function () {
+        totalTimeElem.textContent = formatTime(audio.duration);
+    };
+
+</script>

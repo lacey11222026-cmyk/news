@@ -1,0 +1,233 @@
+﻿#NewsContent img, #NewsContent table {
+    max-width: 850px;
+    height: auto !important;
+}
+
+#NewsContent p, #NewsContent div {
+    margin: 1em 0;
+}
+
+.dvtinlienquan a {
+    text-decoration: none;
+    line-height: 23px;
+}
+#NewsContent div, #NewsContent p {
+    margin: 1em 0;
+}
+
+#NewsContent img {
+    margin: 0px auto !important;
+    text-align: center;
+}
+
+#NewsContent table {
+    width: auto !important;
+    margin: 0px auto !important;
+}
+
+@media screen and (max-width: 767px) {
+    .chum_anhlist {
+        margin-left: 10px;
+    }
+
+    #document table, th, td {
+        padding: 0px;
+        font-size: 86%;
+    }
+
+    #NewsContent img {
+        height: auto !important;
+    }
+
+    #NewsContent img, #NewsContent table {
+        max-width: 368px !important;
+        text-align: center;
+    }
+
+    #NewsContent iframe {
+        max-width: 368px !important;
+        height: auto !important
+    }
+
+    .intro table, .intro img {
+        max-width: 360px !important;
+    }
+}
+
+@media screen and (max-width: 485px) {
+    #NewsContent img, #NewsContent table {
+        width: 100% !important;
+        max-width: 368px !important;
+        text-align: center;
+    }
+
+    #NewsContent iframe {
+        max-width: 368px !important;
+        height: auto !important
+    }
+
+    .intro table, .intro img {
+        width: 100% !important;
+    }
+
+    .library-img li:nth-child(2n+1) {
+        clear: both;
+    }
+}
+/*------- Document page -------*/
+.search {
+    width: 100%;
+    margin: 20px 0;
+}
+
+    .search .btn-search {
+        padding: 5px 10px 3px 10px;
+        font-size: 13px;
+        font-weight: bold;
+        background-color: #1f5ecb;
+        color: #fff;
+        margin-left: 5px;
+        border: none;
+    }
+
+    .search input {
+        height: 25px;
+        border: 1px solid #ccc;
+        border-radius: 0;
+    }
+
+    .search .form-inline > .form-group:nth-child(1) input {
+        width: 200px;
+    }
+
+    .search .form-inline > .form-group:nth-child(3) input,
+    .search .form-inline > .form-group:nth-child(2) input {
+        width: 125px;
+    }
+
+    .search label {
+        font-size: 13px;
+        margin-left: 10px;
+        color: #1f5ecb;
+    }
+
+    .search .form-group:nth-child(1) label {
+        margin-left: 0;
+    }
+
+
+.document-table {
+    width: 100%;
+}
+
+#document table {
+    color: #404040;
+    width: 100%;
+}
+
+    #document table th {
+        text-align: center;
+    }
+
+    #document table a {
+        color: #404040;
+    }
+
+    #document table tr:nth-child(odd) {
+        background-color: #f5f5f5;
+    }
+
+    #document table tr > td a > img {
+        width: 100%;
+    }
+
+#document table, th, td {
+    border: 1px solid #d3d3d3;
+    border-collapse: collapse;
+    padding: 10px;
+}
+
+.list-page .title3 a {
+    display: block;
+}
+
+.document-tabs > ul > li {
+    display: inline-block;
+    float: left;
+    margin-right: 50px;
+}
+
+.document-tabs li li a {
+    font-size: 10px;
+    font-weight: bold;
+    color: #1f5ecb;
+    text-transform: uppercase;
+}
+
+.document-tabs li li {
+    background: url(../images/ico-document03.png) no-repeat left center;
+    background-size: 15px;
+    padding: 5px 0 5px 20px;
+    display: block;
+}
+
+.document-tabs > ul > li:last-child {
+    margin-right: 0;
+}
+
+.document-tabs > ul > li > ul > li {
+}
+
+.detail-link {
+    text-align: left;
+}
+.submenu-list .active a {
+    color: #3cf !important;
+}
+#NewsContent ul {
+    display: block;
+    list-style-type: disc;
+    margin-block-start: 1em;
+    margin-block-end: 1em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+    padding-inline-start: 40px;
+}
+
+#NewsContent li {
+    display: list-item;
+    list-style-type: disc;
+    text-align: -webkit-match-parent;
+}
+.pagination li a {
+   
+    padding: 5px 5px;
+    
+}
+/*tin lien quan*/
+.related-posts {
+    margin-bottom: 10px;
+    margin-top:10px;
+}
+.related-posts li {
+    display: block;
+    padding: 0 0 10px;
+    line-height: 17px;
+     position: relative; 
+}
+    .related-posts li:before {
+        content: " ";
+        position: absolute;
+        width: 6px;
+        height: 6px;
+        background: red;
+        top: 5px;
+        border-radius: 999px;
+    }
+    .related-posts a {
+        display: block;
+        color: #909090;
+        font-weight: bold;
+        padding-left: 15px;
+        font-size: 14px;
+    }

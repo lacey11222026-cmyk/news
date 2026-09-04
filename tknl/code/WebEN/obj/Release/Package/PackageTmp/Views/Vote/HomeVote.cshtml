@@ -1,0 +1,96 @@
+﻿@using UTILS
+@using  WebEN.Models
+@using  WebEN.Helper
+@model WebEN.Models.SurveyItemModel
+
+@if (Model != null)
+{
+    <div class="box2">
+        <div class="title3">BÌNH CHỌN</div>
+        <div class="dong3">
+            @Model.obj.Content
+
+            @foreach (var item in Model.listdata)
+            {
+
+                if (Model.obj.Type == 1)
+                {
+                <p>
+
+                    <input type="radio" value="@item.Id" name="answer_result">
+                    @item.Content
+
+
+
+                </p>
+                }
+                else
+                {
+                <p>
+
+                    <input type="checkbox" value="@item.Id" name="answer_result">
+                    @item.Content
+
+                </p>
+                }
+
+            }
+
+            <ul>
+                <li>
+                    <button id="sendquestion">Bình chọn</button>
+                </li>
+                <li>
+                    <button id="viewquestion">Kết quả</button>
+                </li>
+                <li style="display: none">
+                    <a class="frame" id="viewvote" href="@Url.Action("View","Vote",new{Id=Model.obj.Id})">Xem kết quả</a>
+                </li>
+            </ul>
+            <div class="clear"></div>
+        </div>
+    </div>
+    <script type="text/javascript">
+        $(document).ready(function () {
+
+
+            $("a.frame").fancybox({
+                'padding': 0,
+                'overlayColor': '#777777',
+                'overlayShow': true,
+                'autoDimensions': true,
+                'type': 'iframe',
+                'width': 600,
+                'height': 390,
+                'scrolling': 'yes', // 'auto', 'yes' or 'no'
+            });
+
+        });
+        $("#viewquestion").click(function () {
+            $("#viewvote").click();
+        });
+        $("#sendquestion").click(function () {
+           
+            var lstAnswer = '';
+            var answers = $('input[name="answer_result"]:checked');
+            $.each(answers, function (i, answer) {
+                lstAnswer += '|' + $(answer).val();
+            });
+            lstAnswer += '|'
+            if (lstAnswer == '|') {
+                alert("Chưa chọn câu trả lời");
+
+                return false;
+            }
+           
+            $.post('@Url.Action("SubmitQuestion", "Vote")', { "lstAnswer": lstAnswer },
+                function (data) {
+                    $("#viewvote").click();
+
+                }, 'json');
+
+
+        });
+    </script>
+   
+}

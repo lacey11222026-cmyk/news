@@ -1,0 +1,9 @@
+﻿<ul class="pagination text-center">
+    @{Html.RenderPartial("Pagination", new WebMVC4.Models.PaginationInfo
+            {
+                PageUrl = Url.SetParameter("page", "!0"),
+                CurrentPage = ViewBag.pageIndex,
+                PageSize = ViewBag.pageSize,
+                TotalItemCount = ViewBag.total,
+            }); }
+</ul>

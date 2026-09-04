@@ -1,0 +1,117 @@
+﻿@using BIZ
+@using BIZ
+@using UTILS
+@using WebMVC4.Helper
+@model WebMVC4.Models.NewsModel
+
+@if (Model != null)
+{
+
+    <div class="content01 container mt10">
+        <div class="row">
+            <div class="col-lg-8 col-md-12 col-sm-12">
+
+                <h2 class="title-cm-02"> <a href="#">@Resources.Global.MenuSearch</a></h2>
+
+                <div class="mt30">
+                    <div class="text-center document-search">
+
+                        <div class="form-group">
+                            <label class=""> @Resources.Global.Keyword</label>
+                            <input id="txtkeyword" class="form-control" type="text" value="@ViewBag.keyword" width="190">
+                        </div>
+
+                        <div class="form-group">
+                            <label> @Resources.Global.FromDate</label>
+                            <input id="txtfromdate" placeholder="dd/MM/yyyy" value="@ViewBag.fromdate" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label> @Resources.Global.ToDate</label>
+                            <input id="txttodate" placeholder="dd/MM/yyyy" value="@ViewBag.todate" class="form-control">
+                        </div>
+                        <div class="form-group" style="display: none">
+                            <label class="">Chuyên mục</label>
+                            @Html.DropDownList("drlCategory", new SelectList(ViewBag.CategoryList as System.Collections.IEnumerable, "Id", "Name", ViewBag.CategoryId), new { @class = "form-control" })
+                        </div>
+                        <div>
+                            <a href="javascript:;" onclick="searchnews();" class="btn-green">@Resources.Global.MenuSearch</a>
+                        </div>
+                        
+
+                    </div>
+
+                </div>
+
+                <div class="mt30" style="font-weight: bold;"> @Resources.Global.Total : @Model.total  @Resources.Global.Content</div>
+                <div class="newslist-04 mt40">
+                    @if (Model.listdata != null)
+                    {
+                        foreach (var item in Model.listdata.Select((value, i) => new { i, value }))
+                        {
+                            <div>
+                                <a href="@item.value.LinkUrl" class="newslist-04-item">
+                                    <img src="@item.value.MainImage2?w=239&h=160&mode=crop" alt="">
+                                    <div>
+                                        <p class="news-name">@item.value.Title</p>
+                                        <p class="mt10 newsdate">@item.value.PublishDate.ToString("HH:mm") - @item.value.PublishDate.ToString("dd/MM/yyyy")</p>
+                                    </div>
+                                </a>
+                            </div>
+                        }
+                    }
+                </div>
+                <div class="paging mt30">
+                    <ul>
+                        @{Html.RenderPartial("Pagination", new WebMVC4.Models.PaginationInfo
+                            {
+                                PageUrl = Url.SetParameter("Page", "!0"),
+                                CurrentPage = Model.pageIndex,
+                                PageSize = Model.pageSize,
+                                TotalItemCount = Model.total,
+                            }); }
+                    </ul>
+                </div>
+            </div><!--/End content left-->
+            <div class="col-lg-4 col-md-12">
+                @Html.Partial("Site_Right2")
+            </div><!--/End content right-->
+        </div><!-- end row-->
+    </div>
+
+
+
+    <div class="clear padtop10"></div>
+    <link href="~/Scripts/jquery-ui-1.8.15.custom/css/smoothness/jquery-ui-1.8.15.custom.css" rel="stylesheet" />
+    <script src="~/Scripts/jquery-ui-1.8.15.custom/js/jquery-ui-1.8.15.custom.min.js"></script>
+    <script src="~/Scripts/jquery.query.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+
+            $("#txtfromdate").datepicker({
+                changeYear: true,
+                changeMonth: true,
+                dateFormat: "dd/mm/yy",
+                duration: 'fast',
+            });
+            $("#txttodate").datepicker({
+                changeYear: true,
+                changeMonth: true,
+                dateFormat: "dd/mm/yy",
+                duration: 'fast',
+            });
+        });
+
+        function searchnews() {
+            var keyword = $("#txtkeyword").val();
+            var fromdate = $("#txtfromdate").val();
+            var todate = $("#txttodate").val();
+            var cateid = $('#drlCategory option:selected').val();
+            window.location = jQuery.query.set("q", keyword).set("fromdate", fromdate).set("todate", todate).set("categoryid", "-1").set("Page", "1");
+        }
+    </script>
+    <style>
+        .ui-datepicker table {
+            font-size: 11px !important;
+        }
+    </style>
+}

@@ -1,0 +1,42 @@
+﻿@using BIZ
+@using UTILS
+@using WebMVC4.Helper
+@model BIZ.Entity.CATEGORY_FULL
+@using WebMVC4.Helper
+@{
+    var langpage = WorkContext.GetLanguage();
+}
+@if (Model != null)
+{
+
+    if (langpage == "vi-vn")
+    {
+        <div class="bnr-detail">
+            <img src="@Model.Image" alt="">
+        </div>
+        <div class="contact-page pt60 pb60 bg-gray">
+            <div class="container">
+                <h2 class="title-cm">
+                    @Html.Raw(Model.Name)
+                </h2>
+                @Html.Raw(Model.Contents)
+            </div>
+
+        </div>
+    }
+    else
+    {
+        <div class="bnr-detail">
+            <img src="@(!String.IsNullOrEmpty(Model.Param.ImageEn)?Model.Param.ImageEn:Model.Image)" alt="">
+        </div>
+        <div class="contact-page pt60 pb60 bg-gray">
+            <div class="container">
+                <h2 class="title-cm">@Html.Raw(Model.Language)</h2>
+                @Html.Raw(Model.Param.ContentEn)
+            </div>
+
+        </div>
+    }
+
+
+}

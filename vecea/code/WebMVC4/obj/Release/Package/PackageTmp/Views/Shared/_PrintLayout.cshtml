@@ -1,0 +1,73 @@
+﻿@using WebMVC4
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+
+    <meta name="description" content="@ViewBag.Description" />
+    <meta name="keywords" content="@ViewBag.Keywords" />
+    <meta name="news_keywords" content="@ViewBag.Keywords" />
+    <meta name="author" content="vecea" />
+
+    <meta content="general" name="rating" />
+    <meta content="vecea" name="copyright" />
+    <meta content="never" name="expires" />
+    <meta content="global" name="distribution" />
+    <meta content="DOCUMENT" name="RESOURCE-TYPE" />
+    <meta content="vecea.vn" name="GENERATOR" />
+    <meta name="robots" content="index,follow" />
+    <meta name="Googlebot" content="index,follow,noarchive" />
+    <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
+    <meta content="@ViewBag.MainImage" property="og:image">
+    <link rel="icon" type="image/icon" href="~/Content/images/logo-icon.png">
+  
+    @*<link type="image/x-icon" href="/site.ico" rel="Shortcut Icon" />*@
+
+     
+    <meta name="description" content="@ViewBag.Description" />
+    <meta name="keywords" content="@ViewBag.Keywords" />
+    <meta name="news_keywords" content="@ViewBag.Keywords" />
+    <meta name="author" content="vecea" />
+
+    <meta content="general" name="rating" />
+    <meta content="vecea" name="copyright" />
+    <meta content="never" name="expires" />
+    <meta content="global" name="distribution" />
+    <meta content="DOCUMENT" name="RESOURCE-TYPE" />
+    <meta content="vecea.vn" name="GENERATOR" />
+    <meta name="robots" content="index,follow" />
+    <meta name="Googlebot" content="index,follow,noarchive" />
+    <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
+    <meta content="@ViewBag.MainImage" property="og:image">
+    <link rel="icon" type="image/icon" href="~/Content/images/logo-icon.png">
+     @Styles.Render("~/Content/sitecss")
+      <link href="/Styles/print.css" rel="stylesheet" type="text/css" />
+        
+
+    
+</head>
+<body>
+
+
+    <div id="main">
+        <div id="header">
+            <div id="logo">
+            </div>
+        </div>
+        <div id="body">
+            <div class="print"><span onclick="window.print()" class="cursor">[In trang]</span></div>
+            <div id="article">
+                @RenderBody()
+            </div>
+        </div>
+        <div id="footer">
+            <div class="print"><span onclick="window.print()" class="cursor">[In trang]</span></div>
+            
+        </div>
+    </div>
+
+
+   
+</body>
+
+
+</html>

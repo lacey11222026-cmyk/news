@@ -1,0 +1,167 @@
+﻿@using WebEN
+<script src="~/Scripts/stringvalidate.js" type="text/javascript"></script>
+
+<div class="title9" style="margin-top: 40px; margin-bottom: -5px; padding-top: 10px;">Ý kiến phản hồi</div>
+
+
+<div class="binhluan">
+    @*<p>Ý kiến phản hồi</p>*@
+    <ul>
+
+        <li>
+            <input id="txtname" name="name" type="text" placeholder="Họ và tên" />
+
+            <input id="txtmail" name="name" type="text" placeholder="Email" />
+
+        </li>
+
+        <li>
+            <textarea id="txtmessage" name="message" cols="" rows="8" placeholder="Nội dung"></textarea></li>
+
+        <li>
+            <button onclick="Send();">Gửi bình luận</button></li>
+    </ul>
+    <div class="clear"></div>
+    <div id="lava-dialog">
+    </div>
+</div>
+<div class="comment" id="box_comment">
+    <div class="title_comment"><span>Bình luận</span></div>
+    <ul id="ul_comment">
+
+       
+    </ul>
+</div>
+
+<script src="~/Scripts/jquery-services-110405.js" type="text/javascript"></script>
+<script type="text/javascript">
+
+    var itemid = '@ViewBag.ItemId';
+    var itemname = $('#newsTitle').html();
+    var type = '@ViewBag.Type';
+
+
+    function Reset() {
+        $('#txtname').val('');
+        $('#txtmessage').val('');
+        $('#txtmail').val('');
+    }
+
+    $(document).ready(function () {
+
+
+        gettopComment(8);
+    });
+    function gettopComment(top) {
+
+        $.Services({
+            element: $('#list_cm'),
+            //loadingImg: 'Đang tải dữ liệu ...',
+            serviceName: 'CommentService.ashx',
+            data: {
+                __m: 'get_top_comments',
+
+                itemid: itemid,
+
+                top: top
+            },
+            success: function (data) {
+                var html = '';
+                if (data != undefined && data != null && data != '') {
+
+                    html = BindData(data);
+                    $('#ul_comment').html(html);
+                    if (top > 0 && top <= data.length) {
+                        html = ' <div class="xemtiep"> <a onclick="gettopComment(0);" class="fr" href="javascript:void(0);" >Xem tất cả</a> </div> </div class="clear">&nbsp;</div>';
+                        $('#box_comment').append(html);
+                    }
+
+                }
+
+
+            }
+        });
+
+    }
+    function BindData(data) {
+        //var html = '<div class="title9">Ý kiến bạn đọc</div>';
+        var html = '';
+        $.each(data, function (index, item) {
+
+            html += ' <li>  <div><div class="vitri1">';
+            html += '<span class="red">' + item.UserName + '  </span>';
+            html += ' <span class="font10">' + dateFormat(item.CreatedTime, 'dd/MM/yyyy HH:mm') + '</span><br>  </div> ';
+            html += '  <p>  ' + item.Message + '    </p>    </div>   <div class="clear"></div></li>';
+
+        });
+
+        return html;
+    }
+
+    function Send() {
+        var username = Encoder.urlEndcode($('#txtname').val());
+        var mail = $('#txtmail').val();
+        var message = Encoder.urlEndcode($('#txtmessage').val());
+
+        if (username == "") {
+
+            alert('Vui lòng nhập tên của bạn');
+            $('#txtname').focus();
+            return false;
+        }
+        if (mail == "") {
+
+            alert('Vui lòng nhập Email của bạn');
+            $('#txtmail').focus();
+            return false;
+        }
+        if (!isValidEmailAddress(mail)) {
+            alert(mail);
+            alert('Email của bạn chưa hợp lệ');
+            $('#txtmail').focus();
+            return false;
+        }
+        if (message == "") {
+
+            alert('Vui lòng nhập nội dung bình luận');
+            $('#txtmessage').focus();
+            return false;
+        }
+        var post_data = {
+            __m: 'save',
+            id: '0',
+            username: username,
+            mail: Encoder.urlEndcode(mail),
+            message: message,
+            itemid: itemid,
+            itemname: Encoder.urlEndcode(itemname),
+            type: type,
+            published: '0'
+        }
+
+        $.Services({
+
+            isCrossDomain: false,
+            url: POST_URL + 'CommentService.ashx',
+            data: post_data,
+            success: function (data) {
+
+                if (data != undefined && data != null && data != '') {
+                    //var json_data = eval('(' + data + ')');
+                    var json_data = $.parseJSON(data.substring(data.indexOf("{"), data.lastIndexOf("}") + 1));
+                    if (json_data.Success) {
+
+                        //if (json_data.Value != 0 && json_data.Value != null && json_data.Value != undefined && json_data.Value != '') {
+                        //    attributeGroupId = json_data.Value;
+                        //}
+                        Reset();
+                        //OnLoad();
+                    }
+                }
+
+                alert(json_data.Text);
+                //OpenAlertDialog(json_data.Text, "Thông báo",400);
+            }
+        });
+    }
+</script>

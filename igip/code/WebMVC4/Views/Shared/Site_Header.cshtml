@@ -1,0 +1,186 @@
+﻿@using UTILS
+@using WebMVC4.Helper
+@{
+    var Date = Utils.formatDateofWeek(DateTime.Now.DayOfWeek) + ", " + DateTime.Now.ToString("dd/MM/yyy ") + "| " + DateTime.Now.ToString("HH:mm");
+
+    var DateEN = DateTime.Now.DayOfWeek.ToString() + ", " + DateTime.Now.ToString("dd/MM/yyy ") + "| " + DateTime.Now.ToString("HH:mm");
+}
+@{
+    var langpage = WorkContext.GetLanguage();
+}
+
+<div class="header">
+    <div class="header-conent01">
+        <img src="/Content/images/topbanner.gif?vs=02" alt="Bộ Công Thương, cục đổi mới sáng tạo, chuyển đổi xanh và khuyến công" class="pull-right bnr-img">
+        <div class="bnr-content">
+            <div class="container">
+                @if (langpage == "vi-vn")
+                {
+                    <a href="#" class="hidden-575"><img src="/Content/images/logo-top-092025.png" alt="IGIP" class="logo-top" width="825"></a>
+                    <a href="#" class="block-575"><img src="/Content/images/logo-footer-092025.png" alt="IGIP" class="logo-top"></a>
+                }
+                else
+                {
+                    <a href="/" class="hidden-575"><img src="/Content/images/logo-top-en.gif?vs=05" alt="IGIP" class="logo-top" width="825"></a>
+                    <a href="/" class="block-575"><img src="/Content/images/LOGO_BOTTOM-ENG.gif" alt="IGIP" class="logo-top"></a>
+                }
+            </div>
+        </div>
+    </div>
+    <div class="nav_top">
+        <div class="container">
+            <div class="nav-top-content">
+                <div class="nav-left disflex">
+                    <div class="ico-home"><a href="/"><img src="/Content/images/icon-home.svg" alt="Trang chủ" width="12"></a></div>
+                    <nav class="nav-list">
+                        <ul>
+                            @{Html.RenderAction("Menu", "Home", new { lang = langpage });}
+                        </ul>
+                    </nav>
+                </div>
+                <div class="nav-right">
+                    <ul>
+                        @if (langpage == "vi-vn")
+                        {
+                            <li><a href="/gioi-thieu/c11/lien-he" class="icon-cm"><img src="/Content/images/icon-phone.svg" width="10"></a></li>
+                        }
+                        else
+                        {
+                            <li><a href="/gioi-thieu/c26/contact" class="icon-cm"><img src="/Content/images/icon-phone.svg" width="10"></a></li>
+                        }
+                        <li><a href="https://www.facebook.com/cucdck" target="_blank" class="icon-cm"><img src="/Content/images/icon-face.svg" width="5"></a></li>
+                        <li><a href="/trang-chu-video"   class="icon-cm"><img src="/Content/images/icon-youtube.svg" width="12"></a></li>
+                        @if (langpage == "vi-vn")
+                        {
+                            <li>
+                                <a href="/Home/Language?lang=en-us"><img src="/Content/images/icon-en.svg" width="20"></a>
+                            </li>
+                        }
+                        else
+                        {
+                            <li>   <a href="/Home/Language?lang=vi-vn"><img src="/Content/images/icon-vn.png" width="20"></a></li>
+                        }
+
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="header-mobile">
+        <a href="#menu">
+            <img src="/Content/images/menu.svg" width="30" class="ico-menu">
+        </a>
+        <div class="header-mobile-content">
+            <div class="header-mb-top">
+                <a href="#menu" class="ico-close">
+                    <img src="/Content/images/close.svg" width="18">
+                </a>
+                @if (langpage == "vi-vn")
+                {
+                    <a href="/" class="logo-top-mb"><img src="/Content/images/logo-top-092025.png" alt=""></a>
+                }
+                else
+                {
+                    <a href="/" class="logo-top-mb"><img src="/Content/images/logo-top-en.gif?vs=04" alt=""></a>
+                }
+            </div>
+            <div class="nav-mb mt20">
+                <div class="search-box w100">
+                    <button class="search-icon" onclick="Msearch();"></button>
+                    <input type="text" class="form-control" id="txtKeywordMobile" onkeydown="javascript: return MAnyInput_KeyDown(this, event);">
+                </div>
+                <ul class="nav-mb-list mt20">
+                    @{Html.RenderAction("MenuMobile", "Home", new { lang = langpage });}
+                    @if (langpage == "vi-vn")
+                    {
+                        <li> <a href="/Home/Language?lang=en-us">Ngôn ngữ &nbsp;<img src="/Content/images/icon-en.svg" width="20"></a></li>
+                    }
+                    else
+                    {
+                        <li> <a href="/Home/Language?lang=vi-vn">Language &nbsp;<img src="/Content/images/icon-vn.png" width="20"></a></li>
+                    }
+                </ul>
+
+            </div>
+        </div>
+    </div>
+</div><!-- end header-->
+<div class="container tool">
+    @if (langpage == "vi-vn")
+    {
+        <p class="date-orange mt10">@Date GMT+7</p>
+        <ul class="disflex hidden-767">
+            <li>
+                <div class="search-box">
+                    <button class="search-icon" onclick="search();"></button>
+                    <input type="text" class="input-cm" id="txtKeyword" onkeydown="javascript: return AnyInput_KeyDown(this, event);">
+                </div>
+            </li>
+            <li class="lienket-area">
+                <select name="lienket" id="" class="input-cm" onchange="window.open(this.options[this.selectedIndex].value,'_blank');this.options[0].selected=true">
+                    <option value="">Liên kết</option>
+                    <option value="https://moit.gov.vn/">Cổng TTĐT Bộ Công Thương</option>
+                    <option value="https://tietkiemnangluong.com.vn">Chương trình VNEEP3</option>
+                </select>
+            </li>
+        </ul>
+    }
+    else
+    {
+        <p class="date-orange mt10">@DateEN GMT+7</p>
+        <ul class="disflex hidden-767">
+            <li>
+                <div class="search-box">
+                    <button class="search-icon" onclick="search();"></button>
+                    <input type="text" class="input-cm" id="txtKeyword" onkeydown="javascript: return AnyInput_KeyDown(this, event);">
+                </div>
+            </li>
+            <li class="lienket-area">
+                <select name="lienket" id="" class="input-cm" onchange="window.open(this.options[this.selectedIndex].value,'_blank');this.options[0].selected=true">
+                    <option value="">Link</option>
+                    <option value="https://moit.gov.vn/en">Ministry of Industry and Trade </option>
+                    <option value="https://vneec.gov.vn/">VNEEP3 Program</option>
+                </select>
+            </li>
+        </ul>
+    }
+
+
+</div>
+
+
+<script type="text/javascript">
+    function search() {
+        var searchtext = $("#txtKeyword").val();
+        window.location = "/News/Search?q=" + encodeURIComponent(searchtext);
+
+    }
+    function AnyInput_KeyDown(sender, e) {
+        if ((e.which && e.which == 13) || (e.keyCode && e.keyCode == 13)) {
+            search();
+
+            return false;
+        }
+
+        return true;
+    }
+
+
+    function Msearch() {
+        var searchtext = $("#txtKeywordMobile").val();
+        window.location = "/News/Search?q=" + encodeURIComponent(searchtext);
+
+    }
+    function MAnyInput_KeyDown(sender, e) {
+        if ((e.which && e.which === 13) || (e.keyCode && e.keyCode === 13)) {
+            Msearch();
+
+            return false;
+        }
+
+        return true;
+    }
+
+
+
+</script>

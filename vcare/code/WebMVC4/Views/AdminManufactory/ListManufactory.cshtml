@@ -1,0 +1,185 @@
+﻿@using UTILS
+@using DATA
+@using BIZ.Entity
+@using WebMVC4.Helper
+@model List<MANUFACTORY_FULL>
+    <table class="table table-striped table-bordered table-hover dataTable no-footer" id="dataTables">
+        <thead>
+            <tr>
+                @*<th>Mã </th>*@
+                <th>Tên</th>
+                <th>Chuyên mục</th>
+                <th>Trạng Thái</th>
+
+
+            </tr>
+        </thead>
+        @if (Model != null && Model.Count > 0)
+        {
+            foreach (var obj in Model)
+            {
+                if (obj.ParentId == 0)
+                {
+                    <tr>
+                        @*<td>@obj.Id</td>*@
+                        <td style="text-align:left"><a href="@Url.Action("AddEdit", new { id = obj.Id })">@obj.Title</a></td>
+                        <td>@HtmlHelpers.GetNewsCategoryName(obj.CategoryId, ViewBag.CategoryList)</td>
+
+                        <td>
+                            @if (obj.Published == 1)
+                            {
+                                <a href="javascript:;" title="Kích hoạt trạng thái không hoạt động" onclick="UpdateStatus(@obj.Id, 1);"><i class="fa fa-check"></i></a>
+
+                            }
+                            else
+                            {
+                                <a href="javascript:;" title="Kích hoạt trạng thái hoạt động" onclick="UpdateStatus(@obj.Id,0);"><i class="fa fa-ban"></i></a>
+
+                            }
+                        </td>
+
+                        <td style="text-align: center">
+
+                            <a href="@Url.Action("AddEdit", new { id = obj.Id })"><i class="fa fa-edit"></i></a>
+
+                            <a href="javascript:;" title="Delete" onclick="DeleteData(@obj.Id)"><i class="fa fa-trash-o"></i></a>
+
+                        </td>
+
+
+
+                    </tr>
+                    if (Model.Exists(x => x.ParentId == obj.Id))
+                    {
+                        foreach (var item in Model.Where(x => x.ParentId == obj.Id))
+                        {
+                            <tr>
+                                @*<td>@obj.Id</td>*@
+                                <td style="text-align:left">-+ <a href="@Url.Action("AddEdit", new { id = item.Id })">@item.Title</a></td>
+                                <td>@HtmlHelpers.GetNewsCategoryName(item.CategoryId, ViewBag.CategoryList)</td>
+
+                                <td>
+                                    @if (item.Published == 1)
+                                    {
+                                        <a href="javascript:;" title="Kích hoạt trạng thái không hoạt động" onclick="UpdateStatus(@item.Id, 1);"><i class="fa fa-check"></i></a>
+
+                                    }
+                                    else
+                                    {
+                                        <a href="javascript:;" title="Kích hoạt trạng thái hoạt động" onclick="UpdateStatus(@item.Id,0);"><i class="fa fa-ban"></i></a>
+
+                                    }
+                                </td>
+
+                                <td style="text-align: center">
+
+                                    <a href="@Url.Action("AddEdit", new { id = item.Id })"><i class="fa fa-edit"></i></a>
+
+                                    <a href="javascript:;" title="Delete" onclick="DeleteData(@item.Id)"><i class="fa fa-trash-o"></i></a>
+
+                                </td>
+
+
+
+                            </tr>
+                        }
+                    }
+                }
+
+            }
+        }
+    </table>
+    <script type="text/javascript">
+    var PageOnSize = '@ViewBag.PageSize';
+    var CurrentPage = '@ViewBag.CurrentPage';
+    var Total = '@ViewBag.TotalRecord';
+
+        function BindDataRequest(currentPage) {
+        parameters = {
+            status: $('#select_filterbystatus :selected').val(),
+            categoryId: $('#select_category :selected').val(),
+            
+        };
+        var urlRequestAns = "/AdminManufactory/ListManufactory";
+        $.ajax({
+            type: 'GET',
+            url: urlRequestAns,
+            data: parameters,
+            success: function (data) {
+                $("#ListManufactory").html(data);
+
+            },
+
+        });
+    };
+    $(document).ready(function () {
+
+        @*$("#pager").pager({
+            pagenumber: CurrentPage,
+            pagecount: Math.ceil('@ViewBag.TotalRecord' / PageOnSize),
+            buttonClickCallback: function (page) { BindDataRequest(page); }
+        });*@
+
+    });
+
+    function UpdateStatus(id, status) {
+        var type = "Vô hiệu hóa";
+        if (status == 0) {
+            type = "Kích hoạt";
+        }
+
+        if (confirm("Bạn muốn " + type + " hãng sản xuất này ?")) {
+
+            $.ajax({
+                type: 'POST',
+                url: "/AdminManufactory/UpdateStatus",
+                data: {
+                    'id': id
+                },
+                success: function (data) {
+
+                    if (data.ResponseCode >= 0) {
+                        alert(data.Description);
+                        BindDataRequest(CurrentPage);
+                    }
+                    else {
+                        alert(data.Description);
+                        return;
+                    }
+                }
+            });
+        }
+    }
+   
+    function DeleteData(id) {
+        var IsDelete = "true";
+        if (IsDelete != "true") {
+            alert("Bạn không có quyền xóa ");
+            return;
+        }
+
+        if (confirm("Bạn chắc chắn muốn xóa hãng sản xuất này ??? ")) {
+
+            $.ajax({
+                type: 'POST',
+                url: "/AdminManufactory/Delete",
+                data: {
+                    'id': id
+                },
+                success: function (data) {
+
+                    if (data.ResponseCode >= 0) {
+                        alert(data.Description);
+                        BindDataRequest(CurrentPage);
+                    }
+                    else {
+                        alert(data.Description);
+                        return;
+                    }
+                }
+            });
+        }
+
+
+    }
+    </script>

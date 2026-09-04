@@ -1,0 +1,176 @@
+﻿@using BIZ
+@using UTILS
+@using WebMVC4.Helper
+
+<div id="hoatdong" class="news-wrap container pt50 pb50">
+    @{Html.RenderAction("LastestNews", "Home", new { CateName = "", CategoryId = 2, MaxLastestNews = 6, cssClass = "maxheight02" });}
+
+</div>
+<div id="vanban" class="bg-blue pt50 pb50 directive-documents">
+    <div class="container">
+        <div class="title-cm-green"><a href="#">VĂN BẢN CHỈ ĐẠO, điều hành</a></div>
+        <div class="document-search-02 mt30">
+            <div class="form-group w-33">
+                <label class="">Lĩnh vực:</label>
+                <select class="form-control" id="linhvuc">
+                    <option value="-1">-- Tất cả --</option>
+                    <option value="1">Văn bản chỉ đạo</option>
+                    <option vocab="2">Văn bản điều hành</option>
+                </select>
+            </div>
+            <div class="form-group w-33">
+                <label class="">Loại văn bản:</label>
+                <select class="form-control" id="loaivanban">
+                    <option value="-1">-- Tất cả --</option>
+                    <option value="1">Nghị quyết</option>
+                    <option value="7">Thông báo</option>
+                    <option value="11">Quyết định</option>
+
+                    <option value="6">Nghị định</option>
+
+                    <option value="13">Thông tư</option>
+
+                    <option value="4">Báo cáo</option>
+                    <option value="5">Chỉ thị</option>
+                    <option value="8">Đề án</option>
+                    <option value="9">Điều lệ</option>
+                    <option value="17">Bản ghi nhớ</option>
+                    <option value="18">Hiệp định</option>
+                    <option value="19">Nghị định thư</option>
+                    <option value="21">Kết luận</option>
+
+                    <option value="22">Chương trình</option>
+                    <option value="23">Kế hoạch</option>
+
+                    <option value="30">Hiến pháp</option>
+                    <option value="31" >Luật</option>
+                    <option value="32" >Lệnh</option>
+                    <option value="33">Sắc lệnh</option>
+                    <option value="34" >Pháp lệnh</option>
+                    <option value="35">Văn kiện</option>
+                    <option value="36" >Văn bản hợp nhất</option>
+                    <option value="37">Thông tư liên tịch</option>
+                    <option value="38">Công văn hướng dẫn</option>
+                    <option value="39" >Quy chế</option>
+                    <option value="40">Thông cáo</option>
+                    <option value="41" >Hướng dẫn</option>
+                    <option value="42" >Phương án</option>
+                    <option value="43" >Dự án</option>
+                    <option value="44" >Biên bản</option>
+                    <option value="45" >Tờ trình</option>
+                    <option value="46" >Hợp đồng</option>
+                    <option value="47" >Biên bản thỏa thuận</option>
+                    <option value="48">Quy định, Quy chế</option>
+                    <option value="20">Khác</option>
+
+                </select>
+            </div>
+            <div class="form-group w-33">
+                <label class="">Cơ quan ban hành:</label>
+
+                <select class="form-control" id="coquanbanhanh">
+                    <option value="-1">-- Tất cả --</option>
+                    <option value="1" >Bộ Chính trị</option>
+
+                    <option value="11" >Quốc hội</option>
+                    <option value="8" >Chính phủ</option>
+                    <option value="3" >Văn phòng Chính phủ</option>
+                    <option value="4" >Văn phòng Trung ương Đảng</option>
+                    <option value="2" >Bộ Công Thương</option>
+                    <option value="6" >Bộ Khoa học và Công nghệ</option>
+                    <option value="5" >Bộ Tài chính</option>
+                    <option value="7" >Bộ Xây dựng</option>
+                    <option value="9" >Bộ Giáo dục và Đào tạo</option>
+                    <option value="11" >Bộ Văn hóa thể thao và Du lịch</option>
+                    <option value="12" >UBND các địa phương</option>
+                    <option value="10" >Khác</option>
+                </select>
+            </div>
+            <div class="form-group w-33">
+                <label class="">Từ ngày</label>
+                <input id="fromdate" class="form-control" type="text" placeholder="dd/MM/yyyy">
+            </div>
+            <div class="form-group w-33">
+                <label class="">đến ngày</label>
+                <input id="todate" class="form-control" type="text" placeholder="dd/MM/yyyy">
+            </div>
+            <div class="form-group w-33">
+                <label class="">Từ khóa:</label>
+                <input id="trichyeu" class="form-control" type="text">
+            </div>
+            <div class="form-group text-center">
+                <a href="#" class="btn btn-success btn-search" onclick="searchdoc()">Tìm kiếm</a>
+            </div>
+        </div>
+
+        <div class="search-results" id="ListDocument">
+
+        </div>
+
+        @{Html.RenderAction("TopDocument2", "Home", new { CategoryId = 7, MaxLastestNews = 12 });}
+    </div>
+</div>
+<script type="text/javascript">
+
+
+    function searchdoc() {
+
+        //var keyword = $("#trichyeu").val();
+        //var fromdate = $("#fromdate").val();
+        //var todate = $("#todate").val();
+        //var type = $("#loaivanban").val();
+        //var area = $("#linhvuc").val();
+        var agent = $("#coquanbanhanh").val();
+
+        var parameters = {
+            keyword: $("#trichyeu").val(),
+            fromdate: $("#fromdate").val(),
+            todate: $("#toDate").val(),
+            type: $('#loaivanban').val(),
+            area: $('#linhvuc').val(),
+            agent: $('#coquanbanhanh').val(),
+        };
+        var urlRequestAns = "@Url.Action("TopDocument")";
+        $.ajax({
+            type: 'GET',
+            url: urlRequestAns,
+            data: parameters,
+            success: function (data) {
+                $("#ListDocument").html(data);
+                //Utils.UnLoading();
+            },
+            error: function () {
+                //Utils.UnLoading();
+            }
+        });
+        }
+        //window.location = '/Home/TopDocument/?CategoryId=3&keyword=' + keyword + '&fromdate=' + fromdate + '&todate=' + todate + '&type=' + type + '&area=' + area + '&agent=' + agent;
+        //window.location = jQuery.query.set("keyword", keyword).set("fromdate", fromdate).set("todate", todate).set("Page", "1");
+
+</script>
+<div id="multimedia" class="tab-wrap container pb50 pt50">
+    <ul class="nav-tabs-green nav nav-tabs">
+        <li><a href="#video" class="nav-link active" id="video-tab" data-toggle="tab" data-target="#video">Video</a></li>
+        <li><a href="#inforgraphic" class="nav-link" id="inforgraphic-tab" data-toggle="tab" data-target="#inforgraphic">INFOGRAPHIC</a></li>
+        <li><a href="#podcast" class="nav-link" id="podcast-tab" data-toggle="tab" data-target="#podcast">PODCAST</a></li>
+        <li><a href="#e-magazine" class="nav-link" id="e-magazine-tab" data-toggle="tab" data-target="#e-magazine">E-MAGAZINE</a></li>
+    </ul>
+
+    <div class="tab-content mt30">
+        <div class="tab-pane active" id="video">
+            @{Html.RenderAction("HomeVideo", "Home", new { CategoryName = "Video", CategoryId = 4, MaxLastestNews = 5, IsMobile = ViewBag.IsMobile });}
+        </div>
+        <div class="multimedia-content tab-pane" id="inforgraphic">
+            @{Html.RenderAction("LastestNews3", "Home", new { CateName = "", CategoryId = 5, MaxLastestNews = 4, cssClass = "maxheight02" });}
+
+        </div>
+        <div class="multimedia-content tab-pane" id="podcast">
+            @{Html.RenderAction("Podcast", "Home", new { CategoryId = 6, MaxLastestNews = 4 });}
+
+        </div>
+        <div class="multimedia-content tab-pane" id="e-magazine">
+            @{Html.RenderAction("Emagazine", "Home", new { CategoryId = 7, MaxLastestNews = 5 });}
+
+        </div>
+    </div>
+</div><!-- end content 04-->

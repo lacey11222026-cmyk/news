@@ -1,0 +1,50 @@
+﻿<link rel="stylesheet" type="text/css" href="/Content/css/bootstrap.min.css" />
+<div class="content container-fluid wrapper wrapper">
+    <div id="container">
+        <div id="content" role="main">
+            <nav class="woocommerce-breadcrumb"><a href="/">Trang chủ</a><span class="navigation-pipe">&nbsp;</span>Đặt hàng</nav>
+            <div class="row sidebar-right">
+                <div class="main-content col-xs-12 col-sm-8 col-md-9">
+                    @*<h1 class="page-title">
+                        <span>Giỏ hàng</span>
+                    </h1>*@
+                    <div class="container contact" style="margin-left: -15px">
+                        @*<div class="page-content row">*@
+                        <div class="shopping-cart col-sm-12" id="divcart">
+
+
+                            @Html.Action("_ShoppingCart")
+
+                        </div>
+
+                        @*</div>*@
+                    </div>
+
+
+                </div>
+                @*<div class="col-xs-12 col-sm-4 col-md-3">
+                    @Html.Partial("Site_Right")
+                </div>*@
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+
+<style>
+    .control-label .required {
+        color: #e02222;
+        font-size: 12px;
+        padding-left: 2px;
+    }
+
+    #billinginfo .form-control {
+        padding: 6px 18px !important;
+    }
+
+    #billinginfo select {
+        padding: 6px 14px !important;
+    }
+</style>

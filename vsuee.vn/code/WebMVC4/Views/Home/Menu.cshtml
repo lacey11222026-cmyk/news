@@ -1,0 +1,77 @@
+﻿@using BIZ
+@using UTILS
+@using WebMVC4.Helper
+@model List<BIZ.Entity.CATEGORY_FULL>
+
+@{
+    var langpage = WorkContext.GetLanguage();
+}
+
+<div class="nav-left">
+    <ul class="nav-cm">
+        @foreach (var item in Model.Take(4).Select((value, i) => new { i, value }))
+        {
+
+            <li>
+                <a href="@item.value.Url">
+                    @item.value.Name  @if (item.value.Id != 39)
+                    {
+                        <i class="fa fa-caret-down" aria-hidden="true"></i>
+                    }
+                </a>
+                @Html.Raw(HtmlHelpers.BindChildCategories(Convert.ToInt32(item.value.Id), int.Parse(item.value.Type.ToString())))
+
+            </li>
+
+        }
+
+    </ul>
+</div>
+<a href="/"><img src="/Content/images/logo.png" alt="Vsuee" class="logo-pc"></a>
+<div class="nav-right">
+    <ul class="nav-cm">
+        @foreach (var item in Model.Skip(4).Select((value, i) => new { i, value }))
+        {
+
+            <li>
+                <a href="@item.value.Url">
+                    @item.value.Name   @if (item.value.Id != 37 && item.value.Id != 83 && item.value.Id != 82 && item.value.Id != 42 && item.value.Id != 84 && item.value.Id != 85 && item.value.Id != 93 && item.value.Id != 94 && item.value.Id != 83 && item.value.Id != 84)
+                    {
+                        <i class="fa fa-caret-down" aria-hidden="true"></i>
+                    }
+                </a>
+
+                @Html.Raw(HtmlHelpers.BindChildCategories(Convert.ToInt32(item.value.Id), int.Parse(item.value.Type.ToString())))
+
+            </li>
+
+        }
+        @if (langpage == "vi-vn")
+        {
+            <li>
+                <a href="/"><i class="icon-language"></i> VI <i class="fa fa-caret-down" aria-hidden="true"></i></a>
+                <ul class="nav-sub">
+                    <li><a href="/Home/Language?lang=en-us">EN</a></li>
+                </ul>
+            </li>
+        }
+        else
+        {
+            <li>
+                <a href="/"><i class="icon-language"></i> EN <i class="fa fa-caret-down" aria-hidden="true"></i></a>
+                <ul class="nav-sub">
+                    <li><a href="/Home/Language?lang=vi-vn">VI</a></li>
+                </ul>
+            </li>
+        }
+
+    </ul>
+</div>
+
+
+<style>
+    .nav-cm li {
+        padding: 20px 8px;
+       
+    }
+</style>

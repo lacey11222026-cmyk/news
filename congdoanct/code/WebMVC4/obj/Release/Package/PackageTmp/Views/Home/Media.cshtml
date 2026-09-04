@@ -1,0 +1,53 @@
+﻿@using UTILS
+@model WebMVC4.Models.MediaModel
+<div class="padbot article">
+
+    <div class="bg_blu"><a href="/tin-tuc/c69/video.html">Video</a>
+    </div>
+    <div class="content_img content_news">
+        <ul class="images_content" style="border: none;">
+            @foreach (var item in Model.LstVideo.Select((value, i) => new {i, value}))
+            {
+                <li>
+                    <a href="@item.value.LinkUrl">
+                        <img src="@item.value.MainImage?w=209&h=125&mode=crop">
+                    </a>
+                    <div class="clear"></div>
+                    <a href="@item.value.LinkUrl">@item.value.Title</a>
+                </li>
+
+            }
+        </ul>
+        <div class="clear"></div>
+
+    </div>
+</div>
+<div class="clear"></div>
+<div class="padbot article">
+
+    <div class="bg_blu">
+        <a href="/thu-vien-anh/c71/tu-lieu-anh.html">Tư liệu ảnh</a>
+    </div>
+
+    <div class="content_img content_news">
+        <ul class="images_content" style="border: none;">
+            @foreach (var item in Model.LstAlbum.Select((value, i) => new { i, value }))
+            {
+                <li>
+                    <a href="@Utils.FormatUrlRewrite(item.value.Id, item.value.Title, "AlbumDetail")">
+                        <img src="@item.value.MainImage?w=209&h=125&mode=crop">
+                    </a>
+                    <div class="clear"></div>
+                    <a href="@Utils.FormatUrlRewrite(item.value.Id, item.value.Title, "AlbumDetail")">@item.value.Title</a>
+                </li>
+
+            }
+        </ul>
+        <div class="clear"></div>
+
+    </div>
+</div>
+
+
+
+

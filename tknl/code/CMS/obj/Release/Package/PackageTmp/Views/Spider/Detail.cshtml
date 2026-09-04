@@ -1,0 +1,33 @@
+﻿@{
+   
+    Layout = "~/Views/Shared/_AdminV2.cshtml";
+    double totalMark = 0;
+}
+@using System.Globalization
+@using BIZ
+@using UTILS
+@using  WebMVC4.Helper
+@model DATA.GoNew
+
+<div class="onecolumn">
+    <div class="header">
+        <span>@ViewBag.Title</span>
+    </div>
+    <br class="clear">
+    <div class="content">
+        @if (Model != null)
+        {
+            <div style="width: 40%; margin: 0 30%;">
+                <div class="tenbai">@Model.News_Title</div>
+
+                <div class="nd">
+
+                    @Html.Raw(Model.News_Content)
+
+                </div>
+                <div style="clear: both"></div>
+                <div>Bài gốc: <a href="@Model.News_Url" target="_blank">@Model.News_Url</a></div>
+            </div>
+        }
+    </div>
+</div>

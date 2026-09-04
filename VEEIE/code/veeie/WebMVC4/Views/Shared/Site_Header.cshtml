@@ -1,0 +1,104 @@
+﻿@using UTILS
+@using WebMVC4.Helper
+@{
+    var Date = Utils.formatDateofWeek(DateTime.Now.DayOfWeek) + "," + DateTime.Now.ToString(" dd") + "/" + DateTime.Now.ToString("MM") + "/" + DateTime.Now.Year.ToString() + " | " + DateTime.Now.ToString("HH") + ":" + DateTime.Now.ToString("mm");
+    var DateEN = DateTime.Now.DayOfWeek.ToString() + ", " + DateTime.Now.ToString("dd") + "/" + DateTime.Now.ToString("MM") + "/" + DateTime.Now.Year.ToString() + " | " + DateTime.Now.ToString("HH") + ":" + DateTime.Now.ToString("mm");
+}
+@{
+    var langpage = WorkContext.GetLanguage();
+}
+<section class="tool mt10">
+    @if (langpage == "vi-vn")
+    {
+        <p class="pull-left">@Date GMT+7</p>
+    }
+    else
+    {
+        <p class="pull-left">@DateEN GMT+7</p>
+    }
+    <div class="block-xs">
+        <ul>
+            <li class="block-mobile">
+                <div class="search_m">
+                    <a class="click" href="#"></a>
+                    <input class="submit_m" type="submit" onclick="Msearch()">
+                    <input class="text_m" type="text" id="MtxtKeyword" placeholder="@Resources.Global.MenuSearch" onkeydown="javascript: return MAnyInput_KeyDown(this, event);">
+                </div>
+            </li>
+            <li>
+                @if (langpage == "vi-vn")
+                {
+                    <a href="/Home/Language?lang=en-us"><img src="/Content/images/ico-en.png"></a>
+                }
+                else
+                {
+                    <a href="/Home/Language?lang=vi-vn"><img src="/Content/images/ico-vn.png"></a>
+                }
+            </li>
+        </ul>
+    </div>
+
+
+    <div class="pull-right col-md-4 col-sm-6 col-xs-12 pr0 pl20">
+        <div class=" input-group col-md-7 col-sm-7 col-xs-7 pull-left">
+            <input type="text" class="form-control" id="txtKeyword" placeholder="@Resources.Global.MenuSearch">
+            <span class="input-group-btn">
+                <button class="btn btn-default" type="button" onclick="search()"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
+            </span>
+        </div>
+        @if (langpage == "vi-vn")
+        {
+            <form>
+                <div class="form-group col-md-5 col-sm-5 col-xs-5 pr0">
+                    <select class="form-control" onchange="window.open(this.options[this.selectedIndex].value,'_blank');this.options[0].selected=true">
+                        <option> @Resources.Global.MenuLink</option>
+                        <option value="/link.html/?keyword=&type=14">Tổng công ty/Tập đoàn</option>
+                        <option value="/link.html/?keyword=&type=15">Sở Công Thương và các trung tâm</option>
+                        <option value="/link.html/?keyword=&type=16">Chương trình/Dự án</option>
+                        <option value="/link.html/?keyword=&type=17">Quỹ</option>
+                        <option value="/link.html/?keyword=&type=19">Hiệp hội</option>
+                    </select>
+                </div>
+            </form>
+        }
+
+    </div>
+
+
+    <div class="clearfix"></div>
+</section><!-- end tool-->
+<script type="text/javascript">
+    function search() {
+        var searchtext = $("#txtKeyword").val();
+        window.location = "/News/Search?q=" + searchtext;
+
+    }
+    function AnyInput_KeyDown(sender, e) {
+        if ((e.which && e.which == 13) || (e.keyCode && e.keyCode == 13)) {
+            search();
+
+            return false;
+        }
+
+        return true;
+    }
+
+
+    function Msearch() {
+        var searchtext = $("#txtKeywordMobile").val();
+        window.location = "/News/Search?q=" + searchtext;
+
+    }
+    function MAnyInput_KeyDown(sender, e) {
+        if ((e.which && e.which === 13) || (e.keyCode && e.keyCode === 13)) {
+            Msearch();
+
+            return false;
+        }
+
+        return true;
+    }
+
+
+
+</script>

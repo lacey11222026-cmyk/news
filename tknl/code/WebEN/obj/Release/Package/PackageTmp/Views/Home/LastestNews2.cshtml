@@ -1,0 +1,61 @@
+﻿@using BIZ
+@using UTILS
+@using  WebEN.Helper
+@model WebEN.Models.LastestNewModel
+
+
+@if (Model != null)
+{
+    if (Model.lstdata.Count > 0)
+    {
+
+    <div class="dai_chan" id="slidenews">
+        <div class="title6"><a href="@Model.Url">@Model.HeaderTitle</a></div>
+        <div class="n_list6">
+            <div class="mycarouse_wrap">
+                <ul id="mycarouse2">
+                    @foreach (var item in Model.lstdata.Select((value, i) => new { i, value }))
+                    {
+                       
+                        <li class="kichthuoc">
+                            <a href="@item.value.LinkUrl"
+                                                                            title="@item.value.Title"> <img style="width:100%; height:100px;" src="@item.value.MainImage?w=300&h=200&mode=crop" /></a>
+
+                            <a href="@item.value.LinkUrl"
+                                                                            title="@item.value.Title">@item.value.Title
+                            </a></li>
+                        
+                    }
+
+
+                </ul>
+            </div>
+        </div>
+        <div class="clear"></div>
+    </div>
+    
+    @*
+   
+    
+                    if (!ViewBag.Mobile)
+                    {
+        
+    <script type="text/javascript">
+
+        jQuery('#mycarouse2').jcarousel({
+            wrap: 'circular',
+            auto: 5,
+            scroll: 2,
+            animation: "normal",
+        });
+
+
+        $("#slidenews .jcarousel-clip-horizontal").css({ width: "900px", height: "165px", overflow: "hidden" });
+
+    </script>
+        
+                    }*@
+
+
+    }
+}

@@ -1,0 +1,348 @@
+﻿@{
+    Layout = "~/Views/Shared/_AdminV2.cshtml";
+}
+@using BIZ.Entity
+@using UTILS
+@using DATA
+@using WebMVC4.Helper
+@model Plan
+
+
+
+<div class="well">
+    <span class="label label-danger">
+        Chú ý!
+    </span>
+    <span>
+        Hãy chắc chắn nhập vào đầy đủ thông tin tại các mục bắt buộc đánh dấu (*)
+    </span>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <i class="fa fa-fw fa-user-md"></i><span>@ViewBag.Title </span>
+            </div>
+            <form id="defaultForm" method="post" class="form-horizontal">
+                <div class="panel-group" id="steps">
+                    <div class="messager-body">
+                        <div class="alert alert-success display-hide alert-dismissable">
+                            <button type="button" class="close" data-close="alert" aria-hidden="true">×</button>
+                            <span class="glyphicon glyphicon-ok"></span>
+                            <label>Đã lưu dữ liệu thành công !!!</label>
+                        </div>
+                        <div class="alert alert-danger display-hide alert-dismissable">
+                            <button type="button" class="close" data-close="alert" aria-hidden="true">×</button>
+                            <span class="glyphicon glyphicon-warning-sign"></span>
+                            <label>Có một vài lỗi trong khung nhập liệu dưới đây ! kiểm tra lại</label>
+                        </div>
+                    </div>
+                    <div class="panel panel-info">
+
+                        <div class="panel-body">
+                            <!-- dành cho UpdateFunction -->
+                            <div style="padding: 10px 0 0 0;background-color:#fff !important">
+
+
+                                <div class="col-md-9">
+                                    <div class="form-group">
+                                        <label for="txtName" class="control-label col-md-3">Tên dự án  :<span class="required">*</span></label>
+                                        <div class="col-md-6">
+                                            <div class="input-icon right">
+                                                <input type="text" id="txtName" maxlength="500" name="name" value="@Model.Name" class="form-control" placeholder="Tên dự án " />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="txtInvestor" class="control-label col-md-3">Chủ đầu tư </label>
+                                        <div class="col-md-6">
+                                            <div class="input-icon right">
+                                                <input type="text" id="txtInvestor" name="Investor" value="@Model.Investor" class="form-control" placeholder="Chủ đầu tư" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="txtTotal" class="control-label col-md-3">Tổng mức đầu tư (Triệu US$) </label>
+                                        <div class="col-md-3">
+                                            <div class="input-icon right">
+                                                <input type="number" step=0.1  id="txtTotal" maxlength="20" name="Total" value="@Model.Total" class="form-control" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="txtTotal1" class="control-label col-md-3">Tổng vốn vay(IBRD) </label>
+                                        <div class="col-md-3">
+                                            <div class="input-icon right">
+                                                <input type="number"  step=0.1 id="txtTotal1" maxlength="20" name="Total1" value="@Model.Total1" class="form-control" />
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+                                    <div class="form-group">
+                                        <label for="txtTotal2" class="control-label col-md-3">Tổng vốn vay(PFI) </label>
+                                        <div class="col-md-3">
+                                            <div class="input-icon right">
+                                                <input type="number" step=0.1  id="txtTotal2" maxlength="20" name="Total2" value="@Model.Total2" class="form-control" />
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="txtPower" class="control-label col-md-3">
+                                            Năng lượng tiết kiệm dự kiến
+                                        </label>
+                                        <div class="col-md-3">
+                                            <div class="input-icon right">
+                                                <input type="number" step=0.1  id="txtPower" maxlength="250" name="Power" value="@Model.Power" class="form-control" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+
+                                        <label for="txtResult" class="control-label col-md-3">
+                                            Tóm lược kết quả đạt được
+                                        </label>
+                                        <div class="col-md-9">
+
+                                            <div class="input-icon right">
+                                                <textarea id="txtResult" name="Result">@Html.Raw(Model.Result)</textarea>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    <div class="form-group">
+
+                                        <label for="txtWorkPlan" class="control-label col-md-3">
+                                            Kế hoạch công việc trong Quý tiếp theo
+                                        </label>
+                                        <div class="col-md-9">
+
+                                            <div class="input-icon right">
+                                                <textarea id="txtWorkPlan" name="WorkPlan">@Html.Raw(Model.WorkPlan)</textarea>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    <div class="form-group">
+
+                                        <label for="txtProblem" class="control-label col-md-3">
+                                            Các vấn đề khác
+                                        </label>
+                                        <div class="col-md-9">
+
+                                            <div class="input-icon right">
+                                                <textarea id="txtProblem" name="WorkPlan">@Html.Raw(Model.Problem)</textarea>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label col-md-3" for="cbxIsActive">Trạng thái :</label>
+                                        <div class="col-md-4">
+                                            <div class="checkbox">
+                                                @if (Model.Status == 1)
+                                                {<input type="checkbox" id="cbxIsActive" checked="checked" />}
+                                                else
+                                                {<input type="checkbox" id="cbxIsActive" />}
+
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="panel-footer form-horizontal">
+                                        <div class="form-group submit">
+                                            <button type="submit" class="btn btn-primary" id="btnSave"><i class="fa fa-save"></i>Lưu lại</button>
+
+                                            <button type="button" class="btn btn-default" id="btnBack" onclick="GotoListpage()"><i class="fa fa-backward"></i>Back</button>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="clear"></div>
+                        </div>
+
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<style>
+    .input-icon {
+        position: relative;
+        width: 100%;
+    }
+</style>
+<script type="text/javascript">
+    function GotoListpage() {
+        window.location = "/AdminPlan/ManagePlan";
+    }
+    $(document).ready(function () {
+
+        var editor = CKEDITOR.instances['txtResult'];
+        if (editor) {
+            CKEDITOR.remove(editor);
+        }
+        CKEDITOR.replace('txtResult', {
+            filebrowserBrowseUrl: "/AdminImages/ManageImage",
+            filebrowserWindowWidth: '600',
+            filebrowserWindowHeight: '139',
+            uiColor: '#FAFAFA',
+            //extraPlugins: 'youtube',
+            toolbar: [
+               
+                ['Cut', 'Copy', 'Paste', 'PasteText', 'PasteFromWord',  'Undo', 'Redo'],
+                { name: 'styles', items: ['Font', 'FontSize'] },
+                { name: 'basicstyles', items: ['Bold', 'Italic', 'Underline', 'RemoveFormat'] },
+                 { name: 'paragraph', items: ['NumberedList', 'BulletedList', '-', 'Outdent', 'Indent', 'JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock'] },
+
+
+            ],
+            height: 139
+        });
+
+        var editor2 = CKEDITOR.instances['txtWorkPlan'];
+        if (editor2) {
+            CKEDITOR.remove(editor);
+        }
+        CKEDITOR.replace('txtWorkPlan', {
+            filebrowserBrowseUrl: "/AdminImages/ManageImage",
+            filebrowserWindowWidth: '600',
+            filebrowserWindowHeight: '139',
+            uiColor: '#FAFAFA',
+            //extraPlugins: 'youtube',
+            toolbar: [
+
+                ['Cut', 'Copy', 'Paste', 'PasteText', 'PasteFromWord', 'Undo', 'Redo'],
+                { name: 'styles', items: ['Font', 'FontSize'] },
+                { name: 'basicstyles', items: ['Bold', 'Italic', 'Underline', 'RemoveFormat'] },
+                { name: 'paragraph', items: ['NumberedList', 'BulletedList', '-', 'Outdent', 'Indent', 'JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock'] },
+
+
+            ],
+            height: 139
+        });
+
+        var editor3 = CKEDITOR.instances['txtProblem'];
+        if (editor3) {
+            CKEDITOR.remove(editor);
+        }
+        CKEDITOR.replace('txtProblem', {
+            filebrowserBrowseUrl: "/AdminImages/ManageImage",
+            filebrowserWindowWidth: '600',
+            filebrowserWindowHeight: '99',
+            uiColor: '#FAFAFA',
+           // extraPlugins: 'youtube',
+            toolbar: [
+
+                ['Cut', 'Copy', 'Paste', 'PasteText', 'PasteFromWord', 'Undo', 'Redo'],
+                { name: 'styles', items: ['Font', 'FontSize'] },
+                { name: 'basicstyles', items: ['Bold', 'Italic', 'Underline', 'RemoveFormat'] },
+                { name: 'paragraph', items: ['NumberedList', 'BulletedList', '-', 'Outdent', 'Indent', 'JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock'] },
+
+
+            ],
+            height: 99
+        });
+        $("button.close").click(function () {
+            $(this).parent().css("display", "none");
+        });
+        $('#defaultForm').bootstrapValidator({
+            message: 'This value is not valid',
+            //live: 'submitted',
+            feedbackIcons: {
+                valid: 'glyphicon glyphicon-ok',
+                invalid: 'glyphicon glyphicon-remove',
+                validating: 'glyphicon glyphicon-refresh'
+            },
+            fields: {
+
+                name: {
+                    message: 'Nhập tên hệ thống',
+                    validators: {
+                        notEmpty: {
+                            message: 'Tên hệ thống không được bỏ trống'
+                        },
+
+
+
+                    }
+                },
+
+
+
+            }
+        })
+        .on('success.form.bv', function (e) {
+            // Prevent submit form
+            e.preventDefault();
+
+            var $form = $(e.target),
+                validator = $form.data('bootstrapValidator');
+            SaveData();
+            $(".close").click(function () {
+                $(".alert-success").css("display", "none");
+            });
+        })
+        .on('error.form.bv', function (e) {
+            // Active the panel element containing the first invalid element
+            e.preventDefault();
+            var $form = $(e.target),
+            validator = $form.data('bootstrapValidator');
+            $(".alert-danger label").text("Có một vài lỗi trong khung nhập liệu dưới đây ! kiểm tra lại");
+            $(".alert-danger").css("display", "block");
+            $(".close").click(function () {
+                $(".alert-danger").css("display", "none");
+                $(".alert-success").css("display", "none");
+            });
+        });
+
+        $("#btnReset").click(function () {
+            $('#defaultForm').data('bootstrapValidator').resetForm(true);
+            $(".alert-danger").css("display", "none");
+            $(".alert-success").css("display", "none");
+        });
+        //Save Data
+        function SaveData() {
+            var param = {
+                'Id': '@Model.Id',
+                'Name': $("#txtName").val(),
+                'Investor': $("#txtInvestor").val(),
+                'Result': CKEDITOR.instances['txtResult'].getSnapshot(),
+                'Problem': CKEDITOR.instances['txtProblem'].getSnapshot(),
+                'WorkPlan': CKEDITOR.instances['txtWorkPlan'].getSnapshot(),
+                'Total': $("#txtTotal").val(),
+                'Total1': $("#txtTotal1").val(),
+                'Total2': $("#txtTotal2").val(),
+                'Power': $("#txtPower").val(),
+                'Status': $("#cbxIsActive").is(":checked") ? 1 : 0,
+
+            }
+            Utils.Loading();
+            $.ajax({
+                type: 'POST',
+                url: "/AdminPlan/SaveData",
+                data: param,
+                async: true,
+                success: function (data) {
+                    Utils.UnLoading();
+                    if (data.ResponseCode >= 0) {
+                        $("html,body").animate({ scrollTop: $('#TemplateContent').offset().top }, 'fast');
+                        $(".alert-success").show("slow");
+                        $(".alert-danger").hide("slow");
+                        setTimeout(function () { $(".alert-success").hide("slow"); GotoListpage(); }, 2000);
+                    }
+                    else {
+                        $("html,body").animate({ scrollTop: $('#TemplateContent').offset().top }, 'fast');
+                        $("#ErrorMessage").text(data.NameEn);
+                        $(".alert-danger").show("slow");
+                        $(".alert-success").hide("slow");
+                        setTimeout(function () { $(".alert-danger").hide("slow"); }, 2000);
+                    }
+                }
+            });
+        };
+    });
+</script>

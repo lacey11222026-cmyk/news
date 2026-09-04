@@ -1,0 +1,21 @@
+﻿<div class="row">
+    <div class="col-md-12 col-sm-12 col-xs-12 banklist banklist-detail">
+        @{Html.RenderAction("Report", "Home", new { param = "" });}
+        <ul class="bnrlogo mt15">
+            @{Html.RenderAction("BannerRight1", "Home", new { param = "" });}
+        </ul>
+    </div>
+    <div class="col-md-12 col-sm-6 col-xs-6 maxheight04" style="">
+        @{Html.RenderAction("TopQuestion", "Home", new { CateName = "", CategoryId = 9, MaxLastestNews = 5, param = "" });}
+    </div>
+    <div class="col-md-12 col-sm-6 col-xs-6 mt20 maxheight04" style="">
+        <h2 class="title-cm"><a href="/Document/Index/6">Tài liệu</a></h2>
+        <ul class="document-list">
+            <li><a href="/Document/Index/11">Văn kiện dự án</a></li>
+            <li><a href="/Document/Index/12">Sổ tay TKNL</a></li>
+            <li><a href="/hoi-dap/c10/don-vi-tu-van.html">Đơn vị tư vấn</a></li>
+            <li><a href="/hoi-dap/c8/mau-ho-so.html">Mẫu hồ sơ</a></li>
+            <li><a href="/Document/Index/38">Tài liệu khác</a></li>
+        </ul>
+    </div>
+</div>

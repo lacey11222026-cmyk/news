@@ -1,0 +1,122 @@
+﻿@model DATA.Feedback
+<div class="modal-header">
+    <h5 class="modal-title" id="exampleModalLabel">@ViewBag.HeaderTitle</h5>
+    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+<div class="modal-body">
+    <form>
+        <div class="form-group">
+            <p id="msgBox" style="color: #c82e29; font-weight: bold; font-size: 13px"></p>
+            @Html.AntiForgeryToken()
+
+        </div>
+        <div class="form-group row">
+            <label class="col-sm-3 col-form-label">@Resources.Global.FullName</label>
+            <div class="col-sm-9">
+                <input type="text" class="form-control" id="txtFullName" value="@Model.Name">
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-sm-3 col-form-label">@Resources.Global.Organization</label>
+            <div class="col-sm-9">
+                <input type="text" class="form-control" id="txtOrgan" value="@Model.Organ">
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="staticEmail" class="col-sm-3 col-form-label">Email</label>
+            <div class="col-sm-9">
+                <input type="text" class="form-control" id="txtEmail"  value="@Model.Email">
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-sm-3 col-form-label">@Resources.Global.Tel</label>
+            <div class="col-sm-9">
+                <input type="text" class="form-control" id="txtMobile" value="@Model.Mobile">
+            </div>
+        </div>
+
+    </form>
+</div>
+<div class="modal-footer">
+    <button type="button" class="btn btn-secondary" data-dismiss="modal">@Resources.Global.Close</button>
+    <button type="button" class="btn btn-primary"  onclick="validateData();">@ViewBag.HeaderTitle</button>
+</div>
+<script src="~/Content/js/formvalidate.js?vs=161111"></script>
+<script type="text/javascript">
+    function validateEmail() {
+
+        if (!ValidateControls("@Resources.Global.EmailValidateEmpty", "#txtEmail")) {
+            return false;
+        }
+        var mail = $('#txtEmail').val();
+        if (!isValidEmailAddress(mail)) {
+
+            $("#msgBox").html("@Resources.Global.EmailValidateFormat").show();
+
+            $('#txtEmail').focus();
+            return false;
+        }
+        return true;
+    }
+    function validatePhone() {
+        if (!ValidateControls("@Resources.Global.TelEmpty", "#txtMobile")) {
+            return false;
+        }
+        var phone = $('#txtMobile').val();
+
+        if (phone.length < 9 || phone.length > 12) {
+
+            $("#msgBox").html("@Resources.Global.TelValidateFormat").show();
+            $('#txtMobile').focus();
+            return false;
+        }
+        if (!isInteger(phone)) {
+
+            $("#msgBox").html("@Resources.Global.TelValidateFormat").show();
+
+            $('#txtMobile').focus();
+            return false;
+        }
+        return true;
+
+    }
+    function validateData() {
+        if (!ValidateControls("@Resources.Global.FullNameEmpty", "#txtFullName")) {
+            return false;
+        }
+        if (!ValidateControls("@Resources.Global.OrganizationEmpty", "#txtOrgan")) {
+            return false;
+        }
+        if (!validateEmail()) {
+            return false;
+        }
+        if (!validatePhone()) {
+            return false;
+        }
+
+
+        var postdata = {
+            Mobile: $('#txtMobile').val(),
+            DocId: '@ViewBag.Id',
+            Email: $('#txtEmail').val(),
+            Name: $('#txtFullName').val(),
+            Organ: $('#txtOrgan').val(),
+
+        };
+        $.ajax({
+            type: "post",
+            dataType: "html",
+            url: '@Url.Action("Feedback")',
+            data: addAntiForgeryToken(postdata),
+            success: function (response) {
+                $('#modal-2').modal('hide');
+                window.location.href='@ViewBag.Url'
+            }
+        });
+
+    }
+
+
+</script>

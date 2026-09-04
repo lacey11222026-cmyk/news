@@ -1,0 +1,67 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout2.cshtml";
+}
+@using BIZ.Entity
+@using UTILS
+@using WebMVC4.Helper
+@using UTILS;
+@model UserSession
+<div class="manage-body">
+    <div class="manage-bnr">
+        <img src="/Content2/images/manage-bnr.jpg" alt="">
+        
+    </div>
+    <div class="manage-content">
+        <div class="mw-01 manage-sidebar">
+            @Html.Partial("User_MenuEn")
+        </div>
+        <div class="mw-02 manage-main">
+            <div class="manage-wrap mt50">
+                <p class="text-center choose-project-title">
+                    Select project proposal form
+                </p>
+                <ul class="choose-project-list mt30">
+                    <li>
+                        <a href="@Url.Action("AddProject","User")">
+                            Asset Investment Project
+                        </a>
+                    </li>
+                    <li>
+                        <a href="@Url.Action("AddProject2","User")">
+                            TECHNICAL ASSISTANCE PROJECT
+                        </a>
+                    </li>
+                </ul>
+                <div class="mt30">
+                    <p class="font-weight-bold">Note:</p>
+                    <p class="mt20 font-weight-bold">1.  The investment projects are categorized into: </p>
+                    <ul class="list-dot mt10">
+                        <li>Accelerating the transition from coal power to clean energy</li>
+                        <li>Development of the industrial and service ecosystem for renewable energy</li>
+                        <li>Energy efficiency and conservation</li>
+                        <li>Upgrading power transmission and distribution systems, accelarating the development of the smart grid roadmap and developing energy storage</li>
+                        <li>Green energy transition and greenhouse gas emissions reduction in the transport sector</li>
+                    </ul>
+                    <p class="mt30 font-weight-bold">2. The technical assistance (TA) projects are categorized into: </p>
+                    <ul class="list-dot mt10">
+                        <li>Supporting the completion of institutions and policies to promote the energy transition</li>
+                        <li>Innovation, development and technology transfer</li>
+                        <li>Ensuring a just energy transition</li>
+                    </ul>
+                    <p class="mt30">
+                        <strong>3. For investment projects with additional technical support components  </strong> (such as support for preparing investment dossiers, support for capacity building for implementation), the technical support component must be declared as a TA project and the name of the TA project must be clearly stated in section 20 of the investment proposal form, and the name of the investment project must be clearly stated in section 4 of the corresponding TA project proposal form.
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="m-log-out">
+            <img src="/Content2/images/manage-img.png" alt="">
+            <a href="@Url.Action("Login","User",new { act="out"})" class="btn-log-out"><img src="/Content2/images/icon-log-out.png" alt="">  Log Out</a>
+        </div>
+    </div>
+</div>
+<script src="~/Content/js/formvalidate.js?vs=02"></script>
+<script>
+    $("#menu_2").addClass("active");
+    
+</script>

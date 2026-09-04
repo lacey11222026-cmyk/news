@@ -1,0 +1,22 @@
+﻿@using BIZ
+@using UTILS
+@using WebMVC4.Helper
+@model List<BIZ.Entity.CATEGORY_FULL>
+<div class="menu-f">
+    <div class="container">
+        <ul class="pull-left">
+            <li><a href="/gioi-thieu/c2/gioi-thieu.html"><img src="/Content/images/logo-menu-blue.png" alt="Công nghiệp công nghệ cao"></a></li>
+            @foreach (var item in Model.Select((value, i) => new { i, value }))
+            {
+                <li><a href="@Utils.FormatUrlRewriteByType(item.value.Id, item.value.Name, int.Parse(item.value.Type.ToString()), item.value.Link)">@item.value.Name</a></li>
+            }
+
+        </ul>
+        <ul class="pull-right list-inline">
+            <li><a href="https://www.facebook.com/KHCNcongthuong"><img src="/Content/images/icon-facebook.png" alt=""></a></li>
+            <li><a href="https://www.youtube.com/channel/UCthc9mPdYtuX2ARo2bdw6pQ"><img src="/Content/images/icon-youtube.png" alt=""></a></li>
+        </ul>
+        <div class="clearfix"></div>
+    </div>
+</div>
+

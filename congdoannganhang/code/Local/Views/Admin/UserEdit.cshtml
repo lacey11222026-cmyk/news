@@ -1,0 +1,139 @@
+﻿@{
+   
+    Layout = "~/Views/Shared/_AdminV2.cshtml";
+    
+}
+@using BIZ
+@using UTILS
+@using Local.Helper
+@model Local.Models.ViewUserDetail
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <i class="fa fa-fw fa-user-plus"></i><span>Cập nhật người dùng</span>
+            </div>
+            <form id="defaultForm" method="post" class="form-horizontal">
+                <div class="panel-group" id="steps">
+
+                    <div class="panel panel-info">
+                        <div id="Errordiv" style="margin:20px;color:red;font-size:13pt"><center></center></div><br />
+
+                        <div style="padding: 10px 0 0 0;background-color:#fff !important">
+                            
+                            <div class="tab-content" style="margin-top: 30px;">
+                                <div class="col-md-12 tab-pane active" id="tabs-info">
+                                    <div class="col-md-12">
+
+                                        <!-- dành cho UpdateFunction -->
+                                        <div class="form-group">
+                                            <label for="UserName" class="control-label col-md-2">Tên người dùng :<span class="required">*</span></label>
+                                            <div class="col-md-10">
+                                                <div class="input-icon right">
+                                                    <label class="control-label">@Model.user.UserName</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="NewPassword" class="control-label col-md-2">Mật khẩu :<span class="required">*</span></label>
+                                            <div class="col-md-10">
+                                                <div class="input-icon right">
+                                                    <input type="password" id="NewPassword" name="NewPassword" class="form-control" placeholder="" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="ConfirmPassword" class="control-label col-md-2">Xác nhận mật khẩu :<span class="required">*</span></label>
+                                            <div class="col-md-10">
+                                                <div class="input-icon right">
+                                                    <input type="password" id="ConfirmPassword" name="ConfirmPassword" class="form-control" placeholder="" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="Email" class="control-label col-md-2">Email :<span class="required">*</span></label>
+                                            <div class="col-md-10">
+                                                <div class="input-icon right">
+                                                    <label class="control-label">@Model.user.Email</label>
+                                                </div>
+                                            </div>
+                                        </div>
+
+
+                                    </div>
+                                </div>
+                               
+                                <div class="col-md-12">
+                                    <div class="panel-footer form-horizontal">
+                                        <div class="form-group submit">
+                                            <button type="button" class="btn btn-primary" id="btsubmit" onclick="changepass('@Model.user.UserName');"><i class="fa fa-save"></i>Đổi mật khẩu</button>
+                                            <button type="button" class="btn btn-default" id="btnBack" onclick="Close();"><i class="fa fa-backward"></i>Quay lại</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div style="clear:both"></div>
+                        </div>
+
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<style>
+    .input-icon {
+        position: relative;
+        width: 100%;
+    }
+</style>
+
+
+<script type="text/javascript">
+    function Close() {
+        window.location.href = "@Url.Action("Index","Admin")";
+    }
+
+    function changepass(username) {
+        bootbox.confirm("Bạn có chắc chắn muốn đổi mật khẩu ??? ", function (result) {
+            if (result == true) {
+
+                var NewPassword = $('#NewPassword').val();
+                validateForm();
+                $.post('@Url.Action("UserChangPass", "Admin")',
+                    { "username": username, "newPassword": NewPassword },
+                    function (data) {
+                        Close();
+                    });
+            }
+        });
+
+       
+    }
+
+    function validateForm() {
+        var NewPassword = $('#NewPassword').val();
+        var ConfirmPassword = $('#ConfirmPassword').val();
+
+        if (NewPassword == "") {
+            alert('Mật khẩu không được trống');
+            $('#NewPassword').focus();
+            return false;
+        }
+        if (NewPassword.length < 6) {
+            alert('Mật khẩu phải trên 6 kí tự');
+            $('#NewPassword').focus();
+            return false;
+        }
+        if (NewPassword != ConfirmPassword) {
+            alert('Mật khẩu không hợp lệ');
+            $('#ConfirmPassword').focus();
+            return false;
+        }
+
+        return true;
+
+    }
+</script>

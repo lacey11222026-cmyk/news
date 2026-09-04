@@ -1,0 +1,160 @@
+﻿@{
+   
+    Layout = "~/Views/Shared/_AdminV2.cshtml";
+    
+}
+@using UTILS
+@using CMS.Models
+@using CMS.Helper
+@model CMS.Models.NewsModel
+
+<div class="onecolumn">
+    <div class="header">
+        <span>@ViewBag.Title</span>
+    </div>
+    <br class="clear">
+    <div class="content">
+        <b>Trạng thái: </b>@Html.DropDownList("drlStatus", new SelectList(ViewBag.StatusList, "Value", "Text", ViewBag.Status), new { @class = "drl_Group",@disabled = "disabled"  }) &nbsp;&nbsp;
+        <b>Chuyên mục: </b>@Html.DropDownList("drlCategory", new SelectList(ViewBag.CategoryList as System.Collections.IEnumerable, "Id", "Name", ViewBag.CategoryId), new { @class = "drl_Group", @style = "width:180px" }) &nbsp;&nbsp;
+        <b>Sắp xếp: </b>@Html.DropDownList("drlOrder", new SelectList(ViewBag.OrderList as System.Collections.IEnumerable, "SValue", "Text", ViewBag.Order), new { @class = "drl_Group" }) &nbsp;&nbsp;
+         <div style="display: none">
+         <b>Loại tin:&nbsp;&nbsp;</b>@Html.DropDownList("drlType", new SelectList(ViewBag.TypeList, "Value", "Text", ViewBag.Type), new { @class = "drl_Group" }) &nbsp;&nbsp;
+        </div>
+        <br />
+        <br />
+        <b>Từ khóa : </b>
+        <input type="text" id="Keyword" value="@ViewBag.Keyword" style="width: 180px;"/>&nbsp;&nbsp;
+       <b>Từ ngày:</b>&nbsp;
+                    <input name="fromdate" id="txtFromdate" value="@ViewBag.fromdate" style="width: 100px;" />&nbsp;&nbsp;
+                    <b>Đến ngày</b>:&nbsp;
+                    <input name="todate" id="txtTodate" value="@ViewBag.todate" style="width: 100px;"/>&nbsp;&nbsp;
+        <button onclick="fillter();">Tra cứu</button>
+        <br />
+        <br />
+
+
+        @if (Model != null)
+        {
+            
+            <table width="100%" cellspacing="0" cellpadding="0" class="data" id="mytable">
+                <tbody>
+                    <tr id="rowheader">
+                        @*<th scope="col">ID
+                        </th>*@
+
+                        <th scope="col">Tiêu đề
+                        </th>
+
+
+                        <th scope="col">Chuyên mục
+                        </th>
+                        <th scope="col">Ngày viết
+                        </th>
+
+                        <th scope="col">Trạng thái
+                        </th>
+                        <th scope="col">Lượt xem
+                        </th>
+                        <th scope="col">Quản trị
+                        </th>
+                    </tr>
+                    @if (Model.listdata != null)
+                    {
+                        if (Model.listdata.Count > 0)
+                        {
+                            foreach (var item in Model.listdata)
+                            {
+                        <tr id="row_@(item.Id)">
+                            @*<td>
+                                @item.Id
+                            </td>*@
+
+                            <td style="width: 333px;">
+                                @if (item.Status == (int)Constants.NewsStatus.Draft || item.Status == (int)Constants.NewsStatus.Reject || item.Status == (int)Constants.NewsStatus.Disable || item.Status == (int)Constants.NewsStatus.EditWait)
+                                {
+                                    <a href='@Url.Action("Edit", "AdminNews2", new { Id = item.Id })'>@item.Title</a>
+                                }
+                                else
+                                {
+                                    @item.Title
+                                }
+
+                            </td>
+
+                            <td>
+                                @HtmlHelpers.GetNewsCategoryName(item.CategoryId.Value, ViewBag.CategoryList)
+                            </td>
+
+                            <td>
+                                @item.CreatedDate.ToString("dd/MM/yy HH:mm")
+                            </td>
+
+
+                            <td>
+                                @HtmlHelpers.GetNewsStatusName(item.Status, ViewBag.StatusList)
+
+                            </td>
+                            <td>@item.Hits</td>
+                            <td>
+                                <a  onclick="openWin('@Url.Action("History", "AdminNews2", new { Id = item.Id,NewsTitle=item.Title  })');"  href="javascript:void(0);" title="Lịch sử tin">Lịch sử tin</a>
+
+                            </td>
+                        </tr>
+                            }
+                        }
+                    }
+                </tbody>
+            </table>
+            <div class="pagination">
+                @{Html.RenderPartial("AdminPagination", new PaginationInfo
+                   {
+                       PageUrl = Url.SetParameter("page", "!0"),
+                       CurrentPage = Model.pageIndex,
+                       PageSize = Model.pageSize,
+                       TotalItemCount = Model.total,
+                   }); }
+            </div>
+
+        }
+        <br />
+        <a  class="adminbutton" href='@Url.Action("Add", "AdminNews2")'>Thêm mới tin</a>
+
+    </div>
+</div>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#menu_news').click();
+        $("#txtFromdate").datepicker({ dateFormat: "dd/mm/yy" });
+        $("#txtTodate").datepicker({ dateFormat: "dd/mm/yy" });
+
+    });
+    function fillter() {
+        var title = $("#Keyword").val();
+        var fromdate = $("#txtFromdate").val();
+        var todate = $("#txtTodate").val();
+        window.location = jQuery.query.set("title", title).set("fromdate", fromdate).set("todate", todate).set("page", "1");
+    }
+    $('#drlType').change(function () {
+        window.location = jQuery.query.set("type", this.value).set("page", "1");
+    });
+    $('#drlStatus').change(function () {
+        window.location = jQuery.query.set("Status", this.value).set("page", "1");
+    });
+    $('#drlCategory').change(function () {
+        window.location = jQuery.query.set("CategoryId", this.value).set("page", "1");
+    });
+    $('#drlOrder').change(function () {
+        window.location = jQuery.query.set("order", this.value).set("page", "1");
+    });
+    $('#Keyword').keyup(function (e) {
+        if (e.keyCode == 13) {
+            window.location = jQuery.query.set("title", this.value).set("page", "1");
+        }
+    });
+    function openWin(url) {
+        myWindow = window.open(url, '', 'width=868,height=668');
+
+        myWindow.focus();
+    }
+
+</script>

@@ -1,0 +1,156 @@
+﻿@using BIZ
+@using UTILS
+@using WebMVC4.Helper
+@model WebMVC4.Models.NhaMayModel
+
+
+<div class="main-content container">
+    <div class="row">
+        <div class="col-lg-9 col-md-12 pb40">
+            <h2 class="title-cm01 title-inline"><a href="#">các thành viên tham gia thị trường Điện</a></h2>
+            <div class="mt20 bg-gray-02">
+                <div class="manage-search-mb">
+                    <a href="#">Tìm kiếm thành viên tham gia</a>
+                </div>
+                <div class="manage-search-box">
+                    <table class="manage-tbl">
+                        <tbody>
+                            <tr>
+                                <td>Từ khoá:</td>
+                                <td>
+                                    <input id="txtkeyword" class="form-control" type="text" value="@ViewBag.keyword" >
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Loại nhà máy :</td>
+                                <td>
+                                    <select class="form-control" id="ddLoai">
+
+                                        <option value="-1">---Tất cả---</option>
+                                        <option value="0" @if (Model.loai == 0) { @Html.Raw("selected='selected'") ; }>Nhà máy thủy điện</option>
+                                        <option value="1" @if (Model.loai == 1) { @Html.Raw("selected='selected'") ; }>Nhà máy nhiệt điện than</option>
+                                        <option value="2" @if (Model.loai == 2) { @Html.Raw("selected='selected'") ; }>Nhà máy Tua-bin khí</option>
+                                        <option value="3" @if (Model.loai == 3) { @Html.Raw("selected='selected'") ; }>Loại nhà máy khác</option>
+
+
+                                    </select>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Hình thức :</td>
+                                <td>
+                                    <select class="form-control" id="ddlhinhthuc">
+
+                                        <option value="-1">---Tất cả---</option>
+                                        <option value="0" @if (Model.hinhthuc == 0) { @Html.Raw("selected='selected'") ; }>Tham gia trực tiếp</option>
+                                        <option value="1" @if (Model.hinhthuc == 1) { @Html.Raw("selected='selected'") ; }>Tham gia gián tiếp</option>
+                                        <option value="2" @if (Model.hinhthuc == 2) { @Html.Raw("selected='selected'") ; }>Không tham gia</option>
+
+
+                                    </select>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Thời gian tham gia từ ngày:</td>
+                                <td>
+                                    <div class="manage-date">
+                                        <input type="text" class="form-control" id="txtfromdate" value="@Model.fromdate" placeholder="dd/MM/yyyy">
+                                        <p>đến:</p>
+                                        <input type="text" class="form-control" id="txttodate" value="@Model.todate" placeholder="dd/MM/yyyy">
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Tình trạng:</td>
+                                <td>
+                                    <select class="form-control" id="ddlStatus">
+                                        <option value="-1">---Tất cả---</option>
+                                        <option value="1" @if (Model.status == 1) { @Html.Raw("selected='selected'") ; }>Đang tham gia</option>
+                                        <option value="0" @if (Model.status == 0) { @Html.Raw("selected='selected'") ; }>Không tham gia</option>
+                                    </select>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div class="manage-search">
+                        <div class="manage-search-btn">
+                            <button class="" onclick="searchdoc();">Tìm kiếm</button>
+                        </div>
+                    </div>
+                </div>
+            </div><!-- end bg gray-->
+            <div class="mt40">
+                <div class="tbl-responsive">
+                    <table class="table-normal">
+                        <tbody>
+                            <tr>
+                                <th>STT</th>
+                                <th>Tên nhà máy</th>
+                                <th>Công suất lắp đặt</th>
+                                <th>Loại hình tham gia</th>
+                            </tr>
+                            @foreach (var item in Model.listdata.Select((value, i) => new { i, value }))
+                            {
+
+                                <tr>
+                                    <td>@(item.i+1)</td>
+                                    <td style="text-align:left"><a href="@HtmlHelpers.GetNhaMayUrl(item.value.Id,item.value.TenNhaMay)" style="color: #212529">@item.value.TenNhaMay</a></td>
+                                    <td>@item.value.CongSuat MW</td>
+                                    <td>@HtmlHelpers.GetNhaMayThamGia(item.value.LoaiThamGia)</td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="paging mt50 text-right mt30">
+                <ul>
+
+                    @{Html.RenderPartial("Pagination", new WebMVC4.Models.PaginationInfo
+                        {
+                            PageUrl = Url.SetParameter("Page", "!0"),
+                            CurrentPage = Model.pageIndex,
+                            PageSize = Model.pageSize,
+                            TotalItemCount = Model.total,
+                        }); }
+                </ul>
+            </div>
+        </div><!-- end content left-->
+
+        <div class="col-lg-3 col-md-12">
+            <div class="content01-right">
+                @{Html.RenderAction("BannerRight", "Home");}
+                @{Html.RenderAction("MenuInfo", "Home");}
+            </div>
+
+            @{Html.RenderAction("BannerRight2", "Home");}
+        </div>
+    </div>
+</div>
+<style>
+    .table-normal td {
+        color: #212529;
+    }
+</style>
+<script>
+    $(function () {
+        $('.manage-search-mb').click(function () {
+            $(this).toggleClass('active');
+            $('.manage-search-box').toggle();
+        });
+    });
+</script>
+<script type="text/javascript">
+
+
+    function searchdoc() {
+        var keyword = $("#txtkeyword").val();
+        var loai = $("#ddLoai").val();
+        var status = $("#ddlStatus").val();
+        var hinhthuc = $("#ddlhinhthuc").val();
+        var fromdate = $("#txtfromdate").val();
+        var todate = $("#txttodate").val();
+        window.location = '/thanh-vien-thi-truong?loai=' + loai + '&hinhthuc=' + hinhthuc + '&fromdate=' + fromdate + '&todate=' + todate + '&status=' + status + '&keyword=' + keyword;
+        //window.location = jQuery.query.set("keyword", keyword).set("fromdate", fromdate).set("todate", todate).set("Page", "1");
+    }
+</script>

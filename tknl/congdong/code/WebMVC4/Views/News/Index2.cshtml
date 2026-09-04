@@ -1,0 +1,36 @@
+﻿@using BIZ
+@using UTILS
+@using WebMVC4.Helper
+@model WebMVC4.Models.NewsModel
+
+
+<div class="container mt30 pb100">
+    <h2 class="title-cm"><a href="@ViewBag.Url">@ViewBag.CateName</a></h2>
+    <ul class="document-list col-5-item">
+        @if (Model.listdata != null)
+        {
+            foreach (var item in Model.listdata.Select((value, i) => new { i, value }))
+            {
+                <li>
+                    <div class="img-wrap"><a href="@item.value.LinkUrl"><img src="@item.value.MainImage2?w=206&h=288&mode=crop" alt=""></a></div>
+                    <div class="new-content">
+                        <a href="@item.value.LinkUrl" class="news-name mt15"> @item.value.Title</a>
+                    </div>
+                </li>
+
+            }
+        }
+            </ul>
+    <div class="paging pt60">
+        <ul>
+            @{Html.RenderPartial("Pagination", new WebMVC4.Models.PaginationInfo
+                {
+                    PageUrl = Url.SetParameter("Page", "!0"),
+                    CurrentPage = Model.pageIndex,
+                    PageSize = Model.pageSize,
+                    TotalItemCount = Model.total,
+                }); }
+        </ul>
+    </div>
+</div>
+

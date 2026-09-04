@@ -1,0 +1,52 @@
+﻿@using BIZ.Entity
+@using UTILS
+@using WebMVC4.Helper
+@model List<CATEGORY_FULL>
+
+<ul class="no-bullets">
+    <li class="wow fadeInRight dropdown active" data-wow-delay="0.4s" data-wow-duration="0.75s" style="visibility: visible; animation-duration: 0.75s; animation-delay: 0.4s; animation-name: fadeInRight;">
+        <a href="/" title="Trang chủ">
+            Trang chủ
+        </a>
+    </li>
+    @if (Model != null)
+    {
+
+        if (Model.Count > 0)
+        {
+            foreach (var item in Model.Select((value, i) => new { i, value }))
+            {
+                if (item.value.Type != 0)
+                {
+                    <li class="wow fadeInRight dropdown" data-wow-delay="0.4s" data-wow-duration="0.75s" style="visibility: visible; animation-duration: 0.75s; animation-delay: 0.4s; animation-name: fadeInRight;">
+                        <a href="@item.value.Url" title="@item.value.Name">
+                            @item.value.Name
+                        </a>
+                    </li>
+                }
+                else
+                {
+                    <li class="wow fadeInRight dropdown" data-wow-delay="0.4s" data-wow-duration="0.75s" style="visibility: visible; animation-duration: 0.75s; animation-delay: 0.4s; animation-name: fadeInRight;">
+                        <a href="@item.value.Url" title="@item.value.Name">
+                            @item.value.Name
+                            <i class="fa fa-angle-down" aria-hidden="true"></i>
+                        </a>
+                        <ul class="no-bullets">
+
+
+                            @Html.Action("SubMenu", "Home")
+
+                        </ul>
+                    </li>
+                }
+
+            }
+        }
+    }
+
+
+
+
+</ul>
+
+

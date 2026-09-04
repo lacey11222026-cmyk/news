@@ -1,0 +1,17 @@
+﻿@model List<DATA.Banner>
+@if (Model != null)
+{
+
+
+
+    foreach (var item in Model.Select((value, i) => new { i, value }))
+    {
+        <li class="@ViewBag.param">
+            <a href="@item.value.Url" >
+                <img  src="@item.value.Data" alt="@item.value.Name" />
+            </a>
+        </li>
+    }
+
+
+}

@@ -1,0 +1,87 @@
+﻿@using UTILS
+@{
+    var date = Utils.formatDateofWeek(DateTime.Now.DayOfWeek) + "," + DateTime.Now.ToString(" dd") + "/" + DateTime.Now.ToString("MM") + "/" + DateTime.Now.Year.ToString() + " | " + DateTime.Now.ToString("HH") + ":" + DateTime.Now.ToString("mm");
+    //var lstBanner = new BIZ.BannerBO().GetTopLastestBanners(0, 8, 1);
+}
+<header>
+    <div class="menu-top">
+        <div class="container">
+            <ul>
+                <li><a href="/"><i class="fa fa-home" aria-hidden="true"></i></a></li>
+                <li>
+                    <a href="/gioi-thieu/c2/gioi-thieu.html">Giới thiệu</a>
+                    <ul class="menutop-item">
+                        <li><a href="/gioi-thieu/c27/co-so-phap-ly.html">Cơ sở pháp lý</a></li>
+                        <li><a href="/gioi-thieu/c28/to-chuc-quan-ly.html">Tổ chức quản lý</a></li>
+                        <li><a href="/gioi-thieu/c38/quy-trinh-thuc-hien.html">Quy trình thực hiện</a></li>
+                    </ul>
+                </li>
+                <li><a href="/gioi-thieu/c11/lien-he.html">Liên hệ</a></li>
+            </ul>
+        </div>
+    </div>
+    <div class="header">
+        <div class="container">
+            <a href="/"><img src="/Content/images/logo.png" alt="dự án tiết kiệm năng lượng cho ngành công nghiệp Việt Nam" class="logo"></a>
+            <img src="/Content/images/bnr-top.png?vs=2020" class="bnr-img">
+        </div>
+    </div>
+</header>
+<nav class="nav nav_top">
+    <div class="container">
+        @{Html.RenderAction("Menu", "Home");}
+        
+    </div>
+</nav>
+
+<section class="tool container mt10">
+    <p class="pull-left mt10">@date - GMT+7</p>
+    <ul class="link-icon pull-right">
+        <li class="search-pc">
+            <a href="javascript::" class="icon-search"><img src="/Content/images/icon-search.png" alt=""></a>
+            <div class="search_box">
+                <input type="text" id="txtKeyword" placeholder="Tìm kiếm" onkeydown="javascript: return AnyInput_KeyDown(this, event);">
+            </div>
+        </li>
+        <li><a href="https://www.facebook.com/KHCNcongthuong"><img src="/Content/images/icon-facebook.png" alt=""></a></li>
+        <li><a href="https://www.youtube.com/channel/UCthc9mPdYtuX2ARo2bdw6pQ"><img src="/Content/images/icon-youtube.png" alt=""></a></li>
+    </ul>
+    <div class="clearfix"></div>
+</section><!-- end tool-->
+
+
+<script type="text/javascript">
+    function search() {
+        var searchtext = $("#txtKeyword").val();
+        window.location = "/News/Search?q=" + searchtext;
+
+    }
+    function AnyInput_KeyDown(sender, e) {
+        if ((e.which && e.which == 13) || (e.keyCode && e.keyCode == 13)) {
+            search();
+
+            return false;
+        }
+
+        return true;
+    }
+
+
+    function Msearch() {
+        var searchtext = $("#txtKeywordMobile").val();
+        window.location = "/News/Search?q=" + searchtext;
+
+    }
+    function MAnyInput_KeyDown(sender, e) {
+        if ((e.which && e.which === 13) || (e.keyCode && e.keyCode === 13)) {
+            Msearch();
+
+            return false;
+        }
+
+        return true;
+    }
+
+
+
+</script>

@@ -1,0 +1,52 @@
+﻿@using BIZ
+@using UTILS
+@using WebMVC4.Helper
+@model WebMVC4.Models.LastestNewModel
+@if (Model != null)
+{
+    <div class="row lib-content">
+        @if (Model.lstdata != null)
+        {
+            if (Model.lstdata.Count > 0)
+            {
+                <div class="col-md-6 col-sm-12">
+                    @foreach (var item in Model.lstdata.Take(1).Select((value, i) => new { i, value }))
+                    {
+                        <div class="newsbig">
+                            <a href="/Podcast/@(item.value.Id)" class="img-icon icon-podcast-02"><img src="@item.value.MainImage?w=500&h=355&mode=crop" alt=""></a>
+                            <div class="newsbig-content">
+                                <a href="/Podcast/@(item.value.Id)" class="news-name mt15">@item.value.Title</a>
+                            </div>
+                        </div>
+                    }
+                </div>
+                <div class="col-md-6 col-sm-12">
+                    <div class="newslist-02">
+                        @foreach (var item in Model.lstdata.Skip(1).Select((value, i) => new { i, value }))
+                        {
+                            <div class="news-item">
+                                <a href="/Podcast/@(item.value.Id)">
+                                    <div class="img-icon icon-podcast-02"><img src="@item.value.MainImage?w=243&h=162&mode=crop" alt=""></div>
+                                    <span>@item.value.Title</span>
+                                </a>
+                            </div>
+
+                        }
+                    </div>
+                    <div class="text-center mt30">
+                        <a href="/podcast" class="btn-yellow">Xem thêm</a>
+                    </div>
+                </div>
+            }
+        }
+    </div>
+
+    
+
+
+
+
+
+
+
+}

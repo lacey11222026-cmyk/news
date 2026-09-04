@@ -1,0 +1,69 @@
+﻿@using BIZ
+@using UTILS
+@using WebMVC4.Helper
+@model List<BIZ.Entity.CONTENT_FULL>
+@if (Model != null)
+{
+    <div class="best">
+        <div id="hotnews">
+            <ul id="mycarouse2">
+                @foreach (var item in Model.Select((value, i) => new { i, value }))
+            {
+                 <li>
+                    <div class="tit_toptin">
+                        <p><a href="@item.value.LinkUrl">@item.value.Title</a></p>
+                        <p class="date">@item.value.PublishDate.ToString("hh:mm") ngày @item.value.PublishDate.ToString("dd/MM/yyyy")</p>
+                        <p class="sapo">@UTILS.Utils.SubString(item.value.IntroText, 140)</p>
+                    </div>
+                    <div class="anh_toptin">
+
+                        <div class="chitiet1">
+                            <a href="@item.value.LinkUrl" class="opa">
+                                <img src="/images/chitiet.jpg" /></a>
+                        </div>
+                        <a href="@item.value.LinkUrl">
+                            <img src="@(item.value.MainImage)?w=460&h=270&mode=crop" width="460" height="270" border="0" /></a>
+                    </div>
+                    <div class="clear"></div>
+                </li>
+                }
+            </ul>
+        </div>
+
+        <div class="clear"></div>
+
+        <div class="clear"></div>
+        <div class="list_new2">
+            @foreach (var item in Model.Select((value, i) => new { i, value }))
+            {
+                if (item.i < 4)
+                {
+                    <div class="box_list_img">
+                    <a href="@item.value.LinkUrl">
+                        <img alt="@item.value.Title" src="@(item.value.MainImage)?w=150&h=90&mode=crop" />@item.value.Title</a>
+                </div>
+
+                }
+                 
+            }
+
+        </div>
+        <div class="clear"></div>
+    </div>
+    
+    
+    <script type="text/javascript">
+
+        jQuery('#mycarouse2').jcarousel({
+            wrap: 'circular',
+            offset: 1,
+            auto: 10, animation: "normal",
+            scroll: 1,
+        });
+        $("#hotnews .jcarousel-clip-horizontal").css({ width: "698px", height: "270px", overflow: "hidden" });
+
+    </script>
+ 
+
+
+}

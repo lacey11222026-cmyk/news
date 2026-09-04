@@ -1,0 +1,42 @@
+﻿
+@using BIZ
+@using UTILS
+@using WebMVC4.Helper
+@model WebMVC4.Models.LastestNewsApiModel
+@if (Model.lstdata != null)
+{
+    if (Model.lstdata.Count > 0)
+    {
+        <div class="title-cm01">
+            <a href="@Model.Url" target="_blank">@Model.HeaderTitle</a>
+        </div>
+        <div class="row mt30">
+            <div class="col-md-6 col-sm-12">
+                @foreach (var item in Model.lstdata.Take(1).Select((value, i) => new { i, value }))
+                {
+                    <div class="newsbig">
+                        <a href="@item.value.LinkUrl" target="_blank"><img src="@item.value.MainImage?w=367&h=206&mode=crop" alt=""></a>
+                        <h2 class="mt10"><a href="@item.value.LinkUrl" target="_blank">@item.value.Title</a></h2>
+                        <p class="mt10">@item.value.IntroText</p>
+                        <span class="newsdate mt10">@item.value.PublishDate.ToString("dd/MM/yyyy")</span>
+                    </div>
+                }
+            </div>
+            <div class="col-md-6 col-sm-12">
+                <ul class="newslist02">
+                    @foreach (var item in Model.lstdata.Skip(1).Take(4).Select((value, i) => new { i, value }))
+                    {
+                        <li>
+                            <a href="@item.value.LinkUrl" target="_blank">
+                                <img src="@item.value.MainImage?w=110&h=62&mode=crop">
+                                <span>@item.value.Title</span>
+                            </a>
+                        </li>
+                    }
+                </ul>
+                <a href="@Model.Url" target="_blank" class="btn-viewmore mt20">@Resources.Global.More <span>+</span></a>
+            </div>
+        </div>
+    }
+
+}

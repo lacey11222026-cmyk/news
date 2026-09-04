@@ -1,0 +1,202 @@
+﻿@{
+
+    Layout = "~/Views/Shared/_AdminV2.cshtml";
+
+}
+@{
+    ViewBag.Title = "Quản trị nội dung giới thiệu";
+}
+<div class="row">
+    <div class="col-lg-12">
+        <div class="panel panel-primary">
+            <div class="panel-heading"><span class="glyphicon glyphicon-user"></span>@ViewBag.Title</div>
+
+            <div class="table-responsive">
+                <div id="dgrid" class="dataTables_wrapper form-inline" role="grid">
+                    <div id="ListCate">
+                        <table class="table table-striped table-bordered table-hover dataTable no-footer" id="dataTables">
+                            <thead>
+                                <tr class="rowsao">
+                                    @*<th>
+                                        #
+                                    </th>
+                                    <th>
+                                        Thứ tự
+                                    </th>*@
+                                    <th width="40%" class="title" style="text-align: left;min-width:300px;">
+                                        Tên chuyên mục
+                                    </th>
+                                    @*<th width="15%" class="title" style="min-width:100px;">
+                                        Nội dung
+                                    </th>*@
+                                    <th width="35%" class="title" style="text-align: left;min-width:150px;">
+                                        Url
+                                    </th>
+                                    <th width="15%" class="title" style="min-width:100px;">
+                                        Trạng thái
+                                    </th>
+                                </tr>
+                            </thead>
+
+                        </table>
+                        <div id="categories_tree_cont">
+                        </div>
+                    </div>
+
+                    <div class="dataTables_paginate" id="pager">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $('#menu_manageintro').addClass("active");
+
+</script>
+<script type="text/javascript">
+    var redirectUrl = '@Url.Action("IntroAddEdit","AdminCategory")';
+
+    $(document).ready(function () {
+        OnLoad();
+    });
+    function OnLoad() {
+        Utils.Loading();
+        $.ajax({
+            type: 'GET',
+            async: false,
+            jsonpCallback: 'jsonCallback',
+            contentType: "application/json",
+            dataType: 'jsonp',
+            url: '/Get/CategoryService.ashx?jsoncallback=?',
+            data: {
+                __m: 'get_all_categories_user',
+                ctype: 1
+
+
+            },
+            success: function (data) {
+                $('#categories_tree_cont').html("");
+
+                if (data != undefined && data != null && data != '')
+                    BindData(data);
+                else
+                    $('#categories_tree_cont').html("Chưa có chuyên mục nào");
+                Utils.UnLoading();
+            },
+            error: function () {
+                Utils.UnLoading();
+            }
+        });
+
+    }
+    
+
+    function CollapseSubCategories(id) {
+        $('div#cat' + id).hide();
+        $('#offcat' + id).hide();
+        $('#oncat' + id).show();
+    }
+
+    function ExpandSubCategories(id) {
+        $('div#cat' + id).show();
+        $('#offcat' + id).show();
+        $('#oncat' + id).hide();
+    }
+
+    function BindData(data) {
+
+        var html = '<tr><td colspan="5">Chưa có chuyên mục nào</td><tr>';
+
+        if (data != undefined && data != null && data != '') {
+
+            $.each(data, function (index, item) {
+
+                html = '<table class="table table-striped table-hover dataTable no-footer">';
+                html += '<tr>';
+                //html += '<td  style="text-align:center;">';
+                //html += '<input type="checkbox" name="chk_item" value="' + item.Id + '" />';
+                //html += '</td>';
+                //html += '<td  style="text-align:center;">';
+                //html += item.Ordering;
+                //html += '</td>';
+                html += '<td width="40%" style="min-width:300px;text-align:left">';
+                if (item.ParentId != 0) {
+
+                    html += '<span style="padding-left:' + (item.NodeLevel * 20) + 'px">';
+                    html += '<a href="' + redirectUrl + '?id=' + item.Id + '" alt="' + item.Name + '" style="text-decoration:none">';
+                    html += item.Name;
+                    html += '</a>';
+                    html += '</span>';
+                }
+                else {
+                    html += '<span style="font-weight:bold;font-size:12px;">';
+                    html += '<img id="offcat' + item.Id + '"src="/Administrator/Images/minus.gif" alt="Mở ra" onclick="CollapseSubCategories(' + item.Id + ')" />';
+                    html += '<img id="oncat' + item.Id + '" src="/Administrator/Images/plus.gif" alt="Thu vào" style="display:none;" onclick="ExpandSubCategories(' + item.Id + ')" />';
+                    html += '<a href="' + redirectUrl + '?id=' + item.Id + '" alt="' + item.Name + '" style="text-decoration:none">';
+                    html += item.Name;
+                    html += '</a>';
+                    html += '</span>';
+                }
+
+                html += '</td>';
+                //html += '<td align="center" width="15%" style="min-width:100px;">';
+                //if (item.Contents != undefined && item.Contents != null && item.Contents != '') {
+
+                //    html += "Đã có nội dung";
+                //}
+                //else {
+
+                //    html += "Nội dung trống";
+                //}
+               
+               
+                html += '<td align="left" width="40%" style="text-align: left;min-width:300x;">';
+                html += item.Url;
+                html += '</td>';
+
+
+                html += '<td align="center" width="15%" style="min-width:100px;">';
+                if (item.Published == 1)
+                    html += "Hoạt động";
+                else
+                    html += "Khóa";
+                html += '</td>';
+
+
+                html += '</tr>';
+                html += '</table>';
+                html += '<div id="cat' + item.Id + '">';
+                html += '</div>';
+
+                if (item.ParentId != 0) {
+                    $('div#cat' + item.ParentId).append(html);
+                }
+                else
+                    $('#categories_tree_cont').append(html);
+            });
+        }
+
+
+    }
+
+
+
+    function New() {
+        window.location.href = redirectUrl;
+    }
+   
+
+
+</script>
+
+<style>
+    table.dataTable {
+        margin-top: 0px !important;
+        margin-bottom: 0px !important;
+    }
+    table.dataTable td {
+        font-size:12px;
+    }
+</style>
+

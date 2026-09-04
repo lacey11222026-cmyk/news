@@ -1,0 +1,54 @@
+﻿@using BIZ
+@using UTILS
+@using WebMVC4.Helper
+@model WebMVC4.Models.News2Model
+
+
+
+
+<div class="container newspage-c2 mt40">
+    <div class="row">
+        <div class="col-lg-8 col-md-12">
+            @if (Model.articles != null)
+            {
+                <div class="">
+                    <h2 class="title-detail"><a href="#">Tiêu điểm</a></h2>
+
+                    <div class="newslist-04 mt20">
+                        @foreach (var item in Model.articles.Select((value, i) => new { i, value }))
+                        {
+
+
+                            <div>
+                                <a href="@item.value.LinkUrl" class="newslist-04-item">
+                                    <img src="@item.value.MainImage?w=230&h=153&mode=crop" alt="">
+                                    <div>
+                                        <p class="news-name">@item.value.Title</p>
+                                        <p class="mt10 news-content">@item.value.IntroText</p>
+                                        <p class="mt10 newsdate">@item.value.PublishDate.ToString("dd/MM/yyyy")</p>
+                                    </div>
+                                </a>
+                            </div>
+                        }
+
+                    </div>
+                    <div class="paging mt50">
+                        <ul>
+                            @{Html.RenderPartial("Pagination", new WebMVC4.Models.PaginationInfo
+                                {
+                                    PageUrl = Url.SetParameter("Page", "!0"),
+                                    CurrentPage = ViewBag.Page,
+                                    PageSize = ViewBag.PageSize,
+                                    TotalItemCount = ViewBag.Total,
+                                }); }
+                        </ul>
+                    </div>
+                </div>
+            }
+        </div>
+        <div class="col-lg-4 col-md-12 sidebar-right">
+            @Html.Partial("Site_Right")
+        </div>
+    </div>
+</div>
+

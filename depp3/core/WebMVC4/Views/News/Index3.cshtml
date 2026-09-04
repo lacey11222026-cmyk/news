@@ -1,0 +1,128 @@
+﻿@using BIZ
+@using UTILS
+@using WebMVC4.Helper
+@model WebMVC4.Models.News2Model
+
+@{
+    var langpage = WorkContext.GetLanguage();
+}
+<div class="bnr-detail">
+    @*<img src="/Content/img/bnr-tranning.jpg?vs=02" alt="" class="hidden-767">
+        <img src="/Content/img/bnr-tranning-mb.jpg" alt="" class="block-767">*@
+    @{Html.RenderAction("BannerTop", "Home", new { Type = 2 });}
+    <div class="bnr-detail-inner">
+        <div class="container">
+            <h2>@ViewBag.CateName</h2>
+        </div>
+    </div>
+</div>
+<div class="document-page mt30 pb80">
+    <div class="breadcrumbs container">
+        <ul>
+
+            <li><a href="/">@Resources.Global.Home</a></li>
+            <li><span>@ViewBag.CateName</span></li>
+        </ul>
+    </div>
+    @if (langpage != "vi-vn")
+    {
+        <div class="mt50">
+            <div class="container control">
+                <ul>
+                    <li><a href="#01">Project development guidelines</a></li>
+                    <li><a href="#02">Anonymized reports</a></li>
+                    <li><a href="#03">Sector-specific energy audit guidelines</a></li>
+                    <li><a href="#04">Technology catalogues</a></li>
+
+                    <li><a href="#05">Training materials</a></li>
+                    <li><a href="#06">Others</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div id="01" class="container pb80 mt50">
+            @{Html.RenderAction("LastestNews2", "News", new { CateName = "", CategoryId = 89, MaxLastestNews = 5 });}
+
+        </div>
+        <div id="02" class="container pb80 mt50">
+            @{Html.RenderAction("LastestNews2", "News", new { CateName = "", CategoryId = 98, MaxLastestNews = 5 });}
+
+        </div>
+        <div id="03" class="container pb80 mt50">
+            @{Html.RenderAction("LastestNews2", "News", new { CateName = "", CategoryId = 99, MaxLastestNews = 5 });}
+
+        </div>
+        <div id="04" class="container pb80 mt50">
+            @{Html.RenderAction("LastestNews2", "News", new { CateName = "", CategoryId = 90, MaxLastestNews = 5 });}
+
+        </div>
+        @*<div id="03" class="container pb80 mt50">
+                @{Html.RenderAction("LastestNews2", "News", new { CateName = "", CategoryId = 91, MaxLastestNews = 5 });}
+
+            </div>*@
+        <div id="05" class="container pb80 mt50">
+            @{Html.RenderAction("LastestNews2", "News", new { CateName = "", CategoryId = 92, MaxLastestNews = 5 });}
+
+        </div>
+        <div id="06" class="container pb80 mt50">
+            @{Html.RenderAction("LastestNews2", "News", new { CateName = "", CategoryId = 93, MaxLastestNews = 5 });}
+
+        </div>
+    }
+    else
+    {
+        <div class="mt50">
+            <div class="container control">
+                <ul>
+                    <li><a href="#01">Hướng dẫn phát triển dự án</a></li>
+                    <li><a href="#02">Báo cáo ẩn danh</a></li>
+                    <li><a href="#03">Hướng dẫn kiểm toán theo ngành</a></li>
+                    <li><a href="#04">Cẩm nang công nghệ</a></li>
+
+                    <li><a href="#05">Tài liệu tập huấn</a></li>
+                    <li><a href="#06">Tài liệu khác</a></li>
+                </ul>
+            </div>
+        </div>
+        <div id="01" class="container pb80 mt50">
+            @{Html.RenderAction("LastestNews2", "News", new { CateName = "", CategoryId = 82, MaxLastestNews = 5 });}
+
+        </div>
+        <div id="02" class="container pb80 mt50">
+            @{Html.RenderAction("LastestNews2", "News", new { CateName = "", CategoryId = 100, MaxLastestNews = 5 });}
+
+        </div>
+        <div id="03" class="container pb80 mt50">
+            @{Html.RenderAction("LastestNews2", "News", new { CateName = "", CategoryId = 101, MaxLastestNews = 5 });}
+
+        </div>
+        <div id="04" class="container pb80 mt50">
+            @{Html.RenderAction("LastestNews2", "News", new { CateName = "", CategoryId = 83, MaxLastestNews = 5 });}
+
+        </div>
+        @*<div id="03" class="container pb80 mt50">
+                @{Html.RenderAction("LastestNews2", "News", new { CateName = "", CategoryId = 84, MaxLastestNews = 5 });}
+
+            </div>*@
+        <div id="05" class="container pb80 mt50">
+            @{Html.RenderAction("LastestNews2", "News", new { CateName = "", CategoryId = 85, MaxLastestNews = 5 });}
+
+        </div>
+        <div id="06" class="container pb80 mt50">
+            @{Html.RenderAction("LastestNews2", "News", new { CateName = "", CategoryId = 86, MaxLastestNews = 5 });}
+
+        </div>
+    }
+
+
+</div>
+
+<script type="text/javascript">
+
+ $('#menu_' + '@ViewBag.CurrentCategoryId').addClass("active");
+
+  $('#menu_' + '@ViewBag.ParentCategoryId').addClass("active");
+
+
+
+</script>

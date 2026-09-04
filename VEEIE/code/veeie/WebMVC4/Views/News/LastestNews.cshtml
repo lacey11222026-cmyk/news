@@ -1,0 +1,62 @@
+﻿@using BIZ
+@using UTILS
+@using WebMVC4.Helper
+@model WebMVC4.Models.LastestNewModel
+@if (Model != null)
+{
+    if (Model.lstdata!=null)
+    {
+
+        <div class="padbot article">
+            <div class="bg_blu"><a href="@Model.Url">@Model.HeaderTitle</a></div>
+            @foreach (var item in Model.lstdata.Select((value, i) => new { i, value }))
+            {
+
+                if (item.i == 0)
+                {
+                    <div class="listtin w360">
+                        <img  alt="@item.value.Title" src="@item.value.MainImage?w=150&h=100&mode=crop">
+                        <p><a href="@item.value.LinkUrl">@item.value.Title</a></p>
+                        <span>@UTILS.Utils.SubString(item.value.IntroText, 150)</span>
+                    </div>
+
+
+
+                }
+                else
+                {
+                    if (item.i == 1)
+                    {
+                        @Html.Raw("<div class=\"padtop20\"><ul class=\"listvb\">")
+
+                    }
+                    <li>
+                        <a href="@item.value.LinkUrl"
+                           title="@item.value.Title">
+                            @item.value.Title
+                        </a>
+                    </li>
+                    if (item.i == Model.lstdata.Count - 1)
+                    {
+                        @Html.Raw("</ul></div>")
+                    }
+                }
+
+            }
+
+
+            <div class="clear"></div>
+
+        </div>
+        <div class="clear"></div>
+
+
+
+
+
+
+
+
+
+    }
+}

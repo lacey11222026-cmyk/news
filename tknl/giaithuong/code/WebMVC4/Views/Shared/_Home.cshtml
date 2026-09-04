@@ -1,0 +1,76 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+
+    @Html.Partial("MetaData")
+    @*<link rel="stylesheet" href="/Content/css/bootstrap.min.css">
+        <link rel="stylesheet" href="/Content/css/common.css">
+        <link rel="stylesheet" href="/Content/css/style.css?vs=4">
+        <link type="text/css" rel="stylesheet" href="/Content/css/jquery.mmenu.all.css" />
+
+        <link href="/Content/css/chantrang.css?vs=4" rel="stylesheet" type="text/css" />
+        <link rel="stylesheet" href="/Content/css/extend.css?vs=4">*@
+    @Styles.Render("~/Content/site.css")
+
+    <script src="/Content/js/jquery.min.js"></script>
+    <script src="/Content/js/bootstrap.min.js"></script>
+    @*<script src="~/Content/js/matchHeight.js"></script>
+
+        <script type="text/javascript" src="/Content/js/jquery.mmenu.min.all.js"></script>
+        <script type="text/javascript" src="/Content/js/jquery.flexisel.js"></script>*@
+
+</head>
+<body onorientationchange="updateOrientation();">
+    @{Html.RenderAction("Menu", "Home");}
+    <div>
+        @Html.Partial("Site_Header")
+        <section class="content-wrap container" id="content-wrap">
+            @RenderBody()
+            <div class="clearfix"></div>
+            @{Html.RenderAction("BannerBottom", "Home");}
+            @{Html.RenderAction("MenuBottom", "Home");}
+            <div class="clearfix"></div>
+            @Html.Partial("Site_Footer")
+        </section>
+
+    </div>
+
+    <div id="top_gototop"><a href="javascript:;" class="gototop clearfix"><img src="/Content/images/gotop.png" alt="lên đầu trang" /></a></div>
+    <div id="fb-root"></div>
+    <div class="clearfix">
+    </div>
+    @Scripts.Render("~/sitescript")
+    <script>
+        function updateOrientation() {
+            window.location.reload();
+        }
+    </script>
+    <script src="/Content/js/script.js"></script>
+    <script src="https://sp.zalo.me/plugins/sdk.js"></script>
+    <script>
+
+        (function (d, s, id) {
+            var js, fjs = d.getElementsByTagName(s)[0];
+            if (d.getElementById(id)) return;
+            js = d.createElement(s); js.id = id;
+            js.src = "//connect.facebook.net/vi_VN/sdk.js#xfbml=1&version=v2.8&appId=1017677488409545";
+            fjs.parentNode.insertBefore(js, fjs);
+        }(document, 'script', 'facebook-jssdk'));
+    </script>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-46237204-2"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'UA-46237204-2');
+    </script>
+
+</body>
+
+
+
+
+
+</html>

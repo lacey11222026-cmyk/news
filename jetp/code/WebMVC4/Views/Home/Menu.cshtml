@@ -1,0 +1,18 @@
+﻿@using BIZ
+@using UTILS
+@using WebMVC4.Helper
+@model List<BIZ.Entity.CATEGORY_FULL>
+
+@{
+    var langpage = WorkContext.GetLanguage();
+}
+@foreach (var item in Model.Select((value, i) => new { i, value }))
+{
+    <li>
+        <a href="@item.value.Url">
+            @item.value.Name  
+        </a>
+        @Html.Raw(HtmlHelpers.BindChildCategories(Convert.ToInt32(item.value.Id), int.Parse(item.value.Type.ToString())))
+
+    </li>
+}

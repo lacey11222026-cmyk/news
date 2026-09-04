@@ -1,0 +1,16 @@
+04/18/2019 10:11:10: 	The specified type 'CountTest' is not a valid provider type.
+   at System.Data.Linq.SqlClient.SqlTypeSystem.ProviderBase.Parse(String stype)
+   at System.Data.Linq.SqlClient.SqlFactory.Default(MetaDataMember member)
+   at System.Data.Linq.SqlClient.SqlFactory.Member(SqlExpression expr, MetaDataMember member)
+   at System.Data.Linq.SqlClient.Translator.BuildProjectionInternal(SqlExpression item, MetaType rowType, IEnumerable`1 members, Boolean allowDeferred, SqlLink link, Expression source)
+   at System.Data.Linq.SqlClient.Translator.BuildProjection(SqlExpression item, MetaType rowType, Boolean allowDeferred, SqlLink link, Expression source)
+   at System.Data.Linq.SqlClient.QueryConverter.TranslateStoredProcedureCall(MethodCallExpression mce, MetaFunction function)
+   at System.Data.Linq.SqlClient.QueryConverter.VisitMappedFunctionCall(MethodCallExpression mc)
+   at System.Data.Linq.SqlClient.QueryConverter.VisitMethodCall(MethodCallExpression mc)
+   at System.Data.Linq.SqlClient.QueryConverter.VisitInner(Expression node)
+   at System.Data.Linq.SqlClient.QueryConverter.ConvertOuter(Expression node)
+   at System.Data.Linq.SqlClient.SqlProvider.BuildQuery(Expression query, SqlNodeAnnotations annotations)
+   at System.Data.Linq.SqlClient.SqlProvider.System.Data.Linq.Provider.IProvider.Execute(Expression query)
+   at System.Data.Linq.DataContext.ExecuteMethodCall(Object instance, MethodInfo methodInfo, Object[] parameters)
+   at DATA.ShopOnlineDataContext.sp_TestArchive_Report(Nullable`1 id) in D:\Work\news\code\congdoannganhang\code\DATA\ShopOnline.designer.cs:line 1200
+   at DATA.TestArchiveDBSproc.Report(Int32 id) in D:\Work\news\code\congdoannganhang\code\DATA\TestArchiveDBSproc.cs:line 158

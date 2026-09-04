@@ -1,0 +1,62 @@
+﻿@using BIZ
+@using UTILS
+@using WebMVC4.Helper
+@model WebMVC4.Models.NewsModel
+@{
+    var langpage = WorkContext.GetLanguage();
+}
+@if (Model.listdata != null)
+{
+    <div class="news-list mt50">
+        @foreach (var item in Model.listdata.Select((value, i) => new { i, value }))
+        {
+            <div>
+                <div class="news-item">
+                    <a href="/trang-chu-video?VideoId=@(item.value.Id)" class="picture"><img src="@item.value.MainImage?w=372&h=248&mode=crop"></a>
+                    <div class="desc">
+                        <div class="v-card">
+                            <div class="time-read">
+                                <i class="fa-regular fa-clock"></i>
+                                <span>@item.value.PublishDate.ToString("dd/MM/yyyy")</span>
+                            </div>
+                        </div>
+                        <h3><a href="/trang-chu-video?VideoId=@(item.value.Id)">@item.value.Title</a></h3>
+                    </div>
+                </div>
+            </div>
+        }
+        </div>
+    <div class="paging text-center mt30">
+        <ul>
+            @{Html.RenderPartial("PaginationVideo", new WebMVC4.Models.PaginationInfo
+                {
+                    PageUrl = Url.SetParameter("Page", "!0"),
+                    CurrentPage = Model.pageIndex,
+                    PageSize = Model.pageSize,
+                    TotalItemCount = Model.total,
+                }); }
+        </ul>
+    </div>
+    
+
+    <script>
+
+        function GoVideoPage(page) {
+            var VideoId = '@Model.Id';
+             var Cateid='@ViewBag.CategoryId'
+            if (page > 0) {
+                $.ajax({
+                    type: "GET",
+                     url: "/Video/LoadVideo/?VideoId=" + VideoId + "&page=" + page + "&CategoryId=" + Cateid,
+                    success: function (data) {
+                        if (data != "null") {
+                            $("#lstVideo").html(data);
+                        }
+                    }
+                });
+            }
+
+        }
+
+    </script>
+}

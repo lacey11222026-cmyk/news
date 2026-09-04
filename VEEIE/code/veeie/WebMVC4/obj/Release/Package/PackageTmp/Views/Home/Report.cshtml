@@ -1,0 +1,14 @@
+﻿@model BIZ.ServerProcess.CONTENT_API
+@using UTILS
+<h2 class="title-cm mt0"><a href="#">Kết quả dự án</a></h2>
+<!-- update 202002-->
+<div class="bnr-new">
+    <img src="/Content/images/bnr-bg.png" alt="">
+    <div class="bnr-new-content">
+        <ul>
+            <li>Lượng tiết kiệm năng lượng: <span class="flash">@Utils.InsertCommaNoStyle(Model.Total1.ToString()) MWh/năm</span></li>
+            <li>Lượng giảm phát thải: <span class="flash">@Utils.InsertCommaNoStyle(Model.Total2.ToString()) tấn CO2/năm</span></li>
+            <li>Giải ngân: <span class="flash">@Utils.InsertCommaNoStyle(Model.Money.ToString()) VND</span></li>
+        </ul>
+    </div>
+</div>

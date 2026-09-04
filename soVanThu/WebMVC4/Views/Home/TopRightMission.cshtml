@@ -1,0 +1,20 @@
+﻿@using BIZ
+@using UTILS
+@using WebMVC4.Helper
+@model List<BIZ.Entity.MISSION_FULL>
+@{
+    var langpage = WorkContext.GetLanguage();
+}
+@if (Model != null)
+{
+    foreach (var item in Model.Select((value, i) => new { i, value }))
+    {
+        <li>
+            <img src="/Content/images/calerdar.png" alt="">
+            <div>
+                <strong>@item.value.Code</strong>
+                <p class="mt10">@item.value.Name</p>
+            </div>
+        </li>
+    }
+}

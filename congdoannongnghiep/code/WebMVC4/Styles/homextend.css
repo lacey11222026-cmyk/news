@@ -1,0 +1,15 @@
+﻿
+ .home_mobile_hide {
+        display: block;
+    }
+    .home_pc_hide {
+        display: none;
+    }
+@media screen and (max-width: 768px) {
+     .home_pc_hide {
+        display: block;
+    }
+      .home_mobile_hide {
+        display: none;
+    }
+}

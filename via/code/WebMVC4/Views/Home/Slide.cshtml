@@ -1,0 +1,70 @@
+﻿@using BIZ
+@using BIZ.Entity
+@using UTILS
+@using WebMVC4.Helper
+@model WebMVC4.Models.SlideModel
+
+
+<div class="row">
+    <div class="col-md-8">
+        <div class="newsSlider">
+            @foreach (var item in Model.LstHotNews.Take(3).Select((value, i) => new { i, value }))
+            {
+                <div class="newsbig-top">
+                    <a href="@item.value.LinkUrl" ><img src="@item.value.Image?w=764&h=427&mode=crop" alt=""></a>
+                    <a href="@item.value.LinkUrl" class="news-name mt15">@item.value.Title</a>
+                    @*<span class="newsdate mt10">Thứ hai, 01/03/2021</span>*@
+                    <p class="mt10 news-txt">@item.value.IntroText</p>
+                </div>
+            }
+        </div>
+    </div>
+    <div class="col-md-4 newsnew">
+        <div class="">
+            <ul class="title-cm01 nav nav-tabs">
+                <li><a href="#newsnew" class="nav-link active" id="newsnew-tab" data-toggle="tab" data-target="#newsnew">Tin mới</a> |</li>
+                <li><a class="nav-link" href="#newsmore" id="newsmore-tab" data-toggle="tab" data-target="#newsmore">Đọc nhiều</a></li>
+            </ul>
+        </div>
+        <div class="tab-content">
+            <div class="tab-pane fade show active" id="newsnew">
+                <ul class="newslist-04">
+                    @foreach (var item in Model.LstLastestNews.Select((value, i) => new { i, value }))
+                    {
+                        if (item.i < 9)
+                        {
+                            <li><a href="@item.value.LinkUrl">@item.value.Title</a></li>
+                        }
+
+                    }
+                </ul>
+            </div>
+            <div class="tab-pane fade" id="newsmore">
+                <ul class="newslist-04">
+                    @if (Model.LstTopViewNews != null)
+                    {
+                        foreach (var item in Model.LstTopViewNews.Select((value, i) => new { i, value }))
+                        {
+                            if (item.i < 9)
+                            {
+                                <li><a href="@item.value.LinkUrl" >@item.value.Title</a></li>
+                            }
+
+                        }
+                    }
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+<ul class="newshot row mt20">
+    @foreach (var item in Model.LstHotNews.Skip(3).Take(4).Select((value, i) => new { i, value }))
+    {
+        <li class="col-md-3 col-sm-12">
+            <a href="@item.value.LinkUrl" >
+                <img src="@item.value.Image?w=268&h=151&mode=crop">
+                <span class="mt10">@item.value.Title</span>
+            </a>
+        </li>
+    }
+</ul>

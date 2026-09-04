@@ -1,0 +1,68 @@
+﻿@using BIZ
+@using UTILS
+@using WebMVC4.Helper
+@model BIZ.Entity.CATEGORY_FULL
+@{
+    List<BIZ.Entity.CATEGORY_FULL> data = ViewBag.lstrelate;
+}
+@{
+    var langpage = WorkContext.GetLanguage();
+}
+@{
+    var Type = 1;
+    if (Model.Id == 42 || Model.Id == 60)
+    {
+        Type = 8;
+    }
+}
+@if (Model != null)
+{
+    <div class="bnr-detail">
+        @*<img src="/Content/img/bnr-intro.jpg?vs=02" alt="" >
+            <img src="/Content/img/bnr-intro-mb.jpg" alt="" class="block-767">*@
+        @{Html.RenderAction("BannerTop", "Home", new { Type = Type });}
+        <div class="bnr-detail-inner">
+            <div class="container">
+                <h2>@Model.Name</h2>
+            </div>
+        </div>
+    </div>
+    <div class="bg-gray pt-5 pb100">
+        <div class="container detail-content">
+            <div class="breadcrumbs">
+                <ul>
+                    <li><a href="/">@Resources.Global.Home</a></li>
+                    <li><span>@Model.Name</span></li>
+                </ul>
+            </div>
+            <p class="date mt10">@DateTime.Now.ToString("HH:mm")   |   @DateTime.Now.ToString("dd/MM/yyyy")</p>
+            <div class="row row-50 mt20">
+                <div class="col-lg-8 col-md-12">
+                    <div id="NewsContent">
+                        @Html.Raw(Model.Contents.Replace("font-size: small", ""))
+                    </div>
+                </div><!-- end content left-->
+                @Html.Partial("Site_Right")
+
+            </div><!-- end content-->
+        </div>
+
+
+
+        @*<div class="company-support pt100 pb60">
+                <div class="container">
+                    <h2 class="title-cm text-center">@Resources.Global.CONSULTINGFIRMS</h2>
+                    @{Html.RenderAction("BannerBottom", "Home", new { lang = langpage });}
+                </div>
+            </div>*@<!-- ed support-->
+    </div>
+
+    <script type="text/javascript">
+
+  $('#menu_' + '@Model.Id').addClass("active");
+  
+
+    </script>
+
+
+}

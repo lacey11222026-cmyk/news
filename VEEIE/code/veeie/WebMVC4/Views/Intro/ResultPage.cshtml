@@ -1,0 +1,37 @@
+﻿@model List<DATA.City>
+@{
+    Layout = "~/Views/Shared/_Home.cshtml";
+}
+<div class="ketqua-page">
+    <h2 class="title-blue" id="mb">Kết quả triển khai</h2>
+    <h3 class="title-blue02 mt40" >Khu vực miền Bắc</h3>
+    <ul class="ketqua-list">
+        @foreach (var item in Model.Where(x => x.Type == 1).Select((value, i) => new { i, value }))
+        {
+
+
+            <li><a href="@Url.Action("ViewFile",  new {id = item.value.Id})">@item.value.Name</a></li>
+        }
+
+    </ul>
+    <div class="clearfix"  id="mt"></div>
+    <h3 class="title-blue02 mt40">Khu vực miền Trung</h3>
+    <ul class="ketqua-list">
+        @foreach (var item in Model.Where(x => x.Type == 2).Select((value, i) => new { i, value }))
+        {
+
+
+            <li><a href="@Url.Action("ViewFile",  new {id = item.value.Id})">@item.value.Name</a></li>
+        }
+    </ul>
+    <div class="clearfix" id="mn"></div>
+    <h3 class="title-blue02 mt40" >Khu vực miền Nam</h3>
+    <ul class="ketqua-list">
+        @foreach (var item in Model.Where(x => x.Type == 3).Select((value, i) => new { i, value }))
+        {
+
+
+            <li><a href="@Url.Action("ViewFile",  new {id = item.value.Id})">@item.value.Name</a></li>
+        }
+    </ul>
+</div>

@@ -1,0 +1,31 @@
+﻿@using  WebMVC4.libs
+@model  List<WebMVC4.libs.Discuss>
+
+<!-- end right-->
+<div class="detail">
+    <div class="title_c1">GIAO LƯU TRỰC TUYẾN</div>
+    <div class="paddetail" style="background: rgba(255,255,255,.5); width: 640px; padding: 5px;">
+        <div style="clear: both"></div>
+        @if (Model != null && Model.Count > 0)
+        {
+            WebMVC4.libs.Discuss item;
+            for (int i = 0; i < Model.Count; i++)
+            {
+                item = Model[i];
+                <div class="dong5">
+                    <a href="@Url.Action("Details", "OnlineDiscussion", new { DiscussId = item.DiscussId, Title = DBCommon.UCS2Convert(item.Title).Replace(" ", "-").ToLower() })">
+                        <img src="@item.ImgPath" width="114" height="93">
+                    </a>
+                    <a href="@Url.Action("Details", "OnlineDiscussion", new { DiscussId = item.DiscussId, Title = DBCommon.UCS2Convert(item.Title).Replace(" ", "-").ToLower() })">
+                        @item.Title
+                    </a>
+                    <p>@string.Format("{0:HH:mm | dd/MM/yyyy}", item.DateCreate)</p>
+                    @item.Summary
+                    <div class="clear"></div>
+                </div>
+            }
+        }
+    </div>
+</div>
+<!-- end left-->
+<div style="clear: both"></div>

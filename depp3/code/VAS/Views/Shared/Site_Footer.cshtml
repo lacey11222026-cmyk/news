@@ -1,0 +1,53 @@
+﻿@using VAS
+@using VAS.Helper
+@{
+    var langpage = WorkContext.GetLanguage();
+}
+
+@if (langpage == "vi-vn")
+{
+    <footer>
+        <div class="lienket">
+            <select class="form-control" id="Select1" onchange="window.open(this.options[this.selectedIndex].value,'_blank');this.options[0].selected=true">
+                <option>Liên kết</option>
+                <option value="https://depp3.vn/">Chương trình DEPP3 </option>
+                <option value="https://coe.depp3.vn/">Trung tâm xuất sắc về HQNL</option>
+            </select>
+        </div>
+        <div class="container">
+            <p class="f-txt">Chương trình thỏa thuận tự nguyện thúc đẩy sử dụng năng lượng tiết kiệm và hiệu quả<br> trong các ngành công nghiệp tiêu thụ nhiều năng lượng</p>
+            <p class="mt10">
+                @@2024&nbsp; | &nbsp;Phát triển bởi &nbsp;<img src="/Content/img/vtk.svg" alt="" width="40">
+            </p>
+        </div>
+    </footer>
+}
+else
+{
+<footer>
+    <div class="lienket">
+        <select class="form-control" id="Select1" onchange="window.open(this.options[this.selectedIndex].value,'_blank');this.options[0].selected=true">
+            <option>Link</option>
+            <option value="https://depp3.vn/">DEPP3 Program </option>
+            <option value="https://coe.depp3.vn/">CoE for Energy Efficiency</option>
+        </select>
+    </div>
+    <div class="container">
+        <p class="f-txt">VOLUNTARY AGREEMENT SCHEME ON ENERGY EFFICIENCY IN ENERGY INTENSIVE INDUSTRIES   </p>
+        <p class="mt10">
+            @@2024&nbsp; | &nbsp;Designed by &nbsp;<img src="/Content/img/vtk.svg" alt="" width="40">
+        </p>
+    </div>
+</footer>
+}
+
+<p><a href="#top" id="backToTop" class="backTop block"></a></p>
+<style>
+    .lienket
+    {
+        position:absolute;
+        top:10px;
+        right:10px;
+        z-index:100;
+    }
+</style>

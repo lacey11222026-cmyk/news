@@ -1,0 +1,64 @@
+﻿@using BIZ
+@model List<BIZ.Datum>
+@if (Model != null)
+{
+    try
+    {
+
+
+        <div class="exchange-rate mt20 box-shadow">
+            <div class="rate-title maxheight01">
+                <div>
+                    <p>Tỷ giá</p>
+                    <img src="/Content/img/tygia-01.svg" alt="" width="85" class="mt-1">
+                </div>
+            </div>
+            <div class="maxheight01 tbl-wrap">
+                <table class="tbl-rate">
+                    <tr>
+                        <th colspan="3" class="text-yellow">Ngày @DateTime.Now.ToString("dd/MM/yyyy")</th>
+                    </tr>
+                    <tr>
+                        <th>NGOẠI TỆ</th>
+                        <th>GIÁ MUA</th>
+                        <th>GIÁ BÁN</th>
+                    </tr>
+                    <tr>
+                        <td class="ico-cm-02 text-yellow"><img src="/Content/img/ico-usd.svg" alt="" width="20">USD</td>
+                        <td>@Model.FirstOrDefault(x => x.currencyCode == "USD").cash.ToString("N2") </td>
+                        <td>@Model.FirstOrDefault(x => x.currencyCode == "USD").sell.ToString("N2") </td>
+                    </tr>
+                    <tr>
+                        <td class="ico-cm-02 text-yellow"><img src="/Content/img/ico-eur.svg" alt="" width="18">EUR</td>
+                        <td>@Model.FirstOrDefault(x => x.currencyCode == "EUR").cash.ToString("N2") </td>
+                        <td>@Model.FirstOrDefault(x => x.currencyCode == "EUR").sell.ToString("N2") </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <div class="interest-rate mt20 box-shadow">
+            <div class="rate-title maxheight01">
+                <div>
+                    <p>LÃI SUẤT</p>
+                    <img src="/Content/img/laisuat.svg" alt="" width="63" class="mt-1">
+                </div>
+            </div>
+            <div class="maxheight01 tbl-wrap">
+                <table class="tbl-rate">
+                    <tr>
+                        <td>Lãi suất tái chiết khấu</td>
+                        <td>@ViewBag.interestRate1</td>
+                    </tr>
+                    <tr>
+                        <td>Lãi suất tái cấp vốn</td>
+                        <td>@ViewBag.interestRate2</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    }
+    catch
+                {
+
+                }
+}

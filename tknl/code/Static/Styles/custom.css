@@ -1,0 +1,236 @@
+.camnang1 {
+    width: 31%;
+    float: left;
+}
+
+.camnang2 {
+    float: right;
+    width: 67%;
+    border: solid 1px #CCC;
+    margin-bottom: 20px;
+}
+
+    .camnang2 .bus, .camnang2 .lich {
+        background: url(/Images/bus_icon.jpg) no-repeat left center;
+        padding-left: 60px;
+        margin: 20px 0 10px;
+        font-size: 24px;
+        font-weight: bold;
+    }
+
+    .camnang2 .lich {
+        background: url(/Images/lich_icon.jpg) no-repeat left center;
+    }
+
+/*world cup*/
+.menu_w {
+    background: #1e5a2e;
+    margin: 1px 0 0 0;
+    text-transform: uppercase;
+}
+
+    .menu_w ul li {
+        float: left;
+        border-right: 1px solid #3c794c;
+        line-height: 34px;
+        font-size: 11px;
+        height: 34px;
+    }
+
+        .menu_w ul li:last-child {
+            background: none;
+        }
+
+        .menu_w ul li a {
+            color: #fff;
+            padding: 0 10px 0 9px;
+        }
+
+            .menu_w ul li a:hover {
+                color: #fff047;
+            }
+
+.title_w {
+    font-family: "Myriad Pro","myriad-pro-1","myriad-pro-2",Arial,Sans-Serif;
+    font-size: 20px;
+    border-bottom: 2px solid #1e5a2e;
+    padding: 0 0 5px 0;
+    color: #1e5a2e;
+    margin-bottom: 8px;
+}
+
+.title_cw {
+    font-family: "Myriad Pro","myriad-pro-1","myriad-pro-2",Arial,Sans-Serif;
+    font-size: 24px;
+    border-bottom: 2px solid #1e5a2e;
+    padding: 0 0 5px 0;
+    color: #000;
+    margin-bottom: 10px;
+}
+
+.dong_w {
+    margin-bottom: 15px;
+}
+
+    .dong_w img {
+        border: 1px solid #c4c4c4;
+        float: left;
+        margin: 0 10px 0 0;
+    }
+
+    .dong_w a {
+        color: #000;
+        font-weight: bold;
+        font-size: 14px;
+    }
+
+        .dong_w a:hover {
+            color: #1e5a2e;
+        }
+
+    .dong_w p {
+        font-size: 10px;
+        margin: 3px 0;
+    }
+/*-----------------------------------------------------*/
+
+.tool_phu ul li input {
+    background: url(../images/ser.jpg) 130px 3px no-repeat;
+    line-height: normal;
+}
+
+img {
+    vertical-align: top;
+}
+
+.bgt-table-search {
+    margin: 10px 40px;
+    font-size: 12px;
+}
+
+    .bgt-table-search td {
+        padding-bottom: 5px;
+    }
+
+    .bgt-table-search select, .bgt-table-search input {
+        border: solid 1px #CCC;
+        vertical-align: middle;
+        padding: 4px;
+    }
+
+    .bgt-table-search .btn-search {
+        background-color: #ccc;
+        vertical-align: top;
+        padding: 5px 10px;
+        margin-top: 5px;
+    }
+
+.main-table-bgt {
+    border-radius: 0;
+    border-right: none !important;
+    border-left: none !important;
+    margin-bottom: 0;
+}
+
+    .main-table-bgt td {
+        vertical-align: top;
+    }
+
+    .main-table-bgt .hd-tb td {
+        background-color: #eee !important;
+        font-size: 14px;
+        font-weight: bold;
+    }
+
+    .main-table-bgt > td:first-child {
+        border-left: medium none;
+    }
+
+
+@media (min-width: 768px) and (max-width: 979px) {
+    .menu_w {
+        display: none;
+    }
+
+    .menu_f {
+        display: none;
+    }
+}
+
+@media screen and (max-width: 767px) {
+    .menu_w {
+        display: none;
+    }
+
+    .menu_f {
+        display: none;
+    }
+
+    .camnang1 {
+        display: none;
+    }
+
+    .camnang2 {
+        float: none;
+        width: 100%;
+        border: solid 1px #CCC;
+        margin-bottom: 20px;
+    }
+}
+
+@media screen and (max-width: 485px) {
+    .dong_w img {
+        width: 40%;
+    }
+
+    .dong_w a {
+        font-size: 12px;
+    }
+
+    .tit {
+    }
+
+        .tit a {
+            font: bold 12px Arial, Helvetica, sans-serif;
+            color: #000 !important;
+        }
+
+            .tit a:hover {
+                color: #C00 !important;
+            }
+
+    /* world cup*/
+    .row1 {
+        background-color: #a7bf9d;
+        font-weight: bold;
+        text-align: center;
+    }
+
+    .row2 {
+        background-color: #d3dfce;
+        text-align: center;
+        line-height: 10px;
+    }
+
+    .bangA {
+        float: left;
+        width: 145px;
+        padding: 8px 0 0 3px;
+        text-align: center;
+    }
+
+        .bangA p {
+            margin: 0;
+            font-family: "UTM Facebook K&T";
+            color: #398218;
+            font-size: 18px;
+            padding-bottom: 2px;
+            text-transform: uppercase;
+        }
+
+
+
+    .fl {
+        float: left;
+    }
+}

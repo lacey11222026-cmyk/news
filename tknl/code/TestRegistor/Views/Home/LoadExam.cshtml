@@ -1,0 +1,54 @@
+﻿@using UTILS;
+@model List<BIZ.Entity.TestQuestionArchive>
+
+@if (Model != null)
+{
+
+    foreach (var item in Model.Select((value, i) => new { i, value }))
+    {
+        if (item.i + 1 == ViewBag.Index)
+        {
+            <div class="dvquestion" id="questionitem-@(item.i+1)">
+                <h3 class="textblue font-weight-bold question-num mt30">Câu số @(item.i + 1) </h3>
+                <div class="textblue font-weight-bold" style="font-size:115%">@Html.Raw(item.value.Contents)</div>
+                <div class="lb_question answer mt30">
+                    <form action="">
+                        @if (item.value.Type == 1)
+                        {
+                            foreach (var itemA in item.value.AnswerArchiveInfo.Select((value, i) => new { i, value }))
+                            {
+                                <label class="textblue"><input type="radio" name="anwswer_@(item.i)" value="@itemA.value.Order"> <span onclick="return selectCard(this);">@itemA.value.Name</span></label><br>
+                            }
+                        }
+                        else
+                        {
+                            foreach (var itemA in item.value.AnswerArchiveInfo.Select((value, i) => new { i, value }))
+                            {
+                                <label class="textblue"><input type="checkbox" name="anwswer_@(item.i)" value="@itemA.value.Order"> <span onclick="return selectCard(this);">@itemA.value.Name</span></label><br>
+                            }
+                        }
+                    </form>
+                    @if (item.i < Model.Count - 1)
+                    {
+                        <a href="javascript:;" onclick="gotoQuestion(@(item.i+1),@(item.i+2));" class="btn mt30"><span class="btn-icon-next">TIẾP THEO <span class="icon-next"></span></span></a>
+                    }
+                    else
+                    {
+                        <a href="javascript:;" onclick="saveGame();" class="btn btn-blue mt30">KẾT THÚC </a>
+                    }
+
+                </div>
+            </div>
+        }
+
+
+
+    }
+}
+else
+{
+    <script>
+        window.location.href = '/';
+
+    </script>
+}

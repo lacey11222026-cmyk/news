@@ -1,0 +1,45 @@
+﻿@using BIZ
+@using UTILS
+@using WebMVC4.Helper
+@model BIZ.Entity.CONTENT_FULL
+
+
+@if (Model != null)
+{
+    { Html.RenderAction("Breadcrumb", "News", new { CategoryId = Model.CategoryId }); }
+    <main id="main" class="">
+        <div class="row category-page-row">
+            <div class="large-3 col hide-for-medium ">
+                @Html.Partial("Site_Right")
+            </div><!-- large-3 -->
+            <div class="col large-9">
+                <div class="shop-container">
+                    <h1 class="page-title">@Model.Title</h1>
+                    <div class="entry-detail NewsContent" id="NewsContent">
+
+                        @Html.Raw(Model.Contents)
+
+                    </div>
+                </div>
+            </div><!-- col-fit  -->
+
+
+        </div>
+
+    </main>
+
+
+    if (ViewBag.IsMobile)
+    {
+        <script>
+            $('#NewsContent table').removeAttr('width');
+
+            $('#NewsContent  img').removeAttr('width');
+        </script>
+    }
+
+}
+<script>
+         $('#menu_@(Model.CategoryId)').addClass('active');
+
+</script>

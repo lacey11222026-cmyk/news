@@ -1,0 +1,112 @@
+﻿@using BIZ
+@using BIZ.Entity
+@using UTILS
+@using WebMVC4.Helper
+@model WebMVC4.Models.News2Model
+@if (Model.hotnews != null)
+{
+    <div class="cap1-content01 container mt10">
+        <div class="row">
+            <div class="col-md-12 col-sm-12">
+                
+                @{ Html.RenderAction("Breadcrumb", "News", new { CategoryId = ViewBag.CurrentCategoryId }); }
+
+                
+            </div>
+            
+        </div><!-- end row-->
+    </div><!-- end content 01 -->
+   
+
+    if (Model.articles != null)
+    {
+
+
+        <div class="border-bottom">
+            <div class="mt30 cap1-content02 container">
+                <div class="row">
+                    <div class="col-md-8 col-sm-12 text-left">
+                        @*<div class="title-cm03">
+                            <a href="#">Xem thêm</a>
+                        </div>*@
+                        <ul class="mt20 viewmore-list">
+                            @foreach (var item in Model.articles.Take(3).Select((value, i) => new { i, value }))
+                            {
+                                <li>
+                                    <a href="@item.value.LinkUrl"><img src="@item.value.MainImage"></a>
+                                    <div>
+                                        <a href="@item.value.LinkUrl">@item.value.Title</a>
+                                        @*<span class="newsdate mt10">@item.value.PublishDate.ToString("dd/MM/yyyy")</span>*@
+                                    </div>
+                                    <div class="hidden-xs">
+                                        @item.value.IntroText
+                                    </div>
+                                </li>
+                            }
+                        </ul>
+                        @if (ViewBag.CurrentCategoryId != null)
+                        {
+                            { Html.RenderAction("BannerCenter2", "Banner", new { currentCategoryId = ViewBag.CurrentCategoryId }); }
+                        }
+                        else
+                        {
+                            { Html.RenderAction("BannerCenter2", "Banner"); }
+                        }
+                        <ul class="mt40 viewmore-list">
+                            @foreach (var item in Model.articles.Skip(3).Select((value, i) => new { i, value }))
+                            {
+                                <li>
+                                    <a href="@item.value.LinkUrl"><img src="@item.value.MainImage"></a>
+                                    <div>
+                                        <a href="@item.value.LinkUrl">@item.value.Title</a>
+                                        @*<span class="newsdate mt10">@item.value.PublishDate.ToString("dd/MM/yyyy")</span>*@
+                                    </div>
+                                    <div class="hidden-xs">
+                                        @item.value.IntroText
+                                    </div>
+                                </li>
+                            }
+                        </ul>
+                        <div class="paging mt50 text-center">
+                            @{ Html.RenderAction("Pagging", "News", new { pageindex = ViewBag.Page, pagesize = ViewBag.PageSize, total = ViewBag.Total, CategoryId = ViewBag.CurrentCategoryId, CateName = ViewBag.CateName, PageNextShow = ViewBag.PageNextShow, pageNext = ViewBag.pageNext }); }
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-sm-12">
+                       
+                        <div class="sidebar-bnr bnr-slider mt20">
+                            <ul class="link-list">
+                                @if (ViewBag.CurrentCategoryId != null)
+                                {
+                                    <li>@{ Html.RenderAction("BannerRight1", "Banner", new { currentCategoryId = ViewBag.CurrentCategoryId }); }</li>
+                                    <li> @{ Html.RenderAction("BannerRight2", "Banner", new { currentCategoryId = ViewBag.CurrentCategoryId }); }</li>
+                                    <li>@{ Html.RenderAction("BannerRight3", "Banner", new { currentCategoryId = ViewBag.CurrentCategoryId }); }</li>
+                                    <li>@{ Html.RenderAction("BannerRight4", "Banner", new { currentCategoryId = ViewBag.CurrentCategoryId }); }</li>
+                                    <li>@{ Html.RenderAction("BannerRight5", "Banner", new { currentCategoryId = ViewBag.CurrentCategoryId }); }</li>
+                                    <li>
+                                        <a href="http://vn2050calculator.tietkiemnangluong.com.vn/" rel="nofollow" target="_blank"><img src="https://media.tietkiemnangluong.com.vn/Images/Upload/User/quantri/2022/3/cal2.jpg" alt="SXSH"></a>
+
+                                    </li>
+                                    }
+                                else
+                                {
+                                    <li>@{ Html.RenderAction("BannerRight1", "Banner"); }</li>
+                                    <li>@{ Html.RenderAction("BannerRight2", "Banner"); }</li>
+                                    <li>@{ Html.RenderAction("BannerRight3", "Banner"); }</li>
+                                    <li>@{ Html.RenderAction("BannerRight4", "Banner"); }</li>
+                                    <li>@{ Html.RenderAction("BannerRight5", "Banner"); }</li>
+                                }
+
+                            </ul>
+                            <div class="clearfix"></div>
+                        </div>
+                        
+                        <div class="clearfix"></div>
+
+                    </div>
+                </div>
+            </div><!-- end content 02-->
+        </div>
+
+    }
+
+}

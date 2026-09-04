@@ -1,0 +1,143 @@
+﻿@using BIZ
+@using UTILS
+@using WebMVC4.Helper
+@model WebMVC4.Models.DocumentModel
+<div class="container document-page mt40">
+    @{Html.RenderAction("Breadcrumb", "News", new { CategoryId = Model.CategoryId });}
+    <div class="row mt30">
+        <div class="col-lg-8 col-md-12">
+            <div class="document-search">
+                <div class="form-group">
+                    <label class="">Từ khóa</label>
+                    <input id="txtkeyword" class="form-control" value="@ViewBag.keyword" type="text">
+                </div>
+                <div class="form-group">
+                    <label class="">Số hiệu</label>
+                    <input id="txtcode" class="form-control" value="@ViewBag.code" type="text">
+                </div>
+                <div class="form-group">
+                    <label class="txtdes">Nơi ban hành</label>
+                    <select class="form-control" id="txtdes">
+                        <option value="">--- Chọn cơ quan ban hành ---</option>
+                        <option value="7" @if (ViewBag.SignedByDesc.Equals("7")) { @Html.Raw("selected='selected'") ; }> Chính phủ</option>
+                        <option value="6" @if (ViewBag.SignedByDesc.Equals("6")) { @Html.Raw("selected='selected'") ; }>Quốc hội</option>
+                        <option value="8" @if (ViewBag.SignedByDesc.Equals("8")) { @Html.Raw("selected='selected'") ; }>Tổng LĐLĐ VN</option>
+                        <option value="9" @if (ViewBag.SignedByDesc.Equals("9")) { @Html.Raw("selected='selected'") ; }>Bộ Nông nghiệp và PTNT</option>
+                        <option value="10" @if (ViewBag.SignedByDesc.Equals("10")) { @Html.Raw("selected='selected'") ; }>Công đoàn Nông nghiệp và PTNT VN</option>
+                        <option value="11" @if (ViewBag.SignedByDesc.Equals("11")) { @Html.Raw("selected='selected'") ; }>Nghiệp đoàn Nghề cá Việt Nam</option>
+                        <option value="12" @if (ViewBag.SignedByDesc.Equals("12")) { @Html.Raw("selected='selected'") ; }>Các cơ quan khác</option>
+                        <option value="13" @if (ViewBag.SignedByDesc.Equals("13")) { @Html.Raw("selected='selected'") ; }>Đảng Cộng sản Việt Nam</option>
+
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="">Loại văn bản</label>
+                    <select class="form-control" id="txttype">
+                        <option value="">--- Chọn loại văn bản ---</option>
+
+
+                        <option value="6" @if (ViewBag.SignedBy.Equals("6")) { @Html.Raw("selected='selected'") ; }>Công văn</option>
+                        <option value="5" @if (ViewBag.SignedBy.Equals("5")) { @Html.Raw("selected='selected'") ; }>Chỉ thị</option>
+                        <option value="7" @if (ViewBag.SignedBy.Equals("7")) { @Html.Raw("selected='selected'") ; }>Hiến pháp</option>
+                        <option value="8" @if (ViewBag.SignedBy.Equals("8")) { @Html.Raw("selected='selected'") ; }>Hiệp định</option>
+                        <option value="9" @if (ViewBag.SignedBy.Equals("9")) { @Html.Raw("selected='selected'") ; }>Luật</option>
+                        <option value="10" @if (ViewBag.SignedBy.Equals("10")) { @Html.Raw("selected='selected'") ; }>Lệnh</option>
+                        <option value="11" @if (ViewBag.SignedBy.Equals("11")) { @Html.Raw("selected='selected'") ; }>Nghị quyết</option>
+                        <option value="12" @if (ViewBag.SignedBy.Equals("12")) { @Html.Raw("selected='selected'") ; }>Nghị quyết Liên tịch</option>
+                        <option value="13" @if (ViewBag.SignedBy.Equals("13")) { @Html.Raw("selected='selected'") ; }>Nghị định</option>
+                        <option value="14" @if (ViewBag.SignedBy.Equals("14")) { @Html.Raw("selected='selected'") ; }>Pháp lệnh</option>
+                        <option value="15" @if (ViewBag.SignedBy.Equals("15")) { @Html.Raw("selected='selected'") ; }>Quyết định</option>
+                        <option value="16" @if (ViewBag.SignedBy.Equals("16")) { @Html.Raw("selected='selected'") ; }>Quyết nghị</option>
+                        <option value="17" @if (ViewBag.SignedBy.Equals("17")) { @Html.Raw("selected='selected'") ; }>Sắc lệnh</option>
+                        <option value="18" @if (ViewBag.SignedBy.Equals("18")) { @Html.Raw("selected='selected'") ; }>Thông báo</option>
+                        <option value="19" @if (ViewBag.SignedBy.Equals("19")) { @Html.Raw("selected='selected'") ; }>Thông tư</option>
+                        <option value="20" @if (ViewBag.SignedBy.Equals("20")) { @Html.Raw("selected='selected'") ; }>Thông tri</option>
+                        <option value="21" @if (ViewBag.SignedBy.Equals("21")) { @Html.Raw("selected='selected'") ; }>Thông tư Liên tịch</option>
+                        <option value="22" @if (ViewBag.SignedBy.Equals("22")) { @Html.Raw("selected='selected'") ; }>Các loại văn bản khác</option>
+                        <option value="23" @if (ViewBag.SignedBy.Equals("23")) { @Html.Raw("selected='selected'") ; }>Hướng dẫn</option>
+                        <option value="24" @if (ViewBag.SignedBy.Equals("24")) { @Html.Raw("selected='selected'") ; }>Mẫu biểu</option>
+                        <option value="25" @if (ViewBag.SignedBy.Equals("25")) { @Html.Raw("selected='selected'") ; }>Kế hoạch</option>
+                        <option value="26" @if (ViewBag.SignedBy.Equals("26")) { @Html.Raw("selected='selected'") ; }>Chương trình</option>
+                        <option value="27" @if (ViewBag.SignedBy.Equals("27")) { @Html.Raw("selected='selected'") ; }>Dự thảo</option>
+                    </select>
+                </div>
+                <div>
+                    <a href="javascript:;" onclick="searchdoc();" class="btn-green">Tìm kiếm</a>
+                </div>
+            </div>
+            <div class="document-table table-responsive mt20">
+                <table>
+                    <tbody>
+                        <tr>
+                            <th>STT </th>
+                            <th>Số hiệu </th>
+                            <th>Tên văn bản </th>
+                            <th>Ngày ban hành </th>
+                            <th>Download </th>
+                        </tr>
+                        @foreach (var item in Model.listdata.Select((value, i) => new { i, value }))
+                        {
+                            <tr>
+                                <td>@(item.i + 1) </td>
+                                <td>@item.value.Code</td>
+                                <td>
+                                    <a href="@Url.Action("Detail","Document",new { id=item.value.Id})" target="_blank">
+                                        @item.value.Name
+                                    </a>
+                                </td>
+                                <td> @Convert.ToDateTime(item.value.PublishDate).ToString(@" dd'/'MM'/'yyyy") </td>
+                                <td>
+                                    <div>
+                                        <a href="@Url.Action("DownloadFile","Document",new { id=item.value.Id})" class="document-view">
+                                            <img src="/Content/img/icon-pdf-02.svg" width="45">
+
+                                        </a>
+                                        <a href="@Url.Action("ViewFile","Document",new { id=item.value.Id})" target="_blank" class="document-view">
+                                            <span>Xem online</span>
+                                        </a>
+                                    </div>
+                                </td>
+                            </tr>
+                        }
+                       
+
+
+                    </tbody>
+                </table>
+                <div class="paging mt50">
+                    <ul>
+                        @{Html.RenderPartial("Pagination", new WebMVC4.Models.PaginationInfo
+                            {
+                                PageUrl = Url.SetParameter("Page", "!0"),
+                                CurrentPage = Model.pageIndex,
+                                PageSize = Model.pageSize,
+                                TotalItemCount = Model.total,
+                            }); }
+                        
+                        
+                    </ul>
+                </div>
+            </div>
+
+        </div>
+        <div class="col-lg-4 col-md-12 sidebar-right">
+            @Html.Partial("Site_Right")
+        </div>
+    </div>
+</div>
+
+
+
+<script type="text/javascript">
+
+
+    function searchdoc() {
+        var id='@Model.CategoryId'
+        var type = $("#txttype").val();
+        var keyword = $("#txtkeyword").val();
+        var code = $("#txtcode").val();
+        var des = $("#txtdes").val();
+        window.location = '/Document/Index/' + id + '/?keyword=' + keyword + '&code=' + code + '&des=' + des + '&type=' + type;
+        //window.location = jQuery.query.set("keyword", keyword).set("fromdate", fromdate).set("todate", todate).set("Page", "1");
+    }
+</script>

@@ -1,0 +1,34 @@
+﻿@{
+
+    Layout = "~/Views/Shared/_Layout2.cshtml";
+
+}
+<div class="clear"></div>
+<nav class="n_nav">
+    <ul class="page">
+        <li><a href="http://noibo.vnubw.org.vn/">Trang chủ</a> /</li>
+        <li><a href="http://mail.vnubw.org.vn:2096/">Thư điện tử </a> /</li>
+        <li><a href="#">DB điện thoại & mail </a> /</li>
+        <li><a href="#">Mẫu văn bản </a> /</li>
+        <li><a href="/Document/Index/3">Quy chế làm việc  </a> /</li>
+        <li><a href="#">Hỗ trợ người dùng  </a> /</li>
+        <li><a href="#">Sites</a></li>
+    </ul>
+</nav>
+<div class="clear"></div>
+<div class="page">
+
+    <iframe src="@ViewBag.url" style="width: 100%; height:1000px; border: 0px none;" id="source"></iframe>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $(".right").remove();
+            $(".left").css("width", "100%");
+        });
+
+
+    </script>
+</div><!-- end page-->
+<div class="clear"></div>
+<footer>
+    <div class="page"><p>Bản quyền thuộc Công Đoàn Ngân Hàng Việt Nam</p></div>
+</footer>

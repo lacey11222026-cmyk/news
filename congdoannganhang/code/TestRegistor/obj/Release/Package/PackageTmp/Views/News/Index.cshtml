@@ -1,0 +1,40 @@
+﻿@using System.Configuration
+@using UTILS
+
+@{
+    Layout = "~/Views/Shared/_LayoutNews.cshtml";
+}
+@model List<BIZ.Entity.CONTENT_FULL>
+@{
+    var domain = ConfigurationManager.AppSettings["Domain"];
+}
+
+<section>
+    <div class="test-name">
+        <h2 class="container">@ViewBag.CateName</h2>
+    </div>
+    <div class="container mt20 b4-content wow fadeInDown" data-wow-offset="200">
+
+        <ul class="row news-list">
+            @if (Model != null)
+            {
+                foreach (var item in Model.Select((value, i) => new { i, value }))
+                {
+                    <li class="col-md-3 col-sm-3 col-xs-6">
+                        <a href="@Utils.FormatUrlRewrite(item.value.Id, item.value.Title, "ArticleDetail").Replace(".html","")">
+                            <img src="@domain@item.value.MainImage?w=263&h=175&mode=crop">
+                            <h3>@item.value.Title</h3>
+                        </a>
+                    </li>
+                }
+            }
+
+
+        </ul>
+
+
+    </div>
+</section>
+<footer class="mt50">
+    <p class="container">Bản quyền thuộc Công đoàn Ngân hàng Việt Nam</p>
+</footer>

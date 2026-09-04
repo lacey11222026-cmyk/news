@@ -1,0 +1,57 @@
+﻿@using BIZ
+@using UTILS
+@using WebMVC4.Helper
+@model List<BIZ.Entity.CONTENT_FULL>
+@if (Model != null)
+{
+    <div class="video">
+        <h2 class="title-cm"><a href="/trang-chu-video.html">Video</a></h2>
+        <div class="row mt20">
+            <div class="col-md-6 col-sm-6 col-xs-12 news-hot">
+                @foreach (var item in Model.Take(1).Select((value, i) => new { i, value }))
+                {
+                    <iframe id="hifvideo" width="340" height="190" frameborder="0" allowfullscreen
+                            src="@(item.value.Url.Replace("watch?v=", "embed/"))?rel=0"></iframe>
+                    <h3><a href="/trang-chu-video.html?VideoId=@(item.value.Id)">@item.value.Title</a></h3>
+                    <p>@item.value.IntroText</p>
+
+                }
+
+                <ul class="news-list mt30">
+                    @foreach (var item in Model.Skip(1).Take(2).Select((value, i) => new { i, value }))
+                    {
+
+
+                        <li><a href="/trang-chu-video.html?VideoId=@(item.value.Id)">@item.value.Title</a></li>
+
+
+                    }
+                </ul>
+            </div>
+            <div class="col-md-6 col-sm-6 col-xs-12">
+                <ul class="video-list">
+
+                    @foreach (var item in Model.Skip(3).Select((value, i) => new { i, value }))
+                    {
+
+                        <li>
+                            <div class="row-5px">
+                                <a href="/trang-chu-video.html?VideoId=@(item.value.Id)" class="col-md-6 col-sm-5 col-xs-4"><img src="@item.value.MainImage?w=175&h=95&mode=crop"></a>
+                                <a href="/trang-chu-video.html?VideoId=@(item.value.Id)" class="col-md-6 col-sm-7 col-xs-8 mt10">@item.value.Title</a>
+                                <div class="clearfix"></div>
+                            </div>
+                        </li>
+                    }
+
+                </ul>
+            </div>
+        </div>
+    </div>
+  
+
+}
+
+
+
+
+

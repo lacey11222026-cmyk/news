@@ -1,0 +1,13 @@
+﻿@model List<DATA.Banner>
+@if (Model != null)
+{
+    <ul>
+        
+       @foreach (var item in Model.Select((value, i) => new { i, value }))
+       {
+           <li class="col-md-12"><a href="@item.value.Url" rel="nofollow" target="_blank"><img src="@item.value.Data"/></a></li>
+          
+       }
+    </ul>
+  
+}

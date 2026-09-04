@@ -1,0 +1,66 @@
+﻿@using BIZ.Entity
+@using UTILS
+@using WebMVC4.Helper
+@model List<CATEGORY_FULL>
+
+<ul class="mobile-nav">
+    <li class="mobile-nav__item mobile-nav__search">
+        <form action="/product/search/" method="get" class="input-group search-bar" role="search">
+            <input type="hidden" name="cat-id" value="0">
+            <input type="search" id="main-search-form-input" name="key" placeholder="Tìm sản phẩm..." class="input-group-field">
+            <span class="input-group-btn">
+                <button type="submit" class="btn icon-fallback-text">
+                    <i class="fa fa-search" aria-hidden="true"></i>
+                </button>
+            </span>
+        </form>
+    </li>
+    <li class="mobile-nav__item" aria-haspopup="true">
+        <div class="mobile-nav__has-sublist">
+            <a href="/" class="mobile-nav__link">Trang chủ</a>
+        </div>
+    </li>
+    @if (Model != null)
+    {
+
+        if (Model.Count > 0)
+        {
+            foreach (var item in Model.Select((value, i) => new { i, value }))
+            {
+                if (item.value.Type != 0)
+                {
+                    <li class="mobile-nav__item" aria-haspopup="true">
+                        <div class="mobile-nav__has-sublist">
+                            <a href="item.value.Url" class="mobile-nav__link">@item.value.Name</a>
+                        </div>
+                    </li>
+                }
+                else
+                {
+                    <li class="mobile-nav__item" aria-haspopup="true">
+                        <div class="mobile-nav__has-sublist">
+                            <a href="item.value.Url" class="mobile-nav__link">@item.value.Name</a>
+                            <div class="mobile-nav__toggle">
+                                <button type="button" class="icon-fallback-text mobile-nav__toggle-open">
+                                    <i class="fa fa-angle-right"></i>
+                                    <span class="fallback-text">See More</span>
+                                </button>
+                                <button type="button" class="icon-fallback-text mobile-nav__toggle-close">
+                                    <i class="fa fa-angle-right"></i>
+                                    <span class="fallback-text">"Đóng"</span>
+                                </button>
+                            </div>
+                        </div>
+                        <ul class="mobile-nav__sublist">
+                            @Html.Action("SubMenuMobile", "Home")
+                        </ul>
+                    </li>
+                }
+
+            }
+        }
+    }
+
+
+    
+</ul>

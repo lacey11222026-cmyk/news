@@ -1,0 +1,54 @@
+﻿@using BIZ.Entity
+@using UTILS
+@using WebMVC4.Helper
+@model List<CATEGORY_FULL>
+
+
+
+@foreach (var item in Model.Where(x => x.ParentId == 0).Select((value, i) => new { i, value }))
+{
+    <li class="menu-cha menu-item menu-item-type-taxonomy menu-item-object-product_cat current-menu-item "><a href="@item.value.Url" aria-current="page" data-wpmeteor-mouseover="true" data-wpmeteor-mouseout="true">@item.value.Name</a></li>
+
+    foreach (var sub in Model.Where(x => x.ParentId == item.value.Id).Select((value, i) => new { i, value }))
+    {
+        if (sub.value.Id == 35 || sub.value.Id == 64 || sub.value.Id == 65)
+        {
+            <li class="menu-item menu-item-type-taxonomy menu-item-object-product_cat ">
+                <a href="@sub.value.Url" data-wpmeteor-mouseover="true" data-wpmeteor-mouseout="true">@sub.value.Name</a>
+                <ul class="children">
+                    
+                    @foreach (var sub2 in Model.Where(x => x.ParentId == sub.value.Id).Select((value, i) => new { i, value }))
+                    {
+                        <li class="cat-item" ><a href="@sub2.value.Url">@sub2.value.Name</a> </li>
+
+                    }
+                </ul>
+            </li>
+        }
+        else
+        {
+            <li class="menu-item menu-item-type-taxonomy menu-item-object-product_cat ">
+                <a href="@sub.value.Url" data-wpmeteor-mouseover="true" data-wpmeteor-mouseout="true">@sub.value.Name</a>
+
+            </li>
+        }
+
+
+    }
+
+    
+}
+<style>
+    ul.menu > li ul, .widget > ul > li ul {
+        border-left: none;
+        padding-left: 0px !important;
+        display:block !important;
+        
+    }
+
+    .widget_nav_menu ul .active a {
+        color: black;
+    }
+  
+  
+</style>

@@ -1,0 +1,58 @@
+﻿@using BIZ
+@using UTILS
+@using WebMVC4.Helper
+@model BIZ.Entity.CONTENT_FULL
+<div class="video-page container">
+    <h2 class="title-blue mt30"><a href="/trang-chu-video.html">Video</a></h2>
+    <div class="row mt20 videocontent01">
+        <div class="col-md-8 col-sm-7 col-xs-12" id="VideoContent">
+            <div class="videobig">
+
+                @if (Model.Url.Contains("youtube.com"))
+                {
+                    <iframe id="ifvideo" width="376" height="250" frameborder="0" allowfullscreen
+                            src="@(Model.Url.Replace("watch?v=", "embed/"))?autoplay=1&rel=0"></iframe>
+                }
+                else
+                {
+                    <video controls autoplay preload="auto" poster="@Model.MainImage" name="myvideo" id="myvideo" style="width: 100%">
+
+
+                        <source src="@Model.Url" type="video/mp4" />
+
+                    </video>
+                }
+                <h3>@Model.Title</h3>
+                <p>@Model.IntroText</p>
+                <div class="clearfix"></div>
+                <ul class="detail-link clearfix mt20 brbottom">
+                    <li>  <div class="fb-like" data-href="@(Model.LinkUrl)" data-layout="button_count" data-action="like" data-show-faces="false" data-share="true"></div></li>
+                    <li>
+                        <div style="position:relative;top:0px">
+                            <div class="zalo-share-button" data-href="@(Model.LinkUrl)" data-oaid="579745863508352884" data-layout="2" data-color="blue" data-customize=false></div>
+                        </div>
+
+                    </li>
+                    <li><a href="javascript:void(0);" onclick="openWin('@ViewBag.MailShare');"><img src="/Content/images/ico-mail.png"></a></li>
+                </ul>
+            </div>
+        </div><!-- end video -->
+        <div class="col-md-4 col-sm-5 col-xs-12">
+            @Html.Action("HotVideo", "Video", new { VideoId = Model.Id })
+        </div><!-- end typo-->
+    </div><!-- end row-->
+    <div class="clearfix"></div>
+
+
+
+    <div id="lstVideo">
+        @Html.Action("LoadVideo", "Video", new { VideoId = Model.Id, page = 1 })
+    </div>
+</div>
+<script type="text/javascript">
+    var width = $("#VideoContent").width();
+    var height = width * 9 / 16;
+
+    $("#ifvideo").width(width);
+    $("#ifvideo").height(height);
+</script>

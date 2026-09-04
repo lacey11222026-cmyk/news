@@ -1,0 +1,36 @@
+﻿@using BIZ
+@using UTILS
+@using  WebEN.Helper
+@model List<DATA.Channel>
+
+@if (Model != null)
+{
+    if (Model.Count > 0)
+    {
+
+        
+    <div class="title2 followevent">Theo dòng sự kiện</div>
+    <div class="dong2">
+        @foreach (var item in Model.Select((value, i) => new { i, value }))
+        {
+            if (item.i == 0)
+            {
+            <a href="@Utils.FormatUrlRewrite(item.value.Id, item.value.Name, "Channel")" class="firtimg">
+                <img src="@Utils.GetImageUrl(item.value.Id, EntityName.Channel, false)@(item.value.Image)?w=600&h=450&mode=crop" alt="@item.value.Name"></a>
+            } 
+            <a href="@Utils.FormatUrlRewrite(item.value.Id, item.value.Name, "Channel")">@item.value.Name</a>
+
+        }
+
+
+    </div>
+        
+    
+    
+
+
+    }
+
+
+}
+

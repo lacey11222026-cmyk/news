@@ -1,0 +1,103 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+
+    <meta charset="UTF-8">
+    <title>Cuộc thi sáng tác thiệp “Trao gửi yêu thương”</title>
+    <meta name="Keywords" content="Cuộc thi sáng tác thiệp “Trao gửi yêu thương”" />
+    <meta name="Description" content="Cuộc thi sáng tác thiệp “Trao gửi yêu thương”, công đoàn ngân hàng" />
+    <link rel="shortcut icon" href="~/Areas/Image2016/Content/img/ico-logo.png" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="shortcut icon" href="~/Areas/Image2016/Content/img/ico-logo.png">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Philosopher:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
+
+
+    <link rel="stylesheet" href="~/Areas/Image2016/Content/css/bootstrap.min.css">
+    <link rel="stylesheet" href="~/Areas/Image2016/Content/css/style.css">
+    <link type="text/css" rel="stylesheet" href="~/Areas/Image2016/Content/css/jquery.mmenu.all.css" />
+    <link href="~/Areas/Image2016/Content/css/slick.min.css" type="text/css" rel="stylesheet" />
+    <link href="~/Areas/Image2016/Content/css/slick-theme.css" type="text/css" rel="stylesheet" />
+
+    <link rel="stylesheet" href="~/Areas/Image2016/Content/css/slide.css">
+    <link rel="stylesheet" href="~/Areas/Image2016/Content/css/mixSlide.css">
+
+
+
+</head>
+<body onorientationchange="updateOrientation();">
+    <!----- Javascript----->
+    <script src="~/Areas/Image2016/Content/js/jquery.min.js"></script>
+    <script src="~/Areas/Image2016/Content/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="~/Areas/Image2016/Content/js/jquery.mmenu.min.all.js"></script>
+
+    <script type="text/javascript" src="j~/Areas/Image2016/Content/s/jquery.flexisel.js"></script>
+    <script src="~/Areas/Image2016/Content/js/slick.min.js"></script>
+    <script src="~/Areas/Image2016/Content/js/jquery.matchHeight.js"></script>
+    <script src="https://kit.fontawesome.com/9d8584fa51.js" crossorigin="anonymous"></script>
+    <script src="~/Areas/Image2016/Content/js/script.js" type="text/javascript"></script>
+
+
+    <script type="text/javascript" src="~/Areas/Image2016/Content/js/SlideShow.js"></script>
+    <script type="text/javascript" src="~/Areas/Image2016/Content/js/jquery.vporel.mixSlide.js"></script>
+
+    <script type="text/javascript" src="~/Areas/Image2016/Content/js/script.js"></script>
+    <script type="text/javascript">
+
+
+        function updateOrientation() {
+            window.location.reload();
+        }
+        //end tự đông refresh trang
+    </script>
+
+    <div class="header">
+        <div class="header-pc">
+            <div class="header-c1">
+                <a href="/cuoc-thi-sang-tac-thiep/"  class="logo-img"><img src="~/Areas/Image2016/Content/img/logo.svg" alt="" width="465"></a>
+            </div>
+            <div class="nav-pc">
+                <ul>
+                    <li><a href="/cuoc-thi-sang-tac-thiep/gioi-thieu/">Giới thiệu</a></li>
+                    <li><a href="/cuoc-thi-sang-tac-thiep/the-le/">Thể lệ</a></li>
+                    <li><a href="/cuoc-thi-sang-tac-thiep#AlbumContent">Tác phẩm tiêu biểu</a></li>
+                    <li><a href="#">Kết quả</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="nav-mobile">
+            <div class="header-m">
+                <a href="#menu">
+                    <img src="~/Areas/Image2016/Content/img/ico-menu.png" class="ico-menu pull-right">
+                </a>
+            </div>
+            <div id="menu">
+                <ul>
+                    <li><a href="/cuoc-thi-sang-tac-thiep/gioi-thieu/">Giới thiệu</a></li>
+                    <li><a href="/cuoc-thi-sang-tac-thiep/the-le/">Thể lệ</a></li>
+                    <li><a href="/cuoc-thi-sang-tac-thiep#AlbumContent">Tác phẩm tiêu biểu</a></li>
+                    <li><a href="#">Kết quả</a></li>
+                </ul>
+            </div>
+        </div>
+    </div><!-- end header-->
+
+
+    @RenderBody()
+
+
+
+
+    <footer>
+        <p>Copyright © Công Đoàn Ngân Hàng Việt Nam</p>
+    </footer>
+
+    <p><a href="#top" id="backToTop" class="backTop"></a></p>
+
+</body>
+
+
+</html>

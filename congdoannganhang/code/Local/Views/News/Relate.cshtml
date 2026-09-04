@@ -1,0 +1,37 @@
+﻿@using BIZ
+@using UTILS
+@using Local.Helper
+@model List<BIZ.Entity.CONTENT_FULL>
+@if (Model != null)
+{
+    if (Model.Count > 0)
+    {
+    <div class="best">
+      
+         
+        
+        <div class="bg_org">@ViewBag.HeaderTitle</div>
+        <ul class="list">
+
+            @foreach (var item in Model.Select((value, i) => new { i, value }))
+            {
+                <li><a title="@item.value.Title" href="@Utils.FormatUrlRewrite(item.value.Id, item.value.Title, "ArticleDetail")">@item.value.Title </a></li>
+            }
+
+
+        </ul>
+        @if (ViewBag.PageNextShow)
+        {
+            <div class="clear"></div><div class="xemtiep"><a class="opa" href="@{Utils.FormatUrlRewrite(ViewBag.CategoryId, ViewBag.CategoryTitle, "Articles");}?page=@ViewBag.PageNext">
+                <img src="/images/xemtiep.jpg"></a></div>
+        }
+
+        <div class="clear"></div>
+
+    </div>
+   
+
+    }
+
+
+}

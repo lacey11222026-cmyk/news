@@ -1,0 +1,71 @@
+﻿@using BIZ
+@using UTILS
+
+@model List<BIZ.Entity.CATEGORY_FULL>
+
+@using WebMVC4.Helper
+@{
+    var langpage = WorkContext.GetLanguage();
+}
+@if (langpage == "vi-vn")
+{
+    <ul>
+        @foreach (var item in Model.Select((value, i) => new { i, value }))
+        {
+            if (Config.DropCate.Contains("," + item.value.Id + ","))
+            {
+                <li>
+                    <a href="#" )>
+                        @item.value.Name
+                        <i class="glyphicon glyphicon-triangle-bottom"></i>
+                    </a>
+                    @Html.Raw(HtmlHelpers.BindChildCategories(Convert.ToInt32(item.value.Id), int.Parse(item.value.Type.ToString())))
+                </li>
+            }
+            else
+            {
+                <li>
+                    <a href="@Utils.FormatUrlRewriteByType(item.value.Id, item.value.Name, int.Parse(item.value.Type.ToString()), item.value.Link)">
+                        @item.value.Name  @if (Config.DropCate.Contains("," + item.value.Id + ","))
+                        {<i class="glyphicon glyphicon-triangle-bottom"></i>}
+                    </a>
+                    @Html.Raw(HtmlHelpers.BindChildCategories(Convert.ToInt32(item.value.Id), int.Parse(item.value.Type.ToString())))
+                </li>
+            }
+
+        }
+
+        <li><a href="/Home/Language?lang=vi-vn">VN </a>/<a href="/Home/Language?lang=en-us"> English</a></li>
+    </ul>
+}
+else
+{
+<ul>
+    @foreach (var item in Model.Select((value, i) => new { i, value }))
+    {
+        if (Config.DropCate.Contains("," + item.value.Id + ","))
+        {
+            <li>
+                <a href="#" )>
+                    @item.value.Language
+                    <i class="glyphicon glyphicon-triangle-bottom"></i>
+                </a>
+                @Html.Raw(HtmlHelpers.BindChildCategoriesEn(Convert.ToInt32(item.value.Id), int.Parse(item.value.Type.ToString())))
+            </li>
+        }
+        else
+        {
+            <li>
+                <a href="@Utils.FormatUrlRewriteByType(item.value.Id, item.value.Name, int.Parse(item.value.Type.ToString()), item.value.Link)" >
+                    @item.value.Language  @if (Config.DropCate.Contains("," + item.value.Id + ","))
+                    {<i class="glyphicon glyphicon-triangle-bottom"></i>}
+                </a>
+                @Html.Raw(HtmlHelpers.BindChildCategoriesEn(Convert.ToInt32(item.value.Id), int.Parse(item.value.Type.ToString())))
+            </li>
+        }
+
+    }
+
+    <li><a href="/Home/Language?lang=vi-vn">VN </a>/<a href="/Home/Language?lang=en-us"> English</a></li>
+</ul>
+}

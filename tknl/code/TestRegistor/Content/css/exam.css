@@ -1,0 +1,616 @@
+﻿*----------- Steep 1 page ----------*/
+.wrap-content {
+    height: calc(100% - 200px);
+    overflow: auto;
+    padding-bottom: 100px;
+}
+
+.time {
+    font-family: 'robotoslab';
+    color: #377EC1;
+    background: url("../images/icon-clock.svg") no-repeat left center;
+    padding-left: 37px;
+    background-size: 25px;
+    font-size: 30px;
+    display: inline-block;
+}
+
+.form-control {
+    border-radius: 12px;
+}
+
+.form-box {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.form-control {
+    width: 440px;
+    max-width: 100%;
+}
+
+.b1-content {
+    padding-top: 60px;
+}
+
+    .b1-content .form-group {
+        float: inherit;
+    }
+
+    .b2-content h2,
+    .b1-content h2 {
+        font-family: 'opensan';
+        font-size: 43px;
+        color: #00a1b9;
+        text-shadow: 1px 0 1px rgba(0,0,0,0.7);
+    }
+
+    .b2-content .text-orange,
+    .b1-content .text-orange {
+        font-style: italic;
+        font-size: 20px;
+        margin: 10px 0 30px 0;
+    }
+
+@media(max-width:991px) {
+    .b1-content {
+        padding-top: 30px;
+    }
+}
+
+@media(max-width:767px) {
+    .time {
+        font-size: 22px;
+    }
+
+    .blue-box {
+        padding: 30px 15px;
+    }
+
+    .form-box {
+        display: block;
+        text-align: left;
+    }
+
+    .blue-box .form-box lable,
+    .blue-box .form-box input {
+        width: 100%;
+        display: block;
+    }
+
+    .blue-box .form-box lable {
+        margin-bottom: 10px;
+        font-size: 17px;
+    }
+
+    .btn-cm {
+        font-size: 20px;
+    }
+}
+/*----------- End Steep 1 page ----------*/
+/*----------- Steep 2 page ----------*/
+.b2-content {
+    padding-top: 50px;
+}
+
+    .b2-content .bg-white {
+        padding: 20px;
+        float: inherit;
+    }
+
+.b2-tbl {
+    width: 100%;
+}
+
+    .b2-tbl,
+    .b2-tbl tr,
+    .b2-tbl td {
+        border-collapse: collapse;
+        padding: 5px;
+        text-align: left;
+        vertical-align: middle;
+    }
+
+@media(max-width:767px) {
+    .b2-tbl td {
+        display: block;
+    }
+
+    .b2-tbl .form-control {
+        width: 100%;
+    }
+}
+/*----------- End Steep 2 page ----------*/
+/*----------- top page ----------*/
+.bg-green {
+    background-color: #e0fbf9;
+}
+
+.banner {
+    width: 100%;
+}
+
+    .banner img {
+        width: 100%;
+    }
+
+.gift li {
+    margin-top: 10px;
+    clear: both;
+}
+
+    .gift li img {
+        margin: 0 15px 5px 0;
+    }
+
+    .gift li .text-orange {
+        font-style: italic;
+    }
+
+.b3-list {
+    padding-top: 50px;
+}
+
+.itemcm {
+    width: 100%;
+    padding-left: 15px;
+    padding-right: 15px;
+    z-index: 1;
+}
+
+    .itemcm:after {
+        content: '';
+        display: block;
+        clear: both;
+    }
+
+    .itemcm > div {
+        background: #fdf7f5;
+        border-top: 2px solid #45479b;
+        border-bottom: 2px solid #45479b;
+        margin: 0 auto;
+        padding: 0 10px 20px 10px;
+        /*    text-align: left;*/
+    }
+
+    .itemcm ul li p {
+        font-family: 'goldman';
+        color: #024544;
+        font-size: 15px;
+        margin: 0;
+    }
+
+        .itemcm ul li p strong {
+            font-family: 'goldman';
+            display: inline-block;
+            color: #00a46c;
+        }
+
+.info-list li {
+    text-align: left;
+    border-top: 1px solid #00a46c;
+    padding: 7px 10px;
+}
+
+    .info-list li:first-child {
+        border-top: none;
+    }
+
+.itemcm h3 {
+    font-family: 'goldman';
+    font-size: 23px;
+    color: #f7981d;
+    margin: 15px 0 0 0;
+    text-transform: uppercase;
+    font-weight: bold;
+}
+
+.btn-result {
+    display: inline-block;
+    padding: 6px 20px;
+    border-radius: 27px;
+    /* font-family: 'lobster'; */
+    color: #fff;
+    font-size: 16px;
+    background: #f8991c;
+    margin-top: 5px;
+}
+
+@media(min-width:1440px) {
+    .itemcm {
+        width: 32%;
+        float: left;
+        position: relative;
+        padding-left: 45px;
+        padding-right: 45px;
+    }
+
+    .item01 {
+        width: 36%;
+    }
+
+    .itemcm > div {
+        background: #fdf7f5;
+        border-top: 2px solid #45479b;
+        border-bottom: 2px solid #45479b;
+        margin: 0 auto;
+        padding: 0 0 20px 10px;
+    }
+
+        .itemcm > div:before {
+            content: '';
+            display: block;
+            width: 45px;
+            height: 100%;
+            background: url(../images/bg-item-left.png) no-repeat left center;
+            position: absolute;
+            left: 0px;
+            top: 0;
+            background-size: 100% 102%;
+            z-index: -1;
+            border-top: 2px solid #43489a;
+            border-bottom: 2px solid #43489a;
+        }
+
+        .itemcm > div:after {
+            content: '';
+            display: block;
+            width: 45px;
+            height: 100%;
+            background: url("../images/bg-item-right.png") no-repeat left center;
+            position: absolute;
+            right: 0;
+            top: 0;
+            z-index: -1;
+            background-size: 100% 100%;
+        }
+
+    .item01 {
+        padding-left: 110px;
+    }
+
+        .item01 > div:before {
+            width: 110px;
+            background: url(../images/bg-item-left-02.jpg) no-repeat left center;
+            background-size: 100% 102%;
+        }
+
+    .btn-result,
+    .itemcm h3 {
+        margin-left: -30px;
+    }
+}
+
+@media(min-width:767px) {
+    .itemcm {
+        width: 33.333%;
+        float: left;
+    }
+}
+
+@media(min-width:991px) {
+    .itemcm {
+        width: 20%;
+    }
+}
+
+@media(max-width:991px) {
+    .itemcm {
+        margin-bottom: 30px;
+    }
+}
+/*----------- End top page ----------*/
+/*----------- Steep 4 page ----------*/
+.b4-page {
+    z-index: 2;
+    position: relative;
+}
+
+    .b4-page label,
+    .b4-page strong,
+    .b4-page h3,
+    .b4-page span,
+    .b4-page p {
+        font-family: 'goldman';
+    }
+
+.txt-green {
+    color: #016b09;
+}
+
+.btn-green {
+    background-color: #02b652;
+    color: #fff;
+    font-family: 'goldman';
+}
+
+.answer i {
+    font-size: 12px;
+    margin-left: 8px;
+}
+
+.bg-green-02 {
+    background: url("../images/bg.jpg") no-repeat center top;
+    position: relative;
+}
+
+    .bg-green-02:before {
+        content: '';
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        top: 0;
+        left: 0;
+        background: rgb(3 174 80 / 9%);
+        z-index: 1;
+    }
+
+    .bg-green-02 .header {
+        background-color: #fff;
+        z-index: 3;
+        position: relative;
+    }
+
+.test-name {
+    background: #02b551;
+    background: linear-gradient(90deg, #02b551 0%, #0a8e45 100%);
+}
+
+    .test-name h2 strong {
+        font-family: 'goldman';
+    }
+
+    .test-name h2 {
+        font-size: 19px;
+        font-family: 'goldman';
+        color: #fff;
+        padding: 10px 15px;
+        margin: 0 auto;
+    }
+
+.total-question {
+    vertical-align: middle;
+}
+
+.time-ico {
+    width: 30px;
+    height: 42px;
+    background: url(../images/ico-clock-02.jpg) no-repeat left center;
+    display: inline-block;
+    vertical-align: middle;
+    margin-right: 7px;
+}
+
+.time-content {
+    display: flex;
+    justify-content: center;
+    text-align: left;
+    font-family: 'goldman';
+    padding: 10px 15px 5px 15px;
+}
+
+    .time-content p {
+        font-family: 'goldman';
+        line-height: 1.2;
+        margin: 0;
+    }
+
+        .time-content p > span {
+            font-family: 'goldman';
+            font-size: 25px !important;
+            font-weight: bold;
+            display: block;
+        }
+
+.btn-danger {
+    background-color: #ff7200;
+}
+
+.b4-content > .pull-right .text-bold {
+    font-size: 20px;
+    margin-left: 5px;
+}
+
+.b4-content h3 {
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.answer {
+    padding-left: 50px;
+}
+
+    .answer input {
+        margin-right: 10px;
+    }
+
+    .answer label {
+        font-weight: normal;
+        color: #024647;
+    }
+
+.b4-content .btn-warning .glyphicon {
+    font-size: 12px;
+    margin-left: 5px;
+}
+/*----------- End Steep 4 page ----------*/
+/*----------- Steep 5 page ----------*/
+.b5-content h3 {
+    text-transform: uppercase;
+}
+
+.btn-list li {
+    display: inline-block;
+    margin: 5px 10px;
+}
+
+.btn-share {
+    padding: 6px 15px 6px 45px;
+    background: url(../images/ico-share.png) no-repeat 10px center #4964b9;
+    color: #fff;
+    font-weight: bold;
+    background-size: 26px;
+}
+
+.b5-content .btn-link {
+    text-decoration: underline;
+    color: #1766e9;
+}
+/*----------- End Steep 5 page ----------*/
+/*----------- result page ----------*/
+.result-content h3 {
+    font-size: 20px;
+    color: #3580c2;
+}
+
+.result-content .table thead {
+    background-color: #6794cb;
+}
+
+    .result-content .table thead th {
+        text-align: center;
+        color: #fff;
+    }
+
+.week li {
+    display: inline-block;
+    padding: 5px 0;
+    border-right: 1px solid #ccc;
+    border-bottom: 1px solid #ccc;
+}
+
+    .week li:first-child {
+        border-left: 1px solid #ccc;
+    }
+
+    .week li:hover,
+    .week li.active {
+        background-color: #125b9d;
+        transition: all ease 0.3s;
+    }
+
+        .week li:hover a {
+            color: #fff !important;
+        }
+
+    .week li a {
+        color: #fff;
+        font-size: 17px;
+        text-transform: uppercase;
+        padding: 5px 30px;
+    }
+
+.tbl-ketqua {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+    .tbl-ketqua,
+    .tbl-ketqua tr,
+    .tbl-ketqua th,
+    .tbl-ketqua td {
+        border-collapse: collapse;
+        padding: 10px 20px;
+        border: 1px solid #d1d1d1;
+        text-align: center;
+    }
+
+
+/*----------- End result page ----------*/
+/*----------- Bai Viet page ----------*/
+.name-post {
+    margin-top: 0;
+}
+
+.post-content img {
+    max-width: 100%;
+    margin: 10px auto;
+    display: block;
+}
+
+.other-new-title {
+    text-transform: uppercase;
+    font-weight: bold;
+    color: #ec9000;
+    font-size: 18px;
+    border-bottom: 1px solid #1a7c76;
+    margin-bottom: 0;
+}
+
+    .other-new-title p {
+        display: inline-block;
+        border-bottom: 2px solid #ec9000;
+        padding-bottom: 5px;
+        margin: 0;
+    }
+
+.other-news ul li {
+    border-bottom: 1px solid #cccccc;
+    padding: 15px 5px;
+}
+
+    .other-news ul li:hover {
+        background-color: #f1f1f1;
+        transition: all ease 0.3s;
+    }
+
+    .other-news ul li a {
+        color: #121212;
+        line-height: 16px;
+    }
+
+    .other-news ul li img {
+        width: 35%;
+        padding-right: 15px;
+    }
+
+    .other-news ul li a div p {
+        font-weight: bold;
+    }
+
+    .other-news ul li a .text-orange {
+        font-size: 13px;
+    }
+
+.news-list {
+    padding: 20px 0;
+}
+
+    .news-list li {
+        margin: 15px 0;
+    }
+
+        .news-list li img {
+            width: 100%;
+        }
+
+        .news-list li h3 {
+            font-size: 15px;
+            margin-top: 10px;
+        }
+
+        .news-list li a {
+            color: #121212;
+        }
+
+        .news-list li:nth-child(4n+1) {
+            clear: both;
+        }
+
+.news-big {
+    padding: 20px 0;
+}
+
+    .news-big img {
+        width: 100%;
+    }
+
+/*----------- End Bai Viet page ----------*/
+.time-content {
+    display: flex;
+    justify-content: center;
+    text-align: left;
+    font-family: 'goldman';
+    padding: 10px 15px 5px 15px;
+}

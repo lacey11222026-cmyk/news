@@ -1,0 +1,43 @@
+﻿@using BIZ
+@using UTILS
+@using WebMVC4.Helper
+@model WebMVC4.Models.News2Model
+
+<div class="data-page container">
+    <div class="row mt20">
+        <div class="col-md-3 col-sm-3 col-xs-12 data-list hidden-xs">
+            <ul>
+                <li id="menu_31"><a href="/tin-tuc/c31/tai-lieu-tham-khao.html">Tài liệu</a></li>
+                <li id="menu_32"><a href="/tin-tuc/c32/an-pham.html">Ấn phẩm</a></li>
+                <li id="menu_29"><a href="/tin-tuc/c29/thong-ke.html">Thống kê</a></li>
+                <li id="menu_14"><a href="/tin-tuc/c14/van-ban-phap-quy.html">Văn bản pháp lý</a></li>
+            </ul>
+        </div><!-- end side bar left-->
+
+        <div class="col-md-9 col-sm-9 col-xs-12">
+            @{Html.RenderAction("Breadcrumb", "News", new { CategoryId = Model.CategoryId });}
+            <ul class="row data-post mt20">
+                @if (Model.articles != null)
+                {
+                    foreach (var item in Model.articles.Select((value, i) => new { i, value }))
+                    {
+
+                        <li class="col-sm-4 col-xs-6">
+                            <a href="@item.value.LinkUrl"><img src="@item.value.MainImage?w=263&h=155&mode=crop" alt=""></a>
+                            <a href="@item.value.LinkUrl" class="news-name">@item.value.Title </a>
+                            <span class="date mt10">@item.value.PublishDate.ToString("dd/MM/yyyy - HH:mm")</span>
+                        </li>
+                    }
+                }
+
+
+            </ul>
+
+
+        </div><!-- end main content-->
+    </div>
+</div><!-- end cong nghe page-->
+
+<script>
+        $('#menu_' +@(Model.CategoryId)).addClass("active");
+</script>

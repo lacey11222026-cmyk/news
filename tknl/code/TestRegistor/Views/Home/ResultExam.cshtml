@@ -1,0 +1,71 @@
+﻿@using UTILS;
+@using TestRegistor.Helper
+@model List<DATA.TestArchive>
+
+<div class="maincontent screen03-content mt20 screen-full">
+    <div class="bg-gradient">
+        <div class="container">
+            <div class="question-title">
+                <p class="name-question">Cuộc thi trực tuyến Tìm hiểu kiến thức về sử dụng năng lượng tiết kiệm và hiệu quả năm 2026</p>
+            </div>
+        </div>
+    </div>
+    <div class="container mt20 b4-content">
+
+        <div class="table-responsive">
+            @if (Model != null)
+            {
+                <table class="table table-bordered  mt15 tbl-ketqua">
+                    <thead style="background-color: #02b551">
+                        <tr>
+                            <th>STT</th>
+                            <th>Họ tên</th>
+                            <th>Tỉnh/ Thành phố</th>
+                            <th>Thời gian chơi</th>
+                            <th>Điểm</th>
+                            <th>Số dự đoán</th>
+                            <th>Ngày chơi</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model.Select((value, i) => new { i, value }))
+                        {
+                            <tr>
+                                <td>@(item.i + 1)</td>
+                                <td>@item.value.FulName</td>
+                                <td>@item.value.Location</td>
+                                <td>
+                                    @if (item.value.EndTime != null)
+                                    {
+                                        <text> @(Utils.FormatMoney(item.value.TestTime))  </text>
+                                    }
+                                </td>
+                                <td>@(item.value.Mark * 10)</td>
+                                <td>@item.value.Note.GetValueOrDefault()</td>
+                                <td>@item.value.StartTime.GetValueOrDefault().ToString("dd/MM/yyyy HH:mm:ss")</td>
+                            </tr>
+
+                        }
+                        @*<tr style="font-weight:bold">
+                                <td colspan="2">Trung bình</td>
+                                <td>
+                                    @(Utils.FormatMoney(Model.Where(x => x.EndTime != null).Average(a => a.TestTime)))
+                                </td>
+
+                                <td>
+                                    @Model.Average(a => a.Mark * 10)
+                                </td>
+                                <td></td>
+                            </tr>*@
+
+                    </tbody>
+                </table>
+            }
+
+        </div>
+    </div>
+</div>
+
+<footer class="bg-gradient">
+    <p class="container">Bản quyền thuộc <strong>Chương trình quốc gia về sử dụng năng lượng tiết kiệm và hiệu quả</strong></p>
+</footer>

@@ -1,0 +1,44 @@
+﻿@using BIZ
+@using UTILS
+@using WebMVC4.Helper
+@model BIZ.Entity.CONTENT_FULL
+
+<div class="video-page pb80 mt30">
+    <div class="container">
+        <h2 class="title-cm02">Video</h2>
+    </div>
+    <div class="video-big mt20">
+        <div class="wrapper-video">
+            <div class="row">
+                <div class="col-lg-8 col-md-12">
+                    <div class="movie">
+                        <iframe src="@(Model.Url.Replace("watch?v=", "embed/"))?autoplay=1&rel=0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen style="position: absolute; top: 0px; right: 0px; bottom: 0px; left: 0px; width: 100%; height: 100%;"></iframe>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-12 pb15">
+                    <h3 class="videonews-name">@Model.Title</h3>
+                    <span class="date mt10">@Model.PublishDate.ToString("dd/MM/yyyy")</span>
+                    <p class="mt20 videonews-detail">
+                        @Model.IntroText
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container mt30" id="lstVideo">
+        @Html.Action("LoadVideo", "Video", new { VideoId = Model.Id, page = 1, CategoryId = ViewBag.CategoryId })
+    </div>
+
+</div><!-- end content-->
+
+
+
+
+@section scripts {
+    <script type="text/javascript">
+
+
+        $('#menu_66').addClass("active");
+
+    </script>
+}

@@ -1,0 +1,20 @@
+﻿@using BIZ
+@using UTILS
+@using WebMVC4.Helper
+@model List<BIZ.Entity.CONTENT_FULL>
+@if (Model != null)
+{
+
+    <div class="newsbig newsbig-top">
+        @foreach (var item in Model.Take(1).Select((value, i) => new { i, value }))
+        {
+            <a href="@item.value.LinkUrl"><img src="@item.value.MainImage2?w=436&h=246&mode=crop" alt=""></a>
+            <a href="@item.value.LinkUrl" class="news-name mt15">@item.value.Title</a>
+            <span class="newsdate mt10">@item.value.PublishDate.ToString("dd/MM/yyyy")</span>
+            <p class="mt10 news-txt">@item.value.IntroText</p>
+        }
+    </div>
+    
+
+
+}

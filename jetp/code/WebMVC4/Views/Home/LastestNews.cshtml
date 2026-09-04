@@ -1,0 +1,47 @@
+﻿
+@using BIZ
+@using UTILS
+@using WebMVC4.Helper
+@model WebMVC4.Models.LastestNewModel
+@if (Model != null)
+{
+
+    <div class="title text-center"><h2>@Model.HeaderTitle.ToUpper()</h2></div>
+    <div class="list-news ">
+        <div class="news-slider newslideSwiper">
+            @if (Model.lstdata!=null)
+            {
+            <div class="swiper-wrapper">
+                @foreach (var item in Model.lstdata.Select((value, i) => new { i, value }))
+                {
+                    <div class="swiper-slide">
+                        <div class="news-item">
+                            <a href="@item.value.LinkUrl" class="picture"><img src="@item.value.MainImage?w=373&h=233&mode=crop"></a>
+                            <div class="desc">
+                                <div class="v-card">
+                                    <p>@item.value.PublishDate.ToString("dd/MM/yyyy")</p>
+                                </div>
+                                <h3><a href="@item.value.LinkUrl">@item.value.Title</a></h3>
+                                <p>@item.value.IntroText</p>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+            }
+        </div>
+        <!-- Navigation Arrows -->
+        <div class="swiper-button-prev"></div>
+        <div class="swiper-button-next"></div>
+    </div>
+    <div class="text-center mt30">
+        <a href="@Model.Url" class="btn-cm btn-gradient">@Resources.Global.More</a>
+    </div>
+
+
+
+
+
+
+
+}

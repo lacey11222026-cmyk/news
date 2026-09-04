@@ -1,0 +1,84 @@
+﻿@using UTILS;
+@using TestRegistor.Helper
+@model List<DATA.TestArchive>
+
+<div class="maincontent">
+    <div class="container pt60 b4-content">
+        <h3 class="font-weight-bold text-center title-ketthuc">Cuộc thi trực tuyến “Công đoàn Ngân hàng Việt Nam -  30 năm xây dựng và phát triển”</h3>
+        @*<p class="text-center mt-4" style="font-size: 20px;">
+                Kết quả: <strong class="textblue">@ViewBag.Mark/@ViewBag.TotalMark</strong> câu trả lời đúng. Thời gian thi: <strong class="textblue">23 giây</strong><br>
+                Kết quả sẽ được công bố trên website: <a href="http://vnubw.org.vn/" class="textblue font-weight-bold" style="text-decoration: underline; display: inline-block;">http://vnubw.org.vn/</a>
+            </p>*@
+        <div class="table-responsive">
+            @if (Model != null)
+            {
+                <table class="table table-bordered text-center">
+                    <thead>
+                        <tr>
+                            <th>STT</th>
+                            <th>Họ tên</th>
+                            <th>Đơn vị</th>
+                            <th>Thời gian chơi</th>
+                            <th>Điểm</th>
+                            <th>Ngày chơi</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model.Select((value, i) => new { i, value }))
+                        {
+                            <tr>
+                                <td>@(item.i + 1)</td>
+                                <td>@item.value.FulName</td>
+                                <td>@item.value.Location</td>
+                                <td>
+                                    @if (item.value.EndTime != null)
+                                    {
+                                        <text> @(Utils.FormatMoney(item.value.TestTime))  </text>
+                                    }
+                                </td>
+                                <td>@(item.value.Mark * 10)</td>
+                                <td>@item.value.StartTime.GetValueOrDefault().ToString("dd/MM/yyyy HH:mm:ss")</td>
+                            </tr>
+
+                        }
+                        <tr style="font-weight:bold">
+                            <td colspan="3">Trung bình</td>
+                            <td>
+                                @(Utils.FormatMoney(Model.Where(x => x.EndTime != null).Average(a => a.TestTime)))
+                            </td>
+
+                            <td>
+                                @Model.Average(a => a.Mark * 10)
+                            </td>
+                            <td></td>
+                        </tr>
+
+                    </tbody>
+                </table>
+            }
+
+        </div>
+
+    </div>
+</div>
+
+<footer class="bg-gradient-03">
+    <p class="container">Bản quyền thuộc <strong>Công đoàn Ngân hàng Việt Nam</strong></p>
+</footer>
+<style>
+    .post-content {
+        min-height: 600px;
+    }
+
+    #NewsContent div {
+        margin-top: 15px;
+    }
+
+    #NewsContent {
+        font-family: sans-serif, Arial, Verdana, "Trebuchet MS";
+    }
+
+    .title-ketthuc {
+        font-size: 24px;
+    }
+</style>

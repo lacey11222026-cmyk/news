@@ -1,0 +1,41 @@
+﻿<div class="collection-sidebar-wrapper">
+
+    <div class="grid">
+        <div class="grid__item large--one-whole medium--one-half small--one-whole">
+            <div class="collection-categories">
+                <button type="button" class="accordion cs-title col-sb-trigger active"> <span>Danh mục</span> </button>
+                <div class="panel" style="max-height: 628px;">
+                    <ul class="no-bullets">
+                        @Html.Action("Menu", "Product")
+                       
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="grid__item large--one-whole medium--one-half small--one-whole" id="menu-range">
+            
+        </div>
+        <div class="grid__item large--one-whole medium--one-half small--one-whole" id="menu-manu">
+           
+        </div>
+    </div>
+
+</div>
+<div class="sidebar" style="display:none">
+    <div id="secondary" class="secondary">
+        <div id="widget-area" class="widget-area" role="complementary">
+            @*@Html.Action("BannerRight", "Home")*@
+            <div >
+
+            </div>
+           
+            <div >
+
+            </div>
+
+            @Html.Action("RightLastestNews", "News", new { MaxLastestNews = 5, CategoryId = 5 })
+
+
+        </div><!-- .widget-area -->
+    </div><!-- .secondary -->
+</div>

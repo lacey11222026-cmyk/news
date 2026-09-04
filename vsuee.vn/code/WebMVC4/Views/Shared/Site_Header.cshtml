@@ -1,0 +1,134 @@
+﻿@using UTILS
+@using WebMVC4.Helper
+@{
+    var langpage = WorkContext.GetLanguage();
+}
+@{
+    var date = Utils.formatDateofWeek(DateTime.Now.DayOfWeek) + "," + DateTime.Now.ToString(" dd") + "/" + DateTime.Now.ToString("MM") + "/" + DateTime.Now.Year.ToString() + " | " + DateTime.Now.ToString("HH") + ":" + DateTime.Now.ToString("mm");
+    var DateEN = DateTime.Now.DayOfWeek.ToString() + ", " + DateTime.Now.ToString("dd") + "/" + DateTime.Now.ToString("MM") + "/" + DateTime.Now.Year.ToString() + " | " + DateTime.Now.ToString("HH") + ":" + DateTime.Now.ToString("mm");
+}
+<div class="header-top">
+    <div class="header-pc">
+        <div class="nav-pc container">
+            @{Html.RenderAction("Menu", "Home", new { lang = langpage });}
+        </div>
+    </div>
+    <div class="banner" id="topbanner">
+        
+        <ul class="slick01">
+            @{Html.RenderAction("Banner", "Home", new { lang = langpage });}
+            
+           
+        </ul>
+    </div><!-- end banner-->
+    <div class="nav-mobile">
+        <div class="header-m">
+            <a href="#menu">
+                <!--          <img src="/Content/images/logo.png" alt="vsuee" class="m-logo">-->
+                <img src="/Content/images/icon-mb.png" class="ico-menu">
+            </a>
+        </div>
+        <div id="menu">
+            <ul>
+                <li class="m-search">
+                    <input type="text" placeholder="@Resources.Global.MenuSearch" id="txtKeywordMobile" onkeydown="javascript: return MAnyInput_KeyDown(this, event);">
+                    <button class="m-icon-search" onclick="Msearch()"></button>
+                </li>
+                <li><a href="/">@Resources.Global.Home</a></li>
+                @{Html.RenderAction("MenuMobile", "Home", new { lang = langpage });}
+                
+            </ul>
+        </div>
+    </div>
+</div><!-- end header-->
+<div class="container mt30">
+    <div class="tool">
+        @if (langpage == "vi-vn")
+        {
+            <p class="date-info">@date </p>
+            <div class="tool-right hidden-767">
+                <ul>
+                    <li>
+                        <div class="searchbox">
+                            <input type="text" placeholder="@Resources.Global.MenuSearch" onkeydown="javascript: return AnyInput_KeyDown(this, event);" id="txtKeyword" class="search-box form-custom form-control">
+                            <button onclick="search()"><i class="icon-search"></i></button>
+                        </div>
+                    </li>
+                    <li>
+                        <select class="form-control linklist form-custom" id="" onchange="window.open(this.options[this.selectedIndex].value,'_blank');this.options[0].selected=true">
+                            <option>Liên kết</option>
+                            <option value="https://tietkiemnangluong.com.vn/">Chương trình quốc gia về SDNL TK&HQ</option>
+                            <option value="https://moit.gov.vn/">Cổng TTĐT Bộ Công Thương</option>
+                            <option value="https://setp.vn/vi/">Dự án IEEP</option>
+                            <option value="https://depp3.vn/">Chương trình DEPP3</option>
+                            <option value="https://vepg.vn/">Nhóm đối tác năng lượng Việt Nam</option>
+                        </select>
+                    </li>
+                </ul>
+            </div>
+        }
+        else
+        {
+            <p class="date-info">@DateEN</p>
+            <div class="tool-right hidden-767">
+                <ul>
+                    <li>
+                        <div class="searchbox">
+                            <input type="text" placeholder="@Resources.Global.MenuSearch" onkeydown="javascript: return AnyInput_KeyDown(this, event);" id="txtKeyword" class="search-box form-custom form-control">
+                            <button onclick="search()"><i class="icon-search"></i></button>
+                        </div>
+                    </li>
+                    <li>
+                        <select class="form-control linklist form-custom" id="" onchange="window.open(this.options[this.selectedIndex].value,'_blank');this.options[0].selected=true">
+                            <option>Links</option>
+                            <option value="https://tietkiemnangluong.com.vn/">National Energy Efficiency Programme</option>
+                            <option value="https://moit.gov.vn/">Ministry of Industry and Trade</option>
+                            <option value="https://setp.vn/vi/">IEEP Project</option>
+                            <option value="https://depp3.vn/">DEPP3</option>
+                            <option value="https://vepg.vn/">Vietnam Energy Partnership Group</option>
+                        </select>
+                    </li>
+                </ul>
+            </div>
+        }
+
+
+    </div>
+</div><!-- end tool-->
+
+
+<script type="text/javascript">
+    function search() {
+        var searchtext = $("#txtKeyword").val();
+        window.location = "/News/Search?q=" + searchtext;
+
+    }
+    function AnyInput_KeyDown(sender, e) {
+        if ((e.which && e.which == 13) || (e.keyCode && e.keyCode == 13)) {
+            search();
+
+            return false;
+        }
+
+        return true;
+    }
+
+
+    function Msearch() {
+        var searchtext = $("#txtKeywordMobile").val();
+        window.location = "/News/Search?q=" + searchtext;
+
+    }
+    function MAnyInput_KeyDown(sender, e) {
+        if ((e.which && e.which === 13) || (e.keyCode && e.keyCode === 13)) {
+            Msearch();
+
+            return false;
+        }
+
+        return true;
+    }
+
+
+
+</script>

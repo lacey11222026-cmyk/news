@@ -1,0 +1,174 @@
+﻿@using BIZ
+@using UTILS
+@using WebMVC4
+@using WebMVC4.Helper
+@{
+    ViewBag.Date = Utils.formatDateofWeek(DateTime.Now.DayOfWeek) + ", " + DateTime.Now.ToString("dd/MM/yyy ") + "| " + DateTime.Now.ToString("HH:mm") + " GMT+7";
+    var lstMenu = new CategoryBO().GetAllCategoryFullsByPosition(UTILS.Constants.CategoryPosition.Homepage, 18, false, "vi-vn");
+}
+
+@{var StaticSiteUrl = MvcApplication.StaticSiteUrl;}
+<div class="header" id="header">
+
+    <div class="header-conent01">
+        <img src="@(StaticSiteUrl)/Content/images/topbanner2024.gif" alt="Chương trình quốc gia về sử dụng năng lượng tiết kiệm và hiệu quả" class="pull-right bnr-img">
+        <div class="bnr-content">
+            <div class="container">
+                <a href="/"><img src="@(StaticSiteUrl)/Content/images/logo-top.png" alt="vneep" class="logo-top"></a>
+            </div>
+        </div>
+    </div>
+    <div class="nav_top">
+        <div class="container">
+            <div class="nav-top-content">
+                <div class="ico-home" id="menu_home"><a href="/"><img src="@(StaticSiteUrl)/Content/images/icon-home.png" alt="Trang chủ"></a></div>
+                <nav class="nav-list">
+                    <ul>
+                        @foreach (var item in lstMenu.Select((value, i) => new { i, value }))
+                        {
+
+                            <li id="menu_@item.value.Id">
+                                <a href="@UTILS.Utils.FormatUrlRewriteByType(item.value.Id, item.value.Name, int.Parse(item.value.Type.ToString()), item.value.Link)">@item.value.Name</a>
+                                @Html.Raw(HtmlHelpers.BindChildCategories(Convert.ToInt32(item.value.Id), int.Parse(item.value.Type.ToString())))
+                            </li>
+
+                        }
+                    </ul>
+                </nav>
+                <div class="pull-right nav-right">
+                    <ul>
+
+                        <li><a href="http://vneec.gov.vn/"><img src="@(StaticSiteUrl)/Content/images/icon-en.png"></a></li>
+                        <li><a href="https://www.youtube.com/channel/UCFfXHgMRa5zwPhGltIv89LQ"><img src="@(StaticSiteUrl)/Content/images/icon-youtube.png"></a></li>
+                        <li><a href="https://www.facebook.com/vptknl2019/"><img src="@(StaticSiteUrl)/Content/images/icon-face.png"></a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="header-mobile">
+        <a href="#menu">
+            <img src="@(StaticSiteUrl)/Content/images/menu.svg" width="30" class="ico-menu">
+        </a>
+        <div class="header-mobile-content">
+            <div class="header-mb-top">
+                <a href="#menu" class="ico-close">
+                    <img src="@(StaticSiteUrl)/Content/images/close.svg" width="18">
+                </a>
+                <a href="/" class="logo-top-mb"><img src="@(StaticSiteUrl)/Content/images/logo-top.png" alt=""></a>
+            </div>
+            <div class="nav-mb mt20">
+                <div class="search-box w100">
+                    <button class="search-icon" onclick="Msearch()"></button>
+                    <input type="text" class="form-control" id="MtxtKeyword" onkeydown="javascript: return AnyInput_KeyDown(this, event);">
+                </div>
+                <ul class="nav-mb-list mt20">
+                    @foreach (var item in lstMenu.Select((value, i) => new { i, value }))
+                    {
+
+                        <li>
+                            <a href="@UTILS.Utils.FormatUrlRewriteByType(item.value.Id, item.value.Name, int.Parse(item.value.Type.ToString()), item.value.Link)">@item.value.Name</a>
+                            @Html.Raw(HtmlHelpers.BindChildCategories(Convert.ToInt32(item.value.Id), int.Parse(item.value.Type.ToString())))
+                        </li>
+
+                    }
+                </ul>
+            </div>
+        </div>
+
+    </div>
+
+</div><!-- end header-->
+
+<div class="container tool" id="pageTool">
+    <p class="pull-left mt10">@ViewBag.Date</p>
+    <ul class="pull-right list-inline">
+        <li class="hotline"><a href="tel:02422202358">024.22202358</a></li>
+        <li class="lienket-area">
+            <select name="lienket" id="" onchange="window.open(this.options[this.selectedIndex].value,'_blank');this.options[0].selected=true">
+                <option>Liên kết</option>
+                <option value="https://moit.gov.vn/">Bộ Công Thương</option>
+                <option value="http://scp.gov.vn/">SXSH & SXTDBV</option>
+                <option value="http://veeie.vn/">Dự án VEEIE</option>
+                <option value="http://vecea.vn/">Hội KHCN sử dụng năng lượng TK&HQ VN</option>
+            </select>
+        </li>
+        <li>
+            <div class="search-box">
+                <button class="search-icon" onclick="search()"></button>
+                <input type="text" class="form-control" placeholder="Tìm kiếm" id="txtKeyword" onkeydown="javascript: return AnyInput_KeyDown(this, event);">
+            </div>
+        </li>
+    </ul>
+    <ul class="pull-right hidden-lg toolmobile">
+        <li><a href="http://vneec.gov.vn/"><img src="@(StaticSiteUrl)/Content/images/icon-en.png"></a></li>
+        <li><a href="https://www.youtube.com/channel/UCFfXHgMRa5zwPhGltIv89LQ"><img src="@(StaticSiteUrl)//Images/icon-youtube.png"></a></li>
+        <li><a href="https://www.facebook.com/vptknl2019/"><img src="@(StaticSiteUrl)/Images/icon-face.png"></a></li>
+    </ul>
+</div>
+<script>
+    function search() {
+        var searchtext = $("#txtKeyword").val();
+        window.location = "/News/Search?keyword=" + searchtext;
+
+    }
+    function AnyInput_KeyDown(sender, e) {
+        if ((e.which && e.which == 13) || (e.keyCode && e.keyCode == 13)) {
+            search();
+
+            return false;
+        }
+
+        return true;
+    }
+    function Msearch() {
+        var searchtext = $("#MtxtKeyword").val();
+        window.location = "/News/Search?keyword=" + searchtext;
+
+    }
+    function MAnyInput_KeyDown(sender, e) {
+        if ((e.which && e.which == 13) || (e.keyCode && e.keyCode == 13)) {
+            Msearch();
+
+            return false;
+        }
+
+        return true;
+    }
+</script>
+<script>
+    if ($('#header').width() < 766) {
+        var distance = $('#header').offset().top;
+
+        $(window).scroll(function () {
+
+            if ($(window).scrollTop() >= distance) {
+                $('#header').addClass("affix");
+
+            } else {
+                $('#nheader').removeClass("affix");
+            }
+        });
+    }
+
+</script>
+<style>
+    #menu_33 {
+        display: none;
+    }
+
+    .toolmobile li {
+        float: left;
+        margin-left: 5px;
+    }
+
+    .affix {
+        width: 100%;
+        top: 0px;
+        position: fixed;
+        overflow: visible !important;
+        z-index: 500;
+        background-color: white;
+    }
+</style>

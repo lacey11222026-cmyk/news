@@ -1,0 +1,24 @@
+﻿@model CMS.Models.PaginationInfo
+@using CMS.Helper
+@if (Model.Pages.Count() > 1)
+{
+    if (Model.HasPrevPage)
+    {
+    <a href="@Model.PrevPageUrl" >«</a>
+    }
+    foreach (var p in Model.Pages)
+    {
+        if (p == Model.CurrentPage)
+        {
+    <a class="active" href="#">@p</a>
+        }
+        else
+        {    
+    <a href="@Model.PageUrlFor(p)" >@p</a> 
+        }
+    }
+    if (Model.HasNextPage)
+    { 
+    <a href="@Model.NextPageUrl" >» </a> 
+    }
+}

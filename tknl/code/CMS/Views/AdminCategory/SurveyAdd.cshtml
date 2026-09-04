@@ -1,0 +1,61 @@
+﻿@{
+   
+    Layout = "~/Views/Shared/_AdminV2.cshtml";
+
+}
+@model DATA.Survey
+<link href="/Styles/admin/css/blue/tab.css" rel="stylesheet" type="text/css" />
+
+<div class="onecolumn" id="product-tabs">
+    <div class="header">
+        <span>@ViewBag.Title</span>
+     @*   <div class="menuitem">
+            <ul>
+                <li><a href="#tabs-info">Thông tin cơ bản</a></li>
+                <li><a href="#tabs-cate">Chuyên mục</a></li>
+
+            </ul>
+        </div>*@
+    </div>
+    <br class="clear">
+    <div class="content">
+        <form id="NewsEditForm" method="get" action="">
+
+
+            
+            <div class="login" id="tabs-info">@{Html.RenderAction("FormSurvey", "AdminCategory", new { obj = Model });}</div>@*
+            <div class="login" id="tabs-cate">@{Html.RenderAction("SurveyCategory", "AdminCategory", new { categoryPath = Model.CategoryPath });}</div>*@
+            <br />
+            <div class="button_login">
+                <div>
+                    <input type="button"  onclick="fsave();" value="Thêm mới" />
+                    &nbsp;<input type="button" value="Quay lại" onclick="javascript: history.go(-1);" />
+                </div>
+            </div>
+            <div class="clear">
+            </div>
+
+
+      </form>
+    </div>
+</div>
+<script type="text/javascript">
+    //var imageUrl = '@ViewBag.imageUrl';
+
+    $(document).ready(function () {
+        $('#menu_category').click();
+        //$('#product-tabs').tabs();
+       
+
+    });
+    function fsave() {
+
+            validateForm();
+
+           
+            $.post('@Url.Action("SurveyAdd", "AdminCategory")', $("#NewsEditForm").serialize() + "&SBeginDate=" + Encoder.urlEndcode($('#SBeginDate').val()) + "&SEndDate=" + Encoder.urlEndcode($('#SEndDate').val()), function (data) {
+                window.location.href = "@Url.Action("Survey", "AdminCategory")";
+            });
+        
+    }
+    </script>

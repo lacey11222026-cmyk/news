@@ -1,0 +1,302 @@
+﻿
+
+
+.text-center .quantity, .quantity {
+    opacity: 1;
+    display: inline-block;
+    display: -ms-inline-flexbox;
+    display: inline-flex;
+    margin-right: 1em;
+    white-space: nowrap;
+    vertical-align: top;
+}
+
+    .quantity .minus {
+        border-right: 0 !important;
+        border-top-right-radius: 0 !important;
+        border-bottom-right-radius: 0 !important;
+        font-size: 30px;
+        margin-top: 5px;
+        margin-right: 5px;
+        cursor: pointer;
+        height: 29px;
+    }
+
+.m-b-10 {
+    margin-bottom: 10px !important;
+}
+
+.quantity .plus {
+    border-left: 0 !important;
+    border-top-left-radius: 0 !important;
+    border-bottom-left-radius: 0 !important;
+    font-size: 30px;
+    margin-top: 5px;
+    margin-left: 5px;
+    cursor: pointer;
+    height: 29px;
+}
+
+.quantity input[type=text] {
+    max-width: 2.5em;
+    width: 3.5em;
+    text-align: center;
+    border-radius: 0 !important;
+    -webkit-appearance: textfield;
+    -moz-appearance: textfield;
+    appearance: textfield;
+    font-size: 1em;
+}
+
+
+#NewsContent p, #NewsContent div, #NewsContent span {
+    margin: 1em 0;
+}
+
+@media screen and (max-width: 767px) {
+
+
+    #NewsContent img, #NewsContent table {
+        max-width: 480px;
+    }
+}
+
+@media screen and (max-width: 485px) {
+    #NewsContent img, #NewsContent table {
+        max-width: 300px;
+    }
+
+    .mobile-navigation .fa {
+        padding-top: 15px;
+    }
+    div.summary,div.images {
+         width: 100%;
+    }
+}
+
+.page-numbers {
+    border-radius: 5px;
+    padding: 0;
+    margin-left: 10px;
+    display: inline-block;
+    text-align: center;
+    height: 40px;
+    line-height: 40px;
+    width: 40px;
+    color: #263c49;
+    border: 1px solid #f3f3f3;
+    background: #f8f8f9;
+    font-weight: 700;
+    font-size: 18px;
+    color: #fff;
+    background: #0d1fb6;
+    border: 1px solid #0d1fb6;
+}
+
+.logotxt
+{
+    font-weight:bold
+}
+    .logotxt:hover {
+        color: #0d1fb6 !important
+    }
+@media (min-width: 561px) {
+    .devvn_toolbar {
+        position: fixed;
+        bottom: 10px;
+        right: 10px;
+        z-index: 99999999;
+    }
+
+        .devvn_toolbar ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+            .devvn_toolbar ul li {
+                padding: 0;
+                margin: 0;
+                list-style: none;
+            }
+
+                .devvn_toolbar ul li a {
+                    display: block;
+                    width: 40px;
+                    height: 40px;
+                    border-radius: 50%;
+                    -moz-border-radius: 50%;
+                    -webkit-border-radius: 50%;
+                    margin: 0 0 5px;
+                    position: relative;
+                    background-position: 50% 50%;
+                    background-size: cover;
+                    overflow: inherit;
+                }
+
+                    .devvn_toolbar ul li a br {
+                        display: none;
+                    }
+
+                    .devvn_toolbar ul li a span {
+                        font-weight: 400;
+                        color: #ffffff;
+                        position: absolute;
+                        top: 50%;
+                        left: calc(100% + 10px);
+                        left: -webkit-calc(100% + 10px);
+                        left: -moz-calc(100% + 10px);
+                        margin-top: -12.5px;
+                        font-size: 14px;
+                        height: 25px;
+                        line-height: 25px;
+                        padding: 0 10px;
+                        border-radius: 5px;
+                        -moz-border-radius: 5px;
+                        -webkit-border-radius: 5px;
+                        white-space: nowrap;
+                        opacity: 0;
+                        visibility: hidden;
+                    }
+
+                    .devvn_toolbar ul li a:hover span {
+                        opacity: 1;
+                        visibility: visible;
+                    }
+
+                    .devvn_toolbar ul li a span:after {
+                        right: 100%;
+                        top: 50%;
+                        border: solid transparent;
+                        content: " ";
+                        height: 0;
+                        width: 0;
+                        position: absolute;
+                        pointer-events: none;
+                        border-color: rgba(136, 183, 213, 0);
+                        border-right-color: #ffffff;
+                        border-width: 5px;
+                        margin-top: -5px;
+                    }
+
+                    .devvn_toolbar ul li a img {
+                        width: auto;
+                        height: auto;
+                        max-width: 29px;
+                        max-height: 29px;
+                        position: absolute;
+                        top: 50%;
+                        left: 50%;
+                        transform: translate3d(-50%, -50%, 0);
+                        -moz-transform: translate3d(-50%, -50%, 0);
+                        -webkit-transform: translate3d(-50%, -50%, 0);
+                        margin: 0;
+                    }
+
+    .devvn_contact_quickbuy_li, .devvn_contact_addtocart_li {
+        display: none;
+    }
+}
+
+@media (max-width: 560px) {
+    body.has_devvn_toolbar {
+        padding-bottom: 50px;
+    }
+
+    .devvn_toolbar {
+        background: #fff;
+        display: inline-block;
+        width: 100%;
+        bottom: 0;
+        left: 0;
+        position: fixed;
+        z-index: 99999999;
+        height: auto;
+        padding: 0;
+        border-top: 0;
+        transform: translate3d(0,0,0);
+        -moz-transform: translate3d(0,0,0);
+        -webkit-transform: translate3d(0,0,0);
+        visibility: visible;
+        opacity: 1;
+        transition: all .3s linear;
+        -moz-transition: all .3s linear;
+        -webkit-transition: all .3s linear;
+    }
+
+
+
+    .devvn_toolbar {
+        border-top: 1px solid #cbcbcb;
+    }
+
+        .devvn_toolbar ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            border-collapse: collapse;
+            width: 100%;
+            -js-display: flex;
+            display: -ms-flexbox;
+            display: flex;
+            -ms-flex-flow: row wrap;
+            flex-flow: row wrap;
+        }
+
+            .devvn_toolbar ul li {
+                flex-grow: 1;
+                flex-shrink: 1;
+                flex-basis: 0;
+                text-align: center;
+                display: flex;
+                margin-bottom: 0;
+            }
+
+                .devvn_toolbar ul li a {
+                    display: block;
+                    width: 100%;
+                    outline: none;
+                    text-decoration: none;
+                    padding: 5px 3px;
+                    white-space: nowrap;
+                }
+
+                    .devvn_toolbar ul li a span {
+                        font-weight: 400;
+                        color: #ffffff;
+                        font-size: 3.5vw;
+                        display: block;
+                        margin: 2px 0 0 0;
+                    }
+
+                    .devvn_toolbar ul li a img {
+                        height: 6vw;
+                        width: auto;
+                        margin: 0;
+                    }
+
+    .woocommerce-checkout .devvn_toolbar {
+        display: none !important;
+    }
+
+    .devvn_toolbar a.devvn_buy_now_style {
+        margin: 0;
+        border-radius: 0;
+        padding: 5px 8px;
+        font-size: initial;
+        line-height: inherit;
+    }
+
+        .devvn_toolbar a.devvn_buy_now_style span {
+            margin: 0;
+            padding: 0;
+        }
+
+        .devvn_toolbar a.devvn_buy_now_style span {
+            background: none !important;
+        }
+
+    a#devvn_contact_addtocart {
+        background: #e03232 !important;
+    }
+}

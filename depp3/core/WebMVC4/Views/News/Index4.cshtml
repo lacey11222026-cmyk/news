@@ -1,0 +1,91 @@
+﻿@using BIZ
+@using UTILS
+@using WebMVC4.Helper
+@model WebMVC4.Models.News2Model
+
+@{
+    var langpage = WorkContext.GetLanguage();
+}
+<div class="bnr-detail">
+    @*<img src="/Content/img/bnr-tranning.jpg?vs=02" alt="" class="hidden-767">
+        <img src="/Content/img/bnr-tranning-mb.jpg" alt="" class="block-767">*@
+    @{Html.RenderAction("BannerTop", "Home", new { Type = 2 });}
+    <div class="bnr-detail-inner">
+        <div class="container">
+            <h2>@ViewBag.CateName</h2>
+        </div>
+    </div>
+</div>
+<div class="document-page mt30 pb80">
+    <div class="breadcrumbs container">
+        <ul>
+
+            <li><a href="/">@Resources.Global.Home</a></li>
+            <li><a href="@ViewBag.PCateUrl">@ViewBag.PCateName</a></li>
+            <li><span>@ViewBag.CateName</span></li>
+        </ul>
+    </div>
+
+
+    <div class="container pb80 mt50">
+        <div class="document-page-item">
+            @if (Model.articles!=null)
+            {
+
+
+                <div class="support-service-list mt40">
+                    @foreach (var item in Model.articles.Select((value, i) => new { i, value }))
+                    {
+                        <div>
+                            <a href="@item.value.LinkUrl" class="maxheight">
+                                <img src="@item.value.MainImage?w=246&h=344&mode=crop" alt="">
+                                <span class="book-title">@item.value.Title</span>
+                            </a>
+                            <div class="detail-tags mt20">
+                                <p>Tags: </p>
+                                <ul>
+
+                                    @if (!string.IsNullOrEmpty(item.value.SiteUrl))
+                                    {
+                                        foreach (var tag in item.value.SiteUrl.Split(',').Select((value, i) => new
+                                        {
+                                            i,
+                                            value
+                                        }))
+                                        {
+                                            <li>  <a href="@Url.Action("Search", new { q = tag.value.Trim() })">@tag.value.Trim()</a></li>
+                                        }
+                                    }
+                                </ul>
+                            </div>
+                        </div>
+                    }
+                </div>
+                <div class="paging mt50">
+                    <ul>
+                        @{Html.RenderPartial("Pagination", new WebMVC4.Models.PaginationInfo
+                            {
+                                PageUrl = Url.SetParameter("Page", "!0"),
+                                CurrentPage = ViewBag.Page,
+                                PageSize = ViewBag.PageSize,
+                                TotalItemCount = ViewBag.Total,
+                            }); }
+                    </ul>
+                </div>
+            }
+        </div>
+    </div>
+
+
+
+</div>
+
+<script type="text/javascript">
+
+ $('#menu_' + '@ViewBag.CurrentCategoryId').addClass("active");
+
+  $('#menu_' + '@ViewBag.ParentCategoryId').addClass("active");
+
+
+
+</script>

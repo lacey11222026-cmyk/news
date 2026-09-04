@@ -1,0 +1,80 @@
+﻿@using BIZ
+@using UTILS
+@using WebMVC4.Helper
+@using WebMVC4.Models
+@model ProductModel
+
+@if (Model != null)
+{
+<div class="grid-uniform md-mg-left-15">
+    @foreach (var item in Model.listdata.Select((value, i) => new { i, value }))
+    {
+    <div class="grid__item large--one-quarter medium--one-third small--one-half md-pd-left15">
+
+
+
+        <div class="product-item">
+            <div class="product-img">
+                <a href="/products/@(item.value.Url)">
+                    @if (string.IsNullOrEmpty(item.value.Album))
+                    {
+                        <img src="@item.value.DescriptImage" class="only-one" alt="@item.value.Name" />
+                    }
+                    else
+                    {
+                        <img src="@item.value.DescriptImage" alt="@item.value.Name" />
+                        <img src="@item.value.Album" alt="@item.value.Name" />
+                    }
+
+
+
+                </a>
+
+
+            </div>
+            <div class="product-item-info">
+                <div class="product-title">
+                    <a href="/products/@(item.value.Url)">@item.value.Name</a>
+                </div>
+
+
+                <div class="product-price clearfix test">
+                    @if (!string.IsNullOrEmpty(item.value.Language))
+                    {
+                        <span class="current-price">@item.value.Language</span>
+                    }
+                    else
+                    {
+                        if (item.value.Price > 0)
+                        {
+                            <span class="current-price">@Utils.InsertCommaNoStyle(item.value.Price.ToString()) đ</span>
+                        }
+                        else
+                        {
+                            <span class="current-price">Liên hệ</span>
+                        }
+
+                    }
+
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+    }
+
+
+    </div>
+    <div class="collection-btn">
+        <a href="@Model.Cate.Url" class="btn btnViewMore">Xem tất cả</a>
+    </div>
+
+   
+
+
+}
+else
+{
+
+}

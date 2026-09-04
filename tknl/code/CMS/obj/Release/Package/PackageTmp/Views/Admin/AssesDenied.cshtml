@@ -1,0 +1,124 @@
+﻿@{
+   
+    Layout = "~/Views/Shared/_AdminV2.cshtml";
+    
+}
+@using CMS
+@{
+    var IsUser = Request.IsAuthenticated;
+    var IsCategory = false;
+    var IsAlbum = false;
+    var IsSale = false;
+    var IsContact = false;
+    var IsDocument = false;
+    var IsNews = false;
+    var IsAdmin = false;
+    var IsReport = false;
+    var IsComment = false;
+    var IsMark = false;
+    if (HttpContext.Current.User.IsInRole("Administrator") || HttpContext.Current.User.IsInRole("Category"))
+    {
+        IsCategory = true;
+    }
+    if (HttpContext.Current.User.IsInRole("Administrator") || HttpContext.Current.User.IsInRole("Album"))
+    {
+        IsAlbum = true;
+    }
+
+    if (HttpContext.Current.User.IsInRole("Administrator") || HttpContext.Current.User.IsInRole("Comment"))
+    {
+        IsComment = true;
+    }
+    if (HttpContext.Current.User.IsInRole("Administrator") || HttpContext.Current.User.IsInRole("Contact"))
+    {
+        IsContact = true;
+    }
+    if (HttpContext.Current.User.IsInRole("Administrator") || HttpContext.Current.User.IsInRole("Report"))
+    {
+        IsReport = true;
+    }
+
+    if (HttpContext.Current.User.IsInRole("Administrator"))
+    {
+        IsAdmin = true;
+    }
+    if (HttpContext.Current.User.IsInRole("Mark"))
+    {
+        IsMark = true;
+    }
+
+    if (HttpContext.Current.User.IsInRole("Administrator") || HttpContext.Current.User.IsInRole("NewsEdit") || HttpContext.Current.User.IsInRole("NewsPublish") || HttpContext.Current.User.IsInRole("NewsCreate"))
+    {
+        IsNews = true;
+    }
+     
+}
+<div id="content">
+    <div class="inner">
+        <h1>Khung điều khiển</h1>
+        <ul id="shortcut">
+            <li>
+                <a id="shortcut_home" href="@CMS.MvcApplication.SiteUrl" title="Trang chủ">
+                    <img alt="home" src="/styles/admin/images/shortcut/home.png"><br>
+                    <strong>Trang chủ</strong>
+                </a>
+            </li>
+
+            @if (IsNews)
+            {
+         
+                <li>
+                    <a title="Tin tức" id="shortcut_posts" href="@Url.Action("NewsByBT", "AdminNews2")">
+                        <img alt="posts" src="/styles/admin/images/shortcut/posts.png"><br>
+                        <strong>Tin tức</strong>
+                    </a>
+                </li>
+            }
+            @if (IsCategory)
+            {
+                <li>
+                    <a href="@Url.Action("Index", "AdminCategory")" title="Chuyên mục">
+                        <img alt="calendar" src="/styles/admin/images/shortcut/calendar.png"><br>
+                        <strong>Chuyên mục</strong>
+                    </a>
+                </li> 
+         
+            }
+            @if (IsAdmin)
+            {
+                <li>
+                    <a title="Hệ thống" href="@Url.Action("Users", "System")">
+                        <img alt="setting" src="/styles/admin/images/shortcut/setting.png"><br>
+                        <strong>Hệ thống</strong>
+                    </a>
+                </li>
+
+            }
+@*<li>
+                <a title="Click me to open modal window" href="modal_window.html">
+                    <img alt="stats" src="/styles/admin/images/shortcut/stats.png"><br>
+                    <strong>Stats</strong>
+                </a>
+            </li>
+            
+            <li>
+                <a title="Click me to open modal window" id="shortcut_contacts" href="modal_window.html">
+                    <img alt="contacts" src="/styles/admin/images/shortcut/contacts.png"><br>
+                    <strong>Contacts</strong>
+                </a>
+            </li>*@
+
+        </ul>
+
+    </div>
+    <div>
+        <p>Bạn không đủ quyền thực hiện chức năng này. Hãy đăng kí với người quản lý.</p>
+
+    </div>
+</div>
+<script type="text/javascript" language="javascript">
+    $(document).ready(function () {
+        $('#menu_generate').click();
+    });
+
+</script>

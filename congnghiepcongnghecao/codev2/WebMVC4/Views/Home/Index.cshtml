@@ -1,0 +1,57 @@
+﻿@using BIZ
+@using UTILS
+@using WebMVC4.Helper
+
+
+@{
+    Layout = "~/Views/Shared/_Home.cshtml";
+}
+
+@{Html.RenderAction("Slide", "Home");}
+@{Html.RenderAction("LastestNews", "Home", new { CateName = "", CategoryId = 5, MaxLastestNews = 10, cssClass = "" });}
+@*@{Html.RenderAction("Banner", "Home");}*@
+
+<div class="content03 container mt20">
+    <div class="row">
+        <div class="col-md-9 col-sm-12 col-xs-12">
+            <div class="border-top-gray">
+                @{Html.RenderAction("LastestNews2", "Home", new { CateName = "Dòng chảy công nghệ", CategoryId = 35, MaxLastestNews = 6, cssClass = "maxheight01" });}
+                <div class="row mt30 mt-sm-0">
+                    <div class="col-md-6 col-sm-6 col-xs-12 newsbox-cm">
+                        @{Html.RenderAction("LastestNews3", "Home", new { CateName = "Chính sách & thực tiễn", CategoryId = 7, MaxLastestNews = 4, cssClass = "maxheight01" });}
+                    </div>
+                    <div class="col-md-6 col-sm-6 col-xs-12 newsbox-cm">
+                        @{Html.RenderAction("LastestNews3", "Home", new { CateName = "Công nghiệp 4.0", CategoryId = 18, MaxLastestNews = 4, cssClass = "maxheight01" });}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3 col-sm-12 col-xs-12">
+            <div class="row">
+                <div class="col-md-12 col-sm-6 col-xs-12">
+                    @{Html.RenderAction("LastestNews4", "Home", new { CateName = "", CategoryId = 23, MaxLastestNews = 3, cssClass = "maxheight01" });}
+                </div>
+                <div class="col-md-12 col-sm-6 col-xs-12 mt30">
+                    @{Html.RenderAction("TopView", "Home", new { Top = 6 });}
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div><!-- end content03-->
+
+<div class="content04 mt50">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4 col-sm-4 col-xs-12 box-cm">
+                @{Html.RenderAction("LastestNews5", "Home", new { CateName = "", CategoryId = 25, MaxLastestNews = 2, cssClass = "maxheight02" });}
+            </div>
+            <div class="col-md-4 col-sm-4 col-xs-12 box-cm">
+                @{Html.RenderAction("LastestNews5", "Home", new { CateName = "", CategoryId = 6, MaxLastestNews = 2, cssClass = "maxheight02" });}
+            </div>
+            <div class="col-md-4 col-sm-4 col-xs-12 box-cm">
+                @{Html.RenderAction("LastestNews5", "Home", new { CateName = "", CategoryId = 3, MaxLastestNews = 2, cssClass = "maxheight02" });}
+            </div>
+        </div>
+    </div>
+</div><!-- end content 04-->

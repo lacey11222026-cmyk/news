@@ -1,0 +1,133 @@
+﻿@using BIZ
+@using UTILS
+@using WebMVC4.Helper
+@model WebMVC4.Models.DocumentModel
+
+@{
+    var langpage = WorkContext.GetLanguage();
+}
+<div class="bnr-detail">
+    @*<img src="/Content/img/bnr-support.jpg?va=02" alt="" class="hidden-767">
+        <img src="/Content/img/bnr-support-mb.jpg" alt="" class="block-767">*@
+    @{Html.RenderAction("BannerTop", "Home", new { Type = 2 });}
+    <div class="bnr-detail-inner">
+        <div class="container">
+            <h2>@ViewBag.Title</h2>
+        </div>
+    </div>
+</div>
+<div class="bg-gray pt60 pb100">
+    <div class="container detail-content">
+        <div class="breadcrumbs">
+            <ul>
+                <li><a href="/">@Resources.Global.Home</a></li>
+                <li><span>@ViewBag.Title</span></li>
+            </ul>
+        </div>
+        <p class="date mt10">@DateTime.Now.ToString("HH:mm")   |   @DateTime.Now.ToString("dd/MM/yyyy")</p>
+        <div class="row mt20">
+            <div class="col-lg-8 col-md-12">
+                <div class="mt30">
+                    <div class="text-center document-search">
+
+                        <div class="form-group">
+                            <label class="">@Resources.Global.Keyword</label>
+                            <input id="txtkeyword" class="form-control" type="text" value="@ViewBag.keyword" width="190">
+                        </div>
+                        <div class="form-group">
+                            <label>@Resources.Global.FromDate</label>
+                            <input id="txtfromdate" placeholder="dd/MM/yyyy" value="@ViewBag.fromdate" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label>@Resources.Global.ToDate</label>
+                            <input id="txttodate" placeholder="dd/MM/yyyy" value="@ViewBag.todate" class="form-control">
+                        </div>
+                        <a href="javascript:;" onclick="searchdoc();" class="btn-green">@Resources.Global.MenuSearch</a>
+                        
+
+                        
+                    </div>
+                    <div class="document-tabs mt30">
+                        <ul>
+                            @foreach (var item in Model.subcate.Select((value, i) => new { i, value }))
+                            {
+                                <li><a href="@item.value.Url">@item.value.Name</a></li>
+                            }
+
+                           
+                        </ul>
+                    </div>
+                    <div class="document-table table-responsive mt30">
+                        <table>
+                            <tbody>
+                                <tr>
+                                    <th>@Resources.Global.DocNumber </th>
+                                    <th>@Resources.Global.DocCode </th>
+                                    <th >@Resources.Global.DocName </th>
+                                    <th>@Resources.Global.DocPublishDate </th>
+                                    <th>@Resources.Global.DocDownload </th>
+
+                                </tr>
+                                @foreach (var item in Model.listdata.Select((value, i) => new { i, value }))
+                                {
+                                    <tr>
+                                        <td style="text-align: center" align="center">@(item.i + 1) </td>
+                                        <td style="width:88px">@item.value.Code</td>
+                                        <td>
+                                            <a href="@Url.Action("ViewFile", "Document", new {id = item.value.Id})">
+                                                @item.value.Name
+                                            </a>
+                                        </td>
+                                        <td style="width: 88px;"> @Convert.ToDateTime(item.value.PublishDate).ToString(@" dd'/'MM'/'yyyy") </td>
+                                        <td align="center">
+                                            <div style="width: 99px;">
+                                                <a href="@Url.Action("DownloadFile", "Document", new {id = item.value.Id})" class="document-view">
+                                                    <img src="/Content/img/icon-download.svg" width="12">
+
+                                                </a>
+                                                <br />
+                                                <a href="@Url.Action("ViewFile", "Document", new {id = item.value.Id})" target="_blank">@Resources.Global.DocViewOnline </a>
+                                            </div>
+
+                                        </td>
+
+                                    </tr>
+                                }
+
+
+
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="paging mt50">
+                    <ul>
+                        @{Html.RenderPartial("Pagination", new WebMVC4.Models.PaginationInfo
+                            {
+                                PageUrl = Url.SetParameter("Page", "!0"),
+                                CurrentPage = Model.pageIndex,
+                                PageSize = Model.pageSize,
+                                TotalItemCount = Model.total,
+                            }); }
+                    </ul>
+                </div>
+            </div><!-- end content left-->
+            @Html.Partial("Site_Right")
+        </div><!-- end content-->
+    </div>
+</div>
+
+
+<script type="text/javascript">
+
+
+    function searchdoc() {
+        var id = '@Model.CategoryId';
+        var keyword = $("#txtkeyword").val();
+        var fromdate = $("#txtfromdate").val();
+        var todate = $("#txttodate").val();
+        window.location = '/Document/Index/' + id + '/?keyword=' + keyword + '&fromdate=' + fromdate + '&todate=' + todate;
+        //window.location = jQuery.query.set("keyword", keyword).set("fromdate", fromdate).set("todate", todate).set("Page", "1");
+    }
+</script>

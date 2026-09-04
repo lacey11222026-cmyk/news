@@ -1,0 +1,346 @@
+﻿@using BIZ
+@using BIZ.Entity
+@using UTILS
+@using WebMVC4.Helper
+@model WebMVC4.Models.ProductDetailModel
+<link href="~/Content2/product.css" rel="stylesheet" />
+<link href="~/Content2/owl.carousel51ba.css" rel="stylesheet" />
+<script src="~/Content2/owl.carousel.min51ba.js"></script>
+@if (Model != null)
+{
+    <script>
+        function loadmenu(categoryId, categoryName, manuId) {
+            $.ajax({
+                type: "Get",
+                url: "@Url.Action("TopManu")?CategoryId=" + categoryId + "&CateName=" + categoryName + "&ManuId=" + manuId,
+                success: function (data) {
+                    if (data) {
+                        $("#menu-manu").html(data);
+                    }
+                }
+            });
+        }
+    </script>
+    <section id="breadcrumb-wrapper2" class="breadcrumb-w-img">
+        <div class="breadcrumb-overlay"></div>
+        <div class="breadcrumb-content">
+            <div class="wrapper">
+                <div class="inner text-center">
+                    <div class="breadcrumb-big">
+                        <span class="h2">@Model.Detail.Name</span>
+                    </div>
+                    <div class="breadcrumb-small">
+                        <a href="/" title="Trang chủ">Trang chủ</a> <span aria-hidden="true">/</span>
+                        @if (Model.Cate.ParentId != 15)
+                        {
+                            <a href="@Model.CateParrent.Url" title="@Model.CateParrent.Name">@Model.CateParrent.Name</a> <span aria-hidden="true">/</span>
+                            <script>
+                                setTimeout(function () {
+                                    $('#submenu-@Model.Cate.Id a').addClass('active');
+                                    $('#menu-@Model.CateParrent.Id').addClass('active');
+                                },
+                                    1000);
+
+                                loadmenu('@Model.CateParrent.Id', '@Model.CateParrent.Name', '@Model.Detail.ManufactoryId');
+                            </script>
+                        }
+                        else
+                        {
+                            <script>
+
+                                setTimeout(function () { $('#menu-@Model.Cate.Id').addClass('active'); }, 1000);
+                                loadmenu('@Model.Cate.Id', '@Model.Cate.Name', '@Model.Detail.ManufactoryId');
+                            </script>
+                        }
+
+                        <a href="@Model.Cate.Url" title="@Model.Cate.Name">@Model.Cate.Name</a> <span aria-hidden="true">/</span>
+                        <span>@Model.Detail.Name</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <div id="PageContainer" class="is-moved-by-drawer">
+        <main class="main-content" role="main">
+            <section id="product-wrapper">
+                <div class="wrapper">
+                    <div class="inner">
+                        <div itemscope="" itemtype="http://schema.org/Product">
+                            <div class="grid product-single">
+                                <div class="grid__item large--five-twelfths medium--one-whole small--one-whole">
+                                    <div class="product-single__photos">
+                                        <div class="product media">
+                                            <div class="details-thumb">
+                                                <div class="image-box">
+                                                    <div style="border:#ccc solid 1px;padding:10px;margin-bottom:15px;">
+                                                        <div class="large-image" style="position:relative;width:100%;overflow:hidden">
+                                                            <a>
+                                                                <div style="height:435px;width:435px;" class="zoomWrapper"><img id="zoom_01" src="@Model.Detail.DescriptImage" style="position: absolute;"></div>
+                                                            </a>
+                                                        </div>
+                                                    </div>
+                                                    <div style="width:100%;">
+                                                        <div id="gallery_01" class="shop-carousel">
+                                                            <div class="item">
+                                                                <a class="active" href="javascript:void(0);" data-image="@Model.Detail.DescriptImage" data-zoom-image="@Model.Detail.DescriptImage">
+                                                                    <img src="@Model.Detail.DescriptImage" data-image="@Model.Detail.DescriptImage">
+                                                                </a>
+                                                            </div>
+                                                            @if (!string.IsNullOrEmpty(Model.Detail.ImageParam.Path1))
+                                                            {
+
+                                                                <div class="item">
+                                                                    <a href="javascript:void(0);" data-image="@Model.Detail.ImageParam.Path1" data-zoom-image="@Model.Detail.ImageParam.Path1">
+                                                                        <img src="@Model.Detail.ImageParam.Path1" alt="" data-image="@Model.Detail.ImageParam.Path1">
+                                                                    </a>
+                                                                </div>
+
+                                                            }
+                                                            @if (!string.IsNullOrEmpty(Model.Detail.ImageParam.Path2))
+                                                            {
+
+                                                                <div class="item">
+                                                                    <a href="javascript:void(0);" data-image="@Model.Detail.ImageParam.Path2" data-zoom-image="@Model.Detail.ImageParam.Path2">
+                                                                        <img src="@Model.Detail.ImageParam.Path2" alt="" data-image="@Model.Detail.ImageParam.Path2">
+                                                                    </a>
+                                                                </div>
+
+                                                            }
+                                                            @if (!string.IsNullOrEmpty(Model.Detail.ImageParam.Path3))
+                                                            {
+
+                                                                <div class="item">
+                                                                    <a href="javascript:void(0);" data-image="@Model.Detail.ImageParam.Path3" data-zoom-image="@Model.Detail.ImageParam.Path3">
+                                                                        <img src="@Model.Detail.ImageParam.Path3" alt="" data-image="@Model.Detail.ImageParam.Path3">
+                                                                    </a>
+                                                                </div>
+
+                                                            }
+                                                            @if (!string.IsNullOrEmpty(Model.Detail.ImageParam.Path4))
+                                                            {
+
+                                                                <div class="item">
+                                                                    <a href="javascript:void(0);" data-image="@Model.Detail.ImageParam.Path4" data-zoom-image="@Model.Detail.ImageParam.Path4">
+                                                                        <img src="@Model.Detail.ImageParam.Path4" alt="" data-image="@Model.Detail.ImageParam.Path4">
+                                                                    </a>
+                                                                </div>
+
+                                                            }
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                            <script>
+                                                if ($("body").width() >= 768) {
+                                                    $('#zoom_01').elevateZoom({
+                                                        gallery: 'gallery_01',
+                                                        zoomWindowOffetx: 10,
+                                                        easing: true,
+                                                        scrollZoom: false,
+                                                        cursor: 'pointer',
+                                                        galleryActiveClass: 'active',
+                                                        imageCrossfade: true
+                                                    });
+                                                } else {
+                                                    $(".shop-carousel .item a").click(function () {
+                                                        $(".shop-carousel .item a").removeClass("active");
+                                                        $(this).addClass("active");
+                                                        var bigimg = $(this).attr("data-image");
+                                                        $("#zoom_01").attr({ "src": bigimg });
+                                                    });
+                                                }
+                                                $(document).ready(function () {
+                                                    var shop_carousel = $('.shop-carouselxx');
+                                                    shop_carousel.owlCarousel({
+                                                        margin: 10,
+                                                        loop: false,
+                                                        nav: true,
+                                                        autoplay: false,
+                                                        dots: false,
+                                                        items: 5,
+                                                        navText: ["<i class='ti-angle-left'></i>", "<i class='ti-angle-right'></i>"]
+                                                    });
+                                                });
+                                            </script>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="grid__item large--seven-twelfths medium--one-whole small--one-whole">
+                                    <div class="product-content">
+                                        <div class="pro-content-head clearfix">
+                                            <h1 itemprop="name">@Model.Detail.Name</h1>
+
+                                            <div class="pro-brand">
+                                                <span class="title">Danh mục:</span> <a href="@Model.Cate.Url" title="@Model.Cate.Name">@Model.Cate.Name</a>
+                                            </div>
+                                            <span>|</span>
+                                            <div class="pro-type">
+                                                <span class="title">Thương hiệu:</span> <a href="@(Model.Cate.Url)?ManuId=@(Model.Manu.Id)" title="@Model.Manu.Title">@Model.Manu.Title</a>
+                                            </div>
+                                        </div>
+
+                                        <div class="pro-price clearfix">
+                                            @if (Model.Detail.Price > 0)
+                                            {
+                                                <span class="current-price ProductPrice">@Utils.InsertCommaNoStyle(Model.Detail.Price.ToString()) đ</span>
+                                            }
+                                            else
+                                            {
+                                                <span class="current-price ProductPrice">Giá liên hệ</span>
+                                            }
+
+                                            <div class="sale-percentage"><span class="PriceSaving"></span></div>
+                                        </div>
+                                        <div class="pro-short-desc pb15">
+                                            @Html.Raw(Model.Detail.Description)
+
+                                        </div>
+                                        <form class="cart-quantity">
+
+                                            <div class="grid mg-left-5">
+                                                @if (Model.Detail.Price > 0)
+                                                {
+                                                    <div class="grid__item large--one-quarter medium--one-quarter small--one-whole pd-left5 product-qty-box">
+                                                        <div class="product-quantity clearfix">
+                                                            <div class="qty-addcart clearfix">
+                                                                <span>SL: </span>
+                                                                <input type="number" id="input-quantity" name="num" value="1" min="1" class="quantity-selector" style="width:50px;text-align:center;display:inline-block;">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="grid__item large--one-quarter medium--one-quarter small--one-half pd-left5">
+                                                        <div class="product-actions clearfix">
+                                                            <button type="button" class="btnBuyNow" onclick="addproductdetail()">Mua ngay</button>
+                                                        </div>
+                                                    </div>
+                                                }
+                                            </div>
+                                            <div class="share-buttons pt15" style="clear:both;display:block;border-top:1px solid #f1f1f1;">
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="grid">
+                                <div class="grid__item large--one-whole medium--one-whole small--one-whole">
+                                    <div class="product-description-wrapper">
+                                        <div class="tab clearfix">
+                                            <button class="pro-tablinks" onclick="openProTabs(event, 'protab1')" id="defaultOpenProTabs">Mô tả sản phẩm</button>
+
+                                            <button class="pro-tablinks active" onclick="openProTabs(event, 'proCom')">Bình luận</button>
+                                        </div>
+
+                                        <div id="protab1" class="pro-tabcontent" style="display: block;">
+                                            <div id="NewsContent">
+                                                @Html.Raw(Model.Detail.Intro)
+                                            </div>
+                                        </div>
+
+
+
+                                        <div id="proCom" class="pro-tabcontent" style="display: none;">
+                                            <div class="fb-comments" data-href="http://@HttpContext.Current.Request.Url.Host@Utils.FormatUrlRewrite(Model.Detail.Id, Model.Detail.Name, "ProductDetail")" data-numposts="5" data-order-by="reverse_time"></div>
+
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                            <section id="related-products">
+                                @{Html.RenderAction("RelateProduct", "Product", new { categoryId = Model.Detail.CategoryId, id = Model.Detail.Id, manuid = -1 });}
+                            </section>
+
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+    <script>
+        function openProTabs(evt, cityName) {
+            var i, pro_tabcontent, pro_tablinks;
+            pro_tabcontent = document.getElementsByClassName("pro-tabcontent");
+            for (i = 0; i < pro_tabcontent.length; i++) {
+                pro_tabcontent[i].style.display = "none";
+            }
+            pro_tablinks = document.getElementsByClassName("pro-tablinks");
+            for (i = 0; i < pro_tablinks.length; i++) {
+                pro_tablinks[i].className = pro_tablinks[i].className.replace(" active", "");
+            }
+            document.getElementById(cityName).style.display = "block";
+            evt.currentTarget.className += " active";
+        }
+
+        document.getElementById("defaultOpenProTabs").click();
+    </script>
+   
+    <script src="~/Content/js/formvalidate.js?vs=161111"></script>
+    <script>
+        function upnumber() {
+            var amount = parseInt($("#input-quantity").val());
+            amount = amount + 1;
+            $("#input-quantity").val(amount);
+        }
+        function downnumber() {
+            var amount = parseInt($("#input-quantity").val());
+            amount = amount - 1;
+            if (amount <= 0)
+                amount = 1;
+            $("#input-quantity").val(amount);
+        }
+
+
+        function addproductdetail() {
+            var amount = $("#input-quantity").val();
+            if (!isInteger(amount))
+                amount = 1;
+            var url = '@Url.Action("AddProduct","Order",new { productId=Model.Detail.Id})' + '&amount=' + amount;
+            window.location.href = url;
+        }
+
+    </script>
+
+    @*<script>
+        $(document).ready(function () {
+            
+            $("#owl-related-products-slider").owlCarousel({
+                items: 5,
+                itemsDesktop: [1000, 5],
+                itemsDesktopSmall: [900, 4],
+                itemsTablet: [768, 3],
+                itemsMobile: [480, 2],
+                navigation: true,
+                pagination: false,
+                slideSpeed: 1000,
+                paginationSpeed: 1000,
+                navigationText: ['<i class="fa fa-angle-left" aria-hidden="true"></i>', '<i class="fa fa-angle-right" aria-hidden="true"></i>']
+            });
+            
+        });
+    </script>*@
+    <style>
+        #NewsContent img, #NewsContent table {
+            height: auto !important;
+            max-width: 100% !important;
+        }
+
+        #NewsContent iframe {
+            max-width: 100% !important;
+        }
+
+        #NewsContent p, #NewsContent div {
+            margin: 12px 0 !important;
+        }
+
+        #NewsIntro {
+            float: left;
+            margin-left: 0px;
+            width: 100%;
+        }
+    </style>
+
+}

@@ -1,0 +1,66 @@
+﻿@using BIZ
+@using UTILS
+@using WebMVC4.Helper
+@model WebMVC4.Models.DocumentModel
+@{Html.RenderAction("Breadcrumb", "News", new { CategoryId = Model.CategoryId });}
+<div >
+    <main id="main" class="">
+        <div class="row category-page-row">
+            <div class="col large-9">
+
+
+                
+
+                <div class="clearfix"></div>
+                <div class="document-table table-responsive mt20">
+                    <table>
+                        <tbody>
+                            <tr>
+                                <th>STT </th>
+
+                                <th>Tên tài liệu </th>
+
+                                <th>Download </th>
+                            </tr>
+                            @foreach (var item in Model.listdata.Select((value, i) => new { i, value }))
+                            {
+                                <tr>
+                                    <td>@(item.i + 1) </td>
+                                   
+                                    <td>
+                                        <a href="@Url.Action("ViewFile","Document",new { id=item.value.Id})" target="_blank">
+                                            @item.value.Name
+                                        </a>
+                                    </td>
+
+                                    <td align="center">
+                                        <a href="@Url.Action("DownloadFile","Document",new { id=item.value.Id})">
+                                            <img style="width: 23px;" src="/Content/images/ico-pdf.png" />
+                                        </a> 
+                                        
+                                    </td>
+
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="large-3 col hide-for-medium ">
+                @Html.Partial("Site_Right")
+            </div><!-- large-3 -->
+        </div><!-- end news list-->
+        @*<div class="pagination pull-right mt30">
+            <ul>
+                @{Html.RenderPartial("Pagination", new WebMVC4.Models.PaginationInfo
+                    {
+                        PageUrl = Url.SetParameter("Page", "!0"),
+                        CurrentPage = Model.pageIndex,
+                        PageSize = Model.pageSize,
+                        TotalItemCount = Model.total,
+                    }); }
+            </ul>
+        </div>*@
+        </main>
+        <div class="clearfix"></div>
+</div>

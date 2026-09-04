@@ -1,0 +1,178 @@
+﻿@using BIZ
+@using BIZ.Entity
+@using UTILS
+@using VAS
+@using VAS.Helper
+@model BIZ.Entity.CONTENT_FULL
+@{var RelateTitle = "CÁC TIN KHÁC";}
+@if (Model != null)
+{
+    /*active menu*/
+    <script type="text/javascript">
+
+
+        $('#cate_' + '@ViewBag.CurrentCategoryId').addClass("select");
+    </script>
+    <div class="cot1_c3">
+        @{Html.RenderAction("TopViewNews2", "News", new { CategoryId = @Model.CategoryId, MaxLastestNews = 10 });}
+
+
+    </div>
+    <div class="cot1_c4">
+        @{ Html.RenderAction("Breadcrumb", "News", new { CategoryId = Model.CategoryId }); }
+        @{ Html.RenderAction("Share", "News", new { data = Model }); }
+        <div class="bai_viet">
+            @if (!String.IsNullOrEmpty(Model.Alias))
+            {
+                <h2 id="newssubTitle">@Model.Alias</h2>
+            }
+
+            <h1 id="newsTitle">@Model.Title</h1>
+
+
+
+            <div id="introNews" class="intro" style="font-weight: bold; margin-bottom: 10px;">@Model.IntroText</div>
+
+            @if (ViewBag.lstRef != null)
+            {
+                <div class="tinlq">
+                    @*<p><strong>Tin liên quan</strong></p>*@
+                    <div class="n_list8">
+                        @foreach (var item in ViewBag.lstRef)
+                        {
+               
+                            <a href="@Utils.FormatUrlRewrite(item.Id, item.Title, "ArticleDetail", item.CategoryName)" >@item.Title </a>
+                        }
+                    </div>
+                </div>
+            }
+
+            <div id="igmNews" style="display: none">@Model.MainImage</div>
+
+            <div class="nd" id="NewsContent" style="width: 100%; text-align: justify;" itemprop="articleBody">
+                @if (Model.Type == 2)
+                {
+                    if (ViewBag.IsIpad || ViewBag.Iphone)
+                    {
+                    <video controls preload="auto" name="myvideo" id="myvideo">
+                        <source src="@Model.Url" type="video/mp4" />
+
+                    </video>
+
+                    }
+                    else
+                    {
+                    <script src="/flash/jwplayer.js" type="text/javascript"></script>
+                    <div id="video_viewer">
+                    </div>
+                    <script type="text/javascript">
+                        var url = '@Model.Url';
+                        var width = $("#NewsContent").width();
+                        var height = width * 9 / 16;
+                        jwplayer('video_viewer').setup({
+                            'flashplayer': '/flash/player.flash.swf',
+                            'id': 'playerID',
+                            'width': width,
+                            'height': height,
+                            'file': url,
+                            'image': '@Model.MainImage?w=600&h=400&mode=crop',
+                                //'plugins': { 'ova-jw': {} },
+                                //'config': configadsvideo,
+                                'abouttext': 'vtkmedia.vn',
+                                'aboutlink': 'http://vtkmedia.vn',
+                                //'skin': '/flash/newsplayerskin.zip',
+                                'autostart': 'false',
+                            });
+                    </script>
+                    }
+
+                }
+                @Html.Raw(Model.Contents)
+
+                @if(Model.Type==3)
+                {
+                    if(!String.IsNullOrEmpty(Model.Url))
+                    {
+                        <div class="content_document">
+                	
+                                            <a href="@Model.Url" target="_blank">Download</a> &nbsp;<a href="@Url.Action("ViewPDF", "Document", new { url = Model.Url })" target="_blank">Xem Online</a>
+                                        </div>
+                    }
+
+                    
+                }
+
+            </div>
+            @if (Model.Keywords != null)
+            {
+                if (!String.IsNullOrEmpty(Model.Keywords.Trim()))
+                {
+                <div class="news-tag">
+                    <div class="news-tag-list">
+                        <span class="news-tagname">Keyword :</span>
+                        <span class="news-tags-item">
+                            @foreach (var item in Model.Keywords.Split(',').Select((value, i) => new { i, value }))
+                            {
+
+                                if (!String.IsNullOrEmpty(item.value))
+                                {
+                                    if (item.i == Model.Keywords.Split(',').Count() - 1)
+                                    {
+                                <a href="@Url.Action("Tag", new { keyword = item.value.Trim() })">@item.value.Trim()</a>
+                                    }
+                                    else
+                                    {
+                                <a href="@Url.Action("Tag", new { keyword = item.value.Trim() })">@item.value.Trim()</a><text>, </text>
+                                    }
+
+
+                                }
+
+                            }
+
+                        </span>
+                    </div>
+                </div>
+                }
+            }
+        </div>
+        <div class="clear">
+        </div>
+        <script>
+
+            $('#NewsContent span').removeStyle('font-size');
+            $('#NewsContent div').removeStyle('font-size');
+            $('#NewsContent p').removeStyle('font-size');
+
+            $('#NewsContent span').removeStyle('font-family');
+            $('#NewsContent div').removeStyle('font-family');
+            $('#NewsContent p').removeStyle('font-family');
+
+
+        </script>
+
+
+        <script>
+            $('#NewsContent .image').removeAttr('style');
+
+            $('#NewsContent .image img').removeAttr('style');
+        </script>
+
+
+        @{ Html.RenderAction("Comment", "News", new { ItemId = Model.Id, ItemName = Model.Title, Type = (int)UTILS.Constants.CategoryType.News }); }
+
+
+
+        @if(Model.Type!=3)
+        {
+             { Html.RenderAction("Relate", "News", new { CategoryId = Model.CategoryId, CateName = ViewBag.CateName, HeaderTitle = RelateTitle, PageNextShow = false, pageNext = 2 }); }
+        }
+        else
+
+        {
+            { Html.RenderAction("Relate", "News", new { CategoryId = Model.CategoryId, CateName = ViewBag.CateName, HeaderTitle = RelateTitle, PageNextShow = false, pageNext = 2 }); }
+        }
+       
+    </div>
+          
+}

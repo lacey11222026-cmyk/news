@@ -1,0 +1,54 @@
+﻿@model List<DATA.Banner>
+@using WebMVC4.Helper
+@{
+    var langpage = WorkContext.GetLanguage();
+}
+
+
+@if (Model != null)
+{
+    <div class="bnr">
+        <div id="bnrSlide" class="carousel slide" data-ride="carousel">
+            <div class="carousel-inner">
+                @foreach (var item in Model.Select((value, i) => new { i, value }))
+                {
+                    if (langpage == "vi-vn")
+                    {
+                        <div class="@(item.i == 0 ? "item active" : "item")">
+                            <a href="@item.value.Url"> <img src="@item.value.Data" alt="@item.value.Name" /></a>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="@(item.i == 0 ? "item active" : "item")">
+                            <a href="@item.value.Url"> <img src="@item.value.Description" alt="@item.value.Name" /></a>
+                        </div>
+                    }
+                }
+
+
+            </div>
+            <a class="left carousel-control" href="#bnrSlide" data-slide="prev">
+                <span class="glyphicon glyphicon-chevron-left"></span>
+                <span class="sr-only">Previous</span>
+            </a>
+            <a class="right carousel-control" href="#bnrSlide" data-slide="next">
+                <span class="glyphicon glyphicon-chevron-right"></span>
+                <span class="sr-only">Next</span>
+            </a>
+        </div>
+        @*<div class="bnr-slogan">
+                <div class="container">
+                    <div class="wrap-slogan">
+                        <p class="slogan slogan01 wow slideInLeft" data-wow-delay="0.5s">| Tư vấn truyền thông </p><br>
+                        <p class="slogan slogan02 wow slideInLeft" data-wow-delay="0.8s">| Tổ chức sự kiện </p><br>
+                        <p class="slogan slogan03 wow slideInLeft" data-wow-delay="0.7s">| sản xuất nội dung </p>
+                    </div>
+                </div>
+            </div>*@
+    </div>
+}
+
+
+
+

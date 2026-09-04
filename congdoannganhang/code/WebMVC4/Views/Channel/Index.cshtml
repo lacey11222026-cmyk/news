@@ -1,0 +1,55 @@
+﻿@using BIZ
+@using UTILS
+@using WebMVC4.Helper
+@model List<BIZ.Entity.CONTENT_FULL>
+
+<div class="container news-page mt20">
+    <div class="row">
+        <div class="col-lg-8 col-md-12 col-sm-12">
+            <h2 class="title-cm"><a href="#">@ViewBag.ChannelName</a></h2>
+            @if (Model != null)
+            {
+                <div class="mt30">
+
+
+                    <div class="newslist-04 mt20">
+                        @foreach (var item in Model.Select((value, i) => new { i, value }))
+                        {
+
+
+                            <div>
+                                <a href="@item.value.LinkUrl" class="newslist-04-item">
+                                    <img src="@item.value.MainImage?w=230&h=153&mode=crop" alt="">
+                                    <div>
+                                        <p class="news-name">@item.value.Title</p>
+                                        <p class="mt10 news-content">@item.value.IntroText</p>
+                                        <p class="mt10 newsdate">@item.value.PublishDate.ToString("dd/MM/yyyy")</p>
+                                    </div>
+                                </a>
+                            </div>
+                        }
+
+                    </div>
+                    <div class="paging mt50">
+                        <ul>
+                            @{Html.RenderPartial("Pagination", new WebMVC4.Models.PaginationInfo
+                                {
+                                    PageUrl = Url.SetParameter("Page", "!0"),
+                                    CurrentPage = ViewBag.Page,
+                                    PageSize = ViewBag.PageSize,
+                                    TotalItemCount = ViewBag.Total,
+                                }); }
+                        </ul>
+                    </div>
+                </div>
+            }
+        </div><!--/End content left-->
+        <div class="col-lg-4 col-md-12 col-sm-12 sidebar-right">
+            <div class="mt30"></div>
+            @Html.Partial("Site_Right")
+        </div><!-- end col-lg-4-->
+    </div>
+</div>
+
+
+

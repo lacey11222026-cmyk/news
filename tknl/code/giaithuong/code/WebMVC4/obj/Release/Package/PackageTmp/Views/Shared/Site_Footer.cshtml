@@ -1,0 +1,35 @@
+﻿@using UTILS
+    <div class="customer container mt40">
+        <h2 class="title_line2"><a href="javascript:;">Đơn vị đồng hành</a></h2>
+        @{Html.RenderAction("BannerBottom", "Home");}
+    </div><!-- end customer-->
+
+<footer>
+    <div class="footer container mt30">
+        <div class="row">
+            <div class="col-md-7 col-sm-6 col-xs-12 mt40">
+                <img src="@(Config.Domain)/Content/images/logo-f.png" alt="">
+                <div>
+                    <p style="text-align: left;">
+                        <strong style="font-size: 20px; display: inline-block;" class="text-green mt20">Bản quyền thuộc Văn phòng Ban Chỉ đạo Tiết kiệm năng lượng,<br /> Bộ Công Thương</strong><br>
+                        54 Hai Bà trưng, Hoàn Kiếm, Hà Nội, Việt Nam<br>
+                        <span class="f-line"></span>
+                    </p>
+                    <p><strong class="text-green">Chịu trách nhiệm nội dung:</strong> Phương Hoàng Kim – Vụ trưởng Vụ Tiết kiệm năng lượng và Phát triển bền vững</p>
+                </div>
+            </div>
+            <div class="col-md-5 col-sm-6 col-xs-12">
+                <ul class="list-inline">
+                    <li><a href="#"><img src="images/facebook.jpg" alt=""></a></li>
+                    <li><span class="text-green">Phát triển bởi: </span><img src="@(Config.Domain)/Content/images/logo-slide05.png" alt="" style="width: 30px;"></li>
+                </ul>
+                <p class="mt20">
+                    Giấy phép số 148/GP-TTĐT do Cục Quản lý Phát thanh, Truyền hình và Thông tin điện tử,<br>
+                    Bộ Thông tin và Truyền thông cấp ngày 13/8/2019<br>
+                    ĐT/Fax: <a href="tell:02422202358">024.22202358</a> <br><br>
+                    <strong class="text-green">Ghi rõ nguồn:</strong> <a href="https://tietkiemnangluong.com.vn">tietkiemnangluong.com.vn</a> | <a href="https://vneec.gov.vn">vneec.gov.vn</a> khi sử dụng thông tin từ website này
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>

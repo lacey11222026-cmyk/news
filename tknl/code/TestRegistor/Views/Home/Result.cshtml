@@ -1,0 +1,133 @@
+﻿@using UTILS;
+@model List<BIZ.Entity.TestQuestionArchive>
+@{
+    Layout = "~/Views/Shared/_Layout2.cshtml";
+    int note = (int)ViewBag.Note;
+}
+
+<div class="maincontent screen03-content mt20 screen-full">
+    <div class="bg-gradient">
+        <div class="container">
+            <div class="question-title">
+                <p class="name-question">Cuộc thi trực tuyến Tìm hiểu kiến thức về sử dụng năng lượng tiết kiệm và hiệu quả năm 2026</p>
+            </div>
+        </div>
+    </div>
+    <div class="container pt60 b4-content">
+        @if (note > 0)
+        {
+            <h3 class="font-weight-bold text-center title-ketthuc">Chúc mừng bạn đã hoàn thành cuộc thi</h3>
+            <p class="text-center mt-2" style="font-size: 19px;">
+                Kết quả: <span class="font-weight-bold">@ViewBag.Mark/@ViewBag.TotalMark</span> câu trả lời đúng. Thời gian: @ViewBag.Time  giây. Dự đoán:  @note người tham gia<br>
+            </p>
+            <div class="qr-box mt-4">
+                <p>
+                    Quét mã QR và bấm “Quan tâm” Kênh Zalo OA <br>của Chương trình VNEEP <br>để theo dõi công bố kết quả sớm nhất
+                </p>
+                <img src="/Content/images/qr-code.png?vs=1" alt="" style="width: 200px;">
+            </div>
+
+
+
+
+
+
+        }
+        else
+        {
+
+            <div>
+                <h3 class="textblue font-weight-bold question-num mt30 wow bounceInLeft" data-wow-offset="100">Câu hỏi phụ </h3>
+                <p class="textblue font-weight-bold mt10 wow bounceInLeft f18" data-wow-offset="100">Theo bạn, có bao nhiêu người tham gia cuộc thi kỳ này?</p>
+
+                <p style="color: red;text-align: left;" id="msgBox"></p>
+
+                <div class="answer mt20 wow bounceInLeft">
+                    <div class="sub-question">
+                        <input type="number" step="100" name="" id="txtNote">
+                        <label for="">người</label>
+                    </div>
+                    <div data-wow-offset="200" data-wow-duration="1.5s" class="wow bounceInLeft mt50">
+                        <a href="javascript:;" onclick="validateData2();" class="mt30"><span class="btn-icon-next">Cập nhật <span class="icon-next"></span></span></a>
+                    </div>
+                </div>
+            </div>
+
+        }
+
+    </div>
+</div>
+
+<footer class="bg-gradient">
+    <p class="container">Bản quyền thuộc <strong>Chương trình quốc gia về sử dụng năng lượng tiết kiệm và hiệu quả</strong></p>
+</footer>
+
+
+
+
+
+<script src="~/Content/js/formvalidate.js"></script>
+<script>
+    function validatePhone() {
+        if (!ValidateControls("Vui lòng nhập số điện thoại !", "#txtMobile")) {
+            return false;
+        }
+
+        var phone = $('#txtMobile').val();
+
+        if (phone.length < 9 || phone.length > 12) {
+
+            $("#msgBox").html("Số điện thoại không hợp lệ.").show();
+            $('#txtMobile').focus();
+            return false;
+        }
+        if (!isInteger(phone)) {
+
+            $("#msgBox").html("Số điện thoại không hợp lệ.").show();
+
+            $('#txtMobile').focus();
+            return false;
+        }
+        return true;
+
+    }
+
+
+    function validateData2() {
+
+        if (!ValidateControls("Vui lòng nhập số người dự đoán !", "#txtNote", '#msgBox')) {
+            return false;
+        }
+        var phone = $('#txtNote').val();
+        if (!isInteger(phone)) {
+
+            $("#msgBox").html("Số gười dự đoán không hợp lệ.").show();
+
+            $('#txtMobile').focus();
+            return false;
+        }
+
+        var param2 = {
+
+
+            Note: $("#txtNote").val(),
+        };
+        $.ajax({
+            type: 'POST',
+            url: "@Url.Action("ExamUpdate")",
+            data: addAntiForgeryToken(param2),
+            async: true,
+            success: function (data) {
+
+                if (data.success === true) {
+                    location.href = '@Url.Action("Result")';
+                } else {
+
+                   location.href = '@Url.Action("Result")';
+                    return;
+                }
+            }
+        });
+    }
+</script>
+

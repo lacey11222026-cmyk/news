@@ -1,0 +1,517 @@
+﻿@{
+
+    Layout = "~/Views/Shared/_Admin.cshtml";
+
+}
+
+<script type="text/javascript">
+    OpenAlertDialog('Đang xử lý ...');
+</script>
+<div id="toolbar-box">
+    <div class="t">
+        <div class="t">
+            <div class="t">
+            </div>
+        </div>
+    </div>
+    <div class="m">
+        <div class="toolbar" id="toolbar">
+            <table class="toolbar">
+                <tr>
+                    <td class="button" id="toolbar-save">
+                        <a id="lnkSave" class="toolbar" href="javascript:void(0);" onclick="Save('close','save');">
+                            <span class="icon-32-save" title="Save"></span>Lưu lại
+                        </a>
+                    </td>
+
+                    <td class="button" id="toolbar-del">
+                        <a id="A4" class="toolbar-del" href="javascript:void(0);" onclick="Save('close','del');">
+                            <span class="icon-32-delete" title="Delete"></span>Xóa
+                        </a>
+                    </td>
+                    <td class="button" id="toolbar-cancel">
+                        <a id="lnkClose" class="toolbar" href="javascript:void(0);" onclick="Close();">
+                            <span class="icon-32-cancel" title="Close"></span>Đóng
+                        </a>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div class="header icon-48-addedit">
+            Bài viết: <small><span id="spDetailTitle"></span></small>
+        </div>
+        <div class="clr">
+        </div>
+    </div>
+    <div class="b">
+        <div class="b">
+            <div class="b">
+            </div>
+        </div>
+    </div>
+</div>
+<div class="clr">
+</div>
+<div id="element-box">
+    <div class="t">
+        <div class="t">
+            <div class="t">
+            </div>
+        </div>
+    </div>
+    <div class="m" id="all_item_info_container">
+        <div id="jalert_notification">
+            &nbsp;
+        </div>
+        <div id="tabs">
+            <ul>
+                <li><a href="#tabs-1">Thông tin cơ bản</a></li>
+                <li><a href="#tabs-2">Nội dung bài viết</a></li>
+
+            </ul>
+            <div class="col width-70" id="tabs-1">
+                <fieldset>
+                    <legend>Thông tin chi tiết bài viết</legend>
+                    <table class="admintable" cellspacing="1">
+                        <tr>
+                            <td width="250" class="key">
+                                <label for="">
+                                    Tiêu đề bài viết
+                                </label>
+                            </td>
+                            <td>
+                                <input id="txtTitle" type="text" class="inputbox" maxlength="250" style="width: 650px" />
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td width="250" class="key">
+                                <label for="">
+                                    Chuyên mục
+                                </label>
+                            </td>
+                            <td>
+                                <select id="select_category" name="select_category"></select>
+                            </td>
+                        </tr>
+                        <tr style="display:none;">
+                            <td width="250" class="key">
+                                <label for="">
+                                    Tác giả
+                                </label>
+                            </td>
+                            <td>
+                                <select id="select_user" name="select_category"></select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td width="250" class="key">
+                                <label for="">
+                                    Loại tin bài
+                                </label>
+                            </td>
+                            <td>
+                                <select id="select_type" name="select_type">
+                                    <option value="1">Tin tức</option>
+                                    <option value="2">Video</option>
+                                  
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td width="250" class="key">
+                                <label for="">
+                                    Tóm lược
+                                </label>
+                            </td>
+                            <td>
+                                <textarea id="txtIntro" cols="20" class="inputbox" style="width: 650px; height: 100px;"></textarea>
+                            </td>
+                        </tr>
+                        <tr id="tr_PublishDate">
+                            <td width="250" class="key">
+                                <label for="">
+                                    Ngày xuất bản
+                                </label>
+                            </td>
+                            <td>
+                                <input id="txtPublishDate" type="text" class="inputbox" maxlength="250" style="width: 650px" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="key" width="250">
+                                <label for="">
+                                    Ảnh đại diện
+                                </label>
+                            </td>
+                            <td>
+                                <input id="txtImage" type="text" class="inputbox" maxlength="250" style="width: 650px"
+                                       title="Ảnh đại diện" value="" />&nbsp;   <a href="javascript:void(0)" onclick="openWin()">
+                                    <b>
+                                        Upload
+                                        file
+                                    </b>
+                                </a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="key" width="250">
+                                <label for="">
+                                    YoutubeID
+                                </label>
+                            </td>
+                            <td>
+                                <input id="txtUrl" type="text" class="inputbox" maxlength="250" style="width: 650px"
+                                       title="Tiêu đề phụ" value="" />&nbsp;  
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="key">
+                                <label for="">
+                                    Tình trạng
+                                </label>
+                            </td>
+                            <td>
+                                <input name="radPublished" type="radio" value="1" />
+                                Khóa
+                                <input name="radPublished" type="radio" value="4" checked="checked" />
+                                Hoạt động
+                            </td>
+                        </tr>
+                    </table>
+                </fieldset>
+            </div>
+            <div id="tabs-2" class="col width-70" style="padding-left: 5px !important;">
+                <table class="admintable">
+                    <tr>
+                        <td>
+                            <a href="javascript:void(0)" onclick="openWin()"><b>Upload nhiều file</b></a>
+                            <textarea name="content" style="width: 100%" id="txt_content"></textarea>
+
+                            <input id="hd_createdby" type="hidden" />
+                        </td>
+                    </tr>
+                </table>
+            </div>
+
+
+            <div class="clr">
+            </div>
+        </div>
+    </div>
+    <div class="b">
+        <div class="b">
+            <div class="b">
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+
+    var articleId = '@ViewBag.Id';
+    var redirectUrl = '@Url.Action("Index","AdminNews")';
+    var imageUrl = '@ViewBag.ImageUrl';
+    var entityName = 'Article';
+
+    var IsNewsEdit = '@ViewBag.IsNewsEdit';
+    var IsNewsPublish = '@ViewBag.IsNewsPublish';
+    var Currentcreatedby = '@ViewBag.Createdby';
+
+
+    $(document).ready(function () {
+        BindUsersToSelectBox();
+
+        $("#tabs").tabs({ selected: 0 });
+
+    });
+
+
+    function OnLoad() {
+
+
+        if (articleId != 0) {
+
+            $('#spDetailTitle').text('Sửa chữa');
+
+            $.Services({
+                serviceName: 'ArticleService.ashx',
+                data: {
+                    __m: 'get_article',
+                    _id: articleId
+                },
+                success: function (data) {
+
+                    if (data != undefined && data != null && data != '') {
+                        BindData(data);
+
+                    }
+
+                    else {
+                        $('#all_item_info_container').html("Bài viết không tồn tại hoặc đã bị xóa");
+                        $(".button").hide();
+                    }
+
+                    DestroyDialog();
+                }
+            });
+        }
+        else {
+
+            var Createdby = '@ViewBag.Createdby';
+
+            $('#select_user option[value=' + Createdby + ']').attr('selected', 'selected');
+            $('#spDetailTitle').text('Tạo mới');
+
+          
+            $("#txtPublishDate").val(dateFormat(Date.now(), 'dd/mm/yyyy HH:MM'));
+          
+            LoadRichTextEditor('txt_content', 900, 600, null, null, "ajaxupload,media");
+            DestroyDialog();
+
+        }
+
+    }
+
+    function BindData(data) {
+
+        $('#txtTitle').val(data.Title);
+        $('#txtUrl').val(data.Url);
+        $('#txtImage').val(data.Image);
+        $('#select_category option[value=' + data.CategoryId + ']').attr('selected', 'selected');
+        $('#select_user option[value=' + data.Alias + ']').attr('selected', 'selected');
+        $('#select_type option[value=' + data.Type + ']').attr('selected', 'selected');
+
+        $('input[name="radPublished"]').each(function (i, e) {
+            if ($(e).val() == data.Status)
+                $(e).attr('checked', 'checked');
+            else
+                $(e).removeAttr('checked');
+        });
+
+        $('#txtIntro').val(data.IntroText);
+        $('#hd_createdby').val(data.CreatedBy);
+        $('#txtPublishDate').val(dateFormat(data.PublishDate, 'dd/mm/yyyy HH:MM'));
+        //alert(data.Createdby);
+
+        $('#txt_content').text(data.Contents);
+
+        LoadRichTextEditor('txt_content', 900, 600, null, null, "ajaxupload,media");
+
+
+
+
+    }
+
+    function FormValidate() {
+
+        var title = $.trim($('#txtTitle').val());
+        if (title == '') {
+            $('#jalert_notification').jAlert('Tên bài viết không được để trống', 'warning', "edit", 400);
+            $('#txtTitle').focus();
+            return false;
+        }
+
+
+
+        return true;
+    }
+
+    function PostObj(method, func) {
+
+        var title = Encoder.urlEndcode($.trim($('#txtTitle').val()));
+        var linkmedia = Encoder.urlEndcode($.trim($('#txtUrl').val()));
+        var image = Encoder.urlEndcode($.trim($('#txtImage').val()));
+        var cateogryId = $('#select_category option:selected').val();
+        var categorypathway = $('#select_category option:selected').attr('title');
+        var intro = Encoder.urlEndcode($('#txtIntro').val());
+        var alias = $('#select_user option:selected').val();
+       
+        var createdby = $('#hd_createdby').val();
+        var type = $('#select_type option:selected').val();
+
+        var publishdate = Encoder.urlEndcode($('#txtPublishDate').val());
+
+        //alert(publishdate);
+
+        tinyMCE.triggerSave();
+        var content = Encoder.urlEndcode(tinyMCE.get('txt_content').getContent());
+
+        var status = 0;
+        status = $('input[name="radPublished"]:checked').val();
+       
+        var params = "";
+       
+        var post_data = {
+            __m: method,
+            func: func,
+            id: articleId,
+            title: title,
+            linkmedia: linkmedia,
+            categoryid: cateogryId,
+            categoryPathway: categorypathway,
+            intro: intro,
+            status: status,
+            createdby: createdby,
+            type: type,
+            alias: alias,
+            publishdate: publishdate,
+            contents: content,
+            image: image,
+            params: params
+        }
+
+        return post_data;
+    }
+
+    function Save(type, func) {
+
+        DestroyJAlert();
+
+        if (!FormValidate())
+            return;
+
+        OpenAlertDialog('Đang xử lý ...');
+
+        $.Services({
+
+            isCrossDomain: false,
+
+            url: POST_URL + 'ArticleService.ashx',
+
+            data: PostObj('save', func),
+
+            success: function (data) {
+
+                if (data != undefined && data != null && data != '') {
+                    //var json_data = eval('(' + data + ')');
+                    var json_data = $.parseJSON(data.substring(data.indexOf("{"), data.lastIndexOf("}") + 1));
+                    if (json_data.Success) {
+
+                        if (json_data.Value != 0 && json_data.Value != null && json_data.Value != undefined && json_data.Value != '') {
+                            articleId = json_data.Value;
+                            
+
+                        }
+                        //OnLoad();
+                    }
+
+                }
+
+                Close();
+                    
+                if (func == 'add')
+                    window.location.href = window.location.href + '?id=' + articleId;
+
+                DestroyDialog();
+
+                var jalert_type = "info";
+                if (!json_data.Success)
+                    jalert_type = "fatal";
+
+                $('#jalert_notification').jAlert(json_data.Text, jalert_type, "edit", 400);
+
+            }
+        });
+    }
+
+    function Close() {
+        window.location.href = redirectUrl;
+    }
+
+    function BindCategoriesToSelectBox() {
+
+        $('#select_filterbycategory').html('<option value="0">- Tất cả các chuyên mục -</option>');
+
+        $.Services({
+
+            serviceName: 'CategoryService.ashx',
+            data: {
+                __m: 'get_all_categories',
+                ctype: 2
+            },
+            success: function (data) {
+
+                html = '';
+
+                if (data != undefined && data != null && data != '') {
+
+                    $.each(data, function (i, item) {
+                        html = '<option value="' + item.Id + '" title="' + item.Pathway + '">';
+                        if (item.NodeLevel != 0) {
+                            for (var i = 1; i < item.NodeLevel; i++) {
+                                html += '-+&nbsp;';
+                            }
+                        }
+
+                        html += item.Name;
+                        html += '</option>';
+
+
+                        if (item.ParentId != 0) {
+                            if ($('#select_category option[value=' + item.ParentId + ']').length) {
+                                $('#select_category option[value=' + item.ParentId + ']').after(html);
+                                $('#select_filterbycategory option[value=' + item.ParentId + ']').after(html);
+
+                            }
+                            else {
+                                $('#select_category').append(html);
+                                $('#select_filterbycategory').append(html);
+                            }
+                        }
+                        else {
+                            $('#select_category').append(html);
+                            $('#select_filterbycategory').append(html);
+                        }
+
+
+
+
+                    });
+
+                    OnLoad();
+                }
+
+            }
+        });
+
+    }
+    function BindUsersToSelectBox() {
+
+
+
+        $.Services({
+
+            serviceName: 'User.ashx',
+            data: {
+                __m: 'get_all_users',
+            },
+            success: function (data) {
+
+                html = '';
+
+                if (data != undefined && data != null && data != '') {
+
+                    $.each(data, function (i, item) {
+                        html = '<option value="' + item.Value + '" title="' + item.Value + '">';
+                        html += item.Value;
+                        html += '</option>';
+
+                        $('#select_user').append(html);
+
+
+
+
+
+                    });
+
+                    BindCategoriesToSelectBox();
+                }
+
+            }
+        });
+
+    }
+
+
+</script>
+

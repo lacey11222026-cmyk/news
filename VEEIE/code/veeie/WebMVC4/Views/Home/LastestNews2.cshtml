@@ -1,0 +1,28 @@
+﻿@using BIZ
+@using UTILS
+@using WebMVC4.Helper
+@model WebMVC4.Models.LastestNewModel
+@if (Model != null)
+{
+    if (Model.lstdata.Count > 0)
+    {
+        <div class="maxheight02"><h2 class="title-cm"><a href="@Model.Url">@Model.HeaderTitle</a></h2></div>
+        foreach (var item in Model.lstdata.Take(1).Select((value, i) => new { i, value }))
+        {
+            <a href="@item.value.LinkUrl">
+                <img src="@item.value.MainImage?w=360&h=234&mode=crop">
+            </a>
+            <h3><a href="@item.value.LinkUrl">@item.value.Title </a></h3>
+            <p>@item.value.IntroText</p>
+        }
+        <ul class="item-news-list">
+            @foreach (var item in Model.lstdata.Skip(1).Select((value, i) => new { i, value }))
+            {
+                <li><a href="@item.value.LinkUrl">@item.value.Title </a></li>
+            }
+        </ul>
+       
+    }
+
+
+}

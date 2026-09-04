@@ -1,0 +1,52 @@
+﻿@model List<BIZ.Entity.TestRegister_Full>
+@foreach (var item in Model.Select((value, i) => new { i, value }))
+{
+    
+        if (DateTime.Now < item.value.EndTime.GetValueOrDefault() && DateTime.Now > item.value.StartTime.GetValueOrDefault())
+        {
+            @Html.Raw(" <div class=\"time-event-item active\">")
+        }
+        else
+        {
+            if (DateTime.Now > item.value.StartTime.GetValueOrDefault())
+            {
+                @Html.Raw(" <div class=\"time-event-item\">")
+            }
+            else
+            {
+                @Html.Raw("  <div class=\"time-event-item\">")
+            }
+        }
+        <div class="time-event-item-inner">
+            <div class="time-event-content">
+                <h3 class="time-title">@item.value.Title:</h3>
+                <p>
+                    Thời gian bắt đầu<br>
+                    <strong>@item.value.StartTime.GetValueOrDefault().ToString(" HH:mm, dd/MM/yyyy")</strong><br>
+                    Thời gian kết thúc<br>
+                    <strong>@item.value.EndTime.GetValueOrDefault().ToString(" HH:mm, dd/MM/yyyy")</strong><br>
+                </p>
+            </div>
+        </div>
+        if (DateTime.Now < item.value.EndTime.GetValueOrDefault() && DateTime.Now > item.value.StartTime.GetValueOrDefault())
+        {
+            <div class="time-event-btn"><a href="javascript:" onclick="JoinTest('@item.value.Id')" class="btn-cm btn-orange">Tham gia</a></div>
+
+            
+        }
+        else
+        {
+            if (DateTime.Now > item.value.StartTime.GetValueOrDefault())
+            {
+
+                <div class="time-event-btn"><a href="@Url.Action("ResultExam",new {id=item.value.Id})" class="btn-cm btn-blue-03">Xem kết quả</a></div>
+
+            }
+
+        }
+
+        @Html.Raw("</div>")
+
+
+    
+}

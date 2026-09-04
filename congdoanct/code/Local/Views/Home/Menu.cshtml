@@ -1,0 +1,28 @@
+﻿@using BIZ
+@using UTILS
+@using Local.Helper
+@model List<BIZ.Entity.CATEGORY_FULL>
+<div class="menu">
+    <div class="menulink">
+        <a href="http://vuit.org.vn/">Trang chủ</a>|<a href="/">Trang chủ nội bộ</a>|<a href="http://mail.vuit.org.vn/">Thư điện tử</a>|
+    @if (Model != null)
+    {
+
+        if (Model.Count > 0)
+        {
+            foreach (var item in Model.Select((value, i) => new { i, value }))
+            {
+        <a href="@Utils.FormatUrlRewriteByType(item.value.Id, item.value.Name, int.Parse(item.value.Type.ToString()), item.value.Link)">@item.value.Name</a>
+                if (item.i < Model.Count - 1)
+                {
+                    Html.Raw(" |");
+                }
+            }
+        }
+    }
+
+
+    </div>
+</div>
+<div class="clear"></div>
+

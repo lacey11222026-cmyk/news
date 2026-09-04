@@ -1,0 +1,42 @@
+﻿@using BIZ
+@using UTILS
+@using WebMVC4
+@using WebMVC4.Helper
+@model WebMVC4.Models.LastestNewModel
+@if (Model != null)
+{
+    if (Model.lstdata.Count > 0)
+    {
+
+    <div class="danhgia maxheight05">
+        <div class="title-cm01">
+            <a href="/tieu-diem.html">@Model.HeaderTitle</a>
+        </div>
+        <div class="newsbig mt10 danhgia-content">
+            @foreach (var item in Model.lstdata.Take(1).Select((value, i) => new { i, value }))
+            {
+                <a href="@item.value.LinkUrl" class="mt10">
+                    <img src="@item.value.MainImage?w=367&h=206&mode=crop">
+                    
+                </a>
+                <h2 class="mt10"><a href="@item.value.LinkUrl">@item.value.Title</a></h2>
+            }
+        </div>
+            <ul class="danhgia-list mt20">
+
+                @foreach (var item in Model.lstdata.Skip(1).Select((value, i) => new { i, value }))
+                {
+                    <li>
+                        <a href="@item.value.LinkUrl">
+                            <img src="@item.value.MainImage?w=147&h=97&mode=crop">
+                            <span>@item.value.Title</span>
+                        </a>
+                    </li>
+                }
+            </ul>
+            <a href="/tieu-diem.html" class="btn-viewmore">Xem thêm <span>+</span></a>
+        </div>
+
+
+        }
+        }

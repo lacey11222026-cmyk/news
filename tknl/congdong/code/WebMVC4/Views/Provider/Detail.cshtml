@@ -1,0 +1,87 @@
+﻿@using BIZ.Entity
+@using UTILS
+@using DATA
+@using WebMVC4.Helper
+@using DATA.ContentDB
+@model Provider
+
+<div class="bnr-detail">
+    <img src="/Content/images/bg-title-blue.jpg" alt="">
+    <div class="bnr-detail-inner">
+        <div class="container">
+            <p class="bnr-detail-title">Cơ sở dữ liệu</p>
+            <p class="bnr-detail-title-big">ĐƠN VỊ CUNG CẤP DỊCH VỤ, ĐƠN VỊ TƯ VẤN</p>
+        </div>
+    </div>
+</div>
+
+<div class="search-detail-page mt50 pb100 box-search-company">
+    <div class="container">
+        <div class="box-cm">
+            <div class="detail-page-box-01">
+                <div class="ava-intro">
+                    <div class="search-result-img"><img src="@Model.Images" alt=""></div>
+                    <div class="ava-content">
+                        <div>
+                            <table>
+                                <tbody>
+                                    <tr>
+                                        <th>Tên công ty: </th>
+                                        <td>@Model.Name</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Mã số thuế:</th>
+                                        <td>@Model.MST</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Địa chỉ thuế:</th>
+                                        <td>@Model.Address</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Đại diện pháp luật:</th>
+                                        <td>@Model.Represent</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Năm thành lập:</th>
+                                        <td>@Model.Year</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="mt30">
+                    <ul class="search-detail-list">
+                        @*<li class="disflex">
+                            <p class="tbl-title">Loại hình doanh nghiệp:</p>
+                            <p>@Model.Type</p>
+                        </li>*@
+                        <li>
+                            <p class="tbl-title">Ngành nghề kinh doanh:</p>
+                            <div>@Html.Raw(Model.Business)</div>
+                        </li>
+                        <li>
+                            <p class="tbl-title mb-1">Văn phòng đại diện, chi nhánh:	</p>
+                            <div>@Html.Raw(Model.Office)</div>
+                        </li>
+                        <li>
+                            <p class="tbl-title mt-2">Thông tin liên hệ</p>
+                            <div class="search-result-content2">@Html.Raw(Model.Contact)</div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<style>
+    .search-result-content2 > a {
+        color: #333;
+    }
+
+    .search-result-content2 ul {
+        display: block;
+        list-style-type: disc;
+        padding-left: 15px;
+    }
+</style>

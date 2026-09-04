@@ -1,0 +1,400 @@
+﻿@{
+    Layout = "~/Views/Shared/_AdminV2.cshtml";
+}
+@using BIZ.Entity
+@using UTILS
+@using DATA
+@using WebMVC4.Helper
+@model TestQuestion_Full
+<div class="well">
+    <span class="label label-danger">
+        Chú ý!
+    </span>
+    <span>
+        Hãy chắc chắn nhập vào đầy đủ thông tin tại các mục bắt buộc đánh dấu (*)
+    </span>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <i class="fa fa-fw fa-user-md"></i><span>@ViewBag.Title </span>
+            </div>
+            <form id="defaultForm" method="post" class="form-horizontal">
+                <div class="panel-group" id="steps">
+                    <div class="messager-body">
+                        <div class="alert alert-success display-hide alert-dismissable">
+                            <button type="button" class="close" data-close="alert" aria-hidden="true">×</button>
+                            <span class="glyphicon glyphicon-ok"></span>
+                            <label>Đã lưu dữ liệu thành công !!!</label>
+                        </div>
+                        <div class="alert alert-danger display-hide alert-dismissable">
+                            <button type="button" class="close" data-close="alert" aria-hidden="true">×</button>
+                            <span class="glyphicon glyphicon-warning-sign"></span>
+                            <label>Có một vài lỗi trong khung nhập liệu dưới đây ! kiểm tra lại</label>
+                        </div>
+                    </div>
+                    <div class="panel panel-info">
+                        <div id="Errordiv" style="margin:20px;color:red;font-size:13pt"><center></center></div><br />
+                        @*<div class="panel-heading">
+                                <h4 class="panel-title"><i class="fa fa-wrench" style="margin-right:7px"></i>Thông Tin Cơ Bản</h4>
+                            </div>*@
+                        <div style="padding: 10px 0 0 0;background-color:#fff !important">
+                            <ul class="nav nav-tabs">
+                                <li class="active"><a href="#tabs-info" data-toggle="tab"><strong>Thông tin chính</strong></a></li>
+                                <li><a href="#tabs-image" data-toggle="tab"><strong>Câu trả lời</strong></a></li>
+
+
+                            </ul>
+                            <div class="tab-content" style="margin-top: 30px;">
+                                <div class="col-md-12 tab-pane active" id="tabs-info">
+                                    <div class="form-group">
+                                        <label for="txtTitle" class="control-label col-md-3">Tên câu hỏi :<span class="required">*</span></label>
+                                        <div class="col-md-9">
+                                            <div class="input-icon right">
+                                                <input type="text" id="txtTitle" name="title" value="@Model.Title" class="form-control" placeholder="Nhập tên câu hỏi" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="ddlCate" class="control-label col-md-3">Đợt thi :<span class="required">*</span></label>
+                                        <div class="col-md-9">
+                                            <div class="input-icon right">
+                                                @Html.DropDownList("ddlCate", new SelectList(ViewBag.RegistorList as System.Collections.IEnumerable, "Id", "Title", ViewBag.registorId), new { @class = "form-control", })
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="txtTitle" class="control-label col-md-3">Lĩnh vực :<span class="required">*</span></label>
+                                        <div class="col-md-2">
+                                            <div class="input-icon right">
+                                                <input type="number" step="1" id="txtMark"   value="@Model.Mark" class="form-control" placeholder="Nhập tên câu hỏi" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="txtContent" class="control-label col-md-3">Nội dung :<span class="required">*</span></label>
+
+                                        <div class="col-md-9">
+                                            <div class="input-icon right">
+                                                <textarea id="txtContent" name="content">@Html.Raw(Model.Contents)</textarea>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group" style="display: none">
+                                        <label for="txtSummary" class="control-label col-md-3">Tóm lược :</label>
+                                        <div class="col-md-9">
+                                            <div class="input-icon right">
+                                                <textarea id="txtSummary" style="height: 100px;" cols="20" name="description" class="form-control">@Model.Explain</textarea>
+
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="ddlType" class="control-label col-md-3">Vùng :<span class="required">*</span></label>
+                                        <div class="col-md-9">
+                                            <div class="input-icon right">
+                                                <select class="form-control" id="ddlType">
+
+                                                    <option value="1" @(Model.Type == 1 ? "selected='selected'" : "")>Chọn một đáp án</option>
+
+                                                    <option value="2" @(Model.Type == 2 ? "selected='selected'" : "")>Chọn nhiều đáp án</option>
+                                                </select>
+
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="control-label col-md-3" for="cbxIsActive">Trạng thái :</label>
+                                        <div class="col-md-4">
+                                            <div class="checkbox">
+                                                @if (Model.Status == 1)
+                                                {<input type="checkbox" id="cbxIsActive" checked="checked" />}
+                                                else
+                                                {<input type="checkbox" id="cbxIsActive" />
+                                                }
+
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+
+
+                                </div>
+                                <div class="col-md-12 tab-pane" id="tabs-image">
+                                    <div  id="form">
+
+
+
+                                        <div class="form-group col-md-6 col-xs-12 col-sm-6">
+                                            <input type="text" id="txtAnswer" class="form-control" placeholder="Nhập câu trả lời">
+                                        </div>
+
+                                        <div class="form-group submit col-md-3 col-xs-12 col-sm-6">
+                                            <button type="button" id="btAdd" class="btn btn-info"><i class="fa fa-success"></i>Thêm mới</button>
+
+                                        </div>
+
+
+                                    </div>
+                                    <div class="table-responsive" id="images_container">
+                                        <div id="dgrid" class="dataTables_wrapper form-inline" role="grid">
+                                            <table class="table table-striped table-bordered table-hover dataTable no-footer" id="dataTables">
+                                                <thead>
+                                                    <tr class="rowsao" id="imagefirst_item">
+
+                                                        <th width="60%">Nội dung</th>
+                                                        <th width="10%">#</th>
+
+                                                        <th width="10%">Xóa</th>
+                                                    </tr>
+                                                </thead>
+                                                @foreach (var data in Model.AnswersInfo.Select((value, i) => new { i, value }))
+                                                {
+                                                    <tr class="itemanswer">
+
+                                                        <td width="60%">
+                                                            <input name="Answer_text" id="Answer_text_@(data.value.Order)" value="@data.value.Name" type="text" style="width:100%;" />
+                                                        </td>
+                                                        <td width="10%" align="center">
+                                                            @if (data.value.IsCheck)
+                                                            {
+                                                                <input name="Answer_check" type="checkbox" checked="checked" value="@data.value.Order" />
+                                                            }
+                                                            else
+                                                            {
+                                                                <input name="Answer_check" type="checkbox" value="@data.value.Order" />
+                                                            }
+
+                                                        </td>
+
+                                                        <td width="10%" align="center">
+                                                            <a href="javascript:;" title="Delete" onclick="DeleteAnswer('@data.value.Order', this)"><i class="fa fa-trash-o"></i></a>
+
+                                                        </td>
+                                                    </tr>
+                                                }
+
+
+
+
+
+                                            </table>
+                                            <input type="hidden" id="countAnswer" value="@(Model.AnswersInfo.Count+1)" />
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="panel-footer form-horizontal">
+                                        <div class="form-group submit">
+
+
+                                            <button type="submit" class="btn btn-primary" id="btsubmit"><i class="fa fa-save"></i>Lưu lại</button>
+                                            <button type="button" class="btn btn-default" id="btnBack" onclick="GotoListpage();"><i class="fa fa-backward"></i>Quay lại</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div style="clear: both"></div>
+                        </div>
+
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+<script>
+    $('#menu_manageregistor').addClass("active");
+    function DeleteAnswer(image, elm) {
+
+        bootbox.confirm("Bạn chắc chắn muốn xóa câu trả lời  này ??? ", function (result) {
+            if (result == true) {
+                $(elm).parent().parent().remove();
+            }
+        });
+
+    }
+    $(document).ready(function () {
+        $("#btAdd").click(function () {
+        var order = parseInt($('#countAnswer').val());
+        var text=$('#txtAnswer').val();
+        if (text != '') {
+            var html = '<tr>';
+            html += '<td width="60%"><input name="Answer_text"  id="Answer_text_' + order + '" type="text" value="'+text+'" style="width:100%;" /></td>';
+            html += '<td width="10%" align="center"><input name="Answer_check" type="checkbox"  value="' + order + '" /></td>';
+            html += '<td width="10%" align="center">  <a href="javascript:;" title="Delete" onclick="DeleteAnswer(\'' + order + '\',this)"><i class="fa fa-trash-o"></i></a></td></tr>';
+            $('#countAnswer').val(order+1);
+            $('#txtAnswer').val('');
+            //alert(html);
+            $('#dataTables').append(html);
+        }
+        
+
+    });
+    });
+</script>
+<script>
+    function GotoListpage() {
+        window.location = '@Url.Action("TestQuestion")?registorId='+@ViewBag.registorId;
+    }
+    $(document).ready(function () {
+
+        var editor = CKEDITOR.instances['txtContent'];
+        if (editor) {
+            CKEDITOR.remove(editor);
+        }
+        CKEDITOR.replace('txtContent', {
+            filebrowserBrowseUrl: "/AdminImages/ManageImage",
+            filebrowserWindowWidth: '600',
+            filebrowserWindowHeight: '200',
+            uiColor: '#FAFAFA',
+            allowedContent: true,
+            extraAllowedContent: '*(*)',
+            // ALLOW <i></i>
+
+            //extraAllowedContent: 'p(*)[*]{*};div(*)[*]{*};li(*)[*]{*};ul(*)[*]{*}',
+            extraPlugins: 'youtube,tableresize',
+            toolbar: [
+             { name: 'document', items: ['Source', '-', 'NewPage', 'Preview', '-'] },
+             ['Cut', 'Copy', 'Paste', 'PasteText', 'PasteFromWord', '-', 'Undo', 'Redo'],
+            { name: 'styles', items: ['Font', 'FontSize'] },
+            { name: 'basicstyles', items: ['Bold', 'Italic', 'Underline', 'Strike', 'Subscript', 'Superscript', '-', 'RemoveFormat'] },
+
+            '/',
+            { name: 'colors', items: ['TextColor', 'BGColor'] }, { name: 'paragraph', items: ['NumberedList', 'BulletedList', '-', 'Outdent', 'Indent', '-', 'Blockquote', '-', 'JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock'] },
+            { name: 'insert', items: ['Image', 'Youtube', 'Flash', 'Table', 'HorizontalRule', 'Smiley', 'SpecialChar', 'PageBreak', 'Iframe'] },
+            { name: 'links', items: ['Link', 'Unlink', 'Maximize'] }
+            ],
+            height: 200
+        });
+
+        $("button.close").click(function () {
+            $(this).parent().css("display", "none");
+        });
+        $('#defaultForm').bootstrapValidator({
+            message: 'This value is not valid',
+            //live: 'submitted',
+            feedbackIcons: {
+                valid: 'glyphicon glyphicon-ok',
+                invalid: 'glyphicon glyphicon-remove',
+                validating: 'glyphicon glyphicon-refresh'
+            },
+            fields: {
+
+                title: {
+                    message: 'Nhập tên câu hỏi',
+                    validators: {
+                        notEmpty: {
+                            message: 'tên câu hỏi không được bỏ trống'
+                        },
+
+                        stringLength: {
+                            min: 2,
+                            max: 1000,
+                            message: 'tên câu hỏi nhỏ nhất 2 ký tự và nhiều nhất 1000 ký tự'
+                        },
+
+                    }
+                },
+                content: {
+                    validators: {
+                        notEmpty: {
+                            message: 'Nội dung không được bỏ trống'
+                        }
+                    }
+                },
+
+
+            }
+        })
+        .on('success.form.bv', function (e) {
+            // Prevent submit form
+            e.preventDefault();
+
+            var $form = $(e.target),
+                validator = $form.data('bootstrapValidator');
+            SaveData();
+            $(".close").click(function () {
+                $(".alert-success").css("display", "none");
+            });
+        })
+        .on('error.form.bv', function (e) {
+            // Active the panel element containing the first invalid element
+            e.preventDefault();
+            var $form = $(e.target),
+            validator = $form.data('bootstrapValidator');
+            $(".alert-danger label").text("Có một vài lỗi trong khung nhập liệu dưới đây ! kiểm tra lại");
+            $(".alert-danger").css("display", "block");
+            $(".close").click(function () {
+                $(".alert-danger").css("display", "none");
+                $(".alert-success").css("display", "none");
+            });
+        });
+
+        $("#btnReset").click(function () {
+            $('#defaultForm').data('bootstrapValidator').resetForm(true);
+            $(".alert-danger").css("display", "none");
+            $(".alert-success").css("display", "none");
+        });
+
+        //Save Data
+        function SaveData() {
+            var images_json = [];
+            var images = $('input[type="checkbox"][name="Answer_check"]');
+            $.each(images, function (i, image) {
+                var imagevalue = $(image).val();
+                var text = $('#Answer_text_' + imagevalue).val();
+                if (text == undefined)
+                    text = '';
+                var json = { Order: i+1, Name: text ,IsCheck:$(image).is(":checked")};
+                images_json.push(json);
+
+            });
+
+            var param = {
+                'Id': '@Model.Id',
+                'Title': $("#txtTitle").val(),
+                'Explain': $("#txtSummary").val(),
+                'Mark': $("#txtMark").val(),
+                'RegistorId': $("#ddlCate :selected").val(),
+                'Type': $("#ddlType").val(),
+                'Contents': CKEDITOR.instances['txtContent'].getSnapshot(),
+                'Status': $("#cbxIsActive").is(":checked") ? 1 : 0,
+                'Answers': JSON.stringify(images_json)
+
+            }
+            Utils.Loading();
+            $.ajax({
+                type: 'POST',
+                url: "@Url.Action("TestQuestionSaveData")",
+                data: addAntiForgeryToken(param),
+                async: true,
+                success: function (data) {
+                    Utils.UnLoading();
+                    if (data.ResponseCode >= 0) {
+                        $("html,body").animate({ scrollTop: $('#TemplateContent').offset().top }, 'fast');
+                        $(".alert-success").show("slow");
+                        $(".alert-danger").hide("slow");
+                        setTimeout(function () { $(".alert-success").hide("slow"); GotoListpage(); }, 500);
+
+                    }
+                    else {
+                        $("html,body").animate({ scrollTop: $('#TemplateContent').offset().top }, 'fast');
+                        $("#ErrorMessage").text(data.Description);
+                        $(".alert-danger").show("slow");
+                        $(".alert-success").hide("slow");
+                        setTimeout(function () { $(".alert-danger").hide("slow"); }, 2000);
+                    }
+                }
+            });
+        };
+    });
+</script>

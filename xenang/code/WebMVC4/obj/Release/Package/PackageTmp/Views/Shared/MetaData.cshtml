@@ -1,0 +1,76 @@
+﻿<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta http-equiv="REFRESH" content="1800">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+<meta content="INDEX,FOLLOW" name="robots" />
+<link rel="shortcut icon" href="~/Content/images/logo.png?vs=01">
+<meta property="fb:app_id" content="3016204535291546" />
+
+
+@if (string.IsNullOrEmpty(ViewBag.SiteTitle))
+{
+    <title>@Resources.Global.SiteTitle</title>
+    <meta property="og:title" content="@Resources.Global.SiteTitle" />
+}
+else
+{
+    <title>@Html.Raw(ViewBag.SiteTitle)</title>
+    <meta property="og:title" content="@Html.Raw(ViewBag.SiteTitle)" />
+}
+@if (string.IsNullOrEmpty(ViewBag.SiteDescription))
+{
+    <meta property="og:description" content="@Resources.Global.SiteDescription" />
+    <meta name="description" content="@Resources.Global.SiteDescription" />
+}
+else
+{
+    <meta name="description" content="@Html.Raw(ViewBag.SiteDescription)" />
+    <meta property="og:description" content="@Html.Raw(ViewBag.SiteDescription)" />
+}
+@if (string.IsNullOrEmpty(ViewBag.SiteImage))
+{
+    <meta property="og:image" content="" />
+    <link rel="image_src" href="" />
+    <meta property="og:type" content="article" />
+}
+else
+{
+    <meta property="og:image" content="@ViewBag.SiteImage" />
+    <link rel="image_src" href="@ViewBag.SiteImage" />
+    <meta property="og:type" content="website" />
+}
+
+<meta name="revisit-after" content="1 Days" />
+<meta property="article:publisher" content="https://www.facebook.com/XenangNhatkomatsu/">
+<meta property="article:author" content="https://www.facebook.com/XenangNhatkomatsu/">
+<meta property="og:url" content="@HttpContext.Current.Request.Url.AbsoluteUri.Replace("http:","https:")" />
+<link rel="alternate" href="@HttpContext.Current.Request.Url.AbsoluteUri.Replace("http:","https:")" hreflang=" x-default " />
+@if (string.IsNullOrEmpty(ViewBag.canonical))
+{
+    <link rel="canonical" href="@HttpContext.Current.Request.Url.AbsoluteUri.Replace("http:","https:")" />
+}
+else
+{
+    <link rel="canonical" href="@ViewBag.canonical" />
+          }
+    <meta name="copyright" content="xenangbactrungnam.com" />
+    <meta name="author" content="xenangbactrungnam.com" />
+    <meta http-equiv="audience" content="General" />
+    <meta name="resource-type" content="Document" />
+    <meta name="distribution" content="Global" />
+    <meta name="revisit-after" content="1 days" />
+    <meta name="GENERATOR" content="xenangbactrungnam.com" />
+    <meta property="og:site_name" content="xenangbactrungnam.com" />
+
+    <meta property="og:locale" content="vi_VN" />
+    <meta http-equiv="x-dns-prefetch-control" content="on">
+    <link rel="publisher" href="https://www.facebook.com/XenangNhatkomatsu/" />
+    <link rel="author" href="https://www.facebook.com/XenangNhatkomatsu/" />
+
+    <meta name="geo.region" content="VN" />
+    <meta name="geo.placename" content="Hanoi" />
+    <meta name="geo.position" content="20.975535;105.857447" />
+    <meta name="ICBM" content="20.975535, 105.857447" />
+
+
+    <meta name="google-site-verification" content="Jk3_mJvdgExW2dNFUuy0peyA0D1KAyAuKBTa9JvR5_U" />

@@ -1,0 +1,95 @@
+﻿@using BIZ
+@using UTILS
+@using WebMVC4.Helper
+@model WebMVC4.Models.NewsModel
+@{
+
+    var lstcate = new CategoryBO().GetAllCategoriesFull(UTILS.Constants.CategoryType.News, "").Where(x => x.Id != Model.CategoryId && x.Published == 1 && x.Language == WorkContext.GetLanguage()).Take(5);
+}
+
+@if (Model.hotnews != null)
+{
+    <div class="container mt30">
+        <div class="">
+            <h2 class="title-cm"><a href="@ViewBag.Url">@ViewBag.CateName</a></h2>
+         
+            <div class="row row-10">
+                <div class="col-lg-6 col-md-8 col-sm-12">
+                    @foreach (var item in Model.hotnews.Take(1).Select((value, i) => new { i, value }))
+                    {
+
+
+                        <div class="img-wrap"><a href="@item.value.LinkUrl"><img src="@item.value.MainImage2?w=570&h=350&mode=crop" alt=""></a></div>
+                        <div class="new-content">
+                            <a href="@item.value.LinkUrl" class="news-name mt15">@item.value.Title</a>
+                            <p class="dategray mt10">@item.value.PublishDate.ToString("dd/MM/yyyy")</p>
+                            <p class="news-content mt15">@item.value.IntroText</p>
+                        </div>
+                    }
+                </div>
+                <div class="col-lg-3 col-md-4 col-sm-12">
+                    <ul class="news-list-01">
+                        @foreach (var item in Model.hotnews.Skip(1).Take(2).Select((value, i) => new { i, value }))
+                        {
+
+                            <li>
+                                <div class="img-wrap"><a href="@item.value.LinkUrl"><img src="@item.value.MainImage2?w=275&h=169&mode=crop" alt=""></a></div>
+                                <div class="new-content">
+                                    <a href="@item.value.LinkUrl" class="news-name mt15">@item.value.Title</a>
+                                </div>
+                            </li>
+                        }
+                    </ul>
+                </div>
+                <div class="col-lg-3 col-md-12 col-sm-12">
+                    <ul class="newslist-border">
+                        @foreach (var item in Model.hotnews.Skip(3).Select((value, i) => new { i, value }))
+                        {
+
+                            <li><a href="@item.value.LinkUrl">@item.value.Title</a></li>
+                        }
+                    </ul>
+
+                </div>
+            </div>
+        </div>
+        <div class="mt40 pb100">
+            <div class="row row-10 content-left">
+                <div class="col-lg-9 col-md-12">
+                    <ul class="news-hz border-top-gray">
+                        @if (Model.listdata != null)
+                        {
+                            foreach (var item in Model.listdata.Select((value, i) => new { i, value }))
+                            {
+                                <li>
+                                    <div class="img-wrap"><a href="@item.value.LinkUrl"><img src="@item.value.MainImage2?w=336&h=206&mode=crop" alt=""></a></div>
+                                    <div class="new-content">
+                                        <a href="@item.value.LinkUrl" class="news-name">@item.value.Title</a>
+                                        <span class="dategray mt15">@item.value.PublishDate.ToString("dd/MM/yyyy")</span>
+                                        <p class="news-content mt15">@item.value.IntroText</p>
+                                    </div>
+                                </li>
+                            }
+                        }
+
+                    </ul>
+                </div>
+            </div>
+            <div class="paging mt50">
+                <ul>
+                    @{Html.RenderPartial("Pagination", new WebMVC4.Models.PaginationInfo
+                        {
+                            PageUrl = Url.SetParameter("Page", "!0"),
+                            CurrentPage = Model.pageIndex,
+                            PageSize = Model.pageSize,
+                            TotalItemCount = Model.total,
+                        }); }
+                </ul>
+            </div>
+        </div>
+    </div><!-- end container -->
+
+   
+
+
+}

@@ -1,0 +1,60 @@
+﻿@using BIZ
+@using UTILS
+@using WebMVC4.Helper
+@model WebMVC4.Models.News2Model
+@{
+    var langpage = WorkContext.GetLanguage();
+}
+
+<div class="main-content container mt20">
+    @{Html.RenderAction("Breadcrumb", "News", new { CategoryId = ViewBag.CategoryId });}
+
+
+    <div class=" row-30 multimedia-content ">
+        @foreach (var item in Model.articles.Select((value, i) => new { i, value }))
+        {
+            <div class="item">
+                <a href="@item.value.LinkUrl">
+                    <img src="@item.value.MainImage?w=329&h=466&mode=crop" alt="" class="w100">
+                    <span class="mt10 disblock">@item.value.Title</span>
+                </a>
+            </div>
+            if (item.i % 3 == 2 || item.i == Model.articles.Count() - 1)
+            {
+                @Html.Raw("<div style='clear:both'></div>")
+            }
+        }
+    </div>
+    <div class="paging mt50 text-center">
+        <ul>
+            @{Html.RenderPartial("Pagination", new WebMVC4.Models.PaginationInfo
+                {
+                    PageUrl = Url.SetParameter("Page", "!0"),
+                    CurrentPage = ViewBag.Page,
+                    PageSize = ViewBag.PageSize,
+                    TotalItemCount = ViewBag.Total,
+                }); }
+        </ul>
+    </div>
+</div>
+
+<style>
+    .item {
+        width: 33%;
+        padding-right: 15px !important;
+        padding-left: 15px !important;
+        float: left;
+        margin-bottom: 20px;
+    }
+
+    .row-30 {
+        margin-left: -15px;
+        margin-right: -15px;
+    }
+    @@media screen and (max-width: 767px) {
+        .item {
+            width: 100%;
+            
+        }
+    }
+</style>

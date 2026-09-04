@@ -1,0 +1,33 @@
+﻿@using BIZ
+@using UTILS
+@using WebMVC4.Helper
+@model List<BIZ.Entity.Album_FULL>
+@if (Model != null)
+{
+    <div class="box-cm library">
+        <h2 class="title-cm03"><a href="/thu-vien-anh/c42/thu-vien-hinh-anh.html">Thư viện hình ảnh</a> / <a href="/trang-chu-video.html">Video</a></h2>
+        @foreach (var item1 in Model.Take(1).Select((value, i) => new { i, value }))
+        {
+            <a href="@Utils.FormatUrlRewrite(item1.value.Id, item1.value.Title, "AlbumDetail")">
+                <img src="@item1.value.MainImage?w=360&h=210&mode=crop" alt="@item1.value.Title">
+                @item1.value.Title
+            </a>
+
+        }
+       
+        <ul class="list-cm mt10">
+            @foreach (var item in Model.Skip(1).Select((value, i) => new { i, value }))
+            {
+                <li><a href="@Utils.FormatUrlRewrite(item.value.Id, item.value.Title, "AlbumDetail")">@item.value.Title</a></li>
+            }
+            
+         
+        </ul>
+    </div>
+    
+}
+
+
+
+
+

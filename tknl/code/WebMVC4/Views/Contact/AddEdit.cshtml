@@ -1,0 +1,358 @@
+﻿@{
+   
+    Layout = "~/Views/Shared/_AdminV2.cshtml";
+    
+}
+<
+    <div id="toolbar-box">
+        <div class="t">
+            <div class="t">
+                <div class="t">
+                </div>
+            </div>
+        </div>
+        <div class="m">
+            <div class="toolbar" id="toolbar">
+                <table class="toolbar">
+                    <tr>
+                        <td class="button" id="toolbar-save">
+                            <a id="lnkSave" class="toolbar" href="javascript:void(0);" onclick="Save('close');">
+                                <span class="icon-32-save" title="Save"></span>Lưu lại</a>
+                        </td>
+                        <td class="button" id="toolbar-apply">
+                            <a id="lnkApply" class="toolbar" href="javascript:void(0);" onclick="Save();"><span
+                                class="icon-32-apply" title="Apply"></span>Áp dụng</a>
+                        </td>
+                        <td class="button" id="toolbar-cancel">
+                            <a id="lnkClose" class="toolbar" href="javascript:void(0);" onclick="Close();"><span
+                                class="icon-32-cancel" title="Close"></span>Đóng</a>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div class="header icon-48-addedit">
+                Danh bạ: <small><span id="spDetailTitle"></span></small>
+            </div>
+            <div class="clr">
+            </div>
+        </div>
+        <div class="b">
+            <div class="b">
+                <div class="b">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="clr">
+    </div>
+    <div id="element-box">
+        <div class="t">
+            <div class="t">
+                <div class="t">
+                </div>
+            </div>
+        </div>
+        <div class="m" id="all_item_info_container">
+            <div id="jalert_notification">
+                &nbsp;</div>
+            <div id="tabs">
+                <div class="col width-40" id="tabs-1">
+                    <fieldset>
+                        <legend>Thông tin chi tiết danh bạ</legend>
+                        <table class="admintable" cellspacing="1">
+                            <tr>
+                                <td class="key">
+                                    <label for="">
+                                        Họ tên
+                                    </label>
+                                </td>
+                                <td>
+                                    <input id="txtName" type="text" class="inputbox" maxlength="100" style="width: 250px" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="key">
+                                    <label for="">
+                                       Nhóm
+                                    </label>
+                                </td>
+                                <td>
+                                    <select id="select_category" name="select_category" style="width:250px">
+                                    </select>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="key">
+                                    <label for="">
+                                        Chức vụ
+                                    </label>
+                                </td>
+                                <td>
+                                    <input id="txtYahoo" type="text" class="inputbox" maxlength="100" style="width: 250px" />
+                                </td>
+                            </tr>
+                           
+                            <tr>
+                                <td class="key">
+                                    <label for="">
+                                        Mail
+                                    </label>
+                                </td>
+                                <td>
+                                    <input id="txtMail" type="text" class="inputbox" maxlength="100" style="width: 250px;
+                                        margin-bottom: 0px;" />
+                                </td>
+                            </tr>
+                           
+                            <tr>
+                                <td class="key">
+                                    <label for="">
+                                        Mobile
+                                    </label>
+                                </td>
+                                <td>
+                                    <input id="txtMobile" type="text" class="inputbox" maxlength="100" style="width: 100px" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="key">
+                                    <label for="">
+                                        Tình trạng
+                                    </label>
+                                </td>
+                                <td>
+                                    <input name="radPublished" type="radio" value="0" checked="checked" />
+                                    Khóa
+                                    <input name="radPublished" type="radio" value="1" />
+                                    Hoạt động
+                                </td>
+                            </tr>
+                          
+                        </table>
+                    </fieldset>
+                </div>
+                <div class="clr">
+                </div>
+            </div>
+        </div>
+        <div class="b">
+            <div class="b">
+                <div class="b">
+                </div>
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript">
+        var ContactId = '@ViewBag.Id';
+        var redirectUrl = '@Url.Action("Index","Contact")' ;
+
+        $(document).ready(function () {
+
+                BindCategoriesToSelectBox();            
+           
+        });
+            function BindCategoriesToSelectBox() {
+
+                //$('#select_category').html('<option value="0">- Không thuộc nhóm nào -</option>');
+
+                $.Services({
+
+                    serviceName: 'CategoryService.ashx',
+                    data: {
+                        __m: 'get_all_categories',
+                        ctype: 6
+                    },
+                    success: function (data) {
+                        html = '';
+
+                        if (data != undefined && data != null && data != '') {
+
+                            $.each(data, function (i, item) {
+                                if (i > 0) {
+                                    html = '<option value="' + item.Id + '" title="' + item.Pathway + '">';
+
+                                    if (item.NodeLevel != 0) {
+                                        for (var i = 1; i < item.NodeLevel; i++) {
+                                            html += '-+&nbsp;';
+                                        }
+                                    }
+
+                                    html += item.Name;
+                                    html += '</option>';
+
+                                    if (item.ParentId != 0) {
+                                        if ($('#select_category option[value=' + item.ParentId + ']').length)
+                                            $('#select_category option[value=' + item.ParentId + ']').after(html);
+                                        else
+                                            $('#select_category').append(html);
+                                    } else
+                                        $('#select_category').append(html);
+
+
+                                }
+                            });
+
+                            OnLoad();
+
+                        }
+
+                    }
+                });
+
+
+
+            }
+        function OnLoad() {
+
+            if (ContactId != 0) {
+
+                $('#spDetailTitle').text('Sửa chữa');
+
+                $.Services({
+                    serviceName: 'ContactService.ashx',
+                    data: {
+                        __m: 'get_contact',
+                        _id: ContactId
+                    },
+                    success: function (data) {
+
+                        if (data != undefined && data != null && data != '')
+                            BindData(data);
+                        else
+                            $('#all_item_info_container').html("Thông tin danh bạ không tồn tại hoặc đã bị xóa");
+
+                        DestroyDialog();
+                    }
+                });
+            }
+            else {
+                $('#spDetailTitle').text('Tạo mới');
+                DestroyDialog();
+            }
+        }
+
+        function BindData(data) {
+
+            $('#txtName').val(data.Name);
+            $('#select_category option[value=' + data.CategoryId + ']').attr('selected', 'selected');
+
+            $('#txtYahoo').val(data.Yahoo);
+            $('#txtMail').val(data.Mail);
+            $('#txtMobile').val(data.Mobile);
+           
+
+            $('input[name="radPublished"]').each(function (i, e) {
+                if ($(e).val() == data.Published)
+                    $(e).prop('checked', true); 
+                else
+                    $(e).prop('checked', false); 
+            });
+
+
+
+        }
+
+        function FormValidate() {
+            var Contacter = $.trim($('#txtName').val());
+            if (Contacter == '') {
+                $('#jalert_notification').jAlert('Tên người hỗ trợ không được để trống', 'warning', "edit", 400);
+                $('#txtCode').focus();
+                return false;
+            }
+
+            var regex = '[^0-9]';
+            var ordering = $.trim($('#txtOrdering').val());
+            if (ordering.match(regex) != null) {
+                $('#jalert_notification').jAlert('Thứ tự phải ở dạng số', 'warning', "edit", 400);
+                $('#txtPrice').focus();
+                return false;
+            }
+
+            return true;
+        }
+
+        function PostObj(method) {
+
+            if (!FormValidate())
+                return;
+
+            var name = Encoder.urlEndcode($.trim($('#txtName').val()));
+            
+            var cateogryid = $('#select_category option:selected').val();
+            var categorypathway = $('#select_category option:selected').attr('title');
+            var yahoo = $('#txtYahoo').val();
+           
+            var mail = $('#txtMail').val();
+           
+            var mobile = $('#txtMobile').val();
+            var cateogryid = $('#select_category option:selected').val();
+           
+            var categorypathway = $('#select_category option:selected').attr('title');
+            var published = 0;
+            published = $('input[name="radPublished"]:checked').val();
+
+            var post_data = {
+                __m: method,
+                id: ContactId,
+                categoryid: cateogryid,
+                name: name,
+                yahoo: yahoo,
+                categorypathway: categorypathway,
+                mail: mail,
+
+                mobile: mobile,
+
+                published: published
+            };
+
+            return post_data;
+        }
+
+        function Save(type) {
+
+            DestroyJAlert();
+
+            OpenAlertDialog('Đang xử lý ...');
+
+            $.Services({
+                isCrossDomain: false,
+                url: POST_URL + 'ContactService.ashx',
+                data: PostObj('save'),
+                success: function (data) {
+
+                    if (data != undefined && data != null && data != '') {
+                        var json_data = eval('(' + data + ')');
+
+                        if (json_data.Success) {
+
+                            if (json_data.Value != 0 && json_data.Value != null && json_data.Value != undefined && json_data.Value != '') {
+                                ContactId = json_data.Value;
+                            }
+
+                            //OnLoad();
+                        }
+                    }
+
+                    if (type != undefined && type != null && type != '' && type == 'close')
+                        Close();
+
+                    DestroyDialog();
+
+                    var jalert_type = "info";
+                    if (!json_data.Success)
+                        jalert_type = "fatal";
+
+                    $('#jalert_notification').jAlert(json_data.Text, jalert_type, "edit", 400);
+                }
+            });
+        }
+
+        function Close() {
+            window.location.href = redirectUrl + '?Id=' + $('#select_category option:selected').val();
+        }
+       
+
+       
+        
+    </script>
+

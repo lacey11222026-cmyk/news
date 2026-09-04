@@ -1,0 +1,331 @@
+﻿@using BIZ
+@using UTILS
+@using WebMVC4.Helper
+@model List<BIZ.Entity.CONTENT_FULL>
+@{
+    var langpage = WorkContext.GetLanguage();
+}
+@{
+    var date = Utils.formatDateofWeek(DateTime.Now.DayOfWeek) + "," + DateTime.Now.ToString(" dd") + "/" + DateTime.Now.ToString("MM") + "/" + DateTime.Now.Year.ToString() + " | " + DateTime.Now.ToString("HH") + ":" + DateTime.Now.ToString("mm") + " GMT+7";
+    var DateEN = DateTime.Now.DayOfWeek.ToString() + ", " + DateTime.Now.ToString("dd") + "/" + DateTime.Now.ToString("MM") + "/" + DateTime.Now.Year.ToString() + " | " + DateTime.Now.ToString("HH") + ":" + DateTime.Now.ToString("mm") + " GMT+7";
+}
+@{Html.RenderAction("Banner", "Home", new { lang = langpage });}
+
+@if (langpage == "vi-vn")
+{
+
+    <div class="container tool pt-4">
+        <p class="tool-date">@date</p>
+        <div class="hot-content">
+            <ul class="marquee">
+                @foreach (var item in Model.Select((value, i) => new { i, value }))
+                {
+                    <li><a class="item" href="@item.value.LinkUrl"> <span class="icon"> <i class="fa fa-bell-o" aria-hidden="true"></i> </span><span class="name"> @item.value.Title </span>  </a></li>
+                }
+            </ul>
+        </div>
+    </div>
+    @*<div class="">
+        <div class="container mt40">
+            <div class="aboutus">
+                <h2 class="title-cm text-center">VỀ CHÚNG TÔI</h2>
+                <p class="mt30 text-center">
+                    Chào mừng bạn đến với <span class="textorange font-weight-bold">Trung tâm Xuất sắc về Hiệu quả năng lượng (Center of Excellence - CoE)</span> - mô hình hỗ trợ kỹ thuật thúc đẩy hoạt động sử dụng năng lượng tiết kiệm và hiệu quả lần đầu tiên tại Việt Nam. Đây là một sáng kiến thuộc “Chương trình Hợp tác Đối tác Năng lượng Việt Nam – Đan Mạch giai đoạn 2020-2025” (DEPP3) do Bộ Công Thương, Đại sứ quán Đan Mạch và Cục Năng lượng Đan Mạch triển khai thực hiện.<br><br>
+                    Chúng tôi hy vọng, CoE sẽ trở thành nơi chia sẻ kinh nghiệm hữu ích và cầu nối giúp các bên liên quan, doanh nghiệp, cơ quan quản lý, nhà tài trợ, tổ chức tài chính và các đơn vị tư vấn tìm được đối tác và giải pháp phù hợp trong hành trình hướng đến sử dụng năng lượng hiệu quả.
+                </p>
+                <div class="mt40 aboutus-list">
+                    <div>
+                        <a href="https://coe.depp3.vn/tin-tuc/c81/tai-lieu-ky-thuat.html" class="aboutus-item" target="_blank">
+                            <img src="/Content/img/icon-tailieu.png" alt="" width="60">
+                            <span class="aboutus-name">Tài liệu kỹ thuật</span>
+                        </a>
+                    </div>
+                    <div>
+                        <a href="https://coe.depp3.vn/tin-tuc/c38/khoa-dao-tao.html" class="aboutus-item" target="_blank">
+                            <img src="/Content/img/icon-hoatdong.png" alt="" width="90">
+                            <span class="aboutus-name">Hoạt động đào tạo</span>
+                        </a>
+                    </div>
+                    <div>
+                        <a href="https://coe.depp3.vn/tin-tuc/c39/du-an-dien-hinh.html" class="aboutus-item" target="_blank">
+                            <img src="/Content/img/icon-duan.png" alt="" width="60">
+                            <span class="aboutus-name">Dự án điển hình</span>
+                        </a>
+                    </div>
+                    <div>
+                        <a href="https://vas.depp3.vn/" class="aboutus-item" target="_blank">
+                            <img src="/Content/img/icon-chuongtrinh.png" alt="" width="70">
+                            <span class="aboutus-name">Chương trình VAS</span>
+                        </a>
+                    </div>
+                </div>
+
+
+            </div>
+        </div>*@
+    <div class="container pt60">
+        <div class="aboutus">
+            <h2 class="title-cm text-center">CÁC LĨNH VỰC TRỌNG TÂM</h2>
+            <div class="mt40 aboutus-list-02 row">
+                <div class="col-lg-4 col-md-4 col-12">
+                    <a href="https://coe.depp3.vn/vas" class="aboutus-item-02" target="_blank">
+                        <div class="aboutus-img-02"><img src="/Content/img/img-kythuat.jpg" alt=""></div>
+                        <div class="img-icon"><img src="/Content/img/icon-chuongtrinh.png" alt="" width="70"></div>
+                        <p class="aboutus-txt"><span>Hỗ trợ kỹ thuật</span></p>
+                    </a>
+                </div>
+                <div class="col-lg-4 col-md-4 col-12">
+                    <a  href="https://coe.depp3.vn/tin-tuc/c38/khoa-dao-tao.html"  target="_blank" class="aboutus-item-02">
+                        <div class="aboutus-img-02"><img src="/Content/img/img-daotao.jpg" alt=""></div>
+                        <div class="img-icon"><img src="/Content/img/icon-hoatdong.png" alt="" width="90"></div>
+                        <p class="aboutus-txt"><span>Hoạt động đào tạo</span></p>
+                    </a>
+                </div>
+                <div class="col-lg-4 col-md-4 col-12">
+                    <a href="https://coe.depp3.vn/tin-tuc/c81/tai-lieu-ky-thuat.html" target="_blank" class="aboutus-item-02">
+                        <div class="aboutus-img-02"><img src="/Content/img/img-tailieu.jpg" alt=""></div>
+                        <div class="img-icon"><img src="/Content/img/icon-tailieu.png" alt="" width="60"></div>
+                        <p class="aboutus-txt"><span>Tài liệu kỹ thuật</span></p>
+                        <div class="absolute-inset"></div>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container bnr-center mt50 pb80 ">
+        @{Html.RenderAction("BannerCenter", "Home", new { lang = langpage });}
+    </div>
+    <div class="bg-blue pt80 pb80">
+        <div class="news-box container">
+            @{Html.RenderAction("LastestNews", "Home", new { CateName = "Tin tức", CategoryId = 44, MaxLastestNews = 3, lang = langpage });}
+
+        </div>
+    </div>
+    <div class="project-box container pt80 pb80">
+        @{Html.RenderAction("LastestNews", "Home", new { CateName = "Dự án điển hình", CategoryId = 39, MaxLastestNews = 3, lang = langpage });}
+
+    </div>
+    <div class="tranning-box pt80 pb80 bg-blue">
+        <div class="container">
+            <h2 class="title-cm text-center">Đào tạo</h2>
+            <div class="mt30">
+                <ul class="nav nav-tabs nav-tranning" id="myTab" role="tablist">
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link active" id="tabs01-tab" data-toggle="tab" data-target="#tabs01" type="button" role="tab" aria-controls="tabs01" aria-selected="true">Hội thảo và Đào tạo</button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link" id="tabs02-tab" data-toggle="tab" data-target="#tabs02" type="button" role="tab" aria-controls="tabs02" aria-selected="false">Hướng dẫn kỹ thuật</button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link" id="tabs03-tab" data-toggle="tab" data-target="#tabs03" type="button" role="tab" aria-controls="tabs03" aria-selected="false">Video hướng dẫn</button>
+                    </li>
+                </ul>
+                <div class="tab-content tranning-content mt30" id="myTabContent">
+                    <div class="tab-pane fade show active" id="tabs01" role="tabpanel" aria-labelledby="tabs01-tab">
+                        <div class="tabs-content-01">
+                            @{Html.RenderAction("LastestNews2", "Home", new { CateName = "", CategoryId = 38, MaxLastestNews = 1, lang = langpage });}
+
+                        </div>
+                    </div>
+                    <div class="tab-pane fade" id="tabs02" role="tabpanel" aria-labelledby="tabs02-tab">
+                        <div class="support-service tabs-content-02">
+                            <div class="support-service-list">
+                                @{Html.RenderAction("LastestNews3", "Home", new { CateName = "", CategoryId = 82, MaxLastestNews = 5, lang = langpage });}
+
+                            </div>
+                            <div class="mt20 text-center">
+                                <a href="https://coe.depp3.vn/tin-tuc/c81/tai-lieu-ky-thuat.html" class="btn-cm">@Resources.Global.More</a>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="tab-pane fade" id="tabs03" role="tabpanel" aria-labelledby="tabs03-tab">
+                        <div class="tabs-content-01">
+                            @{Html.RenderAction("HomeVideo", "Home", new { CategoryId = 40 });}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div><!-- End tranning box-->
+    </div>
+    <div class="company-support pt80">
+        <div class="container">
+            <h2 class="title-cm text-center"><a  href="/gioi-thieu/c95/don-vi-tu-van">Đơn vị tư vấn</a></h2>
+            @{Html.RenderAction("BannerBottom", "Home", new { lang = langpage });}
+
+        </div>
+    </div><!-- ed support-->
+    <div class="container techlology-box pb80 pt80">
+        <h2 class="title-cm text-center">Đơn vị cung cấp công nghệ</h2>
+        <div class="techlology-list mt40">
+
+            @{Html.RenderAction("BannerBottom2", "Home", new { lang = langpage });}
+        </div>
+    </div>
+    
+
+}
+else
+{
+
+    <div class="container tool pt-4">
+        <p class="tool-date">@DateEN</p>
+        <div class="hot-content">
+            <ul class="marquee">
+                @foreach (var item in Model.Select((value, i) => new { i, value }))
+                {
+                    <li><a class="item" href="@item.value.LinkUrl"> <span class="icon"> <i class="fa fa-bell-o" aria-hidden="true"></i> </span><span class="name"> @item.value.Title </span>  </a></li>
+                }
+            </ul>
+        </div>
+    </div>
+
+    <div class="">
+        @*<div class="container mt40">
+            <div class="aboutus">
+                <h2 class="title-cm text-center">ABOUT US</h2>
+                <p class="mt30 text-center">
+                    Welcome to  <span class="textorange font-weight-bold">Center of Excellence for Energy Efficiency (CoE)</span>  – the first technical support model to promote economical and efficient energy use in Vietnam. This initiative is implemented by the Ministry of Industry and Trade, the Embassy of Denmark, and the Danish Energy Agency within the framework of the "Vietnam-Denmark Energy Partnership Program 2020-2025" (DEPP3).<br><br>
+                    We hope that the CoE will become a valuable platform for sharing experiences and a bridge connecting stakeholders, businesses, regulatory agencies, donors, financial institutions, and consultants to find the right partners and solutions in the journey toward energy efficiency.
+                </p>
+                <div class="mt40 aboutus-list">
+                    <div>
+                        <a href="https://coe.depp3.vn/tin-tuc/c87/technical-materials.html" class="aboutus-item" target="_blank">
+                            <img src="/Content/img/icon-tailieu.png" alt="" width="60">
+                            <span class="aboutus-name">Technical Materials</span>
+                        </a>
+                    </div>
+                    <div>
+                        <a href="https://coe.depp3.vn/tin-tuc/c52/training-courses.html" class="aboutus-item" target="_blank">
+                            <img src="/Content/img/icon-hoatdong.png" alt="" width="90">
+                            <span class="aboutus-name">Training</span>
+                        </a>
+                    </div>
+                    <div>
+                        <a href="https://coe.depp3.vn/tin-tuc/c72/case-studies.html" class="aboutus-item" target="_blank">
+                            <img src="/Content/img/icon-duan.png" alt="" width="60">
+                            <span class="aboutus-name">case studies</span>
+                        </a>
+                    </div>
+                    <div>
+                        <a href="https://vas.depp3.vn/" class="aboutus-item" target="_blank">
+                            <img src="/Content/img/icon-chuongtrinh.png" alt="" width="70">
+                            <span class="aboutus-name">VAS</span>
+                        </a>
+                    </div>
+                </div>
+
+            </div>
+        </div>*@
+        <div class="container pt60">
+            <div class="aboutus">
+                <h2 class="title-cm text-center">FOCUS AREAS</h2>
+                <div class="mt40 aboutus-list-02 row">
+                    <div class="col-lg-4 col-md-4 col-12">
+                        <a href="https://coe.depp3.vn/vas" class="aboutus-item-02" target="_blank">
+                            <div class="aboutus-img-02"><img src="/Content/img/img-kythuat.jpg" alt=""></div>
+                            <div class="img-icon"><img src="/Content/img/icon-chuongtrinh.png" alt="" width="70"></div>
+                            <p class="aboutus-txt"><span>Technical Support</span></p>
+                        </a>
+                    </div>
+                    <div class="col-lg-4 col-md-4 col-12">
+                        <a href="https://coe.depp3.vn/tin-tuc/c52/training-courses.html" target="_blank" class="aboutus-item-02">
+                            <div class="aboutus-img-02"><img src="/Content/img/img-daotao.jpg" alt=""></div>
+                            <div class="img-icon"><img src="/Content/img/icon-hoatdong.png" alt="" width="90"></div>
+                            <p class="aboutus-txt"><span>Training</span></p>
+                        </a>
+                    </div>
+                    <div class="col-lg-4 col-md-4 col-12">
+                        <a href="https://coe.depp3.vn/tin-tuc/c87/technical-materials.html" target="_blank" class="aboutus-item-02">
+                            <div class="aboutus-img-02"><img src="/Content/img/img-tailieu.jpg" alt=""></div>
+                            <div class="img-icon"><img src="/Content/img/icon-tailieu.png" alt="" width="60"></div>
+                            <p class="aboutus-txt"><span>Technical Materials</span></p>
+                            <div class="absolute-inset"></div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container bnr-center mt50 pb80">
+            @{Html.RenderAction("BannerCenter", "Home", new { lang = langpage });}
+        </div>
+        <div class="bg-blue pt80 pb80">
+            <div class="news-box container">
+                @{Html.RenderAction("LastestNews", "Home", new { CateName = "News", CategoryId = 55, MaxLastestNews = 3, lang = langpage });}
+
+            </div>
+        </div>
+        <div class="project-box container pt80 pb80">
+            @{Html.RenderAction("LastestNews", "Home", new { CateName = "CASE STUDIES", CategoryId = 72, MaxLastestNews = 3, lang = langpage });}
+
+        </div>
+        <div class="tranning-box pt80 pb80 bg-blue">
+            <div class="container">
+                <h2 class="title-cm text-center">Training</h2>
+                <div class="mt30">
+                    <ul class="nav nav-tabs nav-tranning" id="myTab" role="tablist">
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link active" id="tabs01-tab" data-toggle="tab" data-target="#tabs01" type="button" role="tab" aria-controls="tabs01" aria-selected="true">Workshops and Training</button>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link" id="tabs02-tab" data-toggle="tab" data-target="#tabs02" type="button" role="tab" aria-controls="tabs02" aria-selected="false">Guidelines</button>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link" id="tabs03-tab" data-toggle="tab" data-target="#tabs03" type="button" role="tab" aria-controls="tabs03" aria-selected="false">Tutorials</button>
+                        </li>
+                    </ul>
+                    <div class="tab-content tranning-content mt30" id="myTabContent">
+                        <div class="tab-pane fade show active" id="tabs01" role="tabpanel" aria-labelledby="tabs01-tab">
+                            <div class="tabs-content-01">
+
+                                @{Html.RenderAction("LastestNews2", "Home", new { CateName = "", CategoryId = 52, MaxLastestNews = 1, lang = langpage });}
+
+
+                            </div>
+                        </div>
+                        <div class="tab-pane fade" id="tabs02" role="tabpanel" aria-labelledby="tabs02-tab">
+                            <div class="support-service tabs-content-02">
+                                <div class="support-service-list">
+                                    @{Html.RenderAction("LastestNews3", "Home", new { CateName = "", CategoryId = 89, MaxLastestNews = 5, lang = langpage });}
+
+                                </div>
+                                <div class="mt20 text-center">
+                                    <a href="https://coe.depp3.vn/tin-tuc/c87/technical-materials.html" class="btn-cm">@Resources.Global.More</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tab-pane fade" id="tabs03" role="tabpanel" aria-labelledby="tabs03-tab">
+                            <div class="tabs-content-01">
+                                @{Html.RenderAction("HomeVideo", "Home", new { CategoryId = 54 });}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div><!-- End tranning box-->
+        </div>
+
+        <div class="company-support pt80">
+            <div class="container">
+                <h2 class="title-cm text-center"><a  href="/gioi-thieu/c96/consulting-firms.html">CONSULTING FIRMS</a></h2>
+
+                @{Html.RenderAction("BannerBottom", "Home", new { lang = langpage });}
+
+            </div>
+        </div><!-- ed support-->
+        <div class="container techlology-box pb80 pt80">
+            <h2 class="title-cm text-center">technology suppliers</h2>
+            <div class="techlology-list mt40">
+
+                @{Html.RenderAction("BannerBottom2", "Home", new { lang = langpage });}
+            </div>
+        </div>
+    </div>
+
+}
+
+
+<style>
+    .aboutus-item {
+        z-index: 222;
+    }
+</style>

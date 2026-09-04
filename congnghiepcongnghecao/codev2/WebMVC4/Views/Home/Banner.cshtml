@@ -1,0 +1,20 @@
+﻿@model List<DATA.Banner>
+
+@if (Model != null)
+{
+    <div class="logo-link container pt40 pb40 hidden-xs">
+        <div class="slide-chantrang mt20">
+            <ul id="flexiselDemo3">
+                @foreach (var item in Model.Select((value, i) => new { i, value }))
+                {
+                    <li><a href="@item.value.Url"><img src="@item.value.Data" width="216" height="87" /></a></li>
+                }
+               
+            </ul>
+        </div>
+        <div class="clearfix"></div>
+    </div>
+
+}
+
+

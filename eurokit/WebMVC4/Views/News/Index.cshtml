@@ -1,0 +1,98 @@
+﻿@using BIZ
+@using UTILS
+@using WebMVC4.Helper
+@model List<BIZ.Entity.CONTENT_FULL>
+<div class="content container-fluid">
+
+    <section id="breadcrumb-wrapper2" class="breadcrumb-w-img">
+        <div class="breadcrumb-overlay"></div>
+        <div class="breadcrumb-content">
+            <div class="wrapper">
+                <div class="inner text-center">
+                    <div class="breadcrumb-big">
+                        <span class="h2">Tin tức</span>
+                    </div>
+                    <div class="breadcrumb-small">
+                        <a href="/" title="Trang chủ">Trang chủ</a> <span aria-hidden="true">/</span>
+                        <span>Tin tức</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </section>
+    <div id="PageContainer" class="is-moved-by-drawer">
+        <main class="main-content" role="main">
+            <section id="blog-wrapper">
+                <div class="wrapper">
+                    <div class="inner">
+                        <div class="grid">
+                            <div class="grid__item large--nine-twelfths medium--one-whole small--one-whole float-left">
+                                <div class="blog-content">
+                                    <div class="blog-content-wrapper">
+                                        <div class="blog-head">
+                                            <div class="blog-title pt15"><h1>Tin tức</h1> </div>
+                                            <div class="blog-des"></div>
+                                        </div>
+                                        <div class="blog-body">
+                                            <div class="grid-uniform">
+                                                @foreach (var item in Model.Select((value, i) => new { i, value }))
+                                                {
+                                                    <div class="grid__item large--one-half medium--one-half small--one-whole">
+                                                        <div class="article-item">
+                                                            <div class="article-img">
+                                                                <a href="@Utils.FormatUrlRewrite(item.value.Id, item.value.Title, "ArticleDetail")" title="@item.value.Title"> <img src="@item.value.MainImage?h=500&w=500&mode=crop" alt="@item.value.Title"> </a>
+                                                            </div>
+                                                            <div class="article-info-wrapper">
+                                                                
+                                                                <div class="article-title"> <a href="@Utils.FormatUrlRewrite(item.value.Id, item.value.Title, "ArticleDetail")" title="@item.value.Title" class="line-clamp2">@item.value.Title</a> </div>
+                                                                <div class="article-desc">
+                                                                   @item.value.IntroText
+                                                                </div>
+                                                                <div class="article-info">
+                                                                    <div class="article-author"> <i class="fa fa-folder-open-o"></i> Tin tức </div>
+                                                                   
+                                                                    <a href="@Utils.FormatUrlRewrite(item.value.Id, item.value.Title, "ArticleDetail")" title="@item.value.Title">Xem thêm <i class="fa fa-angle-double-right"></i></a>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                }
+                                                </div>
+                                            <div class="pagination not-filter">
+                                                <div id="pagination-" class="text-center clear-left">
+                                                    @{Html.RenderPartial("Pagination", new WebMVC4.Models.PaginationInfo
+                                                        {
+                                                            PageUrl = Url.SetParameter("Page", "!0"),
+                                                            CurrentPage = ViewBag.Page,
+                                                            PageSize = ViewBag.PageSize,
+                                                            TotalItemCount = ViewBag.Total,
+                                                        }); }
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="grid__item large--three-twelfths medium--one-whole small--one-whole">
+                                <div class="blog-sidebar">
+                                   
+                                    <div class="featured-post">
+                                        <div class="blog-sb-title clearfix"><h3>Tin mới nhất</h3> </div>
+                                        <ul class="featured-list">
+
+                                            @{ Html.RenderAction("RightLastestNews", "News", new { MaxLastestNews = 6, CategoryId = 90, CateName="Tin tức" }); }
+                                        </ul>
+                                    </div>
+
+                                   
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+    
+</div><!-- .site-content -->

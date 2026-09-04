@@ -1,0 +1,69 @@
+﻿@using DATA
+@model List<City>
+
+<table class="table table-striped table-bordered table-hover dataTable no-footer" id="dataTables">
+    <thead>
+        <tr class="rowsao">
+            <th>Thứ tự </th>
+
+            <th>Tên</th>
+            <th>Tên TA</th>
+
+        </tr>
+    </thead>
+    @if (Model != null && Model.Count > 0)
+    {
+        foreach (var obj in Model)
+        {
+            <tr>
+                <td>@obj.OrderSort</td>
+                <td><a href="@Url.Action("Info",new { id=obj.Id})">@obj.Name</a></td>
+
+                <td>@obj.NameEn</td>
+
+
+
+
+
+
+            </tr>
+        }
+    }
+</table>
+<script type="text/javascript">
+    var PageOnSize = '@ViewBag.PageSize';
+    var CurrentPage = '@ViewBag.CurrentPage';
+    function BindDataRequest(currentPage) {
+        var params = {
+            status: $('#ddlActive :selected').val(),
+            currentPage: currentPage,
+            pageSize: PageOnSize
+        };
+        var urlRequestAns = "/AdminCity/ListCity";
+        Utils.Loading();
+        $.ajax({
+            type: 'GET',
+            url: urlRequestAns,
+            data: params,
+            success: function (data) {
+                $("#ListCity").html(data);
+                Utils.UnLoading();
+            },
+            error: function () {
+                Utils.UnLoading();
+            }
+        });
+    };
+    $(document).ready(function () {
+
+
+        $("#pager").pager({
+            pagenumber: CurrentPage,
+            pagecount: Math.ceil('@ViewBag.TotalRecord' / PageOnSize),
+            buttonClickCallback: function (page) { BindDataRequest(page); }
+        });
+
+
+    });
+
+</script>

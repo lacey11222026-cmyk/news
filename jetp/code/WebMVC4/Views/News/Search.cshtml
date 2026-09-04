@@ -1,0 +1,168 @@
+﻿@using BIZ
+@using BIZ
+@using UTILS
+@using WebMVC4.Helper
+@model WebMVC4.Models.NewsModel
+@{
+    var langpage = WorkContext.GetLanguage();
+}
+@if (Model != null)
+{
+    <div class="section-news">
+        <section class="section-intro-1" style="background-image: url('/Content/images/bg-intro-1.png');">
+            <div class="container">
+                <div class="content">
+                    <div class="title">
+                        <h1>@Resources.Global.MenuSearch</h1>
+                        <div class="breadcrumbs-02">
+                            <ul>
+                                <li><a href="/">@Resources.Global.Home</a></li>
+                                <li><span>@Resources.Global.MenuSearch</span></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="section-news-2 mt50 pb100">
+            <div class="container">
+                <div class="content">
+                    <div class="mt30 ">
+                        <div class="text-center document-search">
+
+                            <div class="form-group">
+                                <label class="">@Resources.Global.Keyword</label>
+                                <input id="txtkeyword" class="form-control" type="text" value="@ViewBag.keyword" width="100">
+                            </div>
+
+                            <div class="form-group">
+                                <label>@Resources.Global.FromDate</label>
+                                <input id="txtfromdate" placeholder="dd/MM/yyyy" value="@ViewBag.fromdate" class="form-control" width="80">
+                            </div>
+                            <div class="form-group">
+                                <label>@Resources.Global.ToDate</label>
+                                <input id="txttodate" placeholder="dd/MM/yyyy" value="@ViewBag.todate" class="form-control" width="80">
+                            </div>
+
+                            <div>
+                                <button class="btn-cm btn-blue" onclick="searchnews();">
+                                  
+                                    <span>@Resources.Global.MenuSearch</span>
+                                </button>
+                                @*<a href="javascript:;" onclick="searchnews();" class="btn-green">@Resources.Global.MenuSearch</a>*@
+                            </div>
+                            @*<button type="button" onclick="searchnews();" class="btn-search">@Resources.Global.MenuSearch</button>*@
+
+                        </div>
+                    </div>
+                    <div style="display: none">
+                        <label class="">Chuyên mục</label>
+                        @Html.DropDownList("drlCategory", new SelectList(ViewBag.CategoryList as System.Collections.IEnumerable, "Id", "Name", ViewBag.CategoryId), new { @class = "form-control" })
+                    </div>
+                    @if (Model.listdata != null)
+                    {
+                        if (Model.listdata.Count > 0)
+                        {
+                            <div class="news-list">
+                                @foreach (var item in Model.listdata.Select((value, i) => new { i, value }))
+                                {
+                                    <div>
+                                        <div class="news-item">
+                                            <a href="@item.value.LinkUrl" class="picture"><img src="@item.value.MainImage?w=372&h=248&mode=crop"></a>
+                                            <div class="desc">
+                                                <div class="v-card">
+                                                    <div class="time-read">
+                                                        <i class="fa-regular fa-clock"></i>
+                                                        <span>@item.value.PublishDate.ToString("dd/MM/yyyy")</span>
+                                                    </div>
+                                                </div>
+                                                <h3><a href="@item.value.LinkUrl">@item.value.Title</a></h3>
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+                            </div>
+                            <nav data-aos="fade-up" aria-label="navigation" class="navigation-nav aos-init mt50">
+                                <ul class="pagination page-numbers">
+                                    @{Html.RenderPartial("Pagination", new WebMVC4.Models.PaginationInfo
+                                        {
+                                            PageUrl = Url.SetParameter("Page", "!0"),
+                                            CurrentPage = Model.pageIndex,
+                                            PageSize = Model.pageSize,
+                                            TotalItemCount = Model.total,
+                                        }); }
+
+                                </ul>
+                            </nav>
+                        }
+                    }
+                </div>
+            </div>
+        </section>
+    </div>
+
+
+    <style>
+        .document-search {
+            display: flex;
+            align-items: center;
+            justify-content: space-around;
+            margin-left: -10px;
+            margin-right: -10px;
+            margin-bottom:30px;
+        }
+
+            .document-search > div {
+                padding-left: 8px;
+                padding-right: 8px;
+            }
+
+            .document-search .form-group {
+                display: flex;
+                align-items: center;
+                margin-bottom: 0;
+            }
+
+            .document-search .form-control {
+                width: calc(100% - 100px);
+                margin-left: 8px;
+            }
+
+            .document-search .btn-green {
+                width: 130px;
+                padding: 10px;
+            }
+
+            .document-search .form-group label {
+                font-weight: bold;
+            }
+        .btn-cm {
+            padding: 8px 12px;
+            width:142px;
+        }
+
+            @@media(max-width:767px) {
+                .document-search .form-group {
+                    width: 100%;
+                    margin-bottom: 10px;
+                }
+
+                .document-search {
+                    flex-wrap: wrap;
+                }
+            }
+    </style>
+
+    <script src="~/Scripts/jquery.query.js"></script>
+    <script type="text/javascript">
+
+
+        function searchnews() {
+            var keyword = $("#txtkeyword").val();
+            var fromdate = $("#txtfromdate").val();
+            var todate = $("#txttodate").val();
+            var cateid = $('#drlCategory option:selected').val();
+            window.location = jQuery.query.set("q", keyword).set("fromdate", fromdate).set("todate", todate).set("categoryid", cateid).set("Page", "1");
+        }
+    </script>
+}

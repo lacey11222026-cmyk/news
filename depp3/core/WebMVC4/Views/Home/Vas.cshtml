@@ -1,0 +1,130 @@
+﻿@using BIZ
+@using UTILS
+@using WebMVC4.Helper
+@{
+    var langpage = WorkContext.GetLanguage();
+}
+
+<div class="bnr-detail">
+    @{Html.RenderAction("BannerTop", "Home", new { Type = 9 });}
+    <div class="bnr-detail-inner">
+        <div class="container">
+            @if (langpage == "vi-vn")
+            {
+                <h2>Chương trình Thỏa thuận tự nguyện <br />về tiết kiệm năng lượng </h2>
+            }
+            else
+            {
+                <h2>Voluntary Agreement Scheme <br />on Energy Efficiency<br /> in Energy Intensive Industries</h2>
+            }
+
+        </div>
+    </div>
+</div>
+<div class="container mt20">
+    <div class="breadcrumbs">
+        <ul>
+            <li><a href="/">@Resources.Global.Home</a></li>
+            <li><span>VAS</span></li>
+        </ul>
+    </div>
+    <p class="date mt10">@DateTime.Now.ToString("HH:mm")   |   @DateTime.Now.ToString("dd/MM/yyyy")</p>
+
+    @if (langpage == "vi-vn")
+    {
+        { Html.RenderAction("Intro", "Home", new { CategoryId = 105 }); }
+    }
+    else
+    {
+        { Html.RenderAction("Intro", "Home", new { CategoryId = 106 }); }
+    }
+</div><!-- end -->
+
+
+<div class="vas-about-us pt100">
+    <div class="container">
+        @if (langpage == "vi-vn")
+        {
+            <h2 class="vas-title text-center">phản hồi của <br class="block-767">doanh nghiệp</h2>
+        }
+        else
+        {
+            <h2 class="vas-title text-center">ENTERPRISES’ FEEDBACK</h2>
+        }
+
+        @{ Html.RenderAction("TopMission2", "Home", new { lang = langpage }); }
+    </div>
+</div>
+
+<script type="text/javascript">
+    // Slider
+    $(document).ready(function () {
+        // Ẩn nội dung và nút "Ẩn" ban đầu
+        $('.viewmore-content').hide();
+        $('.hidden-btn').hide();
+
+        // Sự kiện khi click "Xem thêm"
+        $('.viewmore-btn a').click(function (e) {
+            e.preventDefault();
+            $('.viewmore-content').slideDown('fast', function () {
+                $('.viewmore-btn').fadeOut('fast', function () {
+                    $('.hidden-btn').fadeIn('fast');
+                });
+            });
+        });
+
+        // Sự kiện khi click "Ẩn"
+        $('.hidden-btn a').click(function (e) {
+            e.preventDefault();
+            $('.viewmore-content').slideUp('fast', function () {
+                $('.hidden-btn').fadeOut('fast', function () {
+                    $('.viewmore-btn').fadeIn('fast');
+                });
+            });
+        });
+
+        // Slider
+        $('.sliderAboutUs').slick({
+            dots: true,
+            arrows: true,
+            infinite: true,
+            speed: 300,
+            slidesToShow: 1,
+            adaptiveHeight: true,
+        });
+        $('.sliderCenter').slick({
+            dots: true,
+            arrows: false,
+            infinite: true,
+            speed: 300,
+            slidesToShow: 1,
+            adaptiveHeight: true
+        });
+    });
+</script>
+<script type="text/javascript">
+
+ $('#menu_' + '@ViewBag.CurrentCategoryId').addClass("active");
+
+
+
+
+</script>
+<style>
+    .bnr-detail h2 {
+        font-size: 24px;
+    }
+
+    .slick-dots li button:before {
+        color: #ccc !important;
+    }
+
+    .vas-info {
+        border-bottom: none;
+    }
+
+    .slick-slide img {
+        width: 100% !important;
+        height: auto !important;
+    }
+</style>

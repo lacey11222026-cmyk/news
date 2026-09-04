@@ -1,0 +1,64 @@
+﻿<div class="col-md-4 col-sm-12 col-xs-12 sidebar-right">
+    <div class="row">
+        <div class="info col-md-12 hidden-sm hidden-xs">
+            @if (Request.IsAuthenticated)
+            {
+
+
+                <ul>
+                    <li><span class="text-bold">Xin chào : </span>@Context.User.Identity.Name</li>
+                    <li><a href="@Url.Action("LogOff", "Account")" class="text-bold">Thoát</a></li>
+                    <li><a href="http://mail.vuit.org.vn/" target="_blank" class="text-bold">Thư điện tử</a></li>
+                </ul>
+            }
+
+
+
+        </div>
+        <div class="notify mt40 col-md-12 col-sm-6 col-xs-12" id="newitem_1">
+            <a href="/tin-tuc/c101/thong-bao-chung.html" class="title-cm">THÔNG BÁO CHUNG</a>
+            @{Html.RenderAction("LastestNews2", "Home", new {CategoryId = 101, MaxLastestNews = 3});}
+        </div>
+        <div class="notify-02 mt40 col-md-12 col-sm-6 col-xs-12" id="newitem_2"> 
+            <a href="/tin-tuc/c94/thong-bao-giao-ban.html" class="title-cm">THÔNG BÁO GIAO BAN</a>
+            @{Html.RenderAction("LastestNews2", "Home", new {CategoryId = 94, MaxLastestNews = 3});}
+        </div>
+        <div style="clear: both"></div>
+        <div class="training mt40 col-md-12 col-sm-6 col-xs-12" id="newitem_3">
+            <a href="/tin-tuc/c95/hoc-tap-dao-tao.html" class="title-cm">HỌC TẬP, ĐÀO TẠO</a>
+            @{Html.RenderAction("LastestNews2", "Home", new {CategoryId = 95, MaxLastestNews = 2});}
+        </div>
+        <div class="empower mt40 col-md-12 col-sm-6 col-xs-12" id="newitem_4">
+            <a href="/tin-tuc/c96/uy-quyen.html" class="title-cm">ỦY QUYỀN</a>
+            @{Html.RenderAction("LastestNews2", "Home", new {CategoryId = 96, MaxLastestNews = 2});}
+        </div>
+		 <div class="bad-news mt40 col-md-12 col-sm-6 col-xs-12" id="badnews">
+            <a href="#" class="title-cm">TIN BUỒN</a>
+            @{Html.RenderAction("LastestNews2", "Home", new { CategoryId = 97, MaxLastestNews = 1 });}
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+
+    function setheigh_news() {
+        var height1 = $('#newitem_1 ul').height();
+        var height2 = $('#newitem_2 ul').height();
+       
+        if (height1 > height2) {
+            $('#newitem_2 ul').height(height1);
+        } else {
+            $('#newitem_1 ul').height(height2);
+        }
+		
+		var height3 = $('#newitem_3 ul').height();
+        var height4 = $('#newitem_4 ul').height();
+       
+        if (height3 > height4) {
+            $('#newitem_4 ul').height(height3);
+        } else {
+            $('#newitem_3 ul').height(height4);
+        }
+    }
+    setheigh_news();
+
+</script>

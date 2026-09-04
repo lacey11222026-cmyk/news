@@ -1,0 +1,23 @@
+﻿@using BIZ
+@using UTILS
+@using WebMVC4.Helper
+@model WebMVC4.Models.LastestNewModel
+@if (Model != null)
+{
+
+    <div class="container">
+        <h2 class="outstanding-title"><a href="@Model.Url">@Model.HeaderTitle</a></h2>
+        <ul class="outstanding-list mt40 row justify-content-center">
+            @foreach (var item in Model.lstdata.Select((value, i) => new { i, value }))
+            {
+
+                <li class="col-md-4 col-sm-4 col-6">
+                    <a href="@item.value.LinkUrl" class="outstanding-item">
+                        <div class="outstanding-img"><img src="@item.value.MainImage?w=361&h=247&mode=crop"></div>
+                        <span class="mt20">@item.value.Title</span>
+                    </a>
+                </li>
+            }
+        </ul>
+    </div>
+}

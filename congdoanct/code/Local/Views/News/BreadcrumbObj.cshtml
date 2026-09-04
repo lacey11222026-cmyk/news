@@ -1,0 +1,14 @@
+﻿@using BIZ
+@using UTILS
+@using Local.Helper
+@model BIZ.Entity.CATEGORY_FULL
+
+@if (Model != null)
+{
+    
+    <div class="box_in w753">
+        <div class="text_w"><a href="@Utils.FormatUrlRewriteByType(Model.Id, Model.Name, (int)Model.Type)">@Model.Name</a></div>
+    </div>
+    <div class="clear"></div>
+@*<div class="cate"><span class="tittle_t"><a href="@Utils.FormatUrlRewriteByType(Model.Id, Model.Name, (int)Model.Type)"></a></span></div>*@
+}

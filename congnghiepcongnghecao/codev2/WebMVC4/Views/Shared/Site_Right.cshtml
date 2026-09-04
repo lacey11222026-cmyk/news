@@ -1,0 +1,20 @@
+﻿<div class="row">
+    <ul class="bnr-linkhot ">
+        @{Html.RenderAction("BannerRight", "Home", new { top = 2 });}
+    </ul>
+    <div class="col-md-12 col-sm-6 col-xs-12 mt10">
+        @{Html.RenderAction("RightLastestNews", "News", new { MaxLastestNews = 6, CateName = "Tin mới", CategoryId = 0 });}
+    </div>
+    <div class="col-md-12 col-sm-6 col-xs-12 box-document mt20">
+        @{Html.RenderAction("TopDocument", "Home");}
+    </div>
+    <ul class="col-md-12 bnr-link hidden-sm">
+        @{Html.RenderAction("BannerRight2", "Home");}
+    </ul>
+    
+    <div class="col-md-12 col-sm-6 col-xs-12">
+        <div class="document-suport ml0 mt0">
+            @Html.Partial("_DocMenu")
+        </div>
+    </div>
+</div>

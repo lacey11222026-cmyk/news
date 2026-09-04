@@ -1,0 +1,87 @@
+﻿@using BIZ
+@using UTILS
+@using WebMVC4.Helper
+@model List<BIZ.Entity.CONTENT_FULL>
+<div class="container">
+    <div class="col-lg-8 col-sm-7 col-md-8 col-xs-12 padding-0">
+        <h3>@Resources.Global.SiteTitle</h3>
+        <p>@Resources.Global.SiteDescription</p>
+    </div>
+
+    <ul class="breadcrumb col-lg-12 col-sm-12 col-xs-12">
+        <li><a href="/">@Resources.Global.Home</a></li>
+        <li><a href="/video">Video</a></li>
+    </ul>
+</div>
+@if (Model != null)
+{
+
+    if (Model.Count > 0)
+    {
+
+
+        <div class="container">
+            <div class="page-content category">
+                <div id="column-left" class="col-sm-3 hidden-xs">
+                    @{Html.RenderAction("Menu", "Product");}
+
+                </div>
+                <div id="content" class="col-sm-9">
+                    <h2>@ViewBag.CateName</h2>
+                    <div class="row">
+                        <div class="col-sm-10"></div>
+                    </div>
+                    <hr>
+
+
+                    <br />
+                    <div id="products_listing">
+                        <div class="row content_news">
+                            @foreach (var item in Model.Select((value, i) => new { i, value }))
+                            {
+
+                                <div class="form-group col-lg-6 text-center custom-blog">
+                                    <div class="col-md-12 center">
+                                        <div class="containervideo">
+                                            <iframe src="//www.youtube.com/embed/@item.value.Url" class="video"></iframe>
+                                        </div>
+                                       
+                                    </div>
+                                    <div class="col-md-12" style="text-align:left">
+                                        <h4><a title="@item.value.Title " href="@Utils.FormatUrlRewrite(item.value.Id, item.value.Title, "VideoDetail")">@item.value.Title </a></h4>
+                                        <p class="content-clear">
+                                            @item.value.IntroText
+                                        </p>
+                                        
+                                    </div>
+                                </div>
+
+
+                            }
+                        </div>
+
+
+
+                    </div>
+
+                    <div class="row">
+                        <div class="col-sm-6 text-left"></div>
+                        <div class="col-sm-6 text-right">
+                            <ul class="paging">
+                                @{Html.RenderPartial("Pagination", new WebMVC4.Models.PaginationInfo
+                                    {
+                                        PageUrl = Url.SetParameter("Page", "!0"),
+                                        CurrentPage = ViewBag.Page,
+                                        PageSize = ViewBag.PageSize,
+                                        TotalItemCount = ViewBag.Total,
+                                    }); }
+                            </ul>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+                                        }
+                                    }
+

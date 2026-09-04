@@ -1,0 +1,36 @@
+﻿@using BIZ
+@using UTILS
+@using WebMVC4.Helper
+@model DATA.Album
+@if (Model != null)
+{
+
+    <div class="news-page pt70 pb70 container">
+        @{Html.RenderAction("Breadcrumb", "News", new { CategoryId = Model.CategoryId });}
+        <h3 class="big-name mt50">@Model.Title</h3>
+        <div class="mt50 news-list">
+            <div class="gallery grid-3 img-list mt30">
+                @foreach (BIZ.Entity.AlbumImage item in ViewBag.ImgList)
+                {
+                    <div class="news-item">
+                        <a href="@item.Name" class="glightbox">
+                            <img src="@item.Name?w=398&h=224&mode=crop" alt="@item.Text" />
+                        </a>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+
+    <link rel="stylesheet" href="/Content/css/glightbox.min.css" />
+    <script src="/Content/js/glightbox.min.js"></script>
+    <script>
+        const lightbox = GLightbox({
+            selector: '.glightbox'
+        });
+    </script>
+
+}
+
+
+

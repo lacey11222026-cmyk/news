@@ -1,0 +1,101 @@
+﻿@model WebEN.Models.BusInfoModel
+@using  WebEN.Helper
+
+@{
+    Layout = "~/Views/Shared/_Layout3.cshtml";
+}
+
+<img src="/images/timkiem.jpg" />
+<div class="clear"></div>
+<table class="bgt-table-search">
+    <tr>
+        <td>Thành phố</td>
+        <td>@Html.DropDownList("cityId", new SelectList(new[] { new { Id = "1", Name = "Hà Nội" }, new { Id = "2", Name = "TP Hồ Chí Minh" } }, "Id", "Name"))</td>
+    </tr>
+    <tr>
+        <td width="80">
+            Số hiệu tuyến
+        </td>
+        <td>
+            @Html.DropDownList("BusCode", "-- Tất cả --")
+            <button onclick="findByCode();" class="btn-search" style="margin-top:0;">Tìm kiếm</button>
+        </td>
+    </tr>
+    <tr>
+        <td>Tên đường</td>
+        <td>@Html.TextBox("keyword") <button onclick="findByRoad();" class="btn-search" style="margin:0 5px;">Tìm kiếm</button></td>
+    </tr>
+</table>
+
+@if (Model.ListData != null)
+{
+    <h2 class="bus">Lộ trình các tuyến xe bus @ViewBag.CityName</h2>
+    <div class="clear"></div>
+    <table style="margin: 10px auto 0 auto; background-color:#ddd;" border="0" cellpadding="5" cellspacing="1" class="main-table-bgt table table-hover table-striped table-bordered">
+        <tbody>
+            <tr>
+                <td class="hang2" bgcolor="#eee" width="83">SỐ HIỆU TUYẾN</td>
+                <td class="hang2" bgcolor="#eee" width="202">TÊN TUYẾN / THỜI GIAN HOẠT ĐỘNG</td>
+                <td class="hang2" bgcolor="#eee" width="212">LƯỢT ÐI QUA CÁC ĐƯỜNG PHỐ CHÍNH</td>
+                <td class="hang2" bgcolor="#eee" width="205">LƯỢT VỀ QUA CÁC ĐƯỜNG PHỐ CHÍNH</td>
+            </tr>
+            @foreach (var item in Model.ListData)
+            {
+                <tr>
+                    <td class="hang1">@item.Number</td>
+                    <td class="hang1">
+                        <strong>@item.Name</strong>&nbsp;<br />
+                        @item.ActivityTime<br />
+                        @item.Frequency<br />
+                        @Html.Raw(item.OtherInfo)
+                    </td>
+                    <td class="hang1">@item.TurnOn</td>
+                    <td class="hang1">@item.TurnOff</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <br>
+    <div class="ctpaging">
+
+        <ul class="paging">
+            @{Html.RenderPartial("Pagination", new WebEN.Models.PaginationInfo
+                                                       {
+                                                           PageUrl = Url.SetParameter("page", "!0"),
+                                                           CurrentPage = Model.PageIndex,
+                                                           PageSize = Model.PageSize,
+                                                           TotalItemCount = Model.Total,
+                                                       }); }
+        </ul>
+
+    </div>
+}
+<div class="clear"></div>
+<br />
+<br />
+<script type="text/javascript">
+    function findByCode() {
+        var code = $('#BusCode option:selected').val();
+        window.location = jQuery.query.set("BusCode", code).remove("keyword").remove("page");
+    }
+
+    function findByRoad() {
+        var s = $('#keyword').val();
+        window.location = jQuery.query.set("keyword", s).remove("BusCode").remove("page");
+    }
+
+    $(function () {
+        $("#cityId").change(function () {
+            var cityId = $("#cityId option:selected").val();
+            window.location = jQuery.query.set("cityId", cityId).remove("keyword").remove("BusCode").remove("page");
+        });
+
+        $('#keyword').keydown(function (e) {
+            if (e.keyCode == 13) {
+                findByRoad();
+            }
+        });
+    });
+
+
+</script>

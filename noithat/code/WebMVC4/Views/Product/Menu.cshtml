@@ -1,0 +1,21 @@
+﻿@using BIZ.Entity
+@using UTILS
+@using WebMVC4.Helper
+@model List<CATEGORY_FULL>
+
+
+
+@foreach (var item in Model.Where(x => x.ParentId == 0).Select((value, i) => new { i, value }))
+{
+    <li class="cat-item cat-item-@item.value.Id current-cat cat-parent">
+        <a id="menu-@(item.value.Id)" href="@Utils.FormatUrlRewriteByType(item.value.Id, item.value.Name, int.Parse(item.value.Type.ToString()), item.value.Link)">@item.value.Name</a>
+
+        <ul class="children">
+            @foreach (var sub in Model.Where(x => x.ParentId == item.value.Id).Select((value, i) => new { i, value }))
+            {
+                <li class="cat-item cat-item-@sub.value.Id" id="submenu-@(sub.value.Id)"><a href="@Utils.FormatUrlRewriteByType(sub.value.Id, sub.value.Name, int.Parse(sub.value.Type.ToString()), sub.value.Link)">@sub.value.Name</a> </li>
+            }
+        </ul>
+    </li>
+
+}

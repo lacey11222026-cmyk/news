@@ -1,0 +1,172 @@
+﻿@{
+   
+    Layout = "~/Views/Shared/_AdminV2.cshtml";
+    
+}
+@using BIZ
+@using UTILS
+@using CMS.Helper
+@model CMS.Models.ViewUserDetail
+<link href="/Styles/admin/css/blue/tab.css" rel="stylesheet" type="text/css" />
+<div class="onecolumn" id="product-tabs">
+    <div class="header">
+        <span>@ViewBag.Title</span>
+        <div class="menuitem">
+        <ul>
+            <li><a href="#tabs-info">Thông tin cơ bản</a></li>
+
+            <li><a href="#tabs-role">Quyền</a></li>
+            <li><a href="#tabs-cate">Chuyên mục</a></li>
+
+
+        </ul>
+    </div>
+    </div>
+    
+    <br class="clear">
+    <div class="content">
+        <div class="login" id="tabs-info">
+            <div class="login-left">
+                @Html.Label("Tên đăng nhập:")
+            </div>
+            <div class="login-right">
+                @Html.Label("UserName", Model.user.UserName)
+            </div>
+            <div class="clear">
+            </div>
+            <div class="login-left">
+                @Html.Label("Mật khẩu:")
+            </div>
+            <div class="login-right">
+                @Html.Password("NewPassword")
+            </div>
+            <div class="clear">
+            </div>
+            <div class="login-left">
+                @Html.Label("Xác nhận mật khẩu:")
+            </div>
+            <div class="login-right">
+                @Html.Password("ConfirmPassword")
+            </div>
+            <div class="clear">
+            </div>
+
+            <div class="button_login">
+
+                <input type="button" onclick="changepass('@Model.user.UserName')" value="Đổi mật khẩu">
+            </div>
+            <br class="clear" />
+
+            <div class="login-left">
+                @Html.Label("Email:")
+            </div>
+            <div class="login-right">
+                @Html.TextBox("Email", Model.user.Email)
+            </div>
+            <div class="clear">
+            </div>
+            <div class="login-left">
+                @Html.Label("Ngày tạo:")
+            </div>
+            <div class="login-right">
+                @Model.user.CreationDate
+            </div>
+            <div class="clear">
+            </div>
+            <div class="login-left">
+                @Html.Label("Lần đăng nhập trước:")
+            </div>
+            <div class="login-right">
+                @Model.user.LastLoginDate
+            </div>
+            <div class="clear">
+            </div>
+            <div class="login-left">
+                @Html.Label("Lần đăng thay mật khẩu trước:")
+            </div>
+            <div class="login-right">
+                @Model.user.LastPasswordChangedDate
+            </div>
+            <div class="clear">
+            </div>
+        </div>
+        <div class="login" id="tabs-role" style="width: 800px;">
+            @foreach (string role in Model.rolenames)
+            {
+                <div style="float: left; width: 300px;">
+                    @if (Model.user_roles.Contains(role))
+                    {
+                        <input type="checkbox" onclick="setRole('@Model.user.UserName    ','@role    ');" checked="checked" class="chkRole" /> @role
+                    }
+                    else
+                    {
+                        <input type="checkbox"  value="@role" onclick="setRole('@Model.user.UserName    ','@role    ');" class="chkRole" />  @role
+                    }
+                </div>
+            }
+        </div>
+        <div class="login" id="tabs-cate" >
+             @{Html.RenderAction("UserEditCategory", "System", new { Username = Model.user.UserName });}
+        </div>
+        <br class="clear" />
+    </div>
+</div>
+
+
+
+<script type="text/javascript">
+    function Close() {
+        window.location.href = "@Url.Action("Users", "System")";
+    }
+    $(document).ready(function () {
+        $('#menu_user').click();
+        $('#product-tabs').tabs();
+    });
+    function changepass(username) {
+        if(confirm("Bạn có chắc chắn muốn đổi mật khẩu"))
+        {
+            var newPassword = $('#NewPassword').val();
+            validateForm();
+            $.post('@Url.Action("UserChangPass", "System")',
+                { "username": username, "newPassword": newPassword },
+                function (data) {
+                    Close();
+                });
+
+        }
+    }
+    function setRole(username, rolename) {
+        if(confirm("Bạn có chắc chắn muốn thêm/xóa quyền"))
+        {
+            $.post('@Url.Action("UserSetRole", "System")',
+                { "username": username, "rolename": rolename },
+                function (data) {
+                    alert(data);
+                });
+
+        }
+    }
+    function validateForm() {
+        var NewPassword = $('#NewPassword').val();
+        var ConfirmPassword = $('#ConfirmPassword').val();
+
+        if (NewPassword == "") {
+            alert('Mật khẩu không được trống');
+            $('#NewPassword').focus();
+            return false;
+        }
+        if (NewPassword.length < 6) {
+            alert('Mật khẩu phải trên 6 kí tự');
+            $('#NewPassword').focus();
+            return false;
+        }
+        if (NewPassword != ConfirmPassword) {
+            alert('Mật khẩu không hợp lệ');
+            $('#ConfirmPassword').focus();
+            return false;
+        }
+
+        return true;
+
+    }
+</script>

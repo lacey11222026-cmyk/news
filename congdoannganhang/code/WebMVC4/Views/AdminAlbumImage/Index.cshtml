@@ -1,0 +1,598 @@
+﻿@{
+
+    Layout = "~/Views/Shared/_AdminV2.cshtml";
+    ViewBag.Title = "Danh sách album";
+}
+<script src="~/Administrator/Scripts/jquery.table2excel.js"></script>
+<div class="row">
+    <div class="col-lg-12">
+        <div class="panel panel-primary">
+            <div class="panel-heading"><span class="glyphicon glyphicon-user"></span>@ViewBag.Title</div>
+            <div class="panel-body">
+                <div class="row" id="form">
+                  
+
+                    <div class="form-group col-md-3 col-xs-12 col-sm-6">
+                        <select class="form-control" id="ddlStatus">
+                            <option value="-100">Trạng thái</option>
+                            @*<option value="-1">Đợi xuất bản</option>*@
+                            <option value="0">Khoá</option>
+                            <option value="1">Vòng Dự thi</option>
+                            @*<option value="2">Vòng bình chọn</option>*@
+                            @*<option value="3">Kết quả chung cuộc</option>*@
+                        </select>
+                    </div>
+                    <div class="form-group col-md-3 col-xs-12 col-sm-6">
+                        <input type="text" id="txtKeyword" class="form-control" placeholder="Nhập từ khóa">
+                    </div>
+                    <div class="form-group col-md-3 col-xs-12 col-sm-6" style="display:none">
+                        <select class="form-control" id="ddlType">
+                            <option value="-1">--Chủ đề--</option>
+                            <option value="1">Công việc</option>
+                            <option value="2">Gia đình</option>
+
+                        </select>
+                    </div>
+                    <div class="form-group col-md-3 col-xs-12 col-sm-6">
+                        <select class="form-control" id="ddlOrder">
+                            <option value="PublishDate DESC">Mới nhất</option>
+                            <option value="Point DESC">Điểm</option>
+                            <option value="TotalVote DESC">Lượt bình chọn </option>
+                            <option value="Point1 DESC">Điểm đoàn viên</option>
+                            <option value="TotalVote1 DESC">Lượt bình chọn đoàn viên</option>
+                            <option value="Point2 DESC">Điểm công đoàn</option>
+                            <option value="TotalVote2 DESC">Lượt bình chọn công đoàn</option>
+                        </select>
+                    </div>
+
+
+                    <div class="form-group submit col-md-3 col-xs-12 col-sm-6">
+                        <button type="button" id="btnSearch" class="btn btn-info"><i class="fa fa-search"></i>Tìm Kiếm</button>
+                        <a id="btnCreate" href="@Url.Action("AddEdit",new {id=0 })" class="btn btn-success"><i class="fa fa-user-plus"></i>Thêm Mới</a>
+                        <button type="button" id="btn_export" class="btn btn-success"><i class="fa fa-file-excel-o"></i>Download</button>
+                    </div>
+
+                </div>
+            </div>
+            <div class="table-responsive">
+                <div id="dgrid" class="dataTables_wrapper form-inline" role="grid">
+                    <div id="ListAlbum">
+                        @Html.Action("ListAlbum")
+                    </div>
+
+                    <div class="dataTables_paginate" id="pager">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $('#menu_albumimage').addClass("active");
+    $('#menu_6').addClass("active");
+</script>
+<script type="text/javascript">
+        $(document).ready(function () {
+           $("#btn_export").click(function () {
+            $("#dataTables").table2excel({
+                exclude: ".noExl",
+                name: "Album",
+                filename: "Album",
+                fileext: ".xls",
+                exclude_img: true,
+                exclude_links: true,
+                exclude_inputs: true
+            });
+            });
+
+            var parameters = {
+            };
+            $("#form").keypress(function (event) {
+                if (event.which == 13) {
+                    $("#btnSearch").click();
+                }
+            });
+            $("#btnSearch").click(function () {
+                GetList(1);
+            });
+            $("#ddlStatus").change(function () {
+                GetList(1);
+            });
+            $("#ddlOrder").change(function () {
+                GetList(1);
+            });
+            $("#ddlType").change(function () {
+                GetList(1);
+            });
+            function GetList(currentPage) {
+                parameters = {
+                    title: $("#txtKeyword").val(),
+                    status: $('#ddlStatus :selected').val(),
+                    type: $('#ddlType :selected').val(),
+                    order: $('#ddlOrder :selected').val(),
+                    currentPage: currentPage,
+                };
+                btnSearch(currentPage);
+            };
+            function btnSearch(currentPage) {
+                Utils.Loading();
+                var urlRequestAns = "@Url.Action("ListAlbum")";
+                $.ajax({
+                    type: 'GET',
+                    url: urlRequestAns,
+                    data: parameters,
+                    success: function (data) {
+                        $("#ListAlbum").html(data);
+                        Utils.UnLoading();
+                    },
+                    error: function () {
+                        Utils.UnLoading();
+                    }
+                });
+            }
+
+        });
+
+</script>
+
+@*<script type="text/javascript">
+        var redirectUrl = '@Url.Action("AddEdit","AdminAlbumImage")';
+        var page_index = 1;
+        var page_size = 10;
+        var imageBaseUrl = '@ViewBag.ImageUrl';
+        var IsCompetition = '@ViewBag.IsCompetition';
+        var IsCompetitionCreate = '@ViewBag.IsCompetitionCreate';
+        $(document).ready(function () {
+            $("#txt_fromdate").datepicker({ dateFormat: "dd/mm/yy" });
+            $("#txt_todate").datepicker({ dateFormat: "dd/mm/yy" });
+            BindCategoriesToSelectBox();
+
+            BindPageSizeToSelectBox();
+
+            OnLoad(1);
+        });
+
+        function OnLoad(pi) {
+            page_index = pi;
+            $('#select_pagesize').show();
+            $('#paging_container').show();
+            $('#txt_filterbyname').val('');
+            Filter(pi);
+        }
+
+        function Filter(pi) {
+            //$('#select_pagesize').hide();
+            // $('#paging_container').hide();
+            page_index = pi;
+            var tit = $('#txt_filterbyname').val();
+            var fromdate = $('#txt_fromdate').val();
+            var todate = $('#txt_todate').val();
+            var cid = $('#select_filterbycategory option:selected').val();
+            var order = $('#select_order option:selected').val();
+            var status = $('#select_filterbystatus option:selected').val();
+            var type = $('#select_filterbytype option:selected').val();
+            $.Services({
+                element: $('#grid_items'),
+                loadingImg: '<tr><td colspan="8">Đang tải dữ liệu ...</td><tr>',
+                serviceName: 'AlbumImageService.ashx',
+                data: {
+                    __m: 'get_filter_albums',
+                    tit: tit,
+                    cid: cid,
+                    fromdate: fromdate,
+                    todate: todate,
+                    _pi: page_index,
+                    _ps: page_size,
+                    status: status,
+                    order: order,
+                    type: type
+                },
+                success: function (data) {
+                    var html = '<tr><td colspan="8">Không có ảnh nào</td><tr>';
+                    if (data != undefined && data != null && data != '') {
+                        var items = data.Items;
+                        var total = data.Total;
+                        html = BindData(items);
+                        RenderPaging(pi, page_size, total, Filter);
+                    }
+
+                    $('#grid_items').html(html);
+                }
+            });
+        }
+
+        function BindData(data) {
+            var html = '';
+            $.each(data, function (index, item) {
+
+
+                html += '<tr id="item' + item.Id + '">';
+                html += '<td align="center">';
+                html += '<input type="checkbox" name="chk_item" value="' + item.Id + '" />';
+                html += '</td>';
+
+                html += '<td>';
+                html += '<image src="' + item.Image + '?w=150&h=100&mode=crop" alt="' + item.Id + '" width="150px"  height="100px"></td>';
+
+
+
+                html += '<td>';
+                html += '<a href="' + redirectUrl + '?id=' + item.Id + '" alt="' + item.Id + '">';
+                html += strip(item.Name);
+                html += '</a>';
+                html += '</td>';
+
+                html += '<td>';
+                html += item.Code;
+                html += '</td>';
+
+                html += '<td>';
+                html += item.GroupName;
+                html += '</td>';
+
+                html += '<td>';
+                if (item.Type == 2)
+                    html += "Gia đình";
+                if (item.Type == 1)
+                    html += "Công việc";
+
+                html += '</td>';
+
+                html += '<td>';
+                html += dateFormat(item.PublishDate, 'dd/mm/yyyy');
+                html += '</td>';
+
+                html += '<td>';
+                html += item.Author;
+                html += '</td>';
+
+
+                html += '<td>';
+                html += item.Param;
+                html += '</td>';
+
+                html += '<td>';
+                html += item.TotalVote;
+                html += '</td>';
+
+                 html += '<td>';
+                html += item.Point;
+                html += '</td>';
+
+                html += '<td align="center">';
+                if (item.Status == 0)
+                    html += "Khoá";
+                if (item.Status == 1)
+                    html += "Vòng Dự thi";
+                if (item.Status == 2)
+                    html += "Vòng bình chọn";
+                if (item.Status == 3)
+                    html += "Kết quả chung cuộc";
+
+                if (item.Status == -1)
+                    html += "Đợi xuất bản";
+                html += '</td>';
+                html += '</tr>';
+            });
+
+            return html;
+        }
+
+        function RenderPaging(pageindex, pagesize, totalrecord, callback) {
+
+            var html = {
+                container: '<div class="pagination"></div>',
+                wrraper: '<div class="button2-left"><div class="page"></div></div>',
+                firstbtn: '<div class="button2-right"><div class="start"><a>Bắt đầu</a></div></div>',
+                prevbtn: '<div class="button2-right"><div class="prev"><a>Trước</a></div></div>',
+                nextbtn: '<div class="button2-left"><div class="next"><a>Tiếp</a></div></div>',
+                lastbtn: '<div class="button2-left"><div class="end"><a>Cuối cùng</a></div></div>'
+            }
+
+            if (totalrecord > page_size) {
+                $("#paging_container").pager({ pagenumber: pageindex, pagecount: Math.ceil(totalrecord / page_size), buttonClickCallback: callback, html: html });
+            }
+            else {
+                $("#paging_container").html("");
+            }
+
+        }
+
+        function strip(html) {
+            var tmp = document.createElement("DIV");
+            tmp.innerHTML = html;
+            return tmp.textContent || tmp.innerText || "";
+        }
+
+        function New() {
+            window.location.href = redirectUrl;
+        }
+
+        function Delete() {
+
+            DestroyJAlert();
+            var arr_checked_items = [];
+            $('input[type="checkbox"][name="chk_item"]:checked').each(function (i, e) {
+                arr_checked_items.push($(e).val());
+            });
+
+            if (arr_checked_items.length > 0) {
+                var confirmFunc = function () {
+                    $.Services({
+                        isCrossDomain: false,
+                        url: POST_URL + 'AlbumImageService.ashx',
+                        data: {
+                            __m: "delete",
+                            'id': arr_checked_items
+                        },
+                        success: function (data) {
+                            if (data != undefined && data != null && data != '') {
+                                var json_data = eval('(' + data + ')');
+
+                                if (json_data.Success) {
+                                    //$.jCache.setItem("LIST_ITEMS_PAGING_" + page_index + page_size, null);
+                                    OnLoad(1);
+                                }
+
+                                var jalert_type = "info";
+                                if (!json_data.Success)
+                                    jalert_type = "fatal";
+                                else {
+                                    $.each(arr_checked_items, function (index, item) {
+                                        $("grid_items").find('tr#item' + item).hide();
+                                    });
+
+                                }
+
+                                $('#jalert_notification').jAlert(json_data.Text, jalert_type, "edit", 400);
+                            }
+                        }
+                    });
+                };
+
+                OpenConfirmDialog('Bạn có muốn xóa ảnh này không ?', confirmFunc);
+            }
+            else {
+                $('#jalert_notification').jAlert('Bạn phải chọn ít nhất 1 album', "warning", "edit", 400);
+            }
+        }
+
+        function BindPageSizeToSelectBox() {
+            //select_pagesize
+            var html = '';
+            html += '<option value="10">10</option>';
+            html += '<option value="20">20</option>';
+            html += '<option value="30">30</option>';
+            html += '<option value="40">40</option>';
+            html += '<option value="50">50</option>';
+            html += '<option value="60">60</option>';
+            html += '<option value="70">70</option>';
+            html += '<option value="80">80</option>';
+            html += '<option value="90">90</option>';
+            html += '<option value="100">100</option>';
+
+            $('#select_pagesize').html(html).change(function () {
+                page_size = $('#select_pagesize option:selected').val();
+                OnLoad(1);
+            });
+        }
+
+        function BindCategoriesToSelectBox() {
+
+            $('#select_filterbycategory').html('<option value="0">- Tất cả chuyên mục -</option>');
+            $.Services({
+                serviceName: 'CategoryService.ashx',
+                data: {
+                    __m: 'get_all_categories',
+                    ctype: 0
+                },
+                success: function (data) {
+                    html = '';
+                    if (data != undefined && data != null && data != '') {
+                        $.each(data, function (i, item) {
+                            html = '<option value="' + item.Id + '">';
+                            if (item.NodeLevel != 0) {
+                                html += "";
+                                for (var i = 1; i < item.NodeLevel; i++) {
+                                    html += '-+&nbsp;';
+                                }
+                            }
+
+                            html += item.Name;
+                            html += '</option>';
+                            if (item.ParentId != 0) {
+                                if ($('#select_filterbycategory option[value=' + item.ParentId + ']').length)
+                                    $('#select_filterbycategory option[value=' + item.ParentId + ']').after(html);
+                                else
+                                    $('#select_filterbycategory').append(html);
+                            }
+                            else
+                                $('#select_filterbycategory').append(html);
+                        });
+                    }
+
+                }
+            });
+        }
+
+        function GetThumbnailUrl(id) {
+            var thumbnail = imageBaseUrl + Math.floor(id / 100000) + '/' + Math.floor(id / 100) + '/' + Math.floor(id) + '/thumb/';
+            return thumbnail;
+        }
+    </script>
+    <div id="toolbar-box">
+        <div class="t">
+            <div class="t">
+                <div class="t">
+                </div>
+            </div>
+        </div>
+        <div class="m">
+            <div class="toolbar" id="toolbar">
+                <table class="toolbar">
+                    <tr>
+                        <td class="button" id="toolbar-delete">
+                            <a class="toolbar" onclick="Delete();" href="javascript:void(0);">
+                                <span class="icon-32-delete"
+                                      title="Delete"></span>Xóa
+                            </a>
+                        </td>
+                        <td class="button" id="toolbar-new">
+                            <a class="toolbar" onclick="New();" href="javascript:void(0);">
+                                <span class="icon-32-new"
+                                      title="New"></span>Tạo mới
+                            </a>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div class="header icon-48-article">
+                Quản lý ảnh cuộc thi
+            </div>
+            <div class="clr">
+            </div>
+        </div>
+        <div class="b">
+            <div class="b">
+                <div class="b">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="clr">
+    </div>
+    <div id="element-box">
+        <div class="t">
+            <div class="t">
+                <div class="t">
+                </div>
+            </div>
+        </div>
+        <div class="m">
+            <div id="jalert_notification">
+                &nbsp;
+            </div>
+            <table>
+                <tr>
+                    <td width="100%">
+                        Từ khoá:
+                        <input id="txt_filterbyname" type="text" style="width: 250px;" />
+
+                        &nbsp;Từ ngày<input id="txt_fromdate" type="text" style="width: 80px;" />
+                        &nbsp;Đến ngày<input id="txt_todate" type="text" style="width: 80px;" />
+                        <input id="btn_search" type="button" value="Lọc" onclick="Filter(1);" />
+                        <input id="btn_clear" type="button" value="Làm lại" onclick="OnLoad(1);" />
+                    </td>
+                    <td nowrap="nowrap">
+                        Chuyên mục:
+                        <select id="select_filterbycategory" onchange="Filter();"></select>
+                    </td>
+                    <td nowrap="nowrap">
+                        Chủ đề:
+                        <select id="select_filterbytype" onchange="Filter();">
+                            <option value="-1">--Tất cả--</option>
+                            <option value="1">Công việc</option>
+                            <option value="2">Gia đình</option>
+
+
+                        </select>
+                    </td>
+                    <td nowrap="nowrap">
+                        Trạng thái:
+                        <select id="select_filterbystatus" onchange="Filter();">
+                            @if (ViewBag.IsCompetition)
+                            {
+                                <option value="-100">--Tất cả--</option>
+                                <option value="-1">Đợi xuất bản</option>
+                                <option value="0">Khoá</option>
+                                <option value="1">Vòng Dự thi</option>
+                                <option value="2">Vòng bình chọn</option>
+                                <option value="3">Kết quả chung cuộc</option>
+                            }
+                            else
+                            {
+
+                                <option value="-1">Đợi xuất bản</option>
+
+                            }
+
+                        </select>
+                    </td>
+                     <td nowrap="nowrap">
+                        Sắp xếp:
+                        <select id="select_order" onchange="Filter();">
+                            <option value="PublishDate DESC">Mới nhất</option>
+                            <option value="Point DESC">Nhiều điểm nhất</option>
+                            <option value="TotalVote DESC">Nhiều lượt bình chọn nhất</option>
+
+
+                        </select>
+                    </td>
+                </tr>
+            </table>
+            <table class="adminlist" cellpadding="1">
+                <thead>
+                    <tr>
+                        <th width="1%" class="title">
+                            #
+                        </th>
+                        <th width="12%" class="title" style="text-align: left">
+
+                        </th>
+                        <th width="20%" class="title" style="text-align: left">
+                            Mô tả Ảnh
+                        </th>
+                        <th width="3%" class="title" style="text-align: left">
+                            MS
+                        </th>
+                        <th width="12%" class="title" style="text-align: left">
+                            Đơn vị
+                        </th>
+                        <th width="6%" class="title" style="text-align: left">
+                            Chủ đề
+                        </th>
+                        <th width="6%" class="title" style="text-align: left">
+                            Ngày dự thi
+                        </th>
+                        <th width="7%" class="title" style="text-align: left">
+                            Tác giả
+                        </th>
+                        <th width="7%" class="title" style="text-align: left">
+                            Người tạo
+                        </th>
+                         <th width="4%" class="title" style="text-align: left">
+                            Bình chọn
+                        </th>
+                         <th width="4%" class="title" style="text-align: left">
+                           Tổng điểm
+                        </th>
+                        <th width="15%" class="title">
+                            Trạng thái
+                        </th>
+                    </tr>
+                </thead>
+                <tfoot>
+                    <tr>
+                        <td colspan="12">
+                            <del class="container">
+                                <div class="limit">
+                                    <select id="select_pagesize"></select>
+                                </div>
+                                <div id="paging_container">
+                                </div>
+                            </del>
+                        </td>
+                    </tr>
+                </tfoot>
+                <tbody id="grid_items"></tbody>
+            </table>
+            <div class="clr">
+            </div>
+        </div>
+        <div class="b">
+            <div class="b">
+                <div class="b">
+                </div>
+            </div>
+        </div>
+    </div>*@

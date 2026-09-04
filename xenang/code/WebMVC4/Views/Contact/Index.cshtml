@@ -1,0 +1,198 @@
+﻿
+<div class="page-title shop-page-title product-page-title">
+    <div class="page-title-inner flex-row medium-flex-wrap container">
+        <div class="flex-col flex-grow medium-text-center">
+            <div class="is-small">
+                <nav class="woocommerce-breadcrumb breadcrumbs">
+                    <a href="/">Trang chủ</a> <span class="divider">/</span>
+                    Liên hệ
+                </nav>
+            </div>
+        </div><!-- .flex-left -->
+
+        <div class="flex-col medium-text-center">
+        </div><!-- .flex-right -->
+    </div><!-- flex-row -->
+</div>
+<section class="section" id="section_1686384945">
+    <div class="bg section-bg fill bg-fill bg-loaded bg-loaded">
+
+
+        <div class="section-bg-overlay absolute fill"></div>
+
+
+    </div><!-- .section-bg -->
+
+    <div class="section-content relative">
+
+        <div class="row" >
+            <div class="large-6  col">
+                <div class="col-inner" style="margin:0px 0px -50px 0px;">
+                    <h4><span style="color: #0084c8;">Thông tin liên hệ </span></h4>
+                    <hr>
+                    <p>
+                        Địa chỉ: Tổ 27, Phường Yên Sở, Quận Hoàng Mai, Hà Nội<br />
+                        Nhà máy: KCN Kiêu Kỵ, Huyện Gia Lâm, Hà Nội
+
+<p>Email: <span style="color: #000000;font-size:14px">contact@samnon.com</span></p>
+                </div>
+            </div>
+            <div class="large-6 col">
+                <div class="col-inner" style="margin:0px 0px -50px 0px;">
+                    <div role="form" class="wpcf7" id="wpcf7-f8-p53-o2" lang="vi" dir="ltr">
+                        <div id="comment-result" style="display:none;" class="status alert alert-success">@Resources.Global.FeedBackMessage</div>
+                        <div class="comment-form" id="comment-form">
+                            <div class="form-gray-fields">
+                                <div class="row">
+                                    <div class="large-12 col">
+                                        <p id="msgBox" style="color: #c82e29; font-weight: bold; font-size: 13px"></p>
+                                        @Html.AntiForgeryToken()
+                                    </div>
+                                    <div class="large-12 col">
+                                        <div class="form-group">
+                                            <label for="name" class="upper">@Resources.Order.FullName</label>
+                                            <input type="text" id="txtname" placeholder="" name="senderName" class="form-control">
+                                        </div>
+                                    </div>
+                                    <div class="large-6 col">
+                                        <div class="form-group">
+                                            <label for="email" class="upper">Mail</label>
+                                            <input type="email" id="txtemail" placeholder="" name="senderEmail" class="form-control email">
+                                        </div>
+                                    </div>
+                                    <div class="large-6 col">
+                                        <div class="form-group">
+                                            <label for="email" class="upper">Số điện thoại</label>
+                                            <input type="email" id="txtMobile" placeholder="" name="mobile" class="form-control email">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="large-12 col">
+                                        <div class="form-group">
+                                            <label for="comment" class="upper">Nội dung</label>
+                                            <textarea id="txtcontent" placeholder="" rows="9" name="comment" class="form-control">@ViewBag.Content</textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="large-12 col">
+                                        <div class="form-group text-center">
+                                            <button class="btn btn-primary" onclick="return validateData()"><i class="fa fa-paper-plane"></i>&nbsp;@Resources.Order.SendQuestion</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <style scope="scope">
+
+                #row-1416784921 > .col > .col-inner {
+                    padding: 10px 0px 0px 0px;
+                }
+            </style>
+        </div>
+    </div><!-- .section-content -->
+
+
+    <style scope="scope">
+
+        #section_1686384945 {
+            padding-top: 30px;
+            padding-bottom: 30px;
+        }
+
+            #section_1686384945 .section-bg-overlay {
+                background-color: rgb(252, 252, 252);
+            }
+    </style>
+</section>
+<script src="~/Content/js/formvalidate.js"></script>
+<script type="text/javascript">
+
+        function validateEmail() {
+            if (!ValidateControls("@Resources.Order.EmailValidateEmpty", "#txtemail")) {
+                return false;
+            }
+            var mail = $('#txtemail').val();
+            if (!isValidEmailAddress(mail)) {
+
+                $("#msgBox").html("@Resources.Order.EmailValidateFormat").show();
+
+                $('#txtemail').focus();
+                return false;
+            }
+            return true;
+        }
+        function validateMobile() {
+            if (!ValidateControls("Vui lòng nhập số điện thoại", "#txtMobile")) {
+                return false;
+            }
+            var mail = $('#txtMobile').val();
+
+            return true;
+        }
+
+        function validateData() {
+            if (!ValidateControls("@Resources.Order.FullNameEmpty", "#txtname")) {
+                return false;
+            }
+            if (!validateEmail()) {
+                return false;
+            }
+            if (!validateMobile()) {
+                return false;
+            }
+            if (!ValidateControls("@Resources.Order.QuestionValidateEmpty", "#txtcontent")) {
+                return false;
+            }
+            var postdata = {
+                Name: $('#txtname').val(),
+                Email: $('#txtemail').val(),
+                Mobile: $('#txtMobile').val(),
+                Question: $('#txtcontent').val()
+
+            };
+            $.ajax({
+                type: "post",
+                dataType: "html",
+                url: '@Url.Action("Feedback", "Contact")',
+                data: addAntiForgeryToken(postdata),
+                success: function (response) {
+
+                    var data = parseInt(response);
+                    if (data == 1) {
+                        $("#comment-form").hide();
+                        $("#comment-result").show();
+                        $('#txtname').val("");
+                        $('#txtemail').val("");
+                        $('#txtMobile').val("");
+                        $('#txtcontent').val("");
+
+                    }
+
+                    if (data == -99) {
+                        $("#msgBox").html("@Resources.Order.MessageError").show();
+
+                    }
+                    if (data == -4) {
+                        $("#msgBox").html("@Resources.Order.MessageSoMuch").show();
+
+                    }
+
+                }
+            });
+
+            return true;
+        }
+</script>
+<style>
+    .alert-success {
+        background-color: #e2f6ff !important;
+        color: #0084c8 !important;
+    }
+</style>

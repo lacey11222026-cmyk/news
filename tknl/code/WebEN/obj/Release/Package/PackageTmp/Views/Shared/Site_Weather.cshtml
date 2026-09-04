@@ -1,0 +1,36 @@
+﻿@using  WebEN
+@*<script type="text/javascript" src="@(MvcApplication.StaticSiteUrl)Scripts/weather.js"></script>*@
+<div class="title4"><a href="@Url.Action("Train","StaticPage")" style="color:#ee1c25">CẨM NANG GIAO THÔNG</a></div>
+@*<div class="thoitiet">
+        <div class="thoi_tiet weather">
+            <div class="img-w">
+                <img id="w-sky" src="@(MvcApplication.StaticSiteUrl)images/home_14.jpg"></div>
+
+            <span id="w-temp" class="w-c">29ºC</span>
+
+            <div id="w-location">
+                <select onchange="change_weather_data(this.value);" id="locationnew" name="locationnew">
+                    <option>Hà Nội</option>
+                </select>
+            </div>
+        </div>
+        <p id="w-desc" class="w-detail"></p>
+        <div class="clear"></div>
+    </div>*@
+<!--thoitiet-->
+<ul class="tt_cb">
+    @*<li><a href="http://vov.vn/Utilities/ServiceInfo.aspx?svc=lotteryresults" class="tt_1 frame"><span>Kết quả xổ số</span></a></li>
+        <li><a href="http://vov.vn/Utilities/ServiceInfo.aspx?svc=exchangerates" class="tt_2 frame"><span>Tỷ giá</span></a></li>
+        <li><a href="http://vov.vn/Utilities/ServiceInfo.aspx?svc=goldrates" class="tt_3 frame"><span>Giá vàng</span></a></li>
+        <li><a href="http://vov.vn/Utilities/ServiceInfo.aspx?svc=securities" class="tt_4 frame"><span>Chứng khoán</span></a></li>*@
+    <li><a href="@Url.Action("Train","StaticPage")" rel="nofollow" class="tt_1"><span>Lộ trình tàu thống nhất</span></a></li>
+    <li><a href="@Url.Action("Bus","StaticPage")" rel="nofollow" class="tt_2"><span>Cùng bạn đi xe bus</span></a></li>
+    @* <li><a href="#" rel="nofollow" class="tt_3"><span>Chọn xe chất lượng, an toàn</span></a></li>
+        <li><a href="#" rel="nofollow" class="tt_4"><span>Các hãng vận tải uy tín</span></a></li>*@
+    <li><a href="@Url.Action("Rescue","StaticPage")" rel="nofollow" class="tt_5"><span>Cứu hộ hành khách</span></a></li>
+    @* <li><a href="#" rel="nofollow" class=""><span>Đánh giá</span></a></li>*@
+</ul>
+<div class="clear"></div>
+<script type="text/javascript">
+
+</script>

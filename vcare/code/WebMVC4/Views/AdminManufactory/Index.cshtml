@@ -1,0 +1,109 @@
+﻿
+@{
+
+    Layout = "~/Views/Shared/_AdminV2.cshtml";
+    ViewBag.Title = "Quản trị hãng";
+}
+<div class="row">
+    <div class="col-lg-12">
+        <div class="panel panel-primary">
+            <div class="panel-heading"><span class="glyphicon glyphicon-user"></span>@ViewBag.Title</div>
+            <div class="panel-body">
+                <div class="row" id="form">
+                    <div class="col-md-12">
+
+                        <div class="form-group col-md-4 col-xs-12 col-sm-6">
+                            @Html.DropDownList("select_category", new SelectList(ViewBag.CategoryList as System.Collections.IEnumerable, "Id", "Name", ""), new { @class = "form-control", })
+
+                        </div>
+                        <div class="form-group col-md-4 col-xs-12 col-sm-6">
+                            <label class="control-label"><i class="fa fa-flag"></i>Trạng thái</label>
+                            <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
+
+                                <select class="form-control" id="ddlActive">
+                                    <option value="-1">Lấy tất cả</option>
+                                    <option value="1">Hoạt Động</option>
+                                    <option value="0">Không Hoạt Động</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group col-md-5 col-xs-12 col-sm-6" style="display:none">
+                            <label for="txtKeyword" class="control-label"><i class="fa fa-pencil"></i>Từ Khóa</label>
+                            <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
+                                <input type="text" id="txtKeyword" class="form-control" placeholder="Nhập từ khóa">
+                            </div>
+                        </div>
+                        <div class="form-group submit" style="text-align:center">
+                            <button type="button" id="btn_search" class="btn btn-info"><i class="fa fa-search"></i>Tìm Kiếm</button>
+                            <a href="@Url.Action("AddEdit",new {id=0 })" class="btn btn-success"><i class="fa fa-user-plus"></i>Thêm Mới</a>
+
+                        </div>
+                    </div>
+
+                </div>
+                <div class="table-responsive">
+                    <div id="dgrid" class="dataTables_wrapper form-inline" role="grid">
+                        <div id="ListManufactory">
+                            
+                        </div>
+                       
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $('#menu_managemanufactory').addClass("active");
+
+</script>
+
+<script type="text/javascript">
+   
+  
+    $(document).ready(function () {
+       
+       
+        var parameters = {
+        };
+        $("#form").keypress(function (event) {
+            if (event.which == 13) {
+                $("#btn_search").click();
+            }
+        });
+        $("#btn_search").click(function () {
+            GetList(1);
+        });
+        $("#select_filterbystatus").change(function () {
+            GetList(1);
+        });
+        $("#select_category").change(function () {
+           GetList(1); 
+        });
+
+        function GetList(currentPage) {
+            parameters = {
+                status: $('#select_filterbystatus :selected').val(),
+                categoryId: $('#select_category :selected').val(),
+            };
+            btnSearch(currentPage);
+        };
+        function btnSearch(currentPage) {
+
+            var urlRequestAns = "/AdminManufactory/ListManufactory";
+            $.ajax({
+                type: 'GET',
+                url: urlRequestAns,
+                data: parameters,
+                success: function (data) {
+                    $("#ListManufactory").html(data);
+                },
+
+            });
+        }
+        $('#select_category').val('8');
+        GetList(1); 
+
+    });
+
+</script>

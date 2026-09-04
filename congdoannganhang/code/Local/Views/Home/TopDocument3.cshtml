@@ -1,0 +1,24 @@
+﻿@using BIZ
+@using UTILS
+@using Local.Helper
+@model Local.Models.TopDocumentModel
+
+@if (Model != null)
+{
+    if (Model.lstdata.Count > 0)
+    {
+      
+            <div class="n_title"><a href="@Model.Url">@Model.HeaderTitle</a></div>
+            <ul>
+                @foreach (var item in Model.lstdata.Select((value, i) => new { i, value }))
+                {
+                    <li><a href="@Utils.FormatUrlRewrite(item.value.Id, item.value.Name, "DocumentDetail")">@item.value.Name</a></li>
+                }
+            </ul>
+       
+
+
+
+    }
+
+}

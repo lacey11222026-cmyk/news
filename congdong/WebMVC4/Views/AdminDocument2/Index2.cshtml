@@ -1,0 +1,130 @@
+﻿@{
+    Layout = "~/Views/Shared/_AdminV2.cshtml";
+}
+@{
+    ViewBag.Title = "Danh sách văn bản";
+}
+<div class="row">
+    <div class="col-lg-12">
+        <div class="panel panel-primary">
+            <div class="panel-heading"><span class="glyphicon glyphicon-user"></span>@ViewBag.Title</div>
+            <div class="panel-body">
+                <div class="row" id="form">
+                  
+                    <div class="form-group col-md-3 col-xs-12 col-sm-6">
+                        <select class="form-control" id="ddlStatus">
+                            <option value="-1">Trạng Thái</option>
+                            <option value="1">Hoạt động</option>
+                            <option value="0">Khóa</option>
+                        </select>
+                    </div>
+                    <div class="form-group col-md-3 col-xs-12 col-sm-6">
+                        <input type="text" id="txtTitle" class="form-control" placeholder="Nhập từ khóa">
+                    </div>
+
+
+                    <div class="form-group submit col-md-3 col-xs-12 col-sm-6">
+                        <button type="button" id="btnSearch" class="btn btn-info"><i class="fa fa-search"></i>Tìm Kiếm</button>
+                        <a id="btnCreate" href="@Url.Action("GetDocumentDetail2",new {id=0 })" class="btn btn-success"><i class="fa fa-user-plus"></i>Thêm Mới</a>
+                    </div>
+
+                    <div class="form-group col-md-3 col-xs-12 col-sm-6" id="datetimepicker_FromDate">
+                        <label class="control-label text-info"><i class="fa fa-calendar"></i>Từ Ngày</label>
+                        <div class="col-xs-4 col-md-8 col-sm-8 col-xs-12">
+                            <div class="date" id="datetimeFromDate">
+                                <input type="text" data-date-format="DD/MM/YYYY" id="fromDate" class="form-control" name="datetimeFromDate" />
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group col-md-3 col-xs-12 col-sm-6" id="datetimepicker_ToDate">
+                        <label class="control-label text-info"><i class="fa fa-calendar"></i>Đến Ngày</label>
+                        <div class="col-xs-4 col-md-8 col-sm-8 col-xs-12">
+                            <div class="date" id="datetimeToDate">
+                                <input type="text" data-date-format="DD/MM/YYYY" id="toDate" class="form-control" name="datetimeToDate" />
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="table-responsive">
+                <div id="dgrid" class="dataTables_wrapper form-inline" role="grid">
+                    <div id="ListDocument">
+                        @Html.Action("ListDocument2")
+                    </div>
+
+                    <div class="dataTables_paginate" id="pager">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $('#menu_managedoc2').addClass("active");
+
+</script>
+<script type="text/javascript">
+        $(document).ready(function () {
+            $('#datetimeFromDate').datetimepicker();
+            $('#datetimeToDate').datetimepicker();
+
+            @*var fromdate = '@string.Format("{0:dd/MM/yyyy HH:mm}", ViewBag.fromDate)';
+            var todate = '@string.Format("{0:dd/MM/yyyy HH:mm}", ViewBag.toDate)';
+            $('#datetimeFromDate').data("DateTimePicker").setDate(fromdate);
+            $('#datetimeToDate').data("DateTimePicker").setDate(todate);*@
+
+            $("#datetimeFromDate").on("dp.change dp.show", function (e) {
+                $('#datetimeToDate').data("DateTimePicker").setMinDate(e.date);
+            });
+            $("#datetimeToDate").on("dp.change dp.show", function (e) {
+                $('#datetimeFromDate').data("DateTimePicker").setMaxDate(e.date);
+            });
+            var parameters = {
+            };
+            $("#form").keypress(function (event) {
+                if (event.which == 13) {
+                    $("#btnSearch").click();
+                }
+            });
+            $("#btnSearch").click(function () {
+                GetList(1);
+            });
+            $("#ddlStatus").change(function () {
+                GetList(1);
+            });
+            $("#ddlCate").change(function () {
+                GetList(1);
+            });
+            function GetList(currentPage) {
+                parameters = {
+                    title: $("#txtTitle").val(),
+                    fromdate: $("#fromDate").val(),
+                    todate: $("#toDate").val(),
+                    status: $('#ddlStatus :selected').val(),
+                    cateId: -1,
+                    currentPage: currentPage,
+                };
+                btnSearch(currentPage);
+            };
+            function btnSearch(currentPage) {
+                Utils.Loading();
+                var urlRequestAns = "@Url.Action("ListDocument2")";
+                $.ajax({
+                    type: 'GET',
+                    url: urlRequestAns,
+                    data: parameters,
+                    success: function (data) {
+                        $("#ListDocument").html(data);
+                        Utils.UnLoading();
+                    },
+                    error: function () {
+                        Utils.UnLoading();
+                    }
+                });
+            }
+
+        });
+
+</script>

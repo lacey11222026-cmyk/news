@@ -1,0 +1,196 @@
+﻿@using BIZ
+@using UTILS
+@using WebMVC4.Helper
+@model WebMVC4.Models.DocumentModel
+<style>
+    .chitiet .searchtext {
+        width: 80px;
+    }
+</style>
+@if (Model.listdata != null)
+{
+    /*active menu*/
+    if (ViewBag.ParentCategoryId > 0)
+    {
+        <script type="text/javascript">
+            var index = $('#ddtabs1 li').index($('#cate_' + '@ViewBag.ParentCategoryId'));
+            ddtabmenu.definemenu("ddtabs1", index);
+
+            setTimeout(function () {
+                $("#ddtabs1 .current").parent().addClass("select");
+
+            }, 1000);
+        </script>
+
+    }
+    else
+    {
+        <script type="text/javascript">
+            var index = $('#ddtabs1 li').index($('#cate_' + '@ViewBag.CurrentCategoryId'));
+
+            ddtabmenu.definemenu("ddtabs1", index);
+            setTimeout(function () {
+                $("#ddtabs1 .current").parent().addClass("select");
+
+            }, 1000);
+        </script>
+
+    }
+    <div class="text_noidung">
+        @{Html.RenderAction("Breadcrumb", "News", new { CategoryId = Model.CategoryId });}
+        <div class="chitiet">
+            @*<div class="docsearch">
+                    <div class="itemsearch" style="width:243px">
+                        Từ khóa: <input id="txtkeyword" value="@ViewBag.keyword" width="140" style="width: 140px;" />&nbsp;&nbsp;
+                    </div>
+                    <div class="itemsearch">
+                        Từ ngày: <input id="txtfromdate" class="searchtext" style="width: 78px;" value="@ViewBag.fromdate" />&nbsp;&nbsp;
+                        Đến ngày: <input id="txttodate" class="searchtext" style="width: 78px;" value="@ViewBag.todate" />
+                    </div>
+                    <div class="itemsearch" style="width:70px">
+                        <button onclick="searchdoc();">Tra cứu</button><br /><br />
+                    </div>
+                </div>*@
+            <div class="text-center search">
+                <form class="form-inline">
+                    <div class="form-group">
+                        <label class="">Từ khóa</label>
+                        <input id="txtkeyword" class="form-control" type="text" width="190">
+                    </div>
+                    <div class="form-group">
+                        <label>Từ ngày</label>
+                        <input id="txtfromdate" placeholder="dd/MM/yyyy" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label>Đến ngày</label>
+                        <input id="txttodate" placeholder="dd/MM/yyyy" class="form-control">
+                    </div>
+                    <button type="button" onclick="searchdoc();" class="btn-search">Tìm kiếm</button>
+                </form>
+            </div>
+            <div class="clearfix"></div>
+            <div class="document-table table-responsive mt20">
+                <table width="100%" cellspacing="1" cellpadding="5" border="0" bgcolor="#035096">
+                    <tr class="rowtop">
+                        <td height="40" align="center">
+                            STT
+                        </td>
+                        <td align="center">
+                            Số hiệu
+                        </td>
+                        <td align="center">
+                            Tên văn bản
+                        </td>
+                        <td align="center" style="width: 100px;">
+                            Ngày ban hành
+                        </td>
+                        <td align="center">
+                            Download
+                        </td>
+                    </tr>
+                    @foreach (var item in Model.listdata.Select((value, i) => new { i, value }))
+                    {
+                        if (item.i % 2 == 0)
+                        {
+
+                            <tr class="bgcolor1">
+                                <td align="center">
+                                    @(item.i + 1)
+                                </td>
+                                <td align="left">
+                                    @item.value.Code
+                                </td>
+                                <td>
+                                    <a href="@UTILS.Utils.FormatUrlRewrite(item.value.Id,"","DocumentDetail")">
+                                        @item.value.Name
+                                    </a>
+
+                                </td>
+                                <td align="center" style="width: 100px;">
+                                    @Convert.ToDateTime(item.value.PublishDate).ToString(@" dd'/'MM'/'yyyy")
+
+                                </td>
+                                <td align="center" style="width: 100px;">
+                                    <a href="@Url.Action("DownloadFile", "Document", new {Id=item.value.Id})">
+                                        <img alt="@item.value.FileName" width="16" height="16" src="@item.value.FileType" />
+                                    </a>&nbsp;
+                                    @if (item.value.FileName.ToLower().Contains(".pdf"))
+                                    {
+
+                                        <a href="@Url.Action("ViewFile", "Document", new {Id=item.value.Id})" target="_blank">
+                                            Xem online
+                                        </a>
+                                    }
+                                </td>
+                            </tr>
+                        }
+                        else
+                        {
+
+                            <tr class="bgcolor2">
+                                <td align="center">
+                                    @(item.i + 1)
+                                </td>
+                                <td align="left">
+                                    @item.value.Code
+                                </td>
+                                <td>
+                                    <a href="@UTILS.Utils.FormatUrlRewrite(item.value.Id,"","DocumentDetail")">
+                                        @item.value.Name
+                                    </a>
+
+                                </td>
+                                <td align="center" style="width: 100px;">
+                                    @Convert.ToDateTime(item.value.PublishDate).ToString(@" dd'/'MM'/'yyyy")
+
+                                </td>
+                                <td align="center" style="width: 100px;">
+                                    <a href="@item.value.FilePath">
+                                        <img alt="@item.value.FileName" width="16" height="16" src="@item.value.FileType" />
+                                    </a>&nbsp;
+                                    @if (item.value.FileName.ToLower().Contains(".pdf"))
+                                    {
+
+                                        <a href="@Url.Action("ViewPDF", "Home", new {url=item.value.FilePath})" target="_blank">
+                                            Xem online
+                                        </a>
+                                    }
+                                </td>
+                            </tr>
+                        }
+
+                    }
+                </table>
+            </div>
+
+        </div>
+        <div class="ctpaging">
+
+            <ul class="paging">
+                @{Html.RenderPartial("Pagination", new WebMVC4.Models.PaginationInfo
+                    {
+                        PageUrl = Url.SetParameter("Page", "!0"),
+                        CurrentPage = Model.pageIndex,
+                        PageSize = Model.pageSize,
+                        TotalItemCount = Model.total,
+                    }); }
+            </ul>
+
+        </div>
+        <div class="clear padtop10"></div>
+    </div>
+    <script type="text/javascript">
+        //$(document).ready(function () {
+
+        //    $("#txtfromdate").datepicker({ dateFormat: "dd/mm/yy" });
+        //    $("#txttodate").datepicker({ dateFormat: "dd/mm/yy" });
+        //});
+
+        function searchdoc() {
+            var keyword = $("#txtkeyword").val();
+            var fromdate = $("#txtfromdate").val();
+            var todate = $("#txttodate").val();
+            window.location = jQuery.query.set("keyword", keyword).set("fromdate", fromdate).set("todate", todate).set("Page", "1");
+        }
+    </script>
+}

@@ -1,0 +1,128 @@
+﻿@using UTILS
+@using WebMVC4.Helper
+@{
+    var Date = Utils.formatDateofWeek(DateTime.Now.DayOfWeek) + ", " + DateTime.Now.ToString("dd/MM/yyy ") + "| " + DateTime.Now.ToString("HH:mm");
+
+    var DateEN = DateTime.Now.DayOfWeek.ToString() + ", " + DateTime.Now.ToString("dd/MM/yyy ") + "| " + DateTime.Now.ToString("HH:mm");
+}
+@{
+    var langpage = WorkContext.GetLanguage();
+}
+<div class="header-only">
+    <div class="container">
+        <a href="/"><img src="/Content/images/chuyentrang-logo.png" alt="Khoa học công nghệ, đổi mới sáng tạo, chuyển đổi số ngành Công Thương"></a>
+    </div>
+</div>
+@if (ViewBag.PageName == "home")
+{
+    <div class="banner-only">
+        @{Html.RenderAction("Banner", "Home", new { lang = "vi-vn" });}
+        
+        </div>
+}
+
+<div class="nav_top">
+    <div class="container">
+        <div class="nav-top-content">
+            <div class="nav-left disflex">
+                <div class="ico-home"><a href="/"><img src="/Content/images/icon-home.svg" alt="Trang chủ" width="12"></a></div>
+                <nav class="nav-list">
+                    <ul>
+                        @{Html.RenderAction("Menu", "Home", new { lang = "vi-vn" });}
+                        @*<li><a href="#hoatdong">HOẠT ĐỘNG</a></li>
+        <li><a href="#vanban">VĂN BẢN</a></li>
+        <li>
+            <a href="#multimedia">Multimedia</a>
+            <ul>
+                <li><a href="#multimedia">Video</a></li>
+                <li><a href="#multimedia">INFOGRAPHIC</a></li>
+                <li><a href="#multimedia">PODCAST</a></li>
+                <li><a href="#multimedia">E-MAGAZINE</a></li>
+            </ul>
+        </li>*@
+                    </ul>
+                </nav>
+            </div>
+            <div class="search-box-02">
+                <button class="search-icon"  onclick="search();"></button>
+                <input type="text" placeholder="Tìm kiếm" id="txtKeyword" onkeydown="javascript: return AnyInput_KeyDown(this, event);">
+            </div>
+        </div>
+    </div>
+</div>
+<div class="header-mobile">
+    <a href="#menu">
+        <img src="/Content/images/menu.svg" width="30" class="ico-menu">
+    </a>
+    <div class="header-mobile-content">
+        <div class="header-mb-top">
+            <a href="#menu" class="ico-close">
+                <img src="/Content/images/close.svg" width="18">
+            </a>
+            <a href="/" class="logo-top-mb"><img src="/Content/images/chuyentrang-logo.png" alt=""></a>
+        </div>
+        <div class="nav-mb mt20">
+            <div class="search-box w100">
+                <button class="search-icon" onclick="Msearch();"></button>
+                <input type="text" class="form-control" id="txtKeywordMobile" onkeydown="javascript: return MAnyInput_KeyDown(this, event);">
+            </div>
+            <ul class="nav-mb-list mt20">
+                @{Html.RenderAction("MenuMobile", "Home", new { lang = "vi-vn" });}
+                @*<li><a href="#">HOẠT ĐỘNG</a></li>
+        <li><a href="#">VĂN BẢN</a></li>
+        <li>
+            <a href="#">Multimedia</a>
+            <span class="ico-dropdown"></span>
+            <ul class="nav-mb-sub">
+                <li><a href="#">Video</a></li>
+                <li><a href="#">INFOGRAPHIC</a></li>
+                <li><a href="#">PODCAST</a></li>
+                <li><a href="#">E-MAGAZINE</a></li>
+            </ul>
+        </li>*@
+            </ul>
+        </div>
+    </div>
+</div>
+
+<div class="container tool">
+    <div class="disflex">
+        <p class="date-green mt10">@Date</p>
+    </div>
+</div>
+<script type="text/javascript">
+    function search() {
+        var searchtext = $("#txtKeyword").val();
+        window.location = "/News/Search?q=" + encodeURIComponent(searchtext);
+
+    }
+    function AnyInput_KeyDown(sender, e) {
+        if ((e.which && e.which == 13) || (e.keyCode && e.keyCode == 13)) {
+            search();
+
+            return false;
+        }
+
+        return true;
+    }
+
+
+    function Msearch() {
+        var searchtext = $("#txtKeywordMobile").val();
+        window.location = "/News/Search?q=" + encodeURIComponent(searchtext);
+
+    }
+    function MAnyInput_KeyDown(sender, e) {
+        if ((e.which && e.which === 13) || (e.keyCode && e.keyCode === 13)) {
+            Msearch();
+
+            return false;
+        }
+
+        return true;
+    }
+
+
+
+</script>
+

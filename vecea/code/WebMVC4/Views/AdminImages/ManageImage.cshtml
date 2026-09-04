@@ -1,0 +1,117 @@
+﻿@{
+    Layout = "~/Views/Shared/_AdminSmall.cshtml";
+}
+<div class="row">
+    <div class="col-lg-12">
+        <div class="panel panel-primary">
+            <div class="panel-heading"><span class="glyphicon glyphicon-user"></span>Tìm Kiếm File</div>
+            <div class="panel-body">
+                <div class="row" id="form">
+
+                    <div class="form-group col-md-4 col-xs-12 col-sm-6">
+                        <select class="form-control" id="ddlMonth" onchange="FileManagerCtr.ListFileManager()">
+                            @for (var i = 1; i <= 12; i++)
+                            {
+                                if (i == ViewBag.Month)
+                                {
+                                    <option value="@i" selected="selected">Tháng @(i)</option>
+                                }
+                                else
+                                {
+                                    <option value="@i">Tháng @(i)</option>
+                                }
+
+                            }
+                        </select>
+                    </div>
+
+
+                </div>
+                <div class="col-md-6 col-xs-12">
+                    <div class="table-responsive">
+                        <div id="dgrid" class="dataTables_wrapper form-inline" role="grid">
+                            <div id="ListFile" >
+                                @Html.Action("ListImage", "AdminImages")
+                            </div>
+                            
+                        </div>
+                    </div>
+                    </div>
+                <div class="col-md-6 col-xs-12">
+                    <div id="ChooseImages" class="col-md-12">
+                        <div>
+                            @{Html.RenderAction("FileInfo");}
+                        </div>
+                        <form id="imagesForm" method="post" class="form-horizontal">
+                            <div class="panel-group" id="steps">
+                                <div class="panel panel-primary">
+                                    <div class="panel-body">
+                                        <div class="form-group" style="display:block;">
+                                            <label for="srcImage" class="control-label col-md-4">Ảnh :</label>
+                                            <div class="col-md-8">
+                                                <div class="input-icon ">
+                                                    <img id="srcImage" width="150" height="150" />
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group" style="display:block;">
+                                            <label for="txtImageUrl" class="control-label col-md-5" style="text-align:left;">Đường dẫn :</label>
+                                            <div class="col-md-12">
+                                                <input type="text" id="txtImageUrl" name="ImageUrl" style="width:100%;" class="form-control" />
+                                            </div>
+                                        </div>
+
+
+
+                                    </div>
+                                    <div style="float: right">
+                                        <button id="btnSaveImageLink" onclick="saveImageLink()"
+                                                style="width:162px;height: 30px;background: #48ea11;margin-top:15px;margin-right:13px">
+                                            Ghi lại
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                 
+                </div>
+        </div>
+    </div>
+</div>
+
+
+<script type="text/javascript">
+   
+
+    function saveImageLink() {
+        var imgPath = document.getElementById("txtImageUrl").value;
+        if (imgPath == '') {
+            alert("Phải chọn file!"); return;
+        }
+
+        if (document.URL.search("CKEditor") != -1) {
+            var funcNum = getUrlParam('CKEditorFuncNum');
+            window.opener.CKEDITOR.tools.callFunction(funcNum, imgPath);
+            window.close();
+        }
+        else {
+            console.log('123');
+        }
+
+    }
+
+    function getUrlParam(paramName) {
+        var reParam = new RegExp('(?:[\?&]|&)' + paramName + '=([^&]+)', 'i');
+        var match = window.location.search.match(reParam);
+
+        return (match && match.length > 1) ? match[1] : null;
+    }
+
+
+</script>
+<script>
+    $("#qnmb").remove();
+</script>

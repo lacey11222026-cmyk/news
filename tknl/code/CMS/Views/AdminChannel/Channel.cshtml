@@ -1,0 +1,108 @@
+﻿@{
+   
+    Layout = "~/Views/Shared/_AdminV2.cshtml";
+    
+}
+@using UTILS
+@using CMS.Models
+@using CMS.Helper
+@model CMS.Models.ChannelModel
+
+<div class="onecolumn">
+    <div class="header">
+        <span>@ViewBag.Title</span>
+    </div>
+    <br class="clear">
+    <div class="content">
+        <b>Trạng thái: </b>@Html.DropDownList("drlStatus", new SelectList(ViewBag.StatusList, "Value", "Text", ViewBag.Status), new { @class = "drl_Group" }) &nbsp;&nbsp;<br/>
+         <br />
+        @if (Model != null)
+        {
+            <table width="100%" cellspacing="0" cellpadding="0" class="data" id="mytable">
+                <tbody>
+                    <tr id="rowheader">
+                        @*<th scope="col">ID
+                        </th>*@
+
+                        <th scope="col">Tiêu đề
+                        </th>
+     
+                        <th scope="col">Ảnh
+                        </th>
+                        <th scope="col">Ngày tạo
+                        </th>
+                       
+                        <th scope="col">Trạng thái
+                        </th>
+                         <th scope="col">Quản trị
+                        </th>
+                       
+                    </tr>
+                    @if (Model.listdata != null)
+                    {
+                        if (Model.listdata.Count > 0)
+                        {
+                            foreach (var item in Model.listdata)
+                            {
+                                <tr id="row_@(item.Id)">
+                                    @*<td>
+                                        @item.Id
+                                    </td>*@
+
+                                    <td style="width:333px;">
+                                      <a href='@Url.Action("ChannelEdit","AdminChannel",new {Id=item.Id})'>@item.Name</a>
+                                
+                                    </td>
+                         
+                                    <td>
+                                        <img  width="50" height="30" src="@Utils.GetImageUrl(item.Id, EntityName.Channel, false)@item.Image" alt=""/>
+                                    </td>
+                           
+                                    <td>
+                                        @item.CreateTime.Value.ToString("dd/MM/yy HH:mm")
+                                    </td>
+
+
+                                    <td>
+                                        @HtmlHelpers.GetNewsStatusName(item.Published.Value, ViewBag.StatusList)
+
+                                    </td>
+                                    <td>
+                                      <a href='@Url.Action("ChannelNews","AdminChannel",new {channelId=item.Id,Name=item.Name})'>Danh sách tin</a>
+                                
+                                    </td>
+                                   
+                                </tr>
+                            }
+                        }
+                    }
+                </tbody>
+            </table>
+            
+             <div class="pagination">
+            @{Html.RenderPartial("AdminPagination", new PaginationInfo
+                                                        {
+                                                            PageUrl = Url.SetParameter("page", "!0"),
+                                                            CurrentPage = Model.pageIndex,
+                                                            PageSize = Model.pageSize,
+                                                            TotalItemCount = Model.total,
+                                                        }); }
+        </div>
+        }
+       
+         <br />
+        <a  class="adminbutton" href='@Url.Action("ChannelAdd", "AdminChannel")'>Thêm mới </a>
+    </div>
+
+</div>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#menu_channel').click();
+
+    });
+    $('#drlStatus').change(function () {
+        window.location = jQuery.query.set("status", this.value).set("page", "1");
+    });
+   
+
+</script>

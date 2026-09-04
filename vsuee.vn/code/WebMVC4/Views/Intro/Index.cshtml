@@ -1,0 +1,247 @@
+﻿@using BIZ
+@using UTILS
+@using WebMVC4.Helper
+@model BIZ.Entity.CATEGORY_FULL
+@{
+    List<BIZ.Entity.CATEGORY_FULL> data = ViewBag.lstrelate;
+}
+@{
+    var langpage = WorkContext.GetLanguage();
+}
+@if (Model != null)
+{
+    <div class="intro-page container pb60 pt40">
+        <div class="row row-50">
+            <div class="col-lg-8 col-md-12">
+                @{Html.RenderAction("BreadcrumbObj", "News", new { data = Model });}
+
+
+                <div class="detail-content-intro" style="padding-left:0px;">
+                    <div id="NewsContent">
+                        @Html.Raw(Model.Contents.Replace("font-size: small", ""))
+                    </div>
+                    @if (Model.Id == 42 || Model.Id == 84)
+                    {
+                        <div id="comment-result" style="display:none;" class="status alert alert-success">@Resources.Global.FeedBackMessage</div>
+                        <div class="comment-form" id="comment-form">
+                            <div class="form-gray-fields">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <p id="msgBox" style="color: #c82e29; font-weight: bold; font-size: 14px"></p>
+                                        @Html.AntiForgeryToken()
+                                    </div>
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label for="name" class="upper">@Resources.Global.FullName</label>
+                                            <input type="text" id="txtname" placeholder="" name="senderName" class="form-control">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="email" class="upper">Email</label>
+                                            <input type="email" id="txtemail" placeholder="" name="senderEmail" class="form-control email">
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label for="comment" class="upper">@Resources.Global.Question</label>
+                                            <textarea id="txtcontent" placeholder="" rows="6" name="comment" class="form-control"></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="form-group text-center">
+                                            <button class="btn btn-primary" onclick="return validateData()"><i class="fa fa-paper-plane"></i>&nbsp;@Resources.Global.SendQuestion</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                    @if (Model.Id == 2)
+                    {
+                        <div class="mt30">
+                            <div class="dropdown">
+                                <div class="dropdown__inner">
+                                    <h4 class="btn-green">Hợp Phần 1 <i class="icon-next"></i></h4>
+                                    <div class="dropdownSub">
+                                        @{Html.RenderAction("Intro", "Home", new { CategoryId = 74 });}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="dropdown">
+                                <div class="dropdown__inner">
+                                    <h4 class="btn-green">Hợp Phần 2 <i class="icon-next"></i></h4>
+                                    <div class="dropdownSub">
+                                        @{Html.RenderAction("Intro", "Home", new { CategoryId = 75 });}
+                                    </div>
+                                </div>
+                            </div>
+
+
+                        </div>
+                    }
+                    @if (Model.Id == 76)
+                    {
+                        <div class="mt30">
+                            <div class="dropdown">
+                                <div class="dropdown__inner">
+                                    <h4 class="btn-green">Component 1 <i class="icon-next"></i></h4>
+
+                                    <div class="dropdownSub">
+                                        @{Html.RenderAction("Intro", "Home", new { CategoryId = 77 });}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="dropdown">
+                                <div class="dropdown__inner">
+                                    <h4 class="btn-green">Component 2 <i class="icon-next"></i></h4>
+                                    <div class="dropdownSub">
+                                        @{Html.RenderAction("Intro", "Home", new { CategoryId = 78 });}
+                                    </div>
+                                </div>
+                            </div>
+
+
+                        </div>
+                    }
+                </div>
+
+
+            </div>
+            <div class="col-lg-4 col-md-12 sidebar">
+                @Html.Partial("Site_Right")
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript">
+
+        $(function () {
+            $('.dropdown__inner').on('click', function () {
+                $(this).toggleClass('dropdown_toggle').children('.dropdownSub').slideToggle(200);
+            });
+            $('.dropdown__inner li a').on("click", function () {
+                $(".dropdownSub").hide();
+            });
+            $(document).on('click', function (e) {
+                if (!$(e.target).closest('.dropdown__inner').length) {
+                    $('.dropdownSub').hide();
+                }
+            });
+        });
+    </script>
+
+
+
+}
+@section scripts {
+    <script type="text/javascript">
+
+        $('#menu_' + '@Model.Id').addClass("active");
+        $('#menu_' + '@Model.ParentId.GetValueOrDefault()').addClass("active");
+        $('#menu_0').removeClass("active");
+    </script>
+}
+<div class="bg-gray pt40 pb40">
+    <div class="container">
+        <ul class="slick02">
+            @{Html.RenderAction("BannerBottom", "Home", new { lang = langpage });}
+        </ul>
+    </div>
+</div>
+
+<script src="~/Content/js/formvalidate.js?vs=02"></script>
+<script type="text/javascript">
+
+        function validateEmail() {
+            if (!ValidateControls("@Resources.Global.EmailValidateEmpty", "#txtemail")) {
+                return false;
+            }
+            var mail = $('#txtemail').val();
+            if (!isValidEmailAddress(mail)) {
+
+                $("#msgBox").html("@Resources.Global.EmailValidateFormat").show();
+
+                $('#txtemail').focus();
+                return false;
+            }
+            return true;
+        }
+        function validateMobile() {
+            if (!ValidateControls("Vui lòng nhập số điện thoại", "#txtMobile")) {
+                return false;
+            }
+            var mail = $('#txtMobile').val();
+
+            return true;
+        }
+
+        function validateData() {
+            if (!ValidateControls("@Resources.Global.FullNameEmpty", "#txtname")) {
+                return false;
+            }
+            if (!validateEmail()) {
+                return false;
+            }
+            //if (!validateMobile()) {
+            //    return false;
+            //}
+            if (!ValidateControls("@Resources.Global.QuestionValidateEmpty", "#txtcontent")) {
+                return false;
+            }
+            var postdata = {
+                Name: $('#txtname').val(),
+                Email: $('#txtemail').val(),
+                Mobile: '',
+                Question: $('#txtcontent').val().replace(/\n/g, '<br />')
+
+            };
+            $.ajax({
+                type: "post",
+                dataType: "html",
+                url: '@Url.Action("Feedback", "Intro")',
+                data: addAntiForgeryToken(postdata),
+                success: function (response) {
+
+                    var data = parseInt(response);
+                    if (data == 1) {
+                        $("#comment-form").hide();
+                        $("#comment-result").show();
+                        $('#txtname').val("");
+                        $('#txtemail').val("");
+                        $('#txtMobile').val("");
+                        $('#txtcontent').val("");
+
+                    }
+
+                    if (data == -99) {
+                        $("#msgBox").html("@Resources.Global.MessageError").show();
+
+                    }
+                    if (data == -4) {
+                        $("#msgBox").html("@Resources.Global.MessageSoMuch").show();
+
+                    }
+
+                }
+            });
+
+            return true;
+        }
+</script>
+
+
+<style>
+    .form-group {
+        margin-bottom: 15px;
+    }
+
+    #info-company {
+        display: none;
+    }
+</style>

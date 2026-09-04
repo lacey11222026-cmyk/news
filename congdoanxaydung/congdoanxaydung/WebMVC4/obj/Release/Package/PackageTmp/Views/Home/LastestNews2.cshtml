@@ -1,0 +1,48 @@
+﻿@using BIZ
+@using UTILS
+@using WebMVC4.Helper
+@model WebMVC4.Models.LastestNewModel
+@if (Model != null)
+{
+    if (Model.lstdata.Count > 0)
+    {
+        <div class="news-general mt30">
+            <h2 class="title-cm">
+                <a href="@Model.Url">@Model.HeaderTitle</a>
+            </h2>
+            <div class="row-8px">
+                <div class="col-md-6 col-sm-6 col-xs-12 news-big mt10">
+                    @foreach (var item in Model.lstdata.Take(1).Select((value, i) => new { i, value }))
+                    {
+                        <a href="@item.value.LinkUrl">
+                            
+                            <img alt="@item.value.Title" src="@item.value.MainImage?w=370&h=267&mode=crop"  />
+                        </a>
+                        <h3>
+                            <a href="@item.value.LinkUrl">@item.value.Title</a>
+                        </h3>
+                        <p>@item.value.IntroText</p>
+                    }
+                   
+                </div>
+                <div class="col-md-6 col-sm-6 col-xs-12">
+                    <ul class="library-list">
+                        @foreach (var item in Model.lstdata.Skip(1).Select((value, i) => new { i, value }))
+                        {
+                            <li>
+                                <a href="@item.value.LinkUrl" class="row-8px">
+                                    <span class="col-md-4 col-sm-4 col-xs-4"><img alt="@item.value.Title" src="@item.value.MainImage?w=112&h=83&mode=crop" /></span>
+                                    <span class="col-md-8 col-sm-8 col-xs-8">@item.value.Title</span>
+                                </a>
+                                <div class="clearfix"></div>
+                            </li>
+                        }
+                      
+                        
+                    </ul>
+                </div>
+            </div>
+        </div><!-- end library-->
+       
+    }
+}

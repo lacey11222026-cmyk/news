@@ -1,0 +1,23 @@
+﻿@using BIZ
+@using UTILS
+@using WebMVC4.Helper
+@model BIZ.Entity.CATEGORY_FULL
+@using WebMVC4.Helper
+@{
+    var langpage = WorkContext.GetLanguage();
+}
+
+@if (Model != null)
+{
+    if (langpage == "vi-vn")
+    {
+        <p class="title-cm title-cm-inline"><a href="@Utils.FormatUrlRewriteByType(Model.Id, Model.Name, (int) Model.Type)">@Model.Name</a></p>
+    }
+    else
+    {
+        <p class="title-cm title-cm-inline"><a href="@Utils.FormatUrlRewriteByType(Model.Id, Model.Name, (int) Model.Type)">@Model.Description</a></p>
+    }
+
+
+
+}

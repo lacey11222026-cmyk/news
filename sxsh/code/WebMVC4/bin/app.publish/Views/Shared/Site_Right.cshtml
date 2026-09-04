@@ -1,0 +1,39 @@
+﻿@using BIZ
+@using UTILS
+@using WebMVC4.Helper
+<div class="event">
+    @{Html.RenderAction("RightNews", "Home", new { CateName = "", CategoryId = 18, MaxLastestNews = 4, lang = WorkContext.GetLanguage() });}
+
+</div>
+@if (WorkContext.GetLanguage() == "vi-vn")
+{
+    <div class="document-box mt30">
+        <h2 class="title-cm"><a href="/Document/Index/8">Tài liệu</a></h2>
+        <ul class="document-list mt20">
+            <li><a href="/Document/Index/17">Sổ tay hướng dẫn</a></li>
+            <li><a href="/Document/Index/19">Ấn phẩm truyền thông</a></li>
+            <li><a href="/Document/Index/22">Tài liệu khác</a></li>
+        </ul>
+    </div>
+    <div class="document-02-box mt30">
+        @{Html.RenderAction("TopDocument", "Home", new { cateName = "Văn bản", cateId = 3, num = 3 });}
+    </div>
+}
+else
+{
+    <div class="document-box mt30">
+        <h2 class="title-cm"><a href="/Document/Index/5">Documents</a></h2>
+        <ul class="document-list mt20">
+            <li><a href="/Document/Index/56">Handbooks</a></li>
+            <li><a href="/Document/Index/57">Publications</a></li>
+            <li><a href="/Document/Index/58">Other documents</a></li>
+        </ul>
+    </div>
+    <div class="document-02-box mt30">
+        @{Html.RenderAction("TopDocument", "Home", new { cateName = "Legislation", cateId = 32, num = 3 });}
+    </div>
+}
+
+<div class="bnr-list mt30 imgSlider">
+    @{Html.RenderAction("BannerRight1", "Home", new { param = "col-md-12 col-sm-6" });}
+</div>

@@ -1,0 +1,302 @@
+﻿@using BIZ
+@using UTILS
+@using WebMVC4.Helper
+@model WebMVC4.Models.ProductModel
+<div class="container main-content-page">
+    <div class="search-box pt90 border-top-orange">
+        <select class="form-control" id="exampleFormControlSelect1" onchange="window.open(this.options[this.selectedIndex].value,'_blank');this.options[0].selected=true">
+            @foreach (var obj in Model.listcate)
+            {
+                if (obj.Published == 1)
+                {
+                    <option value="@obj.Url" @if (obj.Id == Model.CategoryId) { @Html.Raw("selected='selected'") ; }>@obj.Name</option>
+                }
+
+            }
+        </select>
+        <div class="keyword">
+            <input type="text" id="txtkeyword" class="form-control" placeholder="Từ khóa" onkeydown="javascript: return XAnyInput_KeyDown(this, event);" value="@ViewBag.q">
+            <button class="ico-search" onclick="searchdoc()"></button>
+        </div>
+    </div>
+    <div class="mt60 table-responsive">
+        @*dieu hoa*@
+        @if (Model.CategoryId == 38)
+        {
+            <table class="list-table">
+                <tr>
+                    <th>Tên sản phẩm</th>
+                    <th>Mã sản phẩm<br>(Model)</th>
+                    <th>Nhãn hiệu</th>
+                    <th>Xuất xứ</th>
+
+                    <th>Công suất danh định<br>(BTU/h)</th>
+                    <th>Hiệu suất năng lượng(br)(CSPF)</th>
+
+                </tr>
+                @foreach (var item in Model.listdata.Select((value, i) => new { i, value }))
+                {
+                    <tr>
+                        <td style="text-align:left"><a href="@item.value.Description">@item.value.Name</a></td>
+                        <td>@item.value.ProductParam.Model</td>
+                        <td>@item.value.ProductParam.Manuface</td>
+                        <td>@item.value.ProductParam.MadeIn</td>
+                        <td>@item.value.ProductParam.Wattage</td>
+                        <td>@item.value.ProductParam.Efficiency</td>
+
+                    </tr>
+                }
+            </table>
+        }
+        @if (Model.CategoryId == 43)
+        {
+            <table class="list-table">
+                <tr>
+                    <th>Tên sản phẩm</th>
+                    <th>Mã sản phẩm<br>(Model)</th>
+                    <th>Nhãn hiệu</th>
+                    <th>Xuất xứ</th>
+
+                    <th>Dung tích (lít) </th>
+                    <th>Chỉ số hiệu suất năng lượng</th>
+
+                </tr>
+                @foreach (var item in Model.listdata.Select((value, i) => new { i, value }))
+                {
+                    <tr>
+                        <td style="text-align:left"><a href="@item.value.Description">@item.value.Name</a></td>
+                        <td>@item.value.ProductParam.Model</td>
+                        <td>@item.value.ProductParam.Manuface</td>
+                        <td>@item.value.ProductParam.MadeIn</td>
+                        <td>@item.value.ProductParam.Volumn</td>
+                        <td>@item.value.ProductParam.Efficiency</td>
+
+                    </tr>
+                }
+            </table>
+        }
+        @*tu lanh*@
+        @if (Model.CategoryId == 39)
+        {
+            <table class="list-table">
+                <tr>
+                    <th>Tên sản phẩm</th>
+                    <th>Mã sản phẩm<br>(Model)</th>
+                    <th>Nhãn hiệu</th>
+                    <th>Xuất xứ</th>
+
+                    <th>
+                        Dung tích
+                        (L)(GROSS/NET)
+                    </th>
+                    <th>
+                        Điện năng tiêu thụ/năm
+                        (kWh)
+                    </th>
+                    <th>Chỉ số HSNL</th>
+                    <th>Số chứng nhận</th>
+
+                </tr>
+                @foreach (var item in Model.listdata.Select((value, i) => new { i, value }))
+                {
+                    <tr>
+                        <td style="text-align:left"><a href="@item.value.Description">@item.value.Name</a></td>
+                        <td>@item.value.ProductParam.Model</td>
+                        <td>@item.value.ProductParam.Manuface</td>
+                        <td>@item.value.ProductParam.MadeIn</td>
+                        <td>@item.value.ProductParam.Volumn</td>
+                        <td>@item.value.ProductParam.Electric</td>
+                        <td>@item.value.ProductParam.Efficiency</td>
+                        <td>@item.value.ProductParam.Number</td>
+                    </tr>
+                }
+            </table>
+        }
+        @*binh nuoc nong*@
+        @if (Model.CategoryId == 40)
+        {
+            <table class="list-table">
+                <tr>
+                    <th>Tên sản phẩm</th>
+                    <th>Mã sản phẩm<br>(Model)</th>
+                    <th>Nhãn hiệu</th>
+                    <th>Xuất xứ</th>
+                    @*<th>
+                        Điện áp danh định
+                        (V)
+                    </th>
+                    <th>
+                        Dung tích danh định
+                        (l)
+
+                    </th>*@
+                    <th>
+                        Công suất danh định
+                        P (W)
+                    </th>
+                    <th>Chỉ số hiệu suất năng lượng</th>
+                    @*<th>Số chứng nhận</th>*@
+
+                </tr>
+                @foreach (var item in Model.listdata.Select((value, i) => new { i, value }))
+                {
+                    <tr>
+                        <td style="text-align:left"><a href="@item.value.Description">@item.value.Name</a></td>
+                        <td>@item.value.ProductParam.Model</td>
+                        <td>@item.value.ProductParam.Manuface</td>
+                        <td>@item.value.ProductParam.MadeIn</td>
+                        @*<td>@item.value.ProductParam.V</td>
+                        <td>@item.value.ProductParam.Volumn</td>*@
+
+                        <td>@item.value.ProductParam.Wattage</td>
+                        <td>@item.value.ProductParam.Efficiency</td>
+                        @*<td>@item.value.ProductParam.Number</td>*@
+                    </tr>
+                }
+            </table>
+        }
+        @*den led*@
+        @if (Model.CategoryId == 41)
+        {
+            <table class="list-table">
+                <tr>
+                    <th>Tên sản phẩm</th>
+                    <th>Mã sản phẩm<br>(Model)</th>
+                    <th>Nhãn hiệu</th>
+                    <th>Xuất xứ</th>
+                    <th>
+                        Công suất danh định
+                    </th>
+                    <th>
+                        Điện áp
+                        (V)
+                    </th>
+                    <th>
+                        Tần số
+
+                    </th>
+                    <th>
+                        Quang thông ban đầu
+                    </th>
+                    <th>
+                        Nhiệt độ màu
+                    </th>
+                    <th>
+                        Tuổi thọ công bố
+                    </th>
+                    <th>
+                        Chỉ số thể hiện màu
+                    </th>
+                    <th>
+                        Thời gian bảo hành
+                    </th>
+                    <th>
+                        Điện năng sau 1.000h
+                    </th>
+                    <th>Hiệu suất năng lượng</th>
+
+
+                </tr>
+                @foreach (var item in Model.listdata.Select((value, i) => new { i, value }))
+                {
+                    <tr>
+                        <td style="text-align:left"><a href="@item.value.Description">@item.value.Name</a></td>
+                        <td>@item.value.ProductParam.Model</td>
+                        <td>@item.value.ProductParam.Manuface</td>
+                        <td>@item.value.ProductParam.MadeIn</td>
+                        <td>@item.value.ProductParam.Wattage</td>
+                        <td>@item.value.ProductParam.V</td>
+                        <td>@item.value.ProductParam.HZ</td>
+
+                        <td>@item.value.ProductParam.LM</td>
+                        <td>@item.value.ProductParam.Color</td>
+                        <td>@item.value.ProductParam.Age</td>
+                        <td>@item.value.ProductParam.CRI</td>
+                        <td>@item.value.ProductParam.BH</td>
+                        <td>@item.value.ProductParam.W1000</td>
+                        <td>@item.value.ProductParam.Efficiency</td>
+
+                    </tr>
+                }
+            </table>
+        }
+        @if (Model.CategoryId == 15)
+        {
+            <table class="list-table">
+                <tr>
+                    <th>Tên sản phẩm</th>
+                    <th>Mã sản phẩm<br>(Model)</th>
+                    <th>Nhãn hiệu</th>
+                    <th>Xuất xứ</th>
+
+
+                    <th>
+                        Công suất danh định
+                        P (W)
+                    </th>
+                    <th>
+                        Thông số kỹ thuật khác
+
+                    </th>
+                    <th>Chỉ số hiệu suất năng lượng</th>
+
+
+                </tr>
+                @foreach (var item in Model.listdata.Select((value, i) => new { i, value }))
+                {
+                    <tr>
+                        <td style="text-align:left"><a href="@item.value.Description">@item.value.Name</a></td>
+                        <td>@item.value.ProductParam.Model</td>
+                        <td>@item.value.ProductParam.Manuface</td>
+                        <td>@item.value.ProductParam.MadeIn</td>
+
+
+                        <td>@item.value.ProductParam.Wattage</td>
+                        <td>@item.value.ProductParam.Other</td>
+
+                        <td>@item.value.ProductParam.Efficiency</td>
+
+                    </tr>
+                }
+            </table>
+        }
+    </div>
+    <div class="pagination">
+        <ul>
+            @{Html.RenderPartial("Pagination", new WebMVC4.Models.PaginationInfo
+                {
+                    PageUrl = Url.SetParameter("Page", "!0"),
+                    CurrentPage = Model.pageIndex,
+                    PageSize = Model.pageSize,
+                    TotalItemCount = Model.total,
+                }); }
+        </ul>
+    </div>
+</div>
+
+
+<div class="experience container mt90">
+    <h2 class="title-cm02"><a href="https://tietkiemnangluong.com.vn/tin-tuc/c10/meo-tknl.html" target="_blank">Kinh nghiệm hay</a></h2>
+    @{ Html.RenderAction("LastestNewsAPI", "Home", new { MaxLastestNews = 4, CategoryId = 10 }); }
+</div>
+<script type="text/javascript">
+
+
+    function searchdoc() {
+
+        var keyword = $("#txtkeyword").val();
+
+        window.location = '@Model.Cate.Url'+ '?q=' + keyword;
+        //window.location = jQuery.query.set("keyword", keyword).set("fromdate", fromdate).set("todate", todate).set("Page", "1");
+    }
+    function XAnyInput_KeyDown(sender, e) {
+        if ((e.which && e.which == 13) || (e.keyCode && e.keyCode == 13)) {
+            searchdoc();
+
+            return false;
+        }
+
+        return true;
+    }
+
+</script>

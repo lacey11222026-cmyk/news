@@ -1,0 +1,219 @@
+﻿@using WebMVC4.Models;
+@using WebMVC4.Helper;
+@using BIZ
+@model SearchResult
+@{ var exchangeRate = float.Parse(new SystemConfigBO().GetValueByKey("ExchangeRate"));}
+<div class="row">
+    <div class="col-sm-8  second-side">
+        <div class="content">
+            <div class="breadcrumbs-holder">
+                <div class="breadcrumbs-expand">Expand</div>
+                <ol class="breadcrumb" itemprop="breadcrumb" itemscope="itemscope" itemtype="http://schema.org/BreadcrumbList">
+                    <li itemprop="itemListElement" itemscope="" itemtype="http://schema.org/ListItem"><a itemprop="item" href="/"><span itemprop="name">@Resources.Global.Home</span></a></li>
+
+                    <li class="active">Tìm kiếm</li>
+                </ol>
+            </div>
+            <div class="search-container">
+                <h1 class="title">Kết quả tìm kiếm mã : @ViewBag.partNo</h1>
+                <div class="list-res">
+                    @if (Model.replacement_parts!=null|| Model.original_parts!=null || Model.part != null)
+                    {
+                        if (Model.replacement_parts.Any() || Model.original_parts.Any() )
+                        {
+                            <div class="list-row list-row-head">
+
+                                <div class="list-c2 list-head">
+                                    <div class="list-span">Hãng sản xuất</div>
+                                </div>
+                                <div class="list-c3 list-head">
+                                    <div class="list-span">Tên</div>
+                                </div>
+                                <div class="list-c4 list-head">
+                                    <div class="list-span">Mã</div>
+                                </div>
+                                <div class="list-c5 list-head">Cân nặng</div>
+                                <div class="list-c6 list-head">
+                                    <div class="list-span">
+                                        <a href="#">Giá </a>
+                                    </div>
+                                </div>
+                                <div class="list-c7 list-head"></div>
+                            </div>
+                        }
+                        if (Model.original_parts.Any())
+                        {
+                            <div class="list-row list-space">
+                                <div class="bg-light gray">
+                                    <span>Hàng chính hãng</span>
+                                </div>
+                            </div>
+                            <div class="list-row">
+
+                                <div class="list-c2">
+                                    <div class="list-span">
+                                        @Model.original_parts.FirstOrDefault().mark
+                                    </div>
+                                </div>
+                                <div class="list-c3">
+                                    <div class="list-span">
+                                        @Model.original_parts.FirstOrDefault().name_eng
+                                    </div>
+                                </div>
+                                <div class="list-c3 list-price-mobile">
+                                    <div class="list-span">
+                                        <span class="price">@(string.Format("{0:N0}", HtmlHelpers.GetProductPrice(Model.original_parts.FirstOrDefault().price_yen, exchangeRate)).Replace(',', '.')) đ</span>
+                                    </div>
+                                </div>
+                                <div class="list-c4">
+                                    <div class="list-span">
+                                        @Model.original_parts.FirstOrDefault().part
+                                    </div>
+                                </div>
+                                <div class="list-c5">
+                                    <div class="list-span">
+                                        @Model.original_parts.FirstOrDefault().weight&nbsp;kg
+                                    </div>
+                                </div>
+                                <div class="list-c6 list-price-desktop">
+                                    <div class="list-span">
+                                        <span class="price">@(string.Format("{0:N0}", HtmlHelpers.GetProductPrice(Model.original_parts.FirstOrDefault().price_yen, exchangeRate)).Replace(',', '.')) đ</span>
+                                    </div>
+                                </div>
+                                <div class="list-c7">
+                                    <div class="list-span">
+                                        <a class="buy cart-fancybox" onclick="addproduct('@Model.original_parts.FirstOrDefault().mark - @Model.original_parts.FirstOrDefault().name_eng - @Model.original_parts.FirstOrDefault().part - Chính hãng', '@Model.original_parts.FirstOrDefault().weight' , '@HtmlHelpers.GetProductPrice(Model.original_parts.FirstOrDefault().price_yen, exchangeRate)' )" href="javascript:;" title="@Resources.Global.AddCart">@Resources.Global.AddCart</a>
+                                          
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                        if (Model.replacement_parts.Any())
+                        {
+                            <div class="list-row list-space">
+                                <div class="bg-light gray">
+                                    <span>Hàng thay thế</span>
+                                </div>
+                            </div>
+                            foreach (var item in Model.replacement_parts.Where(x => x.price_yen > 0))
+                            {
+                                <div class="list-row">
+
+                                    <div class="list-c2">
+                                        <div class="list-span">
+                                            @item.mark
+                                        </div>
+                                    </div>
+                                    <div class="list-c3">
+                                        <div class="list-span">
+                                            @item.name_eng
+                                        </div>
+                                    </div>
+                                    <div class="list-c3 list-price-mobile">
+                                        <div class="list-span">
+                                            <span class="price">@(string.Format("{0:N0}", HtmlHelpers.GetProductPrice(item.price_yen, exchangeRate)).Replace(',', '.')) đ</span>
+                                        </div>
+                                    </div>
+                                    <div class="list-c4">
+                                        <div class="list-span">
+                                            @item.part
+                                        </div>
+                                    </div>
+                                    <div class="list-c5">
+                                        <div class="list-span">
+                                            @item.weight&nbsp;kg
+                                        </div>
+                                    </div>
+                                    <div class="list-c6 list-price-desktop">
+                                        <div class="list-span">
+                                            <span class="price">@(string.Format("{0:N0}", HtmlHelpers.GetProductPrice(item.price_yen, exchangeRate)).Replace(',', '.')) đ</span>
+                                        </div>
+                                    </div>
+                                    <div class="list-c7">
+                                        <div class="list-span">
+                                            <a class="buy cart-fancybox" href="javascript:;" onclick="addproduct('@item.mark - @item.name_eng - @item.part', '@item.weight', '@HtmlHelpers.GetProductPrice(item.price_yen, exchangeRate)')">@Resources.Global.AddCart</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                        }
+                        if (Model.part != null)
+                        {
+                            <div class="list-row list-space">
+                                <div class="bg-light gray">
+                                    <span>Giá tham khảo của 3S Toyota Việt Nam</span>
+                                </div>
+                            </div>
+                            <div class="list-row">
+
+                                <div class="list-c2">
+                                    <div class="list-span">
+                                        TOYOTA 
+                                    </div>
+                                </div>
+                                <div class="list-c3">
+                                    <div class="list-span">
+                                        @Model.part.Name
+                                    </div>
+                                </div>
+                                <div class="list-c3 list-price-mobile">
+                                    <div class="list-span">
+                                        <span class="price">@(string.Format("{0:N0}", Model.part.Price).Replace(',', '.')) đ</span>
+                                    </div>
+                                </div>
+                                <div class="list-c4">
+                                    <div class="list-span">
+                                       @Model.part.Code
+                                    </div>
+                                </div>
+                                <div class="list-c5">
+                                    <div class="list-span">
+                                       N/A
+                                    </div>
+                                </div>
+                                <div class="list-c6 list-price-desktop">
+                                    <div class="list-span">
+                                        <span class="price">@(string.Format("{0:N0}", Model.part.Price).Replace(',', '.')) đ</span>
+                                    </div>
+                                </div>
+                                <div class="list-c7">
+                                    <div class="list-span">
+                                        <a class="buy cart-fancybox" href="@Url.Action("Index", "Contact", new {partNo = ViewBag.partNo +" 3S Toyota Việt Nam"})" >Đặt hàng</a>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                        if (!Model.replacement_parts.Any() && !Model.original_parts.Any() && Model.part == null)
+                        {
+                            <p>
+                                Không có kết quả phù hợp. Vui lòng báo giá tại <a href="@Url.Action("Index", "Contact", new {partNo = ViewBag.partNo})">đây</a>
+                            </p>
+                        }
+                    }
+                    else
+                    {
+                        <p>
+                            Không có kết quả phù hợp. Vui lòng báo giá tại <a href="@Url.Action("Index", "Contact", new {partNo = ViewBag.partNo})">đây</a>
+                        </p>
+                    }
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-4  first-side">
+        @Html.Action("SiteRight", new { weight = ViewBag.weight, price = ViewBag.price })
+    </div>
+</div>
+
+
+
+<script>
+    function addproduct(productName, weight, price) {
+
+        var url = '@Url.Action("AddProduct","Order")?productName=' + productName + '&amount=1&weight=' + weight + '&price=' + price;
+
+        window.location.href = url;
+    }
+</script>

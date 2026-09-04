@@ -1,0 +1,191 @@
+﻿@using BIZ
+@using BIZ.Entity
+@using UTILS
+@using WebEN
+@using WebEN.Helper
+@model BIZ.Entity.CONTENT_FULL
+
+@if (Model != null)
+{
+    <div class="chitiet-content01 container mt10">
+        <div class="row row-40">
+            <div class="col-md-8 col-sm-12">
+                @{ Html.RenderAction("Breadcrumb", "News", new { CategoryId = ViewBag.CurrentCategoryId }); }
+
+
+                <h2 class="newsname-detail">@Model.Title</h2>
+                <span class="detaildate mt30">@Model.PublishDate.ToString("dd/MM/yyyy")</span>
+                @if (ViewBag.lstRef != null)
+                {
+
+                    <ul class="newslist suggest">
+                        @foreach (var item in ViewBag.lstRef)
+                        {
+                            <li><a href="@item.LinkUrl">@item.Title</a></li>
+                        }
+                    </ul>
+                }
+
+                <div class="vneep-icon mt50">
+                    <div class="hidden-xs"><img src="http://media.tietkiemnangluong.com.vn/Content/images/icon-vneep.png"></div>
+                    <div>
+                        <p>@Model.IntroText</p>
+                    </div>
+                </div>
+                <div class="detail-content mt40" id="NewsContent">
+                    @if (Model.Type == 1)
+                    {
+                        <div class="detail-icon-list sticky hidden-xs">
+                            <a href="javascript:void(0);" onclick="openWin('@ViewBag.FacebookShare');"><img src="http://media.tietkiemnangluong.com.vn/Content/images/icon-face02.png"></a>
+                            <a href="@Url.Action("Print", "News", new {Id=Model.Id})" target="_blank"><img src="http://media.tietkiemnangluong.com.vn/Content/images/icon-prt.png"></a>
+                        </div>
+                    }
+
+                    <div class="detail-text">
+                        @if (Model.Type == 2)
+                        {
+                            <script>
+					           window.location='/trang-chu-video.html?VideoId='+'@Model.Id'
+                            </script>
+
+                        }
+                        @Html.Raw(Model.Contents)
+
+                        @if (Model.Type == 3)
+                        {
+                            if (!String.IsNullOrEmpty(Model.Url))
+                            {
+                                <div class="content_document">
+
+                                    <a href="@Model.Url" target="_blank">Download</a> &nbsp;<a href="@Url.Action("ViewPDF", "Document", new { url = Model.Url })" target="_blank">Xem Online</a>
+                                </div>
+                            }
+
+
+                        }
+                    </div>
+                </div>
+                <div class="detail-tags mt50">
+                    @if (Model.Keywords != null)
+                    {
+                        if (!String.IsNullOrEmpty(Model.Keywords.Trim()))
+                        {
+                            <ul class="pull-left">
+                                <li>Tags:</li>
+
+                                @foreach (var item in Model.Keywords.Split(',').Select((value, i) => new { i, value }))
+                                {
+
+                                    if (!String.IsNullOrEmpty(item.value))
+                                    {
+                                        <li>
+                                            <a href="@Url.Action("Tag", new { keyword = item.value.Trim() })">@item.value.Trim()</a>
+                                        </li>
+
+                                    }
+
+                                }
+                            </ul>
+                        }
+                    }
+                    <div class="pull-right">
+                        <div class="fb-like" data-href="@(Model.LinkUrl)" data-layout="button_count" data-action="like" data-show-faces="false" data-share="true"></div>
+                    </div>
+                </div>
+
+
+            </div>
+            <div class="col-md-4 col-sm-12">
+                @{Html.RenderAction("LastestNews", "News", new { MaxLastestNews = 8 });}
+
+            </div>
+        </div><!-- end row-->
+    </div><!-- end content 01 -->
+
+    if (ViewBag.CurrentCategoryId != null)
+    {
+        { Html.RenderAction("BannerCenter1", "Banner", new { currentCategoryId = ViewBag.CurrentCategoryId }); }
+    }
+    else
+    {
+        { Html.RenderAction("BannerCenter1", "Banner"); }
+    }
+
+    <div class="detail-content02">
+        <div class="mt30 container">
+            <div class="row row-40">
+                <div class="col-md-8 col-sm-12 text-left">
+                    @{ Html.RenderAction("Relate", "News", new { CategoryId = Model.CategoryId, CateName = ViewBag.CateName, PageNextShow = false, pageNext = 2 }); }
+
+                </div>
+                <div class="col-md-4 col-sm-12">
+                    <div class="sidebar-bnr bnr-slider mt20">
+                        @if (ViewBag.CurrentCategoryId != null)
+                        {
+                            { Html.RenderAction("BannerRight1", "Banner", new { currentCategoryId = ViewBag.CurrentCategoryId }); }
+                        }
+                        else
+                        {
+                            { Html.RenderAction("BannerRight1", "Banner", new { currentCategoryId = 10001 }); }
+                        }
+                        <div class="clearfix"></div>
+                    </div>
+                    <div class="mt40 readmore">
+                        @{Html.RenderAction("TopViewNews", "News", new { MaxLastestNews = 8, CategoryId = -1 });}
+                    </div>
+                    <div class="clearfix"></div>
+
+                </div>
+            </div>
+        </div><!-- end content 02-->
+    </div>
+
+
+    <style>
+        .detail-text h2 {
+            font-family: 'merriweather';
+            font-size: 15px;
+            line-height: 23px;
+            font-weight: bold;
+        }
+    </style>
+
+    @*<script>
+
+            $('#NewsContent span').removeStyle('font-size');
+            $('#NewsContent div').removeStyle('font-size');
+            $('#NewsContent p').removeStyle('font-size');
+
+            $('#NewsContent span').removeStyle('font-family');
+            $('#NewsContent div').removeStyle('font-family');
+            $('#NewsContent p').removeStyle('font-family');
+
+
+        </script>*@
+
+
+    <script>
+        $('#NewsContent .news_detail_img').removeAttr('style');
+
+        $('#NewsContent  img').removeAttr('style');
+        $('#NewsContent  img').removeAttr('width');
+    </script>
+
+    <script type="text/javascript">
+
+        function openWin(url) {
+            var myWindow = window.open(url, '', 'width=700,height=500');
+            myWindow.focus();
+        }
+    </script>
+    @section scripts {
+        <script type="text/javascript">
+
+    $('#menu_' + '@ViewBag.CurrentCategoryId').addClass("active");
+        $('#foot_' + '@ViewBag.CurrentCategoryId').addClass("active");
+
+    $('#menu_' + '@ViewBag.ParentCategoryId').addClass("active");
+    $('#foot_' + '@ViewBag.ParentCategoryId').addClass("active");
+        </script>
+    }
+}

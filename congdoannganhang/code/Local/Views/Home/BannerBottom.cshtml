@@ -1,0 +1,44 @@
+﻿@model List<DATA.Banner>
+@if (Model != null)
+{
+    <div class="link fl" style="width: 983px;">
+
+        <div class="lienket" id="bannerbottom">
+            <ul id="mycarouse3">
+                @foreach (var item in Model.Select((value, i) => new { i, value }))
+                {
+                    <li><a class="opa" href="@item.value.Url" rel="nofollow">
+                        <img width="128" height="84" src="@item.value.Data" alt="@item.value.Name" /></a>
+                    </li>
+ 
+                }
+
+            </ul>
+
+        </div>
+        
+    </div>
+    <div class="clear"></div>
+    <script type="text/javascript">
+
+        jQuery('#mycarouse3').jcarousel({
+            wrap: 'circular',
+            offset: 1,
+            auto: 10, animation: "normal",
+            scroll: 1
+        });
+        $("#bannerbottom .jcarousel-clip-horizontal").css({ width: "895px", height: "88px", overflow: "hidden" });
+
+    </script>
+ 
+    <style>
+       #bannerbottom .jcarousel-item {
+            width: 128px;
+            height: 84px;
+        }
+       #bannerbottom {
+           padding-left: 40px;
+       }
+    </style>
+    
+}

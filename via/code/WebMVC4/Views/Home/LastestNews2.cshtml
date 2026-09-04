@@ -1,0 +1,43 @@
+﻿@using BIZ
+@using UTILS
+@using WebMVC4.Helper
+@model WebMVC4.Models.LastestNewModel
+@if (Model != null)
+{
+    if (Model.lstdata != null)
+    {
+
+        <div class="title-cm01">
+            <a href="@Model.Url">@Model.HeaderTitle</a>
+        </div>
+        foreach (var item in Model.lstdata.Take(1).Select((value, i) => new { i, value }))
+        {
+            <a href="@item.value.LinkUrl" class="maxheight01 newsbox-content">
+                <img src="@item.value.MainImage?w=367&h=206&mode=crop">
+                <span>@item.value.Title</span>
+            </a>
+            <span class="newsdate mt10">@item.value.PublishDate.ToString("dd/MM/yyyy")</span>
+        }
+
+        if (Model.lstdata.Count > 1)
+        {
+            <ul class="newslist-border mt20">
+                @foreach (var item in Model.lstdata.Skip(1).Select((value, i) => new { i, value }))
+                {
+                    <li>
+                        <a href="@item.value.LinkUrl">@item.value.Title</a>
+
+                    </li>
+
+                }
+            </ul>
+        }
+        <a href="@Model.Url" class="btn-viewmore mt20">Xem thêm <span>&#62;</span></a>
+
+
+
+
+
+
+    }
+}

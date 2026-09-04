@@ -1,0 +1,45 @@
+﻿@using BIZ
+@using UTILS
+@using WebMVC4.Helper
+@model DATA.Project
+
+@{
+    Layout = "~/Views/Shared/_Home.cshtml";
+}
+<p class="title-cm title-cm-inline">
+    <a href="#">
+        CÔNG NGHỆ VÀ THIẾT BỊ CHUYỂN GIAO
+    </a>
+</p>
+<div class="row product-detail mt30">
+    <div class="col-md-5 col-sm-5 col-xs-5">
+        <img src="@Model.Image?w=500&h=0&mode=crop" style="max-width:100%">
+    </div>
+    <div class="col-md-7 col-sm-7 col-xs-7">
+        <h3 class="product-title">@Model.Name</h3>
+        <ul>
+            <li class="title-tb">Tên dự án: </li>
+            <li class="mt10">@Model.Name</li>
+            <li class="title-tb mt20">Thông tin liên hệ: </li>
+            <li class="mt10">
+                @Html.Raw(Model.Infomation)
+            </li>
+        </ul>
+    </div>
+    <div class="col-md-12 col-xs-12 mt50">
+        <p class="title-tb">MÔ TẢ SẢN PHẨM </p>
+        <p class="mt15">
+            @Html.Raw(Model.Description)
+        </p>
+    </div>
+</div><!-- end row-->
+
+
+
+<div class="news-other mt30">
+    @{Html.RenderAction("RelateProject", "Project", new { Id = Model.Id });}
+
+</div>
+
+
+<div class="clearfix"></div>

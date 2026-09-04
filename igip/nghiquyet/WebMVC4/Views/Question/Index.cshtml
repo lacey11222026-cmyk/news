@@ -1,0 +1,144 @@
+﻿@using BIZ
+@using UTILS
+@using WebMVC4.Helper
+@model WebMVC4.Models.QAModel
+<h2 class="title-cm04"><span>HỎI ĐÁP VỀ THÔNG TƯ 21</span></h2>
+<div class="wrap-btn"><button class="btnsend">Gửi câu hỏi tại đây</button></div>
+<div id="comment-result" style="display:none;" class="status alert alert-success">Xin cám ơn bạn. Bạn đã gửi câu hỏi, chúng tôi sẽ liên lạc với bạn trong thời gian sớm nhất</div>
+<div class="faqmaincontent" id="comment-form">
+    <p class="mt20" style="font-weight: bold;">Vui lòng nhập đầy đủ thông tin vào các ô bên dưới</p>
+    <table class="pull-left">
+        <tr>
+            <p id="msgBox" style="color: #c82e29; font-weight: bold; font-size: 13px"></p>
+            @Html.AntiForgeryToken()
+        </tr>
+        <tr>
+            <td><label for="usr">Họ và tên :</label></td>
+            <td><input type="text" class="form-control" id="txtname"></td>
+        </tr>
+        <tr>
+            <td><label for="email">Email :</label></td>
+            <td><input type="text" class="form-control" id="txtemail"></td>
+        </tr>
+        <tr>
+            <td><label for="comment">Câu hỏi :</label></td>
+            <td><textarea class="form-control" rows="5" id="txtcontent"></textarea></td>
+        </tr>
+        <tr>
+            <td colspan="2"><button type="button" class="btn btn-warning pull-right" onclick="return validateData()">GỬI CÂU HỎI</button></td>
+        </tr>
+    </table>
+    <div class="clearfix"></div>
+</div>
+@if (Model.listdata != null)
+{
+    <div class="mt50 faq-list">
+        <h3 class="faq-title">Câu hỏi liên quan</h3>
+        <div class="panel-group" id="accordion2" role="tablist" aria-multiselectable="true">
+            @foreach (var item in Model.listdata.Select((value, i) => new { i, value }))
+            {
+
+                <div class="panel panel-default">
+                    <a class="item-question collapsed" id="item_question_@(item.value.Id)" role="button" data-toggle="collapse" data-parent="#accordion2" href="#collapse@(item.i+1)a"  aria-expanded="false" aria-controls="collapse11">
+                        <div class="faq-cm">
+                            <img src="/Content/images/ava.png" alt="Avata">
+                            <p><span>@item.value.Name : </span>@item.value.Question </p>
+                            <div class="clearfix"></div>
+                        </div>
+                    </a>
+                    <div id="collapse@(item.i+1)a"  class="panel-collapse collapse" role="tabpanel">
+                        <div class="panel-body">
+                            <div class="faq-cm">
+                                <img src="/Content/images/ava.png" alt="Avata">
+                                <p><span>Trả lời : </span>@Html.Raw(item.value.Answer)</p>
+                                <div class="clearfix"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+
+
+        </div>
+    </div>
+}
+
+<script src="~/Content/js/formvalidate.js"></script>
+<script type="text/javascript">
+
+        function validateEmail() {
+        if (!ValidateControls("Vui lòng nhập email", "#txtemail")) {
+            return false;
+        }
+        var mail = $('#txtemail').val();
+        if (!isValidEmailAddress(mail)) {
+
+                $("#msgBox").html("Emai không đúng định dạng").show();
+
+                $('#txtemail').focus();
+            return false;
+        }
+        return true;
+    }
+
+
+    function validateData() {
+        if (!ValidateControls("Vui lòng nhập tên", "#txtname")) {
+            return false;
+        }
+        if (!validateEmail()) {
+            return false;
+        }
+
+        if (!ValidateControls("Vui lòng nhập nội dung câu hỏi", "#txtcontent")) {
+            return false;
+        }
+
+
+        var postdata = {
+                Name: $('#txtname').val(),
+                Email: $('#txtemail').val(),
+                Question: $('#txtcontent').val(),
+
+            };
+             $.ajax({
+        type: "post",
+                dataType: "html",
+                url: '@Url.Action("Send")',
+                data: addAntiForgeryToken(postdata),
+                success: function (response) {
+
+            var data = parseInt(response);
+            if (data == 1) {
+                        $("#comment-form").hide();
+                        $("#comment-result").show();
+                        $('#txtname').val("");
+                        $('#txtemail').val("");
+                        $('#txtcontent').val("");
+
+
+
+            }
+
+            if (data == -99) {
+                        $("#msgBox").html("Lỗi hệ thống").show();
+
+            }
+            if (data == -4) {
+                        $("#msgBox").html("Thực hiện quá nhiều lần").show();
+
+            }
+
+        }
+    });
+
+            return true;
+        }
+</script>
+@if(ViewBag.Id!=0)
+{
+    <script>
+        $("#item_question_@(ViewBag.Id)").attr("aria-expanded","true");
+		 $("#item_ans_@(ViewBag.Id)").click();
+    </script>
+}

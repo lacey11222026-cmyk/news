@@ -1,0 +1,20 @@
+﻿@model List<DATA.Banner>
+@if (Model != null)
+{
+    
+        foreach (var item in Model.Select((value, i) => new { i, value }))
+        {
+          
+            <aside  class="widget widget_text" style="padding: 0;">
+                <div class="textwidget">
+                    <a href="@item.value.Url" rel="nofollow" target="_blank">
+                        <img src="@item.value.Data" alt="">
+                    </a>
+                </div>
+            </aside>
+    }
+
+
+
+}
+

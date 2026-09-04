@@ -1,0 +1,100 @@
+﻿
+<div class="row" id="ContentPopUp">
+    <div class="col-lg-12">
+        <div class="panel panel-primary">
+            <div class="panel-heading"><span class="glyphicon glyphicon-user"></span>@ViewBag.Title</div>
+            <div class="panel-body">
+                <div class="row" id="form">
+
+
+                    <div class="form-group col-md-6 col-xs-12 col-sm-6">
+                        <label class="control-label text-info">Câu trả lời</label>
+                        <div class="col-xs-4 col-md-8 col-sm-8 col-xs-12">
+                            <input type="text" id="txtContent" class="form-control" placeholder="Nhập câu trả lời">
+                        </div>
+                    </div>
+                    <div class="form-group col-md-3 col-xs-4 col-sm-6">
+                        <label class="control-label text-info">Thứ tự</label>
+                        <div class="col-xs-4 col-md-8 col-sm-8 col-xs-12">
+                            <input type="number" id="txtOrder" class="form-control" placeholder="Nhập thứ tự" value="0">
+                        </div>
+                    </div>
+                    <div class="form-group submit col-md-3 col-xs-4 col-sm-6">
+
+                        <a id="btnCreate" href="javascript:;" class="btn btn-success" onclick="add()"><i class="fa fa-user-plus"></i>Thêm Mới</a>
+                    </div>
+
+
+                </div>
+            </div>
+            <div class="table-responsive">
+                <div id="dgrid" class="dataTables_wrapper form-inline" role="grid">
+                    <div id="ListSurveyItem">
+                        @Html.Action("ListSurveyItem",new {Id=ViewBag.Id})
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    function GetList() {
+        parameters = {
+            Id: '@(ViewBag.Id)'
+        };
+        Utils.Loading();
+        var urlRequestAns = "@Url.Action("ListSurveyItem")";
+        $.ajax({
+            type: 'GET',
+            url: urlRequestAns,
+            data: parameters,
+            success: function(data) {
+                $("#ListSurveyItem").html(data);
+                Utils.UnLoading();
+            },
+            error: function() {
+                Utils.UnLoading();
+            }
+        });
+    }
+    function add() {
+        var param = {
+            'SurveyId': '@ViewBag.Id',
+            'Content': $("#txtContent").val(),
+            'Status': 1,
+            'Count':10,
+            'Order': $("#txtOrder").val()
+        };
+       
+        $.ajax({
+            type: 'POST',
+            url: "@Url.Action("SurveyItemSaveData")",
+            data: addAntiForgeryToken(param),
+        async: true,
+        success: function (data) {
+            Utils.UnLoading();
+            if (data.ResponseCode >= 0) {
+                $("#txtContent").val('');
+                $("#txtOrder").val('0');
+
+                GetList();
+            }
+            else {
+
+                alert(data.Description);
+
+            }
+        }
+    });
+    }
+
+</script>
+<style type="text/css">
+    .modal-dialog {
+        width: 79% !important;
+        height: 79% !important;
+    }
+</style>

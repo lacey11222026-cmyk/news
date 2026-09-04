@@ -1,0 +1,158 @@
+﻿<!DOCTYPE html>
+<html lang="vi" prefix="og: http://ogp.me/ns#" class="no-js">
+<head>
+    @Html.Partial("MetaData")
+
+    <link rel="stylesheet" id="flatsome-googlefonts-css" href="/Content/css.css" type="text/css" media="all">
+    
+    <link rel="preload" as="script" href="/Content/jquery.js">
+
+    <link rel="preload" as="script" href="/Content/scripts-c8167280e29db2bd82023669f769e5ca.js">
+    <link rel="preload" as="script" href="/Content/jquery_002.js">
+
+    <link rel="preload" as="script" href="/Content/js.js">
+    @*<link rel="preload" as="script" href="/Content/woocommerce.js">
+
+    <link rel="preload" as="script" href="/Content/smush-lazy-load.js">*@
+    <link rel="preload" as="script" href="/Content/hoverIntent.js">
+    <link rel="preload" as="script" href="/Content/flatsome-309ab7f6455add46fd983618e622cf84.js">
+    <link rel="preload" as="script" href="/Content/woocommerce-2d08143ff180dcaa4d7bb62023e30626.js">
+    <link rel="preload" as="script" href="/Content/wp-embed.js">
+
+    <link crossorigin="anonymous" rel='stylesheet' id='flatsome-googlefonts-css' href='//fonts.googleapis.com/css?family=Roboto%3Aregular%2C500%2Cregular%2Cregular%7CDancing+Script%3Aregular%2Cdefault&#038;display=swap&#038;ver=3.9' type='text/css' media='all' /></noscript>
+    <link href="~/Content/a0bdbf2bea46527eb0700610ced99f8c.css?vs=02" rel="stylesheet" />
+
+    <link href="~/Content/css/extend.css?vs=33" rel="stylesheet" />
+
+
+</head>
+<body class="home page-template page-template-page-blank page-template-page-blank-php page page-id-2 theme-flatsome woocommerce-demo-store woocommerce-js header-shadow lightbox nav-dropdown-has-arrow">
+    <script id="jquery-core-js" data-cfasync="false" type="text/javascript" src="/Content/jquery.js"></script>
+
+    <script src="~/Content/js/jquery-2.1.1.min.js"></script>
+    <div id="wrapper">
+        @Html.Partial("Site_Header")
+
+        @RenderBody()
+
+        @Html.Partial("Site_Footer")
+    </div>
+
+
+    <script defer="defer" id="smush-lazy-load-js" data-cfasync="false" type="text/javascript" src="/Content/smush-lazy-load.js"></script>
+    <script defer="defer" id="hoverIntent-js" data-cfasync="false" type="text/javascript" src="/Content/hoverIntent.js"></script>
+    <script id="flatsome-js-js-extra" type="text/javascript" data-cfasync="false">/* <![CDATA[ */ var flatsomeVars = { "ajaxurl": "", "rtl": "", "sticky_height": "52", "lightbox": { "close_markup": "<button title=\"%title%\" type=\"button\" class=\"mfp-close\"><svg xmlns=\"http:\/\/www.w3.org\/2000\/svg\" width=\"28\" height=\"28\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"feather feather-x\"><line x1=\"18\" y1=\"6\" x2=\"6\" y2=\"18\"><\/line><line x1=\"6\" y1=\"6\" x2=\"18\" y2=\"18\"><\/line><\/svg><\/button>", "close_btn_inside": false }, "user": { "can_edit_pages": false }, "i18n": { "mainMenu": "Main Menu" }, "options": { "cookie_notice_version": "1" } }; /* ]]> */</script>
+    <script defer="defer" id="flatsome-js-js" data-cfasync="false" type="text/javascript" data-minify="1" src="/Content/flatsome-309ab7f6455add46fd983618e622cf84.js"></script>
+    <script defer="defer" id="flatsome-theme-woocommerce-js-js" data-cfasync="false" type="text/javascript" data-minify="1" src="/Content/woocommerce-2d08143ff180dcaa4d7bb62023e30626.js"></script>
+
+    @*<script>
+        window.lazyLoadOptions = { elements_selector: "iframe[data-lazy-src]", data_src: "lazy-src", data_srcset: "lazy-srcset", data_sizes: "lazy-sizes", class_loading: "lazyloading", class_loaded: "lazyloaded", threshold: 300, callback_loaded: function (element) { if (element.tagName === "IFRAME" && element.dataset.rocketLazyload == "fitvidscompatible") { if (element.classList.contains("lazyloaded")) { if (typeof window.jQuery != "undefined") { if (jQuery.fn.fitVids) { jQuery(element).parent().fitVids() } } } } } }; window.addEventListener('LazyLoad::Initialized', function (e) {
+            var lazyLoadInstance = e.detail.instance; if (window.MutationObserver) {
+                var observer = new MutationObserver(function (mutations) {
+                    var image_count = 0; var iframe_count = 0; var rocketlazy_count = 0; mutations.forEach(function (mutation) {
+                        for (i = 0; i < mutation.addedNodes.length; i++) {
+                            if (typeof mutation.addedNodes[i].getElementsByTagName !== 'function') { return }
+                            if (typeof mutation.addedNodes[i].getElementsByClassName !== 'function') { return }
+                            images = mutation.addedNodes[i].getElementsByTagName('img'); is_image = mutation.addedNodes[i].tagName == "IMG"; iframes = mutation.addedNodes[i].getElementsByTagName('iframe'); is_iframe = mutation.addedNodes[i].tagName == "IFRAME"; rocket_lazy = mutation.addedNodes[i].getElementsByClassName('rocket-lazyload'); image_count += images.length; iframe_count += iframes.length; rocketlazy_count += rocket_lazy.length; if (is_image) { image_count += 1 }
+                            if (is_iframe) { iframe_count += 1 }
+                        }
+                    }); if (image_count > 0 || iframe_count > 0 || rocketlazy_count > 0) { lazyLoadInstance.update() }
+                }); var b = document.getElementsByTagName("body")[0]; var config = { childList: !0, subtree: !0 }; observer.observe(b, config)
+            }
+        }, !1)</script>*@
+    <script data-no-minify="1" async="" src="/Content/lazyload.js"></script>
+    <script>
+        $('#menu_0').removeClass('active');
+    </script>
+
+    <div class="devvn_toolbar">
+        <ul>
+            <li class="hidenmobile">
+                <style>
+                    .devvn_toolbar ul li a#devvn_contact_1 span:after {
+                        border-right-color: #ed1c24;
+                    }
+                </style>
+                <a href="tel:0943888255" target="_blank" id="devvn_contact_1" title="Hotline" style="background-color: #ed1c24;">
+                    <img width="56" height="48" src="/Content/images/phone-icon.png" class="attachment-full size-full" alt="">                                <span style="color: #ffffff; background-color: #ed1c24;">Hotline</span>
+                </a>
+            </li>
+			  <li class="blockmobile">
+                <style>
+                    .devvn_toolbar ul li a#devvn_contact_1 span:after {
+                        border-right-color: #ed1c24;
+                    }
+                </style>
+                <a href="tel:0943888255" target="_blank" id="devvn_contact_1" title="Hotline" style="background-color: #ed1c24;">
+                    <span style="color: #ffffff; background-color: #ed1c24; font-size:24px; padding:5px">0943888255</span>
+                </a>
+            </li>
+            <li>
+                <style>
+                    .devvn_toolbar ul li a#devvn_contact_2 span:after {
+                        border-right-color: #008fe5;
+                    }
+                </style>
+                <a href="https://zalo.me/0943888255" target="_blank" id="devvn_contact_2" title="Zalo chat" style="background-color: #008fe5;">
+                    <img width="56" height="30" src="/Content/images/zalo-icon.png" class="attachment-full size-full" alt="">                                <span style="color: #ffffff; background-color: #008fe5;">Zalo chat</span>
+                </a>
+            </li>
+            <li class="hidenmobile">
+                <style>
+                    .devvn_toolbar ul li a#devvn_contact_3 span:after {
+                        border-right-color: #ffb716;
+                    }
+                </style>
+                <a href="sms:0943888255" target="_blank" id="devvn_contact_3" title="Gửi SMS" style="background-color: #ffb716;">
+                    <img width="56" height="48" src="/Content/images/sms-icon.png" class="attachment-full size-full" alt="">                                <span style="color: #ffffff; background-color: #ffb716;">Gửi SMS</span>
+                </a>
+            </li>
+            <li>
+                <style>
+                    .devvn_toolbar ul li a#devvn_contact_4 span:after {
+                        border-right-color: #1779f2;
+                    }
+                </style>
+                <a href="https://m.me/XenangNhatkomatsu" target="_blank" id="devvn_contact_4" title="Facebook" style="background-color: #1779f2;">
+                    <img width="56" height="48" src="/Content/images/fb-icon.png" class="attachment-full size-full" alt="">                                <span style="color: #ffffff; background-color: #1779f2;">Facebook</span>
+                </a>
+            </li>
+        </ul>
+    </div>
+    @Html.Action("MenuMobile", "Home")
+
+    <div id="fb-root"></div>
+    <div class="clearfix">
+    </div>
+    <script>
+        if (window.location.host == 'www.xenangbactrungnam.com') {
+            window.location.href = 'https://xenangbactrungnam.com/';
+        }
+    </script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            var links = document.getElementsByTagName("a");
+            var i;
+            for (i = 0; i < links.length; i++) {
+                if (location.hostname !== links[i].hostname) {
+                    links[i].rel = "nofollow noopener noreferrer";
+                    links[i].target = "_blank";
+                }
+            }
+        });
+    </script>
+
+    <script async defer crossorigin="anonymous" src="https://connect.facebook.net/vi_VN/sdk.js#xfbml=1&version=v10.0&appId=3016204535291546&autoLogAppEvents=1" nonce="h53xkyk5"></script>
+
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'G-F4R5072VDX');
+    </script>
+    <script>
+    $("#qnmb").remove();
+</script>
+</body>
+</html>

@@ -1,0 +1,27 @@
+﻿@using BIZ
+@using UTILS
+@using WebMVC4.Helper
+@model WebMVC4.Models.LastestNewModel
+@if (Model != null)
+{
+
+    <h2 class="title-cm01"><a href="@Model.Url">@Model.HeaderTitle</a></h2>
+    <div class="block-body mt20">
+        <marquee style="position: relative;" behavior="scroll" align="center" direction="up" scrollamount="2" scrolldelay="5" onmouseover="this.stop()" onmouseout="this.start()" height="300px">
+            <ul class="newslist-04 list-border">
+                @foreach (var item in Model.lstdata.Select((value, i) => new { i, value }))
+                {
+                    <li>
+                        <a href="@item.value.LinkUrl" class="mb-0">@item.value.Title</a>
+                        <p class="date-txt mt10">@item.value.PublishDate.ToString("dd/MM/yyyy")</p>
+                    </li>
+                }
+            </ul>
+        </marquee>
+    </div>
+}
+
+
+
+
+

@@ -1,0 +1,117 @@
+﻿@using UTILS
+@using WebMVC4.Helper
+@{
+    var langpage = WorkContext.GetLanguage();
+}
+@{
+    var date = Utils.formatDateofWeek(DateTime.Now.DayOfWeek) + "," + DateTime.Now.ToString(" dd") + "/" + DateTime.Now.ToString("MM") + "/" + DateTime.Now.Year.ToString() + " | " + DateTime.Now.ToString("HH") + ":" + DateTime.Now.ToString("mm");
+    var DateEN = DateTime.Now.DayOfWeek.ToString() + ", " + DateTime.Now.ToString("dd") + "/" + DateTime.Now.ToString("MM") + "/" + DateTime.Now.Year.ToString() + " | " + DateTime.Now.ToString("HH") + ":" + DateTime.Now.ToString("mm");
+}
+<div class="header">
+    <div class="header-conent01">
+        <img src="/Content//images/topbanner.png" alt="Cục Công nghiệp - Bộ Công Thương" class="pull-right bnr-img">
+        <div class="bnr-content">
+            <div class="container">
+                <a href="/" class="hidden-575"><img src="/Content//images/logo-top.png" alt="IGIP" class="logo-top" width="570"></a>
+                <a href="/" class="block-575"><img src="/Content//images/logo-footer.png" alt="IGIP" class="logo-top"></a>
+            </div>
+        </div>
+    </div>
+    <div class="nav_top">
+        <div class="container">
+            <div class="nav-top-content">
+                <div class="nav-left disflex">
+                    <div class="ico-home"><a href="/"><img src="/Content//images/icon-home.svg" alt="Trang chủ" width="12"></a></div>
+                    <nav class="nav-list">
+                        <ul>
+                            @{Html.RenderAction("Menu", "Home", new { lang = langpage });}
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="header-mobile">
+        <a href="#menu">
+            <img src="/Content//images/menu.svg" width="30" class="ico-menu">
+        </a>
+        <div class="header-mobile-content">
+            <div class="header-mb-top">
+                <a href="#menu" class="ico-close">
+                    <img src="/Content//images/close.svg" width="18">
+                </a>
+                <a href="/" class="logo-top-mb"><img src="/Content//images/logo-top.png" alt=""></a>
+            </div>
+            <div class="nav-mb mt20">
+                <div class="search-box w100">
+                    <button class="search-icon" onclick="Msearch();"></button>
+                    <input type="text" class="form-control" id="txtKeywordMobile" onkeydown="javascript: return MAnyInput_KeyDown(this, event);">
+                </div>
+                <ul class="nav-mb-list mt20">
+                    @{Html.RenderAction("MenuMobile", "Home", new { lang = langpage });}
+                </ul>
+            </div>
+        </div>
+    </div>
+</div><!-- end header-->
+<div class="container tool">
+    <p class="date-orange mt10">@date</p>
+    <div class="nav-right hidden-767">
+        <ul>
+            <li><a href="#" class="icon-cm"><img src="/Content//images/icon-phone.svg" width="10"></a></li>
+            <li><a href="#" class="icon-cm"><img src="/Content//images/icon-face.svg" width="5"></a></li>
+            <li><a href="#" class="icon-cm"><img src="/Content//images/icon-youtube.svg" width="12"></a></li>
+            <li>
+                <div class="search-box">
+                    <button class="search-icon" onclick="search();"></button>
+                    <input type="text" class="input-cm" id="txtKeyword" onkeydown="javascript: return AnyInput_KeyDown(this, event);">
+                </div>
+            </li>
+            <li class="lienket-area">
+                <select name="lienket" id="" class="input-cm" onchange="window.open(this.options[this.selectedIndex].value,'_blank');this.options[0].selected=true">
+                    <option value="">Liên kết</option>
+                    <option value="https://moit.gov.vn/">Cổng TTĐT Bộ Công Thương</option>
+                </select>
+            </li>
+        </ul>
+    </div>
+</div>
+
+
+
+
+<script type="text/javascript">
+    function search() {
+        var searchtext = $("#txtKeyword").val();
+        window.location = "/News/Search?q=" + searchtext;
+
+    }
+    function AnyInput_KeyDown(sender, e) {
+        if ((e.which && e.which == 13) || (e.keyCode && e.keyCode == 13)) {
+            search();
+
+            return false;
+        }
+
+        return true;
+    }
+
+
+    function Msearch() {
+        var searchtext = $("#txtKeywordMobile").val();
+        window.location = "/News/Search?q=" + searchtext;
+
+    }
+    function MAnyInput_KeyDown(sender, e) {
+        if ((e.which && e.which === 13) || (e.keyCode && e.keyCode === 13)) {
+            Msearch();
+
+            return false;
+        }
+
+        return true;
+    }
+
+
+
+</script>

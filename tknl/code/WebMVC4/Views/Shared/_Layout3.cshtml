@@ -1,0 +1,62 @@
+﻿@using  WebMVC4
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+
+    <title>@ViewBag.Title </title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta name="description" content="@ViewBag.Description" />
+    <meta name="keywords" content="@ViewBag.Keywords" />
+    <meta name="news_keywords" content="@ViewBag.Keywords" />
+    <meta content="@ViewBag.NewsTitle" property="og:title" />
+    <meta content="@ViewBag.NewsDescription" property="og:description" />
+    <meta content="" property="og:url" />
+    <meta content="@ViewBag.MainImage" property="og:image">
+    <meta name="author" content="bao giao thong" />
+    <meta name="google-site-verification" content="gGOjlV44OwKjKK1t-DasjCVvLJxYvmz2_ZXwbxQgYok" />
+    <meta content="general" name="rating" />
+    <meta content="bao giao thong" name="copyright" />
+    <meta content="never" name="expires" />
+    <meta content="global" name="distribution" />
+    <meta content="DOCUMENT" name="RESOURCE-TYPE" />
+    <meta content="tietkiemnangluong.com.vn" name="GENERATOR" />
+
+    <meta name="robots" content="index,follow" />
+    <meta name="Googlebot" content="index,follow,noarchive" />
+    <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
+
+    <link href="@(MvcApplication.StaticSiteUrl)Styles/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="@(MvcApplication.StaticSiteUrl)Styles/css.css" rel="stylesheet" />
+    <link href="@(MvcApplication.StaticSiteUrl)Styles/extend.css" rel="stylesheet" type="text/css" />
+    <link href="@(MvcApplication.StaticSiteUrl)Styles/custom.css" rel="stylesheet" />
+    <link rel="shortcut icon" href="@(MvcApplication.StaticSiteUrl)/favicon.ico">
+    <!--[if lt IE 9]>
+        <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <!-- css3-mediaqueries.js for IE less than 9 -->
+    <!--[if lt IE 9]>
+        <script src="http://css3-mediaqueries-js.googlecode.com/svn/trunk/css3-mediaqueries.js"></script>
+    <![endif]-->
+
+    <script src="@(MvcApplication.StaticSiteUrl)Scripts/jquery-1.9.1.min.js"></script>
+    <script src="@(MvcApplication.StaticSiteUrl)Scripts/jquery.query.js" type="text/javascript"></script>
+    
+</head>
+<body>
+   
+    <div class="page">
+        @Html.Partial("Site_Header")
+
+        @{Html.RenderAction("Menu", "Home");}
+
+        <div class="camnang1">
+            @*<div class="fl"><img src="/images/camnang.jpg" border="0" /></div>*@
+            @Html.Partial("Site_Weather")
+        </div>
+        <div class="camnang2">
+            @RenderBody()
+        </div>
+
+    </div>
+</body>
+</html>

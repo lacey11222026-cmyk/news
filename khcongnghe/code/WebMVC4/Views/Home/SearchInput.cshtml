@@ -1,0 +1,82 @@
+﻿@using UTILS
+@{
+    var date = Utils.formatDateofWeek(DateTime.Now.DayOfWeek) + "," + DateTime.Now.ToString(" dd") + "/" + DateTime.Now.ToString("MM") + "/" + DateTime.Now.Year.ToString() + " | " + DateTime.Now.ToString("HH") + ":" + DateTime.Now.ToString("mm");
+}
+<section class="tool container mt10">
+    <p class="pull-left">@date</p>
+    <div class="pull-right col-md-4 col-sm-6 col-xs-12 pr0">
+        <div class="input-group col-md-7 col-sm-7 col-xs-7 pull-left">
+            <input type="text" class="form-control" id="txtKeyword" onkeydown="javascript: return AnyInput_KeyDown(this, event);" placeholder="Tìm kiếm">
+            <span class="input-group-btn">
+                <button class="btn btn-default" type="button" onclick="search()"><img src="~/Content2/images/ico-search.png" alt="Search"></button>
+            </span>
+        </div>
+        <form>
+            <div class="form-group col-md-5 col-sm-5 col-xs-5 pr0">
+                <select class="form-control" id="Select1" onchange="window.open(this.options[this.selectedIndex].value,'_blank');this.options[0].selected=true">
+                    <option selected="selected">Liên kết</option>
+                    <option value="http://dangcongsan.vn">Đảng Cộng Sản</option>
+                    <option value="http://www.na.gov.vn">Quốc Hội</option>
+                    <option value="http://www.chinhphu.vn">Chính Phủ</option>
+                    <option value="http://www.congdoanvn.org.vn">Tổng Liên đoàn LÐVN </option>
+                    <option value="http://xaydung.gov.vn">Bộ Xây Dựng</option>
+                    <option value="http://www.baoxaydung.com.vn/">Báo Xây Dựng</option>
+                </select>
+            </div>
+        </form>
+    </div>
+</section><!-- end tool-->
+<div class="tool_mobile block_mobile">
+    <div class="date">@date</div>
+    <ul>
+        <li>
+            <div class="search_m">
+                <a class="click" href="javascript:;"></a>
+                <input class="submit_m" type="submit" onclick="Msearch()">
+                <input class="text_m" type="text" id="txtKeywordMobile" placeholder="Tìm kiếm" onkeydown="javascript: return MAnyInput_KeyDown(this, event);">
+            </div>
+        </li>
+        <li>
+            <div class="noibo_link"><a href="http://mail.vnubw.org.vn:2096/" target="_blank"><span class="glyphicon glyphicon-user" aria-hidden="true"></span></a></div>
+        </li>
+        <li>
+            <div class="mail_link"><a href="mail.vnubw.org.vn:2096" target="_blank"><span class="glyphicon glyphicon-envelope" aria-hidden="true"></span></a></div>
+        </li>
+    </ul>
+    <div class="clearfix"></div>
+</div><!-- end tool mobile-->
+<script type="text/javascript">
+    function search() {
+        var searchtext = $("#txtKeyword").val();
+        window.location = "/News/Search?q=" + searchtext;
+
+    }
+    function AnyInput_KeyDown(sender, e) {
+        if ((e.which && e.which == 13) || (e.keyCode && e.keyCode == 13)) {
+            search();
+
+            return false;
+        }
+
+        return true;
+    }
+
+
+    function Msearch() {
+        var searchtext = $("#txtKeywordMobile").val();
+        window.location = "/News/Search?q=" + searchtext;
+
+    }
+    function MAnyInput_KeyDown(sender, e) {
+        if ((e.which && e.which == 13) || (e.keyCode && e.keyCode == 13)) {
+            Msearch();
+
+            return false;
+        }
+
+        return true;
+    }
+
+
+
+</script>

@@ -1,0 +1,77 @@
+﻿@using Car.Data
+@using Car.Utility
+@using Car.CMS.Helper
+@model List<Plan>
+@{
+    List<string> ListName = ViewBag.ListName;
+}
+@{ var idx = 0; }
+<table class="table table-striped table-bordered table-hover dataTable no-footer" id="dataTables">
+    <thead>
+        <tr class="rowsao">
+            <th>STT </th>
+
+
+            <th>Loại báo cáo</th>
+            <th>Năm</th>
+
+
+            <th>Quản trị</th>
+
+        </tr>
+    </thead>
+    @if (Model != null && Model.Count > 0)
+    {
+        for (int i = 0; i < ListName.Count; i++)
+        {
+
+            var obj = Model.FirstOrDefault(x => x.Name.Equals(ListName[i]));
+            <tr>
+                <td> @(i + 1)</td>
+                <td>@HtmlHelpers.GetReportType(obj.Type.GetValueOrDefault())</td>
+                <td>@obj.Year</td>
+                <td style="text-align:left;max-width:200px;">
+                    <div style="width:100%; ">
+                        <div style="width:250px;margin: 0 auto;text-align:right">
+
+                            <a href="@Url.Action("View",new { year=obj.Year,type=obj.Type})" >Xem</a> <text>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</text>
+                            <a href="@Url.Action("ExportExcel",new {year=obj.Year,type=obj.Type})" target="_blank">Tải Excel</a>
+
+                        </div>
+                    </div>
+                </td>
+            </tr>
+
+
+        }
+    }
+    
+</table>
+<script type="text/javascript">
+    var PageOnSize = '@ViewBag.PageSize';
+    var CurrentPage = '@ViewBag.CurrentPage';
+    function BindDataRequest(currentPage) {
+        var params = {
+            type: $("#ddlType").val(),
+            year: $("#ddlYear").val(),
+            currentPage: currentPage,
+            pageSize: PageOnSize
+        };
+        var urlRequestAns = "/AdminReport/ListReport";
+        Utils.Loading();
+        $.ajax({
+            type: 'GET',
+            url: urlRequestAns,
+            data: params,
+            success: function (data) {
+                $("#ListReport").html(data);
+                Utils.UnLoading();
+            },
+            error: function () {
+                Utils.UnLoading();
+            }
+        });
+    };
+
+
+</script>

@@ -1,0 +1,26 @@
+﻿@model List<DATA.ContentDB.Project2>
+@using WebMVC4.Helper
+@{
+    var langpage = WorkContext.GetLanguage();
+}
+
+@foreach (var item in Model.Select((value, i) => new { i, value }))
+{
+    <div class="col-sm-6 col-lg-4 col-item">
+        <div class="news-item">
+            <a href="/chi-tiet-du-an/?id=@item.value.Id" class="picture"><img src="@item.value.UnitIInfo?w=373&h=247&mode=crop"></a>
+            <div class="desc">
+                <div class="status">
+                    <span class="v@(item.value.Status)">@HtmlHelpers.ProjectStatus(item.value.Status, langpage)</span>
+                    @*<span>@Resources.Global.Start: @item.value.StartTime</span>*@
+                </div>
+                <h3><a href="/chi-tiet-du-an/?id=@item.value.Id">@item.value.Name</a></h3>
+                @*<p>@Html.Raw(item.value.Description)</p>*@
+            </div>
+        </div>
+    </div>
+
+}
+
+
+

@@ -1,0 +1,50 @@
+﻿@using BIZ
+@using UTILS
+@using WebMVC4.Helper
+@model WebMVC4.Models.LastestNewModel
+@if (Model != null)
+{
+
+    <div class="row othernews-content">
+        <div class="col-lg-4 col-md-6 col-sm-12">
+            @foreach (var item in Model.lstdata.Take(1).Select((value, i) => new { i, value }))
+            {
+                <div class="newsbig">
+                    <a href="@item.value.LinkUrl"><img src="@item.value.MainImage?w=411&h=268&mode=crop" alt=""></a>
+                    <div class="newsbig-content">
+                        <a href="@item.value.LinkUrl" class="news-name mt15">@item.value.Title</a>
+                    </div>
+                </div>
+            }
+        </div>
+        <div class="col-lg-4 col-md-6 col-sm-12">
+            <div class="newslist-02">
+                @foreach (var item in Model.lstdata.Skip(1).Take(3).Select((value, i) => new { i, value }))
+                {
+                    <div class="news-item">
+                        <a href="@item.value.LinkUrl">
+                            <img src="@item.value.MainImage?w=243&h=162&mode=crop" alt="">
+                            <span>@item.value.Title</span>
+                        </a>
+                    </div>
+                }
+            </div>
+        </div>
+        <div class="col-lg-4 col-md-12 col-sm-12 hidden-991">
+            <div class="newslist-02">
+                @foreach (var item in Model.lstdata.Skip(4).Take(3).Select((value, i) => new { i, value }))
+                {
+                    <div class="news-item">
+                        <a href="@item.value.LinkUrl">
+                            <img src="@item.value.MainImage?w=243&h=162&mode=crop" alt="">
+                            <span>@item.value.Title</span>
+                        </a>
+                    </div>
+                }
+
+            </div>
+        </div>
+    </div>
+
+    
+}

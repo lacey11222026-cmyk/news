@@ -1,0 +1,57 @@
+﻿@using WebMVC4.Helper
+@using BIZ
+@using UTILS
+<!-- FOOTER -->
+<footer class="footer-container color-scheme-dark">
+
+    <div class="container main-footer">
+        <aside class="footer-sidebar widget-area row" role="complementary">
+            <div class="footer-column footer-column-1 col-12 col-sm-12 col-lg-6">
+                <div id="text-2" class="woodmart-widget widget footer-widget  widget_text">
+                    <div class="widget-title"> CÔNG TY TNHH ĐẦU TƯ VÀ THƯƠNG MẠI DỊCH VỤ MINH PHÚ</div>
+                    <div class="textwidget">
+                        <div style="line-height: 2;">
+
+
+                            Mã số thuế		: 0109418028.   <br />
+                            VPGD:  Lô 01/DV8 KĐT Tây Nam Linh Đàm, Hoàng Mai, Hà Nội<br>
+							Showroom 1: 486 Kim Giang, Thanh Xuân, Hà Nội<br>
+Showroom 2: 30B Phạm Văn Đồng, Cầu Giấy, Hà Nội<br>
+Xưởng sản xuất: Thôn Hạ, xã Cự Khê, huyện Thanh Oai, Hà Nội<br>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="footer-column footer-column-2 col-12 col-sm-6 col-lg-3">
+                <div id="nav_menu-4" class="woodmart-widget widget footer-widget  widget_nav_menu">
+                    <div class="widget-title">Hỗ trợ khách hàng</div><div class="menu-huongdan-container">
+                        <ul id="menu-huongdan" class="menu">
+                            @Html.Action("IntroMenu", "Home", new { categoryId = 4 })
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-column footer-column-3 col-12 col-sm-6 col-lg-3">
+                <div id="nav_menu-6" class="woodmart-widget widget footer-widget  widget_nav_menu">
+                    <div class="widget-title">Giới thiệu</div><div class="menu-mainmenu-container">
+                        <ul id="menu-mainmenu" class="menu">
+                            @Html.Action("IntroMenu", "Home", new { categoryId = 3 })
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </aside><!-- .footer-sidebar -->
+    </div>
+
+    <div class="copyrights-wrapper copyrights-two-columns">
+        <div class="container">
+            <div class="min-footer">
+                <div class="col-left reset-mb-10">
+                    <small>Copyright 2021 Tkkinterior.com</small>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</footer>

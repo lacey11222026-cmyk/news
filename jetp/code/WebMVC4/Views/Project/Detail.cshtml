@@ -1,0 +1,295 @@
+﻿@using BIZ
+@using UTILS
+@using WebMVC4.Helper
+
+@model DATA.ContentDB.Project2FullV2
+@{
+    var langpage = WorkContext.GetLanguage();
+}
+<div class="project-detail">
+    @if (langpage == "vi-vn")
+    {
+        <section class="section-project-1" style="background-image: url('@Model.Project.UnitIInfo');">
+            <div class="container">
+                <div class="content">
+                    <div class="text">
+                        <div class="breadcrumbs-02">
+                            <ul>
+                                <li><a href="/">Trang chủ</a></li>
+                                <li><a href="/du-an">Dự án phù hợp JETP</a></li>
+
+                            </ul>
+                        </div>
+                        <div class="title">
+                            <h2>@Model.Project.Name</h2>
+                            <p></p>
+                        </div>
+                        <div class="option desc">
+                            <div class="status">
+                                <span class="v3">@HtmlHelpers.UserProjectType(Model.Project.Type)</span>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <div class="container">
+                <div class="tbl-wrap">
+                    <table>
+                        <tr>
+                            <th>1. Tên dự án</th>
+                            <td>@Model.Project.Name</td>
+                        </tr>
+                        <tr>
+                            <th>2. Địa điểm dự án</th>
+                            <td>@Model.Project.Location</td>
+                        </tr>
+                        <tr>
+                            <th>3. Hạng mục dự án</th>
+                            <td>@HtmlHelpers.UserProjectSubType(Model.Project.SubType, Model.Project.Type)</td>
+                        </tr>
+                       
+                        <tr>
+                            <th>4. Đơn vị phát triển dự án: </th>
+                            <td>@Model.ProjectConfig.UnitDev</td>
+                        </tr>
+                        <tr>
+                            <th>5. Chủ dự án</th>
+                            <td>
+                                <div class="show-txt">
+                                    <p style="-webkit-line-clamp: unset;">
+                                        @Html.Raw(Model.Project.Organ.Replace("\n", "<br>"))
+                                    </p>
+
+                                    @*<a href="#" class="btn-orange">Xem thêm</a>*@
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>6. Tổng chi phí dự án</th>
+                            <td>@Model.Project.Total</td>
+                        </tr>
+                      
+                       
+                       
+                        <tr>
+                            <th>7. Tiến độ dự án</th>
+                            <td>@HtmlHelpers.UserProjectProgress(Model.Project.Progress)</td>
+                        </tr>
+                        <tr>
+                            <th>8. Ngày dự kiến khởi công</th>
+                            <td>@Model.ProjectConfig.Time</td>
+                        </tr>
+                        <tr>
+                            <th>9. Ngày dự kiến hoàn thành (CoD)</th>
+                            <td>@Model.ProjectConfig.Finish</td>
+                        </tr>
+                      
+                        <tr>
+                            <th>10. Mô tả ngắn gọn dự án và mục tiêu dự án </th>
+                            <td>
+                                <div class="show-txt">
+                                    <p>
+                                        @Html.Raw(Model.Project.Description.Replace("\n", "<br>"))
+                                    </p>
+                                    <a href="#" class="btn-orange">Xem thêm</a>
+                                </div>
+                            </td>
+                        </tr>
+                       
+                       
+                      
+
+                    </table>
+                </div>
+            </div>
+        </section>
+        <section class="section-project-4 pt70 pb70">
+            <div class="container">
+                <div class="content">
+                    <div class="title">
+                        <h2>Dự án khác</h2>
+                    </div>
+                    <div>
+                        <div class="row row-20">
+
+                            @{Html.RenderAction("RelateProject", "Project", new { Id = Model.Project.Id, lang = langpage });}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <script>
+            $(document).ready(function () {
+                $('.btn-orange').click(function (e) {
+                    e.preventDefault();
+                    var paragraph = $(this).siblings('p');
+                    if (paragraph.hasClass('expanded')) {
+                        paragraph.removeClass('expanded');
+                        $(this).text('Xem thêm');
+                    } else {
+                        paragraph.addClass('expanded');
+                        $(this).text('Ẩn bớt');
+                    }
+                });
+            });
+        </script>
+    }
+    else
+    {
+        <section class="section-project-1" style="background-image: url('@Model.Project.UnitIInfo');">
+            <div class="container">
+                <div class="content">
+                    <div class="text">
+                        <div class="breadcrumbs-02">
+                            <ul>
+                                <li><a href="/">Home</a></li>
+                                <li><a href="/du-an">JETP-aligned Projects</a></li>
+
+                            </ul>
+                        </div>
+                        <div class="title">
+                            <h2>@Model.Project.Name</h2>
+                            <p></p>
+                        </div>
+                        <div class="option desc">
+                            <div class="status">
+                                <span class="v3">@HtmlHelpers.UserProjectTypeEn(Model.Project.Type)</span>
+                            </div>
+                            @*<div class="list-ul mt20">
+                                <ul>
+                                    <li>
+                                        <strong>Proposed unit:</strong>
+                                        <p>@Model.Project.Unit</p>
+                                    </li>
+                                    <li>
+                                        <strong>Total proposed capital:</strong>
+                                        <p>@Model.Project.Total</p>
+                                    </li>
+                                </ul>
+                            </div>*@
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section>
+            <div class="container">
+                <div class="tbl-wrap">
+                    <table>
+                        <tr>
+                            <th>1. Project Name</th>
+                            <td>@Model.Project.Name</td>
+                        </tr>
+                        <tr>
+                            <th>2. Project Location</th>
+                            <td>@Utils.RemoveVietnameseAccents(Model.Project.Location)</td>
+                        </tr>
+                        <tr>
+                            <th>3. Project Category</th>
+                            <td>@HtmlHelpers.UserProjectSubTypeEn(Model.Project.SubType, Model.Project.Type)</td>
+                        </tr>
+                       
+                        <tr>
+                            <th>4. Project developer(s): </th>
+                            <td>@Model.ProjectConfig.UnitDev</td>
+                        </tr>
+                        <tr>
+                            <th>5. Project Owner</th>
+                            <td>
+                                <div class="show-txt">
+                                    <p style="-webkit-line-clamp: unset;">
+                                        @Html.Raw(Model.Project.Organ.Replace("\n", "<br>"))
+                                    </p>
+
+                                   
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>6. Total project cost</th>
+                            <td>@Model.Project.Total</td>
+                        </tr>
+                       
+                     
+                        <tr>
+                            <th>7. Development Stage of the Project</th>
+                            <td>@HtmlHelpers.UserProjectProgressEn(Model.Project.Progress)</td>
+                        </tr>
+                        <tr>
+                            <th>8. Targeted Actual Start of Construction</th>
+                            <td>@Model.ProjectConfig.Time</td>
+                        </tr>
+                        <tr>
+                            <th>9. Target Date of Completion (CoD)</th>
+                            <td>@Model.ProjectConfig.Finish</td>
+                        </tr>
+                       
+                        <tr>
+                            <th>10. Brief Project Objectives & Description </th>
+                            <td>
+                                <div class="show-txt">
+                                    <p>
+                                        @Html.Raw(Model.Project.Description.Replace("\n", "<br>"))
+                                    </p>
+                                    <a href="#" class="btn-orange">View more</a>
+                                </div>
+                            </td>
+                        </tr>
+                       
+                     
+
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <section class="section-project-4 pt70 pb70">
+            <div class="container">
+                <div class="content">
+                    <div class="title">
+                        <h2>Related projects </h2>
+                    </div>
+                    <div>
+                        <div class="row row-20">
+
+                            @{Html.RenderAction("RelateProject", "Project", new { Id = Model.Project.Id, lang = langpage });}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+        <script>
+            $(document).ready(function () {
+                $('.btn-orange').click(function (e) {
+                    e.preventDefault();
+                    var paragraph = $(this).siblings('p');
+                    if (paragraph.hasClass('expanded')) {
+                        paragraph.removeClass('expanded');
+                        $(this).text('View more');
+                    } else {
+                        paragraph.addClass('expanded');
+                        $(this).text('Hide');
+                    }
+                });
+            });
+        </script>
+    }
+
+</div>
+
+
+
+
+@*<div class="news-other mt30">
+        @{Html.RenderAction("RelateProject", "Project", new { Id = Model.Id });}
+
+    </div>*@
+
+
+

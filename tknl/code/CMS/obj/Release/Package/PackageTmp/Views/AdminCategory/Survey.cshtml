@@ -1,0 +1,183 @@
+﻿@{
+   
+    Layout = "~/Views/Shared/_AdminV2.cshtml";
+    
+}
+@using UTILS
+@using CMS.Models
+@using CMS.Helper
+@model CMS.Models.SurveyModel
+
+<div class="onecolumn">
+    <div class="header">
+        <span>@ViewBag.Title</span>
+    </div>
+    <br class="clear">
+    <div class="content">
+        <b>Trạng thái: </b>@Html.DropDownList("drlStatus", new SelectList(ViewBag.StatusList, "Value", "Text", ViewBag.Status), new { @class = "drl_Group" }) &nbsp;&nbsp;
+        
+        <br />
+        <br />
+        @if (Model != null)
+        {
+            
+            <table width="100%" cellspacing="0" cellpadding="0" class="data" id="mytable">
+                <tbody>
+                    <tr id="rowheader">
+                        <th scope="col">ID
+                        </th>
+
+                        <th scope="col">Tên
+                        </th>
+
+
+                        <th scope="col">Nội dung
+                        </th>
+                        <th scope="col">Loại
+                        </th>
+                        <th scope="col">Ngày bắt đầu
+                        </th>
+                        <th scope="col">Ngày kết thúc
+                        </th>
+                        <th scope="col">Duyệt
+                        </th>
+                        <th scope="col">Quản trị
+                        </th>
+
+
+
+                    </tr>
+                    @if (Model.listdata != null)
+                    {
+                        if (Model.listdata.Count > 0)
+                        {
+                            foreach (var item in Model.listdata)
+                            {
+                        <tr id="row_@(item.Id)">
+                            <td>
+                                @item.Id
+                            </td>
+
+                            <td style="width: 133px;">
+
+
+                                <a href="@Url.Action("SurveyEdit",new {Id=item.Id})">@item.Title</a>
+
+
+
+                            </td>
+                            <td>
+
+                                @if (item.Type == 1)
+                                {
+                                    <text>Chọn một</text>  
+                                }
+                                else
+                                {
+                                    <text>Chọn nhiều</text>       
+                                }
+                            </td>
+
+
+                            <td style="width: 333px;">
+                                @item.Content
+                            </td>
+                            <td>
+                                @item.BeginDate.ToString("dd/MM/yy")
+                            </td>
+                            <td>
+                                @item.EndDate.ToString("dd/MM/yy")
+                            </td>
+
+
+
+                            <td>
+
+                                @if (item.Status >= 1)
+                                {
+                                    <input type="checkbox" onclick="return setUnApprove('@item.Id    ');"  checked="checked"  class="chkApprove" />   
+                                }
+                                else
+                                {
+                                    <input type="checkbox"   onclick="return setApprove('@item.Id    ');" class="chkApprove" />       
+                                }
+
+
+                            </td>
+                            <td>
+                                <a href="javascript:void(0);" onclick="openWin('@Url.Action("SurveyItem",new {Id=item.Id})')">Danh sách câu trả lời</a>
+                                <a onclick="return deletecomment('@item.Id ');" href="javascript:void(0);">
+                                <img class="help" alt="delete" src="/Styles/admin/images/icon_delete.png">
+                            </a></td>
+                        </tr>
+                            }
+                        }
+                    }
+                </tbody>
+            </table>
+            <div class="pagination">
+                @{Html.RenderPartial("AdminPagination", new PaginationInfo
+                  {
+                      PageUrl = Url.SetParameter("page", "!0"),
+                      CurrentPage = Model.pageIndex,
+                      PageSize = Model.pageSize,
+                      TotalItemCount = Model.total,
+                  }); }
+            </div>
+
+        }
+        <br />
+        <a  class="adminbutton" href='@Url.Action("SurveyAdd", "AdminCategory")'>Thêm mới</a>
+
+    </div>
+</div>
+<script type="text/javascript">
+    
+    $(document).ready(function () {
+        $('#menu_category').click();
+
+    });
+    function openWin(Id) {
+        var myWindow = window.open('@Url.Action("SurveyItem", "AdminCategory")?Id='+Id+'&tab=1', '', 'width=900,height=668');
+        myWindow.focus();
+    }
+    $('#drlStatus').change(function () {
+        window.location = jQuery.query.set("Status", this.value).set("page", "1");
+    });
+
+    function openWin(url) {
+        myWindow = window.open(url+"?tab=1", '', 'width=868,height=668');
+        myWindow.focus();
+    }
+    function deletecomment(Id) 
+    {
+        if(confirm("Bạn có chắc chắn muốn xóa?"))
+        {
+            $.post('@Url.Action("SurveyDelete", "AdminCategory")', { "Id": Id},
+                function (data) {
+                    $('#row_'+Id).hide();
+                });
+        }
+    }
+    function setUnApprove(Id) 
+    {
+        if(confirm("Bạn có chắc chắn muốn bỏ duyệt?"))
+        {
+            $.post('@Url.Action("SurveyAppproved", "AdminCategory")', { "Id": Id ,"Status":"0"},
+                function (data) {
+                    
+                });
+        }
+    }
+    function setApprove(Id) 
+    {
+        if(confirm("Bạn có chắc chắn muốn duyệt?"))
+        {
+            $.post('@Url.Action("SurveyAppproved", "AdminCategory")', { "Id": Id ,"Status":"1"},
+                function (data) {
+                    
+                });
+        }
+    }
+</script>
+

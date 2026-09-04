@@ -1,0 +1,28 @@
+﻿@using BIZ
+@using UTILS
+@using Local.Helper
+@*@{Html.RenderAction("LastestNews2", "Home", new { CateName = "", CategoryId = 4, MaxLastestNews = 1 });}
+
+
+    @{Html.RenderAction("LastestNews2", "Home", new { CateName = "", CategoryId = 6, MaxLastestNews = 1 });}
+
+    @{Html.RenderAction("TopDocument", "Home", new { CateName = "", CategoryId = 5, MaxLastestNews = 10 });}
+    @{Html.RenderAction("TopDocument", "Home", new { CateName = "Mẫu văn bản", CategoryId = 88, MaxLastestNews = 10 });}
+
+    @{Html.RenderAction("LastestNews2", "Home", new { CateName = "", CategoryId =3, MaxLastestNews = 1 });}*@
+
+
+
+
+<section class="container main-content mt10">
+    <div class="row">
+        <iframe src="@ViewBag.url" style="width: 100%; height:1000px; border: 0px none;" id="source"></iframe>
+    </div><!-- end row-->
+    <div class="clearfix"></div>
+
+    
+</section>
+
+
+
+

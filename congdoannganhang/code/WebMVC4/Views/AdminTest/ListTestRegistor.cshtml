@@ -1,0 +1,181 @@
+﻿@using BIZ.Entity
+@using UTILS
+@model List<DATA.TestRegistor>
+@using WebMVC4.Helper
+
+<table class="table table-striped table-bordered table-hover dataTable no-footer" id="dataTables">
+    <thead>
+        <tr class="rowsao">
+
+            <th>Mã</th>
+            <th class="texttable">Tên đợt thi</th>
+
+            <th >
+                Thời gian bắt đầu
+            </th>
+            <th >
+                Thời gian kết thúc
+            </th>
+            <th >
+                Thời gian thi
+            </th>
+            <th >
+                Số câu hỏi
+            </th>
+           
+            <th>Trạng Thái</th>
+            <th>Thao Tác</th>
+        </tr>
+    </thead>
+    @if (Model != null && Model.Count > 0)
+    {
+        for (int i = 0; i < Model.Count; i++)
+        {
+            var obj = Model[i];
+            <tr>
+               
+                <td>@obj.Id</td>
+                <td class="texttable" style="text-align:left;min-width:150px;">
+                    <a href="@Url.Action("TestRegistorDetail",new {id=obj.Id })" title="Edit">@obj.Title</a>
+                </td>
+               
+                <td >@obj.StartTime.GetValueOrDefault().ToString("dd/MM/yyyy HH:mm")</td>
+                <td>@obj.EndTime.GetValueOrDefault().ToString("dd/MM/yyyy HH:mm")</td>
+                <td>@obj.TestTime</td>
+                <td>@obj.NumberQuestion / @HtmlHelpers.GetNumberQuestion(obj.Id)</td>
+                <td>
+                    @if (obj.Status == 1)
+                    {
+                        <a href="javascript:;" title="Kích hoạt trạng thái không hoạt động" onclick="UpdateStatus('@Utils.Base64Encode(obj.Id)', 1,'@obj.Title');"><i class="fa fa-check"></i></a>
+
+                    }
+                    else
+                    {
+                        <a href="javascript:;" title="Kích hoạt trạng thái hoạt động" onclick="UpdateStatus('@Utils.Base64Encode(obj.Id)',0,'@obj.Title');"><i class="fa fa-ban"></i></a>
+
+                    }
+                </td>
+
+                <td style="text-align: center">
+                    <a href="javascript:;" title="Delete" onclick="DeleteData('@Utils.Base64Encode(obj.Id)','@obj.Title')"><i class="fa fa-trash-o"></i></a>
+                    &nbsp;&nbsp;<a href="@Url.Action("TestQuestion", new {registorId = obj.Id})">Câu hỏi</a>
+                    &nbsp;&nbsp;<a href="@Url.Action("TestRegistorResult", new {registorId = obj.Id})" target="_blank">Đáp án</a>
+                    @if (obj.Type == 1)
+                    {
+                        <text>&nbsp; &nbsp;</text><a href="@Url.Action("TestArchive",new {registorId=obj.Id })">Người thi</a>
+                    }
+                    else
+                    {
+                        <text>&nbsp; &nbsp;</text><a href="@Url.Action("Team",new {registorId=obj.Id })">Đội thi</a>
+
+                    }
+
+
+                    &nbsp;&nbsp;<a href="@Url.Action("TestArchiveReport",new {registorId=obj.Id })">Báo cáo</a>
+                </td>
+
+            </tr>
+        }
+    }
+</table>
+<script type="text/javascript">
+    var PageOnSize = '@ViewBag.PageSize';
+    var CurrentPage = '@ViewBag.CurrentPage';
+    function BindDataRequest(currentPage) {
+        var params = {
+            keyword: $("#txtTitle").val(),
+            status: $('#ddlStatus :selected').val(),
+
+            currentPage: currentPage,
+            pageSize: PageOnSize
+        };
+        var urlRequestAns = '@Url.Action("ListTestRegistor")';
+        Utils.Loading();
+        $.ajax({
+            type: 'GET',
+            url: urlRequestAns,
+            data: params,
+            success: function (data) {
+                $("#ListTestRegistor").html(data);
+                Utils.UnLoading();
+            },
+            error: function () {
+                Utils.UnLoading();
+            }
+        });
+    };
+    $(document).ready(function () {
+
+
+        $("#pager").pager({
+            pagenumber: CurrentPage,
+            pagecount: Math.ceil('@ViewBag.TotalRecord' / PageOnSize),
+            buttonClickCallback: function (page) { BindDataRequest(page); }
+        });
+
+
+    });
+
+    function DeleteData(id, title) {
+
+        bootbox.confirm("Bạn chắc chắn muốn xóa đợt thi này ??? ", function (result) {
+            if (result == true) {
+                var postdata = {
+                    '_id': id,
+                    'Title': title,
+                };
+                Utils.Loading();
+                $.ajax({
+                    type: 'POST',
+                    url: "@Url.Action("TestRegistorDelete")",
+                    data: addAntiForgeryToken(postdata),
+                    success: function (data) {
+                        Utils.UnLoading();
+                        if (data.ResponseCode >= 0) {
+                            bootbox.alert(data.Description);
+                            BindDataRequest(CurrentPage);
+                        }
+                        else {
+                            bootbox.alert(data.Description);
+                            return;
+                        }
+                    }
+                });
+            }
+        });
+
+    }
+    function UpdateStatus(id, status, title) {
+        var type = "Khóa";
+        if (status == 0) {
+            type = "Kích hoạt";
+        }
+        bootbox.confirm("Bạn muốn " + type + " đợt thi này ?", function (result) {
+            if (result == true) {
+                Utils.Loading();
+                var postdata = {
+                    '_id': id,
+                    'Title': title,
+                };
+                $.ajax({
+                    type: 'POST',
+                    url: "@Url.Action("TestRegistorUpdateStatus")",
+                    data: addAntiForgeryToken(postdata),
+
+                    success: function (data) {
+                        Utils.UnLoading();
+                        if (data.ResponseCode >= 0) {
+                            bootbox.alert(data.Description);
+                            BindDataRequest(CurrentPage);
+                        }
+                        else {
+                            bootbox.alert(data.Description);
+                            return;
+                        }
+                    }
+                });
+            }
+        });
+
+    }
+</script>

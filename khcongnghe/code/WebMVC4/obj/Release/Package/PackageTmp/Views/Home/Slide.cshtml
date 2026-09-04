@@ -1,0 +1,111 @@
+﻿@using BIZ
+@using BIZ.Entity
+@using UTILS
+@using WebMVC4.Helper
+@model WebMVC4.Models.SlideModel
+
+
+<div class="col-md-8 col-sm-8 col-xs-12 news-big">
+    @foreach (var item in Model.LstHotNews.Take(1).Select((value, i) => new { i, value }))
+    {
+    <a href="@item.value.Url" @(item.value.IsBlank.GetValueOrDefault() == 1 ? " target='_blank'" : "")>
+
+        <img alt="@item.value.Title" src="@item.value.Image?w=490&h=295&mode=crop" />
+    </a>
+        <h3>
+            <a href="@item.value.Url" @(item.value.IsBlank.GetValueOrDefault() == 1 ? " target='_blank'" : "")>@item.value.Title</a>
+        </h3>
+        <p>@Html.Raw(item.value.Description)</p>
+    }
+
+</div>
+<div class="block-xs">
+    <div class="clearfix"></div>
+    <div class="col-md-12 col-sm-12 mt20">
+        <div class="clearfix"></div>
+        <div class="col-md-12 col-sm-12 mt20 ">
+            <ul class="row box-news">
+                @foreach (var item in Model.LstHotNews.Skip(1).Take(4).Select((value, i) => new { i, value }))
+                {
+                    <li class="col-xs-12">
+                        <a href="@item.value.Url" @(item.value.IsBlank.GetValueOrDefault()==1?" target='_blank'":"") >
+                            @*<img src="/Content2/images/newbig01.jpg">*@
+                            <img alt="@item.value.Title" src="@item.value.Image?w=236&h=160&mode=crop" />
+                            <span class="mt10">@item.value.Title</span>
+                        </a>
+                    </li>
+                }
+
+            </ul>
+        </div>
+    </div>
+</div>
+<div class="col-md-4 col-sm-4 col-xs-12 border-l-gray">
+    <ul class="tabs-news">
+        <li class="active"><a href="javascript:;" onclick="tabnews(1);" id="tabnews_1">Tin mới</a>/ </li>
+        <li><a href="javascript:;" id="tabnews_2" onclick="tabnews(2);">Đọc nhiều</a></li>
+    </ul>
+    <div id="homeside_1" class="homeside">
+        <ul class="news-list">
+            @foreach (var item in Model.LstLastestNews.Select((value, i) => new { i, value }))
+            {
+                if (item.i < 7)
+                {
+                    <li><a href="@item.value.LinkUrl">@item.value.Title</a></li>
+                }
+
+            }
+
+        </ul>
+    </div>
+    <div id="homeside_2" class="homeside" style="display: none;">
+        <ul class="news-list">
+            @if (Model.LstTopViewNews != null)
+            {
+                foreach (var item in Model.LstTopViewNews.Select((value, i) => new { i, value }))
+                {
+                    if (item.i < 7)
+                    {
+                        <li><a href="@item.value.Url" @(item.value.IsBlank.GetValueOrDefault() == 1 ? " target='_blank'" : "")>@item.value.Title</a></li>
+                    }
+
+                }
+            }
+
+
+        </ul>
+    </div>
+</div>
+<div class="clearfix"></div>
+<div class="col-md-12 col-sm-12 mt20 hidden-xs">
+    <ul class="row box-news">
+        @foreach (var item in Model.LstHotNews.Skip(1).Take(4).Select((value, i) => new { i, value }))
+        {
+            <li class="col-md-3 col-sm-3 col-xs-12">
+                <a href="@item.value.Url" @(item.value.IsBlank.GetValueOrDefault() == 1 ? " target='_blank'" : "")>
+                    @*<img src="/Content2/images/newbig01.jpg">*@
+                    <img alt="@item.value.Title" src="@item.value.Image?w=236&h=160&mode=crop" />
+                    <span class="mt10">@item.value.Title</span>
+                </a>
+            </li>
+        }
+
+    </ul>
+</div>
+
+
+<script type="text/javascript">
+    function tabnews(idex) {
+        $(".homeside").hide();
+        $("#homeside_" + idex).show();
+        $(".tabs-news li").removeClass("active");
+        $("#tabnews_" + idex).parent().addClass("active");
+    }
+
+</script>
+<style>
+.news-big h3 {
+    font-size: 18px;
+   
+}
+</style>

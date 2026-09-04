@@ -1,0 +1,863 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout2.cshtml";
+}
+@using BIZ.Entity
+@using UTILS
+@using WebMVC4.Helper
+@using UTILS;
+@using DATA.ContentDB;
+@model DATA.ContentDB.UserProjectFull
+@{
+    List<TestLocation> ListCate = ViewBag.listLocation;
+}
+
+<div class="manage-body">
+    <div class="manage-bnr">
+        <img src="/Content2/images/manage-bnr.jpg" alt="">
+        <div class="manage-title">
+            <ul>
+                <li class="active">Dự án <br>Hỗ trợ kỹ thuật</li>
+            </ul>
+        </div>
+    </div>
+    <div class="manage-content">
+        <div class="mw-01 manage-sidebar">
+            @Html.Partial("User_Menu")
+        </div>
+        <div class="mw-02 manage-main">
+            <div class="manage-wrap mt50">
+                <div class="mt50">
+                    <strong>Lưu ý:</strong><br>
+                    <p style="padding-left: 20px;">
+                        - Các trường thông tin có dấu hoa thị (<span class="textred">*</span>) là các trường thông tin bắt buộc.<br>
+                        - Các trường thông tin không có dấu hoa thị (<span class="textred">*</span>) là các trường thông tin không bắt buộc.<br>
+                        - Người điền cần nhập đầy đủ thông tin tại mục I. Thông tin chung và II. Tính phù hợp JETP</a>.
+                    </p>
+                </div>
+                <div class="wrap-tabs mt50">
+                    <ul class="nav nav-tabs mb-3" role="tablist">
+                        <li class="nav-item">
+                            <button class="nav-link active" data-toggle="tab" data-target="#tabs01" id="tabs01-tab">I. Thông tin chung</button>
+                        </li>
+                        <li class="nav-item">
+                            <button class="nav-link" data-toggle="tab" data-target="#tabs02" id="tabs02-tab">II. Tính phù hợp JETP</button>
+                        </li>
+                    </ul>
+                    <div class="tab-content" id="pills-tabContent">
+                        <div class="tab-pane fade show active" id="tabs01" role="tabpanel">
+                            <div class="m-form">
+                                <div class="m-form-item">
+                                    <label>
+                                        1. Tên dự án <span class="textred">*</span>
+                                        <p class="question-wrap">
+                                            <span class="icon-question" data-tippy-content="Tên chính xác của dự án trong các văn bản chính thức nếu có"></span>
+                                        </p>
+                                    </label>
+                                    <input type="text" placeholder="" id="name" value="@Model.Name">
+                                    <label class="name-error error" for="name" id="name-er"></label>
+                                </div>
+                                <div class="m-form-item">
+                                    <label>
+                                        2. Địa điểm dự án <span class="textred">*</span>
+                                        <p class="question-wrap">
+                                            <span class="icon-question" data-tippy-content="Với hỗ trợ kỹ thuật cấp quốc gia, ví dụ như hỗ trợ cải cách chính sách, vui lòng điền “Toàn quốc”; hoặc điền tỉnh/địa phương, địa điểm thực hiện dự án nếu dự án thuộc cấp địa phương. "></span>
+                                        </p>
+                                    </label>
+                                    <select id="location">
+                                        <option value="999">Toàn quốc</option>
+                                        @if (ListCate != null && ListCate.Count > 0)
+                                        {
+
+                                            foreach (var obj in ListCate)
+                                            {
+                                                <option value="@obj.Id" title="@obj.Name" @if (obj.Id.ToString() == Model.Location) { @Html.Raw("selected='selected'") ; }>@obj.Name</option>
+                                            }
+                                        }
+                                    </select>
+                                    @*<input type="text" placeholder="" value="@Model.Location" id="location">*@
+                                    <label class="location-error error" for="location" id="location-er"></label>
+                                </div>
+                                <div class="m-form-item">
+                                    <label>
+                                        3. Hạng mục dự án <span class="textred">*</span>
+                                        <p class="question-wrap">
+                                            <span class="icon-question" data-tippy-content="Người điền có thể chọn trong hạng mục các dự án Hỗ trợ kỹ thuật (Bảng 7, JETP RMP)<br>
+                                               1. Các dự án hỗ trợ hoàn thiện thể chế, chính sách thúc đẩy chuyển đổi năng lượng, bao gồm nâng cao năng lực<br>
+                                               2. Các dự án đổi mới sáng tạo, phát triển và chuyển giao công nghệ, hỗ trợ xây dựng dự án đầu tư<br>
+                                               3. Các dự án thúc đẩy công bằng trong chuyển đổi năng lượng"></span>
+                                        </p>
+                                    </label>
+                                    <select id="SubType">
+                                        <option value="1" @(Model.SubType == 1 ? "selected='selected'" : "")>
+                                            1. Các dự án hỗ trợ hoàn thiện thể chế, chính sách thúc đẩy chuyển đổi năng lượng, bao gồm nâng cao năng lực
+                                        </option>
+                                        <option value="2" @(Model.SubType == 2 ? "selected='selected'" : "")>
+                                            2. Các dự án đổi mới sáng tạo, phát triển và chuyển giao công nghệ, hỗ trợ xây dựng dự án đầu tư
+                                        </option>
+                                        <option value="3" @(Model.SubType == 3 ? "selected='selected'" : "")>3. Các dự án thúc đẩy công bằng trong chuyển đổi năng lượng</optionvalue="1">
+                                    </select>
+                                </div>
+                                <div class="m-form-item">
+                                    <label>
+                                        4. Hỗ trợ Dự án đầu tư có cấu phần xây dựng nào
+                                        <p class="question-wrap">
+                                            <span class="icon-question" data-tippy-content="Nêu tên Dự án đầu tư có cấu phần xây dựng có thể được hỗ trợ bởi dự án hỗ trợ kỹ thuật này (nếu có)."></span>
+                                        </p>
+                                    </label>
+                                    <input type="text" placeholder="" value="@Model.ProjectConfig.Support" id="support">
+                                    <label class="unit-error error" for="support" id="support-er"></label>
+                                </div>
+                                <div class="m-form-item">
+                                    <label>
+                                        5. Đơn vị đăng ký đề xuất <span class="textred">*</span>
+                                        <p class="question-wrap">
+                                            <span class="icon-question" data-tippy-content="Người điền cần sử dụng tên chính thức của đơn vị đề xuất dự án. Có thể là các Cơ quan quản lý nhà nước, các đối tác phát triển, các Tập đoàn và công ty thành viên, ngân hàng, ngân hàng phát triển quốc tế, hoặc các cơ quan đại diện, các pháp nhân khác"></span>
+                                        </p>
+                                    </label>
+                                    <input type="text" placeholder="" value="@Model.Unit" id="unit">
+                                    <label class="unit-error error" for="unit" id="unit-er"></label>
+                                </div>
+                                <div class="m-form-item">
+                                    <label style="margin-bottom: 0;">
+                                        6. Thông tin liên lạc của đại diện đơn vị ký đề xuất <span class="textred">*</span>
+                                        <p class="question-wrap">
+                                            <span class="icon-question" data-tippy-content="Người điền cần cung cấp đầy đủ họ tên, chức danh, bộ phận công tác, địa chỉ thư điện tử, số điện thoại"></span>
+                                        </p>
+                                    </label>
+                                </div>
+                                <div class="m-form-item w-50">
+                                    <label>
+                                        Họ và tên: <span class="textred">*</span>
+                                    </label>
+                                    <input type="text" placeholder="" id="fullname" value="@Model.ProjectConfig.Fullname">
+                                    <label class="fullname-error error" for="fullname" id="fullname-er"></label>
+                                </div>
+                                <div class="m-form-item w-50">
+                                    <label>
+                                        Chức danh, bộ phận công tác: <span class="textred">*</span>
+                                    </label>
+                                    <input type="text" placeholder="" id="role" value="@Model.ProjectConfig.Role">
+                                    <label class="role-error error" for="role" id="role-er"></label>
+                                </div>
+                                <div class="m-form-item w-50">
+                                    <label>
+                                        E-mail: <span class="textred">*</span>
+                                    </label>
+                                    <input type="text" placeholder="" id="email" value="@Model.ProjectConfig.Email">
+                                    <label class="email-error error" for="email" id="email-er"></label>
+                                </div>
+                                <div class="m-form-item w-50">
+                                    <label>
+                                        Số điện thoại: <span class="textred">*</span>
+                                    </label>
+                                    <input type="text" placeholder="" id="mobile" value="@Model.ProjectConfig.Mobile">
+                                    <label class="mobile-error error" for="mobile" id="mobile-er"></label>
+                                </div>
+                                <div class="m-form-item">
+                                    <label>
+                                        7. Chủ dự án <span class="textred">*</span>
+                                        <p class="question-wrap">
+                                            <span class="icon-question" data-tippy-content="Thông tin này có thể trùng với thông tin liên hệ của Đại diện đơn vị đăng ký đề xuất ở trên hoặc của đối tác thực hiện dự án. Trong trường hợp đơn vị đề xuất dự án là một đối tác quốc tế, vui lòng liệt kê đối tác dự án trong nước (tổ chức, đơn vị đầu mối hoặc cá nhân) trong mục Chủ dự án. Trong trường hợp Chủ dự án chưa được xác định cụ thể, có thể điền tên Chủ dự án dự kiến."></span>
+                                        </p>
+                                    </label>
+                                    <input type="text" placeholder="" value="@Model.Organ" id="organ">
+                                    <label class="organ-error error" for="organ" id="organ-er"></label>
+                                </div>
+                                <div class="m-form-item">
+                                    <label>
+                                        8. Cơ quan chủ quản <span class="textred">*</span>
+                                        <p class="question-wrap">
+                                            <span class="icon-question" data-tippy-content="Tên cơ quan chủ quản của dự án (theo quy định của Nghị định về quản lý và sử dụng vốn hỗ trợ phát triển chính thức (ODA) và vốn vay ưu đãi của nhà tài trợ nước ngoài) nếu đã được xác định tại thời điểm nộp đề xuất dự án" aria-expanded="false"></span>
+                                        </p>
+                                    </label>
+                                    <input type="text" placeholder="" value="@Model.ProjectConfig.UnitDev" id="UnitDev">
+                                    <label class="UnitDev-error error" for="organ" id="UnitDev-er"></label>
+                                </div>
+                                <div class="m-form-item">
+                                    <label>
+                                        9. Tổng vốn dự án (Ví dụ: 60 triệu USD) <span class="textred">*</span>
+                                        <p class="question-wrap">
+                                            <span class="icon-question" data-tippy-content="Người điền cần điền giá trị chính xác của tổng vốn dự án hoặc giá trị tạm tính tùy theo tiến độ của dự án (có thể được cập nhật lại sau).
+Người điền cần chọn chính xác đơn vị tiền tệ như VND & USD.
+"></span>
+                                        </p>
+                                    </label>
+                                    <input type="text" placeholder="" value="@Model.Total" id="total">
+                                    <label class="total-error error" for="total" id="total-er"></label>
+                                </div>
+                                @*<div class="m-form-item w-25">
+                                        <label>
+                                            Đơn vị tiền tệ <span class="textred">*</span>
+                                            <p class="question-wrap">
+                                                <span class="icon-question" data-tippy-content="Người điền cần chọn chính xác đơn vị tiền tệ như VND & USD."></span>
+                                            </p>
+                                        </label>
+                                        <div class="">
+                                            <ul class="list-inline choose-active">
+                                                <li @(Model.Currency == "VND" ? "class=active" : "") id="cvnd"><a href="#" class="btn-cm btn-blue-outline">VND</a></li>
+                                                <li @(Model.Currency == "USD" ? "class=active" : "") id="cusd"><a href="#" class="btn-cm btn-blue-outline">USD</a></li>
+
+                                            </ul>
+                                            <label class="Currency-error error" for="Currency" id="Currency-er"></label>
+                                        </div>
+                                    </div>*@
+                                <div class="m-form-item">
+                                    <label>
+                                        10. Ngân sách chi tiết
+                                        <p class="question-wrap">
+                                            <span class="icon-question" data-tippy-content="Tùy thuộc vào yêu cầu bảo mật thông tin, người điền vui lòng cung cấp thông tin chi tiết nhất có thể theo từng hạng mục của ngân sách."></span>
+                                        </p>
+                                    </label>
+                                    <textarea rows="3" id="detail">@Model.Detail </textarea>
+                                </div>
+                                <div class="m-form-item">
+                                    <label>
+                                        11. Nguồn vốn
+                                        <p class="question-wrap">
+                                            <span class="icon-question" data-tippy-content="Tùy theo tiến độ dự án, người điền có thể cung cấp thông tin về loại hình tài chính và tên nhà tài chính. Nhà tài chính cũng có thể là đơn vị đăng ký đề xuất."></span>
+                                        </p>
+                                    </label>
+                                    <textarea rows="3" id="source">@Model.Source </textarea>
+                                </div>
+                                <div class="m-form-item">
+                                    <label>
+                                        12. Tiến độ dự án <span class="textred">*</span>
+                                        <p class="question-wrap">
+                                            <span class="icon-question" data-tippy-content="Người điền cung cấp thông tin về tiến độ của dự án đầu tư bằng cách chọn 1 giai đoạn phù hợp nhất. Thông tin này có thể được tiếp tục cập nhật.<br>
+                                        1. Giai đoạn đề xuất ý tưởng<br>
+                                        2. Giai đoạn thiết kế kỹ thuật<br>
+                                        3. Giai đoạn triển khai<br>
+                                        4. Giai đoạn hoàn thành và Kết thúc"></span>
+                                        </p>
+                                    </label>
+                                    <select id="Progress">
+                                        <option value="1" @(Model.Progress == 1 ? "selected='selected'" : "")>Giai đoạn đề xuất ý tưởng</option>
+                                        <option value="2" @(Model.Progress == 2 ? "selected='selected'" : "")>Giai đoạn thiết kế kỹ thuật</option>
+                                        <option value="3" @(Model.Progress == 3 ? "selected='selected'" : "")>Giai đoạn triển khai</option>
+
+                                        <option value="4" @(Model.Progress == 4 ? "selected='selected'" : "")>Giai đoạn hoàn thành và Kết thúc</option>
+                                    </select>
+                                </div>
+                                <div class="m-form-item">
+                                    <label>
+                                        13. Thời gian thực hiện <span class="textred">*</span>
+                                        <p class="question-wrap">
+                                            <span class="icon-question" data-tippy-content="Ngày Khởi động dự án (chính thức hoặc dự kiến) - Ngày Hoàn thành và Kết thúc dự án (chính thức hoặc dự kiến)"></span>
+                                        </p>
+                                    </label>
+                                    <input type="text" placeholder="dd/mm/yyyy - dd/mm/yyyy" value="@Model.ProjectConfig.Time" id="time">
+                                    <label class="time-error error" for="time" id="time-er"></label>
+                                </div>
+                            </div>
+                            <div class="text-center mt40 w-100 list-inline btn-list-03">
+
+                                <a href="#" class="btn-blue btn-cm btnNextTab" data-toggle="tab" data-target="#tabs02" type="button" role="tab" aria-selected="false">TIẾP THEO</a>
+                            </div>
+                        </div>
+                        <div class="tab-pane fade" id="tabs02" role="tabpanel">
+                            <p style="font-weight:bold">Tham khảo Phụ lục 1 <a href="/Content/phu-luc.pdf" class="textblue textlink" target="_blank">TẠI ĐÂY</a> trước khi điền các thông tin ở mục 17.</p>
+                            <div class="m-form mt20">
+
+                                <div class="m-form-item">
+                                    <label>
+                                        14. Hiện trạng pháp lý của dự án <span class="textred">*</span>
+                                        <p class="question-wrap">
+                                            <span class="icon-question" data-tippy-content="Nếu có thể, cung cấp các thông tin về hiện trạng pháp lý của dự án hỗ trợ kỹ thuật với các đối tác và cơ quan thẩm quyền liên quan. <br>Ví dụ, theo các Biên bản ghi nhớ hợp tác (MOU), các kế hoạch, văn bản cấp địa phương, đề xuất dự án sử dụng vốn ODA (“Thỏa thuận hỗ trợ kỹ thuật”, “Quyết định về chính sách triển khai Hỗ trợ kỹ thuât”…). "></span>
+                                        </p>
+                                    </label>
+                                    <textarea id="legalStatus" rows="3">@Model.LegalStatus </textarea>
+                                    <label class="legalStatus-error error" for="legalStatus" id="legalStatus-er"></label>
+                                </div>
+                                <div class="m-form-item">
+                                    <label>
+                                        15. Mô tả ngắn gọn dự án và mục tiêu dự án <span class="textred">*</span>
+                                        <p class="question-wrap">
+                                            <span class="icon-question" data-tippy-content="Người điền tóm tắt mục tiêu và các nội dung chính của dự án hỗ trợ kỹ thuật tư, tối đa 500 từ.<br />
+Lưu ý: Có thể đăng tải các tài liệu dự án liên quan theo hướng dẫn ở Mục 18 dưới đây.<br />
+Dự án Hỗ trợ kỹ thuật đang ở giai đoạn hoàn thiện cần mô tả rõ kết quả vượt trội để cân nhắc bổ sung nguồn vốn.
+ "></span>
+                                        </p>
+                                    </label>
+                                    <textarea id="description" class="limited-textarea" rows="3" maxlength="2500">@Model.Description </textarea>
+                                    <div class="char-info mt4">
+                                        <span class="char-count">Đã nhập: @Model.Description.Length ký tự</span>
+                                        <span class="char-warning" style="display:none; color: red; margin-left: 10px;">
+                                            Số lượng ký tự không được vượt quá 2500 ký tự.
+                                        </span>
+                                    </div>
+                                    <label class="description-error error" for="description" id="description-er"></label>
+                                </div>
+                                <div class="m-form-item">
+                                    <label>
+                                        16. Tác động dự kiến dự án tạo ra
+                                        <p class="question-wrap">
+                                            <span class="icon-question" data-tippy-content="Người điền cần đánh giá các tác động dự án dự kiến tạo ra, tùy theo loại TA, ví dụ: <br>
+                                                (a) nâng cao năng lực, số lượng nhà hoạch định chính sách hoặc công nhân được tập huấn.<br>
+                                                (b) số quy định pháp lý hỗ trợ thúc đẩy chuyển đổi năng lượng.<br>
+                                                (c) hỗ trợ dự án đầu tư có cấu phần xây dựng, ví dụ như Nghiên cứu khả thi."></span>
+                                        </p>
+                                    </label>
+                                    <textarea id="impact" class="limited-textarea" rows="3" maxlength="1200">@Model.Impact</textarea>
+                                    <div class="char-info mt4">
+                                        @if (!string.IsNullOrEmpty(Model.Impact))
+                                        {
+                                            <span class="char-count">Đã nhập: @Model.Impact.Trim().Length ký tự</span>
+                                        }
+                                        else
+                                        {
+                                            <span class="char-count">Đã nhập: 0 ký tự</span>
+                                        }
+                                        <span class="char-warning" style="display:none; color: red; margin-left: 10px;">
+                                            Số lượng ký tự không được vượt quá 1200 ký tự.
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="m-form-item">
+                                    <label>
+                                        17. Đáp ứng 4 nguyên tắc chung của JETP <span class="textred">*</span>
+                                        <p class="question-wrap">
+                                            <span class="icon-question" data-tippy-content="Người điền tự đánh giá mức độ phù hợp của đề xuất dự án với bốn Nguyên tắc chung của JETP (được nêu tại Bảng 6, RMP), tối đa 200 từ mỗi nguyên tắc.<br>
+Người điền có thể sử dụng hướng dẫn của mỗi nguyên tắc dưới đây nếu có thể áp dụng được cho dự án.
+"></span>
+                                        </p>
+                                    </label>
+                                </div>
+                                <div class="m-form-item">
+                                    <label>
+                                        17.1. Nguyên tắc chung 1 <span class="textred">*</span>
+                                        <p class="question-wrap">
+                                            <span class="icon-question" data-tippy-content="Thúc đẩy phát triển năng lượng tái tạo, sử dụng năng lượng tiết kiệm và hiệu quả, đóng góp thực hiện mục tiêu giảm phát thải khí nhà kính và bảo đảm an ninh năng lượng quốc gia"></span>
+                                        </p>
+                                    </label>
+                                    <textarea id="rule1" class="limited-textarea" rows="3" data-maxlength="1000">@Model.Rule1</textarea>
+                                    <div class="char-info mt4">
+                                        <span class="char-count">Đã nhập: @Model.Rule1.Length ký tự</span>
+                                        <span class="char-warning" style="display:none; color: red; margin-left: 10px;">
+                                            Số lượng ký tự không được vượt quá 1000 ký tự.
+                                        </span>
+                                    </div>
+                                    <label class="rule1-error error" for="rule1" id="rule1-er"></label>
+                                </div>
+                                <div class="m-form-item">
+                                    <label>
+                                        17.2. Nguyên tắc chung 2 <span class="textred">*</span>
+                                        <p class="question-wrap">
+                                            <span class="icon-question" data-tippy-content="Có lợi ích kinh tế - xã hội rõ ràng cho cộng đồng, doanh nghiệp, người lao động bị ảnh hưởng do quá trình chuyển đổi"></span>
+                                        </p>
+                                    </label>
+                                    <textarea id="rule2" class="limited-textarea" rows="3" data-maxlength="1000">@Model.Rule2</textarea>
+                                    <div class="char-info mt4">
+                                        <span class="char-count">Đã nhập: @Model.Rule2.Length ký tự</span>
+                                        <span class="char-warning" style="display:none; color: red; margin-left: 10px;">
+                                            Số lượng ký tự không được vượt quá 1000 ký tự.
+                                        </span>
+                                    </div>
+                                    <label class="rule2-error error" for="rule2" id="rule2-er"></label>
+                                </div>
+                                <div class="m-form-item">
+                                    <label>
+                                        17.3. Nguyên tắc chung 3 <span class="textred">*</span>
+                                        <p class="question-wrap">
+                                            <span class="icon-question" data-tippy-content="Có tính xúc tác cho các dự án đầu tư"></span>
+                                        </p>
+                                    </label>
+                                    <textarea id="rule3" class="limited-textarea" rows="3" data-maxlength="1000">@Model.Rule3</textarea>
+                                    <div class="char-info mt4">
+                                        <span class="char-count">Đã nhập: @Model.Rule3.Length ký tự</span>
+                                        <span class="char-warning" style="display:none; color: red; margin-left: 10px;">
+                                            Số lượng ký tự không được vượt quá 1000 ký tự.
+                                        </span>
+                                    </div>
+                                    <label class="rule3-error error" for="rule3" id="rule3-er"></label>
+                                </div>
+                                <div class="m-form-item">
+                                    <label>
+                                        17.4. Nguyên tắc chung 4 <span class="textred">*</span>
+                                        <p class="question-wrap">
+                                            <span class="icon-question" data-tippy-content="Có tác động tích cực thúc đẩy chuyển đổi năng lượng công bằng"></span>
+                                        </p>
+                                    </label>
+                                    <textarea id="rule4" class="limited-textarea" rows="3" data-maxlength="1000">@Model.Rule4</textarea>
+                                    <div class="char-info mt4">
+                                        <span class="char-count">Đã nhập: @Model.Rule4.Length ký tự</span>
+                                        <span class="char-warning" style="display:none; color: red; margin-left: 10px;">
+                                            Số lượng ký tự không được vượt quá 1000 ký tự.
+                                        </span>
+                                    </div>
+                                    <label class="rule4-error error" for="rule4" id="rule4-er"></label>
+                                </div>
+                                <div class="m-form-item">
+                                    <label>
+                                        18. Tài liệu dự án
+                                        <p class="question-wrap">
+                                            <span class="icon-question" data-tippy-content="Đăng tải tài liệu dự án hỗ trợ quá trình rà soát của Ban Thư ký JETP.<br> Tài liệu cũng sẽ hỗ trợ quá trình đánh giá M&E và cơ hội tiếp cận các hỗ trợ tiềm năng. Tài liệu cung cấp sẽ được bảo mật.<br>
+Vui lòng tải tài liệu lên Google Drive và dán liên kết vào đây.
+"></span>
+                                        </p>
+                                    </label>
+                                    <textarea id="document" rows="3">@Model.Document</textarea>
+                                </div>
+                            </div>
+                            <div class="text-center mt40 w-100 list-inline btn-list-03">
+                                <a href="javascript:;" onclick="save1();" class="btn-blue btn-cm">LƯU LẠI</a>
+                                <a href="javascript:;" class="btn-blue btn-cm btnBackTab" data-toggle="tab" data-target="#tabs01" type="button" role="tab" aria-selected="true">QUAY LẠI</a>
+                                <a href="javascript:;" onclick="save2();" " class="btn-blue btn-cm">GỬI</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+        <div class="m-log-out">
+            <img src="/Content2/images/manage-img.png" alt="">
+            <a href="@Url.Action("Login","User",new { act="out"})" class="btn-log-out"><img src="/Content2/images/icon-log-out.png" alt=""> Đăng xuất</a>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="save" tabindex="-1" role="dialog" aria-labelledby="" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            <h4>Lưu thông tin thành công!</h4>
+            <div class="text-center mt30"><button type="button" class="btn-blue btn-cm" data-dismiss="modal">Close</button> </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="send" tabindex="-1" role="dialog" aria-labelledby="" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            <p class="text-center">Bạn sẽ không thể chỉnh sửa, cập nhật nội dung của đề xuất dự án một khi đã nhấn nút GỬI. <br>Bạn có chắc chắn muốn gửi đề xuất dự án này hay không?</p>
+            <div class="text-center mt30 list-inline btn-list-03">
+                <button type="button" class="btn-blue btn-cm" data-dismiss="modal">KHÔNG</button>
+                <button type="button" class="btn-blue btn-cm confirmSend" onclick="send2()">CÓ</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="notebox" tabindex="-1" role="dialog" aria-labelledby="" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            <h4>Gửi thành công! </h4>
+            <p class="mt20">Các chuyên gia sẽ rà soát tất cả các dự án được gửi lên dựa trên các nguyên tắc của JETP và đánh giá liệu các dự án đó có đáp ứng các tiêu chí của JETP hay không.<br /> <br /> Các chuyên gia sẽ liên hệ trực tiếp với bạn để thảo luận các bước tiếp theo hoặc yêu cầu thêm thông tin nếu cần thiết.</p>
+            <div class="text-center mt30 btn-modal-list">
+                <button type="button" class="btn-blue btn-cm" data-dismiss="modal">OK</button>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $('.choose-active li').click(function (e) {
+        e.preventDefault(); // Ngăn không cho <a> nhảy lên đầu trang
+        $('.choose-active li').removeClass('active');
+        $(this).addClass('active');
+    });
+
+</script>
+<script>
+    //
+    $(document).ready(function () {
+        $('.choose-01').click(function (e) {
+            e.preventDefault();
+            $('.choose-textarea').slideDown(); // Hiện textarea
+        });
+
+        $('.choose-02').click(function (e) {
+            e.preventDefault();
+            $('.choose-textarea').slideUp(); // Ẩn textarea
+        });
+    });
+</script>
+<script>
+    $(document).ready(function () {
+        $('.limited-textarea').on('input', function () {
+            const $textarea = $(this);
+            const currentLength = $textarea.val().length;
+            const maxLength = parseInt($textarea.data('maxlength'), 10);
+
+            const $wrapper = $textarea.closest('.m-form-item');
+            const $count = $wrapper.find('.char-count');
+            const $warning = $wrapper.find('.char-warning');
+
+            $count.text(`Đã nhập: ${currentLength} ký tự`);
+
+            if (currentLength > maxLength) {
+                $warning.text(`Số lượng ký tự không được vượt quá ${maxLength} ký tự.`).show();
+            } else {
+                $warning.hide();
+            }
+        });
+    });
+</script>
+<script>
+    $(document).ready(function () {
+        $('.btnNextTab').on('click', function (e) {
+            e.preventDefault();
+            $('button[data-target="#tabs02"]').tab('show');
+            $('button[data-target="#tabs02"]').on('shown.bs.tab', function () {
+                const offset = 100;
+                const $target = $('#tabs02');
+                if ($target.length) {
+                    $('html, body').animate({
+                        scrollTop: $target.offset().top - offset
+                    }, 500);
+                }
+            });
+        });
+        $('.btnBackTab').on('click', function (e) {
+            e.preventDefault();
+            $('button[data-target="#tabs01"]').tab('show');
+            $('button[data-target="#tabs01"]').on('shown.bs.tab', function () {
+                const offset = 100;
+                const $target = $('#tabs01');
+                if ($target.length) {
+                    $('html, body').animate({
+                        scrollTop: $target.offset().top - offset
+                    }, 500);
+                }
+            });
+        });
+
+
+    });
+</script>
+
+<!-- PopperJS (dependency) -->
+<script src="/Content2/lib/tippy/popper.min.js"></script>
+<link rel="stylesheet" href="/Content2/lib/tippy/tippy.css" />
+<script src="/Content2/lib/tippy/tippy-bundle.umd.min.js"></script>
+<script>
+    tippy('.icon-question', {
+        theme: 'light-border',
+        placement: 'right-end',
+        maxWidth: 600,
+        allowHTML: true,
+        interactive: true,
+        delay: [100, 100],
+    });
+</script>
+<script src="~/Content/js/formvalidate.js?vs=02"></script>
+<script>
+    $("#menu_2").addClass("active");
+    function gotab1() {
+        $('button[data-target="#tabs01"]').tab('show');
+        $('button[data-target="#tabs01"]').on('shown.bs.tab', function () {
+            const offset = 100;
+            const $target = $('#tabs01');
+            if ($target.length) {
+                $('html, body').animate({
+                    scrollTop: $target.offset().top - offset
+                }, 500);
+            }
+        });
+    }
+    function validateData() {
+        if (!ValidateControls("Vui lòng nhập tên dự án !", "#name", '#name-er')) {
+            $('#name').focus(); gotab1();
+            return false;
+        }
+        if (!ValidateControls("Vui lòng chọn địa điểm dự án !", "#location", '#location-er')) {
+            $('#location').focus(); gotab1();
+            return false;
+        }
+        if (!ValidateControls("Vui lòng nhập đơn vị đăng ký !", "#unit", '#unit-er')) {
+            $('#unit').focus(); gotab1();
+            return false;
+        }
+        if (!ValidateControls("Vui lòng nhập họ và tên !", "#fullname", '#fullname-er')) {
+            $('#fullname').focus(); gotab1();
+            return false;
+        }
+        if (!ValidateControls("Vui lòng nhập chức danh !", "#role", '#role-er')) {
+            $('#role').focus(); gotab1();
+            return false;
+        }
+        if (!ValidateControls("Vui lòng nhập Email !", "#email", '#email-er')) {
+            $('#email').focus(); gotab1();
+            return false;
+        }
+        var mail = $('#email').val();
+        if (!isValidEmailAddress(mail)) {
+            gotab1();
+            $("#email-er").html("email không hợp lệ").show();
+            $('#email').focus();
+            return false;
+        }
+        if (!ValidateControls("Vui lòng nhập số điện thoại !", "#mobile", '#mobile-er')) {
+            gotab1();
+            $('#mobile').focus();
+            return false;
+        }
+        var phone = $('#mobile').val();
+        if (phone.length < 9 || phone.length > 12) {
+
+            $("#mobile-er").html("Số điện thoại không hợp lệ.").show();
+            gotab1();
+            $('#mobile').focus();
+            return false;
+        }
+        if (!isInteger(phone)) {
+
+            $("#mobile-er").html("Số điện thoại không hợp lệ.").show();
+
+            gotab1();
+            $('#mobile').focus();
+            return false;
+        }
+        if (!ValidateControls("Vui lòng nhập chủ dự án !", "#organ", '#organ-er')) {
+            $('#organ').focus(); gotab1();
+            return false;
+        }
+        if (!ValidateControls("Vui lòng nhập cơ quan chủ quản !", "#UnitDev", '#UnitDev-er')) {
+            $('#organ').focus(); gotab1();
+            return false;
+        }
+        if (!ValidateControls("Vui lòng nhập tổng chi phí !", "#total", '#total-er')) {
+            $('#total').focus(); gotab1();
+            return false;
+        }
+        //var total = $('#total').val();
+        //if (!isInteger(total)) {
+        //    $("#total-er").html("Tổng chi phí phải là số nguyên.").show();
+        //    $('#total').focus(); gotab1();
+        //    return false;
+        //}
+        //if (!$("#cusd").hasClass("active") && !$("#cvnd").hasClass("active")) {
+        //    $("#Currency-er").html("Vui lòng chọn tiền tệ.").show();
+        //    $('#total').focus(); gotab1();
+        //    return false;
+        //}
+        if (!ValidateControls("Vui lòng nhập ngày dự kiến khởi công !", "#time", '#time-er')) {
+            $('#time').focus(); gotab1();
+            return false;
+        }
+
+        if (!ValidateControls("Vui lòng nhập hiện trạng pháp lý !", "#legalStatus", '#legalStatus-er')) {
+            $('#legalStatus').focus();
+            return false;
+        }
+        if (!ValidateControls("Vui lòng nhập mô tả ngắn gọn !", "#description", '#description-er')) {
+            $('#description').focus();
+            return false;
+        }
+        if ($('#description').val().length > 2500) {
+
+            $('#description').focus();
+            return false;
+        }
+        if ($('#impact').val().length > 1200) {
+
+            $('#impact').focus();
+            return false;
+        }
+        if (!ValidateControls("Vui lòng nhập nguyên tắc chung 1 !", "#rule1", '#rule1-er')) {
+            $('#rule1').focus();
+            return false;
+        }
+        if ($('#rule1').val().length > 1000) {
+
+            $('#rule1').focus();
+            return false;
+        }
+        if (!ValidateControls("Vui lòng nhập nguyên tắc chung 2 !", "#rule2", '#rule2-er')) {
+            $('#rule2').focus();
+            return false;
+        }
+        if ($('#rule2').val().length > 1000) {
+
+            $('#rule2').focus();
+            return false;
+        }
+        if (!ValidateControls("Vui lòng nhập nguyên tắc chung 3 !", "#rule3", '#rule3-er')) {
+            $('#rule3').focus();
+            return false;
+        }
+        if ($('#rule3').val().length > 1000) {
+
+            $('#rule3').focus();
+            return false;
+        }
+        if (!ValidateControls("Vui lòng nhập nguyên tắc chung 4 !", "#rule4", '#rule4-er')) {
+            $('#rule4').focus();
+            return false;
+        }
+        if ($('#rule4').val().length > 1000) {
+
+            $('#rule4').focus();
+            return false;
+        }
+        return true;
+    }
+    function save1() {
+        if (!validateData()) {
+            return false;
+        }
+         var param2 = {
+             Id: '@Model.Id',
+             Name: $("#name").val(),
+             Location: $("#location").val(),
+             SubType: $("#SubType").val(),
+             Unit: $("#unit").val(),
+             UnitDev: $("#UnitDev").val(),
+             Fullname: $("#fullname").val(),
+             Mobile: $("#mobile").val(),
+             Role: $("#role").val(),
+             Email: $("#email").val(),
+             UnitIInfo: '',
+             Support: $("#support").val(),
+             Organ: $("#organ").val(),
+             Total: $("#total").val(),
+             Detail: $("#detail").val(),
+
+             Source: $("#source").val(),
+
+             Progress: $("#Progress").val(),
+             Time: $("#time").val(),
+
+             LegalStatus: $("#legalStatus").val(),
+             Description: $("#description").val(),
+             Impact: $("#impact").val(),
+
+             Document: $("#document").val(),
+             Rule1: $("#rule1").val(),
+             Rule2: $("#rule2").val(),
+             Rule3: $("#rule3").val(),
+             Rule4: $("#rule4").val(),
+
+             Currency: "VND",
+
+             Type: 2,
+        };
+        if ($("#cusd").hasClass("active")) {
+            param2.Currency = "USD";
+        }
+
+        param2.Status = 0;
+
+         $.ajax({
+             type: 'POST',
+             url: "@Url.Action("SaveData")",
+             data: addAntiForgeryToken(param2),
+             async: true,
+             success: function (data) {
+
+                 if (data.ResponseCode >= 0) {
+                      //bootbox.alert("Cập nhật thành công");
+                     //setTimeout(function () { window.location = '/User/AddProject2?id=' + data.ResponseCode; }, 500);
+                     $('#save').on('hidden.bs.modal', function () {
+                         window.location = '/User/AddProject2?id=' + data.ResponseCode;;
+                     });
+                     $('#save').modal('show');
+                 } else {
+
+                     $("#msgBox").text(data.Description).show();
+                     return;
+                 }
+             }
+        });
+    }
+    function send2() {
+        $('#send').modal('hide');
+         var param2 = {
+                     Id: '@Model.Id',
+                     Name: $("#name").val(),
+                     Location: $("#location").val(),
+                     SubType: $("#SubType").val(),
+                     Unit: $("#unit").val(),
+                     UnitDev: $("#UnitDev").val(),
+                     Fullname: $("#fullname").val(),
+                     Mobile: $("#mobile").val(),
+                     Role: $("#role").val(),
+                     Email: $("#email").val(),
+                     UnitIInfo: '',
+                     Support: $("#support").val(),
+                     Organ: $("#organ").val(),
+                     Total: $("#total").val(),
+                     Detail: $("#detail").val(),
+
+                     Source: $("#source").val(),
+
+                     Progress: $("#Progress").val(),
+                     Time: $("#time").val(),
+
+                     LegalStatus: $("#legalStatus").val(),
+                     Description: $("#description").val(),
+                     Impact: $("#impact").val(),
+
+                     Document: $("#document").val(),
+                     Rule1: $("#rule1").val(),
+                     Rule2: $("#rule2").val(),
+                     Rule3: $("#rule3").val(),
+                     Rule4: $("#rule4").val(),
+
+                     Currency: "VND",
+
+                     Type: 2,
+                };
+                if ($("#cusd").hasClass("active")) {
+                    param2.Currency = "USD";
+                }
+
+                param2.Status = 1;
+
+                 $.ajax({
+                     type: 'POST',
+                     url: "@Url.Action("SaveData")",
+                     data: addAntiForgeryToken(param2),
+                     async: true,
+                     success: function (data) {
+
+                         if (data.ResponseCode >= 0) {
+
+                             $('#notebox').on('hidden.bs.modal', function () {
+                                window.location = '@Url.Action("ManageProject")';
+                             });
+                             $('#notebox').modal('show');
+
+                         } else {
+
+                             $("#msgBox").text(data.Description).show();
+                             return;
+                         }
+                     }
+                });
+    }
+    function save2() {
+    if (!validateData()) {
+        return false;
+    }
+        $('#send').modal('show');
+    }
+</script>
+<style>
+    .m-form-item .error {
+        color: red;
+        margin-bottom: 0px;
+        font-size: 18px;
+        margin-top: -2px;
+        display: block;
+    }
+</style>
+<script>
+    $('.choose-active li').click(function (e) {
+        e.preventDefault(); // Ngăn không cho <a> nhảy lên đầu trang
+        $('.choose-active li').removeClass('active');
+        $(this).addClass('active');
+    });
+    $('.choose-active2 li').click(function (e) {
+        e.preventDefault(); // Ngăn không cho <a> nhảy lên đầu trang
+        $('.choose-active2 li').removeClass('active');
+        $(this).addClass('active');
+    });
+</script>

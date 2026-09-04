@@ -1,0 +1,115 @@
+﻿@using BIZ
+@using BIZ
+@using UTILS
+@using WebMVC4.Helper
+@model WebMVC4.Models.NewsModel
+@{
+    var langpage = WorkContext.GetLanguage();
+}
+@if (Model != null)
+{
+    <div class="chitiet-content01 container mt20">
+        <div class="row row-40">
+            <div class="col-lg-8 col-mm-12">
+
+                <h2 class="title-cm01"> <a href="#">@Resources.Global.MenuSearch</a></h2>
+                <div class="mt30">
+                    <div class="text-center search">
+                        <form class="form-inline">
+                            <div class="form-group">
+                                <label class=""> @Resources.Global.Keyword</label>
+                                <input id="txtkeyword" class="form-control" type="text" value="@ViewBag.keyword" width="190">
+                            </div>
+
+                            <div class="form-group">
+                                <label> @Resources.Global.FromDate</label>
+                                <input id="txtfromdate" placeholder="dd/MM/yyyy" value="@ViewBag.fromdate" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label> @Resources.Global.ToDate</label>
+                                <input id="txttodate" placeholder="dd/MM/yyyy" value="@ViewBag.todate" class="form-control">
+                            </div>
+                            <div class="form-group" style="display: none">
+                                <label class="">Chuyên mục</label>
+                                @Html.DropDownList("drlCategory", new SelectList(ViewBag.CategoryList as System.Collections.IEnumerable, "Id", "Name", ViewBag.CategoryId), new { @class = "form-control" })
+                            </div>
+
+                            <button type="button" onclick="searchnews();" class="btn-search">@Resources.Global.MenuSearch</button>
+
+                        </form>
+
+                    </div>
+
+                </div>
+                @if (Model.listdata != null)
+                {
+                    <ul class="mt20 viewmore-list">
+                        @if (Model.listdata != null)
+                        {
+                            foreach (var item in Model.listdata.Select((value, i) => new { i, value }))
+                            {
+
+                                <li>
+                                    <a href="@item.value.LinkUrl"><img src="@item.value.MainImage?w=300&h=180&mode=crop"></a>
+                                    <div>
+                                        <a href="@item.value.LinkUrl">@item.value.Title </a>
+                                        <span class="date mt10">@item.value.PublishDate.ToString("dd/MM/yyyy")</span>
+                                    </div>
+                                </li>
+
+
+                            }
+
+                        }
+                    </ul>
+                    <div class="paging mt50 text-center">
+                        <ul>
+                            @{Html.RenderPartial("Pagination", new WebMVC4.Models.PaginationInfo
+                                {
+                                    PageUrl = Url.SetParameter("Page", "!0"),
+                                    CurrentPage = Model.pageIndex,
+                                    PageSize = Model.pageSize,
+                                    TotalItemCount = Model.total,
+                                }); }
+                        </ul>
+                    </div>
+
+                }
+                else
+                {
+                    <div class="cap1-news-list mt30">
+                        <h4>Không có kết quả phù hợp</h4>
+                    </div>
+                }
+            </div>
+
+            <div class="col-lg-4 col-md-12">
+                <div class="noti-box">
+                    @{Html.RenderAction("RightLastestNews2", "News", new { CateName = "", CategoryId = 93, MaxLastestNews = 3, cssClass = "maxheight02" });}
+
+                </div>
+                <ul class="link-list mt20">
+                    @{Html.RenderAction("BannerRight", "Home", new { lang = langpage });}
+
+                </ul>
+            </div>
+        </div><!-- end row-->
+    </div><!-- end content 01 -->
+
+
+
+
+
+    <script src="~/Scripts/jquery.query.js"></script>
+    <script type="text/javascript">
+
+
+        function searchnews() {
+            var keyword = $("#txtkeyword").val();
+            var fromdate = $("#txtfromdate").val();
+            var todate = $("#txttodate").val();
+            var cateid = $('#drlCategory option:selected').val();
+            window.location = jQuery.query.set("q", keyword).set("fromdate", fromdate).set("todate", todate).set("categoryid", cateid).set("Page", "1");
+        }
+    </script>
+}

@@ -1,0 +1,83 @@
+﻿@using BIZ
+@using UTILS
+@using WebMVC4.Helper
+@model BIZ.Entity.CATEGORY_FULL
+
+@if (Model != null)
+{
+    /*active menu*/
+    if (ViewBag.ParentCategoryId > 0)
+    {
+    <script type="text/javascript">
+        var index = $('#ddtabs1 li').index($('#cate_' + '@ViewBag.ParentCategoryId'));
+        ddtabmenu.definemenu("ddtabs1", index);
+
+        setTimeout(function () {
+            $("#ddtabs1 .current").parent().addClass("select");
+
+        }, 1000);
+    </script>
+       
+    }
+    else
+    {
+    <script type="text/javascript">
+        var index = $('#ddtabs1 li').index($('#cate_' + '@ViewBag.CurrentCategoryId'));
+
+        ddtabmenu.definemenu("ddtabs1", index);
+        setTimeout(function () {
+            $("#ddtabs1 .current").parent().addClass("select");
+
+        }, 1000);
+    </script>
+       
+    }
+    <div class="best ">
+        @{Html.RenderAction("BreadcrumbObj", "News", new { data = Model });}
+        <div class="clear">
+        </div>
+       
+        <div class="chitiet">
+            <div class="noidung">
+                @Html.Raw(Model.Contents)
+            </div>
+        </div>
+        <div class="clear">
+        </div>
+         @{
+        List<BIZ.Entity.CATEGORY_FULL> data = ViewBag.lstrelate;
+                 }
+         @{Html.RenderAction("Relate", "Intro", new { data = data});}
+    </div>
+
+}
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('.commenthidden').hide();
+    });
+function togglecomments(postid) {
+    $('#' + postid).toggle()
+};
+function togglecomments2(postid) {
+    $('#' + postid).toggle()
+};
+function togglecomments3(postid) {
+    $('#' + postid).toggle()
+};
+function togglecomments4(postid) {
+    $('#' + postid).toggle()
+};
+</script> 
+<style>
+    .bogoc {
+    border: 1px solid #E0E0E0;
+    
+    position: relative;
+    width: 100%;
+    
+     padding: 5px 5px;
+}
+    ul {
+    list-style: none outside none;
+}
+</style>

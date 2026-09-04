@@ -1,0 +1,169 @@
+﻿@using BIZ
+@using BIZ.Entity
+@using UTILS
+@using WebMVC4.Helper
+@model WebMVC4.Models.SlideModel
+
+
+<div class="row">
+    <div class="col-md-4 newsnew hidden-767">
+        <ul class="nav title-tabs" role="tablist">
+            <li class="nav-item">
+                <a class="nav-link active" id="tab01-tab" data-toggle="tab" href="#tab01" role="tab" aria-controls="tab01" aria-selected="true"><span>Tin mới</span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="tab02-tab" data-toggle="tab" href="#tab02" role="tab" aria-controls="tab02" aria-selected="false"><span>Đọc nhiều</span></a>
+            </li>
+        </ul>
+        <div class="tab-content mt20">
+            <div class="tab-pane fade show active" id="tab01" role="tabpanel" aria-labelledby="tab01-tab">
+                <ul class="newslist">
+                    @foreach (var item in Model.LstLastestNews.Select((value, i) => new { i, value }))
+                    {
+                        if (item.i < 6)
+                        {
+                            if (item.value.CategoryId == 175)
+                            {
+                                @*<li><a href="@item.value.LinkUrl">@item.value.Title <i class="fa fa-microphone" aria-hidden="true"></i></a></li>*@
+                                <li><a href="@item.value.LinkUrl">@item.value.Title<span class="ico-podcast"></span></a></li>
+                            }
+                            else
+                            {
+                                if (item.value.CategoryId == 177)
+                                {
+                                    <li><a href="@item.value.LinkUrl">@item.value.Title<span class="ico-e-learning"></span></a></li>
+                                }
+                                else
+                                {
+                                    if (item.value.CategoryId == 110)
+                                    {
+                                        <li><a href="@item.value.LinkUrl">@item.value.Title<span class="ico-video"></span></a></li>
+                                    }
+                                    else
+                                    {
+                                        if (item.value.CategoryId == 176)
+                                        {
+                                            <li><a href="@item.value.LinkUrl">@item.value.Title<span class="ico-em"></span></a></li>
+                                        }
+                                        else
+                                        {
+                                            <li><a href="@item.value.LinkUrl">@item.value.Title</a></li>
+                                        }
+
+                                    }
+                                }
+                            }
+                        }
+
+                    }
+                </ul>
+            </div>
+            <div class="tab-pane fade" id="tab02" role="tabpanel" aria-labelledby="tab02-tab">
+                <ul class="newslist">
+                    @foreach (var item in Model.LstTopViewNews.Select((value, i) => new { i, value }))
+                    {
+                        if (item.i < 6)
+                        {
+                            if (item.value.CategoryId == 175)
+                            {
+                                @*<li><a href="@item.value.LinkUrl">@item.value.Title <i class="fa fa-microphone" aria-hidden="true"></i></a></li>*@
+                                <li><a href="@item.value.LinkUrl">@item.value.Title<span class="ico-podcast"></span></a></li>
+                            }
+                            else
+                            {
+                                if (item.value.CategoryId == 177)
+                                {
+                                    <li><a href="@item.value.LinkUrl">@item.value.Title<span class="ico-e-learning"></span></a></li>
+                                }
+                                else
+                                {
+                                    if (item.value.CategoryId == 110)
+                                    {
+                                        <li><a href="@item.value.LinkUrl">@item.value.Title<span class="ico-video"></span></a></li>
+                                    }
+                                    else
+                                    {
+                                        if (item.value.CategoryId == 176)
+                                        {
+                                            <li><a href="@item.value.LinkUrl">@item.value.Title<span class="ico-em"></span></a></li>
+                                        }
+                                        else
+                                        {
+                                            <li><a href="@item.value.LinkUrl">@item.value.Title</a></li>
+                                        }
+
+                                    }
+                                }
+                            }
+                        }
+
+                    }
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-8 col-sm-12">
+        <div class="newsSlider">
+            @foreach (var item in Model.LstHotNews.Take(3).Select((value, i) => new { i, value }))
+            {
+                <div class="newsbig-top">
+                    <a href="@item.value.LinkUrl"><img src="@item.value.MainImage?w=532&h=345&mode=crop" alt=""></a>
+                    <a href="@item.value.LinkUrl" class="news-name mt15">@item.value.Title</a>
+                    <p class="mt10 news-txt">@item.value.IntroText</p>
+                    <span class="newsdate mt10">@item.value.PublishDate.ToString("dd/MM/yyyy")</span>
+                </div>
+            }
+
+        </div>
+    </div>
+</div>
+<div class="mt20">
+    <ul class="newshot row">
+        @foreach (var item in Model.LstHotNews.Skip(3).Take(3).Select((value, i) => new { i, value }))
+        {
+            <li class="col-md-4 col-sm-12">
+                <a href="@item.value.LinkUrl" class="newshot-item">
+                    <img src="@item.value.MainImage?w=254&h=169&mode=crop">
+                    <span class="mt15">@item.value.Title</span>
+                </a>
+            </li>
+        }
+
+    </ul>
+</div>
+<div class="newsnew block-767 mt10">
+    <ul class="nav title-tabs" role="tablist">
+        <li class="nav-item">
+            <a class="nav-link active" id="tab01-mb-tab" data-toggle="tab" href="#tab01-mb" role="tab" aria-controls="tab01" aria-selected="true"><span>Tin mới</span></a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" id="tab02-mb-tab" data-toggle="tab" href="#tab02-mb" role="tab" aria-controls="tab02" aria-selected="false"><span>Đọc nhiều</span></a>
+        </li>
+    </ul>
+    <div class="tab-content mt20">
+        <div class="tab-pane fade show active" id="tab01-mb" role="tabpanel" aria-labelledby="tab01-mb-tab">
+            <ul class="newslist">
+                @foreach (var item in Model.LstLastestNews.Select((value, i) => new { i, value }))
+                {
+                    if (item.i < 6)
+                    {
+                        <li><a href="@item.value.LinkUrl">@item.value.Title</a></li>
+                    }
+
+                }
+            </ul>
+        </div>
+        <div class="tab-pane fade" id="tab02-mb" role="tabpanel" aria-labelledby="tab02-mb-tab">
+            <ul class="newslist">
+                @foreach (var item in Model.LstTopViewNews.Select((value, i) => new { i, value }))
+                {
+                    if (item.i < 6)
+                    {
+                        <li><a href="@item.value.LinkUrl">@item.value.Title</a></li>
+                    }
+
+                }
+            </ul>
+        </div>
+    </div>
+</div>

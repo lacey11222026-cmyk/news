@@ -1,0 +1,62 @@
+﻿@model List<DATA.Banner>
+@if (Model != null)
+{
+    <div class="mt10">
+        <div class="container1">
+            <div id="myCarousel" class="carousel slide" data-ride="carousel">
+                <ol class="carousel-indicators">
+                    @foreach (var item in Model.Select((value, i) => new { i, value }))
+                    {
+                        if (item.i == 0)
+                        {
+                            <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+                        }
+                        else
+                        {
+                            <li data-target="#myCarousel" data-slide-to="@item.i"></li>
+                        }
+
+                    }
+
+
+                </ol>
+                <div class="carousel-inner" role="listbox">
+                    @foreach (var item in Model.Select((value, i) => new {i, value}))
+                    {
+                        if (item.i == 0)
+                        {
+                            <div class="item active">
+                                <a href="@item.value.Url" rel="nofollow" target="_blank">
+                                    <img src="@item.value.Data?w=1192&h=450&mode=crop" alt="">
+                                </a>
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="item">
+                                <a href="@item.value.Url" rel="nofollow" target="_blank">
+                                    <img src="@item.value.Data?w=1192&h=450&mode=crop" alt="">
+                                </a>
+                            </div>
+                        }
+                    }
+
+
+                </div>
+                <!-- Left and right controls -->
+                <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
+                    <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+                    <span class="sr-only">Previous</span>
+                </a>
+                <a class="right carousel-control" href="#myCarousel" role="button" data-slide="next" style="background: none">
+                    <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+                    <span class="sr-only">Next</span>
+                </a>
+            </div>
+        </div>
+    </div><!-- end slider-->
+
+
+
+
+}

@@ -1,0 +1,66 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+
+    <title>@ViewBag.Title </title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="@ViewBag.Description" />
+    <meta name="keywords" content="@ViewBag.Keywords" />
+    <meta name="news_keywords"content="@ViewBag.Keywords" />
+    <meta name="author" content="vuit" />
+    <meta content="general" name="rating" />
+    <meta content="vuit" name="copyright" />
+    <meta content="never" name="expires" />
+    <meta content="global" name="distribution" />
+    <meta content="DOCUMENT" name="RESOURCE-TYPE" />
+    <meta content="vuit.org.vn" name="GENERATOR" />
+    <meta name="robots" content="index,follow" />
+    <meta name="Googlebot" content="index,follow,noarchive" />
+    <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
+    <link rel="icon" type="image/icon" href="/Content/images/icon_logo.png">
+
+    @*@Styles.Render("~/Content/sitecss")*@
+
+    <link href="~/Content/css/bootstrap.css" rel="stylesheet" />
+    <link href="~/Content/css/jquery.mmenu.all.css" rel="stylesheet" />
+    <link href="~/Content/css/style.css?vs=03" rel="stylesheet" />
+    <link href="~/Content/css/common.css?vs=03" rel="stylesheet" />
+    <link href="~/Content/css/extend.css?vs=03" rel="stylesheet"/>
+    <script>
+        function updateOrientation() {
+            window.location.reload();
+        }
+    </script>
+</head>
+
+
+<body onorientationchange="updateOrientation();">
+    @Scripts.Render("~/Content/sitejs")
+    @Html.Partial("Site_Header")
+   
+    @RenderBody()
+    @Html.Partial("Site_Footer")
+
+
+
+    <script type="text/javascript">
+        $(function () {
+            $('nav#menu').mmenu();
+        });
+    </script>
+    <script>
+        $(document).ready(function () {
+            $(".click").click(function () {
+                $(".click").hide();
+                $(".tool_phu .date").hide();
+                $(".submit_m").fadeIn();
+                $(".text_m").fadeIn("slow");
+            });
+            $('table').removeAttr('style');
+
+            $('td').removeAttr('width');
+        });
+    </script>
+</body>
+
+</html>

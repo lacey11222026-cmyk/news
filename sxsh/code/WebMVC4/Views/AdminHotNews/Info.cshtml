@@ -1,0 +1,304 @@
+﻿@{
+    Layout = "~/Views/Shared/_AdminV2.cshtml";
+}
+@using BIZ.Entity
+@using UTILS
+@using DATA
+@using WebMVC4.Helper
+@model HotNews
+
+
+
+<div class="well">
+    <span class="label label-danger">
+        Chú ý!
+    </span>
+    <span>
+        Hãy chắc chắn nhập vào đầy đủ thông tin tại các mục bắt buộc đánh dấu (*)
+    </span>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <i class="fa fa-fw fa-user-md"></i><span>@ViewBag.Title </span>
+            </div>
+            <form id="defaultForm" method="post" class="form-horizontal">
+                <div class="panel-group" id="steps">
+                    <div class="messager-body">
+                        <div class="alert alert-success display-hide alert-dismissable">
+                            <button type="button" class="close" data-close="alert" aria-hidden="true">×</button>
+                            <span class="glyphicon glyphicon-ok"></span>
+                            <label>Đã lưu dữ liệu thành công !!!</label>
+                        </div>
+                        <div class="alert alert-danger display-hide alert-dismissable">
+                            <button type="button" class="close" data-close="alert" aria-hidden="true">×</button>
+                            <span class="glyphicon glyphicon-warning-sign"></span>
+                            <label>Có một vài lỗi trong khung nhập liệu dưới đây ! kiểm tra lại</label>
+                        </div>
+                    </div>
+                    <div class="panel panel-info">
+
+                        <div>
+                            <!-- dành cho UpdateFunction -->
+                            <div style="padding: 10px 0 0 0;background-color:#fff !important">
+
+                                <div class="col-md-12">
+                                    <div>
+                                        <div class="form-group">
+                                            <label for="txtName" class="control-label col-md-3">Link :<span class="required">*</span></label>
+                                            <div class="col-md-7">
+                                                <div class="input-icon right">
+                                                    <input type="text" id="txtUrl" maxlength="250" name="url" value="@Model.Url" class="form-control" placeholder="Link bài viết" />
+                                                </div>
+                                            </div>
+                                            @*<div class="col-md-2">
+                                                <button type="button" class="btn btn-primary" id="btGet" onclick="LoadData()">Lấy nội dung</button>
+                                            </div>*@
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="txtName" class="control-label col-md-3">Tiêu đề :<span class="required">*</span></label>
+                                            <div class="col-md-9">
+                                                <div class="input-icon right">
+                                                    <input type="text" id="txtTitle" maxlength="250" name="title" value="@Model.Title" class="form-control" placeholder="Tiêu đề" />
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="txtImgPath" class="control-label col-md-3">Ảnh Đại Diện:<span class="required">*</span></label>
+                                            <div class="col-md-9">
+                                                <input type="text" id="txtImgPath" name="img" value="@Model.Image" class="form-control" placeholder="Nhập ảnh đại diện" />
+                                            </div>
+
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="control-label col-md-3 hidemobile"></label>
+                                            <div class="col-md-4 col-xs-6">
+                                                <img id="ImgPath" src="@Model.Image" height="79" />
+                                            </div>
+                                            <div class="col-md-2 col-xs-6">
+                                                <a href="javascript:;" onclick="CommonCtrl.PopupManagerImages('txtImgPath');"><i class="fa fa-upload" style="font-size:24px;margin-top:12px"></i></a>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="txtName" class="control-label col-md-3">Trích dẫn :<span class="required">*</span></label>
+                                            <div class="col-md-9">
+                                                <div class="input-icon right">
+                                                    <textarea id="txtDescription" style="height: 75px;" cols="20" name="description" class="form-control" placeholder="Nhập mô tả bài viết">@Model.Description</textarea>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group" style="display:none;">
+                                            <label for="txtOrder" class="control-label col-md-3">Order :<span class="required">*</span></label>
+                                            <div class="col-md-9">
+                                                <div class="input-icon right">
+                                                    <input type="text" id="txtOrder" name="Order" value="@Model.Order" class="form-control" placeholder="Nhập Link ảnh" />&nbsp;<span id="errmsg"></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="control-label col-md-3" for="cbxIsDisplay">Mở trang mới :</label>
+                                            <div class="col-md-4">
+                                                <div class="checkbox">
+                                                    @if (Model.IsBlank == 1)
+                                                    {<input type="checkbox" id="cbxIsDisplay" checked="checked" />}
+                                                    else
+                                                    {<input type="checkbox" id="cbxIsDisplay" />}
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="control-label col-md-3" for="cbxIsActive">Trạng thái :</label>
+                                            <div class="col-md-4">
+                                                <div class="checkbox">
+                                                    @if (Model.Status == 1)
+                                                    {<input type="checkbox" id="cbxIsActive" checked="checked" />}
+                                                    else
+                                                    {<input type="checkbox" id="cbxIsActive" />}
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="panel-footer form-horizontal">
+                                        <div class="form-group submit">
+                                            <button type="submit" class="btn btn-primary" id="btnSave"><i class="fa fa-save"></i>Lưu lại</button>
+
+                                            <button type="button" class="btn btn-default" id="btnBack" onclick="GotoListpage()"><i class="fa fa-backward"></i>Back</button>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                            </div>
+
+                        </div>
+                        <div class="clear"></div>
+                    </div>
+
+                </div>
+
+            </form>
+        </div>
+    </div>
+</div>
+<div class="desc" style="display:none;"></div>
+<style>
+    .input-icon {
+        position: relative;
+        width: 100%;
+    }
+</style>
+<script type="text/javascript">
+    function GotoListpage() {
+         key = '@ViewBag.key';
+        window.location = '/AdminHotNews/ManageHotNews/?key=' + key;
+    }
+    function rawhtml(that_string) {
+
+        $('div.desc').html($('<div />').html(that_string).text());
+        return $('div.desc').html();
+    }
+    function LoadData() {
+
+        Utils.Loading();
+        $.ajax({
+            type: 'GET',
+            async: false,
+            jsonpCallback: 'jsonCallback',
+            contentType: "application/json",
+            dataType: 'jsonp',
+            url: '/Get/ArticleService.ashx?jsoncallback=?',
+            data: {
+                __m: 'get_crawl',
+                url: $('#txtUrl').val()
+            },
+            success: function (data) {
+                if (data != undefined && data != null && data != '') {
+                    $('#txtTitle').val(rawhtml(data.Title).replace('&amp;', '&'));
+                    $('#txtDescription').val(rawhtml(data.IntroText));
+                    $('#ImgPath').attr("src", data.Thumbnail);
+                    $('#txtImgPath').val(data.Thumbnail);
+                }
+                Utils.UnLoading();
+            },
+            error: function () {
+                Utils.UnLoading();
+            }
+        });
+
+
+
+    }
+    $(document).ready(function () {
+
+
+        $("#txtOrder").keypress(function (e) {
+            //if the letter is not digit then display error and don't type anything
+            if (e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57)) {
+                //display error message
+                $("#errmsg").html("Chỉ Nhập Được Số").show().fadeOut(1000);
+                return false;
+            }
+        });
+        $("button.close").click(function () {
+            $(this).parent().css("display", "none");
+        });
+        $('#defaultForm').bootstrapValidator({
+            message: 'This value is not valid',
+            //live: 'submitted',
+            feedbackIcons: {
+                valid: 'glyphicon glyphicon-ok',
+                invalid: 'glyphicon glyphicon-remove',
+                validating: 'glyphicon glyphicon-refresh'
+            },
+            fields: {
+
+                url: {
+                    message: 'Nhập Link ',
+                    validators: {
+                        notEmpty: {
+                            message: 'Link không được bỏ trống'
+                        },
+
+
+
+                    }
+                },
+
+
+
+            }
+        })
+        .on('success.form.bv', function (e) {
+            // Prevent submit form
+            e.preventDefault();
+
+            var $form = $(e.target),
+                validator = $form.data('bootstrapValidator');
+            SaveData();
+            $(".close").click(function () {
+                $(".alert-success").css("display", "none");
+            });
+        })
+        .on('error.form.bv', function (e) {
+            // Active the panel element containing the first invalid element
+            e.preventDefault();
+            var $form = $(e.target),
+            validator = $form.data('bootstrapValidator');
+            $(".alert-danger label").text("Có một vài lỗi trong khung nhập liệu dưới đây ! kiểm tra lại");
+            $(".alert-danger").css("display", "block");
+            $(".close").click(function () {
+                $(".alert-danger").css("display", "none");
+                $(".alert-success").css("display", "none");
+            });
+        });
+
+        $("#btnReset").click(function () {
+            $('#defaultForm').data('bootstrapValidator').resetForm(true);
+            $(".alert-danger").css("display", "none");
+            $(".alert-success").css("display", "none");
+        });
+        //Save Data
+        function SaveData() {
+            key = '@ViewBag.key';
+            var param = {
+                'Id': '@Model.Id',
+                'Title': $("#txtTitle").val(),
+                'Description': $("#txtDescription").val(),
+                'Url': $("#txtUrl").val(),
+                'Image': $("#txtImgPath").val(),
+                'Key': key,
+                'Status': $("#cbxIsActive").is(":checked") ? 1 : 0,
+                'IsBlank': $("#cbxIsDisplay").is(":checked") ? 1 : 0,
+            }
+            Utils.Loading();
+            $.ajax({
+                type: 'POST',
+                url: "/AdminHotNews/SaveData",
+                data: param,
+                async: true,
+                success: function (data) {
+                    Utils.UnLoading();
+                    if (data.ResponseCode >= 0) {
+                        $("html,body").animate({ scrollTop: $('#TemplateContent').offset().top }, 'fast');
+                        $(".alert-success").show("slow");
+                        $(".alert-danger").hide("slow");
+                        setTimeout(function () { $(".alert-success").hide("slow"); GotoListpage(); }, 2000);
+                    }
+                    else {
+                        $("html,body").animate({ scrollTop: $('#TemplateContent').offset().top }, 'fast');
+                        $("#ErrorMessage").text(data.Description);
+                        $(".alert-danger").show("slow");
+                        $(".alert-success").hide("slow");
+                        setTimeout(function () { $(".alert-danger").hide("slow"); }, 2000);
+                    }
+                }
+            });
+        };
+    });
+</script>

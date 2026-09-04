@@ -1,0 +1,80 @@
+﻿<link href="@(WebMVC4.MvcApplication.StaticSiteUrl)Styles/custom.css" rel="stylesheet" />
+<div class="right">
+    @*@Html.Action("RightDetail", "Controls", new { cateId = ViewBag.CateId })*@
+</div>
+
+<!-- end right-->
+<div class="left">
+    <div class="detail">
+        <div class="title_c1"><span>Đăng ký giao lưu trực tuyến</span></div>
+
+        <div class="paddetail bgt-table-search">
+            <div id="comment_box" class="nd_bai" style="padding: 5px;">
+                <input id="txtName" type="text" maxlength="50" style="width: 250px" placeholder="Họ tên" />
+                <input id="txtAge" type="text" maxlength="2" style="width: 50px" placeholder="Tuổi" onkeypress="return /\d/.test(String.fromCharCode(((event||window.event).which||(event||window.event).which)));" />
+                <div style="clear: both"></div>
+                <div class="comment_box_object" style="float: left; margin: 5px 0px;">
+                    <strong>Giới tính:</strong>
+                    <select id="ddlSex">
+                        <option value="1">Nam</option>
+                        <option value="0">Nữ</option>
+                    </select>
+                </div>
+                <div style="clear: both"></div>
+                <input id="txtLocation" class="comment_box_object" maxlength="250" style=" width: 400px;" placeholder="Nơi ở hiện tại" />
+                <div style="clear: both"></div>
+                <br />
+                <div class="ol-submmit">
+                    <button id="btnReg" type="button" value="Tham gia" class="btn-search">
+                        Tham gia
+                    </button>
+                    <div id="loading">loading...</div>
+                </div>
+
+                <br />
+                <div style="clear: both"></div>
+                <h2 id="msg"></h2>
+                <div style="clear: both"></div>
+                <br />
+                <font size="2" face="tahoma">
+                    Bạn hãy điền thông tin rồi bấm vào nút "Tham gia" để đặt
+                    câu hỏi.<br />
+
+                    <a href="/giao-luu-truc-tuyen.html">Nội dung giao lưu</a>
+                </font>
+            </div>
+        </div>
+        <script type="text/javascript">
+            $("#loading").hide();
+            $("#btnReg").show();
+            $('#btnReg').click(function () {
+
+                var _name = $('#txtName').val();
+                var _age= $('#txtAge').val();
+                var _sex = $('#ddlSex').val();
+                var _location = $('#txtLocation').val();
+
+                if(_name =="" || _age=="" || _location=="")
+                {
+                    $('#msg').html("Bạn vui lòng điền đầy đủ thông tin");
+                    return;
+                }
+                $("#loading").show();
+                $("#btnReg").hide();
+                $.post('@(Url.Action("RegisterAdd","OnlineDiscussion") + "")', { name: _name, age: _age, sex: _sex, location: _location }, function (data) {
+                    if(data > 0)
+                    {
+                        window.location = "/giao-luu-truc-tuyen.html";
+                        return;
+                    }
+                    $('#msg').html(data);
+                    $("#loading").hide();
+                    $("#btnReg").show();
+                });
+            });
+
+        </script>
+    </div>
+</div>
+<!-- end left-->
+<div style="clear: both"></div>

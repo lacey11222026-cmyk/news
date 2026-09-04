@@ -1,0 +1,108 @@
+
+#flexiselDemo1, #flexiselDemo2, #flexiselDemo3 {
+display:none;
+}
+
+.nbs-flexisel-container {
+    position:relative;
+    max-width:100%;
+	margin-top:20px;
+}
+.nbs-flexisel-ul {
+    position:relative;
+    width:99999px;
+    margin:0px;
+    padding:0px;
+    list-style-type:none;   
+    text-align:center;  
+}
+.nbs-flexisel-inner {
+    overflow:hidden;
+    float:left;
+    width: 100%;
+}
+.slide-project .nbs-flexisel-inner {
+	width: 100%;
+	margin: 0;
+}
+.nbs-flexisel-item {
+    float:left;
+    margin:0px;
+    padding:0px;
+    cursor:pointer;
+    position:relative;
+    line-height:0px;
+}
+.nbs-flexisel-item img {
+    width: 95%;
+    cursor: pointer;
+    position: relative;
+}
+
+/*** Navigation ***/
+
+.nbs-flexisel-nav-left,
+.nbs-flexisel-nav-right {
+    width: 30px;
+    height: 110px;
+    position: absolute;
+    cursor: pointer;
+    z-index: 100;
+    opacity: 0.5;
+/*    border-radius: 50%;*/
+}
+
+.nbs-flexisel-nav-left {
+    left: 0;	
+	background: url("..//Content/images/icon-pr.png") no-repeat center left;
+}
+
+.nbs-flexisel-nav-right {
+    right: 0px;
+    background: url("..//Content/images/icon-next.png") no-repeat center right;
+}
+.slide-chantrang .nbs-flexisel-nav-right,
+.slide-chantrang .nbs-flexisel-nav-left {
+	top:0 !important;
+}
+.slide-chantrang .nbs-flexisel-nav-right{
+	background: url("..//Content/images/icon-next.png") no-repeat center right;
+}
+.slide-chantrang .nbs-flexisel-nav-left{
+	background: url("..//Content/images/icon-pr.png") no-repeat center left;
+}
+.nbs-flexisel-nav-right:hover,
+.nbs-flexisel-nav-left:hover {
+    opacity:1;
+}
+.slide-project .nbs-flexisel-item a{
+	width: 94%;
+	margin: 0 3%;
+	text-align: left;
+	overflow: hidden;
+}
+.slide-project .nbs-flexisel-item img{
+	width: 95%;
+	margin: 0;
+}
+.nbs-flexisel-inner:after,
+.nbs-flexisel-ul:after,
+.nbs-flexisel-container:after,
+.nbs-flexisel-container:after{
+	content: ' ';
+	clear: both;
+}
+@media (max-width:991px){
+	.nbs-flexisel-nav-left,
+	.nbs-flexisel-nav-right{
+		background-size: 15px;
+	}
+	.nbs-flexisel-nav-left, .nbs-flexisel-nav-right{
+		height: 78px;
+	}
+}
+@media (max-width:767px){
+	.nbs-flexisel-nav-left, .nbs-flexisel-nav-right{
+		height: 125px;
+	}
+}

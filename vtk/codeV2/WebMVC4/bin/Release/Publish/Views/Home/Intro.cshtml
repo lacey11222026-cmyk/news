@@ -1,0 +1,20 @@
+﻿@model BIZ.Entity.CATEGORY_FULL
+@using WebMVC4.Helper
+@{
+    var langpage = WorkContext.GetLanguage();
+}
+@if (Model != null)
+{
+    if (langpage == "vi-vn")
+    {
+        <div>@Html.Raw(Model.Contents)</div>
+    }
+    else
+    {
+        <div>@Html.Raw(Model.Param.ContentEn)</div>
+
+    }
+
+
+
+}

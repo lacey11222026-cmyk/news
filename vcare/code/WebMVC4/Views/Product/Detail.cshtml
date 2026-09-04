@@ -1,0 +1,639 @@
+﻿@using BIZ
+@using BIZ.Entity
+@using UTILS
+@using WebMVC4.Helper
+@model WebMVC4.Models.ProductDetailModel
+<script src='/Content/js/jquery.elevatezoom.min.js?v=31' type='text/javascript'></script>
+@if (Model != null)
+{
+    <div id="PageContainer" class="is-moved-by-drawer">
+        <main class="main-content" role="main">
+
+
+
+            <section id="product-wrapper">
+                <div class="wrapper">
+                    <div class="inner">
+                        <div itemscope="" itemtype="http://schema.org/Product">
+
+                            <div class="product-detail-inner">
+                                <div class="grid product-single">
+
+                                    <div class="grid__item large--five-twelfths medium--five-twelfths small--one-whole">
+
+                                        <div class="customize-product-slider clearfix">
+                                            <div id="surround" class="clearfix">
+                                                <div class="product-images text-center" id="ProductPhoto">
+
+                                                    <img class="product-image-feature" src="@Model.Detail.DescriptImage" alt="@Model.Detail.Name" />
+
+                                                    <div id="sliderproduct" style="display: none !important;">
+                                                        <ul class="slides">
+
+                                                            <li class="product-thumb">
+                                                                <a href="javascript:void(0)" class="product__thumbnail--target-1" data-image="@Model.Detail.DescriptImage" data-zoom-image="@Model.Detail.DescriptImage">
+                                                                    <img alt="@Model.Detail.Name" data-image="@Model.Detail.DescriptImage" src="@Model.Detail.DescriptImage" />
+                                                                </a>
+                                                            </li>
+                                                            @if (!string.IsNullOrEmpty(Model.Detail.ImageParam.Path1))
+                                                            {
+                                                                <li class="product-thumb">
+                                                                    <a href="javascript:void(0)" class="product__thumbnail--target-2" data-image="@Model.Detail.ImageParam.Path1" data-zoom-image="@Model.Detail.ImageParam.Path1">
+                                                                        <img alt="@Model.Detail.Name" data-image="@Model.Detail.ImageParam.Path1" src="@Model.Detail.ImageParam.Path1">
+                                                                    </a>
+                                                                </li>
+                                                            }
+                                                            @if (!string.IsNullOrEmpty(Model.Detail.ImageParam.Path2))
+                                                            {
+                                                                <li class="product-thumb">
+                                                                    <a href="javascript:void(0)" class="product__thumbnail--target-3" data-image="@Model.Detail.ImageParam.Path2" data-zoom-image="@Model.Detail.ImageParam.Path2">
+                                                                        <img alt="@Model.Detail.Name" data-image="@Model.Detail.ImageParam.Path2" src="@Model.Detail.ImageParam.Path2">
+                                                                    </a>
+                                                                </li>
+                                                            }
+                                                            @if (!string.IsNullOrEmpty(Model.Detail.ImageParam.Path3))
+                                                            {
+                                                                <li class="product-thumb">
+                                                                    <a href="javascript:void(0)" class="product__thumbnail--target-4" data-image="@Model.Detail.ImageParam.Path3" data-zoom-image="@Model.Detail.ImageParam.Path3">
+                                                                        <img alt="@Model.Detail.Name" data-image="@Model.Detail.ImageParam.Path3" src="@Model.Detail.ImageParam.Path3">
+                                                                    </a>
+                                                                </li>
+                                                            }
+                                                            @if (!string.IsNullOrEmpty(Model.Detail.ImageParam.Path4))
+                                                            {
+                                                                <li class="product-thumb">
+                                                                    <a href="javascript:void(0)" class="product__thumbnail--target-5" data-image="@Model.Detail.ImageParam.Path4" data-zoom-image="@Model.Detail.ImageParam.Path4">
+                                                                        <img alt="@Model.Detail.Name" data-image="@Model.Detail.ImageParam.Path4" src="@Model.Detail.ImageParam.Path4">
+                                                                    </a>
+                                                                </li>
+                                                            }
+                                                        </ul>
+                                                    </div>
+
+
+                                                </div>
+
+
+                                                <div class="product-single__thumbnails inline-list">
+                                                    <div class="product-single__thumbnails inline-list" id="ProductThumbs">
+                                                        <div id="owl-product-thumbs" class="owl-carousel owl-theme">
+
+                                                            <div class="item">
+                                                                <div class="thumbnail-item" data-alt="">
+                                                                    <a href="@Model.Detail.DescriptImage" class="product-single__thumbnail  active " data-trigger="1">
+                                                                        <img src="@Model.Detail.DescriptImage" alt="">
+                                                                    </a>
+                                                                </div>
+                                                            </div>
+                                                            @if (!string.IsNullOrEmpty(Model.Detail.ImageParam.Path1))
+                                                            {
+
+
+                                                                <div class="item">
+                                                                    <div class="thumbnail-item" data-alt="">
+                                                                        <a href="@Model.Detail.ImageParam.Path1" class="product-single__thumbnail " data-trigger="2">
+                                                                            <img src="@Model.Detail.ImageParam.Path1" alt="">
+                                                                        </a>
+                                                                    </div>
+                                                                </div>
+                                                            }
+                                                            @if (!string.IsNullOrEmpty(Model.Detail.ImageParam.Path2))
+                                                            {
+
+
+                                                                <div class="item">
+                                                                    <div class="thumbnail-item" data-alt="">
+                                                                        <a href="@Model.Detail.ImageParam.Path2" class="product-single__thumbnail " data-trigger="3">
+                                                                            <img src="@Model.Detail.ImageParam.Path2" alt="">
+                                                                        </a>
+                                                                    </div>
+                                                                </div>
+                                                            }
+                                                            @if (!string.IsNullOrEmpty(Model.Detail.ImageParam.Path3))
+                                                            {
+
+
+                                                                <div class="item">
+                                                                    <div class="thumbnail-item" data-alt="">
+                                                                        <a href="@Model.Detail.ImageParam.Path3" class="product-single__thumbnail " data-trigger="4">
+                                                                            <img src="@Model.Detail.ImageParam.Path3" alt="">
+                                                                        </a>
+                                                                    </div>
+                                                                </div>
+                                                            }
+                                                            @if (!string.IsNullOrEmpty(Model.Detail.ImageParam.Path4))
+                                                            {
+
+
+                                                                <div class="item">
+                                                                    <div class="thumbnail-item" data-alt="">
+                                                                        <a href="@Model.Detail.ImageParam.Path4" class="product-single__thumbnail " data-trigger="5">
+                                                                            <img src="@Model.Detail.ImageParam.Path4" alt="">
+                                                                        </a>
+                                                                    </div>
+                                                                </div>
+                                                            }
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+
+
+                                            <div class="customize-variants-products-slider text-center" style="display: none !important;">
+                                                <div id="owl-customize-variants-products-slider" class="owl-carousel owl-theme">
+
+
+
+
+                                                    <div class="item product_variant_item" data-variant-color="Default Title" data-alt="" data-image="/Content/noDefaultImage6_small.gif" data-feature-image="//hstatic.net/0/0/global/noDefaultImage6_master.gif">
+                                                        <img src="/Content//noDefaultImage6_small.gif" alt="">
+                                                    </div>
+
+
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+
+
+
+                                    <div class="grid__item large--seven-twelfths medium--seven-twelfths small--one-whole">
+                                        <div class="product-content">
+                                            <h1 itemprop="name">@Model.Detail.Name</h1>
+
+
+                                            <div class="pro-brand">
+                                                <span class="title">Danh mục: </span> <a href="@Model.Cate.Url" title="@Model.Cate.Name">@Model.Cate.Name</a>
+                                            </div>
+                                            <div class="pro-type">
+                                                <span class="title">Loại:</span> <span>@HtmlHelpers.ProductType(Model.Detail.Size.GetValueOrDefault())</span>
+                                            </div>
+                                            <div class="pro-stock">
+                                                <span class="title">Tình trạng: </span> <span>Còn hàng</span>
+                                            </div>
+                                            <div class="pro-short-desc pb15">
+                                                @Html.Raw(Model.Detail.Description)
+                                            </div>
+                                            <div class="pro-price clearfix" id="divprice">
+
+                                                @if (Model.Detail.Price > 0)
+                                                {
+                                                <span class="current-price">@Utils.InsertCommaNoStyle(Model.Detail.Price.ToString()) đ</span>
+                                                }
+                                                else
+                                                {
+                                                <span class="current-price">Liên hệ</span>
+                                                }
+
+
+                                            </div>
+
+
+                                            <div id="AddToCartForm" class="form-vertical">
+                                                <div class="product-variants-wrapper">
+
+
+                                                    @if (Model.Detail.Tech != null)
+                                                    {
+                                                        if (!String.IsNullOrEmpty(Model.Detail.Tech.Trim()))
+                                                        {
+                                                            <div id="product-select-watch" class="select-swatch">
+                                                                <div class="swatch swatch-product-single clearfix">
+                                                                    <div class="header">Màu sắc</div>
+                                                                    <div class="select-swap">
+                                                                        @foreach (var item in Model.Detail.Tech.Split(',').Select((value, i) => new { i, value }))
+                                                                        {
+
+                                                                            if (!String.IsNullOrEmpty(item.value))
+                                                                            {
+
+
+
+                                                                                <div class="n-sd swatch-element ">
+                                                                                    <label class=" no-thumb sd" style="">
+                                                                                        <span>@item.value.Trim()</span>
+                                                                                    </label>
+                                                                                </div>
+
+                                                                            }
+                                                                        }
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        }
+                                                    }
+
+                                                    @if (Model.Detail.Volumn != null)
+                                                    {
+                                                        if (!String.IsNullOrEmpty(Model.Detail.Volumn.Trim()))
+                                                        {
+                                                            <div id="product-select-watch2" class="select-swatch">
+                                                                <div class="swatch swatch-product-single clearfix">
+                                                                    <div class="header">Mùi hương</div>
+                                                                    <div class="select-swap">
+                                                                        @foreach (var item in Model.Detail.Volumn.Split(',').Select((value, i) => new { i, value }))
+                                                                        {
+
+                                                                            if (!String.IsNullOrEmpty(item.value))
+                                                                            {
+
+
+
+                                                                                <div class="n-sd swatch-element ">
+                                                                                    <label class=" no-thumb sd" style="">
+                                                                                        <span>@item.value.Trim()</span>
+                                                                                    </label>
+                                                                                </div>
+
+                                                                            }
+                                                                        }
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        }
+                                                    }
+
+                                                    @if (!String.IsNullOrEmpty(Model.Detail.ProParam.Pro1))
+                                                    {
+                                                        <div id="product-select-watch2" class="select-swatch">
+                                                            <div class="swatch swatch-product-single clearfix">
+                                                                <div class="header">Thuộc tính</div>
+                                                                <div class="select-swap" onclick="changPrice('@Utils.InsertCommaNoStyle(Model.Detail.ProParam.Price1) đ',this)">
+                                                                    <div class="n-sd swatch-element ">
+                                                                        <label class=" no-thumb sd" style="">
+                                                                            <span>@Model.Detail.ProParam.Pro1</span>
+                                                                        </label>
+                                                                    </div>
+                                                                </div>
+                                                                @if (!String.IsNullOrEmpty(Model.Detail.ProParam.Pro2))
+                                                                {
+                                                                    <div class="select-swap" onclick="changPrice('@Utils.InsertCommaNoStyle(Model.Detail.ProParam.Price2) đ',this)">
+                                                                        <div class="n-sd swatch-element ">
+                                                                            <label class=" no-thumb " style="">
+                                                                                <span>@Model.Detail.ProParam.Pro2</span>
+                                                                            </label>
+                                                                        </div>
+                                                                    </div>
+                                                                }
+
+                                                                @if (!String.IsNullOrEmpty(Model.Detail.ProParam.Pro3))
+                                                                {
+                                                                    <div class="select-swap" onclick="changPrice('@Utils.InsertCommaNoStyle(Model.Detail.ProParam.Price3) đ',this)">
+                                                                        <div class="n-sd swatch-element ">
+                                                                            <label class=" no-thumb" style="">
+                                                                                <span>@Model.Detail.ProParam.Pro3</span>
+                                                                            </label>
+                                                                        </div>
+                                                                    </div>
+                                                                }
+                                                                @if (!String.IsNullOrEmpty(Model.Detail.ProParam.Pro4))
+                                                                {
+                                                                    <div class="select-swap" onclick="changPrice('@Utils.InsertCommaNoStyle(Model.Detail.ProParam.Price4) đ',this)">
+                                                                        <div class="n-sd swatch-element ">
+                                                                            <label class=" no-thumb" style="">
+                                                                                <span>@Model.Detail.ProParam.Pro4</span>
+                                                                            </label>
+                                                                        </div>
+                                                                    </div>
+                                                                }
+                                                                @if (!String.IsNullOrEmpty(Model.Detail.ProParam.Pro5))
+                                                                {
+                                                                    <div class="select-swap" onclick="changPrice('@Utils.InsertCommaNoStyle(Model.Detail.ProParam.Price5) đ',this)">
+                                                                        <div class="n-sd swatch-element ">
+                                                                            <label class=" no-thumb" style="">
+                                                                                <span>@Model.Detail.ProParam.Pro5</span>
+                                                                            </label>
+                                                                        </div>
+                                                                    </div>
+                                                                }
+                                                                @if (!String.IsNullOrEmpty(Model.Detail.ProParam.Pro6))
+                                                                {
+                                                                    <div class="select-swap" onclick="changPrice('@Utils.InsertCommaNoStyle(Model.Detail.ProParam.Price6) đ',this)">
+                                                                        <div class="n-sd swatch-element ">
+                                                                            <label class=" no-thumb " style="">
+                                                                                <span>@Model.Detail.ProParam.Pro6</span>
+                                                                            </label>
+                                                                        </div>
+                                                                    </div>
+                                                                }
+                                                                @if (!String.IsNullOrEmpty(Model.Detail.ProParam.Pro7))
+                                                                {
+                                                                    <div class="select-swap" onclick="changPrice('@Utils.InsertCommaNoStyle(Model.Detail.ProParam.Price7) đ',this)">
+                                                                        <div class="n-sd swatch-element ">
+                                                                            <label class=" no-thumb " style="">
+                                                                                <span>@Model.Detail.ProParam.Pro7</span>
+                                                                            </label>
+                                                                        </div>
+                                                                    </div>
+                                                                }
+                                                            </div>
+                                                        </div>
+                                                    }
+                                                    <div class="product-size-hotline">
+                                                        <div class="product-hotline">
+                                                            Hotline hỗ trợ bán hàng 24/7: <a href="tel:098.199.5565">098.199.5565</a>
+                                                        </div>
+                                                        <span>|</span>
+                                                        <div class="social-network-actions text-left">
+                                                            <div class="fb-like" data-href="https://vcare.com.vn/products/@(Model.Detail.Url)" data-layout="button_count" data-action="like" data-size="small" data-show-faces="true" data-share="true"></div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                @*<div class="grid mg-left-5">
+                                                        <div class="grid__item large--one-fifth medium--one-third small--one-third pd-left5">
+                                                            <div class="product-quantity clearfix">
+                                                                <div class="qty-addcart clearfix">
+                                                                    <span>Số lượng </span>
+
+
+                                                                    <div class="js-qty">
+                                                                        <button type="button" class="js-qty__adjust js-qty__adjust--minus icon-fallback-text" data-id="" data-qty="0">
+                                                                            <span class="icon icon-minus" aria-hidden="true"></span>
+                                                                            <span class="fallback-text" aria-hidden="true">−</span>
+                                                                            <span class="visually-hidden">Giảm số lượng sản phẩm đi 1</span>
+                                                                        </button>
+                                                                        <input type="number" class="js-qty__num" value="1" min="1" data-id="" aria-label="quantity" pattern="[0-9]*" name="quantity" id="Quantity">
+                                                                        <button type="button" class="js-qty__adjust js-qty__adjust--plus icon-fallback-text" data-id="" data-qty="11">
+                                                                            <span class="icon icon-plus" aria-hidden="true"></span>
+                                                                            <span class="fallback-text" aria-hidden="true">+</span>
+                                                                            <span class="visually-hidden">Tăng số lượng sản phẩm lên 1</span>
+                                                                        </button>
+                                                                    </div>
+
+
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="grid__item large--two-thirds medium--two-thirds small--two-thirds pd-left5">
+                                                            <div class="product-actions clearfix">
+                                                                <button type="submit" name="add" id="AddToCart" class="btnAddToCart">Thêm vào giỏ</button>
+                                                                <button type="button" name="buy" id="buy-now" class="btnBuyNow">Mua ngay</button>
+                                                            </div>
+                                                        </div>
+                                                    </div>*@
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="product-description-wrapper">
+                                <div class="tab clearfix">
+
+                                    <button class="pro-tablinks active" onclick="openProTabs(event, 'protab1')" id="defaultOpenProTabs">Mô tả sản phẩm</button>
+
+
+
+
+                                    <button class="pro-tablinks" onclick="openProTabs(event, 'protab2')">Bình luận</button>
+
+                                </div>
+
+                                <div id="protab1" class="pro-tabcontent" style="display: block;">
+                                    <div id="NewsContent">@Html.Raw(Model.Detail.Intro)</div>
+                                </div>
+
+
+
+
+
+
+
+
+                                <div id="protab2" class="pro-tabcontent" style="display: none;">
+                                    <div class="product-fb-comments">
+                                        <div class="fb-comments" data-href="https://vcare.com.vn/products/@(Model.Detail.Url)" data-width="100%" data-numposts="5"></div>
+                                    </div>
+                                </div>
+
+                            </div>
+
+
+
+
+                            <section id="related-products">
+                                @{Html.RenderAction("RelateProduct", "Product", new { categoryId = Model.Detail.CategoryId, id = Model.Detail.Id, manuid = -1 });}
+
+                            </section>
+
+
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+
+
+            <script>
+                function getImageByAlt(alt) {
+                    $('.thumbnail-item').each(function () {
+                        if ($(this).data('alt') != alt) {
+                            $(this).hide();
+                        } else {
+                            $(this).show();
+                        }
+                    })
+                }
+                $('.product_variant_item').click(function () {
+                    var vid = $(this).data('variant-color');
+                    var imgf = $(this).data('feature-image');
+                    $(".product-thumb img[data-image='" + imgf + "']").click().parents('li').addClass('active');
+                    $('#product-select-option-0').val(vid);
+                    if ($(window).width() > 480) {
+                        getImageByAlt($(this).data('alt'));
+                    };
+                    $('.product_variant_item').removeClass('active');
+                    $(this).addClass('active');
+                })
+                $('.product_variant_item').trigger('click');
+            </script>
+
+            <script>
+                $(".product-thumb img").click(function () {
+                    $(".product-thumb").removeClass('active');
+                    $(this).parents('li').addClass('active');
+                    $(".product-image-feature").attr("src", $(this).attr("data-image"));
+                    $(".product-image-feature").attr("data-zoom-image", $(this).attr("data-zoom-image"));
+                });
+
+                $(".product-thumb").first().addClass('active');
+            </script>
+
+
+            <script>
+                $(document).ready(function () {
+                    if ($(".slides .product-thumb").length > 4) {
+                        $('#sliderproduct').flexslider({
+                            animation: "slide",
+                            controlNav: false,
+                            animationLoop: false,
+                            slideshow: false,
+                            itemWidth: 95,
+                            itemMargin: 10,
+                        });
+                    }
+                    if ($(window).width() > 960) {
+                        jQuery(".product-image-feature").elevateZoom({
+                            gallery: 'sliderproduct',
+                            scrollZoom: true
+                        });
+                    } else {
+
+                    }
+                    jQuery('.slide-next').click(function () {
+                        if ($(".product-thumb.active").prev().length > 0) {
+                            $(".product-thumb.active").prev().find('img').click();
+                        }
+                        else {
+                            $(".product-thumb:last img").click();
+                        }
+                    });
+                    jQuery('.slide-prev').click(function () {
+                        if ($(".product-thumb.active").next().length > 0) {
+                            $(".product-thumb.active").next().find('img').click();
+                        }
+                        else {
+                            $(".product-thumb:first img").click();
+                        }
+                    });
+                });
+            </script>
+
+
+            <script>
+                $('.product-single__thumbnail').click(function (e) {
+                    e.preventDefault();
+                    $('.product__thumbnail--target-' + $(this).data('trigger')).trigger('click');
+                    $('.product-single__thumbnail').removeClass('active');
+                    $(".product-image-feature").attr("src", $(this).attr("href"));
+                    $(".product-image-feature").attr("data-zoom-image", $(this).attr("href"));
+                    $(this).addClass('active');
+                })
+
+            </script>
+
+            <script>
+                $('.swatch-element.color').click(function (e) {
+                    var color_name = $(this).data("value");
+                    console.log(color_name);
+                    $(".item.product_variant_item[data-variant-color='" + color_name + "']").trigger('click');
+                })
+            </script>
+
+            <!-------------------------------------------->
+            <script>
+                $(document).ready(function () {
+
+                    $("#owl-product-thumbs").owlCarousel({
+                        smartSpeed: 200,
+                        nav: false,
+                        navText: ['<i class="fa fa-angle-left" aria-hidden="true"></i>', '<i class="fa fa-angle-right" aria-hidden="true"></i>'],
+                        dots: false,
+                        loop: false,
+                        autoplay: false,
+                        rewind: true,
+                        margin: 10,
+                        autoplayHoverPause: true,
+                        responsiveRefreshRate: 200,
+                        responsive: {
+                            0: {
+                                items: 3
+                            },
+                            480: {
+                                items: 4
+                            },
+                            768: {
+                                items: 4
+                            },
+                            1000: {
+                                items: 4
+                            }
+                        }
+                    });
+
+                });
+
+            </script>
+            <script>
+                function openProTabs(evt, cityName) {
+                    var i, pro_tabcontent, pro_tablinks;
+                    pro_tabcontent = document.getElementsByClassName("pro-tabcontent");
+                    for (i = 0; i < pro_tabcontent.length; i++) {
+                        pro_tabcontent[i].style.display = "none";
+                    }
+                    pro_tablinks = document.getElementsByClassName("pro-tablinks");
+                    for (i = 0; i < pro_tablinks.length; i++) {
+                        pro_tablinks[i].className = pro_tablinks[i].className.replace(" active", "");
+                    }
+                    document.getElementById(cityName).style.display = "block";
+                    evt.currentTarget.className += " active";
+                }
+
+                document.getElementById("defaultOpenProTabs").click();
+            </script>
+
+
+            <!-- Owl carousel init -->
+            <script>
+                $(document).ready(function () {
+                    $("#owl-related-products-slider").owlCarousel({
+                        smartSpeed: 1000,
+                        nav: false,
+                        dots: false,
+                        loop: false,
+                        autoplay: false,
+                        autoplayHoverPause: true,
+                        responsiveRefreshRate: 200,
+                        margin: 5,
+                        responsive: {
+                            0: {
+                                items: 2
+                            },
+                            480: {
+                                items: 3
+                            },
+                            768: {
+                                items: 3,
+                                margin: 15,
+                            },
+                            1000: {
+                                items: 4,
+                                margin: 30,
+                            }
+                        }
+                    });
+
+                    $("#owl-customize-variants-products-slider").owlCarousel({
+                        items: 5,
+                        itemsDesktop: [1000, 5],
+                        itemsDesktopSmall: [900, 5],
+                        itemsTablet: [768, 4],
+                        itemsMobile: [480, 3],
+                        navigation: true,
+                        pagination: false,
+                        slideSpeed: 1000,
+                        autoPlay: 3000,
+                        paginationSpeed: 1000,
+                        navigationText: ['<i class="fa fa-angle-left" aria-hidden="true"></i>', '<i class="fa fa-angle-right" aria-hidden="true"></i>']
+                    });
+                });
+
+                function changPrice(text, obj) {
+
+                    $("#product-select-watch2 label").removeClass("sd");
+                    var o = $(obj).find("label");
+                    o.addClass("sd");
+                    $("#divprice").html('<span class="current-price">' + text + '</span>');
+                }
+            </script>
+
+        </main>
+    </div>
+
+
+
+}

@@ -1,0 +1,23 @@
+﻿@using BIZ
+@using UTILS
+@using WebMVC4.Helper
+@model WebMVC4.Models.LastestNewModel
+@if (Model != null)
+{
+    if (Model.lstdata.Count > 0)
+    {
+
+        foreach (var item in Model.lstdata.Select((value, i) => new { i, value }))
+        {
+            <li>
+                <div class="maxheight04 number"><span>@(item.i + 1)</span></div>
+                <div class="maxheight04 newhot"><a href="@item.value.LinkUrl">@item.value.Title</a></div>
+                <div class="clearfix"></div>
+            </li>
+
+        }
+
+
+
+    }
+}

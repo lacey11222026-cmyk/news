@@ -1,0 +1,47 @@
+﻿@using BIZ
+@using UTILS
+@using WebEN.Helper
+@model BIZ.Entity.CATEGORY_FULL
+
+@if (Model != null)
+{
+    <div class="danhgia-content01 container mt10">
+        @{Html.RenderAction("BreadcrumbObj", "News", new { data = Model });}
+
+    </div>
+
+    <div class="border-bottom">
+        <div class="mt30 cap1-content02 container">
+            <div class="row row-40">
+                <div class="col-md-8 col-sm-12 text-left">
+
+                    <div class="detail-content mt40" id="NewsContent">
+                        @Html.Raw(Model.Contents)
+                    </div>
+
+                </div>
+                <div class="col-md-4 col-sm-12">
+
+                    @Html.Partial("Site_Right")
+                </div>
+            </div>
+        </div><!-- end content 02-->
+    </div>
+
+
+
+    <script>
+        $('#NewsContent .image').removeAttr('style');
+
+        $('#NewsContent .image img').removeAttr('style');
+    </script>
+
+}
+@section scripts {
+    <script type="text/javascript">
+
+    $('#menu_' + '@Model.Id').addClass("active");
+    $('#foot_' + '@Model.Id').addClass("active");
+
+    </script>
+    }

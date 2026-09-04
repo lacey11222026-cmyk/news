@@ -1,0 +1,104 @@
+﻿@using UTILS
+@{
+    var date = Utils.formatDateofWeek(DateTime.Now.DayOfWeek) + "," + DateTime.Now.ToString(" dd") + "/" + DateTime.Now.ToString("MM") + "/" + DateTime.Now.Year.ToString() + " | " + DateTime.Now.ToString("HH") + ":" + DateTime.Now.ToString("mm");
+}
+@if (ViewBag.PageName == "Home")
+{
+<div class="bnr-slide">
+    @{Html.RenderAction("Banner2", "Home");}
+</div>
+}
+
+<section class="tool mt10">
+    <div class="container">
+        <p class="pull-left">@date</p>
+        <div class="pull-right col-md-4 col-sm-6 col-xs-12 pr0">
+            <div class=" input-group col-md-7 col-sm-7 col-xs-7 pull-left">
+                <input type="text" class="form-control" id="txtKeyword" onkeydown="javascript: return AnyInput_KeyDown(this, event);" placeholder="Tìm kiếm">
+                <span class="input-group-btn">
+                    <button class="btn btn-default" type="button" onclick="search()"><img src="~/Content/images/ico-search.png" alt="Search"></button>
+                </span>
+            </div>
+            <form>
+                <div class="form-group col-md-5 col-sm-5 col-xs-5 pr0">
+                    <select class="form-control" id="Select1" onchange="window.open(this.options[this.selectedIndex].value,'_blank');this.options[0].selected=true">
+                        <option selected="selected">Liên kết</option>
+                        <option value="http://nscl.vn/">Năng suất chất lượng </option>
+                        <option value="http://congnghiepcongnghecao.com.vn/">Công nghiệp công nghệ cao </option>
+                        <option value="http://scp.gov.vn/">SXSH & TDBV </option>
+                        <option value="http://tietkiemnangluong.com.vn/">Chương trình VNEEP </option>
+                        <option value="http://vecea.vn/">Hội KHCN sử dụng năng lượng TK&HQ VN </option>
+                        <option value="https://www.evn.com.vn/">Tập đoàn Điện lực Việt Nam </option>
+                        <option value="http://www.vinachem.com.vn/">Tập đoàn Hóa chất Việt Nam</option>
+                        <option value="http://www.vinacomin.vn/">Tập đoàn Công nghiệp Than – Khoáng sản Việt Nam </option>
+
+                        <option value="http://www.viennghiencuuthuongmai.com.vn/">Viện Nghiên cứu Thương mại  </option>
+                        <option value="http://www.ipsi.org.vn/Default.aspx">Viện Nghiên cứu Chiến lược, Chính sách Công Thương</option>
+                        <option value="http://narime.gov.vn/narime/vi/">Viện Nghiên cứu Cơ khí  </option>
+                        <option value="http://vimluki.com.vn/">Viện Khoa học và Công nghệ Mỏ - Luyện kim</option>
+                        <option value="http://firi.vn/">Viện Công nghiệp thực phẩm </option>
+                        <option value="http://www.lsi.com.vn/default.aspx">Viện Nghiên cứu Da - giầy  </option>
+                        <option value="http://www.ievn.com.vn/">Viện Năng lượng </option>
+                        <option value="http://www.vielina.com/Home/Default.aspx">Viện Nghiên cứu Điện tử, Tin học, Tự động hóa  </option>
+
+                        <option value="http://www.ioop.org.vn/vn/">Viện nghiên cứu Dầu và Cây có dầu  </option>
+                        <option value="http://riceglass.vn/">Viện Nghiên cứu Sành sứ - Thuỷ tinh công nghiệp  </option>
+                        <option value="http://www.riam.com.vn/">Viện nghiên cứu thiết kế chế tạo máy nông nghiệp </option>
+
+                    </select>
+                </div>
+            </form>
+        </div>
+    </div>
+</section><!-- end tool-->
+
+<div class="tool_mobile block_mobile">
+    <div class="date">@date</div>
+    <ul>
+        <li>
+            <div class="search_m">
+                <a class="click" href="#"></a>
+                <input class="submit_m" type="submit" onclick="Msearch()">
+                <input class="text_m" type="text" id="txtKeywordMobile" placeholder="Nhập từ cần tìm" onkeydown="javascript: return MAnyInput_KeyDown(this, event);">
+            </div>
+        </li>
+    </ul>
+    <div class="clearfix"></div>
+</div>
+
+
+<script type="text/javascript">
+    function search() {
+        var searchtext = $("#txtKeyword").val();
+        window.location = "/News/Search?q=" + searchtext;
+
+    }
+    function AnyInput_KeyDown(sender, e) {
+        if ((e.which && e.which == 13) || (e.keyCode && e.keyCode == 13)) {
+            search();
+
+            return false;
+        }
+
+        return true;
+    }
+
+
+    function Msearch() {
+        var searchtext = $("#txtKeywordMobile").val();
+        window.location = "/News/Search?q=" + searchtext;
+
+    }
+    function MAnyInput_KeyDown(sender, e) {
+        if ((e.which && e.which === 13) || (e.keyCode && e.keyCode === 13)) {
+            Msearch();
+
+            return false;
+        }
+
+        return true;
+    }
+
+
+
+</script>

@@ -1,0 +1,140 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+
+    <title>@ViewBag.Title </title>
+    <meta name="description" content="@ViewBag.Description" />
+    <meta name="keywords" content="@ViewBag.Keywords" />
+    <meta name="news_keywords"content="@ViewBag.Keywords" />
+    <meta name="author" content="Cong nghe cao" />
+    <meta name="google-site-verification" content="IleRL-MABFp69qXS4jdMN10CAk9_N9aUWWALyfkOsmY" />
+    <meta content="general" name="rating" />
+    <meta content="nguon nhan luc" name="copyright" />
+    <meta content="never" name="expires" />
+    <meta content="global" name="distribution" />
+    <meta content="DOCUMENT" name="RESOURCE-TYPE" />
+    <meta content="nguonnhanluc.gov.vn" name="GENERATOR" />
+    <meta name="robots" content="index,follow" />
+    <meta name="Googlebot" content="index,follow,noarchive" />
+    <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
+    @*<link type="image/x-icon" href="/site.ico" rel="Shortcut Icon" />*@
+
+    <link href="/Styles/css.css" rel="stylesheet" type="text/css" />
+    <link href="/Styles/glowtabs.css" rel="stylesheet" type="text/css" />
+    <link href="/Styles/extend.css" rel="stylesheet" type="text/css" />
+    <!-- jquery core -->
+    <script src="/Scripts/jquery-1.4.1.min.js" type="text/javascript"></script>
+    <!-- jquery plugin -->
+    @* <script src="/Scripts/jcarousellite_1.0.1.min.js" type="text/javascript"></script>*@
+    <!-- member class -->
+    <script src="/Scripts/site.constant.js" type="text/javascript"></script>
+    <script src="/Scripts/site.utils.js" type="text/javascript"></script>
+    <script src="/Scripts/site.lib.string.js" type="text/javascript"></script>
+    <script src="/Scripts/site.lib.encode.js" type="text/javascript"></script>
+    @*<script src="/Scripts/jquery-services-110405.js" type="text/javascript"></script>
+    <link href="/Scripts/Popup/popup.css" rel="stylesheet" type="text/css" />*@
+
+    <script src="/Scripts/site.utils.js" type="text/javascript"></script>
+    <script src="/Scripts/jquery.lightbox-0.5.js" type="text/javascript"></script>
+    <link href="/Styles/jquery.lightbox-0.5.css" rel="stylesheet" type="text/css" />
+    <script src="/Scripts/jquery.jcarousel.min.js" type="text/javascript"></script>
+    @*<script type="text/javascript" src="/Scripts/slides.min.jquery.js"></script>
+    <script type="text/javascript" src="/Scripts/jquery.tipsy.js"></script>*@
+    @*<link rel="stylesheet" type="text/css" href="/Styles/ddsmoothmenu.css" />
+    <script type="text/javascript" src="/Scripts/ddsmoothmenu.js"></script>*@
+    <script type="text/javascript" src="/Scripts/ddtabmenu.js"></script>
+    <script type="text/javascript" src="/Scripts/jquery.tabify.js"></script>
+    <!--[if IE 6]>
+<script src="/Scripts/pngfix.js"></script>
+<script>DD_belatedPNG.fix('img,');</script>
+<![endif]-->
+    <script type="text/javascript">
+        $(document).ready(function () {
+            if (window.location.host == 'www.nguonnhanluc.gov.vn' || window.location.host == 'humanresource.gov.vn' || window.location.host == 'www.humanresource.gov.vn') {
+                window.location.href = 'http://nguonnhanluc.gov.vn/';
+            }
+        });
+
+        //tự động refresh trang sau 500s, nếu user đang active(mouse over, scroll) thì reset lại thời gian
+        var refreshPageInterval = 500;
+        setInterval("countDownPageRefresh()", 5000);
+        $(document).mouseover(function () {
+            funcResetRefreshPageInterval();
+        });
+        $(window).scroll(function () {
+            funcResetRefreshPageInterval();
+        });
+        window.onkeypress = funcResetRefreshPageInterval;
+        function funcResetRefreshPageInterval() {
+            refreshPageInterval = 500;
+        }
+        function countDownPageRefresh() {
+            refreshPageInterval = refreshPageInterval - 5;
+            if (refreshPageInterval <= 0) {
+                document.location.reload(true);
+            }
+        }
+        //end tự đông refresh trang 
+    </script>
+</head>
+<body>
+    <div class="top_link"></div>
+    <div id="wrap">
+        <div class="header">
+            <div class="fl">
+                <img src="/images/header.png" />
+            </div>
+            <div class="link_top"><a href="">Trang chủ</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="">Sơ đồ</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="">Quy chế</a></div>
+            <div class="dangnhap">
+                <div class="timkiem">
+                    <input name="" type="text" class="form2" value="Nhập từ cần tìm" />&nbsp;<a href=""><img src="/images/search.png" /></a>
+                </div>
+                <div class="clear"></div>
+                <div class="timkiem">
+                    <select name="" class="form1">
+                        <option>Liên kết</option>
+                        <option>Liên kết 1</option>
+                        <option>Liên kết 2</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="clear"></div>
+
+
+        @{Html.RenderAction("Menu", "Home");}
+        <div class="bgw">
+            <div class="left">
+                @RenderBody()
+            </div>
+            <div class="right">
+                @Html.Partial("Site_Right2")
+            </div>
+            <div class="clear"></div>
+            @{Html.RenderAction("BannerBottom", "Home");}
+
+
+
+
+        </div>
+        <div class="clear"></div>
+        <div class="footer">
+            @Html.Partial("Site_Footer")
+        </div>
+    </div>
+    <script>
+        (function (i, s, o, g, r, a, m) {
+            i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () {
+                (i[r].q = i[r].q || []).push(arguments)
+            }, i[r].l = 1 * new Date(); a = s.createElement(o),
+            m = s.getElementsByTagName(o)[0]; a.async = 1; a.src = g; m.parentNode.insertBefore(a, m)
+        })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+
+        ga('create', 'UA-46843156-1', 'congdoancongthuong.org.vn');
+        ga('send', 'pageview');
+
+    </script>
+</body>
+
+
+</html>

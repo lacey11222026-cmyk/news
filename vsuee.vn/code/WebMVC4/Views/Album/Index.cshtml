@@ -1,0 +1,62 @@
+﻿@using BIZ
+@using UTILS
+@using WebMVC4.Helper
+@model WebMVC4.Models.AlbumModel
+@{
+    var langpage = WorkContext.GetLanguage();
+}
+
+<div class="image-page container pb60 pt40">
+    <div class="row row-50">
+        <div class="col-lg-8 col-md-12">
+            @{Html.RenderAction("Breadcrumb", "News", new { CategoryId = Model.CategoryId });}
+            <ul class="row video-list-02 mt30">
+                @foreach (var item in Model.listdata.Select((value, i) => new { i, value }))
+                {
+
+                    <li class="col-md-4 col-6">
+                        <a href="@Utils.FormatUrlRewrite(item.value.Id, item.value.Title, "AlbumDetail")"><img src="@item.value.MainImage?w=491&h=291&mode=crop" alt="" class="w-100"></a>
+                        <a href="@Utils.FormatUrlRewrite(item.value.Id, item.value.Title, "AlbumDetail")" class="mt15 font-weight-bold dis-block">@item.value.Title</a>
+                    </li>
+                }
+
+
+            </ul>
+
+            <div class="paging mt50 text-center">
+                <ul>
+                    @{Html.RenderPartial("Pagination", new WebMVC4.Models.PaginationInfo
+                        {
+                            PageUrl = Url.SetParameter("Page", "!0"),
+                            CurrentPage = Model.pageIndex,
+                            PageSize = Model.pageSize,
+                            TotalItemCount = Model.total,
+                        }); }
+                </ul>
+            </div>
+        </div>
+        <div class="col-lg-4 col-md-12 sidebar">
+            @Html.Partial("Site_Right2")
+        </div>
+    </div>
+</div><!-- end main content-->
+<h2 class="title-cm"><a href="#">@Resources.Global.BankSupport</a></h2>
+<br />
+<div class="bg-gray pt40 pb40">
+    <div class="container">
+        <ul class="slick02">
+            @{Html.RenderAction("BannerBottom", "Home", new { lang = langpage });}
+        </ul>
+    </div>
+</div>
+
+
+
+@section scripts {
+    <script type="text/javascript">
+
+
+        $('#menu_66').addClass("active");
+
+    </script>
+}

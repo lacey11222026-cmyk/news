@@ -1,0 +1,39 @@
+﻿@model List<DATA.Banner>
+@using WebMVC4.Helper
+@{
+    var langpage = WorkContext.GetLanguage();
+}
+@if (Model != null)
+{
+
+
+
+    foreach (var item in Model.Select((value, i) => new { i, value }))
+    {
+        if (langpage == "vi-vn")
+        {
+            if (!string.IsNullOrEmpty(item.value.Data))
+            {
+                <div><a href="@item.value.Url"><img src="@item.value.Data" alt=""></a></div>
+            }
+
+        }
+        else
+        {
+            if (!string.IsNullOrEmpty(item.value.Description))
+            {
+                <div><a href="@item.value.Url"><img src="@item.value.Description" alt=""></a></div>
+            }
+
+        }
+    }
+
+
+}
+@*<div><a href="#"><img src="/Content/img/bnr-bct.jpg" alt=""></a></div>
+    <div><a href="#"><img src="/Content/img/bnr-vneep.jpg" alt=""></a></div>
+    <div><a href="#"><img src="/Content/img/bnr-daikin.jpg" alt=""></a></div>
+    <div><a href="#"><img src="/Content/img/bnr-toshiba.jpg" alt=""></a></div>
+    <div><a href="#"><img src="/Content/img/bnr-tknl.jpg" alt=""></a></div>
+    <div><a href="#"><img src="/Content/img/bnr-hqnl.jpg" alt=""></a></div>
+    <div><a href="#"><img src="/Content/img/bnr-hqnl-02.jpg" alt=""></a></div>*@

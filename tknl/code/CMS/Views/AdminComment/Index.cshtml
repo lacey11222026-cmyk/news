@@ -1,0 +1,261 @@
+﻿@{
+   
+    Layout = "~/Views/Shared/_AdminV2.cshtml";
+    
+}
+@using UTILS
+@using CMS.Models
+@using CMS.Helper
+@model CMS.Models.CommentModel
+
+<div class="onecolumn">
+    <div class="header">
+        <span>@ViewBag.Title</span>
+    </div>
+    <br class="clear">
+    <div class="content">
+        <b>Trạng thái: </b>@Html.DropDownList("drlStatus", new SelectList(ViewBag.StatusList, "Value", "Text", ViewBag.Status), new { @class = "drl_Group" }) &nbsp;&nbsp;
+         <b>Tìm theo tên bài viết : </b>
+        <input type="text" id="Keyword" value="@ViewBag.Keyword" style="width: 250px;"/>
+        <br />
+        <br />
+        @if (Model != null)
+        {
+            
+            <table width="100%" cellspacing="0" cellpadding="0" class="data" id="mytable">
+                <tbody>
+                    <tr id="rowheader">
+                        @*<th scope="col">ID
+                        </th>*@
+
+                        <th scope="col">Tên bài viết
+                        </th>
+
+
+                        <th scope="col">Người viết
+                        </th>
+                        <th scope="col">Email
+                        </th>
+                        <th scope="col">Ngày viết
+                        </th>
+                        <th scope="col">Nội dung
+                        </th>
+                        <th scope="col">Duyệt
+                        </th>
+                        <th scope="col">Quản trị
+                        </th>
+
+
+
+                    </tr>
+                    @if (Model.listdata != null)
+                    {
+                        if (Model.listdata.Count > 0)
+                        {
+                            foreach (var item in Model.listdata)
+                            {
+                                <tr id="row_@(item.Id)">
+                                    @*<td>
+                                        @item.Id
+                                    </td>*@
+
+                                    <td style="width: 233px;"><a target="_blank" href="@Utils.FormatUrlRewrite(item.ItemId, item.ItemName, "ArticleDetail", "tintuc")">@item.ItemName</a>
+
+
+
+                                    </td>
+
+
+                                    <td>
+                                        @item.UserName
+                                    </td>
+                                    <td>
+                                        @item.Email
+                                    </td>
+                                    <td>
+                                        @item.CreatedTime.Value.ToString("dd/MM/yy HH:mm")
+                                    </td>
+
+
+
+                                    <td style="width: 333px;">
+                                        <span id="message_@item.Id">@item.Message</span>
+
+                                    </td>
+
+                                    <td>
+
+                                        @if (item.Published >= 1)
+                                        {
+                                            <input type="checkbox" onclick="return setUnApprove('@item.Id    ');"  checked="checked"  class="chkApprove" />   
+                                        }
+                                        else
+                                        {
+                                            <input type="checkbox"   onclick="return setApprove('@item.Id    ');" class="chkApprove" />       
+                                        }
+
+
+                                    </td>
+                                    <td>
+                                        <a onclick="return editComment('@item.Id');" href="javascript:void(0);">
+                                            <img class="help" alt="delete" src="/Styles/admin/images/icon_edit.png">
+                                        </a>
+                                        &nbsp;
+                                        <a onclick="return deletecomment('@item.Id ');" href="javascript:void(0);">
+                                            <img class="help" alt="delete" src="/Styles/admin/images/icon_delete.png">
+                                        </a>
+                                    </td>
+                                </tr>
+                            }
+                        }
+                    }
+                </tbody>
+            </table>
+            <div class="pagination">
+                @{Html.RenderPartial("AdminPagination", new PaginationInfo
+                                                            {
+                                                                PageUrl = Url.SetParameter("page", "!0"),
+                                                                CurrentPage = Model.pageIndex,
+                                                                PageSize = Model.pageSize,
+                                                                TotalItemCount = Model.total,
+                                                            }); }
+            </div>
+
+        }
+        <br />
+        @*<a  class="adminbutton" href='@Url.Action("Add", "AdminNews2")'>Thêm mới tin</a>*@
+
+    </div>
+</div>
+<div class="dialogueform" id="dialogue">
+    <form id="SurveyItemForm" method="get" action="">
+        <input id="Id" name="Id" type="hidden" />
+        
+        <div class="login-left">
+            <label >
+                Nội dung:</label>
+        </div>
+        <div class="login-right">
+
+            <textarea id="Content" name="Content" rows="7" style="width: 320px;">
+            </textarea>
+
+        </div>
+        <div class="clear">
+        </div>
+        <br />
+        
+
+  
+        <br />
+        <div id="buttons">
+            <input class="button" type="button" value='Cập nhật' id="btUpdate" />&nbsp;
+        <input type="button" value='Quay lại' id="btnCancel" />
+        </div>
+    </form>
+</div>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#menu_comment').click();
+
+    });
+    $('#drlStatus').change(function () {
+        window.location = jQuery.query.set("Status", this.value).set("page", "1");
+    });
+    $('#Keyword').keyup(function (e) {
+        if (e.keyCode == 13) {
+            window.location = jQuery.query.set("keyword", this.value).set("page", "1");
+        }
+    });
+    function openWin(url) {
+        myWindow = window.open(url, '', 'width=868,height=668');
+        myWindow.focus();
+    }
+    function deletecomment(Id) 
+    {
+        if(confirm("Bạn có chắc chắn muốn xóa?"))
+        {
+            $.post('@Url.Action("Delete", "AdminComment")', { "Id": Id},
+                function (data) {
+                    $('#row_'+Id).hide();
+                });
+        }
+    }
+    function setUnApprove(Id) 
+    {
+        if(confirm("Bạn có chắc chắn muốn bỏ duyệt?"))
+        {
+            $.post('@Url.Action("Appproved", "AdminComment")', { "Id": Id ,"Status":"0"},
+                function (data) {
+                    
+                });
+        }
+    }
+    function setApprove(Id) 
+    {
+        if(confirm("Bạn có chắc chắn muốn duyệt?"))
+        {
+            $.post('@Url.Action("Appproved", "AdminComment")', { "Id": Id ,"Status":"1"},
+                function (data) {
+                    
+                });
+        }
+    }
+    function updatecomment() 
+    {
+        
+            var contents=$('#Content').val();
+            var id=$('#Id').val();
+            $.post('@Url.Action("UpdateContent", "AdminComment")', { "Id": id ,"Contents":contents},
+                function (data) {
+                    dlg.dialog('close');
+                    $("#message_"+id).html(contents);
+                });
+        
+    }
+    
+    var dlg;
+    $(document).ready(function () {
+        dlg = $("#dialogue").dialog(
+                {
+                    autoOpen: false,
+                    width: 500
+                });
+        
+
+        $("#btnCancel").click(function () {
+
+            dlg.dialog('close');
+        });
+        $("#btUpdate").click(function () {
+
+           
+                    updatecomment();
+             
+        });
+
+
+    });
+    function validateForm() {
+        var Content = $('#Content').val();
+        if (Content == "") {
+
+            alert('Nội không được trống');
+            $('#Content').focus();
+            return false;
+        }
+        return true;
+
+    }
+    function editComment(id) {
+        $("#Id").val(id);
+        var Content=$("#message_"+id).html();
+        $("#Content").val(Content);
+       
+       
+        
+        dlg.dialog({ title: 'Cập nhật nội dung bình luận' });
+        dlg.dialog('open');
+    }
+</script>
+

@@ -1,0 +1,25 @@
+﻿@using BIZ
+@using UTILS
+@using WebMVC4.Helper
+@model WebMVC4.Models.LastestNewModel
+@if (Model != null)
+{
+    if (Model.lstdata!= null)
+    {
+        
+                foreach (var item in Model.lstdata.Select((value, i) => new { i, value }))
+                {
+                   
+                    <li class="">
+                        <a href="@Utils.FormatUrlRewrite(item.value.Id, item.value.Title, " ArticleDetail")" title="@item.value.Title">
+                            <img src="@item.value.MainImage?h=360&mode=crop" alt="@item.value.Title">
+                        </a>
+                        <a href="@Utils.FormatUrlRewrite(item.value.Id, item.value.Title, " ArticleDetail")" title="@item.value.Title">
+                            <h4 class="post-title">@item.value.Title</h4>
+                        </a>
+                    </li>
+                }
+          
+    }
+    
+}

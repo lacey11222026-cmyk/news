@@ -1,0 +1,82 @@
+﻿@using BIZ
+@using UTILS
+@using WebMVC4.Helper
+@model BIZ.Entity.CONTENT_FULL
+@{var RelateTitle = "Các tin khác";}
+
+@if (Model != null)
+{
+    <div class="row-8px mt10">
+        <div class="col-md-3 col-sm-4 col-xs-12 detail-news">
+            @{Html.RenderAction("TopViewNews", "News", new { CategoryId = Model.CategoryId, MaxLastestNews = 8 });}
+        </div>
+        <div class="col-md-9 col-sm-8 col-xs-12 detail-content">
+            @{Html.RenderAction("Breadcrumb", "News", new { CategoryId = Model.CategoryId });}
+            <span class="news-date">Cập nhật lúc @Model.PublishDate.ToString("hh:mm") ngày @Model.PublishDate.ToString("dd/MM/yyyy")</span>
+            <h3>@Model.Title</h3>
+            @*<p>
+                    @Model.IntroText
+                </p>*@
+            <div class="tinlienquan">
+                @if (ViewBag.lstRef != null)
+                {
+                    foreach (var item in ViewBag.lstRef)
+                    {
+                        <br />
+                        <a href="@Utils.FormatUrlRewrite(item.Id, item.Title, "ArticleDetail")">@item.Title </a>
+                    }
+
+                }
+
+            </div>
+            <div class="nd" id="NewsContent">
+                @Html.Raw(Model.Contents)
+            </div>
+            @if (Model.FileParam != null)
+            {
+                if (!string.IsNullOrEmpty(Model.FileParam.Name1))
+                {
+                    <div class="document-attach">
+                        <div class="bg_org"><span class="icon-attach"></span> Tài liệu đính kèm <div class="clear"></div></div>
+                        <ul class="list">
+
+                            <li><a title="@Model.FileParam.Name1" href="@Model.FileParam.Path1" target="_blank">@Model.FileParam.Name1 </a></li>
+                            @if (!string.IsNullOrEmpty(Model.FileParam.Name2))
+                            {
+                                <li><a title="@Model.FileParam.Name2" href="@Model.FileParam.Path2" target="_blank">@Model.FileParam.Name2 </a></li>
+                            }
+                            @if (!string.IsNullOrEmpty(Model.FileParam.Name3))
+                            {
+                                <li><a title="@Model.FileParam.Name3" href="@Model.FileParam.Path3" target="_blank">@Model.FileParam.Name3 </a></li>
+                            }
+
+
+
+
+                        </ul>
+                        <div class="clear"></div>
+                    </div>
+                }
+            }
+
+            <div class="clearfix"></div>
+            @{ Html.RenderAction("Share", "News", new { data = Model }); }
+
+            <div class="clearfix"></div>
+
+            <div class="news-other mt30">
+                @{Html.RenderAction("Relate", "News", new { CategoryId = Model.CategoryId });}
+
+            </div>
+
+        </div>
+    </div><!-- end big news-->
+
+
+}
+<script>
+    $('#NewsContent table').removeAttr('width');
+
+    $('#NewsContent img').removeAttr('width');
+    $('#NewsContent img').removeAttr('height');
+</script>

@@ -1,0 +1,119 @@
+﻿@using BIZ
+@using UTILS
+@using WebMVC4.Helper
+@model WebMVC4.Models.NewsModel
+@{
+    Layout = "~/Views/Shared/_Home.cshtml";
+    var lstcate = new CategoryBO().GetAllCategoriesFull(UTILS.Constants.CategoryType.News, "").Where(x => x.Id != Model.CategoryId &&x.Published==1 &&x.Language== WorkContext.GetLanguage()).Take(5);
+}
+
+@if (Model.hotnews != null)
+{
+    <div class="content01 container mt10">
+        <div class="row">
+            <div class="col-lg-8 col-md-12 col-sm-12">
+
+                <h2 class="title-cm-02"><a href="@ViewBag.Url">@ViewBag.CateName</a></h2>
+                <div class="row row-reverse mt20">
+                    @foreach (var item in Model.hotnews.Take(1).Select((value, i) => new { i, value }))
+                    {
+                        <div class="col-md-8 col-sm-12">
+                            <div class="newsbig newsbig-top">
+                                <a href="@item.value.LinkUrl"><img src="@item.value.MainImage2?w=502&h=283&mode=crop" alt=""></a>
+                            </div>
+                        </div>
+                        <div class="col-md-4 col-sm-12">
+                            <a href="@item.value.LinkUrl" class="news-name-big mt10">@item.value.Title</a>
+                            <span class="newsdate mt10">@item.value.PublishDate.ToString("dd/MM/yyyy")</span>
+                            <p class="mt10 news-txt">@item.value.IntroText</p>
+                        </div>
+                    }
+                </div>
+                <div class="mt20">
+                    <ul class="newshot row">
+                        @foreach (var item in Model.hotnews.Skip(1).Select((value, i) => new { i, value }))
+                        {
+                            <li class="col-sm-4 col-xs-12">
+                                <a href="@item.value.LinkUrl" class="newshot-item">
+                                    <img src="@item.value.MainImage2?w=239&h=160&mode=crop">
+                                    <span class="mt15">@item.value.Title</span>
+                                </a>
+                            </li>
+                        }
+                    </ul>
+                </div>
+                <div class="bnr-center mt40">
+                    <div class="slider bnrSlider">
+                        @{Html.RenderAction("Banner", "Home", new { param = "col-md-12 col-sm-6" });}
+                    </div>
+                </div>
+                <div class="newslist-04 mt40">
+                    @if (Model.listdata != null)
+                    {
+                        foreach (var item in Model.listdata.Select((value, i) => new { i, value }))
+                        {
+                            <div>
+                                <a href="@item.value.LinkUrl" class="newslist-04-item">
+                                    <img src="@item.value.MainImage2?w=239&h=160&mode=crop" alt="">
+                                    <div>
+                                        <p class="news-name">@item.value.Title</p>
+                                        <p class="mt10 newsdate">@item.value.PublishDate.ToString("HH:mm") - @item.value.PublishDate.ToString("dd/MM/yyyy")</p>
+                                    </div>
+                                </a>
+                            </div>
+                        }
+                    }
+                </div>
+                <div class="paging mt30">
+                    <ul>
+                        @{Html.RenderPartial("Pagination", new WebMVC4.Models.PaginationInfo
+                            {
+                                PageUrl = Url.SetParameter("Page", "!0"),
+                                CurrentPage = Model.pageIndex,
+                                PageSize = Model.pageSize,
+                                TotalItemCount = Model.total,
+                            }); }
+                    </ul>
+                </div>
+            </div><!--/End content left-->
+            <div class="col-lg-4 col-md-12">
+                @Html.Partial("Site_Right2")
+            </div><!--/End content right-->
+        </div><!-- end row-->
+    </div>
+
+    if (WorkContext.GetLanguage() == "vi-vn")
+    {
+        <div class="category-other container mt50">
+            <h2 class="title-cm"><a href="#">Các chuyên mục khác</a></h2>
+            <div class="mt30 category-list">
+                @foreach (var cate in lstcate.Select((value, i) => new { i, value }))
+                {
+                    <div class="category-item">
+                        @{Html.RenderAction("LastestNews6", "Home", new { CateName = cate.value.Name, CategoryId = cate.value.Id, MaxLastestNews = 3 });}
+                    </div>
+                }
+            </div>
+        </div><!-- end category-->
+    }
+    else
+    {
+        <div class="category-other container mt50">
+            <h2 class="title-cm"><a href="#">Other categories</a></h2>
+            <div class="mt30 category-list">
+                @foreach (var cate in lstcate.Select((value, i) => new { i, value }))
+                {
+                    <div class="category-item">
+                        @{Html.RenderAction("LastestNews6", "Home", new { CateName = cate.value.Name, CategoryId = cate.value.Id, MaxLastestNews = 3 });}
+                    </div>
+                }
+            </div>
+        </div>
+
+    }
+
+
+
+
+
+}

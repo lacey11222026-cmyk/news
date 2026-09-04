@@ -1,0 +1,66 @@
+﻿@using WebMVC4.Helper
+@{
+    var langpage = WorkContext.GetLanguage();
+}
+
+
+<button id="btnBottomUp" class="backtotop"><span class="icon-top"></span></button>
+@*<button id="" class="backtotop btn-phone-right"><a href="#"><img src="/Content/images/icon-phone.svg" alt="" width="20"></a></button>*@
+@if (langpage == "vi-vn")
+{
+    <footer>
+        <div class="container f-content-01">
+            <div class="row row-70">
+                <div class="col-lg-6 col-md-12">
+                    <div class="f-info">
+                        <a href="#" class="f-logo"><img src="/Content/images/logo2025.png?vs=01" alt=""></a>
+                        <div>
+                            <p class="f-title">Cơ quan thường trực Ban Thư ký thực hiện JETP</p>
+                            <ul class="f-link">
+                                <li>Bộ Công Thương</li>
+                                <li>Địa chỉ: 54 Hai Bà Trưng, Hoàn Kiếm, Hà Nội</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-md-12">
+                    <div class="row">
+                        @{Html.RenderAction("MenuBottom", "Home", new { lang = langpage });}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="f-content-02">
+            <p class="text-center container">Bản quyền thuộc Bộ Công Thương</p>
+        </div>
+    </footer>
+}
+else
+{
+    <footer>
+        <div class="container f-content-01">
+            <div class="row row-70">
+                <div class="col-lg-6 col-md-12">
+                    <div class="f-info">
+                        <a href="/" class="f-logo"><img src="/Content/images/logo2025.png?vs=01" alt=""></a>
+                        <div>
+                            <p class="f-title">Standing Agency of the JETP Secretariat </p>
+                            <ul class="f-link">
+                                <li>Ministry of Industry and Trade </li>
+                                <li>Address: 54 Hai Ba Trung, Hoan Kiem, Ha Noi </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-md-12">
+                    <div class="row">
+                        @{Html.RenderAction("MenuBottom", "Home", new { lang = langpage });}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="f-content-02">
+            <p class="text-center container">Copyright of the Ministry of Industry and Trade </p>
+        </div>
+    </footer>
+}

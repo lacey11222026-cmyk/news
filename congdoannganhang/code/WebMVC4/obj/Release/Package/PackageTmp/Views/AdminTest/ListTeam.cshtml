@@ -1,0 +1,98 @@
+﻿@using BIZ.Entity
+@using UTILS
+@model List<DATA.SMS.TestArchiveTeam>
+@using WebMVC4.Helper
+
+<table class="table table-striped table-bordered table-hover dataTable no-footer" id="dataTables">
+    <thead>
+        <tr class="rowsao">
+
+            
+            <th>Tên đội</th>
+           
+            <th>Bài thi</th>
+            
+            <th>Điểm</th>
+           
+
+            <th>Thao Tác</th>
+        </tr>
+    </thead>
+    @if (Model != null && Model.Count > 0)
+    {
+        for (int i = 0; i < Model.Count; i++)
+        {
+            var obj = Model[i];
+            <tr>
+
+                
+                <td class="texttable">
+                    @obj.Name
+                </td>
+                <td>
+                    <input  type="text" value="@obj.Archive" id="txtArchive_@i"/>
+                </td>
+                <td>
+                    @obj.Mark
+                </td>
+               
+
+
+                <td style="text-align: center">
+                  <a href="javascript:;" onclick="Update('@i','@obj.Id')">Cập nhật</a>
+                    &nbsp;&nbsp;<a href="javascript:;" onclick="CommonCtrl.PopupArchive('@obj.Id');"> Chi tiết</a>
+                </td>
+
+            </tr>
+        }
+    }
+</table>
+<script type="text/javascript">
+    function Update(i,id) {
+        var postdata= {
+                    'Id': id,
+                    'Archive': $("#txtArchive_"+i).val(),
+                };
+                Utils.Loading();
+                $.ajax({
+                    type: 'POST',
+                    url:"@Url.Action("TeamUpdate")",
+                    data: addAntiForgeryToken(postdata),
+                    success: function (data) {
+                        Utils.UnLoading();
+                        if (data.ResponseCode >= 0) {
+                            bootbox.alert(data.Description);
+                            //BindDataRequest();
+                        }
+                        else {
+                            
+                            return;
+                        }
+                    }
+                });
+    }
+    function BindDataRequest() {
+        var params = {
+            registorId: $("#ddlCate :selected").val(),
+
+        };
+        var urlRequestAns = '@Url.Action("ListTeam")';
+        Utils.Loading();
+        $.ajax({
+            type: 'GET',
+            url: urlRequestAns,
+            data: params,
+            success: function (data) {
+                $("#ListTestArchive").html(data);
+                Utils.UnLoading();
+            },
+            error: function () {
+                Utils.UnLoading();
+            }
+        });
+    };
+
+
+
+
+</script>

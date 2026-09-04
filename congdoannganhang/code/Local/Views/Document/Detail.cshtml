@@ -1,0 +1,127 @@
+﻿@using BIZ
+@using DATA
+@using UTILS
+@using Local.Helper
+@model BIZ.Entity.DOCUMENT_FULL
+@{
+
+    Layout = "~/Views/Shared/_Layout2.cshtml";
+
+}
+<div class="clear"></div>
+<nav class="n_nav">
+    <ul class="page">
+        <li><a href="http://noibo.vnubw.org.vn/">Trang chủ</a> /</li>
+        <li><a href="http://mail.vnubw.org.vn:2096/">Thư điện tử </a> /</li>
+        <li><a href="#">DB điện thoại & mail </a> /</li>
+        <li><a href="#">Mẫu văn bản </a> /</li>
+        <li><a href="/Document/Index/3">Quy chế làm việc  </a> /</li>
+        <li><a href="#">Hỗ trợ người dùng  </a> /</li>
+        <li><a href="#">Sites</a></li>
+    </ul>
+</nav>
+<div class="clear"></div>
+<div class="page n_listpage">
+    <div class="n_content_right">
+        @{Html.RenderAction("MenuLeft", "Home");}
+    </div><!-- end content right-->
+    <div class="n_content_left">
+        @{Html.RenderAction("Breadcrumb", "News", new { CategoryId = Model.CategoryId });}
+        @if (Model != null)
+        {
+            <table class="n_table1">
+                <thead>
+                    <tr>
+                        <th colspan="4">@Model.CategoryName</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Tên văn bản</td>
+                        <td colspan="3">@Model.Name</td>
+                    </tr>
+                    <tr>
+                        <td>Tải file</td>
+                        <td colspan="3">
+                            <a target="_blank" href="@Model.FilePath">Download</a>&nbsp;
+                            @if (Model.FilePath.ToLower().Contains(".pdf"))
+                            {
+
+                                <a href="@Url.Action("ViewPDF", "Home", new { url = Model.FilePath })" target="_blank">Xem online</a>
+                            }
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Mô tả</td>
+                        <td colspan="3">@Model.Description </td>
+                    </tr>
+                    <tr>
+                        <td>Số hiệu văn bản</td>
+                        <td>@Model.Code</td>
+                        <td>Ngày có hiệu lực</td>
+                        <td>
+                            @if (!Model.EffectiveDate.HasValue)
+                            {
+
+                                <text>&nbsp;</text>
+                            }
+                            else
+                            {
+                                if (Model.EffectiveDate.Value.Year > 9000)
+                                {
+                                    @Convert.ToDateTime(Model.EffectiveDate).ToString(@" dd'/'MM'/'yyyy")
+                                }
+                                else
+                                {
+                                    <text>&nbsp;</text>
+                                }
+
+                            }
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Ngày ban hành</td>
+                        <td>@Convert.ToDateTime(Model.PublishDate).ToString(@" dd'/'MM'/'yyyy")</td>
+                        <td>Ngày hết hiệu lực</td>
+                        <td>
+                            @if (!Model.ExpiryDate.HasValue)
+                            {
+
+                                <text>&nbsp;</text>
+                            }
+                            else
+                            {
+                                if (Model.ExpiryDate.Value.Year > 9000)
+                                {
+                                    @Convert.ToDateTime(Model.ExpiryDate).ToString(@" dd'/'MM'/'yyyy")
+                                }
+                                else
+                                {
+                                    <text>&nbsp;</text>
+                                }
+
+                            }
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Cơ quan ban hành</td>
+                        <td>@Model.SignedByDesc</td>
+                        <td>Người ký</td>
+                        <td>@Model.SignedBy</td>
+                    </tr>
+                </tbody>
+            </table>
+        }
+
+    </div><!-- end content left-->
+</div><!-- end page-->
+<div class="clear"></div>
+<footer>
+    <div class="page"><p>Bản quyền thuộc Công Đoàn Ngân Hàng Việt Nam</p></div>
+</footer>
+
+
+
+
+
+

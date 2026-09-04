@@ -1,0 +1,26 @@
+﻿@model List<DATA.Banner>
+<div class="main-selector">
+    <div class="row">
+        <div class="col-xs-12">
+            <ul class="list-group two-col">
+                @if (Model != null)
+                {
+
+
+                    foreach (var item in Model.Select((value, i) => new { i, value }))
+                    {
+
+                        <li>
+                            <div class="border"></div>
+                            <img alt="@item.value.Name" src="@item.value.Data">
+                            <a href="@item.value.Url" class="choose-model">
+                                @item.value.Name
+                            </a>
+                        </li>
+                    }
+                    
+                }
+            </ul>
+        </div>
+    </div>
+</div>

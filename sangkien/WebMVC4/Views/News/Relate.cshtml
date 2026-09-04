@@ -1,0 +1,57 @@
+﻿@using BIZ
+@using UTILS
+@using WebMVC4.Helper
+@model List<BIZ.Entity.CONTENT_FULL>
+@if (Model != null)
+{
+    if (Model.Count > 0)
+    {
+
+
+
+        <h2 class="title-cm01"><a href="#">Tin cùng chuyên mục</a></h2>
+        <div class="row mt20">
+            <div class="col-md-6 col-sm-12">
+                @foreach (var item in Model.Take(1).Select((value, i) => new { i, value }))
+                {
+
+                    <div class="newsbig">
+                        <a href="@item.value.LinkUrl"><img src="@item.value.MainImage?w=367&h=205&mode=crop" alt=""></a>
+                        <h2 class="mt10">
+                            <a href="@item.value.LinkUrl" class="news-name mt15">@item.value.Title</a>
+                        </h2>
+                        <p class="mt10">@item.value.IntroText</p>
+                        <span class="newsdate mt10">@item.value.PublishDate.ToString("dd/MM/yyyy")</span>
+                    </div>
+                }
+            </div>
+            <div class="col-md-6 col-sm-12">
+                <ul class="newslist04">
+                    @foreach (var item in Model.Skip(1).Take(4).Select((value, i) => new { i, value }))
+                    {
+                        <li>
+                            <a href="@item.value.LinkUrl">@item.value.Title </a>
+                            <span class="date mt10">@item.value.PublishDate.ToString("dd/MM/yyyy")</span>
+                        </li>
+                    }
+                </ul>
+            </div>
+        </div>
+
+        <ul class="mt20 viewmore-list">
+            @foreach (var item in Model.Skip(5).Select((value, i) => new { i, value }))
+            {
+                <li>
+                    <a href="@item.value.LinkUrl"><img src="@item.value.MainImage?w=300&h=180&mode=crop"></a>
+                    <div>
+                        <a href="@item.value.LinkUrl">@item.value.Title </a>
+                        <span class="date mt10">@item.value.PublishDate.ToString("dd/MM/yyyy")</span>
+                    </div>
+                </li>
+            }
+        </ul>
+
+    }
+
+
+}

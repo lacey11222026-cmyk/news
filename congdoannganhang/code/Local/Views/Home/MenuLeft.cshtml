@@ -1,0 +1,24 @@
+﻿@using BIZ
+@using UTILS
+@using Local.Helper
+@model List<BIZ.Entity.CATEGORY_FULL>
+
+<h3>Thông tin</h3>
+<ul>
+    @if (Model != null)
+    {
+
+        if (Model.Count > 0)
+        {
+            foreach (var item in Model.Select((value, i) => new { i, value }))
+            {
+                <li id="menuleft_@item.value.Id">
+                    <a href="@Utils.FormatUrlRewriteByType(item.value.Id, item.value.Name, int.Parse(item.value.Type.ToString()), item.value.Link)">@item.value.Name</a>
+                </li>
+            }
+        }
+    }
+</ul>
+
+
+

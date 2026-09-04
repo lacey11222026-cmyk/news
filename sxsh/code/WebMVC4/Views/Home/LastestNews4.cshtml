@@ -1,0 +1,22 @@
+﻿@using BIZ
+@using UTILS
+@using WebMVC4.Helper
+@model WebMVC4.Models.LastestNoteModel
+@if (Model != null)
+{
+    if (Model.lstdata.Count > 0)
+    {
+        @*<h2 class="title-cm02 title-cm03"><a href="/thong-bao/c18/thong-bao.html">@Model.HeaderTitle</a></h2>*@
+        <h2 class="title-cm"><a href="#">Theo dòng sự kiện</a></h2>
+        <ul class="newslist-03 mt15">
+            @foreach (var item in Model.lstdata.Select((value, i) => new { i, value }))
+            {
+                <li><a href="@Utils.FormatUrlRewrite(item.value.Id, item.value.Title, "NoteDetail")"><span>@item.value.PublishDate.GetValueOrDefault().ToString("dd.MM.yyyy")</span>@item.value.Title</a></li>
+            }
+
+
+        </ul>
+
+    }
+
+}

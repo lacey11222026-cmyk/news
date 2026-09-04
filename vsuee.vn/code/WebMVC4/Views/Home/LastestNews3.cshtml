@@ -1,0 +1,29 @@
+﻿@using BIZ
+@using UTILS
+@using WebMVC4.Helper
+@model WebMVC4.Models.LastestNewModel
+@if (Model != null)
+{
+    if (Model.lstdata.Count > 0)
+    {
+        <h2 class="title-cm"><a href="@Model.Url" class="text-white">@Model.HeaderTitle</a></h2>
+        <div class="mt20">
+            @foreach (var item in Model.lstdata.Select((value, i) => new { i, value }))
+            {
+                <div class="event-box">
+
+                    <img src="@item.value.MainImage?w=90&h=90&mode=crop" alt="">
+                    
+                    <div>
+                        <a href="@item.value.LinkUrl">
+                            <p class="event-name">@item.value.Title</p>
+                        </a>
+                        <span class="calendar">@item.value.PublishDate.ToString("dd/MM/yyyy")</span>
+                    </div>
+                </div>
+            }
+            <div class="text-right mt20"><a href="@Model.Url" class="btn-viewmore btn-viewmore-white">@Resources.Global.More</a></div>
+        </div>
+
+    }
+}

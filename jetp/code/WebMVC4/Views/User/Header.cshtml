@@ -1,0 +1,20 @@
+﻿@using UTILS;
+@model UserSession
+@if (Model != null)
+{
+    <div class="manage-head">
+        <div class="mw-01 manage-head-left"><a href="/"><img src="/Content2/images/logo2025.png" alt="JETP Viet Nam"></a></div>
+        <div class="mw-02 manage-head-right">
+            <div class="ava-user">
+                <div class="ava-img"><img src="/Content2/images/img.jpg" alt=""></div>
+                <p><a href="/User">@Model.LastName @Model.FirstName</a></p>
+            </div>
+        </div>
+    </div>
+}
+else
+{
+    <script>
+    window.location.href="@Url.Action("Index","Home")"
+    </script>
+}

@@ -1,0 +1,33 @@
+﻿@using BIZ
+@using UTILS
+@using WebMVC4.Helper
+@model BIZ.Entity.CATEGORY_FULL
+@{
+    List<BIZ.Entity.CATEGORY_FULL> data = ViewBag.lstrelate;
+}
+@if (Model != null)
+{
+
+    Html.RenderAction("BreadcrumbObj", "News", new { data = Model });
+
+    <div class="intro" id="NewsContent">
+        @Html.Raw(Model.Contents)
+    </div>
+    <div class="clearfix"></div>
+
+
+    if (data != null)
+    {
+        if (data.Count > 0)
+        {
+            {
+                Html.RenderAction("Relate", "Intro", new
+                {
+                    data = data
+                });
+            }
+        }
+    }
+   
+}
+

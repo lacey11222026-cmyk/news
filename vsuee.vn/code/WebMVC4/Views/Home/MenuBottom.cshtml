@@ -1,0 +1,15 @@
+﻿@using BIZ
+@using UTILS
+@using WebMVC4.Helper
+@model List<BIZ.Entity.CATEGORY_FULL>
+@{
+    var langpage = WorkContext.GetLanguage();
+}
+@foreach (var item in Model.Select((value, i) => new { i, value }))
+{
+    <li><a href="@item.value.Url">@item.value.Name</a></li>
+    if (item.i == Model.Count - 2)
+    {
+        <li><a href="/Home/SiteMap">SITE MAP</a></li>
+    }
+}

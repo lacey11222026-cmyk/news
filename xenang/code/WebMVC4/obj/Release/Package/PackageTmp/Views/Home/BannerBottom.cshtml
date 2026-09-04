@@ -1,0 +1,27 @@
+﻿@model List<DATA.Banner>
+@if (Model != null)
+{
+
+
+
+
+    foreach (var item in Model.Select((value, i) => new { i, value }))
+    {
+        <div class="gallery-col col">
+            <div class="col-inner">
+                <a class="image-lightbox lightbox-gallery" href="@item.value.Url" title="">
+                    <div class="box has-hover gallery-box box-vertical">
+                        <div class="box-image">
+                            <img   columns="6" class="attachment-medium size-medium lazyload" src="@item.value.Data?w=500&h=300&mode=crop" />
+                        </div>
+
+                    </div>
+                </a>
+            </div>
+        </div>
+
+
+    }
+
+
+}

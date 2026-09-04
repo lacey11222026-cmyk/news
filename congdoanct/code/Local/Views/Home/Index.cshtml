@@ -1,0 +1,79 @@
+﻿@using BIZ
+@using UTILS
+@using Local.Helper
+@model BIZ.Entity.CONTENT_FULL
+
+
+
+
+<section class="container main-content mt10">
+    <div class="row">
+        <div class="info col-sm-12 col-xs-12 hidden-lg hidden-md" style="margin-top: 0 !important;">
+            @if (Request.IsAuthenticated)
+            {
+
+
+                <ul>
+                    <li><span class="text-bold">Xin chào : </span>@Context.User.Identity.Name</li>
+                    <li><a href="@Url.Action("LogOff", "Account")" class="text-bold">Thoát</a></li>
+                    <li><a href="http://mail.vuit.org.vn/" target="_blank" class="text-bold">Thư điện tử</a></li>
+                </ul>
+            }
+
+        </div>
+
+        <div class="col-md-8 col-sm-12 col-xs-12 schedule">
+            <div class="schedule-title">
+                <a href="/tin-tuc/c6/lich-cong-tac.html">
+                    <h3>lịch công tác</h3>
+                </a>
+                <ul class="pull-right">
+                    @*<li><a href="#"><img src="~/Content/images/icon_download.png" alt="download"></a></li>*@
+                    <li><a href="/News/Print/@(Model.Id)" target="_blank"><img src="~/Content/images/icon_print.png" alt="print"></a></li>
+                </ul>
+                <div class="clearfix"></div>
+            </div>
+            <div class="clearfix"></div>
+            <div class="schedule-wrap mt10">
+                @Html.Raw(Model.Contents)
+            </div>
+        </div>
+        <!-- end schedule -->
+
+        @Html.Partial("Site_Right")
+        <!-- end sidebar-->
+    </div><!-- end row-->
+    <div class="clearfix"></div>
+
+    <div class="row mt30 category">
+        <div class="col-md-4 col-sm-6 col-xs-12 note">
+            <a href="/tin-tuc/c99/ghi-chu.html" class="title-cm02">Báo cáo Công đoàn các cấp</a>
+            @{Html.RenderAction("LastestNews2", "Home", new { CategoryId = 99, MaxLastestNews = 3 });}
+        </div>
+        <div class="col-md-4 col-sm-6 col-xs-12 report">
+            <a href="/Document/Index/5" class="title-cm02">Báo cáo CĐCTVN</a>
+            @{Html.RenderAction("TopDocument", "Home", new { CategoryId = 5, Top = 3 });}
+        </div>
+        <div class="col-md-4 col-sm-6 col-xs-12 report-document">
+            <a href="/tin-tuc/c100/bao-cao-van-thu.html" class="title-cm02">Báo cáo văn thư</a>
+            @{Html.RenderAction("LastestNews2", "Home", new { CategoryId = 100, MaxLastestNews = 4 });}
+        </div>
+        <div class="col-md-4 col-sm-6 col-xs-12 report-document-02">
+            <a href="/Document/Index/98" class="title-cm02">Danh bạ điện thoại</a>
+            @{Html.RenderAction("TopDocument", "Home", new { CategoryId = 98, Top = 3 });}
+        </div>
+        <div class="col-md-4 col-sm-6 col-xs-12 report-document-03">
+            <a href="http://vuit.org.vn/Document/Index/3" target="_blank" class="title-cm02">Tra cứu văn bản</a>
+            @{Html.RenderAction("TopDocumentHome", "Home", new { Top = 3 });}
+        </div>
+        <div class="col-md-4 col-sm-6 col-xs-12 rules">
+            <a href="/tin-tuc/c3/quy-che-noi-bo.html" class="title-cm02">Quy chế nội bộ</a>
+            @{Html.RenderAction("LastestNews2", "Home", new { CategoryId = 3, MaxLastestNews = 3 });}
+        </div>
+    </div><!--end row-->
+</section>
+
+
+
+
+

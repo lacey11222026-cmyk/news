@@ -1,0 +1,61 @@
+﻿@using BIZ
+@using UTILS
+@using WebMVC4.Helper
+
+@model WebMVC4.Models.LastestNewModel
+@if (Model != null)
+{
+    if (Model.lstdata != null)
+    {
+        <div class="section-title wow fadeInDown text-left" style="visibility: visible; animation-name: none;">
+            <h2>
+                Tin tức nổi bật
+            </h2>
+            <a href="@Model.Url" title="Tin tức">Xem tất cả <i class="fa fa-angle-double-right"></i></a>
+        </div>
+        <div class="grid">
+
+            <div id="owl-home-articles-slider" class="owl-carousel owl-theme" style="opacity: 1; display: block;">
+                <div class="owl-wrapper-outer">
+                    <div class="owl-wrapper" style="width: 4680px; left: 0px; display: block;">
+                        @foreach (var item in Model.lstdata.Select((value, i) => new { i, value }))
+                        {
+                            <div class="owl-item" style="width: 390px;">
+                                <div class="item grid__item wow fadeInUp" data-wow-delay="0.2s" data-wow-duration="0.75s" style="visibility: visible; animation-duration: 0.75s; animation-delay: 0.2s; animation-name: none;">
+                                    <div class="article-item">
+                                        <div class="article-img">
+                                            <a href="@Utils.FormatUrlRewrite(item.value.Id, item.value.Title, "ArticleDetail")" title="@item.value.Title">
+                                                <img src="@item.value.MainImage?h=400&w=400&mode=crop" alt="@item.value.Title">
+                                            </a>
+                                        </div>
+                                        <div class="article-info-wrapper">
+                                            <div class="article-date">
+                                                <span class="datetime_m">06</span>
+                                                <span class="datetime_b">Thg 10</span>
+                                            </div>
+                                            <div class="article-title">
+                                                <a href="@Utils.FormatUrlRewrite(item.value.Id, item.value.Title, "ArticleDetail")" title="@item.value.Title" class="line-clamp2">@item.value.Title</a>
+                                            </div>
+                                            <div class="article-desc">
+                                                @item.value.IntroText
+                                            </div>
+                                            
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                        </div>
+                </div>
+
+
+
+                <div class="owl-controls clickable"><div class="owl-buttons"><div class="owl-prev"><i class="fa fa-angle-left" aria-hidden="true"></i></div><div class="owl-next"><i class="fa fa-angle-right" aria-hidden="true"></i></div></div></div>
+            </div>
+
+        </div>
+     
+
+
+    }
+}

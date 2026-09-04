@@ -1,0 +1,41 @@
+﻿@using BIZ
+@using UTILS
+@using WebMVC4.Helper
+@model WebMVC4.Models.AlbumModel
+<div class="container mt20 libImg-page">
+    @{Html.RenderAction("Breadcrumb", "News", new { CategoryId = Model.CategoryId });}
+    @if (Model.listdata != null)
+    {
+
+
+
+        <div class="mt30 libImg-wrap">
+            <ul class="newshot row">
+                @foreach (var item in Model.listdata.Select((value, i) => new { i, value }))
+                {
+
+                    <li class="col-md-4 col-sm-12">
+                        <a href="@Utils.FormatUrlRewrite(item.value.Id, item.value.Title, "AlbumDetail")" class="newshot-item">
+                            <img src="@item.value.MainImage?w=371&h=247&mode=crop">
+                            <span class="mt15">@item.value.Title</span>
+                        </a>
+                    </li>
+                }
+            </ul>
+            <div class="paging mt10">
+                <ul>
+                    @{Html.RenderPartial("Pagination", new WebMVC4.Models.PaginationInfo
+                        {
+                            PageUrl = Url.SetParameter("Page", "!0"),
+                            CurrentPage = Model.pageIndex,
+                            PageSize = Model.pageSize,
+                            TotalItemCount = Model.total,
+                        }); }
+                </ul>
+            </div>
+        </div>
+
+
+
+    }
+</div><!-- end content 01 -->

@@ -1,0 +1,17 @@
+﻿@using BIZ
+@using UTILS
+@using WebMVC4.Helper
+@model List<BIZ.Entity.CONTENT_FULL>
+
+
+<ul class="news-list">
+    @foreach (var item in Model.Select((value, i) => new { i, value }))
+    {
+        <li>
+            <a href="@item.value.LinkUrl">
+                @item.value.Title
+                
+            </a>
+        </li>
+    }
+</ul>

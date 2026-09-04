@@ -1,0 +1,50 @@
+﻿@using BIZ.Entity
+@using UTILS
+@using WebMVC4.Helper
+@model List<CATEGORY_FULL>
+
+<li class="menu-item menu-item-type-taxonomy menu-item-object-product_cat active" id="menu_0">
+    <a href="/" class="nav-top-link">Trang chủ </a>
+
+</li>
+
+@foreach (var item in Model.Where(x => x.ParentId == 0).Select((value, i) => new { i, value }))
+{
+    if (Model.Exists(x => x.ParentId == item.value.Id))
+    {
+        <li class="menu-item menu-item-type-taxonomy menu-item-object-product_cat menu-item-has-children has-dropdown" id="menu_@item.value.Id">
+            <a href="@item.value.Url" class="nav-top-link">@item.value.Name <i class="icon-angle-down"> </i> </a>
+
+            <ul class="sub-menu nav-dropdown nav-dropdown-bold dark">
+
+                @foreach (var sub in Model.Where(x => x.ParentId == item.value.Id).Select((value, i) => new { i, value }))
+                {
+                    
+                    <li class="menu-item menu-item-type-taxonomy menu-item-object-product_cat">
+                        <a href="@sub.value.Url">
+                            @sub.value.Name
+
+
+                        </a>
+                    </li>
+                    @*}*@
+                }
+
+            </ul>
+        </li>
+    }
+    else
+    {
+        <li class="menu-item menu-item-type-taxonomy menu-item-object-product_cat " id="menu_@item.value.Id">
+            <a href="@item.value.Url" class="nav-top-link">@item.value.Name  </a>
+
+           
+        </li>
+    }
+
+
+}
+<li class="menu-item menu-item-type-taxonomy menu-item-object-product_cat " id="menu_99">
+    <a href="/lien-he" class="nav-top-link">Liên hệ </a>
+
+</li>

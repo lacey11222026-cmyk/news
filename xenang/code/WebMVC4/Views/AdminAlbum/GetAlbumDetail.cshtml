@@ -1,0 +1,469 @@
+﻿@{
+    Layout = "~/Views/Shared/_AdminV2.cshtml";
+}
+@using BIZ.Entity
+@using UTILS
+@using WebMVC4.Helper
+@model Album_FULL
+@{
+    List<CATEGORY_FULL> ListCate = ViewBag.CategoryList;
+}
+
+<div class="well">
+    <span class="label label-danger">
+        Chú ý!
+    </span>
+    <span>
+        Hãy chắc chắn nhập vào đầy đủ thông tin tại các mục bắt buộc đánh dấu (*)
+    </span>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <i class="fa fa-fw fa-user-md"></i><span>@ViewBag.Title </span>
+            </div>
+            <form id="defaultForm" method="post" class="form-horizontal">
+                <div class="panel-group" id="steps">
+                    <div class="messager-body">
+                        <div class="alert alert-success display-hide alert-dismissable">
+                            <button type="button" class="close" data-close="alert" aria-hidden="true">×</button>
+                            <span class="glyphicon glyphicon-ok"></span>
+                            <label>Đã lưu dữ liệu thành công !!!</label>
+                        </div>
+                        <div class="alert alert-danger display-hide alert-dismissable">
+                            <button type="button" class="close" data-close="alert" aria-hidden="true">×</button>
+                            <span class="glyphicon glyphicon-warning-sign"></span>
+                            <label>Có một vài lỗi trong khung nhập liệu dưới đây ! kiểm tra lại</label>
+                        </div>
+                    </div>
+                    <div class="panel panel-info">
+                        @*<div id="Errordiv" style="margin:20px;color:red;font-size:13pt"><center></center></div><br />*@
+                        @*<div class="panel-heading">
+                                <h4 class="panel-title"><i class="fa fa-wrench" style="margin-right:7px"></i>Thông Tin Cơ Bản</h4>
+                            </div>*@
+                        <div style="padding: 10px 0 0 0;background-color:#fff !important">
+                            <ul class="nav nav-tabs">
+                                <li class="active"><a href="#tabs-info" data-toggle="tab"><strong>Thông tin chính</strong></a></li>
+                                <li><a href="#tabs-image" data-toggle="tab"><strong>Ảnh</strong></a></li>
+                                <li><a href="#tabs-product" data-toggle="tab"><strong>Sản phẩm</strong></a></li>
+
+                            </ul>
+
+                            <div class="tab-content" style="margin-top: 30px;">
+                                <div class="col-md-12 tab-pane" id="tabs-product">
+                                    @{Html.RenderAction("Reference", new { ids = Model.Param });}
+                                </div>
+                                <div class="col-md-12 tab-pane active" id="tabs-info">
+                                    <!-- dành cho UpdateFunction -->
+                                    <div class="form-group">
+                                        <label for="txtTitle" class="control-label col-md-3">Tên  :<span class="required">*</span></label>
+                                        <div class="col-md-9">
+                                            <div class="input-icon right">
+                                                <input type="text" id="txtTitle" name="title" value="@Model.Title" class="form-control" placeholder="Nhập tên" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="txtTitle" class="control-label col-md-3">Địa điểm :<span class="required">*</span></label>
+                                        <div class="col-md-9">
+                                            <div class="input-icon right">
+                                                <input type="text" id="txtSummary" name="description" value="@Model.Description" class="form-control" placeholder="Nhập địa điểm" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="txtImgPath1" class="control-label col-md-3">Ảnh đại diện :<span class="required">*</span></label>
+                                        <div class="col-md-6">
+                                            <input type="text" id="txtImgPath" name="imgPath" value="@Model.CreatedBy" class="form-control" placeholder="Nhập ảnh" />
+                                        </div>
+                                        <div class="col-md-1">
+                                            <a href="javascript:;" onclick="CommonCtrl.PopupManagerImages('txtImgPath');"><i class="fa fa-file"></i></a>
+                                        </div>
+                                    </div>
+                                    <div class="form-group" style="display:none;">
+                                        <label for="txtMainCate" class="control-label col-md-3">Chuyên Mục :<span class="required">*</span></label>
+                                        <div class="col-md-9">
+                                            <div class="input-icon right">
+                                                <select class="form-control" id="ddlMainCate">
+
+                                                    @if (ListCate != null && ListCate.Count > 0)
+                                                    {
+                                                        foreach (var obj in ListCate)
+                                                        {
+                                                            <option value="@obj.Id" title="@obj.Pathway" @if (obj.Id == Model.CategoryId) { @Html.Raw("selected='selected'") ; }>@obj.Name</option>
+                                                        }
+                                                    }
+                                                </select>
+
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+
+                                    <div class="form-group">
+                                        <label for="txtPublicTime" class="control-label col-md-3">Ngày xuất bản :<span class="required">*</span></label>
+                                        <div class="col-md-9">
+                                            <div class="input-icon right">
+                                                <input type="text" id="txtPublicTime" data-format="DD/MM/YYYY HH:mm" name="publictime" value="@Model.PublishDate.GetValueOrDefault().ToString("dd/MM/yyyy HH:mm")" class="form-control" />
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group" style="display:none">
+                                        <label for="ddlType" class="control-label col-md-3">Style hiển thị<span class="required">*</span></label>
+                                        <div class="col-md-9">
+                                            <div class="input-icon right">
+                                                <select id="ddlStyle" name="Type" class="form-control">
+                                                    <option value="1" @(Model.Style == 1 ? "selected='selected'" : "")>Light Box</option>
+                                                    <option value="2" @(Model.Style == 2 ? "selected='selected'" : "")>Gallery</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label col-md-3" for="cbxIsActive">Trạng thái :</label>
+                                        <div class="col-md-4">
+                                            <div class="checkbox">
+                                                @if (Model.Status == 1)
+                                                {<input type="checkbox" id="cbxIsActive" checked="checked" />}
+                                                else
+                                                {<input type="checkbox" id="cbxIsActive" />}
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-12 tab-pane" id="tabs-image">
+
+                                    <div class="form-group">
+                                        <label for="txtImgPath2" class="control-label col-md-3">Ảnh 1 :<span class="required">*</span></label>
+                                        <div class="col-md-6">
+                                            <input type="text" id="txtImgPath1" name="imgPath1" value="@Model.ImageParam.Path1" class="form-control" placeholder="Nhập ảnh " />
+                                        </div>
+                                        <div class="col-md-1">
+                                            <a href="javascript:;" onclick="CommonCtrl.PopupManagerImages('txtImgPath1');"><i class="fa fa-file"></i></a>
+
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="txtImgPath3" class="control-label col-md-3">Ảnh 2 :<span class="required">*</span></label>
+                                        <div class="col-md-6">
+                                            <input type="text" id="txtImgPath2" name="imgPath2" value="@Model.ImageParam.Path2" class="form-control" placeholder="Nhập ảnh" />
+                                        </div>
+                                        <div class="col-md-1">
+                                            <a href="javascript:;" onclick="CommonCtrl.PopupManagerImages('txtImgPath2');"><i class="fa fa-file"></i></a>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="txtImgPath4" class="control-label col-md-3">Ảnh 3 :<span class="required">*</span></label>
+                                        <div class="col-md-6">
+                                            <input type="text" id="txtImgPath3" name="imgPath3" value="@Model.ImageParam.Path3" class="form-control" placeholder="Nhập ảnh " />
+                                        </div>
+                                        <div class="col-md-1">
+                                            <a href="javascript:;" onclick="CommonCtrl.PopupManagerImages('txtImgPath3');"><i class="fa fa-file"></i></a>
+
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="txtImgPath5" class="control-label col-md-3">Ảnh 4 :<span class="required">*</span></label>
+                                        <div class="col-md-6">
+                                            <input type="text" id="txtImgPath4" name="imgPath4" value="@Model.ImageParam.Path4" class="form-control" placeholder="Nhập ảnh" />
+                                        </div>
+                                        <div class="col-md-1">
+                                            <a href="javascript:;" onclick="CommonCtrl.PopupManagerImages('txtImgPath4');"><i class="fa fa-file"></i></a>
+                                        </div>
+                                    </div>
+                                    <div class="form-group" style="display:none">
+                                        <label for="txtImgPath5" class="control-label col-md-3">Ảnh 5 :<span class="required">*</span></label>
+                                        <div class="col-md-6">
+                                            <input type="text" id="txtImgPath5" name="imgPath5" value="@Model.ImageParam.Path5" class="form-control" placeholder="Nhập ảnh" />
+                                        </div>
+                                        <div class="col-md-1">
+                                            <a href="javascript:;" onclick="CommonCtrl.PopupManagerImages('txtImgPath5');"><i class="fa fa-file"></i></a>
+
+                                        </div>
+                                    </div>
+                                    <div class="form-group" style="display:none">
+                                        <label for="txtImgPath7" class="control-label col-md-3">Ảnh 7 :<span class="required">*</span></label>
+                                        <div class="col-md-6">
+                                            <input type="text" id="txtImgPath7" name="imgPath5" value="@Model.ImageParam.Path7" class="form-control" placeholder="Nhập ảnh" />
+                                        </div>
+                                        <div class="col-md-1">
+                                            <a href="javascript:;" onclick="CommonCtrl.PopupManagerImages('txtImgPath7');"><i class="fa fa-file"></i></a>
+                                        </div>
+                                    </div>
+                                    <div class="form-group" style="display:none">
+                                        <label for="txtImgPath8" class="control-label col-md-3">Ảnh 8 :<span class="required">*</span></label>
+                                        <div class="col-md-6">
+                                            <input type="text" id="txtImgPath8" name="imgPath8" value="@Model.ImageParam.Path8" class="form-control" placeholder="Nhập ảnh" />
+                                        </div>
+                                        <div class="col-md-1">
+                                            <a href="javascript:;" onclick="CommonCtrl.PopupManagerImages('txtImgPath8');"><i class="fa fa-file"></i></a>
+
+                                        </div>
+                                    </div>
+                                    <div class="form-group" style="display:none">
+                                        <label for="txtImgPath9" class="control-label col-md-3">Ảnh 9 :<span class="required">*</span></label>
+                                        <div class="col-md-6">
+                                            <input type="text" id="txtImgPath9" name="imgPath9" value="@Model.ImageParam.Path9" class="form-control" placeholder="Nhập ảnh" />
+                                        </div>
+                                        <div class="col-md-1">
+                                            <a href="javascript:;" onclick="CommonCtrl.PopupManagerImages('txtImgPath9');"><i class="fa fa-file"></i></a>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-12">
+                                    <div class="panel-footer form-horizontal">
+                                        <div class="form-group submit">
+                                            <button type="submit" class="btn btn-primary" id="btsubmit"><i class="fa fa-save"></i>Lưu lại</button>
+                                            <button type="button" class="btn btn-default" id="btnBack" onclick="GotoListpage();"><i class="fa fa-backward"></i>Quay lại</button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div style="clear:both"></div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+<script>
+    $('#menu_addalbum').addClass("active");
+    $('#menu_3').addClass("active");
+</script>
+
+<script>
+   function GotoListpage() {
+        window.location = '@Url.Action("Index")';
+    }
+    $(document).ready(function () {
+
+
+
+        $('#txtPublicTime').datetimepicker({
+            format: 'DD/MM/YYYY HH:mm',
+            inline: true,
+            sideBySide: true,
+            showTodayButton: true
+        });
+        $("button.close").click(function () {
+            $(this).parent().css("display", "none");
+        });
+        $('#defaultForm').bootstrapValidator({
+            message: 'This value is not valid',
+            //live: 'submitted',
+            feedbackIcons: {
+                valid: 'glyphicon glyphicon-ok',
+                invalid: 'glyphicon glyphicon-remove',
+                validating: 'glyphicon glyphicon-refresh'
+            },
+            fields: {
+
+                title: {
+                    message: 'Nhập tên ',
+                    validators: {
+                        notEmpty: {
+                            message: 'tên  không được bỏ trống'
+                        },
+
+                        stringLength: {
+                            min: 3,
+                            max: 250,
+                            message: 'tên  nhỏ nhất 3 ký tự và nhiều nhất 250 ký tự'
+                        },
+
+                    }
+                },
+                description: {
+                    message: 'Bạn chưa nhập địa điểm.',
+                    validators: {
+                        notEmpty: {
+                            message: 'Bạn chưa nhập địa điểm'
+                        },
+
+                    }
+                },
+
+            }
+        })
+        .on('success.form.bv', function (e) {
+            // Prevent submit form
+            e.preventDefault();
+
+            var $form = $(e.target),
+                        validator = $form.data('bootstrapValidator');
+            SaveData();
+            $(".close").click(function () {
+                $(".alert-success").css("display", "none");
+            });
+        })
+        .on('error.form.bv', function (e) {
+            // Active the panel element containing the first invalid element
+            e.preventDefault();
+            var $form = $(e.target),
+                    validator = $form.data('bootstrapValidator');
+            $(".alert-danger label").text("Có một vài lỗi trong khung nhập liệu dưới đây ! kiểm tra lại");
+            $(".alert-danger").css("display", "block");
+            $(".close").click(function () {
+                $(".alert-danger").css("display", "none");
+                $(".alert-success").css("display", "none");
+            });
+        });
+
+        $("#btnReset").click(function () {
+            $('#defaultForm').data('bootstrapValidator').resetForm(true);
+            $(".alert-danger").css("display", "none");
+            $(".alert-success").css("display", "none");
+        });
+
+        //Save Data
+        function SaveData() {
+            var value = "";
+            $("#SelectedNews option").each(function () {
+                value = value + $(this).val() + ",";
+
+            });
+
+            var param = {
+                'Id': '@Model.Id',
+                'Title': $("#txtTitle").val(),
+                'Description': $("#txtSummary").val(),
+                'Style': $("#ddlStyle").val(),
+                'CategoryId': $("#ddlMainCate").val(),
+                'CategoryPathway': $("#ddlMainCate option:selected").attr("title"),
+                'SPublishDate': $('#txtPublicTime').val(),
+                'Status': $("#cbxIsActive").is(":checked") ? 1 : 0,
+                'Param': value,
+                'CreatedBy': $("#txtImgPath").val(),
+                'Path1': $("#txtImgPath1").val(),
+                'Path2': $("#txtImgPath2").val(),
+                'Path3': $("#txtImgPath3").val(),
+                'Path4': $("#txtImgPath4").val(),
+                'Path5': $("#txtImgPath5").val(),
+                'Path6': $("#txtImgPath6").val(),
+                'Path7': $("#txtImgPath7").val(),
+                'Path8': $("#txtImgPath8").val(),
+                'Path9': $("#txtImgPath9").val(),
+
+            }
+            Utils.Loading();
+            $.ajax({
+                type: 'POST',
+                url: "@Url.Action("SaveData")",
+                data: addAntiForgeryToken(param),
+                async: true,
+                success: function (data) {
+                    Utils.UnLoading();
+                    if (data.ResponseCode >= 0) {
+                        $("html,body").animate({ scrollTop: $('#TemplateContent').offset().top }, 'fast');
+                        $(".alert-success").show("slow");
+                        $(".alert-danger").hide("slow");
+                        setTimeout(function () { $(".alert-success").hide("slow"); GotoListpage(); }, 500);
+
+                    }
+                    else {
+                        $("html,body").animate({ scrollTop: $('#TemplateContent').offset().top }, 'fast');
+                        $("#ErrorMessage").text(data.Description);
+                        $(".alert-danger").show("slow");
+                        $(".alert-success").hide("slow");
+                        setTimeout(function () { $(".alert-danger").hide("slow"); }, 2000);
+                    }
+                }
+            });
+        };
+    });
+    //function checkAll(obj1) {
+
+    //    $('input[type="checkbox"][name="image_name"]').each(function (i, e) {
+
+    //        if (obj1.checked == true) {
+    //            $(e).prop("checked", true);
+
+    //        }
+    //        else {
+    //            $(e).prop("checked", false);
+
+    //        }
+
+
+    //    });
+
+
+    //}
+    //function LoadImagesForAlbumInDB(imgdata) {
+    //    //load by database
+    //    imgdata = decodeEntities(imgdata);
+    //    try {
+    //        if (imgdata != null && imgdata != undefined && imgdata != '') {
+    //            alert(imgdata);
+    //            var arr_images = jQuery.parseJSON(imgdata);
+    //            alert(arr_images);
+    //            var preimg = 'imagefirst_item';
+
+    //            $.each(arr_images, function (index, item) {
+    //                alert(item.Name);
+    //                $('#imageitem_' + item.Name.replace('.', '')).insertAfter($("#" + preimg));
+    //                preimg = 'imageitem_' + item.Name.replace('.', '');
+    //                if (index == 0) {
+
+
+    //                    $('#images_container').find('input[type="radio"][name="main_image"][value="' + item.Name + '"]').prop("checked", true);
+
+
+    //                }
+    //                $('#image_text_' + item.Name.replace('.', '')).val(item.Text);
+    //                $('#images_container').find('input[type="checkbox"][name="image_name"][value="' + item.Name + '"]').prop("checked", true);
+    //            });
+
+    //        }
+    //    }
+    //    catch (e) {
+    //        // statements to handle any exceptions
+    //        //logMyErrors(e); // pass exception object to error handler
+    //    }
+    //    $("#dgrid").children().children().sortable();
+
+    //}
+    @*function DeleteImage(image, elm) {
+
+        bootbox.confirm("Bạn chắc chắn muốn xóa ảnh này ??? ", function (result) {
+            if (result == true) {
+                var postdata = {
+                    __m: 'del',
+                    _id: '@Model.Id',
+                    _en: 'Album',
+                    fna: image
+                };
+                Utils.Loading();
+                $.ajax({
+                    type: 'POST',
+                    url: "/Post/ImageService.ashx",
+                    data: postdata,
+                    success: function (data) {
+                        Utils.UnLoading();
+                        if (data != undefined && data != null && data != '') {
+                            // var json_data = eval('(' + data + ')');
+                            var json_data = $.parseJSON(data.substring(data.indexOf("{"), data.lastIndexOf("}") + 1));
+                            if (json_data.Success) {
+
+                                $(elm).parent().parent().remove();
+                            }
+
+
+                        }
+                    }
+                });
+            }
+        });
+
+    }*@
+</script>

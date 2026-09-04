@@ -1,0 +1,109 @@
+﻿@using WebMVC4.Helper
+@using WebMVC4.Models
+@model List<FileInfo>
+
+<table class="table table-striped table-bordered" id="dataTables">
+    <thead>
+        <tr class="rowsao">
+
+            <th>Tên Ảnh</th>
+            <th>Ngày tạo</th>
+            <th>Kích thước</th>
+            <th>Thao Tác</th>
+        </tr>
+    </thead>
+
+    @if (Model != null && Model.Count > 0)
+    {
+        for (var i = 0; i < Model.Count; i++)
+        {
+            var item = Model[i];
+            <tr>
+                @if (item.Extension.ToLower() == ".jpg" || item.Extension.ToLower() == ".png" || item.Extension.ToLower() == ".gif")
+                {
+                    <td style="text-align: left;"><a href="javascript:;" class="preview" title="@item.Name" data-img="@ViewBag.hdfCurrentFolder@item.Name" onclick="CommonCtrl.SetImages('@ViewBag.hdfCurrentFolder@item.Name')">@item.Name</a></td>
+                }
+                else
+                {
+                    <td style="text-align: left;"><a href="javascript:;" title="@item.Name" data-img="@ViewBag.hdfCurrentFolder@item.Name" onclick="CommonCtrl.SetFile('@ViewBag.hdfCurrentFolder@item.Name')">@item.Name</a></td>
+                }
+
+                <td>@item.CreationTime.ToString("dd/MM/yyyy")</td>
+                <td>@item.Length </td>
+                <td><a href="javascript:;" onclick="CommonCtrl.BtnDelete('@item.Name','@ViewBag.Month')"><i class="fa fa-trash-o"></i></a></td>
+            </tr>
+        }
+    }
+</table>
+
+@if (ViewBag.PageCount > 1)
+{
+    <div class="dataTables_paginate" id="pagerImages"></div>
+}
+<style>
+    .table-responsive {
+        overflow-x: auto !important;
+    }
+
+    #preview {
+        position: absolute;
+        border: 1px solid #ccc;
+        background: #333;
+        padding: 5px;
+        display: none;
+        color: #fff;
+    }
+
+        #preview img {
+            max-width: 500px !important;
+        }
+</style>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#pagerImages").pager({
+            pagenumber: '@ViewBag.PageNumber',
+            pagecount: '@ViewBag.PageCount',
+            buttonClickCallback: function (page) { CommonCtrl.ListImages(page); }
+        });
+    });
+
+
+</script>
+<script>
+    this.imagePreview = function () {
+        /* CONFIG */
+
+        xOffset = 100;
+        yOffset = 100;
+
+        // these 2 variable determine popup's distance from the cursor
+        // you might want to adjust to get the right result
+
+        /* END CONFIG */
+        $("a.preview").hover(function (e) {
+            this.t = this.title;
+            this.title = "";
+            var c = (this.t != "") ? "<br/>" + this.t : "";
+            $("#ListImages").append("<p id='preview'><img src='" + $(this).attr("data-img") + "' alt='Image preview' />" + c + "</p>");
+            $("#preview")
+                .css("top", (e.pageY - xOffset) + "px")
+                .css("left", (e.pageX - yOffset) + "px")
+                .fadeIn("fast");
+        },
+        function () {
+            this.title = this.t;
+            $("#preview").remove();
+        });
+        $("a.preview").mousemove(function (e) {
+            $("#preview")
+                .css("top", (e.pageY - xOffset) + "px")
+                .css("left", (e.pageX - yOffset) + "px");
+        });
+    };
+
+
+    // starting the script on page load
+    $(document).ready(function () {
+        imagePreview();
+    });
+</script>

@@ -1,0 +1,20 @@
+﻿@using BIZ
+@using UTILS
+@using WebMVC4.Helper
+@model BIZ.Entity.CATEGORY_FULL
+
+@if (Model != null)
+{
+    <div class="breadcrumb">
+        <div class="container">
+            <h2>@Model.Name</h2>
+            <ul>
+                <li><a href="/">Trang chủ</a> /</li>
+                <li><a href="@Model.Url">@Model.Name</a> 
+                
+            </ul>
+        </div>
+    </div>
+    
+
+}

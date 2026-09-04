@@ -1,0 +1,150 @@
+﻿@using UTILS
+@using WebMVC4.Helper
+@{
+    var langpage = WorkContext.GetLanguage();
+}
+@{
+    var date = Utils.formatDateofWeek(DateTime.Now.DayOfWeek) + "," + DateTime.Now.ToString(" dd") + "/" + DateTime.Now.ToString("MM") + "/" + DateTime.Now.Year.ToString() + " | " + DateTime.Now.ToString("HH") + ":" + DateTime.Now.ToString("mm");
+    var DateEN = DateTime.Now.DayOfWeek.ToString() + ", " + DateTime.Now.ToString("dd") + "/" + DateTime.Now.ToString("MM") + "/" + DateTime.Now.Year.ToString() + " | " + DateTime.Now.ToString("HH") + ":" + DateTime.Now.ToString("mm");
+}
+
+<header class="header">
+    <img src="/Content2/images/banner.jpg" alt="" class="bnr-img">
+    <div class="container">
+
+        <div class="logo pull-left">
+            <a href="/"><img src="/Content2/images/logo.png" alt="Công nghệ sinh học" class="hidden-480"></a>
+            <a href="/"><img src="/Content2/images/logo-m.png" alt="Công nghệ sinh học" class="block-480"></a>
+        </div>
+    </div>
+    <div class="menu-pc">
+        <div class="container">
+            @if (langpage == "vi-vn")
+            {
+                <ul class="link-top">
+                    <li><a href="/gioi-thieu/c2/gioi-thieu.html">Giới thiệu</a></li>
+                    <li><a href="/danh-muc-khcongnghe.html">Công nghiệp sinh học</a></li>
+                </ul>
+            }
+            else
+            {
+                <ul class="link-top">
+                    <li><a href="/gioi-thieu/c48/gioi-thieu.html">Introduction</a></li>
+                    <li><a href="/danh-muc-khcongnghe.html">Biological Industries</a></li>
+                </ul>
+            }
+
+        </div>
+        @{Html.RenderAction("Menu", "Home", new { lang = langpage });}
+    </div>
+</header><!-- end header-->
+
+<section class="tool container mt10">
+    @if (langpage == "vi-vn")
+    {
+        <p class="pull-left">@date</p>
+    }
+    else
+    {
+        <p class="pull-left">@DateEN</p>
+    }
+
+    <div class="pull-right col-md-4 col-sm-6 col-xs-12 pr0">
+        <div class="row">
+            <div class=" input-group col-sm-7 col-xs-7 pull-left">
+                <input type="text" id="txtKeyword" onkeydown="javascript: return AnyInput_KeyDown(this, event);" class="form-control" placeholder="@Resources.Global.MenuSearch">
+                <span class="input-group-btn">
+                    <button class="btn btn-default" onclick="search()" type="button"><img src="/Content2/images/icon-search.png" alt="Search"></button>
+                </span>
+            </div>
+            <form>
+                <div class="form-group col-sm-5 col-xs-5">
+                    <select class="form-control" id="Select1" onchange="window.open(this.options[this.selectedIndex].value,'_blank');this.options[0].selected=true">
+                        <option selected="selected">@Resources.Global.Link</option>
+                        <option value="http://firi.vn/">Viện Công nghiệp thực phẩm </option>
+                        <option value="http://sbft.hust.edu.vn/">Viện Công nghệ sinh học và Công nghệ thực phẩm </option>
+                        <option value="https://www.ibt.ac.vn/">Viện Công nghệ sinh học </option>
+                        <option value="http://www.rimf.org.vn/">Viện Nghiên cứu Hải sản</option>
+                        <option value=" http://tapchicongthuong.vn/an-pham/khoa-hoc-cong-nghe-3.htm">Tạp chí KHCN ngành Công Thương  </option>
+
+
+                    </select>
+                </div>
+            </form>
+        </div>
+    </div>
+</section><!-- end tool-->
+<div class="tool_mobile block_mobile">
+    @if (langpage == "vi-vn")
+    {
+        <div class="date">@date</div>
+        <ul>
+            <li>
+                <div class="search_m">
+                    <a class="click" href="#"></a>
+                    <input class="submit_m" type="submit" onclick="Msearch()">
+                    <input class="text_m" type="text" id="txtKeywordMobile" placeholder="@Resources.Global.MenuSearch" onkeydown="javascript: return MAnyInput_KeyDown(this, event);">
+                </div>
+            </li>
+            <li>
+                <a href="/Home/Language?lang=en-us"><img src="/Content2/images/ico-en.png" alt="" width="30px"></a>
+            </li>
+        </ul>
+    }
+    else
+    {
+        <div class="date">@DateEN</div>
+        <ul>
+            <li>
+                <div class="search_m">
+                    <a class="click" href="#"></a>
+                    <input class="submit_m" type="submit" onclick="Msearch()">
+                    <input class="text_m" type="text" id="txtKeywordMobile" placeholder="@Resources.Global.MenuSearch" onkeydown="javascript: return MAnyInput_KeyDown(this, event);">
+                </div>
+            </li>
+            <li>
+                <a href="/Home/Language?lang=vi-vn"><img src="/Content2/images/ico-vn.png" alt="" width="30px"></a>
+            </li>
+        </ul>
+    }
+
+
+    <div class="clearfix"></div>
+</div>
+
+
+<script type="text/javascript">
+    function search() {
+        var searchtext = $("#txtKeyword").val();
+        window.location = "/News/Search?q=" + searchtext;
+
+    }
+    function AnyInput_KeyDown(sender, e) {
+        if ((e.which && e.which == 13) || (e.keyCode && e.keyCode == 13)) {
+            search();
+
+            return false;
+        }
+
+        return true;
+    }
+
+
+    function Msearch() {
+        var searchtext = $("#txtKeywordMobile").val();
+        window.location = "/News/Search?q=" + searchtext;
+
+    }
+    function MAnyInput_KeyDown(sender, e) {
+        if ((e.which && e.which === 13) || (e.keyCode && e.keyCode === 13)) {
+            Msearch();
+
+            return false;
+        }
+
+        return true;
+    }
+
+
+
+</script>

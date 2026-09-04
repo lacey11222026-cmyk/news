@@ -1,0 +1,61 @@
+﻿@using BIZ
+@using UTILS
+@using  WebMVC4.Helper
+@model List<BIZ.Entity.CONTENT_FULL>
+@{Html.RenderAction("Breadcrumb", "Channel", new { Id = ViewBag.Id });}
+
+
+@if (Model != null)
+{
+    foreach (var item in Model.Select((value, i) => new { i, value }))
+    {
+        //if (item.i >= (int)(ViewBag.PageSize / 2))
+        //{
+        //    break;
+        //}
+
+        if (item.i == 0)
+        {
+            
+            <div class="n_chinh_c2">
+                <a href="@item.value.LinkUrl">
+                    <img src="@item.value.MainImage?w=600&h=400&mode=crop" alt="@item.value.Title" />
+                </a>
+                <a href="@item.value.LinkUrl">@item.value.Title </a>
+                <p>@UTILS.Utils.SubString(item.value.IntroText, 420)</p>
+                <div class="clear"></div>
+            </div>
+        }
+
+
+    }
+    <div class="cot1_c1">
+        @foreach (var item in Model.Select((value, i) => new { i, value }))
+        {
+
+            if (item.i >= (int)(ViewBag.PageSize / 2))
+            {
+                break;
+            }
+            if (item.i > 0)
+            {
+                <div class="dong5">
+                    <img src="@item.value.MainImage?w=150&mode=crop" style="max-width:150px;" alt="@item.value.Title" />
+                    <a href="@item.value.LinkUrl">@item.value.Title </a>
+                    <p>@item.value.PublishDate.ToString("HH:mm") | @item.value.PublishDate.ToString("dd/MM/yyyy")</p>
+                    @UTILS.Utils.SubString(item.value.IntroText, 320)
+
+                    <div class="clear"></div>
+                </div>
+
+            }
+
+        }
+    </div>
+    <div class="cot1_c2">
+        @{Html.RenderAction("TopViewNews", "News", new { CategoryId = 0, MaxLastestNews = 6 });}
+    </div>
+    <div class="clear"></div>
+    <div class="clear padtop10"></div>
+        if (ViewBag.Type <= 1) { Html.RenderAction("Relate", "News", new { CategoryId = ViewBag.CategoryId, CateName = ViewBag.CateName, HeaderTitle = "Các tin khác", PageNextShow = ViewBag.PageNextShow, pageNext = ViewBag.pageNext, data = Model.Skip((int)ViewBag.PageSize / 2).ToList() }); }
+}

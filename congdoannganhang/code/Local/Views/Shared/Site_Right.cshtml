@@ -1,0 +1,32 @@
+﻿   @{Html.RenderAction("TopAlbum", "Home", new {CateName = "Tư liệu ảnh", CategoryId = 71, Top = 3});}
+<div class="noibo">
+      <p><a class="opa" href="#"><img src="/images/guitinbai.jpg">Gửi tin bài, báo cáo</a></p>
+      <p><a class="opa" href="#" ><img src="/images/noibo.jpg">Trang nội bộ</a></p>
+      <p><a class="opa"  href="http://webmail.vuit.org.vn/" target='_blank'><img src="/images/thudientu.jpg">Thư điện tử</a></p>
+    </div>
+ @{Html.RenderAction("TopDocument", "Home");}
+
+
+ 
+
+@if (HttpContext.Current.Request.RequestContext.RouteData.Values["controller"].ToString().ToLowerInvariant() == "home")
+{
+    Html.RenderAction("BannerRight", "Home");
+}
+else
+{
+    var data = new BIZ.CategoryBO().GetAllChildCategories(8, 10, false);
+
+  if (data!=null)
+  {
+      foreach (var item in data.Select((value, i) => new { i, value }))
+      {
+
+          { Html.RenderAction("RightLastestNews", "News", new { CateName = item.value.Name, CategoryId = item.value.Id, MaxLastestNews = 2 }); }
+
+
+      }
+
+
+  }
+}

@@ -1,0 +1,74 @@
+﻿@using BIZ
+@using UTILS
+@using WebMVC4.Helper
+@model WebMVC4.Models.NewsModel
+@if (Model != null)
+{
+    <ul class="video-list row">
+        @foreach (var item in Model.listdata.Take(8).Select((value, i) => new { i, value }))
+        {
+
+            <li class="col-md-3 col-sm-4 col-xs-6">
+                <a href="/trang-chu-video/?VideoId=@(item.value.Id)" class="videonews-img">
+                    <img src="@item.value.MainImage?w=268&h=168&mode=crop">
+                    <span class="glyphicon glyphicon-play video-icon"></span>
+                </a>
+                <a href="/trang-chu-video/?VideoId=@(item.value.Id)" class="mt15">@item.value.Title</a>
+                <span class="newsdate mt10">@item.value.PublishDate.ToString("dd/MM/yyyy")</span>
+            </li>
+
+        }
+
+
+    </ul>
+    {Html.RenderAction("BannerCenter2", "Banner", new { currentCategoryId = 14 }); }
+    <ul class="video-list row">
+        @foreach (var item in Model.listdata.Skip(8).Select((value, i) => new { i, value }))
+        {
+
+            <li class="col-md-3 col-sm-4 col-xs-6">
+                <a href="/trang-chu-video/?VideoId=@(item.value.Id)" class="videonews-img">
+                    <img src="@item.value.MainImage?w=268&h=168&mode=crop">
+                    <span class="glyphicon glyphicon-play video-icon"></span>
+                </a>
+                <a href="/trang-chu-video/?VideoId=@(item.value.Id)" class="mt15">@item.value.Title</a>
+                <span class="newsdate mt10">@item.value.PublishDate.ToString("dd/MM/yyyy")</span>
+            </li>
+
+        }
+
+
+    </ul>
+    <div class="clearfix"></div>
+    <div class="paging mt50 text-center">
+        <ul>
+            @{Html.RenderPartial("PaginationVideo", new WebMVC4.Models.PaginationInfo
+                {
+                    PageUrl = Url.SetParameter("Page", "!0"),
+                    CurrentPage = Model.pageIndex,
+                    PageSize = Model.pageSize,
+                    TotalItemCount = Model.total,
+                }); }
+        </ul>
+    </div>
+
+    <script>
+
+        function GoVideoPage(page) {
+            var VideoId = '@Model.Id';
+            if (page > 0) {
+                $.ajax({
+                    type: "GET",
+                    url: "/Video/LoadVideo/?VideoId=" + VideoId + "&page=" + page,
+                    success: function (data) {
+                        if (data != "null") {
+                            $("#lstVideo").html(data);
+                        }
+                    }
+                });
+            }
+
+        }
+
+    </script>
+}

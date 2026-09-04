@@ -1,0 +1,351 @@
+﻿<!DOCTYPE html>
+<html lang="vi" prefix="og: http://ogp.me/ns#" class="no-js">
+<head>
+    @Html.Partial("MetaData")
+
+
+   
+
+
+    <!-- CSS ================================================== -->
+    <link href="~/Content/css/comon.css" rel="stylesheet" />
+    <link href="/Content/css//timber.scss.css" rel="stylesheet" type="text/css" media="all">
+    <link href="/Content/css//suplo-style.scss.css?vs=03" rel="stylesheet" type="text/css" media="all">
+
+    <link rel='stylesheet prefetch' href='/Content/css/owl.carousel.min.css'>
+    <link rel='stylesheet prefetch' href='/Content/css/owl.theme.default.min.css'>
+
+
+
+
+
+    <script src="/Content/js/jquery.min.js" type="text/javascript"></script>
+    <script src="/Content/js/modernizr.min.js" type="text/javascript"></script>
+
+    <script src="/Content/js/owl.carousel.min.js"></script>
+
+
+    <script src="/Content/js/lazyload.js"></script>
+    <script type="text/javascript" charset="utf-8">
+        window.addEventListener("load", function (event) {
+            lazyload();
+        });
+    </script>
+
+
+    <!--- Animation ---->
+    <link rel="stylesheet" href="/Content/css/animate.min.css">
+    <script src="/Content/js/wow.min.js"></script>
+
+
+
+    <!-- Font Aweseome -->
+    <script defer="defer" src="/Content/js/all.js"></script>
+
+    <link href="/Content/css/css.css" rel="stylesheet">
+
+
+    <link href="/Content/css/css_002.css" rel="stylesheet">
+
+
+    <link href="~/Content/css/exend.css?vs=02" rel="stylesheet" />
+
+
+
+
+</head>
+
+<body class="template-index" id="vcare-car-care">
+
+
+    @Html.Partial("Site_Header")
+
+    @RenderBody()
+
+
+
+    @Html.Partial("Site_Footer")
+
+
+
+
+    <script>
+        // Get the modal
+        //var modalAddComplete = document.getElementById('modalAddComplete');
+
+        // Get the button that opens the modal
+       // var modalAddCompleteBtn = document.getElementById("modalAddCompleteBtn");
+
+        // When the user clicks the button, open the modal
+        //modalAddCompleteBtn.onclick = function () {
+        //    modalAddComplete.style.display = "block";
+        //}
+
+        //// When the user clicks anywhere outside of the modal, close it
+        //window.onclick = function (event) {
+        //    if (event.target == modalAddComplete) {
+        //        modalAddComplete.style.display = "none";
+        //    }
+        //}
+    </script>
+
+
+
+
+
+
+    @*<script src="/Content/js/option_selection.js" type="text/javascript"></script>
+
+    <script src="/Content/js/fastclick.min.js" type="text/javascript"></script>*@
+    @*<script src="/Content/js/script.js" type="text/javascript"></script>
+        <script src="/Content/js/timber.js" type="text/javascript"></script>*@
+
+
+
+    <script src="/Content/js/handlebars.min.js" type="text/javascript"></script>
+    <!-- /snippets/ajax-cart-template.liquid -->
+    <!-- Custom script -->
+    <!---- Lazy Load All ----->
+    <!-- Search header open-->
+    <script>
+        initSearch();
+
+        function initSearch() {
+            var box = document.getElementById("search-dropdown");
+            var btn1 = document.getElementById("btn-s");
+            var btn2 = document.getElementById("btn-t");
+
+            //close all other dropdown
+            function close_other() {
+                //document.getElementById("account-dropdown").classList.remove("open");
+               // document.querySelector('.desktop-cart-wrapper .quickview-cart').style.display = "none";
+            }
+
+            function hide() {
+                box.classList.remove("open");
+                btn2.classList.add("hide");
+                btn1.classList.remove("hide");
+            }
+            var outside = function (event) {
+                if (!box.contains(event.target)) {
+                    this.removeEventListener(event.type, outside);
+                    hide();
+                }
+            }
+
+            document.querySelector('#search-btn').addEventListener('click', function (event) {
+                event.preventDefault();
+                event.stopPropagation();
+                close_other();
+                box.classList.toggle("open");
+                btn1.classList.toggle("hide");
+                btn2.classList.toggle("hide");
+                document.addEventListener('click', outside);
+            });
+        }
+    </script>
+
+
+    <!-- Cart header open -->
+    <script>
+        initCartHeader();
+
+        function initCartHeader() {
+            var box1 = document.querySelector('.desktop-cart-wrapper .quickview-cart');
+            var box2 = document.querySelector('.desktop-cart-wrapper1 .quickview-cart');
+
+            function close_other() {
+                document.getElementById("search-dropdown").classList.remove("open");
+                document.getElementById("account-dropdown").classList.remove("open");
+                document.getElementById("btn-s").classList.remove("hide");
+                document.getElementById("btn-t").classList.add("hide");
+            }
+            function show1() {
+                //console.log('showing');
+                $(".cart-overlay1").addClass('open');
+                box1.style.display = 'block';
+            }
+
+            function hide1() {
+                //console.log('hiding');
+                $(".cart-overlay1").removeClass('open');
+                box1.style.display = 'none';
+            }
+
+            $(".desktop-cart-wrapper .btnCloseQVCart").click(function () {
+                hide1();
+            });
+
+            var outside1 = function (event) {
+                if (!box1.contains(event.target)) {
+                    hide1();
+                    //console.log('removing outside listener on document')
+                    this.removeEventListener(event.type, outside1);
+                }
+            }
+
+            //document.querySelector('.desktop-cart-wrapper > a').addEventListener('click', function (event) {
+            //    event.preventDefault();
+            //    event.stopPropagation();
+            //    close_other();
+            //    show1();
+            //    document.addEventListener('click', outside1);
+            //});
+
+            function show2() {
+                //console.log('showing');
+                $(".cart-overlay1").addClass('open');
+                box2.style.display = 'block';
+            }
+
+            function hide2() {
+                //console.log('hiding');
+                $(".cart-overlay1").removeClass('open');
+                box2.style.display = 'none';
+            }
+
+            $(".desktop-cart-wrapper1 .btnCloseQVCart").click(function () {
+                hide2();
+            });
+
+            var outside2 = function (event) {
+                if (!box2.contains(event.target)) {
+                    hide2();
+                    //console.log('removing outside listener on document')
+                    this.removeEventListener(event.type, outside2);
+                }
+            }
+
+            //document.querySelector('.desktop-cart-wrapper1 > a').addEventListener('click', function (event) {
+            //    event.preventDefault();
+            //    event.stopPropagation();
+            //    show2();
+            //    document.addEventListener('click', outside2);
+            //});
+
+        }
+    </script>
+
+
+
+
+
+
+
+   
+    <!-- Back to top -->
+
+    <script>
+        jQuery(document).ready(function () {
+            var offset = 400;
+            var duration = 1000;
+            var header_height = $("#header").height();
+            console.log(header_height);
+            jQuery(window).scroll(function () {
+                if (jQuery(this).scrollTop() < header_height) {
+                    $('#back-to-top').removeClass("car-run");
+                } else {
+                    if (jQuery(this).scrollTop() > offset) {
+                        //$('#back-to-top').addClass("car-up");
+                        $('#back-to-top').css("bottom", "90px");
+                    } else {
+                        //$('#back-to-top').removeClass("car-up");
+                        $('#back-to-top').css("bottom", "-150px");
+                    }
+                }
+            });
+
+            jQuery('#back-to-top').click(function (event) {
+                event.preventDefault();
+                $('#back-to-top').removeClass("car-run");
+                jQuery('html, body').animate({
+                    scrollTop: 0
+                }, duration);
+                $('#back-to-top').addClass("car-run");
+                return false;
+            });
+        });
+    </script>
+
+
+    <!-- Header Fixed ----->
+    <script>
+        jQuery(document).ready(function () {
+            window.onscroll = changePos;
+
+            function changePos() {
+                var header = $("#header");
+                var headerheight = $("#header").height() + 200;
+                if (window.pageYOffset > headerheight) {
+                    header.addClass('scrolldown');
+                } else {
+                    header.removeClass('scrolldown');
+                }
+            }
+        });
+
+        function openMenu() {
+            $("#vcare-car-care").addClass("js-drawer-open-right");
+        }
+        function closeMenu() {
+            $("#vcare-car-care").removeClass("js-drawer-open-right");
+        }
+    </script>
+
+
+
+
+
+    <!-- Wow -->
+    <script>
+        new WOW().init();
+    </script>
+
+
+
+
+
+
+
+
+    <span class="suntory-alo-phone suntory-alo-green trigger_popup" id="suntory-alo-phoneIcon">
+
+        <div class="suntory-alo-ph-circle"></div>
+        <div class="suntory-alo-ph-circle-fill"></div>
+        <div class="suntory-alo-ph-img-circle"><img src="/Content/hotline.webp"></div>
+        <div class="relative" style="display: none;">
+
+            <div class="hotline_pop">
+                <a href="tel:098.199.5565"><img src="/Content/hotline_pop.webp">098.199.5565</a>
+            </div>
+
+
+            <div class="chat_zalo">
+                <a href="https://zalo.me/0981995565" target="_blank"><img src="/Content/zalo_pop.webp">Chat Zalo</a>
+            </div>
+
+
+        </div>
+    </span>
+
+
+    <script>
+        $('.trigger_popup').click(function () {
+            $('.relative').toggle('fast');
+        })
+    </script>
+    <div id="fb-root"></div>
+    <script>
+
+        (function (d, s, id) {
+            var js, fjs = d.getElementsByTagName(s)[0];
+            if (d.getElementById(id)) return;
+            js = d.createElement(s); js.id = id;
+            js.src = "//connect.facebook.net/vi_VN/sdk.js#xfbml=1&version=v2.8&appId=153947084460778";
+            fjs.parentNode.insertBefore(js, fjs);
+        }(document, 'script', 'facebook-jssdk'));
+    </script>
+
+
+</body>
+</html>

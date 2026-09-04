@@ -1,0 +1,243 @@
+﻿@using UTILS;
+@{
+    Layout = "~/Views/Shared/_Home.cshtml";
+}
+@{
+    Random rnd = new Random();
+    int number = rnd.Next(50, 151);
+}
+<div class="banner">
+    <div class="slickSlide">
+        <div>
+            <img src="/Content/images/bnr-01.png?vs=2" alt="" class="hidden-mb">
+            <img src="/Content/images/bnr-01-mb.png?vs=2" alt="" class="block-mb">
+        </div>
+        <div>
+            <img src="/Content/images/bnr-02.png?vs=1" alt="" class="hidden-mb">
+            <img src="/Content/images/bnr-02-mb.png?vs=1" alt="" class="block-mb">
+        </div>
+        <div>
+            <img src="/Content/images/bnr-03.png?vs=1" alt="" class="hidden-mb">
+            <img src="/Content/images/bnr-03-mb.png?vs=1" alt="" class="block-mb">
+        </div>
+    </div>
+</div>
+
+
+<div class="maincontent screen01-content">
+    <div class="intro pt60">
+        <div class="container">
+            <h2 class="title-cm"><span>giới thiệu</span></h2>
+            <div class="intro-inner">
+                <div class="intro-img">
+                    <div class="intro-txt">
+                        <p>
+                            Cuộc thi trực tuyến <b>“Tìm hiểu kiến thức về sử dụng năng lượng tiết kiệm và hiệu quả năm 2026”</b> do Cục Đổi mới sáng tạo, Chuyển đổi xanh và Khuyến công, Bộ Công Thương tổ chức. Cuộc thi nhằm đẩy mạnh tuyên truyền, phổ biến kiến thức về tiết kiệm năng lượng, tiết kiệm điện; đồng thời giúp nâng cao nhận thức, ý thức của cộng đồng trong việc tiết kiệm năng lượng, bảo vệ môi trường.<br><br>
+                            Cuộc thi được thiết kế dưới dạng các câu hỏi trắc nghiệm, lựa chọn câu trả lời đúng, được thực hiện online trên nền tảng hạ tầng kỹ thuật của website Chương trình quốc gia về sử dụng năng lượng tiết kiệm và hiệu quả: <a href="https://tietkiemnangluong.com.vn/" style="color: #ff4207;">https://tietkiemnangluong.com.vn/</a>
+                        </p>
+                    </div>
+                </div>
+                <div class="intro-wrap">
+
+                    <div class="intro-time">
+                        <div>
+                            <h2 class="title-num"><img src="/Content/images/icon-date.png" alt="">Thời gian còn lại của Kỳ thi</h2>
+                            <div class="mt20" id="countdown">
+                                <ul class="num-time">
+                                    <li class="num-time-item"><span id="days"></span><p>ngày</p></li>
+                                    <li class="num-time-item"><span id="hours"></span><p>GIỜ</p></li>
+                                    <li class="num-time-item"><span id="minutes"></span><p>PHÚT</p></li>
+                                    <li class="num-time-item"><span id="seconds"></span><p>GiÂY</p></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div>
+                            <h2 class="title-num"><img src="/Content/images/icon-member.png" alt="">Số người đang thi</h2>
+                            <div class="mt10">
+                                <div class="num-people">
+                                    <span>@number</span>
+                                    <p>người</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div><!-- / ENd intro-->
+</div>
+
+<div class="pt100 pb100 time-event-box">
+    <div class="container">
+        <h2 class="title-cm">Thời gian tổ chức</h2>
+        <div class="time-event">
+            <div class="time-event-inner">
+                @{Html.RenderAction("TopTestRegister");}
+            </div>
+        </div>
+
+    </div>
+</div>
+<div>
+</div><!-- end time event-->
+<div class="event pt100 pb100">
+    <div class="container">
+        <div class="row-90 row">
+            <div class="col-lg-5 col-md-12 col-sm-12">
+                <div class="event-item maxheight">
+                    <h3 class="title-cm">Cách thức tham gia</h3>
+                    <div class="event-join">
+                        <ul class="event-join-list">
+                            <li>
+                                <div class="event-join-item">
+                                    <span class="event-join-img"><img src="/Content/images/img-03.png" alt=""></span>
+                                    <div class="event-join-txt">
+                                        <p class="event-join-title">Cách 1 </p>
+                                        <p class="mt10">Truy cập vào website:</p>
+                                        <a href="https://cuocthi2026.tietkiemnangluong.com.vn" class="font-weight-bold textorange">cuocthi2026.tietkiemnangluong.com.vn</a>
+                                    </div>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="event-join-item">
+                                    <span class="event-join-img"><img src="/Content/images/img-04.png" alt=""></span>
+                                    <div class="event-join-txt">
+                                        <p class="event-join-title">Cách 2 </p>
+                                        <ul class="event-list mt10">
+                                            <li>
+                                                Truy cập trang TTĐT Chương trình quốc gia về sử dụng năng lượng tiết kiệm và hiệu quả
+                                                <a href="https://tietkiemnangluong.com.vn/" class="font-weight-bold textorange">https://tietkiemnangluong.com.vn/</a>
+                                            </li>
+                                            <li>Click vào banner/pop-up cuộc thi</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-7 col-md-12 col-sm-12">
+                <div class="event-item maxheight">
+                    <h3 class="title-cm">Đối tượng tham gia</h3>
+                    <div class="event-02-content">
+                        <img src="/Content/images/img-map.png" alt="">
+                        <div class="event-02-txt">
+                            <ul class="event-list mt10">
+                                <li>
+                                    Tất cả công dân Việt Nam và người nước ngoài đang sống, học tập và làm việc trong nước và ngoài nước.
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="reward">
+    <img src="/Content/images/img-giaithuong.png" alt="">
+</div><!-- end reward-->
+
+
+<footer class="bg-gradient">
+    <p class="container">Bản quyền thuộc <strong>Chương trình quốc gia về sử dụng năng lượng tiết kiệm và hiệu quả</strong></p>
+</footer>
+
+
+
+
+
+
+
+
+<script>
+
+    function JoinTest(id) {
+        bootbox.confirm("Bạn muốn tham dự cuộc thi này?",
+            function(result) {
+                if (result === true) {
+                    var postdata = {
+                        'id': id
+
+                    };
+                    ShowProgress();
+                    $.ajax({
+                        type: 'POST',
+                        url: "@Url.Action("Start")",
+                        data: postdata,
+                        success: function(data) {
+                            HideProgress();
+                            if (data.ResponseCode >= 0) {
+                                window.location.href = '@Url.Action("Exam")';
+
+                                return;
+                            } else {
+                                if (data.ResponseCode === -101) {
+                                    window.location.href = '@Url.Action("Logon")';
+                                    return;
+                                }
+                                //Kết quả
+                                if (data.ResponseCode === -102) {
+                                    window.location.href = '@Url.Action("ResultExam")?id=' + id;
+                                    return;
+                                }
+                                bootbox.alert(data.Description);
+                                return;
+                            }
+                        }
+                    });
+                }
+            });
+    }
+    function ShowProgress() {
+        $('#TB_overlay').show();
+    }
+    function HideProgress() {
+        $('#TB_overlay').hide();
+    }
+</script>
+
+@if (!String.IsNullOrEmpty(ViewBag.Test))
+{
+    <script>
+        //return;
+         var postdata = {
+                        'id': '@ViewBag.Test'
+
+                    };
+                    ShowProgress();
+                    $.ajax({
+                        type: 'POST',
+                        url: "@Url.Action("Start")",
+                        data: postdata,
+                        success: function(data) {
+                            HideProgress();
+                            if (data.ResponseCode >= 0) {
+                                window.location.href = '@Url.Action("Exam")';
+
+                                return;
+                            } else {
+                                if (data.ResponseCode === -101) {
+                                    window.location.href = '@Url.Action("Logon")';
+                                    return;
+                                }
+                                //Kết quả
+                                if (data.ResponseCode === -102) {
+                                    window.location.href = '@Url.Action("ResultExam")?id=' + '@ViewBag.Test';
+                                    return;
+                                }
+                                bootbox.alert(data.Description);
+                                return;
+                            }
+                        }
+                    });
+    </script>
+}
+<style>
+    .test-name:after {
+        background: none;
+    }
+</style>
+<script src="/Content/js/counttime.js?vs=11" type="text/javascript"></script>

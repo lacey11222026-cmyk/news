@@ -1,0 +1,65 @@
+﻿@using BIZ
+@using UTILS
+@using  WebMVC4.Helper
+@model List<BIZ.Entity.CONTENT_FULL>
+@if (Model != null)
+{
+    if (Model.Count > 0)
+    {
+        
+    <div class="docnhieu" style="border: none;padding-left: 0px;">
+
+
+        <div class="title2">ĐỌC NHIỀU</div>
+
+        @foreach (var item in Model.Select((value, i) => new { i, value }))
+        {
+            if (item.i == 0)
+            {
+
+
+
+            <div>
+                 <a href="@item.value.LinkUrl"
+                                                                            title="@item.value.Title">
+                <img src="@item.value.MainImage?w=300&mode=crop" /></a>
+
+                <p class="tit">
+                    <a href="@item.value.LinkUrl"
+                                                                            title="@item.value.Title">@item.value.Title
+                    </a>
+                </p>
+
+
+            </div>
+
+
+
+            }
+
+
+            else
+            {
+                if (item.i == 1)
+                {
+            @Html.Raw(" <div class=\"dong6\">")
+
+                }
+            <a href="@item.value.LinkUrl"
+                                                        title="@item.value.Title">@item.value.Title
+            </a>
+                if (item.i == Model.Count - 1)
+                {
+            @Html.Raw("</div>")
+                }
+            }
+
+
+        }
+
+
+    </div>
+
+
+    }
+}

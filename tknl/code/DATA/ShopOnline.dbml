@@ -1,0 +1,1046 @@
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="tietkiemnangluong" Class="ShopOnlineDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="AppSettings" ConnectionString="Data Source=203.162.166.135;Initial Catalog=tietkiemnangluong;User ID=dev" SettingsObjectName="DATA.Properties.Settings" SettingsPropertyName="tietkiemnangluongConnectionString2" Provider="System.Data.SqlClient" />
+  <Table Name="dbo.Support" Member="Supports">
+    <Type Name="Support" Id="ID1">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="CategoryId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Supporter" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Yahoo" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Skype" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Mail" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Phone" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Mobile" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Published" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="Ordering" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="Params" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Category" Member="Categories">
+    <Type Name="Category" Id="ID2">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="ParentId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Pathway" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(150)" CanBeNull="true" />
+      <Column Name="Contents" Type="System.String" DbType="NText" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="Link" Type="System.String" DbType="NVarChar(250)" CanBeNull="true" />
+      <Column Name="Description" Type="System.String" DbType="NVarChar(500)" CanBeNull="true" />
+      <Column Name="Image" Type="System.String" DbType="NVarChar(500)" CanBeNull="true" />
+      <Column Name="CreateDate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="ModifiedDate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="Published" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="Ordering" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="Params" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="Type" Type="System.Byte" DbType="TinyInt" CanBeNull="true" />
+      <Column Name="Language" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="" Member="Statistics">
+    <Type Name="Statistic" Id="ID15">
+      <Column Name="Month" Type="System.Int32" CanBeNull="false" />
+      <Column Name="Year" Type="System.Int32" CanBeNull="false" />
+      <Column Name="Number" Type="System.Int32" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Album" Member="Albums">
+    <Type Name="Album" Id="ID3">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Title" Type="System.String" DbType="NVarChar(250)" CanBeNull="true" />
+      <Column Name="Description" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="PublishDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="CreatedBy" Type="System.String" DbType="NVarChar(256)" CanBeNull="true" />
+      <Column Name="Status" Type="System.Byte" DbType="TinyInt" CanBeNull="true" />
+      <Column Name="CategoryId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="CategoryPathway" Type="System.String" DbType="NVarChar(250)" CanBeNull="true" />
+      <Column Name="Images" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="Hits" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Style" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Param" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.MarkLog" Member="MarkLogs">
+    <Type Name="MarkLog" Id="ID4">
+      <Column Name="Id" Type="System.Int64" DbType="BigInt NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="UserName" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="ContentId" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
+      <Column Name="Mark" Type="System.Double" DbType="Float NOT NULL" CanBeNull="false" />
+      <Column Name="Reason" Type="System.String" DbType="NVarChar(250)" CanBeNull="true" />
+      <Column Name="CreateTime" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Contact" Member="Contacts">
+    <Type Name="Contact" Id="ID5">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="CategoryId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="CategoryPathway" Type="System.String" DbType="NVarChar(250)" CanBeNull="true" />
+      <Column Name="Role" Type="System.String" DbType="NVarChar(250)" CanBeNull="true" />
+      <Column Name="Mail" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Mobile" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Published" Type="System.Byte" DbType="TinyInt" CanBeNull="true" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(250)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="" Member="MarkSTs">
+    <Type Name="MarkST" Id="ID18">
+      <Column Name="TotalContent" Storage="_TotalConent" Type="System.Int32" CanBeNull="false" />
+      <Column Name="TotalMark" Type="System.Double" CanBeNull="false" />
+      <Column Name="CreatedBy" Type="System.String" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.PublisherCategory" Member="PublisherCategories">
+    <Type Name="PublisherCategory" Id="ID7">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="CategoryPath" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="UserName" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.SystemConfig" Member="SystemConfigs">
+    <Type Name="SystemConfig" Id="ID6">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="ConfigKey" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="ConfigValue" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.GoNews" Member="GoNews">
+    <Type Name="GoNew" Id="ID8">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="News_Title" Type="System.String" DbType="NVarChar(MAX) NOT NULL" CanBeNull="false" />
+      <Column Name="News_Description" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="News_Content" Type="System.String" DbType="NText" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="News_Url" Type="System.String" DbType="NVarChar(500) NOT NULL" CanBeNull="false" />
+      <Column Name="News_CreatedDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="News_CategoryId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="News_ProjectId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Crawl_CreatedDate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="Crawl_UpdatedDate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="Crawl_Keyword" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="News_Deleted" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="News_IsHomePage" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="News_Image" Type="System.String" DbType="NVarChar(500)" CanBeNull="true" />
+      <Column Name="News_Image2" Type="System.String" DbType="NVarChar(500)" CanBeNull="true" />
+      <Column Name="News_IsImage" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="News_ParentId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="DataLinkId" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="LinkKey" Type="System.String" DbType="NVarChar(500)" CanBeNull="true" />
+      <Column Name="News_HomeTime" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Channel_Data" Member="Channel_Datas">
+    <Type Name="Channel_Data" Id="ID9">
+      <Column Name="Id" Type="System.Int64" DbType="BigInt NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="ChannelId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ContentId" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Channel" Member="Channels">
+    <Type Name="Channel" Id="ID10">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(250)" CanBeNull="true" />
+      <Column Name="Description" Type="System.String" DbType="NVarChar(1000)" CanBeNull="true" />
+      <Column Name="Image" Type="System.String" DbType="NVarChar(500)" CanBeNull="true" />
+      <Column Name="CreateTime" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="ContentId" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="Published" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Data" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.SurveyItem" Member="SurveyItems">
+    <Type Name="SurveyItem" Id="ID11">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="SurveyId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Count" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Content" Type="System.String" DbType="NVarChar(MAX) NOT NULL" CanBeNull="false" />
+      <Column Name="Status" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="[Order]" Member="Order" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Survey" Member="Surveys">
+    <Type Name="Survey" Id="ID12">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Title" Type="System.String" DbType="NVarChar(250)" CanBeNull="true" />
+      <Column Name="CategoryPath" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="Content" Type="System.String" DbType="NVarChar(MAX) NOT NULL" CanBeNull="false" />
+      <Column Name="BeginDate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="EndDate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="Status" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Type" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Comment" Member="Comments">
+    <Type Name="Comment" Id="ID13">
+      <Column Name="Id" Type="System.Int64" DbType="BigInt NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Type" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ItemId" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
+      <Column Name="ItemName" Type="System.String" DbType="NVarChar(250)" CanBeNull="true" />
+      <Column Name="UserName" Type="System.String" DbType="NVarChar(250) NOT NULL" CanBeNull="false" />
+      <Column Name="Message" Type="System.String" DbType="NVarChar(1000)" CanBeNull="true" />
+      <Column Name="Published" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="CreatedTime" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="Email" Type="System.String" DbType="NVarChar(250)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.ContentLog" Member="ContentLogs">
+    <Type Name="ContentLog" Id="ID14">
+      <Column Name="Id" Type="System.Int64" DbType="BigInt NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="UserName" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Type" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="ItemId" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
+      <Column Name="ItemtType" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ItemName" Type="System.String" DbType="NVarChar(250)" CanBeNull="true" />
+      <Column Name="Note" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="CreateTime" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="Description" Type="System.String" DbType="NVarChar(500) NOT NULL" CanBeNull="false" />
+      <Column Name="Contents" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="IntroText" Type="System.String" DbType="NVarChar(1000)" CanBeNull="true" />
+      <Column Name="Url" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="Title" Type="System.String" DbType="NVarChar(500)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.BusInfo" Member="BusInfos">
+    <Type Name="BusInfo" Id="ID17">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(256) NOT NULL" CanBeNull="false" />
+      <Column Name="Number" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="CityId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="TurnOn" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="TurnOff" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="ActivityTime" Type="System.String" DbType="NVarChar(256)" CanBeNull="true" />
+      <Column Name="Frequency" Type="System.String" DbType="NVarChar(256)" CanBeNull="true" />
+      <Column Name="OtherInfo" Type="System.String" DbType="NVarChar(500)" CanBeNull="true" />
+      <Column Name="Status" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Content" Member="Contents">
+    <Type Name="Content" Id="ID16">
+      <Column Name="Id" Type="System.Int64" DbType="BigInt NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="CategoryId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Title" Type="System.String" DbType="NVarChar(250)" CanBeNull="true" />
+      <Column Name="Keywords" Type="System.String" DbType="NVarChar(500)" CanBeNull="true" />
+      <Column Name="Album" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="Alias" Type="System.String" DbType="NVarChar(250)" CanBeNull="true" />
+      <Column Name="CategoryPathway" Type="System.String" DbType="NVarChar(250)" CanBeNull="true" />
+      <Column Name="IntroText" Type="System.String" DbType="NVarChar(1000)" CanBeNull="true" />
+      <Column Name="Contents" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="Image" Type="System.String" DbType="NVarChar(500)" CanBeNull="true" />
+      <Column Name="Thumbnail" Type="System.String" DbType="NVarChar(500)" CanBeNull="true" />
+      <Column Name="Url" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="CreatedBy" Type="System.String" DbType="NVarChar(256) NOT NULL" CanBeNull="false" />
+      <Column Name="ModifyDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="CreatedDate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="PublishDate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="Status" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="Type" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="Mark" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="Hits" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Params" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="CreatedRole" Type="System.String" DbType="VarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="Language" Type="System.String" CanBeNull="false" />
+      <Column Name="IsHot" Type="System.Int32" CanBeNull="false" />
+      <Column Name="SiteId" Type="System.Int32" CanBeNull="false" />
+      <Column Member="HitsAudio" Type="System.Int32" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Banner" Member="Banners">
+    <Type Name="Banner" Id="ID19">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Status" Type="System.Byte" DbType="TinyInt" CanBeNull="true" />
+      <Column Name="Region" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Data" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Column Name="Description" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Column Name="[Order]" Member="Order" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Url" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Column Name="Type" Type="System.Byte" DbType="TinyInt" CanBeNull="true" />
+      <Column Name="ModifyDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="Site" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="CategoryId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Document" Member="Documents">
+    <Type Name="Document" Id="ID20">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(250)" CanBeNull="true" />
+      <Column Name="Code" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Description" Type="System.String" DbType="NVarChar(1000)" CanBeNull="true" />
+      <Column Name="CategoryId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="CategoryPathway" Type="System.String" DbType="NVarChar(250)" CanBeNull="true" />
+      <Column Name="CreatedBy" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Column Name="CreatedDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="PublishDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="EffectiveDate" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="ExpiryDate" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="SignedBy" Type="System.String" DbType="NVarChar(250)" CanBeNull="true" />
+      <Column Name="SignedByDesc" Type="System.String" DbType="NVarChar(250)" CanBeNull="true" />
+      <Column Name="Hits" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="FilePath" Type="System.String" DbType="NVarChar(250)" CanBeNull="true" />
+      <Column Name="Status" Type="System.Byte" DbType="TinyInt" CanBeNull="true" />
+      <Column Name="Private" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Language" Type="System.String" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.FileUser" Member="FileUsers">
+    <Type Name="FileUser" Id="ID21">
+      <Column Name="Id" Type="System.Int64" DbType="BigInt NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="UserName" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="FileName" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Keyword" Type="System.String" DbType="NVarChar(250)" CanBeNull="true" />
+      <Column Name="CreateTime" Type="System.DateTime" DbType="Date NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.LogView" Member="LogViews">
+    <Type Name="LogView" Id="ID22">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" CanBeNull="false" />
+      <Column Name="Total" Type="System.Int32" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.TestArchive" Member="TestArchives">
+    <Type Name="TestArchive" Id="ID24">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Mobile" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
+      <Column Name="Location" Type="System.String" DbType="NVarChar(512)" CanBeNull="true" />
+      <Column Name="FulName" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="RegistorId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="StartTime" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="EndTime" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="Questions" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="Archive" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="Mark" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Status" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="TestTime" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="CreatedDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="Role" Type="System.String" DbType="NVarChar(512)" CanBeNull="true" />
+      <Column Name="Note" Type="System.Int32" DbType="int" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.TestQuestion" Member="TestQuestions">
+    <Type Name="TestQuestion" Id="ID26">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Title" Type="System.String" DbType="NVarChar(1000)" CanBeNull="true" />
+      <Column Name="Contents" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="Mark" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Type" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Explain" Type="System.String" DbType="NVarChar(512)" CanBeNull="true" />
+      <Column Name="Answers" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="Status" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="RegistorId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.TestRegistor" Member="TestRegistors">
+    <Type Name="TestRegistor" Id="ID27">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Title" Type="System.String" DbType="NVarChar(250)" CanBeNull="true" />
+      <Column Name="Desciption" Type="System.String" DbType="NVarChar(1024)" CanBeNull="true" />
+      <Column Name="StartTime" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="EndTime" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="Status" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="NumberQuestion" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="TestTime" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Type" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="" Member="TestArchiveTops">
+    <Type Name="TestArchiveTop" Id="ID25">
+      <Column Name="Mobile" Type="System.String" CanBeNull="false" />
+      <Column Name="Location" Type="System.String" CanBeNull="false" />
+      <Column Name="FullName" Type="System.String" CanBeNull="false" />
+      <Column Name="TestTime" Type="System.Int32" CanBeNull="false" />
+      <Column Name="Mark" Type="System.Int32" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="" Member="TestArchiveReports">
+    <Type Name="TestArchiveReport" Id="ID23">
+      <Column Name="CountTest" Type="System.String" CanBeNull="false" />
+      <Column Name="DateTest" Type="System.String" CanBeNull="false" />
+      <Column Name="CountMobile" Type="System.String" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Function Name="dbo.sp_Support_SelectPagedDynamic" Method="sp_Support_SelectPagedDynamic">
+    <Parameter Name="SelectQuery" Parameter="selectQuery" Type="System.String" DbType="NVarChar(MAX)" />
+    <Parameter Name="WhereCondition" Parameter="whereCondition" Type="System.String" DbType="NVarChar(MAX)" />
+    <Parameter Name="OrderByExpression" Parameter="orderByExpression" Type="System.String" DbType="NVarChar(250)" />
+    <Parameter Name="PageIndex" Parameter="pageIndex" Type="System.Int32" DbType="Int" />
+    <Parameter Name="PageSize" Parameter="pageSize" Type="System.Int32" DbType="Int" />
+    <Parameter Name="TotalRecord" Parameter="totalRecord" Type="System.Int32" DbType="Int" Direction="InOut" />
+    <ElementType IdRef="ID1" />
+  </Function>
+  <Function Name="dbo.sp_Support_SelectDynamic" Method="sp_Support_SelectDynamic">
+    <Parameter Name="SelectQuery" Parameter="selectQuery" Type="System.String" DbType="NVarChar(MAX)" />
+    <Parameter Name="WhereCondition" Parameter="whereCondition" Type="System.String" DbType="NVarChar(MAX)" />
+    <Parameter Name="OrderByExpression" Parameter="orderByExpression" Type="System.String" DbType="NVarChar(250)" />
+    <ElementType IdRef="ID1" />
+  </Function>
+  <Function Name="dbo.sp_Support_InsertUpdate" Method="sp_Support_InsertUpdate">
+    <Parameter Name="Id" Parameter="id" Type="System.Int32" DbType="Int" />
+    <Parameter Name="CategoryId" Parameter="categoryId" Type="System.Int32" DbType="Int" />
+    <Parameter Name="Supporter" Parameter="supporter" Type="System.String" DbType="NVarChar(50)" />
+    <Parameter Name="Yahoo" Parameter="yahoo" Type="System.String" DbType="NVarChar(50)" />
+    <Parameter Name="Skype" Parameter="skype" Type="System.String" DbType="NVarChar(50)" />
+    <Parameter Name="Mail" Parameter="mail" Type="System.String" DbType="NVarChar(50)" />
+    <Parameter Name="Phone" Parameter="phone" Type="System.String" DbType="NVarChar(50)" />
+    <Parameter Name="Mobile" Parameter="mobile" Type="System.String" DbType="NVarChar(50)" />
+    <Parameter Name="Published" Parameter="published" Type="System.Byte" DbType="TinyInt" />
+    <Parameter Name="Ordering" Parameter="ordering" Type="System.Byte" DbType="TinyInt" />
+    <Parameter Name="Params" Parameter="params" Type="System.String" DbType="NVarChar(MAX)" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.sp_Support_DeleteDynamic" Method="sp_Support_DeleteDynamic">
+    <Parameter Name="WhereCondition" Parameter="whereCondition" Type="System.String" DbType="NVarChar(500)" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.sp_Category_UpdateContent" Method="sp_Category_UpdateContent">
+    <Parameter Name="Id" Parameter="id" Type="System.Int32" DbType="Int" />
+    <Parameter Name="Contents" Parameter="contents" Type="System.String" DbType="NText" />
+    <Parameter Name="Published" Parameter="published" Type="System.Byte" DbType="TinyInt" />
+    <Parameter Name="Ordering" Parameter="ordering" Type="System.Byte" DbType="TinyInt" />
+    <Parameter Name="Language" Parameter="language" Type="System.String" DbType="NVarChar(255)" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.sp_Category_DeleteDynamic" Method="sp_Category_DeleteDynamic">
+    <Parameter Name="WhereCondition" Parameter="whereCondition" Type="System.String" DbType="NVarChar(500)" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.sp_Category_InsertUpdate" Method="sp_Category_InsertUpdate">
+    <Parameter Name="Id" Parameter="id" Type="System.Int32" DbType="Int" />
+    <Parameter Name="ParentId" Parameter="parentId" Type="System.Int32" DbType="Int" />
+    <Parameter Name="Pathway" Parameter="pathway" Type="System.String" DbType="NVarChar(100)" />
+    <Parameter Name="Name" Parameter="name" Type="System.String" DbType="NVarChar(150)" />
+    <Parameter Name="Link" Parameter="link" Type="System.String" DbType="NVarChar(250)" />
+    <Parameter Name="Description" Parameter="description" Type="System.String" DbType="NVarChar(500)" />
+    <Parameter Name="Contents" Parameter="contents" Type="System.String" DbType="NText" />
+    <Parameter Name="CreateDate" Parameter="createDate" Type="System.DateTime" DbType="DateTime" />
+    <Parameter Name="ModifiedDate" Parameter="modifiedDate" Type="System.DateTime" DbType="DateTime" />
+    <Parameter Name="Published" Parameter="published" Type="System.Byte" DbType="TinyInt" />
+    <Parameter Name="Ordering" Parameter="ordering" Type="System.Byte" DbType="TinyInt" />
+    <Parameter Name="Params" Parameter="params" Type="System.String" DbType="NVarChar(MAX)" />
+    <Parameter Name="Type" Parameter="type" Type="System.Byte" DbType="TinyInt" />
+    <Parameter Name="Language" Parameter="language" Type="System.String" DbType="NVarChar(255)" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.sp_Category_Select" Method="sp_Category_Select">
+    <Parameter Name="Id" Parameter="id" Type="System.Int32" DbType="Int" />
+    <ElementType IdRef="ID2" />
+  </Function>
+  <Function Name="dbo.sp_Category_SelectDynamic" Method="sp_Category_SelectDynamic">
+    <Parameter Name="SelectQuery" Parameter="selectQuery" Type="System.String" DbType="NVarChar(MAX)" />
+    <Parameter Name="WhereCondition" Parameter="whereCondition" Type="System.String" DbType="NVarChar(MAX)" />
+    <Parameter Name="OrderByExpression" Parameter="orderByExpression" Type="System.String" DbType="NVarChar(250)" />
+    <ElementType IdRef="ID2" />
+  </Function>
+  <Function Name="dbo.sp_Category_SelectPaged" Method="sp_Category_SelectPaged">
+    <Parameter Name="PageIndex" Parameter="pageIndex" Type="System.Int32" DbType="Int" />
+    <Parameter Name="PageSize" Parameter="pageSize" Type="System.Int32" DbType="Int" />
+    <Parameter Name="TotalRecord" Parameter="totalRecord" Type="System.Int32" DbType="Int" Direction="InOut" />
+    <ElementType IdRef="ID2" />
+  </Function>
+  <Function Name="dbo.sp_Category_SelectPagedDynamic" Method="sp_Category_SelectPagedDynamic">
+    <Parameter Name="SelectQuery" Parameter="selectQuery" Type="System.String" DbType="NVarChar(MAX)" />
+    <Parameter Name="WhereCondition" Parameter="whereCondition" Type="System.String" DbType="NVarChar(MAX)" />
+    <Parameter Name="OrderByExpression" Parameter="orderByExpression" Type="System.String" DbType="NVarChar(250)" />
+    <Parameter Name="PageIndex" Parameter="pageIndex" Type="System.Int32" DbType="Int" />
+    <Parameter Name="PageSize" Parameter="pageSize" Type="System.Int32" DbType="Int" />
+    <Parameter Name="TotalRecord" Parameter="totalRecord" Type="System.Int32" DbType="Int" Direction="InOut" />
+    <ElementType IdRef="ID2" />
+  </Function>
+  <Function Name="dbo.sp_Contact_DeleteDynamic" Method="sp_Contact_DeleteDynamic">
+    <Parameter Name="WhereCondition" Parameter="whereCondition" Type="System.String" DbType="NVarChar(500)" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.sp_Contact_UpdateDynamic" Method="sp_Contact_UpdateDynamic">
+    <Parameter Name="UpdateCondition" Parameter="updateCondition" Type="System.String" DbType="NVarChar(500)" />
+    <Parameter Name="WhereCondition" Parameter="whereCondition" Type="System.String" DbType="NVarChar(500)" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.sp_Album_InsertUpdate" Method="sp_Album_InsertUpdate">
+    <Parameter Name="Id" Parameter="id" Type="System.Int64" DbType="BigInt" />
+    <Parameter Name="CategoryId" Parameter="categoryId" Type="System.Int32" DbType="Int" />
+    <Parameter Name="Title" Parameter="title" Type="System.String" DbType="NVarChar(250)" />
+    <Parameter Name="CategoryPathway" Parameter="categoryPathway" Type="System.String" DbType="NVarChar(250)" />
+    <Parameter Name="Description" Parameter="description" Type="System.String" DbType="NVarChar(MAX)" />
+    <Parameter Name="CreatedBy" Parameter="createdBy" Type="System.String" DbType="NVarChar(256)" />
+    <Parameter Name="PublishDate" Parameter="publishDate" Type="System.DateTime" DbType="DateTime" />
+    <Parameter Name="Status" Parameter="status" Type="System.Byte" DbType="TinyInt" />
+    <Parameter Name="Hits" Parameter="hits" Type="System.Int32" DbType="Int" />
+    <Parameter Name="Images" Parameter="images" Type="System.String" DbType="NVarChar(MAX)" />
+    <Parameter Name="Style" Parameter="style" Type="System.Int32" DbType="Int" />
+    <Parameter Name="Param" Parameter="param" Type="System.String" DbType="NVarChar(MAX)" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.sp_Album_DeleteDynamic" Method="sp_Album_DeleteDynamic">
+    <Parameter Name="WhereCondition" Parameter="whereCondition" Type="System.String" DbType="NVarChar(500)" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.sp_Album_SelectDynamic" Method="sp_Album_SelectDynamic">
+    <Parameter Name="SelectQuery" Parameter="selectQuery" Type="System.String" DbType="NVarChar(MAX)" />
+    <Parameter Name="WhereCondition" Parameter="whereCondition" Type="System.String" DbType="NVarChar(MAX)" />
+    <Parameter Name="OrderByExpression" Parameter="orderByExpression" Type="System.String" DbType="NVarChar(250)" />
+    <ElementType IdRef="ID3" />
+  </Function>
+  <Function Name="dbo.sp_Album_SelectPagedDynamic" Method="sp_Album_SelectPagedDynamic">
+    <Parameter Name="SelectQuery" Parameter="selectQuery" Type="System.String" DbType="NVarChar(MAX)" />
+    <Parameter Name="WhereCondition" Parameter="whereCondition" Type="System.String" DbType="NVarChar(MAX)" />
+    <Parameter Name="OrderByExpression" Parameter="orderByExpression" Type="System.String" DbType="NVarChar(250)" />
+    <Parameter Name="PageIndex" Parameter="pageIndex" Type="System.Int32" DbType="Int" />
+    <Parameter Name="PageSize" Parameter="pageSize" Type="System.Int32" DbType="Int" />
+    <Parameter Name="TotalRecord" Parameter="totalRecord" Type="System.Int32" DbType="Int" Direction="InOut" />
+    <ElementType IdRef="ID3" />
+  </Function>
+  <Function Name="dbo.sp_Album_UpdateDynamic" Method="sp_Album_UpdateDynamic">
+    <Parameter Name="UpdateCondition" Parameter="updateCondition" Type="System.String" DbType="NVarChar(500)" />
+    <Parameter Name="WhereCondition" Parameter="whereCondition" Type="System.String" DbType="NVarChar(500)" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.sp_MarkLog_InsertUpdate" Method="sp_MarkLog_InsertUpdate">
+    <Parameter Name="Id" Parameter="id" Type="System.Int64" DbType="BigInt" />
+    <Parameter Name="UserName" Parameter="userName" Type="System.String" DbType="NVarChar(50)" />
+    <Parameter Name="ContentId" Parameter="contentId" Type="System.Int64" DbType="BigInt" />
+    <Parameter Name="Mark" Parameter="mark" Type="System.Double" DbType="Float" />
+    <Parameter Name="Reason" Parameter="reason" Type="System.String" DbType="NVarChar(250)" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.sp_MarkLog_SelectDynamic" Method="sp_MarkLog_SelectDynamic">
+    <Parameter Name="SelectQuery" Parameter="selectQuery" Type="System.String" DbType="NVarChar(MAX)" />
+    <Parameter Name="WhereCondition" Parameter="whereCondition" Type="System.String" DbType="NVarChar(MAX)" />
+    <Parameter Name="OrderByExpression" Parameter="orderByExpression" Type="System.String" DbType="NVarChar(250)" />
+    <ElementType IdRef="ID4" />
+  </Function>
+  <Function Name="dbo.sp_Contact_InsertUpdate" Method="sp_Contact_InsertUpdate">
+    <Parameter Name="Id" Parameter="id" Type="System.Int32" DbType="Int" />
+    <Parameter Name="CategoryId" Parameter="categoryId" Type="System.Int32" DbType="Int" />
+    <Parameter Name="CategoryPathway" Parameter="categoryPathway" Type="System.String" DbType="NVarChar(250)" />
+    <Parameter Name="Name" Parameter="name" Type="System.String" DbType="NVarChar(250)" />
+    <Parameter Name="Role" Parameter="role" Type="System.String" DbType="NVarChar(250)" />
+    <Parameter Name="Mail" Parameter="mail" Type="System.String" DbType="NVarChar(50)" />
+    <Parameter Name="Mobile" Parameter="mobile" Type="System.String" DbType="NVarChar(50)" />
+    <Parameter Name="Published" Parameter="published" Type="System.Byte" DbType="TinyInt" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.sp_Contact_SelectDynamic" Method="sp_Contact_SelectDynamic">
+    <Parameter Name="SelectQuery" Parameter="selectQuery" Type="System.String" DbType="NVarChar(MAX)" />
+    <Parameter Name="WhereCondition" Parameter="whereCondition" Type="System.String" DbType="NVarChar(MAX)" />
+    <Parameter Name="OrderByExpression" Parameter="orderByExpression" Type="System.String" DbType="NVarChar(250)" />
+    <ElementType IdRef="ID5" />
+  </Function>
+  <Function Name="dbo.sp_Contact_SelectPagedDynamic" Method="sp_Contact_SelectPagedDynamic">
+    <Parameter Name="SelectQuery" Parameter="selectQuery" Type="System.String" DbType="NVarChar(MAX)" />
+    <Parameter Name="WhereCondition" Parameter="whereCondition" Type="System.String" DbType="NVarChar(MAX)" />
+    <Parameter Name="OrderByExpression" Parameter="orderByExpression" Type="System.String" DbType="NVarChar(250)" />
+    <Parameter Name="PageIndex" Parameter="pageIndex" Type="System.Int32" DbType="Int" />
+    <Parameter Name="PageSize" Parameter="pageSize" Type="System.Int32" DbType="Int" />
+    <Parameter Name="TotalRecord" Parameter="totalRecord" Type="System.Int32" DbType="Int" Direction="InOut" />
+    <ElementType IdRef="ID5" />
+  </Function>
+  <Function Name="dbo.sp_SystemConfig_InsertUpdate" Method="sp_SystemConfig_InsertUpdate">
+    <Parameter Name="Id" Parameter="id" Type="System.Int32" DbType="Int" />
+    <Parameter Name="ConfigKey" Parameter="configKey" Type="System.String" DbType="NVarChar(50)" />
+    <Parameter Name="ConfigValue" Parameter="configValue" Type="System.String" DbType="NVarChar(MAX)" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.sp_SystemConfig_SelectDynamic" Method="sp_SystemConfig_SelectDynamic">
+    <Parameter Name="SelectQuery" Parameter="selectQuery" Type="System.String" DbType="NVarChar(MAX)" />
+    <Parameter Name="WhereCondition" Parameter="whereCondition" Type="System.String" DbType="NVarChar(MAX)" />
+    <Parameter Name="OrderByExpression" Parameter="orderByExpression" Type="System.String" DbType="NVarChar(250)" />
+    <ElementType IdRef="ID6" />
+  </Function>
+  <Function Name="dbo.sp_PublisherCategory_InsertUpdate" Method="sp_PublisherCategory_InsertUpdate">
+    <Parameter Name="Id" Parameter="id" Type="System.Int32" DbType="Int" />
+    <Parameter Name="UserName" Parameter="userName" Type="System.String" DbType="NVarChar(50)" />
+    <Parameter Name="CategoryPath" Parameter="categoryPath" Type="System.String" DbType="NVarChar(MAX)" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.sp_PublisherCategory_SelectDynamic" Method="sp_PublisherCategory_SelectDynamic">
+    <Parameter Name="SelectQuery" Parameter="selectQuery" Type="System.String" DbType="NVarChar(MAX)" />
+    <Parameter Name="WhereCondition" Parameter="whereCondition" Type="System.String" DbType="NVarChar(MAX)" />
+    <Parameter Name="OrderByExpression" Parameter="orderByExpression" Type="System.String" DbType="NVarChar(250)" />
+    <ElementType IdRef="ID7" />
+  </Function>
+  <Function Name="dbo.sp_GoNews_SelectDynamic" Method="sp_GoNews_SelectDynamic">
+    <Parameter Name="SelectQuery" Parameter="selectQuery" Type="System.String" DbType="NVarChar(MAX)" />
+    <Parameter Name="WhereCondition" Parameter="whereCondition" Type="System.String" DbType="NVarChar(MAX)" />
+    <Parameter Name="OrderByExpression" Parameter="orderByExpression" Type="System.String" DbType="NVarChar(250)" />
+    <ElementType IdRef="ID8" />
+  </Function>
+  <Function Name="dbo.sp_GoNews_DeleteDynamic" Method="sp_GoNews_DeleteDynamic">
+    <Parameter Name="WhereCondition" Parameter="whereCondition" Type="System.String" DbType="NVarChar(500)" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.sp_GoNews_SelectPagedDynamic" Method="sp_GoNews_SelectPagedDynamic">
+    <Parameter Name="SelectQuery" Parameter="selectQuery" Type="System.String" DbType="NVarChar(MAX)" />
+    <Parameter Name="WhereCondition" Parameter="whereCondition" Type="System.String" DbType="NVarChar(MAX)" />
+    <Parameter Name="OrderByExpression" Parameter="orderByExpression" Type="System.String" DbType="NVarChar(250)" />
+    <Parameter Name="PageIndex" Parameter="pageIndex" Type="System.Int32" DbType="Int" />
+    <Parameter Name="PageSize" Parameter="pageSize" Type="System.Int32" DbType="Int" />
+    <Parameter Name="TotalRecord" Parameter="totalRecord" Type="System.Int32" DbType="Int" Direction="InOut" />
+    <ElementType IdRef="ID8" />
+  </Function>
+  <Function Name="dbo.sp_Channel_DeleteDynamic" Method="sp_Channel_DeleteDynamic">
+    <Parameter Name="WhereCondition" Parameter="whereCondition" Type="System.String" DbType="NVarChar(500)" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.sp_ChannelData_SelectPagedDynamic" Method="sp_ChannelData_SelectPagedDynamic">
+    <Parameter Name="SelectQuery" Parameter="selectQuery" Type="System.String" DbType="NVarChar(MAX)" />
+    <Parameter Name="WhereCondition" Parameter="whereCondition" Type="System.String" DbType="NVarChar(MAX)" />
+    <Parameter Name="OrderByExpression" Parameter="orderByExpression" Type="System.String" DbType="NVarChar(250)" />
+    <Parameter Name="PageIndex" Parameter="pageIndex" Type="System.Int32" DbType="Int" />
+    <Parameter Name="PageSize" Parameter="pageSize" Type="System.Int32" DbType="Int" />
+    <Parameter Name="TotalRecord" Parameter="totalRecord" Type="System.Int32" DbType="Int" Direction="InOut" />
+    <ElementType IdRef="ID9" />
+  </Function>
+  <Function Name="dbo.sp_Channel_InsertUpdate" Method="sp_Channel_InsertUpdate">
+    <Parameter Name="Id" Parameter="id" Type="System.Int32" DbType="Int" />
+    <Parameter Name="Name" Parameter="name" Type="System.String" DbType="NVarChar(250)" />
+    <Parameter Name="Description" Parameter="description" Type="System.String" DbType="NVarChar(1000)" />
+    <Parameter Name="Image" Parameter="image" Type="System.String" DbType="NVarChar(MAX)" />
+    <Parameter Name="Published" Parameter="published" Type="System.Int32" DbType="Int" />
+    <Parameter Name="Data" Parameter="data" Type="System.String" DbType="NVarChar(MAX)" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.sp_Channel_SelectDynamic" Method="sp_Channel_SelectDynamic">
+    <Parameter Name="SelectQuery" Parameter="selectQuery" Type="System.String" DbType="NVarChar(MAX)" />
+    <Parameter Name="WhereCondition" Parameter="whereCondition" Type="System.String" DbType="NVarChar(MAX)" />
+    <Parameter Name="OrderByExpression" Parameter="orderByExpression" Type="System.String" DbType="NVarChar(250)" />
+    <ElementType IdRef="ID10" />
+  </Function>
+  <Function Name="dbo.sp_Channel_SelectPagedDynamic" Method="sp_Channel_SelectPagedDynamic">
+    <Parameter Name="SelectQuery" Parameter="selectQuery" Type="System.String" DbType="NVarChar(MAX)" />
+    <Parameter Name="WhereCondition" Parameter="whereCondition" Type="System.String" DbType="NVarChar(MAX)" />
+    <Parameter Name="OrderByExpression" Parameter="orderByExpression" Type="System.String" DbType="NVarChar(250)" />
+    <Parameter Name="PageIndex" Parameter="pageIndex" Type="System.Int32" DbType="Int" />
+    <Parameter Name="PageSize" Parameter="pageSize" Type="System.Int32" DbType="Int" />
+    <Parameter Name="TotalRecord" Parameter="totalRecord" Type="System.Int32" DbType="Int" Direction="InOut" />
+    <ElementType IdRef="ID10" />
+  </Function>
+  <Function Name="dbo.sp_ChannelData_DeleteDynamic" Method="sp_ChannelData_DeleteDynamic">
+    <Parameter Name="WhereCondition" Parameter="whereCondition" Type="System.String" DbType="NVarChar(500)" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.sp_ChannelData_InsertUpdate" Method="sp_ChannelData_InsertUpdate">
+    <Parameter Name="Id" Parameter="id" Type="System.Int64" DbType="BigInt" />
+    <Parameter Name="ContentId" Parameter="contentId" Type="System.Int64" DbType="BigInt" />
+    <Parameter Name="ChannelId" Parameter="channelId" Type="System.Int32" DbType="Int" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.sp_ChannelData_SelectDynamic" Method="sp_ChannelData_SelectDynamic">
+    <Parameter Name="SelectQuery" Parameter="selectQuery" Type="System.String" DbType="NVarChar(MAX)" />
+    <Parameter Name="WhereCondition" Parameter="whereCondition" Type="System.String" DbType="NVarChar(MAX)" />
+    <Parameter Name="OrderByExpression" Parameter="orderByExpression" Type="System.String" DbType="NVarChar(250)" />
+    <ElementType IdRef="ID9" />
+  </Function>
+  <Function Name="dbo.sp_SurveyItem_SelectDynamic" Method="sp_SurveyItem_SelectDynamic">
+    <Parameter Name="SelectQuery" Parameter="selectQuery" Type="System.String" DbType="NVarChar(MAX)" />
+    <Parameter Name="WhereCondition" Parameter="whereCondition" Type="System.String" DbType="NVarChar(MAX)" />
+    <Parameter Name="OrderByExpression" Parameter="orderByExpression" Type="System.String" DbType="NVarChar(250)" />
+    <ElementType IdRef="ID11" />
+  </Function>
+  <Function Name="dbo.sp_SurveyItem_UpdateDynamic" Method="sp_SurveyItem_UpdateDynamic">
+    <Parameter Name="UpdateCondition" Parameter="updateCondition" Type="System.String" DbType="NVarChar(500)" />
+    <Parameter Name="WhereCondition" Parameter="whereCondition" Type="System.String" DbType="NVarChar(500)" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.sp_SurveyItem_InsertUpdate" Method="sp_SurveyItem_InsertUpdate">
+    <Parameter Name="Id" Parameter="id" Type="System.Int32" DbType="Int" />
+    <Parameter Name="Content" Parameter="content" Type="System.String" DbType="NVarChar(MAX)" />
+    <Parameter Name="SurveyId" Parameter="surveyId" Type="System.Int32" DbType="Int" />
+    <Parameter Name="Count" Parameter="count" Type="System.Int32" DbType="Int" />
+    <Parameter Name="Status" Parameter="status" Type="System.Int32" DbType="Int" />
+    <Parameter Name="Order" Parameter="order" Type="System.Int32" DbType="Int" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.sp_SurveyItem_DeleteDynamic" Method="sp_SurveyItem_DeleteDynamic">
+    <Parameter Name="WhereCondition" Parameter="whereCondition" Type="System.String" DbType="NVarChar(500)" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.sp_Survey_SelectPagedDynamic" Method="sp_Survey_SelectPagedDynamic">
+    <Parameter Name="SelectQuery" Parameter="selectQuery" Type="System.String" DbType="NVarChar(MAX)" />
+    <Parameter Name="WhereCondition" Parameter="whereCondition" Type="System.String" DbType="NVarChar(MAX)" />
+    <Parameter Name="OrderByExpression" Parameter="orderByExpression" Type="System.String" DbType="NVarChar(250)" />
+    <Parameter Name="PageIndex" Parameter="pageIndex" Type="System.Int32" DbType="Int" />
+    <Parameter Name="PageSize" Parameter="pageSize" Type="System.Int32" DbType="Int" />
+    <Parameter Name="TotalRecord" Parameter="totalRecord" Type="System.Int32" DbType="Int" Direction="InOut" />
+    <ElementType IdRef="ID12" />
+  </Function>
+  <Function Name="dbo.sp_Survey_SelectDynamic" Method="sp_Survey_SelectDynamic">
+    <Parameter Name="SelectQuery" Parameter="selectQuery" Type="System.String" DbType="NVarChar(MAX)" />
+    <Parameter Name="WhereCondition" Parameter="whereCondition" Type="System.String" DbType="NVarChar(MAX)" />
+    <Parameter Name="OrderByExpression" Parameter="orderByExpression" Type="System.String" DbType="NVarChar(250)" />
+    <ElementType IdRef="ID12" />
+  </Function>
+  <Function Name="dbo.sp_Survey_InsertUpdate" Method="sp_Survey_InsertUpdate">
+    <Parameter Name="Id" Parameter="id" Type="System.Int32" DbType="Int" />
+    <Parameter Name="Title" Parameter="title" Type="System.String" DbType="NVarChar(250)" />
+    <Parameter Name="Content" Parameter="content" Type="System.String" DbType="NVarChar(MAX)" />
+    <Parameter Name="CategoryPath" Parameter="categoryPath" Type="System.String" DbType="NVarChar(MAX)" />
+    <Parameter Name="BeginDate" Parameter="beginDate" Type="System.DateTime" DbType="DateTime" />
+    <Parameter Name="EndDate" Parameter="endDate" Type="System.DateTime" DbType="DateTime" />
+    <Parameter Name="Status" Parameter="status" Type="System.Int32" DbType="Int" />
+    <Parameter Name="Type" Parameter="type" Type="System.Int32" DbType="Int" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.sp_Survey_DeleteDynamic" Method="sp_Survey_DeleteDynamic">
+    <Parameter Name="WhereCondition" Parameter="whereCondition" Type="System.String" DbType="NVarChar(500)" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.sp_Comment_UpdateDynamic" Method="sp_Comment_UpdateDynamic">
+    <Parameter Name="UpdateCondition" Parameter="updateCondition" Type="System.String" DbType="NVarChar(500)" />
+    <Parameter Name="WhereCondition" Parameter="whereCondition" Type="System.String" DbType="NVarChar(500)" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.sp_Comment_SelectPagedDynamic" Method="sp_Comment_SelectPagedDynamic">
+    <Parameter Name="SelectQuery" Parameter="selectQuery" Type="System.String" DbType="NVarChar(MAX)" />
+    <Parameter Name="WhereCondition" Parameter="whereCondition" Type="System.String" DbType="NVarChar(MAX)" />
+    <Parameter Name="OrderByExpression" Parameter="orderByExpression" Type="System.String" DbType="NVarChar(250)" />
+    <Parameter Name="PageIndex" Parameter="pageIndex" Type="System.Int32" DbType="Int" />
+    <Parameter Name="PageSize" Parameter="pageSize" Type="System.Int32" DbType="Int" />
+    <Parameter Name="TotalRecord" Parameter="totalRecord" Type="System.Int32" DbType="Int" Direction="InOut" />
+    <ElementType IdRef="ID13" />
+  </Function>
+  <Function Name="dbo.sp_Comment_SelectDynamic" Method="sp_Comment_SelectDynamic">
+    <Parameter Name="SelectQuery" Parameter="selectQuery" Type="System.String" DbType="NVarChar(MAX)" />
+    <Parameter Name="WhereCondition" Parameter="whereCondition" Type="System.String" DbType="NVarChar(MAX)" />
+    <Parameter Name="OrderByExpression" Parameter="orderByExpression" Type="System.String" DbType="NVarChar(250)" />
+    <ElementType IdRef="ID13" />
+  </Function>
+  <Function Name="dbo.sp_Comment_InsertUpdate" Method="sp_Comment_InsertUpdate">
+    <Parameter Name="Id" Parameter="id" Type="System.Int64" DbType="BigInt" />
+    <Parameter Name="Type" Parameter="type" Type="System.Int32" DbType="Int" />
+    <Parameter Name="ItemId" Parameter="itemId" Type="System.Int64" DbType="BigInt" />
+    <Parameter Name="UserName" Parameter="userName" Type="System.String" DbType="NVarChar(250)" />
+    <Parameter Name="Email" Parameter="email" Type="System.String" DbType="NVarChar(250)" />
+    <Parameter Name="ItemName" Parameter="itemName" Type="System.String" DbType="NVarChar(250)" />
+    <Parameter Name="Message" Parameter="message" Type="System.String" DbType="NVarChar(1000)" />
+    <Parameter Name="Published" Parameter="published" Type="System.Byte" DbType="TinyInt" />
+    <Parameter Name="CreatedTime" Parameter="createdTime" Type="System.DateTime" DbType="DateTime" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.sp_Comment_DeleteDynamic" Method="sp_Comment_DeleteDynamic">
+    <Parameter Name="WhereCondition" Parameter="whereCondition" Type="System.String" DbType="NVarChar(500)" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.sp_ContentLog_InsertUpdate" Method="sp_ContentLog_InsertUpdate">
+    <Parameter Name="Id" Parameter="id" Type="System.Int64" DbType="BigInt" />
+    <Parameter Name="UserName" Parameter="userName" Type="System.String" DbType="NVarChar(50)" />
+    <Parameter Name="Type" Parameter="type" Type="System.Int32" DbType="Int" />
+    <Parameter Name="ItemId" Parameter="itemId" Type="System.Int64" DbType="BigInt" />
+    <Parameter Name="ItemType" Parameter="itemType" Type="System.Int32" DbType="Int" />
+    <Parameter Name="ItemName" Parameter="itemName" Type="System.String" DbType="NVarChar(250)" />
+    <Parameter Name="Note" Parameter="note" Type="System.String" DbType="NVarChar(MAX)" />
+    <Parameter Name="Description" Parameter="description" Type="System.String" DbType="NVarChar(500)" />
+    <Parameter Name="IntroText" Parameter="introText" Type="System.String" DbType="NVarChar(1000)" />
+    <Parameter Name="Contents" Parameter="contents" Type="System.String" DbType="NVarChar(MAX)" />
+    <Parameter Name="Url" Parameter="url" Type="System.String" DbType="NVarChar(MAX)" />
+    <Parameter Name="Title" Parameter="title" Type="System.String" DbType="NVarChar(500)" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.sp_ContentLog_SelectDynamic" Method="sp_ContentLog_SelectDynamic">
+    <Parameter Name="SelectQuery" Parameter="selectQuery" Type="System.String" DbType="NVarChar(MAX)" />
+    <Parameter Name="WhereCondition" Parameter="whereCondition" Type="System.String" DbType="NVarChar(MAX)" />
+    <Parameter Name="OrderByExpression" Parameter="orderByExpression" Type="System.String" DbType="NVarChar(250)" />
+    <ElementType IdRef="ID14" />
+  </Function>
+  <Function Name="dbo.sp_ContentLog_SelectPagedDynamic" Method="sp_ContentLog_SelectPagedDynamic">
+    <Parameter Name="SelectQuery" Parameter="selectQuery" Type="System.String" DbType="NVarChar(MAX)" />
+    <Parameter Name="WhereCondition" Parameter="whereCondition" Type="System.String" DbType="NVarChar(MAX)" />
+    <Parameter Name="OrderByExpression" Parameter="orderByExpression" Type="System.String" DbType="NVarChar(250)" />
+    <Parameter Name="PageIndex" Parameter="pageIndex" Type="System.Int32" DbType="Int" />
+    <Parameter Name="PageSize" Parameter="pageSize" Type="System.Int32" DbType="Int" />
+    <Parameter Name="TotalRecord" Parameter="totalRecord" Type="System.Int32" DbType="Int" Direction="InOut" />
+    <ElementType IdRef="ID14" />
+  </Function>
+  <Function Name="dbo.sp_Content_ByReport" Method="sp_Content_ByReport">
+    <Parameter Name="CategoryId" Parameter="categoryId" Type="System.Int32" DbType="Int" />
+    <Parameter Name="Year" Parameter="year" Type="System.Int32" DbType="Int" />
+    <ElementType IdRef="ID15" />
+  </Function>
+  <Function Name="dbo.sp_Content_DeleteDynamic" Method="sp_Content_DeleteDynamic">
+    <Parameter Name="WhereCondition" Parameter="whereCondition" Type="System.String" DbType="NVarChar(500)" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.sp_Content_Mark" Method="sp_Content_Mark">
+    <Parameter Name="Id" Parameter="id" Type="System.Int64" DbType="BigInt" />
+    <Parameter Name="Mark" Parameter="mark" Type="System.Double" DbType="Float" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.sp_Content_SelectDynamic" Method="sp_Content_SelectDynamic">
+    <Parameter Name="SelectQuery" Parameter="selectQuery" Type="System.String" DbType="NVarChar(MAX)" />
+    <Parameter Name="WhereCondition" Parameter="whereCondition" Type="System.String" DbType="NVarChar(MAX)" />
+    <Parameter Name="OrderByExpression" Parameter="orderByExpression" Type="System.String" DbType="NVarChar(250)" />
+    <ElementType IdRef="ID16" />
+  </Function>
+  <Function Name="dbo.sp_Content_SelectPagedDynamic" Method="sp_Content_SelectPagedDynamic">
+    <Parameter Name="SelectQuery" Parameter="selectQuery" Type="System.String" DbType="NVarChar(MAX)" />
+    <Parameter Name="WhereCondition" Parameter="whereCondition" Type="System.String" DbType="NVarChar(MAX)" />
+    <Parameter Name="OrderByExpression" Parameter="orderByExpression" Type="System.String" DbType="NVarChar(250)" />
+    <Parameter Name="PageIndex" Parameter="pageIndex" Type="System.Int32" DbType="Int" />
+    <Parameter Name="PageSize" Parameter="pageSize" Type="System.Int32" DbType="Int" />
+    <Parameter Name="TotalRecord" Parameter="totalRecord" Type="System.Int32" DbType="Int" Direction="InOut" />
+    <ElementType IdRef="ID16" />
+  </Function>
+  <Function Name="dbo.sp_ContentMark_SelectPagedDynamic" Method="sp_ContentMark_SelectPagedDynamic">
+    <Parameter Name="SelectQuery" Parameter="selectQuery" Type="System.String" DbType="NVarChar(MAX)" />
+    <Parameter Name="WhereCondition" Parameter="whereCondition" Type="System.String" DbType="NVarChar(MAX)" />
+    <Parameter Name="OrderByExpression" Parameter="orderByExpression" Type="System.String" DbType="NVarChar(250)" />
+    <Parameter Name="PageIndex" Parameter="pageIndex" Type="System.Int32" DbType="Int" />
+    <Parameter Name="PageSize" Parameter="pageSize" Type="System.Int32" DbType="Int" />
+    <Parameter Name="TotalRecord" Parameter="totalRecord" Type="System.Int32" DbType="Int" Direction="InOut" />
+    <Parameter Name="TotalMark" Parameter="totalMark" Type="System.Int32" DbType="Int" Direction="InOut" />
+    <ElementType IdRef="ID16" />
+  </Function>
+  <Function Name="dbo.sp_BusInfo_SelectDynamic" Method="sp_BusInfo_SelectDynamic">
+    <Parameter Name="SelectQuery" Parameter="selectQuery" Type="System.String" DbType="NVarChar(MAX)" />
+    <Parameter Name="WhereCondition" Parameter="whereCondition" Type="System.String" DbType="NVarChar(MAX)" />
+    <Parameter Name="OrderByExpression" Parameter="orderByExpression" Type="System.String" DbType="NVarChar(250)" />
+    <ElementType IdRef="ID17" />
+  </Function>
+  <Function Name="dbo.sp_BusInfo_SelectPagedDynamic" Method="sp_BusInfo_SelectPagedDynamic">
+    <Parameter Name="SelectQuery" Parameter="selectQuery" Type="System.String" DbType="NVarChar(MAX)" />
+    <Parameter Name="WhereCondition" Parameter="whereCondition" Type="System.String" DbType="NVarChar(MAX)" />
+    <Parameter Name="OrderByExpression" Parameter="orderByExpression" Type="System.String" DbType="NVarChar(250)" />
+    <Parameter Name="PageIndex" Parameter="pageIndex" Type="System.Int32" DbType="Int" />
+    <Parameter Name="PageSize" Parameter="pageSize" Type="System.Int32" DbType="Int" />
+    <Parameter Name="TotalRecord" Parameter="totalRecord" Type="System.Int32" DbType="Int" Direction="InOut" />
+    <ElementType IdRef="ID17" />
+  </Function>
+  <Function Name="dbo.sp_Content_SelectMark" Method="sp_Content_SelectMark">
+    <Parameter Name="SelectQuery" Parameter="selectQuery" Type="System.String" DbType="NVarChar(MAX)" />
+    <Parameter Name="WhereCondition" Parameter="whereCondition" Type="System.String" DbType="NVarChar(MAX)" />
+    <Parameter Name="OrderByExpression" Parameter="orderByExpression" Type="System.String" DbType="NVarChar(250)" />
+    <Parameter Name="GroupByExpression" Parameter="groupByExpression" Type="System.String" DbType="NVarChar(250)" />
+    <ElementType IdRef="ID18" />
+  </Function>
+  <Function Name="dbo.sp_Banner_DeleteDynamic" Method="sp_Banner_DeleteDynamic">
+    <Parameter Name="WhereCondition" Parameter="whereCondition" Type="System.String" DbType="NVarChar(500)" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.sp_Banner_InsertUpdate" Method="sp_Banner_InsertUpdate">
+    <Parameter Name="Id" Parameter="id" Type="System.Int64" DbType="BigInt" />
+    <Parameter Name="Name" Parameter="name" Type="System.String" DbType="NVarChar(50)" />
+    <Parameter Name="Data" Parameter="data" Type="System.String" DbType="NVarChar(255)" />
+    <Parameter Name="Description" Parameter="description" Type="System.String" DbType="NVarChar(255)" />
+    <Parameter Name="Region" Parameter="region" Type="System.Int32" DbType="Int" />
+    <Parameter Name="Status" Parameter="status" Type="System.Byte" DbType="TinyInt" />
+    <Parameter Name="Type" Parameter="type" Type="System.Byte" DbType="TinyInt" />
+    <Parameter Name="Url" Parameter="url" Type="System.String" DbType="NVarChar(255)" />
+    <Parameter Name="Order" Parameter="order" Type="System.Int32" DbType="Int" />
+    <Parameter Name="Site" Parameter="site" Type="System.Int32" DbType="Int" />
+    <Parameter Name="CategoryId" Parameter="categoryId" Type="System.Int32" DbType="Int" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.sp_Banner_SelectDynamic" Method="sp_Banner_SelectDynamic">
+    <Parameter Name="SelectQuery" Parameter="selectQuery" Type="System.String" DbType="NVarChar(MAX)" />
+    <Parameter Name="WhereCondition" Parameter="whereCondition" Type="System.String" DbType="NVarChar(MAX)" />
+    <Parameter Name="OrderByExpression" Parameter="orderByExpression" Type="System.String" DbType="NVarChar(250)" />
+    <ElementType IdRef="ID19" />
+  </Function>
+  <Function Name="dbo.sp_Banner_SelectPagedDynamic" Method="sp_Banner_SelectPagedDynamic">
+    <Parameter Name="SelectQuery" Parameter="selectQuery" Type="System.String" DbType="NVarChar(MAX)" />
+    <Parameter Name="WhereCondition" Parameter="whereCondition" Type="System.String" DbType="NVarChar(MAX)" />
+    <Parameter Name="OrderByExpression" Parameter="orderByExpression" Type="System.String" DbType="NVarChar(250)" />
+    <Parameter Name="PageIndex" Parameter="pageIndex" Type="System.Int32" DbType="Int" />
+    <Parameter Name="PageSize" Parameter="pageSize" Type="System.Int32" DbType="Int" />
+    <Parameter Name="TotalRecord" Parameter="totalRecord" Type="System.Int32" DbType="Int" Direction="InOut" />
+    <ElementType IdRef="ID19" />
+  </Function>
+  <Function Name="dbo.sp_Document_DeleteDynamic" Method="sp_Document_DeleteDynamic">
+    <Parameter Name="WhereCondition" Parameter="whereCondition" Type="System.String" DbType="NVarChar(500)" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.sp_Document_SelectDynamic" Method="sp_Document_SelectDynamic">
+    <Parameter Name="SelectQuery" Parameter="selectQuery" Type="System.String" DbType="NVarChar(MAX)" />
+    <Parameter Name="WhereCondition" Parameter="whereCondition" Type="System.String" DbType="NVarChar(MAX)" />
+    <Parameter Name="OrderByExpression" Parameter="orderByExpression" Type="System.String" DbType="NVarChar(250)" />
+    <ElementType IdRef="ID20" />
+  </Function>
+  <Function Name="dbo.sp_Document_SelectPagedDynamic" Method="sp_Document_SelectPagedDynamic">
+    <Parameter Name="SelectQuery" Parameter="selectQuery" Type="System.String" DbType="NVarChar(MAX)" />
+    <Parameter Name="WhereCondition" Parameter="whereCondition" Type="System.String" DbType="NVarChar(MAX)" />
+    <Parameter Name="OrderByExpression" Parameter="orderByExpression" Type="System.String" DbType="NVarChar(250)" />
+    <Parameter Name="PageIndex" Parameter="pageIndex" Type="System.Int32" DbType="Int" />
+    <Parameter Name="PageSize" Parameter="pageSize" Type="System.Int32" DbType="Int" />
+    <Parameter Name="TotalRecord" Parameter="totalRecord" Type="System.Int32" DbType="Int" Direction="InOut" />
+    <ElementType IdRef="ID20" />
+  </Function>
+  <Function Name="dbo.sp_Document_InsertUpdate" Method="sp_Document_InsertUpdate">
+    <Parameter Name="Id" Parameter="id" Type="System.Int64" DbType="BigInt" />
+    <Parameter Name="CategoryId" Parameter="categoryId" Type="System.Int32" DbType="Int" />
+    <Parameter Name="Name" Parameter="name" Type="System.String" DbType="NVarChar(250)" />
+    <Parameter Name="CategoryPathway" Parameter="categoryPathway" Type="System.String" DbType="NVarChar(250)" />
+    <Parameter Name="Description" Parameter="description" Type="System.String" DbType="NVarChar(500)" />
+    <Parameter Name="CreatedBy" Parameter="createdBy" Type="System.String" DbType="NVarChar(255)" />
+    <Parameter Name="PublishDate" Parameter="publishDate" Type="System.DateTime" DbType="DateTime" />
+    <Parameter Name="CreatedDate" Parameter="createdDate" Type="System.DateTime" DbType="DateTime" />
+    <Parameter Name="EffectiveDate" Parameter="effectiveDate" Type="System.String" DbType="NVarChar(50)" />
+    <Parameter Name="ExpiryDate" Parameter="expiryDate" Type="System.String" DbType="NVarChar(50)" />
+    <Parameter Name="Status" Parameter="status" Type="System.Byte" DbType="TinyInt" />
+    <Parameter Name="Hits" Parameter="hits" Type="System.Int32" DbType="Int" />
+    <Parameter Name="Private" Parameter="private" Type="System.Int32" DbType="Int" />
+    <Parameter Name="FilePath" Parameter="filePath" Type="System.String" DbType="NVarChar(255)" />
+    <Parameter Name="Code" Parameter="code" Type="System.String" DbType="NVarChar(50)" />
+    <Parameter Name="SignedBy" Parameter="signedBy" Type="System.String" DbType="NVarChar(250)" />
+    <Parameter Name="Language" Parameter="language" Type="System.String" DbType="NVarChar(50)" />
+    <Parameter Name="SignedByDesc" Parameter="signedByDesc" Type="System.String" DbType="NVarChar(250)" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.sp_FileUser_DeleteDynamic" Method="sp_FileUser_DeleteDynamic">
+    <Parameter Name="WhereCondition" Parameter="whereCondition" Type="System.String" DbType="NVarChar(500)" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.sp_FileUser_InsertUpdate" Method="sp_FileUser_InsertUpdate">
+    <Parameter Name="Id" Parameter="id" Type="System.Int64" DbType="BigInt" />
+    <Parameter Name="UserName" Parameter="userName" Type="System.String" DbType="NVarChar(50)" />
+    <Parameter Name="FileName" Parameter="fileName" Type="System.String" DbType="NVarChar(50)" />
+    <Parameter Name="Keyword" Parameter="keyword" Type="System.String" DbType="NVarChar(250)" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.sp_FileUser_SelectDynamic" Method="sp_FileUser_SelectDynamic">
+    <Parameter Name="SelectQuery" Parameter="selectQuery" Type="System.String" DbType="NVarChar(MAX)" />
+    <Parameter Name="WhereCondition" Parameter="whereCondition" Type="System.String" DbType="NVarChar(MAX)" />
+    <Parameter Name="OrderByExpression" Parameter="orderByExpression" Type="System.String" DbType="NVarChar(250)" />
+    <ElementType IdRef="ID21" />
+  </Function>
+  <Function Name="dbo.SP_LogView_SelectDynamic" Method="SP_LogView_SelectDynamic">
+    <Parameter Name="SelectQuery" Parameter="selectQuery" Type="System.String" DbType="NVarChar(MAX)" />
+    <Parameter Name="WhereCondition" Parameter="whereCondition" Type="System.String" DbType="NVarChar(MAX)" />
+    <Parameter Name="OrderByExpression" Parameter="orderByExpression" Type="System.String" DbType="NVarChar(250)" />
+    <Parameter Name="GroupByExpression" Parameter="groupByExpression" Type="System.String" DbType="NVarChar(250)" />
+    <ElementType IdRef="ID22" />
+  </Function>
+  <Function Name="dbo.sp_Content_ViewAdd" Method="sp_Content_ViewAdd">
+    <Parameter Name="Id" Parameter="id" Type="System.Int64" DbType="BigInt" />
+    <Parameter Name="CategoryId" Parameter="categoryId" Type="System.Int32" DbType="Int" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.sp_Content_InsertUpdate" Method="sp_Content_InsertUpdate">
+    <Parameter Name="Id" Parameter="id" Type="System.Int64" DbType="BigInt" />
+    <Parameter Name="CategoryId" Parameter="categoryId" Type="System.Int32" DbType="Int" />
+    <Parameter Name="Title" Parameter="title" Type="System.String" DbType="NVarChar(250)" />
+    <Parameter Name="CategoryPathway" Parameter="categoryPathway" Type="System.String" DbType="NVarChar(250)" />
+    <Parameter Name="Alias" Parameter="alias" Type="System.String" DbType="NVarChar(250)" />
+    <Parameter Name="Keywords" Parameter="keywords" Type="System.String" DbType="NVarChar(500)" />
+    <Parameter Name="Album" Parameter="album" Type="System.String" DbType="NVarChar(MAX)" />
+    <Parameter Name="IntroText" Parameter="introText" Type="System.String" DbType="NVarChar(1000)" />
+    <Parameter Name="Contents" Parameter="contents" Type="System.String" DbType="NVarChar(MAX)" />
+    <Parameter Name="Image" Parameter="image" Type="System.String" DbType="NVarChar(500)" />
+    <Parameter Name="Thumbnail" Parameter="thumbnail" Type="System.String" DbType="NVarChar(500)" />
+    <Parameter Name="Url" Parameter="url" Type="System.String" DbType="NVarChar(MAX)" />
+    <Parameter Name="CreatedBy" Parameter="createdBy" Type="System.String" DbType="NVarChar(256)" />
+    <Parameter Name="CreatedDate" Parameter="createdDate" Type="System.DateTime" DbType="DateTime" />
+    <Parameter Name="PublishDate" Parameter="publishDate" Type="System.DateTime" DbType="DateTime" />
+    <Parameter Name="Status" Parameter="status" Type="System.Byte" DbType="TinyInt" />
+    <Parameter Name="Type" Parameter="type" Type="System.Byte" DbType="TinyInt" />
+    <Parameter Name="Hits" Parameter="hits" Type="System.Int32" DbType="Int" />
+    <Parameter Name="CreatedRole" Parameter="createdRole" Type="System.String" DbType="NVarChar(250)" />
+    <Parameter Name="Language" Parameter="language" Type="System.String" DbType="NVarChar(50)" />
+    <Parameter Name="Params" Parameter="params" Type="System.String" DbType="NVarChar(MAX)" />
+    <Parameter Name="IsHot" Parameter="isHot" Type="System.Int32" DbType="Int" />
+    <Parameter Name="SiteId" Parameter="siteId" Type="System.Int32" DbType="Int" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.sp_TestArchive_DeleteDynamic" Method="sp_TestArchive_DeleteDynamic">
+    <Parameter Name="WhereCondition" Parameter="whereCondition" Type="System.String" DbType="NVarChar(500)" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.sp_TestArchive_InsertUpdate" Method="sp_TestArchive_InsertUpdate">
+    <Parameter Name="Id" Parameter="id" Type="System.Int32" DbType="Int" />
+    <Parameter Name="Mobile" Parameter="mobile" Type="System.String" DbType="VarChar(20)" />
+    <Parameter Name="FulName" Parameter="fulName" Type="System.String" DbType="NVarChar(50)" />
+    <Parameter Name="Location" Parameter="location" Type="System.String" DbType="NVarChar(512)" />
+    <Parameter Name="ResgitorId" Parameter="resgitorId" Type="System.Int32" DbType="Int" />
+    <Parameter Name="StartTime" Parameter="startTime" Type="System.DateTime" DbType="DateTime" />
+    <Parameter Name="EndTime" Parameter="endTime" Type="System.DateTime" DbType="DateTime" />
+    <Parameter Name="Questions" Parameter="questions" Type="System.String" DbType="NVarChar(MAX)" />
+    <Parameter Name="Archive" Parameter="archive" Type="System.String" DbType="NVarChar(MAX)" />
+    <Parameter Name="Mark" Parameter="mark" Type="System.Int32" DbType="Int" />
+    <Parameter Name="Status" Parameter="status" Type="System.Int32" DbType="Int" />
+    <Parameter Name="TestTime" Parameter="testTime" Type="System.Int32" DbType="Int" />
+    <Parameter Name="Role" Parameter="role" Type="System.String" DbType="NVarChar(512)" />
+    <Parameter Name="Note" Parameter="note" Type="System.String" DbType="NVarChar(512)" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.sp_TestArchive_Report" Method="sp_TestArchive_Report">
+    <Parameter Name="Id" Parameter="id" Type="System.Int32" DbType="Int" />
+    <ElementType IdRef="ID23" />
+  </Function>
+  <Function Name="dbo.sp_TestArchive_ReportMobile" Method="sp_TestArchive_ReportMobile">
+    <Parameter Name="Id" Parameter="id" Type="System.Int32" DbType="Int" />
+    <Parameter Name="DateTest" Parameter="dateTest" Type="System.String" DbType="VarChar(20)" />
+    <ElementType IdRef="ID24" />
+  </Function>
+  <Function Name="dbo.sp_TestArchive_SelectTop" Method="sp_TestArchive_SelectTop">
+    <ElementType IdRef="ID25" />
+  </Function>
+  <Function Name="dbo.sp_TestQuestion_DeleteDynamic" Method="sp_TestQuestion_DeleteDynamic">
+    <Parameter Name="WhereCondition" Parameter="whereCondition" Type="System.String" DbType="NVarChar(500)" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.sp_TestQuestion_InsertUpdate" Method="sp_TestQuestion_InsertUpdate">
+    <Parameter Name="Id" Parameter="id" Type="System.Int32" DbType="Int" />
+    <Parameter Name="Title" Parameter="title" Type="System.String" DbType="NVarChar(1000)" />
+    <Parameter Name="Contents" Parameter="contents" Type="System.String" DbType="NVarChar(MAX)" />
+    <Parameter Name="Mark" Parameter="mark" Type="System.Int32" DbType="Int" />
+    <Parameter Name="Type" Parameter="type" Type="System.Int32" DbType="Int" />
+    <Parameter Name="RegistorId" Parameter="registorId" Type="System.Int32" DbType="Int" />
+    <Parameter Name="Explain" Parameter="explain" Type="System.String" DbType="NVarChar(512)" />
+    <Parameter Name="Answers" Parameter="answers" Type="System.String" DbType="NVarChar(MAX)" />
+    <Parameter Name="Status" Parameter="status" Type="System.Int32" DbType="Int" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.sp_TestQuestion_SelectDynamic" Method="sp_TestQuestion_SelectDynamic">
+    <Parameter Name="SelectQuery" Parameter="selectQuery" Type="System.String" DbType="NVarChar(MAX)" />
+    <Parameter Name="WhereCondition" Parameter="whereCondition" Type="System.String" DbType="NVarChar(MAX)" />
+    <Parameter Name="OrderByExpression" Parameter="orderByExpression" Type="System.String" DbType="NVarChar(250)" />
+    <ElementType IdRef="ID26" />
+  </Function>
+  <Function Name="dbo.sp_TestQuestion_SelectPagedDynamic" Method="sp_TestQuestion_SelectPagedDynamic">
+    <Parameter Name="SelectQuery" Parameter="selectQuery" Type="System.String" DbType="NVarChar(MAX)" />
+    <Parameter Name="WhereCondition" Parameter="whereCondition" Type="System.String" DbType="NVarChar(MAX)" />
+    <Parameter Name="OrderByExpression" Parameter="orderByExpression" Type="System.String" DbType="NVarChar(250)" />
+    <Parameter Name="PageIndex" Parameter="pageIndex" Type="System.Int32" DbType="Int" />
+    <Parameter Name="PageSize" Parameter="pageSize" Type="System.Int32" DbType="Int" />
+    <Parameter Name="TotalRecord" Parameter="totalRecord" Type="System.Int32" DbType="Int" Direction="InOut" />
+    <ElementType IdRef="ID26" />
+  </Function>
+  <Function Name="dbo.sp_TestRegistor_DeleteDynamic" Method="sp_TestRegistor_DeleteDynamic">
+    <Parameter Name="WhereCondition" Parameter="whereCondition" Type="System.String" DbType="NVarChar(500)" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.sp_TestRegistor_InsertUpdate" Method="sp_TestRegistor_InsertUpdate">
+    <Parameter Name="Id" Parameter="id" Type="System.Int32" DbType="Int" />
+    <Parameter Name="Title" Parameter="title" Type="System.String" DbType="NVarChar(250)" />
+    <Parameter Name="Desciption" Parameter="desciption" Type="System.String" DbType="NVarChar(1024)" />
+    <Parameter Name="StartTime" Parameter="startTime" Type="System.DateTime" DbType="DateTime" />
+    <Parameter Name="EndTime" Parameter="endTime" Type="System.DateTime" DbType="DateTime" />
+    <Parameter Name="Status" Parameter="status" Type="System.Int32" DbType="Int" />
+    <Parameter Name="NumberQuestion" Parameter="numberQuestion" Type="System.Int32" DbType="Int" />
+    <Parameter Name="TestTime" Parameter="testTime" Type="System.Int32" DbType="Int" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.sp_TestRegistor_SelectDynamic" Method="sp_TestRegistor_SelectDynamic">
+    <Parameter Name="SelectQuery" Parameter="selectQuery" Type="System.String" DbType="NVarChar(MAX)" />
+    <Parameter Name="WhereCondition" Parameter="whereCondition" Type="System.String" DbType="NVarChar(MAX)" />
+    <Parameter Name="OrderByExpression" Parameter="orderByExpression" Type="System.String" DbType="NVarChar(250)" />
+    <ElementType IdRef="ID27" />
+  </Function>
+  <Function Name="dbo.sp_TestRegistor_SelectPagedDynamic" Method="sp_TestRegistor_SelectPagedDynamic">
+    <Parameter Name="SelectQuery" Parameter="selectQuery" Type="System.String" DbType="NVarChar(MAX)" />
+    <Parameter Name="WhereCondition" Parameter="whereCondition" Type="System.String" DbType="NVarChar(MAX)" />
+    <Parameter Name="OrderByExpression" Parameter="orderByExpression" Type="System.String" DbType="NVarChar(250)" />
+    <Parameter Name="PageIndex" Parameter="pageIndex" Type="System.Int32" DbType="Int" />
+    <Parameter Name="PageSize" Parameter="pageSize" Type="System.Int32" DbType="Int" />
+    <Parameter Name="TotalRecord" Parameter="totalRecord" Type="System.Int32" DbType="Int" Direction="InOut" />
+    <ElementType IdRef="ID27" />
+  </Function>
+  <Function Name="dbo.sp_TestArchive_SelectPagedDynamic" Method="sp_TestArchive_SelectPagedDynamic">
+    <Parameter Name="SelectQuery" Parameter="selectQuery" Type="System.String" DbType="NVarChar(MAX)" />
+    <Parameter Name="WhereCondition" Parameter="whereCondition" Type="System.String" DbType="NVarChar(MAX)" />
+    <Parameter Name="OrderByExpression" Parameter="orderByExpression" Type="System.String" DbType="NVarChar(250)" />
+    <Parameter Name="PageIndex" Parameter="pageIndex" Type="System.Int32" DbType="Int" />
+    <Parameter Name="PageSize" Parameter="pageSize" Type="System.Int32" DbType="Int" />
+    <Parameter Name="TotalRecord" Parameter="totalRecord" Type="System.Int32" DbType="Int" Direction="InOut" />
+    <ElementType IdRef="ID24" />
+  </Function>
+  <Function Name="dbo.sp_TestArchive_SelectDynamic" Method="sp_TestArchive_SelectDynamic">
+    <Parameter Name="SelectQuery" Parameter="selectQuery" Type="System.String" DbType="NVarChar(MAX)" />
+    <Parameter Name="WhereCondition" Parameter="whereCondition" Type="System.String" DbType="NVarChar(MAX)" />
+    <Parameter Name="OrderByExpression" Parameter="orderByExpression" Type="System.String" DbType="NVarChar(250)" />
+    <ElementType IdRef="ID24" />
+  </Function>
+</Database>

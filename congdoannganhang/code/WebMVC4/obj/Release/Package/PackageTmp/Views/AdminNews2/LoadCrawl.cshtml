@@ -1,0 +1,290 @@
+﻿
+@using BIZ.Entity
+@using UTILS
+@model CONTENT_FULL
+@{
+    List<CATEGORY_FULL> ListCate = ViewBag.CategoryList;
+}
+ <div class="col-md-7">
+    <div class="form-group">
+        <div class="col-md-12">
+            <div class="input-icon right">
+                <input type="text" id="txtTitle" name="title" value="@Model.Title" class="form-control" placeholder="Nhập tiêu đề cho bài viết" />
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group">
+
+        <div class="col-md-12">
+            <div class="input-icon right">
+                <textarea id="txtSummary" style="height: 75px;" cols="20" name="description" class="form-control" placeholder="Nhập mô tả bài viết">@Model.IntroText</textarea>
+
+            </div>
+        </div>
+    </div>
+    <div class="form-group">
+
+        <div class="col-md-12">
+            <div>
+                <textarea id="txtContent" name="content">@Html.Raw(Model.Contents)</textarea>
+            </div>
+        </div>
+    </div>
+
+</div>
+<div class="col-md-5">
+    <div>
+
+
+        <div class="form-group">
+            <label for="txtImgPath" class="control-label col-md-3">Ảnh Đại Diện:<span class="required">*</span></label>
+            <div class="col-md-9">
+                <input type="text" id="txtImgPath" name="img" value="@Model.Thumbnail" class="form-control" placeholder="Nhập ảnh đại diện" />
+            </div>
+
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3 hidemobile"></label>
+            <div class="col-md-4 col-xs-6">
+                <img id="ImgPath" src="@Model.Thumbnail" height="50" />
+            </div>
+           
+        </div>
+        <div class="form-group">
+            <label for="ddlMainCate" class="control-label col-md-3">Chuyên Mục :<span class="required">*</span></label>
+            <div class="col-md-9">
+                <div class="input-icon right">
+                    <select class="form-control" id="ddlMainCate">
+
+                        @if (ListCate != null && ListCate.Count > 0)
+                        {
+                            foreach (var obj in ListCate)
+                            {
+                                <option value="@obj.Id" title="@obj.Pathway" @if (obj.Id == Model.CategoryId) { @Html.Raw("selected='selected'")    ; }>@obj.Name</option>
+                            }
+                        }
+                    </select>
+
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="ddlUser" class="control-label col-md-3">Tác giả:<span class="required">*</span></label>
+            <div class="col-md-9">
+                <div class="input-icon right">
+                    @Html.DropDownList("ddlUser", new SelectList(ViewBag.UserList as System.Collections.IEnumerable, "Value", "Text", Model.Alias), new { @class = "form-control", })
+
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="txtPublicTime" class="control-label col-md-3">Thời gian xuất bản :<span class="required">*</span></label>
+            <div class="col-md-9">
+                <div class="input-icon right">
+                    <input type="text" id="txtPublicTime" name="publictime" data-format="DD/MM/YYYY HH:mm" value="@Model.Params" class="form-control" placeholder="publictime" />
+                    <input type="hidden" id="hdactionType" />
+                </div>
+            </div>
+        </div>
+
+
+
+        <div class="panel-footer form-horizontal">
+            <div class="form-group submit">
+               
+                <button type="submit" class="btn btn-primary" id="btsubmit" ><i class="fa fa-save"></i>Tạo mới</button>
+                <button type="button" class="btn btn-default" id="btnBack" onclick="GotoListpage();"><i class="fa fa-backward"></i>Quay lại</button>
+            </div>
+        </div>
+
+
+
+    </div>
+</div>
+<div style="clear: both"></div>
+
+<style>
+    .input-icon {
+        position: relative;
+        width: 100%;
+    }
+</style>
+
+<script>
+
+    if (typeof (CKEDITOR) !== "undefined") {
+        CKEDITOR.env.isCompatible = true;
+    }
+</script>
+<script>
+    function GotoListpage() {
+        window.location = '@Url.Action("Index")';
+    }
+  
+    $(document).ready(function () {
+
+        var editor = CKEDITOR.instances['txtContent'];
+        if (editor) {
+            CKEDITOR.remove(editor);
+        }
+        CKEDITOR.replace('txtContent', {
+            filebrowserBrowseUrl: "/AdminImages/ManageImage",
+            filebrowserWindowWidth: '1200',
+            filebrowserWindowHeight: '800',
+            uiColor: '#FAFAFA',
+            allowedContent: true,
+            extraAllowedContent: '*(*)',
+            // ALLOW <i></i>
+
+            //extraAllowedContent: 'p(*)[*]{*};div(*)[*]{*};li(*)[*]{*};ul(*)[*]{*}',
+            extraPlugins: 'youtube,tableresize',
+            toolbar: [
+             { name: 'document', items: ['Source', '-', 'NewPage', 'Preview', '-'] },
+             ['Cut', 'Copy', 'Paste', 'PasteText', 'PasteFromWord', '-', 'Undo', 'Redo'],
+            { name: 'styles', items: ['Font', 'FontSize'] },
+            { name: 'basicstyles', items: ['Bold', 'Italic', 'Underline', 'Strike', 'Subscript', 'Superscript', '-', 'RemoveFormat'] },
+
+            '/',
+            { name: 'colors', items: ['TextColor', 'BGColor'] }, { name: 'paragraph', items: ['NumberedList', 'BulletedList', '-', 'Outdent', 'Indent', '-', 'Blockquote', '-', 'JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock'] },
+            { name: 'insert', items: ['Image', 'Youtube', 'Flash', 'Table', 'HorizontalRule', 'Smiley', 'SpecialChar', 'PageBreak', 'Iframe'] },
+            { name: 'links', items: ['Link', 'Unlink', 'Maximize'] }
+            ],
+            height: 600
+        });
+
+        $('#txtPublicTime').datetimepicker({
+            format: 'DD/MM/YYYY HH:mm'
+        });
+        $("button.close").click(function () {
+            $(this).parent().css("display", "none");
+        });
+        $('#defaultForm').bootstrapValidator({
+            message: 'This value is not valid',
+            //live: 'submitted',
+            feedbackIcons: {
+                valid: 'glyphicon glyphicon-ok',
+                invalid: 'glyphicon glyphicon-remove',
+                validating: 'glyphicon glyphicon-refresh'
+            },
+            fields: {
+
+                title: {
+                    message: 'Nhập tiêu đề',
+                    validators: {
+                        notEmpty: {
+                            message: 'Tiêu đề không được bỏ trống'
+                        },
+
+                        stringLength: {
+                            min: 10,
+                            max: 250,
+                            message: 'Tiêu đề nhỏ nhất 10 ký tự và nhiều nhất 250 ký tự'
+                        },
+
+                    }
+                },
+                description: {
+                    message: 'Bạn chưa nhập mô tả.',
+                    validators: {
+                        notEmpty: {
+                            message: 'Bạn chưa nhập mô tả'
+                        },
+
+                    }
+                },
+                content: {
+                    validators: {
+                        notEmpty: {
+                            message: 'Nội dung không được bỏ trống'
+                        }
+                    }
+                },
+                img: {
+                    validators: {
+                        notEmpty: {
+                            message: 'Ảnh đại diện không được bỏ trống'
+                        }
+                    }
+                }
+
+            }
+        })
+        .on('success.form.bv', function (e) {
+            // Prevent submit form
+            e.preventDefault();
+
+            var $form = $(e.target),
+                validator = $form.data('bootstrapValidator');
+            SaveData();
+            $(".close").click(function () {
+                $(".alert-success").css("display", "none");
+            });
+        })
+        .on('error.form.bv', function (e) {
+            // Active the panel element containing the first invalid element
+            e.preventDefault();
+            var $form = $(e.target),
+            validator = $form.data('bootstrapValidator');
+            $(".alert-danger label").text("Có một vài lỗi trong khung nhập liệu dưới đây ! kiểm tra lại");
+            $(".alert-danger").css("display", "block");
+            $(".close").click(function () {
+                $(".alert-danger").css("display", "none");
+                $(".alert-success").css("display", "none");
+            });
+        });
+
+        $("#btnReset").click(function () {
+            $('#defaultForm').data('bootstrapValidator').resetForm(true);
+            $(".alert-danger").css("display", "none");
+            $(".alert-success").css("display", "none");
+        });
+
+        //Save Data
+        function SaveData() {
+
+            var param = {
+                'Id': 0,
+                'Title': $("#txtTitle").val(),
+                'IntroText': $("#txtSummary").val(),
+                'Contents': CKEDITOR.instances['txtContent'].getSnapshot(),
+                'Thumbnail': $("#txtImgPath").val(),
+                'CategoryId': $("#ddlMainCate").val(),
+                'CategoryPathway': $("#ddlMainCate option:selected").attr("title"),
+                'Alias': $("#ddlUser").val(),
+                'Type': 1,
+                'Params': $("#txtParam").val(),
+                'SPublishDate': $('#txtPublicTime').val(),
+                'CreatedBy': $("#hdCreatedBy").val(),
+                
+                
+            }
+            Utils.Loading();
+            $.ajax({
+                type: 'POST',
+                url: "@Url.Action("SaveCrawlData")",
+                data: addAntiForgeryToken(param),
+                async: true,
+                success: function (data) {
+                    Utils.UnLoading();
+                    if (data.ResponseCode >= 0) {
+                        $("html,body").animate({ scrollTop: $('#TemplateContent').offset().top }, 'fast');
+                        $(".alert-success").show("slow");
+                        $(".alert-danger").hide("slow");
+                        setTimeout(function () { $(".alert-success").hide("slow"); window.location = '/quan-tri/muc/tin/sua-tin?id=' + data.ResponseCode; }, 500);
+
+                    }
+                    else {
+                        $("html,body").animate({ scrollTop: $('#TemplateContent').offset().top }, 'fast');
+                        $("#ErrorMessage").text(data.Description);
+                        $(".alert-danger").show("slow");
+                        $(".alert-success").hide("slow");
+                        setTimeout(function () { $(".alert-danger").hide("slow"); }, 2000);
+                    }
+                }
+            });
+        };
+    });
+</script>

@@ -1,0 +1,25 @@
+﻿@using BIZ
+@using UTILS
+@using Local.Helper
+@model BIZ.Entity.CATEGORY_FULL
+
+@if (Model != null)
+{
+    
+    <div class="box_out w775">
+        @{Html.RenderAction("BreadcrumbObj", "News", new { data = Model });}
+        
+        <div class="noidung">
+            <div class="pad7">
+                @Html.Raw(Model.Contents)
+                <div class="clear"></div>
+            </div>
+            <div class="clear"></div>
+        </div>
+        
+        <div class="clear">
+        </div>
+        
+    </div>
+
+}

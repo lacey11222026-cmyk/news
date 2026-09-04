@@ -1,0 +1,133 @@
+﻿@using UTILS
+@using WebMVC4.Helper
+
+@{
+    var date = Utils.formatDateofWeek(DateTime.Now.DayOfWeek) + "," + DateTime.Now.ToString(" dd") + "/" + DateTime.Now.ToString("MM") + "/" + DateTime.Now.Year.ToString() + " | " + DateTime.Now.ToString("HH") + ":" + DateTime.Now.ToString("mm");
+    var DateEN = DateTime.Now.DayOfWeek.ToString() + ", " + DateTime.Now.ToString("dd") + "/" + DateTime.Now.ToString("MM") + "/" + DateTime.Now.Year.ToString() + " | " + DateTime.Now.ToString("HH") + ":" + DateTime.Now.ToString("mm");
+}
+
+<div class="header-pc">
+    <div class="header-inner">
+        <img src="/Content/images/bnr.gif?vs=202301" alt="" class="bnr-img">
+        <div class="container">
+            <a href="/"><img src="/Content/images/logo.png?vs=202301" alt="Bộ Công Thương - Cục điều tiết điện lực"></a>
+        </div>
+    </div>
+    <div class="nav-top">
+        <div class="container">
+            <nav>
+                <ul>
+                    <li class="active" id="menu_0"><a href="/"><img src="/Content/images/icon-home.png" alt=""></a></li>
+                    @{Html.RenderAction("Menu", "Home");}
+                </ul>
+            </nav>
+        </div>
+    </div>
+</div><!-- end header-->
+<div class="nav-mobile">
+    <div class="header-m">
+        <img src="/Content/images/bnr-mb.gif" alt="" class="bnr-img">
+        <a href="/"> <img src="/Content/images/logo.png?vs=2023" alt="Cục điều tiết điện lực" class="m-logo float-left"></a>
+        <a href="#menu">
+
+            <img src="/Content/images/icon-mb.png" class="ico-menu float-right">
+        </a>
+    </div>
+    <div id="menu">
+        <ul>
+            <li class="m-search">
+                <input type="text" placeholder="Tìm kiếm" id="txtKeywordMobile" onkeydown="javascript: return MAnyInput_KeyDown(this, event);">
+                <button class="m-icon-search" onclick="Msearch()"></button>
+            </li>
+            <li><a href="/">Trang chủ</a></li>
+            @{Html.RenderAction("Menu", "Home");}
+        </ul>
+    </div>
+</div>
+<div class="container tool">
+    <p class="date-info">@date GMT +7</p>
+    <div class="tool-right">
+        <ul>
+            <li><a href="#"><img src="/Content/images/icon-face.png" alt="facebook"></a> | <a href="tel:02422147474" class="phone-num">024.221.47474</a></li>
+            <li>
+                <select class="form-control linklist form-custom" id="exampleFormControlSelect1" onchange="window.open(this.options[this.selectedIndex].value,'_blank');this.options[0].selected=true">
+                    <option>Liên kết</option>
+                    <option value="http://moit.gov.vn/">Bộ Công Thương </option>
+                    <option value="https://www.evn.com.vn/">Tập đoàn Điện lực Việt Nam </option>
+                    <option value="https://tietkiemnangluong.com.vn/">Chương trình VNEEP </option>
+
+                </select>
+            </li>
+            <li>
+                <div class="searchbox">
+                    <input type="text" placeholder="TÌM KIẾM"   id="txtKeyword" onkeydown="javascript: return AnyInput_KeyDown(this, event);" class="search-box form-custom">
+                    <span class="icon-search" onclick="search()"></span>
+                </div>
+            </li>
+        </ul>
+    </div>
+</div>
+<!--<div class="container tool">
+    <p class="date-info">@date GMT +7</p>
+    <div class="tool-right">
+        <ul>
+            <li><a href="#"><img src="/Content/images/icon-face.png" alt="facebook"></a></li>
+            <li><a href="tel:02422147474" class="phone-num">024.221.47474</a></li>
+            <li>
+                <select class="form-control linklist form-custom" id="exampleFormControlSelect1" onchange="window.open(this.options[this.selectedIndex].value,'_blank');this.options[0].selected=true">
+                    <option>Liên kết</option>
+                    <option value="http://moit.gov.vn/">Bộ Công Thương </option>
+                    <option value="https://www.evn.com.vn/">Tập đoàn Điện lực Việt Nam </option>
+                    <option value="https://tietkiemnangluong.com.vn/">Chương trình VNEEP </option>
+                   
+                </select>
+            </li>
+            <li>
+                <div class="searchbox">
+                    <input type="text" placeholder="TÌM KIẾM" class="search-box form-custom" id="txtKeyword" onkeydown="javascript: return AnyInput_KeyDown(this, event);">
+                    <span class="icon-search" onclick="search()" style="cursor:pointer"></span>
+                </div>
+            </li>
+        </ul>
+    </div>
+</div>--><!-- end tool-->
+
+
+
+
+
+<script type="text/javascript">
+    function search() {
+        var searchtext = $("#txtKeyword").val();
+        window.location = "/News/Search?q=" + searchtext;
+
+    }
+    function AnyInput_KeyDown(sender, e) {
+        if ((e.which && e.which == 13) || (e.keyCode && e.keyCode == 13)) {
+            search();
+
+            return false;
+        }
+
+        return true;
+    }
+
+
+    function Msearch() {
+        var searchtext = $("#txtKeywordMobile").val();
+        window.location = "/News/Search?q=" + searchtext;
+
+    }
+    function MAnyInput_KeyDown(sender, e) {
+        if ((e.which && e.which === 13) || (e.keyCode && e.keyCode === 13)) {
+            Msearch();
+
+            return false;
+        }
+
+        return true;
+    }
+
+
+
+</script>

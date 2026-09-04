@@ -1,0 +1,167 @@
+﻿@using BIZ
+@using UTILS
+@using WebMVC4.Helper
+@model WebMVC4.Models.ProductModel
+
+@if (Model != null)
+{
+
+
+
+
+
+    <script>
+
+        var updateQueryStringParam = function (key, value) {
+            var baseUrl = [location.protocol, '//', location.host, location.pathname].join(''),
+                urlQueryString = document.location.search,
+                newParam = key + '=' + value,
+                params = '?' + newParam;
+
+            // If the "search" string exists, then build params from it
+            if (urlQueryString) {
+                var keyRegex = new RegExp('([\?&])' + key + '[^&]*');
+
+                // If param exists already, update it
+                if (urlQueryString.match(keyRegex) !== null) {
+                    params = urlQueryString.replace(keyRegex, "$1" + newParam);
+                } else { // Otherwise, add it to end of query string
+                    params = urlQueryString + '&' + newParam;
+                }
+            }
+            window.history.replaceState({}, "", baseUrl + params);
+        };
+        $('#drlOrder').change(function () {
+            updateQueryStringParam('orderType', this.value);
+            location.reload();
+
+        });
+    </script>
+
+    <div class="page-title page-title-default title-size-small title-design-default color-scheme-light with-back-btn title-shop" style="">
+        <div class="container">
+            <div class="nav-shop">
+
+                <div class="shop-title-wrapper">
+
+                    <h1 class="entry-title">@Model.Cate.Name</h1>
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row content-layout-wrapper align-items-start">
+
+
+            <div class="site-content shop-content-area col-lg-12 col-12 col-md-12 description-area-before content-with-products" role="main">
+
+
+                <div class="shop-loop-head">
+                    <div class="woodmart-woo-breadcrumbs">
+                        @if (Model.Cate.ParentId == 0)
+                        {
+                            <nav class="woocommerce-breadcrumb">
+                                <a href="/" class="breadcrumb-link ">Trang chủ</a>
+
+                                <span class="breadcrumb-last">@Model.Cate.Name</span>
+                            </nav>
+                        }
+                        else
+                        {
+                            <nav class="woocommerce-breadcrumb">
+                                <a href="/" class="breadcrumb-link ">Trang chủ</a>
+                                <a href="@Model.CateParrent.Url" class="breadcrumb-link breadcrumb-link-last">
+                                    @Model.CateParrent.Name
+                                </a>
+                                <span class="breadcrumb-last"> @Model.Cate.Name</span>
+                            </nav>
+                        }
+
+
+                    </div>
+                    <div class="woodmart-shop-tools">
+
+
+
+                        <form class="woocommerce-ordering" method="get">
+                            <select name="orderby" class="orderby" id="drlOrder">
+                                <option value="0" @(ViewBag.OrderType == 1 ? "selected='selected'" : "")>Sản phẩm mới</option>
+                                <option value="1" @(ViewBag.OrderType == 2 ? "selected='selected'" : "")>Giá thấp đến cao</option>
+                                <option value="2" @(ViewBag.OrderType == 3 ? "selected='selected'" : "")>Giá cao xuống thấp</option>
+                            </select>
+                        </form>
+                    </div>
+                </div>
+
+
+                <div class="woodmart-active-filters">
+                </div>
+
+                <div class="woodmart-shop-loader"></div>
+
+
+                @if (Model.listdata.Count > 0)
+                {
+                    <div class="products elements-grid align-items-start woodmart-products-holder  woodmart-spacing-30 pagination-pagination row grid-columns-3" data-source="main_loop" data-min_price="" data-max_price="">
+
+                        @foreach (var item in Model.listdata.Select((value, i) => new { i, value }))
+                        {
+                            <div class="product-grid-item product product-no-swatches woodmart-hover-base  col-md-4 col-6 first  post-1437 type-product status-publish has-post-thumbnail product_cat-sofa first instock shipping-taxable purchasable product-type-simple" data-loop="1" data-id="1437">
+
+
+                                <div class="product-wrapper">
+                                    <div class="content-product-imagin"></div>
+                                    <div class="product-element-top">
+                                        <a href="@UTILS.Utils.FormatUrlRewrite(item.value.Id,item.value.Name,"ProductDetail")" class="product-image-link">
+                                            <img width="300" height="300" src="@item.value.DescriptImage?h=300&w=300&mode=crop" class="attachment-woocommerce_thumbnail" alt="" />
+                                        </a>
+
+                                    </div>
+
+                                    <div class="product-information">
+                                        <h3 class="product-title"><a href="@UTILS.Utils.FormatUrlRewrite(item.value.Id,item.value.Name,"ProductDetail")">@item.value.Name</a></h3>
+                                        <div class="product-rating-price">
+                                            <div class="wrapp-product-price">
+
+                                                <span class="price"><span class="woocommerce-Price-amount amount">@Utils.InsertCommaNoStyle(item.value.Price.ToString())</span></span>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                            </div>
+
+                        }
+
+                    </div>
+                    <div class="products-footer">
+                        <nav class="woocommerce-pagination">
+                            <ul class="page-numbers">
+                                @{Html.RenderPartial("Pagination", new WebMVC4.Models.PaginationInfo
+                                    {
+                                        PageUrl = Url.SetParameter("Page", "!0"),
+                                        CurrentPage = Model.pageIndex,
+                                        PageSize = Model.pageSize,
+                                        TotalItemCount = Model.total,
+                                    }); }
+
+                            </ul>
+                        </nav>
+                    </div>
+                }
+                else
+                {
+                    <div class="shop-container">
+                        <h4>Không có sản phẩm cần tìm !</h4>
+                    </div>
+                }
+
+            </div>
+
+        </div><!-- .main-page-wrapper -->
+    </div>
+
+}

@@ -1,0 +1,11 @@
+12/31/2017 22:30:53: 	could not connect to redis Instance at 127.0.0.1:6379
+   at ServiceStack.Redis.RedisNativeClient.Connect()
+   at ServiceStack.Redis.RedisNativeClient.AssertConnectedSocket()
+   at ServiceStack.Redis.RedisNativeClient.SendCommand(Byte[][] cmdWithBinaryArgs)
+   at ServiceStack.Redis.RedisNativeClient.SendExpectData(Byte[][] cmdWithBinaryArgs)
+   at ServiceStack.Redis.RedisNativeClient.GetBytes(String key)
+   at ServiceStack.Redis.RedisNativeClient.Get(String key)
+   at ServiceStack.Redis.RedisClient.GetValue(String key)
+   at ServiceStack.Redis.RedisClient.Get[T](String key)
+   at UTILS.RedisCacheService.Get(String key) in D:\Work\News\Code\congdoannganhang\code\UTILS\RedisCacheManager.cs:line 52
+   at UTILS.CacheUtils.GetCacheObject(String cacheKey) in D:\Work\News\Code\congdoannganhang\code\UTILS\DataCaching.cs:line 22

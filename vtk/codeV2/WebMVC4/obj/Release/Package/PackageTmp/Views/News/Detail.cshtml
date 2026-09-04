@@ -1,0 +1,134 @@
+﻿@using BIZ
+@using UTILS
+@using WebMVC4.Helper
+@{
+    var langpage = WorkContext.GetLanguage();
+}
+@using BIZ.Entity
+@model BIZ.Entity.CONTENT_FULL
+@{
+    CATEGORY_FULL cate = ViewBag.Cate;
+}
+
+@if (Model != null)
+{
+    <div class="bnr-detail">
+        <img src="@cate.Image" alt="">
+    </div>
+    <div class="pt60 pb60 bg-gray">
+        <div class="container">
+            <div class="link">
+                <i class="glyphicon glyphicon-forward"></i><a href="@cate.Url" class="f18">@cate.Name</a>
+            </div>
+            <div class="mt60">
+                @if (langpage == "vi-vn")
+                {
+                    <h2 class="title-detail">@Model.Title </h2>
+                }
+                else
+                {
+                    <h2 class="title-detail">@Model.IntroText </h2>
+                }
+
+                <div class="mt30 f18">
+                    @if (Model.Type == 1)
+                    {
+                        <div class="nd" id="NewsContent">
+                            @Html.Raw(Model.Contents.Replace("font-size: small", ""))
+                        </div>
+                    }
+
+                    @if (Model.Type == 2)
+                    {
+                        <div class="row video-big">
+                            <div class="col-md-8 col-sm-8 col-xs-12 col-md-offset-2 col-sm-offset-2">
+                                <div class="movie">
+                                    <iframe src="@(Model.Url.Replace("watch?v=", "embed/"))?autoplay=1&rel=0" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen style="position: absolute; top: 0px; right: 0px; bottom: 0px; left: 0px; width: 100%; height: 100%;"></iframe>
+                                </div>
+                            </div>
+
+                        </div>
+                    }
+                    @if (Model.Type == 4)
+                    {
+                        <ul class="row mt90 project-list greencolor" id="lstlightbox">
+                            @foreach (var item in Model.FileParam.Select((value, i) => new { i, value }))
+                            {
+                                <li class="col-md-4 col-sm-4 col-xs-6 project-item wow slideInRight" data-wow-delay="0.2s">
+                                    <a href="@(item.value.Path)?w=0&h=@(ViewBag.Height)&mode=crop">
+                                        <img src="@item.value.Path?w=579&h=351&mode=crop" alt="">
+                                        <div class="pr-content"><p>@item.value.Name</p></div>
+                                    </a>
+                                </li>
+                            }
+                        </ul>
+                        <link href="/fancybox2.1.5/jquery.fancybox.css" rel="stylesheet" />
+                        <script src="/fancybox2.1.5/jquery.fancybox.js"></script>
+                        <script type='text/javascript'>
+
+                            $(document).ready(function () {
+                                $("#lstlightbox a").fancybox({
+
+                                });
+                            });
+                        </script>
+                    }
+                </div>
+
+
+            </div>
+            <div class="mt60">
+                @if (langpage == "vi-vn")
+                {
+                    <h2 class="title-cm">Xem thêm các dự án tương tự <span class="linegreen"></span></h2>
+                }
+                else
+                {
+                    <h2 class="title-cm">Relate <span class="linegreen"></span></h2>
+                }
+
+                @{Html.RenderAction("Relate", "News", new { CategoryId = Model.CategoryId });}
+
+
+            </div>
+        </div>
+    </div>
+
+
+}
+<script>
+    $('.news_detail_img').removeAttr('style');
+    $('.news_detail_img').attr('style', 'margin:0 auto;text-align:center');
+    $('#NewsContent table').removeAttr('width');
+    $('#NewsContent span img').removeAttr('width');
+    $('#NewsContent img').removeAttr('width');
+    $('#NewsContent img').removeAttr('height');
+    $('#NewsContent img').removeAttr('style');
+
+</script>
+<style>
+    #NewsContent ul {
+        display: block;
+        list-style-type: disc;
+        margin-block-start: 1em;
+        margin-block-end: 1em;
+        margin-inline-start: 0px;
+        margin-inline-end: 0px;
+        padding-inline-start: 40px;
+    }
+
+    #NewsContent li {
+        display: list-item;
+        list-style-type: disc;
+        text-align: -webkit-match-parent;
+    }
+</style>
+<script type="text/javascript">
+
+
+
+    function openWin(url) {
+        var myWindow = window.open(url, '', 'width=700,height=500');
+        myWindow.focus();
+    }
+</script>

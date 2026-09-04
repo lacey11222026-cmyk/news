@@ -1,0 +1,59 @@
+﻿@model List<DATA.Banner>
+@if (Model != null)
+{
+    <section id = "home-main-slider" >
+        <div id="owl-home-main-slider" class="owl-carousel owl-theme">
+            @foreach (var item in Model.Select((value, i) => new { i, value }))
+            {
+                
+                    <div class="item">
+                        <a href="@item.value.Url" title="Banner 1"><img src="@item.value.Data" alt="@item.value.Name"></a>
+                    </div>
+               
+            }
+          
+        </div>
+</section>
+@*<section id="home-main-slider">
+    <div id="owl-home-main-slider" class="owl-carousel owl-theme" style="opacity: 1; display: block;">
+        <div class="owl-wrapper-outer">
+            <div class="owl-wrapper" style="width: 5088px; left: 0px; display: block; transition: all 1000ms ease 0s; transform: translate3d(-848px, 0px, 0px);">
+                @foreach (var item in Model.Select((value, i) => new { i, value }))
+                {
+                    <div class="owl-item" style="width: 848px;">
+                        <div class="item">
+                            <a href="@item.value.Url" title="Banner 1"><img src="@item.value.Data" alt="@item.value.Name"></a>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+
+
+        <div class="owl-controls clickable">
+            <div class="owl-pagination">
+                @foreach (var item in Model.Select((value, i) => new { i, value }))
+                {
+                    if (item.i == 0)
+                    {
+                        <div class="owl-page active">
+                            <span class=""></span>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="owl-page">
+                            <span class=""></span>
+                        </div>
+                    }
+
+                }
+
+
+            </div>
+        </div>
+    </div>
+</section>*@
+
+
+}

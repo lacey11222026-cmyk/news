@@ -1,0 +1,197 @@
+﻿@using BIZ
+@using UTILS
+@using WebMVC4.Helper
+@model List<BIZ.Entity.CATEGORY_FULL>
+<!-- menu mobile-->
+<div id="page">
+    <div class="header_m" style="float:right;">
+        <a href="#menu"> <img src="/images/nav-m.png"></a>
+    </div>
+    <nav id="menu">
+        <ul>
+            <li><a href="/">Trang chủ</a></li>
+            @foreach (var item in Model.Select((value, i) => new { i, value }))
+            {
+                <li>
+                    <a href="@Utils.FormatUrlRewriteByType(item.value.Id, item.value.Name, int.Parse(item.value.Type.ToString()), item.value.Link)">@item.value.Name </a>
+
+                </li>
+
+            }
+
+
+        </ul>
+    </nav>
+</div><!-- end page mobile-->
+<div class="clear"></div>
+<!-- Box search tablet-->
+<div class="tool_mobile hidden_mobile">
+    <div class="date">@ViewBag.Date</div>
+    <div class="search_m">
+        <a class="click" href="#"></a>
+        <input class="submit_m" type="submit" onclick="Tsearch()">
+        <input class="text_m" type="text" placeholder="Nhập từ cần tìm" id="TtxtKeyword" onkeydown="javascript: return TAnyInput_KeyDown(this, event);">
+    </div>
+    <div class="noibo_link"><a href="http://noibo.vuit.org.vn/" target="_blank"></a></div>
+    <div class="clear"></div>
+</div>
+<!-- box search mobile-->
+<div class="tool_mobile block_mobile">
+    <div class="date">@ViewBag.Date</div>
+    <div class="search_m">
+        <a class="click" href="#"></a>
+        <input class="submit_m" type="submit" onclick="Msearch()">
+        <input class="text_m" type="text" id="MtxtKeyword" placeholder="Nhập từ cần tìm" onkeydown="javascript: return MAnyInput_KeyDown(this, event);">
+    </div>
+    <div class="noibo_link"><a href="http://noibo.vuit.org.vn/" target="_blank"></a></div>
+    <div class="clear"></div>
+</div>
+<div class="bgmenu">
+
+    <ul class="menu" id="ddtabs1">
+        <li>
+            <div class="fl" style="background-color: transparent!important;">
+                <a href="/" rel="ct1" class="opa">
+                    <img src="/images/home.jpg" />
+                </a>
+            </div>
+        </li>
+        @if (Model != null)
+        {
+
+            if (Model.Count > 0)
+            {
+                foreach (var item in Model.Select((value, i) => new { i, value }))
+                {
+                    if (item.i == Model.Count - 1)
+                    {
+                        <li id="cate_@item.value.Id">
+                            <a rel="ct@(item.i + 2)" href="@Utils.FormatUrlRewriteByType(item.value.Id, item.value.Name, int.Parse(item.value.Type.ToString()), item.value.Link)">@item.value.Name </a>
+
+                        </li>
+                    }
+                    else
+                    {
+
+                        <li id="cate_@item.value.Id">
+                            <a rel="ct@(item.i +2)" href="@Utils.FormatUrlRewriteByType(item.value.Id, item.value.Name, int.Parse(item.value.Type.ToString()), item.value.Link)">@item.value.Name </a>
+
+                        </li>
+                        <img src="/images/line.jpg" class="fl" alt="" />
+                    }
+
+                }
+            }
+        }
+
+
+    </ul>
+    <div class="clear"></div>
+    <div class="tabcontainer">
+        <div id="ct1" class="tabcontent" style="display: none;">
+            <div class="date">&nbsp;&nbsp;@ViewBag.Date</div>
+
+        </div>
+        @if (Model != null)
+        {
+
+            if (Model.Count > 0)
+            {
+                foreach (var item in Model.Select((value, i) => new { i, value }))
+                {
+                    <div class="tabcontent" id="ct@(item.i + 2)" style="display: none;">
+
+                        @Html.Raw(HtmlHelpers.BindChildCategories(Convert.ToInt32(item.value.Id), int.Parse(item.value.Type.ToString())))
+                    </div>
+
+                }
+            }
+        }
+
+    </div>
+    <div class="clear"></div>
+</div>
+
+
+
+<!-- search box mobile-->
+<script>
+    function Msearch() {
+        var searchtext = $("#MtxtKeyword").val();
+       
+        window.location = "/News/Search?q=" + searchtext;
+
+    }
+    function MAnyInput_KeyDown(sender, e) {
+        if ((e.which && e.which == 13) || (e.keyCode && e.keyCode == 13)) {
+            Msearch();
+
+            return false;
+        }
+
+        return true;
+    }
+    function Tsearch() {
+        var searchtext = $("#TtxtKeyword").val();
+        
+            window.location = "/News/Search?q=" + searchtext;
+
+    }
+    function TAnyInput_KeyDown(sender, e) {
+        if ((e.which && e.which == 13) || (e.keyCode && e.keyCode == 13)) {
+            Tsearch();
+
+            return false;
+        }
+
+        return true;
+    }
+    $(document).ready(function () {
+        $(".click").click(function () {
+            $(".click").hide();
+            $(".tool_phu .date").hide();
+            $(".submit_m").fadeIn();
+            $(".text_m").fadeIn("slow");
+        });
+
+        $(".block_mobile .click").bind('click', function () {
+            $(".block_mobile .date").hide();
+            $(".block_mobile .search_m").animate({ width: "75%" });
+        });
+    });
+</script>
+<script type="text/javascript">
+    ddtabmenu.definemenu("ddtabs1", 0)
+    setTimeout(function () {
+        $("#ddtabs1 .current").parent().addClass("select");
+
+    }, 3000);
+
+</script>
+
+
+<script type="text/javascript">
+    function search() {
+        var searchtext = $("#txtKeyword").val();
+        //if (searchtext!='')
+            window.location = "/News/Search?q=" + searchtext;
+
+    }
+    function AnyInput_KeyDown(sender, e) {
+        if ((e.which && e.which == 13) || (e.keyCode && e.keyCode == 13)) {
+            search();
+
+            return false;
+        }
+
+        return true;
+    }
+    $("#btsearch").click(function () {
+        search();
+    });
+   
+
+    
+
+    
+</script>

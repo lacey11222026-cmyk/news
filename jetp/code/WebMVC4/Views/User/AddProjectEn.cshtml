@@ -1,0 +1,1077 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout2.cshtml";
+}
+@using BIZ.Entity
+@using UTILS
+@using WebMVC4.Helper
+@using UTILS;
+@using DATA.ContentDB;
+@model DATA.ContentDB.UserProjectFull
+@{
+    List<TestLocation> ListCate = ViewBag.listLocation;
+}
+
+<div class="manage-body">
+    <div class="manage-bnr">
+        <img src="/Content2/images/manage-bnr.jpg" alt="">
+        <div class="manage-title">
+            <ul>
+                <li class="active">Asset Investment Project</li>
+            </ul>
+        </div>
+    </div>
+    <div class="manage-content">
+        <div class="mw-01 manage-sidebar">
+            @Html.Partial("User_MenuEn")
+        </div>
+        <div class="mw-02 manage-main">
+            <div class="manage-wrap mt50">
+                <div class="mt50">
+                    <strong>Note:</strong><br>
+                    <p style="padding-left: 20px;">
+                        - Fields marked with an asterisk (<span class="textred">*</span>) are mandatory.<br>
+                        - Fields without an asterisk (<span class="textred">*</span>) are optional.<br>
+                        - The applicant must complete all fields in Section I. General Information and Section II. JETP Suitability.
+                    </p>
+                </div>
+
+                <div class="wrap-tabs mt50">
+                    <ul class="nav nav-tabs mb-3" role="tablist">
+                        <li class="nav-item">
+                            <button class="nav-link active" data-toggle="tab" data-target="#tabs01" id="tabs01-tab">
+                                I. General information
+                            </button>
+                        </li>
+                        <li class="nav-item">
+                            <button class="nav-link" data-toggle="tab" data-target="#tabs02" id="tabs02-tab">
+                                II. JETP Suitability
+                            </button>
+                        </li>
+                    </ul>
+                    <div class="tab-content" id="pills-tabContent">
+                        <div class="tab-pane fade show active" id="tabs01" role="tabpanel">
+                            <div class="m-form">
+                                <div class="m-form-item">
+                                    <label>
+                                        1. Project Name <span class="textred">*</span>
+                                        <p class="question-wrap">
+                                            <span class="icon-question" data-tippy-content="The official name of the project as stated in the Plans, Investment Licenses, or other official documents, if available.
+                                               Note: If the project was previously submitted but rejected (deemed inconsistent with JETP), applicants may update the information and resubmit the proposal.
+                                            "></span>
+                                        </p>
+                                    </label>
+                                    <input type="text" id="name" value="@Model.Name">
+                                    <label class="name-error error" id="name-er"></label>
+                                </div>
+
+                                <div class="m-form-item">
+                                    <label>
+                                        2. Project Location <span class="textred">*</span>
+                                        <p class="question-wrap">
+                                            <span class="icon-question" data-tippy-content="The project location may either be proposed (yet to be confirmed) or confirmed (as specified in existing permits), depending on the project’s development stage.
+
+."></span>
+                                        </p>
+                                    </label>
+                                    <select id="location">
+                                        <option value="-1">--Select Location--</option>
+                                        @if (ListCate != null && ListCate.Count > 0)
+                                        {
+
+                                            foreach (var obj in ListCate)
+                                            {
+                                                <option value="@obj.Id" title="@obj.Name" @if (obj.Id.ToString() == Model.Location) { @Html.Raw("selected='selected'") ; }>@Utils.RemoveVietnameseAccents(obj.Name)</option>
+                                            }
+                                        }
+                                    </select>
+                                    @*<input type="text" value="@Model.Location" id="location">*@
+                                    <label class="location-error error" id="location-er"></label>
+                                </div>
+
+                                <div class="m-form-item">
+                                    <label>
+                                        3. Project Category <span class="textred">*</span>
+                                        <p class="question-wrap">
+                                            <span class="icon-question" data-tippy-content="Applicants should select the appropriate project investment category (as per Table 7 of the RMP) from the following: <br>
+1. Projects accelerating the transition from coal power to clean energy<br>
+2. Projects supporting the development of the renewable energy industry<br>
+3. Renewable energy generation (wind, solar, others) projects<br>
+4. Projects on production and utilization of green hydrogen and its derivatives<br>
+5. Projects on power transmission and energy storage<br>
+6. Projects promoting energy efficiency and conservation<br>
+7. Projects on green energy transition and GHG emissions reduction in the transport sector
+"></span>
+                                        </p>
+                                    </label>
+                                    <select id="SubType">
+                                        <option value="1" @(Model.SubType == 1 ? "selected='selected'" : "")>1. Projects accelerating the transition from coal power to clean energy</option>
+                                        <option value="2" @(Model.SubType == 2 ? "selected='selected'" : "")>2. Projects supporting the development of the renewable energy industry</option>
+                                        <option value="3" @(Model.SubType == 3 ? "selected='selected'" : "")>3. Renewable energy generation (wind, solar, others) projects</option>
+                                        <option value="4" @(Model.SubType == 4 ? "selected='selected'" : "")>4. Projects on production and utilization of green hydrogen and its derivatives</option>
+                                        <option value="5" @(Model.SubType == 5 ? "selected='selected'" : "")>5. Projects on power transmission and energy storage</option>
+                                        <option value="6" @(Model.SubType == 6 ? "selected='selected'" : "")>6. Projects promoting energy efficiency and conservation</option>
+                                        <option value="7" @(Model.SubType == 7 ? "selected='selected'" : "")>7. Projects on green energy transition and GHG emissions reduction in the transport sector</option>
+                                    </select>
+                                </div>
+
+                                <div class="m-form-item">
+                                    <label>
+                                        4. Proposing entity <span class="textred">*</span>
+                                        <p class="question-wrap">
+                                            <span class="icon-question" data-tippy-content="Applicants must provide the official name of the proposing organization, such as project owners, project developers, state-owned enterprises, private corporations and their subsidiaries, local and international financial institutions, government agencies, and other legal entities."></span>
+                                        </p>
+                                    </label>
+                                    <input type="text" value="@Model.Unit" id="unit">
+                                    <label class="unit-error error" id="unit-er"></label>
+                                </div>
+
+                                <div class="m-form-item">
+                                    <label style="margin-bottom: 0;">
+                                        5. Contact in proposing entity <span class="textred">*</span>
+                                        <p class="question-wrap">
+                                            <span class="icon-question" data-tippy-content="Applicants must provide their full name, title, department, email address, and phone number"></span>
+                                        </p>
+                                    </label>
+                                </div>
+
+                                <div class="m-form-item w-50">
+                                    <label>Full Name: <span class="textred">*</span></label>
+                                    <input type="text" id="fullname" value="@Model.ProjectConfig.Fullname">
+                                    <label class="fullname-error error" id="fullname-er"></label>
+                                </div>
+
+                                <div class="m-form-item w-50">
+                                    <label>Title, Department: <span class="textred">*</span></label>
+                                    <input type="text" id="role" value="@Model.ProjectConfig.Role">
+                                    <label class="role-error error" id="role-er"></label>
+                                </div>
+
+                                <div class="m-form-item w-50">
+                                    <label>Email: <span class="textred">*</span></label>
+                                    <input type="text" id="email" value="@Model.ProjectConfig.Email">
+                                    <label class="email-error error" id="email-er"></label>
+                                </div>
+
+                                <div class="m-form-item w-50">
+                                    <label>Phone Number: <span class="textred">*</span></label>
+                                    <input type="text" id="mobile" value="@Model.ProjectConfig.Mobile">
+                                    <label class="mobile-error error" id="mobile-er"></label>
+                                </div>
+
+                                <div class="m-form-item">
+                                    <label>
+                                        6. Project developer(s)
+                                        <p class="question-wrap">
+                                            <span class="icon-question" data-tippy-content="Applicants must specify the name of the representing organization or individual. This may correspond to the contact details of the proposing entity or the Project owner (proposed)"></span>
+                                        </p>
+                                    </label>
+                                    <input type="text" value="@Model.ProjectConfig.UnitDev" id="UnitDev">
+                                </div>
+
+                                <div class="m-form-item">
+                                    <label>
+                                        7. Project Owner <span class="textred">*</span>
+                                        <p class="question-wrap">
+                                            <span class="icon-question" data-tippy-content="Applicants must indicate the name of the project owner(s)/ sponsors (proposed). This information may coincide with that of the proposing entity and/or the project developer.
+
+<br>In cases where the project owner is not yet finalized, the type of project ownership may be stated instead.
+"></span>
+                                        </p>
+                                    </label>
+                                    <input type="text" value="@Model.Organ" id="organ">
+                                    <label class="organ-error error" id="organ-er"></label>
+                                </div>
+
+                                <div class="m-form-item">
+                                    <label>
+                                        8. Total project cost (e.g., USD 70 million) <span class="textred">*</span>
+                                        <p class="question-wrap">
+                                            <span class="icon-question" data-tippy-content="Applicants must provide the exact or estimated total project investment cost, depending on the project’s development stage (can be updated at a later time)."></span>
+                                        </p>
+                                    </label>
+                                    <input type="text" value="@Model.Total" id="total">
+                                    <label class="total-error error" id="total-er"></label>
+                                </div>
+
+                                <div class="m-form-item">
+                                    <label>
+                                        9. Preferred Investment Currency (e.g., VND, USD, EUR)
+                                        <p class="question-wrap">
+                                            <span class="icon-question" data-tippy-content="Applicants must specify the desired investment/payment currency."></span>
+                                        </p>
+                                    </label>
+                                    <input type="text" value="@Model.Currency" id="currency">
+                                    <label class="currency-error error" id="currency-er"></label>
+                                </div>
+
+                                <div class="m-form-item">
+                                    <label>
+                                        10. Cost details
+                                        <p class="question-wrap">
+                                            <span class="icon-question" data-tippy-content="Applicants must submit a detailed cost breakdown by category, within the limits of confidentiality, and indicate the debt-to-equity ratio, showing the percentage of the project funded through debt. This information is particularly relevant for projects currently undergoing or nearing financial close"></span>
+                                        </p>
+                                    </label>
+                                    <textarea rows="3" id="detail">@Model.Detail</textarea>
+                                </div>
+
+                                <div class="m-form-item">
+                                    <label>
+                                        11. Finance resources
+                                        <p class="question-wrap">
+                                            <span class="icon-question" data-tippy-content="Applicants should list specific financiers or investors, depending on the project stage. Where possible, specify the names of international development banks, investment funds, private banks, or commercial banks."></span>
+                                        </p>
+                                    </label>
+                                    <textarea rows="3" id="source">@Model.Source</textarea>
+                                </div>
+
+                                <div class="m-form-item">
+                                    <label>
+                                        12. Types of finance
+                                        <p class="question-wrap">
+                                            <span class="icon-question" data-tippy-content="If available, applicants should provide details on:<br>
+                                                  (a) Public Financing:<br>
+(i) Grant in aid/ODA<br>
+(ii) Concessional loans<br>
+(iii) Government-guaranteed loans<br><br>
+(b) Private Financing:<br>
+(i) Equity:<br>
+- Investor/project owner equity<br>
+- Private equity investment<br>
+- Venture capital<br>
+(ii) Debt Instruments:<br>
+- Corporate loans<br>
+- Project finance<br>
+- Syndicated loans<br>
+- Mezzanine finance<br>
+- Subordinated debt<br>
+- Bond issuance (green bonds, social bonds, etc.)<br>
+- Bridge finance<br>
+- Export credit<br><br>
+(iii) Credit Enhancements:<br>
+- Guarantees<br>
+- Insurance products<br>
+- Loss reserves<br><br>
+(c) Consulting Service<br>
+(d) Blended Finance:<br>
+(i) Public-private blended finance<br>
+(ii) Public-Private Partnerships (PPP)<br><br>
+(e)Alternative Finance:<br>
+(i) Impact investing<br>
+(ii) Results-based finance<br>
+(f) Other Financial Instruments
+"></span>
+                                        </p>
+                                    </label>
+                                    <textarea rows="3" id="finance">@Model.ProjectConfig.Finance</textarea>
+                                </div>
+
+                                <div class="m-form-item">
+                                    <label>
+                                        13. Expected revenue stream
+                                        <p class="question-wrap">
+                                            <span class="icon-question" data-tippy-content="If possible, applicants should provide information on how the project is expected to generate revenue, its main revenue sources, pricing structure, customer segments, and payment mechanisms (maximum 300 words)."></span>
+                                        </p>
+                                    </label>
+                                    <textarea rows="3" id="revenue" class="limited-textarea" maxlength="1500">@Model.ProjectConfig.Revenue</textarea>
+                                    <div class="char-info mt4">
+                                        @if (string.IsNullOrEmpty(Model.ProjectConfig.Revenue))
+                                        {
+                                            <span class="char-count">Entered: 0 characters</span>
+                                        }
+                                        else
+                                        {
+                                            <span class="char-count">Entered: @Model.ProjectConfig.Revenue.Length characters</span>
+                                        }
+
+                                        <span class="char-warning" style="display:none; color: red; margin-left: 10px;">
+                                            Character count must not exceed 1500 characters.
+                                        </span>
+                                    </div>
+                                </div>
+
+                                <div class="m-form-item">
+                                    <label>
+                                        14. Development Stage of the Project <span class="textred">*</span>
+                                        <p class="question-wrap">
+                                            <span class="icon-question" data-tippy-content="
+                                                  Applicants are required to provide information about the current stage of project development by selecting the most appropriate option. This information may be updated later:<br>
+
+1. Conceptualization stage<br>
+2. Pre-feasibility study stage<br>
+3. Feasibility study stage<br>
+4. Land acquisition stage<br>
+5. Permitting stage<br>
+6. Technical design stage (detailed engineering design)<br>
+7. Financial negotiation stage<br>
+8. Contract negotiation and signing stage<br>
+9. Construction commencement stage<br>
+10. Construction completion stage<br>
+11. Trial operation stage<br>
+12. Commercial operation and maintenance stage
+"></span>
+                                        </p>
+                                    </label>
+                                    <select id="Progress">
+                                        <option value="1" @(Model.Progress == 1 ? "selected='selected'" : "")>Conceptualization stage</option>
+                                        <option value="2" @(Model.Progress == 2 ? "selected='selected'" : "")>Pre-feasibility study stage</option>
+                                        <option value="3" @(Model.Progress == 3 ? "selected='selected'" : "")>Feasibility study stage</option>
+                                        <option value="4" @(Model.Progress == 4 ? "selected='selected'" : "")>Land acquisition stage</option>
+                                        <option value="5" @(Model.Progress == 5 ? "selected='selected'" : "")>Permitting stage</option>
+                                        <option value="6" @(Model.Progress == 6 ? "selected='selected'" : "")>Technical design stage (detailed engineering design)</option>
+                                        <option value="7" @(Model.Progress == 7 ? "selected='selected'" : "")>Financial negotiation stage</option>
+                                        <option value="8" @(Model.Progress == 8 ? "selected='selected'" : "")>Contract negotiation and signing stage</option>
+                                        <option value="9" @(Model.Progress == 9 ? "selected='selected'" : "")> Construction commencement stage</option>
+                                        <option value="10" @(Model.Progress == 10 ? "selected='selected'" : "")>Construction completion stage</option>
+                                        <option value="11" @(Model.Progress == 11 ? "selected='selected'" : "")>Trial operation stage</option>
+                                        <option value="12" @(Model.Progress == 12 ? "selected='selected'" : "")>Commercial operation and maintenance stage</option>
+                                    </select>
+                                </div>
+
+                                <div class="m-form-item w-50">
+                                    <label>
+                                        15. Targeted Actual Start of Construction <span class="textred">*</span>
+                                        <p class="question-wrap">
+                                            <span class="icon-question" data-tippy-content="Applicants are requested to provide the official or expected commencement date of the project. Please note that this date may differ from the date of any Groundbreaking Ceremony.."></span>
+                                        </p>
+                                    </label>
+                                    <input type="text" placeholder="dd/mm/yyyy" value="@Model.ProjectConfig.Time" id="time">
+                                    <label class="time-error error" id="time-er"></label>
+                                </div>
+
+                                <div class="m-form-item w-50">
+                                    <label>
+                                        16. Target Date of Completion (CoD) <span class="textred">*</span>
+                                        <p class="question-wrap">
+                                            <span class="icon-question" data-tippy-content="Applicants are requested to provide the expected start date of the project's trial operation phase"></span>
+                                        </p>
+                                    </label>
+                                    <input type="text" placeholder="dd/mm/yyyy" value="@Model.ProjectConfig.Finish" id="finish">
+                                    <label class="finish-error error" id="finish-er"></label>
+                                </div>
+
+
+                                <div class="text-center mt40 w-100 list-inline btn-list-03">
+                                    <a href="#" class="btn-blue btn-cm btnNextTab" data-toggle="tab" data-target="#tabs02" type="button" role="tab" aria-selected="false">NEXT</a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="tab-pane fade" id="tabs02" role="tabpanel">
+                            <p style="font-weight:bold">Refer to Annex 1  <a href="/Content/Annex.pdf" class="textblue textlink" target="_blank">HERE</a>  before filling in the information in section 21.</p>
+                            <div class="m-form mt20">
+
+                                <div class="m-form-item">
+                                    <label>
+                                        17. Legal status of the project <span class="textred">*</span>
+                                        <p class="question-wrap">
+                                            <span class="icon-question" data-tippy-content="The project must have a clear legal status before being proposed as a JETP project.
+
+<br>Applicants are requested to provide information on the current legal status of the project, based on approved plans, investment policies, permits, or other relevant documents (if applicable).
+"></span>
+                                        </p>
+                                    </label>
+                                    <textarea id="legalStatus" rows="3">@Model.LegalStatus</textarea>
+                                    <label class="legalStatus-error error" for="legalStatus" id="legalStatus-er"></label>
+                                </div>
+
+                                <div class="m-form-item">
+                                    <label>
+                                        18. Brief Project Objectives & Description <span class="textred">*</span>
+                                        <p class="question-wrap">
+                                            <span class="icon-question" data-tippy-content="Applicants are requested to provide a concise summary of the project's objectives and key contents, including technologies and components (maximum 500 words)."></span>
+                                        </p>
+                                    </label>
+                                    <textarea id="description" class="limited-textarea" rows="3" maxlength="2500">@Model.Description</textarea>
+                                    <div class="char-info mt4">
+                                        <span class="char-count">Entered: @Model.Description.Length characters</span>
+                                        <span class="char-warning" style="display:none; color: red; margin-left: 10px;">
+                                            Character count must not exceed 2500.
+                                        </span>
+                                    </div>
+                                    <label class="description-error error" for="description" id="description-er"></label>
+                                </div>
+
+                                <div class="m-form-item">
+                                    <label>
+                                        19. Anticipated Project Impacts
+                                        <p class="question-wrap">
+                                            <span class="icon-question" data-tippy-content="Applicants are requested to assess the anticipated impacts of the project, covering the following aspects:
+<br>(a) Projected GHG emissions reductions over the project lifetime (tCO₂e)
+<br>(b) Number of jobs created (including direct and indirect employment during construction, O&M over project lifetime)
+
+                                                  ">
+                    </span>
+                                        </p>
+                                    </label>
+                                    <textarea id="impact" rows="3">@Model.Impact</textarea>
+                                </div>
+
+                                <div class="m-form-item">
+                                    <label>
+                                        20. Is Technical Assistance (TA) support needed for the project? <span class="textred">*</span>
+                                        <p class="question-wrap">
+                                            <span class="icon-question" data-tippy-content="Applicants are requested to answer Yes or No.
+
+<br>If Yes, please specify the types of technical assistance required or indicate the specific name of non-assest projects that support this project.
+
+"></span>
+                                        </p>
+                                    </label>
+                                    <div class="">
+                                        <ul class="list-inline choose-active">
+                                            <li @(Model.ProjectConfig.TA == 1 ? "class=active" : "") id="ta1"><a href="#" class="btn-cm btn-blue-outline choose-01">YES</a></li>
+                                            <li @(Model.ProjectConfig.TA == 0 ? "class=active" : "") id="ta0"><a href="#" class="btn-cm btn-blue-outline choose-02">NO</a></li>
+                                        </ul>
+                                        <label class="ta-error error" for="ta" id="ta-er"></label>
+                                        <div class="mt20 choose-textarea">
+                                            <textarea id="TADetail" rows="3" placeholder="If Yes, specify the type of TA or name of the supporting project.">@Model.ProjectConfig.TADetail</textarea>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="m-form-item">
+                                    <label>
+                                        21. Meeting the 4 JETP General Principles <span class="textred">*</span>
+                                        <p class="question-wrap">
+                                            <span class="icon-question" data-tippy-content="SApplicants are requested to self-assess the alignment of their investment project proposal with the four JETP General Principles (as outlined in Table 6, RMP) (maximum 200 words per principle).
+
+<br>Applicants may refer to the guidance provided under each principle if applicable to the project
+"></span>
+                                        </p>
+                                    </label>
+                                </div>
+
+                                <div class="m-form-item">
+                                    <label>
+                                        21.1. General Principle 1: Promoting the development of renewable energy or energy saving and energy efficiency, contributing to the achievement of greenhouse gas emission reduction objectives and ensuring national energy security<span class="textred">*</span>
+                                        <p class="question-wrap">
+                                            <span class="icon-question" data-tippy-content="Provide a qualitative justification of the project's alignment with General Principle 1.
+
+<br>Applicants may select options corresponding to the “Project Category” chosen in Section 3 of the application form. Please refer to Annex 1 for available options by project category.
+"></span>
+                                        </p>
+                                    </label>
+                                    <textarea id="rule1" class="limited-textarea" rows="3" data-maxlength="1000">@Model.Rule1</textarea>
+                                    <div class="char-info mt4">
+                                        <span class="char-count">Entered: @Model.Rule1.Length characters</span>
+                                        <span class="char-warning" style="display:none; color: red; margin-left: 10px;">
+                                            Character count must not exceed 1000.
+                                        </span>
+                                    </div>
+                                    <label class="rule1-error error" for="rule1" id="rule1-er"></label>
+                                </div>
+
+                                <div class="m-form-item">
+                                    <label>
+                                        21.2. General Principle 2: Providing clear socio-economic benefits for communities, businesses and/or workers affected by the transition. <span class="textred">*</span>
+                                        <p class="question-wrap">
+                                            <span class="icon-question" data-tippy-content="Provide a qualitative justification of the project's alignment with General Principle 2.
+
+<br>Applicants may select options corresponding to the “Project Category” chosen in Section 3 of the application form. Please refer to Annex 1 for available options by project category
+"></span>
+                                        </p>
+                                    </label>
+                                    <textarea id="rule2" class="limited-textarea" rows="3" data-maxlength="1000">@Model.Rule2</textarea>
+                                    <div class="char-info mt4">
+                                        <span class="char-count">Entered: @Model.Rule2.Length characters</span>
+                                        <span class="char-warning" style="display:none; color: red; margin-left: 10px;">
+                                            Character count must not exceed 1000.
+                                        </span>
+                                    </div>
+                                    <label class="rule2-error error" for="rule2" id="rule2-er"></label>
+                                </div>
+
+                                <div class="m-form-item">
+                                    <label>
+                                        21.3. General Principle 3: Be catalytic in nature, and encourage additional, future JETP investments. <span class="textred">*</span>
+                                        <p class="question-wrap">
+                                            <span class="icon-question" data-tippy-content="Provide a qualitative justification of the project's alignment with General Principle 3.
+
+<br>Applicants may select options corresponding to the “Project Category” chosen in Section 3 of the application form. Please refer to Annex 1 for available options by project category.
+"></span>
+                                        </p>
+                                    </label>
+                                    <textarea id="rule3" class="limited-textarea" rows="3" data-maxlength="1000">@Model.Rule3</textarea>
+                                    <label class="rule3-error error" for="rule3" id="rule3-er"></label>
+                                    <div class="char-info mt4">
+                                        <span class="char-count">Entered: @Model.Rule3.Length characters</span>
+                                        <span class="char-warning" style="display:none; color: red; margin-left: 10px;">
+                                            Character count must not exceed 1000.
+                                        </span>
+                                    </div>
+                                </div>
+
+                                <div class="m-form-item">
+                                    <label>
+                                        21.4. General Principle 4: Have significant positive impact on the just energy transition. <span class="textred">*</span>
+                                        <p class="question-wrap">
+                                            <span class="icon-question" data-tippy-content="Provide a qualitative justification of the project's alignment with General Principle 4.
+
+<br>Applicants may select options corresponding to the “Project Category” chosen in Section 3 of the application form. Please refer to Annex 1 for available options by project category.
+"></span>
+                                        </p>
+                                    </label>
+                                    <textarea id="rule4" class="limited-textarea" rows="3" data-maxlength="1000">@Model.Rule4</textarea>
+                                    <div class="char-info mt4">
+                                        <span class="char-count">Entered: @Model.Rule4.Length characters</span>
+                                        <span class="char-warning" style="display:none; color: red; margin-left: 10px;">
+                                            Character count must not exceed 1000.
+                                        </span>
+                                    </div>
+                                    <label class="rule4-error error" for="rule4" id="rule4-er"></label>
+                                </div>
+
+                                <div class="m-form-item">
+                                    <label>
+                                        22. Pre-Assessments
+                                        <p class="question-wrap">
+                                            <span class="icon-question" data-tippy-content="Has the project undergone any environmental or social impact assessments? If so, which Environmental and Social (E&S) standards does the project comply with, and does it include compliance with IFC's Equator Principles? Please provide information in a maximum of 200 words."></span>
+                                        </p>
+                                    </label>
+                                    <textarea id="rate" class="limited-textarea" rows="3" data-maxlength="1000">@Model.ProjectConfig.Rate</textarea>
+                                    <div class="char-info mt4">
+                                        @if (!string.IsNullOrEmpty(Model.ProjectConfig.Rate))
+                                        {
+                                            <span class="char-count">Entered: @Model.ProjectConfig.Rate.Trim().Length characters</span>
+                                        }
+                                        else
+                                        {
+                                            <span class="char-count">Entered: 0 characters</span>
+                                        }
+
+                                        <span class="char-warning" style="display:none; color: red; margin-left: 10px;">
+                                            Character count must not exceed 1000.
+                                        </span>
+                                    </div>
+                                </div>
+
+                                <div class="m-form-item">
+                                    <label>
+                                        23. Project documents
+                                        <p class="question-wrap">
+                                            <span class="icon-question" data-tippy-content="Applicants may upload project documents to support the JETP Secretariat’s review process. These documents will also support the M&E assessment and provide the opportunity to access potential assistance. All submitted documents will be kept confidential.
+
+<br>Please upload documents to Google Drive and paste the link here.
+"></span>
+                                        </p>
+                                    </label>
+                                    <textarea id="document" rows="3">@Model.Document</textarea>
+                                </div>
+
+                            </div>
+
+                            <div class="text-center mt40 w-100 list-inline btn-list-03">
+                                <a href="javascript:;" onclick="save1();" class="btn-blue btn-cm">SAVE</a>
+                                <a href="javascript:;" class="btn-blue btn-cm btnBackTab" data-toggle="tab" data-target="#tabs01" type="button" role="tab" aria-selected="true">BACK</a>
+                                <a href="javascript:;" onclick="save2();" class="btn-blue btn-cm">SUBMIT</a>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                @*<div class="text-center mt20 w-100 list-inline">
+                        <a href="javascript:;" onclick="save1();" class="btn-blue-02 btn-cm">LƯU</a>
+                        <a href="javascript:;" onclick="save2();" class="btn-blue btn-cm">Gửi</a>
+                    </div>*@
+                <div class="form-box mt20">
+                    <p style="color: red;text-align: left;font-weight:bold" id="msgBox"></p>
+                </div>
+                @*<div class="mt50">
+                        <strong>Chú thích:</strong><br>
+                        <p style="padding-left: 20px;">
+                            - Các trường thông tin có dấu hoa thị (<span class="textred">*</span>) là các trường thông tin bắt buộc.<br>
+                            - Các trường thông tin không có dấu hoa thị (<span class="textred">*</span>) là các trường thông tin không bắt buộc.<br>
+                            - Tham khảo Phụ lục 1 <a href="/Content/phu-luc.pdf" t class="textblue" style="text-decoration: underline;" target="_blank">TẠI ĐÂY</a>.
+                        </p>
+                    </div>*@
+            </div>
+        </div>
+        <div class="m-log-out">
+            <img src="/Content2/images/manage-img.png" alt="">
+            <a href="@Url.Action("Login","User",new { act="out" })" class="btn-log-out"><img src="/Content2/images/icon-log-out.png" alt=""> Log Out</a>
+        </div>
+    </div>
+</div>
+<!-- Modal -->
+<div class="modal fade" id="save" tabindex="-1" role="dialog" aria-labelledby="" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            <h4>Information saved successfully!</h4>
+            <div class="text-center mt30">
+                <button type="button" class="btn-blue btn-cm" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="send" tabindex="-1" role="dialog" aria-labelledby="" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            <p class="text-center">
+                You will not be able to edit or update the project proposal once you click the SEND button. <br>
+                Are you sure you want to submit this project proposal?
+            </p>
+            <div class="text-center mt30 list-inline btn-list-03">
+                <button type="button" class="btn-blue btn-cm" data-dismiss="modal">NO</button>
+                <button type="button" class="btn-blue btn-cm confirmSend" onclick="send2()">YES</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="notebox" tabindex="-1" role="dialog" aria-labelledby="" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            <h4>Submission successful!</h4>
+            <p class="mt20 ">
+                Experts will screen all submitted projects based on the JETP principles and evaluate whether they meet the JETP criteria. <br /> <br />They will contact you directly to discuss next steps or request additional information if necessary.
+            </p>
+            <div class="text-center mt30 btn-modal-list">
+                <button type="button" class="btn-blue btn-cm" data-dismiss="modal">OK</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $('.choose-active li').click(function (e) {
+        e.preventDefault(); // Ngăn không cho <a> nhảy lên đầu trang
+        $('.choose-active li').removeClass('active');
+        $(this).addClass('active');
+    });
+
+</script>
+<script>
+    //
+    $(document).ready(function () {
+        $('.choose-01').click(function (e) {
+            e.preventDefault();
+            $('.choose-textarea').slideDown(); // Hiện textarea
+        });
+
+        $('.choose-02').click(function (e) {
+            e.preventDefault();
+            $('.choose-textarea').slideUp(); // Ẩn textarea
+        });
+    });
+</script>
+<script>
+    $(document).ready(function () {
+        $('.limited-textarea').on('input', function () {
+            const $textarea = $(this);
+            const currentLength = $textarea.val().length;
+            const maxLength = parseInt($textarea.data('maxlength'), 10);
+
+            const $wrapper = $textarea.closest('.m-form-item');
+            const $count = $wrapper.find('.char-count');
+            const $warning = $wrapper.find('.char-warning');
+
+            $count.text(`Entered: ${currentLength} characters`);
+
+            if (currentLength >= maxLength) {
+                $warning.text(`Character limit must not exceed ${maxLength} characters.`).show();
+            } else {
+                $warning.hide();
+            }
+        });
+    });
+</script>
+
+<script>
+    $(document).ready(function () {
+        $('.btnNextTab').on('click', function (e) {
+            e.preventDefault();
+            $('button[data-target="#tabs02"]').tab('show');
+            $('button[data-target="#tabs02"]').on('shown.bs.tab', function () {
+                const offset = 100;
+                const $target = $('#tabs02');
+                if ($target.length) {
+                    $('html, body').animate({
+                        scrollTop: $target.offset().top - offset
+                    }, 500);
+                }
+            });
+        });
+        $('.btnBackTab').on('click', function (e) {
+            e.preventDefault();
+            $('button[data-target="#tabs01"]').tab('show');
+            $('button[data-target="#tabs01"]').on('shown.bs.tab', function () {
+                const offset = 100;
+                const $target = $('#tabs01');
+                if ($target.length) {
+                    $('html, body').animate({
+                        scrollTop: $target.offset().top - offset
+                    }, 500);
+                }
+            });
+        });
+
+
+    });
+</script>
+
+<!-- PopperJS (dependency) -->
+<script src="/Content2/lib/tippy/popper.min.js"></script>
+<link rel="stylesheet" href="/Content2/lib/tippy/tippy.css" />
+<script src="/Content2/lib/tippy/tippy-bundle.umd.min.js"></script>
+<script>
+    tippy('.icon-question', {
+        theme: 'light-border',
+        placement: 'right-end',
+        maxWidth: 600,
+        allowHTML: true,
+        interactive: true,
+        delay: [100, 100],
+    });
+</script>
+<script src="~/Content/js/formvalidate.js?vs=02"></script>
+<script>
+    $("#menu_2").addClass("active");
+    function gotab1() {
+        $('button[data-target="#tabs01"]').tab('show');
+        $('button[data-target="#tabs01"]').on('shown.bs.tab', function () {
+            const offset = 100;
+            const $target = $('#tabs01');
+            if ($target.length) {
+                $('html, body').animate({
+                    scrollTop: $target.offset().top - offset
+                }, 500);
+            }
+        });
+    }
+    function validateData() {
+        if (!ValidateControls("Please enter the project name!", "#name", '#name-er')) {
+            gotab1();
+            $('#name').focus();
+            return false;
+        }
+        if (!ValidateControls("Please enter the project location!", "#location", '#location-er')) {
+            gotab1();
+            $('#location').focus();
+            return false;
+        }
+        if (!ValidateControls("Please enter the rroposing entity !", "#unit", '#unit-er')) {
+            gotab1();
+            $('#unit').focus();
+            return false;
+        }
+        if (!ValidateControls("Please enter full name!", "#fullname", '#fullname-er')) {
+            gotab1();
+            $('#fullname').focus();
+            return false;
+        }
+        if (!ValidateControls("Please enter the title!", "#role", '#role-er')) {
+            gotab1();
+            $('#role').focus();
+            return false;
+        }
+        if (!ValidateControls("Please enter email!", "#email", '#email-er')) {
+            gotab1();
+            $('#email').focus();
+            return false;
+        }
+        var mail = $('#email').val();
+        if (!isValidEmailAddress(mail)) {
+            gotab1();
+            $("#email-er").html("Invalid email").show();
+            $('#email').focus();
+            return false;
+        }
+        if (!ValidateControls("Please enter phone number!", "#mobile", '#mobile-er')) {
+            $('#mobile').focus(); gotab1();
+            return false;
+        }
+        var phone = $('#mobile').val();
+        if (phone.length < 9 || phone.length > 12) {
+
+            $("#mobile-er").html("Invalid phone number.").show();
+            gotab1();
+            $('#mobile').focus();
+            return false;
+        }
+        if (!isInteger(phone)) {
+
+            $("#mobile-er").html("Invalid phone number.").show();
+
+            gotab1();
+            $('#mobile').focus();
+            return false;
+        }
+        if (!ValidateControls("Please enter the project owner!", "#organ", '#organ-er')) {
+            gotab1();
+            $('#organ').focus();
+            return false;
+        }
+        if (!ValidateControls("Please enter total project cost!", "#total", '#total-er')) {
+            gotab1();
+            $('#total').focus();
+            return false;
+        }
+
+        if ($('#revenue').val().length > 0) {
+            if ($('#revenue').val().length > 1000) {
+                $('#revenue').focus();
+                gotab1();
+                return false;
+            }
+        }
+
+        if (!ValidateControls("Please enter targeted actual start of construction!", "#time", '#time-er')) {
+            gotab1();
+            $('#time').focus();
+            return false;
+        }
+        if (!ValidateControls("Please enter target date of completion!", "#finish", '#finish-er')) {
+            gotab1();
+            $('#finish').focus();
+            return false;
+        }
+        if (!ValidateControls("Please enter legal status!", "#legalStatus", '#legalStatus-er')) {
+            $('#legalStatus').focus();
+            return false;
+        }
+        if (!ValidateControls("Please enter description!", "#description", '#description-er')) {
+            $('#description').focus();
+            return false;
+        }
+        if ($('#description').val().length > 2500) {
+            $('#description').focus();
+            return false;
+        }
+
+        if (!$("#ta0").hasClass("active") && !$("#ta1").hasClass("active")) {
+            $("#ta-er").html("Please select TA type: Yes / No.").show();
+            $("#TADetail").focus();
+            return false;
+        }
+
+        if (!ValidateControls("Please enter general principle 1!", "#rule1", '#rule1-er')) {
+            $('#rule1').focus();
+            return false;
+        }
+        if ($('#rule1').val().length > 1000) {
+            $('#rule1').focus();
+            return false;
+        }
+
+        if (!ValidateControls("Please enter general principle 2!", "#rule2", '#rule2-er')) {
+            $('#rule2').focus();
+            return false;
+        }
+        if ($('#rule2').val().length > 1000) {
+            $('#rule2').focus();
+            return false;
+        }
+
+        if (!ValidateControls("Please enter general principle 3!", "#rule3", '#rule3-er')) {
+            $('#rule3').focus();
+            return false;
+        }
+        if ($('#rule3').val().length > 1000) {
+            $('#rule3').focus();
+            return false;
+        }
+
+        if (!ValidateControls("Please enter general principle 4!", "#rule4", '#rule4-er')) {
+            $('#rule4').focus();
+            return false;
+        }
+        if ($('#rule4').val().length > 1000) {
+            $('#rule4').focus();
+            return false;
+        }
+        if ($('#rate').val().length > 1000) {
+
+            $('#rate').focus();
+            return false;
+        }
+        return true;
+    }
+
+    function save1() {
+        if (!validateData()) {
+            return false;
+        }
+         var param2 = {
+             Id: '@Model.Id',
+             Name: $("#name").val(),
+             Location: $("#location").val(),
+             SubType: $("#SubType").val(),
+             Unit: $("#unit").val(),
+             UnitIInfo: '',
+             UnitDev: $("#UnitDev").val(),
+             Fullname: $("#fullname").val(),
+             Mobile: $("#mobile").val(),
+             Role: $("#role").val(),
+             Email: $("#email").val(),
+
+             Organ: $("#organ").val(),
+             Currency: $("#currency").val(),
+             Total: $("#total").val(),
+             Detail: $("#detail").val(),
+             Finance: $("#finance").val(),
+             Source: $("#source").val(),
+             Revenue: $("#revenue").val(),
+             Progress: $("#Progress").val(),
+             Time: $("#time").val(),
+             Finish: $("#finish").val(),
+             LegalStatus: $("#legalStatus").val(),
+             Description: $("#description").val(),
+             Impact: $("#impact").val(),
+             TADetail: $("#TADetail").val(),
+             Document: $("#document").val(),
+             Rule1: $("#rule1").val(),
+             Rule2: $("#rule2").val(),
+             Rule3: $("#rule3").val(),
+             Rule4: $("#rule4").val(),
+             Rate: $("#rate").val(),
+             //Currency: $("#currency").val(),
+             TA: 1,
+             Type: 1,
+        };
+        //if ($("#cusd").hasClass("active")) {
+        //    param2.Currency = "USD";
+        //}
+        if ($("#ta0").hasClass("active")) {
+            param2.TA = 0;
+        }
+        param2.Status = 0;
+
+         $.ajax({
+             type: 'POST',
+             url: "@Url.Action("SaveData")",
+             data: addAntiForgeryToken(param2),
+             async: true,
+             success: function (data) {
+
+                 if (data.ResponseCode >= 0) {
+                      //bootbox.alert("Cập nhật thành công");
+                     //setTimeout(function () { window.location = '/User/AddProject?id=' + data.ResponseCode; }, 500);
+                      $('#save').on('hidden.bs.modal', function () {
+                        window.location = '/User/AddProject?id=' + data.ResponseCode;;
+                        });
+                     $('#save').modal('show');
+                 } else {
+
+                     $("#msgBox").text(data.Description).show();
+                     return;
+                 }
+             }
+        });
+    }
+    function save2() {
+        if (!validateData()) {
+            return false;
+        }
+        $('#send').modal('show');
+    }
+
+    function send2() {
+        $('#send').modal('hide');
+         var param2 = {
+         Id: '@Model.Id',
+         Name: $("#name").val(),
+         Location: $("#location").val(),
+         SubType: $("#SubType").val(),
+         Unit: $("#unit").val(),
+         UnitIInfo: '',
+         UnitDev: $("#UnitDev").val(),
+         Fullname: $("#fullname").val(),
+         Mobile: $("#mobile").val(),
+         Role: $("#role").val(),
+         Email: $("#email").val(),
+         Organ: $("#organ").val(),
+         Total: $("#total").val(),
+         Detail: $("#detail").val(),
+         Finance: $("#finance").val(),
+         Source: $("#source").val(),
+         Revenue: $("#revenue").val(),
+         Progress: $("#Progress").val(),
+         Time: $("#time").val(),
+         Finish: $("#finish").val(),
+         LegalStatus: $("#legalStatus").val(),
+         Description: $("#description").val(),
+         Impact: $("#impact").val(),
+         TADetail: $("#TADetail").val(),
+         Document: $("#document").val(),
+         Rule1: $("#rule1").val(),
+         Rule2: $("#rule2").val(),
+         Rule3: $("#rule3").val(),
+         Rule4: $("#rule4").val(),
+         Rate: $("#rate").val(),
+         Currency: "VND",
+         TA: 1,
+         Type: 1,
+    };
+    if ($("#cusd").hasClass("active")) {
+        param2.Currency = "USD";
+    }
+    if ($("#ta0").hasClass("active")) {
+        param2.TA = 0;
+    }
+        param2.Status = 1;
+
+         $.ajax({
+             type: 'POST',
+             url: "@Url.Action("SaveData")",
+             data: addAntiForgeryToken(param2),
+             async: true,
+             success: function (data) {
+
+                 if (data.ResponseCode >= 0) {
+
+                     @*bootbox.alert("Gửi thành công", function () {
+                         // Hàm này được gọi khi người dùng ấn nút OK
+                        window.location = '@Url.Action("ManageProject")';
+                         // Bạn có thể thực hiện các thao tác khác ở đây
+                     });*@
+                     $('#notebox').on('hidden.bs.modal', function () {
+                        window.location = '@Url.Action("ManageProject")';
+                     });
+                     $('#notebox').modal('show');
+                 } else {
+
+                     $("#msgBox").text(data.Description).show();
+                     return;
+                 }
+             }
+            });
+        }
+
+</script>
+@if (Model.ProjectConfig.TA == 1)
+{
+    <script>
+        $('.choose-textarea').slideDown();
+    </script>
+}
+<style>
+    .m-form-item .error {
+        color: red;
+        margin-bottom: 0px;
+        font-size: 18px;
+        margin-top: -2px;
+        display: block;
+    }
+</style>
+<script>
+    $('.choose-active li').click(function (e) {
+        e.preventDefault(); // Ngăn không cho <a> nhảy lên đầu trang
+        $('.choose-active li').removeClass('active');
+        $(this).addClass('active');
+    });
+    $('.choose-active2 li').click(function (e) {
+        e.preventDefault(); // Ngăn không cho <a> nhảy lên đầu trang
+        $('.choose-active2 li').removeClass('active');
+        $(this).addClass('active');
+    });
+</script>

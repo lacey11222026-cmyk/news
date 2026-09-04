@@ -1,0 +1,190 @@
+﻿@using WebMVC4.Helper
+@using BIZ
+@using UTILS
+
+
+<div id="NavDrawer" class="drawer drawer--right">
+    <div class="drawer__header">
+        <div class="drawer__close js-drawer-close clearfix" onclick="closeMenu()">
+            Menu
+            <button type="button" class="icon-fallback-text">
+                <svg class="svg-inline--fa fa-times fa-w-12" aria-hidden="true" data-prefix="fas" data-icon="times" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512" data-fa-i2svg=""><path fill="currentColor" d="M323.1 441l53.9-53.9c9.4-9.4 9.4-24.5 0-33.9L279.8 256l97.2-97.2c9.4-9.4 9.4-24.5 0-33.9L323.1 71c-9.4-9.4-24.5-9.4-33.9 0L192 168.2 94.8 71c-9.4-9.4-24.5-9.4-33.9 0L7 124.9c-9.4 9.4-9.4 24.5 0 33.9l97.2 97.2L7 353.2c-9.4 9.4-9.4 24.5 0 33.9L60.9 441c9.4 9.4 24.5 9.4 33.9 0l97.2-97.2 97.2 97.2c9.3 9.3 24.5 9.3 33.9 0z"></path></svg><!-- <i class="fas fa-times"></i> -->
+            </button>
+        </div>
+    </div>
+    <!-- begin mobile-nav -->
+    @Html.Action("MenuMobile", "Home")
+    <!-- //mobile-nav -->
+</div>
+
+<div class="cart-overlay"></div>
+
+
+
+
+
+
+@*<div id="CartDrawer" class="drawer drawer--left">
+        <div class="drawer__header">
+            <div class="drawer__title h3">Giỏ hàng</div>
+            <div class="drawer__close js-drawer-close">
+                <button type="button" class="icon-fallback-text">
+                    <span class="icon icon-x" aria-hidden="true"></span>
+                    <span class="fallback-text">"Đóng"</span>
+                </button>
+            </div>
+        </div>
+        <div id="CartContainer"></div>
+    </div>*@
+
+
+
+
+
+
+<header id="header">
+    <div class="header-desktop">
+        <div class="inner">
+            <div class="header-logo">
+
+
+                <h1>
+                    <a href="/">
+                        Vcare Car Care<img src="/Content/logo.webp" alt="Vcare Car Care">
+                    </a>
+                </h1>
+
+
+
+            </div>
+            <div class="header-navbar-wrapper">
+                <div class="header-navbar text-right">
+                    @Html.Action("Menu", "Home")
+                </div>
+            </div>
+
+            <div class="header-right">
+                <div class="header-search text-right">
+                    <a href="javascript:void(0)" class="text-center" id="search-btn">
+                        <span id="btn-s"><i class="fas fa-search"></i></span><span class="hide" id="btn-t"><i class="fas fa-times"></i></span>
+                    </a>
+                    <div class="dropdown-menu" id="search-dropdown">
+                        <div class="search-form-wrapper">
+                            <form id="searchauto" action="/product/search/" class="searchform-categoris ultimate-search">
+
+                                <div class="wpo-search">
+
+                                    <div class="wpo-search-inner">
+
+
+                                        <div class="input-group">
+
+
+
+                                            <input id="searchtext" name="query" maxlength="40" class="form-control input-search" type="text" size="20" placeholder="Tìm kiếm ...">
+
+                                            <span class="input-group-btn">
+                                                <button type="submit" id="searchsubmit"><i class="fas fa-search"></i></button>
+                                            </span>
+                                        </div>
+
+                                    </div>
+
+
+
+                                </div>
+
+                            </form>
+                        </div>
+
+                        @*<script>
+                                $('#searchauto').submit(function (e) {
+                                    e.preventDefault();
+                                    if ($('.select-collection').val() == 0) {
+                                        window.location = '/search?q=filter=(' + '(collectionid:product>=' + $('.select-collection').val() + ')' + '&&(title:product**' + $(this).find('input[name="q"]').val() + '))';
+                                    } else {
+                                        window.location = '/search?q=filter=(' + '(collectionid:product=' + $('.select-collection').val() + ')' + '&&(title:product**' + $(this).find('input[name="q"]').val() + '))';
+                                    }
+                                })
+                            </script>*@
+
+
+                        <!--<div class="desktop-cart-wrapper">
+                        <a href="javascript:void(0)" class="hd-cart">
+                            <svg class="svg-inline--fa fa-shopping-cart fa-w-18" aria-hidden="true" data-prefix="fas" data-icon="shopping-cart" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512" data-fa-i2svg=""><path fill="currentColor" d="M528.12 301.319l47.273-208C578.806 78.301 567.391 64 551.99 64H159.208l-9.166-44.81C147.758 8.021 137.93 0 126.529 0H24C10.745 0 0 10.745 0 24v16c0 13.255 10.745 24 24 24h69.883l70.248 343.435C147.325 417.1 136 435.222 136 456c0 30.928 25.072 56 56 56s56-25.072 56-56c0-15.674-6.447-29.835-16.824-40h209.647C430.447 426.165 424 440.326 424 456c0 30.928 25.072 56 56 56s56-25.072 56-56c0-22.172-12.888-41.332-31.579-50.405l5.517-24.276c3.413-15.018-8.002-29.319-23.403-29.319H218.117l-6.545-32h293.145c11.206 0 20.92-7.754 23.403-18.681z"></path></svg>-->
+                        <!-- <i class="fas fa-shopping-cart"></i> -->
+                        <!--<span class="hd-cart-count">0</span>
+                        </a>
+                        <div class="quickview-cart">
+                            <h3>
+
+                                Giỏ hàng trống
+
+                                <span class="btnCloseQVCart"><svg class="svg-inline--fa fa-times fa-w-12" aria-hidden="true" data-prefix="fa" data-icon="times" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512" data-fa-i2svg=""><path fill="currentColor" d="M323.1 441l53.9-53.9c9.4-9.4 9.4-24.5 0-33.9L279.8 256l97.2-97.2c9.4-9.4 9.4-24.5 0-33.9L323.1 71c-9.4-9.4-24.5-9.4-33.9 0L192 168.2 94.8 71c-9.4-9.4-24.5-9.4-33.9 0L7 124.9c-9.4 9.4-9.4 24.5 0 33.9l97.2 97.2L7 353.2c-9.4 9.4-9.4 24.5 0 33.9L60.9 441c9.4 9.4 24.5 9.4 33.9 0l97.2-97.2 97.2 97.2c9.3 9.3 24.5 9.3 33.9 0z"></path></svg>-->
+                        <!-- <i class="fa fa-times" aria-hidden="true"></i> -->
+                        <!--</span>
+                                </h3>
+                                <ul class="no-bullets">
+
+                                    <li>Bạn chưa có sản phẩm nào trong giỏ hàng!</li>
+
+                                </ul>
+
+                            </div>
+                        </div>-->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="header-mobile">
+        <div class="wrapper">
+            <div class="inner">
+                <div class="grid">
+                    <div class="grid__item large--one-third medium--one-third small--one-third">
+                        <div class="hd-logo text-left">
+
+                            <a href="/">
+                                <img src="/Content/mb_logo.webp" alt="Vcare Car Care">
+                            </a>
+
+                        </div>
+                    </div>
+                    <div class="clearfix grid__item large--two-thirds medium--two-thirds small--two-thirds clearfix text-right">
+                        <div class="hd-btnMenu">
+                            <a href="javascript:void(0)" onclick="openMenu()" class="icon-fallback-text site-nav__link js-drawer-open-right" aria-controls="NavDrawer" aria-expanded="false">
+                                <svg class="svg-inline--fa fa-bars fa-w-14" aria-hidden="true" data-prefix="fas" data-icon="bars" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" data-fa-i2svg=""><path fill="currentColor" d="M16 132h416c8.837 0 16-7.163 16-16V76c0-8.837-7.163-16-16-16H16C7.163 60 0 67.163 0 76v40c0 8.837 7.163 16 16 16zm0 160h416c8.837 0 16-7.163 16-16v-40c0-8.837-7.163-16-16-16H16c-8.837 0-16 7.163-16 16v40c0 8.837 7.163 16 16 16zm0 160h416c8.837 0 16-7.163 16-16v-40c0-8.837-7.163-16-16-16H16c-8.837 0-16 7.163-16 16v40c0 8.837 7.163 16 16 16z"></path></svg><!-- <i class="fas fa-bars"></i> -->
+                            </a>
+                        </div>
+                        <!--<div class="desktop-cart-wrapper1">
+                            <a href="javascript:void(0)" class="hd-cart">
+                                <svg class="svg-inline--fa fa-shopping-cart fa-w-18" aria-hidden="true" data-prefix="fas" data-icon="shopping-cart" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512" data-fa-i2svg=""><path fill="currentColor" d="M528.12 301.319l47.273-208C578.806 78.301 567.391 64 551.99 64H159.208l-9.166-44.81C147.758 8.021 137.93 0 126.529 0H24C10.745 0 0 10.745 0 24v16c0 13.255 10.745 24 24 24h69.883l70.248 343.435C147.325 417.1 136 435.222 136 456c0 30.928 25.072 56 56 56s56-25.072 56-56c0-15.674-6.447-29.835-16.824-40h209.647C430.447 426.165 424 440.326 424 456c0 30.928 25.072 56 56 56s56-25.072 56-56c0-22.172-12.888-41.332-31.579-50.405l5.517-24.276c3.413-15.018-8.002-29.319-23.403-29.319H218.117l-6.545-32h293.145c11.206 0 20.92-7.754 23.403-18.681z"></path></svg>-->
+                        <!-- <i class="fas fa-shopping-cart"></i> -->
+                        <!--<span class="hd-cart-count">0</span>
+                        </a>
+                        <div class="quickview-cart">
+                            <h3>
+
+                                Giỏ hàng trống
+
+                                <span class="btnCloseQVCart"><svg class="svg-inline--fa fa-times fa-w-12" aria-hidden="true" data-prefix="fa" data-icon="times" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512" data-fa-i2svg=""><path fill="currentColor" d="M323.1 441l53.9-53.9c9.4-9.4 9.4-24.5 0-33.9L279.8 256l97.2-97.2c9.4-9.4 9.4-24.5 0-33.9L323.1 71c-9.4-9.4-24.5-9.4-33.9 0L192 168.2 94.8 71c-9.4-9.4-24.5-9.4-33.9 0L7 124.9c-9.4 9.4-9.4 24.5 0 33.9l97.2 97.2L7 353.2c-9.4 9.4-9.4 24.5 0 33.9L60.9 441c9.4 9.4 24.5 9.4 33.9 0l97.2-97.2 97.2 97.2c9.3 9.3 24.5 9.3 33.9 0z"></path></svg>-->
+                        <!-- <i class="fa fa-times" aria-hidden="true"></i> -->
+                        <!--</span>
+                                </h3>
+                                <ul class="no-bullets">
+
+                                    <li>Bạn chưa có sản phẩm nào trong giỏ hàng!</li>
+
+                                </ul>
+
+                            </div>
+                        </div>-->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+

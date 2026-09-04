@@ -1,0 +1,120 @@
+﻿
+.block-xs {
+    display: none;
+}
+.document-table table, th, td {
+    border: 1px solid #d3d3d3;
+    border-collapse: collapse;
+    padding: 10px;
+}
+#NewsContent img, #NewsContent table {
+    max-width: 705px;
+    height: auto !important;
+   
+}
+
+#NewsContent div, #NewsContent p {
+    margin: 1em 0;
+    
+}
+
+.brbottom {
+    border-bottom: 1px solid #069;
+}
+
+@media screen and (max-width: 767px) {
+    .video-title li a {
+        
+        margin-right: 25px;
+    }
+    .chum_anhlist {
+        margin-left: 10px;
+    }
+
+    .hidden-xs {
+        display: none !important;
+    }
+
+    #document table, th, td {
+        padding: 0px;
+        font-size: 86%;
+    }
+
+    #NewsContent img {
+        height: auto !important;
+    }
+
+    #NewsContent img, #NewsContent table {
+        max-width: 360px !important;
+        text-align: center;
+    }
+
+    .library-img h4, .detail-content > h3 {
+        font-size: 20px;
+    }
+}
+
+@media (max-width: 485px) {
+    .block-xs {
+        display: block;
+    }
+
+    .brbottom {
+        border-bottom: none;
+    }
+
+    .title-blue02 {
+        font-size: 16px;
+    }
+
+    #document table, th, td {
+        padding: 5px;
+        font-size: 86%;
+    }
+
+    .video-text h3 {
+        margin: 10px 0 10px 0;
+    }
+
+    .box-news li.col-xs-12 a span {
+        line-height: 23px;
+        font-size: 86%;
+    }
+
+    #NewsContent img, #NewsContent table {
+        width: 100% !important;
+        max-width: 360px !important;
+        text-align: center;
+    }
+}
+
+/*tin lien quan*/
+.related-posts {
+    margin-bottom: 10px;
+    margin-top: 10px;
+}
+
+    .related-posts li {
+        display: block;
+        padding: 0 0 10px;
+        line-height: 17px;
+        position: relative;
+    }
+
+        .related-posts li:before {
+            content: " ";
+            position: absolute;
+            width: 6px;
+            height: 6px;
+            background: red;
+            top: 5px;
+            border-radius: 999px;
+        }
+
+    .related-posts a {
+        display: block;
+        color: #909090;
+        font-weight: bold;
+        padding-left: 15px;
+        font-size: 14px;
+    }

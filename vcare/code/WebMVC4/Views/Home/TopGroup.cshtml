@@ -1,0 +1,14 @@
+﻿@model List<BIZ.Entity.MANUFACTORY_FULL>
+
+<div class="product">
+    <div class="slide02 container">
+        <h2 class="title-cm textwhite">Hãng sản xuất</h2>
+        <ul id="flexiselDemo2">
+            @foreach (var item in Model.Select((value, i) => new { i, value }))
+            {
+                <li><a href="/san-pham.html?manufactory=,@(item.value.Id),"><img src="@item.value.Image?w=300&h=200&mode=crop"></a></li>
+            }
+
+        </ul>
+    </div>
+</div><!-- end product-->

@@ -1,0 +1,79 @@
+﻿@using BIZ
+@using UTILS
+@using WebMVC4.Helper
+@model WebMVC4.Models.News2Model
+
+@{
+    var langpage = WorkContext.GetLanguage();
+}
+
+<div class="document-page container pb60 pt40">
+    @{Html.RenderAction("Breadcrumb", "News", new { CategoryId = ViewBag.CategoryId });}
+
+    <div class="row row-50 mt30">
+        <div class="col-md-3 col-sm-12 hidden-767">
+            <ul class="data-list">
+                @if (langpage == "vi-vn")
+                {
+                    <li id="menu_12"><a href="/tin-tuc/c69/tai-lieu.html">Tài liệu</a></li>
+                    <li id="menu_95"><a href="/tin-tuc/c95/bao-cao-ky-thuat.html">Báo cáo kỹ thuật</a></li>
+                    <li id="menu_35"><a href="/tin-tuc/c80/an-pham-truyen-thong.html">Ấn phẩm truyền thông</a></li>
+                    <li id="menu_37"><a href="/tin-tuc/c81/san-pham-khac.html">Sản phẩm khác</a></li>
+
+
+                }
+                else
+                {
+                    <li id="menu_12"><a href="/tin-tuc/c63/materials.html">Materials</a></li>
+                }
+            </ul>
+        </div>
+        <div class="col-md-9 col-sm-12">
+            @*<div class="">
+            <div class="date-icon">
+                <label>Xem theo ngày </label>
+                <div id="datepicker" class="input-group date" data-date-format="dd-mm-yyyy">
+                    <input class="form-control" readonly="" type="text">
+                    <span class="input-group-addon"><i class="fa fa-calendar" aria-hidden="true"></i></span>
+                </div>
+            </div>
+        </div>*@
+            @if (Model.articles != null)
+            {
+                if (Model.articles.Count() > 0)
+                {
+                    <ul class="row video-list-02 mt30">
+                        @foreach (var item in Model.articles.Select((value, i) => new { i, value }))
+                        {
+                            <li class="col-md-4 col-6">
+                                <a href="@item.value.LinkUrl"><img src="@item.value.MainImage?w=491&h=291&mode=crop" alt="" class="w-100"></a>
+                                <a href="@item.value.LinkUrl" class="mt15 font-weight-bold dis-block"> @item.value.Title</a>
+                            </li>
+                        }
+                    </ul>
+
+                    <div class="paging mt50 text-center">
+                        <ul>
+                            @{Html.RenderPartial("Pagination", new WebMVC4.Models.PaginationInfo
+                                {
+                                    PageUrl = Url.SetParameter("Page", "!0"),
+                                    CurrentPage = ViewBag.Page,
+                                    PageSize = ViewBag.PageSize,
+                                    TotalItemCount = ViewBag.Total,
+                                }); }
+                        </ul>
+                    </div>
+                }
+            }
+
+        </div>
+
+    </div>
+</div><!-- end main content-->
+<div class="bg-gray pt40 pb40">
+    <div class="container">
+        <ul class="slick02">
+            @{Html.RenderAction("BannerBottom", "Home", new { lang = langpage });}
+        </ul>
+    </div>
+</div>

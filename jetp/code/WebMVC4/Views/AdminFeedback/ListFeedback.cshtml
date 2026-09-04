@@ -1,0 +1,112 @@
+﻿
+@model List<DATA.ContentDB.Feedback>
+@using UTILS
+<table class="table table-striped table-bordered table-hover dataTable no-footer" id="dataTables">
+    <thead>
+        <tr class="rowsao">
+            <th>Mã </th>
+            <th>Tên</th>
+            <th>Email</th>
+            @*<th>SĐT</th>*@
+            <th>Câu hỏi</th>
+            <th>Ngày tạo</th>
+
+            <th>Quản trị</th>
+        </tr>
+    </thead>
+    @if (Model != null && Model.Count > 0)
+    {
+        foreach (var obj in Model)
+        {
+            <tr>
+                <td>@obj.Id</td>
+                <td>@obj.Name - @obj.ResponedUser </td>
+                <td>@obj.Email</td>
+                @if (obj.Status == 0)
+                {
+                    <td style="font-weight:bold">@Html.Raw(obj.Question)</td>
+                }
+                else
+                {
+                    <td>@Html.Raw(obj.Question)</td>
+                }
+                <td>@obj.CreatedTime.ToString("dd/MM/yyyy")</td>
+                <td>
+                    @if (obj.Status == 0)
+                    {
+
+                        <a href="javascript:;" title="Đã xem" onclick="UpdateStatus('@Utils.Base64Encode(obj.Id)',0,'@obj.Name');">Đã xem</a>
+
+
+                    }
+
+                </td>
+
+
+            </tr>
+        }
+    }
+</table>
+<script type="text/javascript">
+    var PageOnSize = '@ViewBag.PageSize';
+    var CurrentPage = '@ViewBag.CurrentPage';
+    function BindDataRequest(currentPage) {
+        parameters = {
+
+            currentPage: currentPage
+        };
+        var urlRequestAns = "/AdminFeedback/ListFeedback";
+        $.ajax({
+            type: 'GET',
+            url: urlRequestAns,
+            data: parameters,
+            success: function (data) {
+                $("#ListFeedback").html(data);
+
+            },
+
+        });
+    };
+    $(document).ready(function () {
+
+
+        $("#pager").pager({
+            pagenumber: CurrentPage,
+            pagecount: Math.ceil('@ViewBag.TotalRecord' / PageOnSize),
+            buttonClickCallback: function (page) { BindDataRequest(page); }
+        });
+
+
+    });
+
+
+  function UpdateStatus(id, status,title) {
+
+                Utils.Loading();
+                var postdata = {
+                    '_id': id,
+                    'Title': title,
+                };
+                $.ajax({
+                    type: 'POST',
+                    url:"@Url.Action("UpdateStatus")",
+                    data: addAntiForgeryToken(postdata),
+
+                    success: function (data) {
+                        Utils.UnLoading();
+                        if (data.ResponseCode >= 0) {
+                            //bootbox.alert(data.Description);
+                            //BindDataRequest(CurrentPage);
+                            location.reload();
+                        }
+                        else {
+                            bootbox.alert(data.Description);
+                            return;
+                        }
+                    }
+
+
+        });
+
+    }
+</script>

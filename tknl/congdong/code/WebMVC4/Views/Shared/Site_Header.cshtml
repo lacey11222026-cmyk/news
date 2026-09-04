@@ -1,0 +1,83 @@
+﻿@using UTILS
+@using WebMVC4.Helper
+@{
+    var Date =  DateTime.Now.ToString("dd/MM/yyy ") + "| " + DateTime.Now.ToString("HH:mm");
+
+    var DateEN = DateTime.Now.DayOfWeek.ToString() + ", " + DateTime.Now.ToString("dd/MM/yyy ") + "| " + DateTime.Now.ToString("HH:mm");
+}
+
+
+<div class="header">
+    <div class="container">
+        <div class="header-conent01">
+            @{Html.RenderAction("Menu", "Home", new { lang = "vi-vn" });}
+        </div>
+        <div class="header-conent02">
+            <div class="header-c2-left"><a href="/" class="logo-top"><img src="/Content/images/logo-top.png" alt="Cộng đồng Hiệu quả năng lượng" width="575"></a></div>
+            <div class="header-c2-right"><p class="dategray">@Date GMT +7</p></div>
+        </div>
+    </div>
+
+    <div class="header-mobile">
+        <a href="#menu">
+            <img src="/Content/images/menu.svg" width="30" class="ico-menu">
+        </a>
+        <div class="header-mobile-content">
+            <div class="header-mb-top">
+                <a href="#menu" class="ico-close">
+                    <img src="/Content/images/close.svg" width="18">
+                </a>
+                <a href="/" class="logo-top-mb"><img src="/Content/images/logo-top.png" alt="Cộng đồng Hiệu quả năng lượng"></a>
+            </div>
+            <div class="nav-mb mt20">
+                <div class="search-box w100">
+                    <button class="search-icon"  onclick="Msearch()"></button>
+                    <input type="text" class="form-control" id="txtKeywordMobile" onkeydown="javascript: return AnyInput_KeyDown(this, event);">
+                </div>
+                <ul class="nav-mb-list mt20">
+                    @{Html.RenderAction("MenuMobile", "Home", new { lang = "vi-vn" });}
+                   
+                </ul>
+            </div>
+        </div>
+    </div>
+</div><!-- end header-->
+
+
+
+
+<script type="text/javascript">
+    function search() {
+        var searchtext = $("#txtKeyword").val();
+        window.location = "/News/Search?q=" + searchtext;
+
+    }
+    function AnyInput_KeyDown(sender, e) {
+        if ((e.which && e.which == 13) || (e.keyCode && e.keyCode == 13)) {
+            search();
+
+            return false;
+        }
+
+        return true;
+    }
+
+
+    function Msearch() {
+        var searchtext = $("#txtKeywordMobile").val();
+        window.location = "/News/Search?q=" + searchtext;
+
+    }
+    function MAnyInput_KeyDown(sender, e) {
+        if ((e.which && e.which === 13) || (e.keyCode && e.keyCode === 13)) {
+            Msearch();
+
+            return false;
+        }
+
+        return true;
+    }
+
+
+
+</script>

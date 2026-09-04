@@ -1,0 +1,15 @@
+﻿@using BIZ
+@using UTILS
+@using WebMVC4.Helper
+@model WebMVC4.Models.LastestQAModel
+@if (Model != null)
+{
+
+    <div class="@ViewBag.param"><h2 class="title-cm"><a href="@Model.Url">@Model.HeaderTitle</a></h2></div>
+    <ul class="news-list mt20">
+        @foreach (var item in Model.lstdata.Select((value, i) => new { i, value }))
+        {
+            <li><a href="@(Model.Url)?Id=@item.value.Id">@item.value.Question </a></li>
+        }
+    </ul>
+}

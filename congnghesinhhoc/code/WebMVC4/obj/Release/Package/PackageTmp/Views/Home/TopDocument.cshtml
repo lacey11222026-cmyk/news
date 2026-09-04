@@ -1,0 +1,31 @@
+﻿@using BIZ
+@using UTILS
+@using WebMVC4.Helper
+@model List<BIZ.Entity.DOCUMENT_FULL>
+@if (Model != null)
+{
+    if (Model.Count > 0)
+    {
+        
+        <ul class="document-list mt20">
+            @foreach (var item in Model.Select((value, i) => new { i, value }))
+            {
+              
+                <li>
+                    <a href="@Url.Action("Detail","Document",new { id=item.value.Id})">
+                        <div class="document-img maxheight03"><img src="/Content2/images/icon-document.png" alt=""></div>
+                        <p class="maxheight03">@item.value.Name</p>
+                        <div class="clearfix"></div>
+                    </a>
+                    
+                </li>
+            }
+           
+
+        </ul>
+        
+
+
+    }
+
+}

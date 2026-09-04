@@ -1,0 +1,87 @@
+﻿@using BIZ
+@using DATA
+@using UTILS
+@using WebMVC4.Helper
+@model BIZ.Entity.DOCUMENT_FULL
+@{
+    var langpage = WorkContext.GetLanguage();
+}
+<div class="main-content container">
+    <div class="row">
+        <div class="col-lg-9 col-md-12 pb40">
+            @{Html.RenderAction("Breadcrumb", "News", new { CategoryId = Model.CategoryId });}
+            <div class="mt40 manage-detail-page">
+                <table>
+                    <tbody>
+                        <tr>
+                            <th>Tên giấy phép</th>
+                            <td colspan="3">@Model.Name</td>
+                        </tr>
+                        <tr>
+                            <th>Số hiệu</th>
+                            <td colspan="3">@Model.Code</td>
+                        </tr>
+                        <tr>
+                            <th>Hiệu lực giấy phép</th>
+                            <td colspan="3">@HtmlHelpers.GetDocHits(Model.Hits.GetValueOrDefault())</td>
+                        </tr>
+                        <tr>
+                            <th>Đơn vị tổ chức</th>
+                            <td>@Model.SignedByDesc</td>
+                            <th>Địa chỉ</th>
+                            <td>@Model.Description</td>
+                        </tr>
+                        <tr>
+                            <th>Ngày cấp phép</th>
+                            <td>@Convert.ToDateTime(Model.PublishDate).ToString(@" dd'/'MM'/'yyyy")</td>
+                            <th>Thời hạn giấy phép</th>
+                            <td>
+                                @if (!Model.EffectiveDate.HasValue)
+                                {
+
+                                    <text>&nbsp;</text>
+                                }
+                                else
+                                {
+                                    if (Model.EffectiveDate.Value.Year < 9000)
+                                    {
+                                        @Convert.ToDateTime(Model.EffectiveDate).ToString(@" dd'/'MM'/'yyyy")
+                                    }
+                                    else
+                                    {
+                                        <text>&nbsp;</text>
+                                    }
+
+                                }
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>Lĩnh vực cấp phép</th>
+                            <td>@HtmlHelpers.GetDocArea(Model.Area.GetValueOrDefault())</td>
+                            <th>Tình trạng giấy phép</th>
+                            <td >@HtmlHelpers.GetGPType(Model.Type.GetValueOrDefault())</td>
+                        </tr>
+                        <tr>
+                            <th>Xem online</th>
+                            <td><a href="@Url.Action("ViewFile","Document",new { id=Model.Id})" target="_blank" class="btn-read">Read Online</a></td>
+                            <th>Tải về</th>
+                            <td><a href="@Url.Action("DownloadFile","Document",new { id=Model.Id})" class="btn-download">Download</a></td>
+                        </tr>
+                    </tbody>
+                </table>
+               
+            </div>
+
+        </div><!-- end content left-->
+
+        <div class="col-lg-3 col-md-12">
+            <div class="content01-right">
+                @{Html.RenderAction("BannerRight", "Home");}
+                @{Html.RenderAction("MenuInfo", "Home");}
+            </div>
+
+            @{Html.RenderAction("BannerRight2", "Home");}
+        </div>
+    </div>
+
+</div>

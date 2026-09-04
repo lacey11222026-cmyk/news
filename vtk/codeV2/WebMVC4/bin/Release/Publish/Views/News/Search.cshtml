@@ -1,0 +1,94 @@
+﻿@using BIZ
+@using BIZ
+@using UTILS
+@using WebMVC4.Helper
+@model WebMVC4.Models.NewsModel
+@using WebMVC4.Helper
+@{
+    var langpage = WorkContext.GetLanguage();
+}
+@if (Model != null)
+{
+
+    <div class="bnr-detail">
+        <img src="/Content/images/bnr-timkiem.jpg" alt="">
+    </div>
+
+    <div class="pt60 pb60 bg-gray">
+        <div class="container">
+            <div class="text-center search-text">
+                <div class="form-group">
+                    <label for="Fulltxtkeyword">@Resources.Global.MenuSearch</label>
+                    <input type="text" class="form-control" id="Fulltxtkeyword" value="@ViewBag.keyword" onkeydown="javascript: return FAnyInput_KeyDown(this, event);">
+
+                </div>
+            </div>
+            <div class="mt50">
+
+                <ul class="search-list col-md-10">
+                    @if (Model.listdata != null)
+                    {
+                        foreach (var item in Model.listdata.Select((value, i) => new { i, value }))
+                        {
+                            if (langpage == "vi-vn")
+                            {
+                                <li class="search-item row">
+                                    <div class="col-sm-4">
+                                        <a href="@item.value.LinkUrl"><img src="@item.value.MainImage?w=574&mode=crop" alt=""> </a>
+                                    </div>
+                                    <div class="col-sm-8">
+                                        <p><a href="@item.value.LinkUrl">@item.value.Title</a></p>
+                                        <a href="@item.value.LinkUrl" class="btn-more"> &#62;&#62; Chi tiết</a>
+                                    </div>
+                                </li>
+                            }
+                            else
+                            {
+                                <li class="search-item row">
+                                    <div class="col-sm-4">
+                                        <a href="@item.value.LinkUrl"><img src="@item.value.MainImage?w=574&mode=crop" alt=""> </a>
+                                    </div>
+                                    <div class="col-sm-8">
+                                        <p><a href="@item.value.LinkUrl">@item.value.IntroText</a></p>
+                                        <a href="@item.value.LinkUrl" class="btn-more"> &#62;&#62; More detail</a>
+                                    </div>
+                                </li>
+                            }
+
+                        }
+                    }
+
+
+                </ul>
+
+                <div class="pagination-cm mt20">
+                    <ul>
+                        @{Html.RenderPartial("Pagination", new WebMVC4.Models.PaginationInfo
+                            {
+                                PageUrl = Url.SetParameter("Page", "!0"),
+                                CurrentPage = Model.pageIndex,
+                                PageSize = Model.pageSize,
+                                TotalItemCount = Model.total,
+                            }); }
+                    </ul>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+
+
+    <script>
+        function FAnyInput_KeyDown(sender, e) {
+            if ((e.which && e.which == 13) || (e.keyCode && e.keyCode == 13)) {
+                var searchtext = $("#Fulltxtkeyword").val();
+                window.location = "/News/Search?q=" + searchtext;
+
+                return false;
+            }
+
+            return true;
+        }
+    </script>
+}

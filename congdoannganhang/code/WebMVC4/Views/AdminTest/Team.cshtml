@@ -1,0 +1,112 @@
+﻿@{
+    Layout = "~/Views/Shared/_AdminV2.cshtml";
+}
+@{
+    ViewBag.Title = "Danh sách đội chơi";
+}
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="panel panel-primary">
+                <div class="panel-heading"><span class="glyphicon glyphicon-user"></span>@ViewBag.Title</div>
+                <div class="panel-body">
+                    <div class="row" id="form">
+
+
+                        <div class="form-group col-md-3 col-xs-12 col-sm-6">
+                            @Html.DropDownList("ddlCate", new SelectList(ViewBag.RegistorList as System.Collections.IEnumerable, "Id", "Title", ViewBag.registorId), new { @class = "form-control", })
+                        </div>
+
+
+                        <div class="form-group col-md-3 col-xs-12 col-sm-6">
+                            <input type="text" id="txtTitle" class="form-control" placeholder="Nhập tên">
+                        </div>
+                        <div class="form-group col-md-3 col-xs-12 col-sm-6">
+                            <input type="text" id="txtOrder" class="form-control" placeholder="Nhập thứ tự">
+                        </div>
+                        <div class="form-group submit col-md-3 col-xs-12 col-sm-6">
+                            <button type="button" onclick="Add()" id="btnSearch" class="btn btn-info">Thêm mới</button>
+
+                        </div>
+                    </div>
+                    <div class="table-responsive">
+                        <div style="float: right; margin-right: 10px;">
+
+                            <div id="dgrid" class="dataTables_wrapper form-inline" role="grid">
+                                <div id="ListTestArchive">
+                                    @Html.Action("ListTeam")
+                                </div>
+
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+        <script>
+            $('#menu_manageregistor').addClass("active");
+
+        </script>
+        <script type="text/javascript">
+            function Add() {
+                var postdata= {
+                     'Id': 0,
+                    'Archive': '',
+                    'Mark': '0',
+                    'Name': $("#txtTitle").val(),
+                    'RegistorId': $("#ddlCate :selected").val()
+                    };
+                Utils.Loading();
+                $.ajax({
+                    type: 'POST',
+                    url:"@Url.Action("TeamAdd")",
+                    data: addAntiForgeryToken(postdata),
+                    success: function (data) {
+                        Utils.UnLoading();
+                        if (data.ResponseCode >= 0) {
+
+                            GetList(0);
+                        }
+                        else {
+
+                            return;
+                        }
+                    }
+                });
+       }
+        $(document).ready(function () {
+
+            var parameters = {
+            };
+
+            $("#ddlCate").change(function () {
+                window.location.href = '/AdminTest/Team?registorId=' + $("#ddlCate :selected").val();
+            });
+            function GetList() {
+                parameters = {
+
+                    registorId: $("#ddlCate :selected").val(),
+                };
+                btnSearch();
+            };
+            function btnSearch() {
+                Utils.Loading();
+                var urlRequestAns = "@Url.Action("ListTeam")";
+                $.ajax({
+                    type: 'GET',
+                    url: urlRequestAns,
+                    data: parameters,
+                    success: function (data) {
+                        $("#ListTestArchive").html(data);
+                        Utils.UnLoading();
+                    },
+                    error: function () {
+                        Utils.UnLoading();
+                    }
+                });
+            }
+
+        });
+
+        </script>

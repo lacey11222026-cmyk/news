@@ -1,0 +1,70 @@
+﻿@using DATA
+@model Shop
+
+
+
+<div id="googleMap" style="width:100%;height:600px;"></div>
+@if (Model != null)
+{
+
+
+
+    <script type="text/javascript">
+
+
+            var markers = [];
+            var map;
+            var infowindow = new google.maps.InfoWindow();
+            function initialize() {
+                var map_canvas = document.getElementById('googleMap');
+                var map_options = {
+                    center: new google.maps.LatLng(@(Model.Latitude.Trim()),@(Model.Longitude.Trim()),),
+                    zoom: @(ViewBag.Zoom),
+                    mapTypeId: google.maps.MapTypeId.ROADMAP
+                };
+                map = new google.maps.Map(map_canvas, map_options);
+                @(Html.Raw(ViewBag.Data))
+
+
+                //addMarker(new google.maps.LatLng(21.004168, 105.868668), "Test");
+
+            }
+
+            function addMarker(latlng, myTitle,html) {
+                marker = new google.maps.Marker({
+                    position: latlng,
+                    map: map,
+                    title: myTitle,
+                    icon: "https://www.google.com/intl/en_us/mapfiles/ms/micons/green-dot.png"
+                });
+                google.maps.event.addListener(marker, 'mouseover', (function(marker) {
+                    return function() {
+                        infowindow.setContent(html);
+                        infowindow.open(map, marker);
+                    }
+                })(marker));
+                markers.push(marker);
+            }
+            function addMarkerActive(latlng, myTitle,html) {
+                marker = new google.maps.Marker({
+                    position: latlng,
+                    map: map,
+                    title: myTitle,
+                    icon: "https://maps.google.com/mapfiles/marker.png"
+                });
+                google.maps.event.addListener(marker, 'mouseover', (function(marker) {
+                    return function() {
+                        infowindow.setContent(html);
+                        infowindow.open(map, marker);
+                    }
+                })(marker));
+                markers.push(marker);
+
+                infowindow.setContent(html);
+                infowindow.open(map, marker);
+            }
+
+            initialize();
+    </script>
+
+}

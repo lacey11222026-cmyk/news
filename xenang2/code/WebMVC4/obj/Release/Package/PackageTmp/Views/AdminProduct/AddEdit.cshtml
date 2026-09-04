@@ -1,0 +1,870 @@
+﻿@using UTILS
+@using DATA
+@using BIZ.Entity
+@{
+
+    Layout = "~/Views/Shared/_AdminV2.cshtml";
+}
+@model Product_Full
+<div class="well">
+    <span class="label label-danger">
+        Chú ý!
+    </span>
+    <span>
+        Hãy chắc chắn nhập vào đầy đủ thông tin tại các mục bắt buộc đánh dấu (*)
+    </span>
+</div>
+<script>
+
+    if (typeof (CKEDITOR) !== "undefined") {
+        CKEDITOR.env.isCompatible = true;
+    }
+</script>
+<div class="row">
+    <div class="col-md-12">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <i class="fa fa-fw fa-user-md"></i><span>@ViewBag.Title</span>
+            </div>
+            <form id="defaultForm" method="post" class="form-horizontal">
+                <div class="panel-group" id="steps">
+                    <div class="messager-body">
+                        <div class="alert alert-success display-hide alert-dismissable">
+                            <button type="button" class="close" data-close="alert" aria-hidden="true">×</button>
+                            <span class="glyphicon glyphicon-ok"></span>
+                            <label>Đã lưu dữ liệu thành công !!!</label>
+                        </div>
+                        <div class="alert alert-danger display-hide alert-dismissable">
+                            <button type="button" class="close" data-close="alert" aria-hidden="true">×</button>
+                            <span class="glyphicon glyphicon-warning-sign"></span>
+                            <label>Có một vài lỗi trong khung nhập liệu dưới đây ! kiểm tra lại</label>
+                        </div>
+                    </div>
+                    <div class="panel panel-info">
+
+                        <div class="panel-body">
+                            <!-- dành cho UpdateFunction -->
+                            <div style="padding: 10px 0 0 0; background-color: #fff !important" class="nav-tabs-custom">
+                                <ul class="nav nav-tabs">
+                                    <li class="active"><a href="#tabs-info" data-toggle="tab"><strong>Thông tin chính</strong></a></li>
+                                    <li><a href="#tabs-image" data-toggle="tab"><strong>Ảnh</strong></a></li>
+                                    <li><a href="#tabs-sub" data-toggle="tab"><strong>Thông tin giới thiệu</strong></a></li>
+
+                                </ul>
+                                <div class="tab-content" style="margin-top: 30px;">
+                                    <div class="col-md-12 tab-pane" id="tabs-sub">
+                                        <div class="form-group">
+
+                                            <div class="col-md-12">
+                                                <div class="input-icon right">
+                                                    <textarea id="txtIntro" style="height: 500px;" cols="20" name="intro" class="form-control" placeholder="Nhập giới thiệu chung">@Model.Intro</textarea>
+                                                    <script>
+                                                        $(document).ready(function () {
+                                                            var editor = CKEDITOR.instances['txtIntro'];
+                                                            //if (editor) {
+                                                            //    CKEDITOR.remove(editor);
+                                                            //}
+                                                            CKEDITOR.replace('txtIntro',
+                                                                {
+                                                                    filebrowserBrowseUrl: "/AdminImages/ManageImage",
+                                                                    filebrowserWindowWidth: '1000',
+                                                                    filebrowserWindowHeight: '800',
+                                                                    uiColor: '#FAFAFA',
+                                                                    allowedContent: true,
+                                                                    extraAllowedContent: '*(*)',
+                                                                    extraPlugins: 'youtube',
+                                                                    toolbar: [
+                                                                        {
+                                                                            name: 'document',
+                                                                            items: ['Source', '-', 'NewPage', 'Preview', '-']
+                                                                        },
+                                                                        [
+                                                                            'Cut', 'Copy', 'Paste', 'PasteText', 'PasteFromWord',
+                                                                            '-',
+                                                                            'Undo', 'Redo'
+                                                                        ],
+                                                                        { name: 'styles', items: ['Font', 'FontSize'] },
+                                                                        {
+                                                                            name: 'basicstyles',
+                                                                            items:
+                                                                                [
+                                                                                    'Bold', 'Italic', 'Underline', 'Strike',
+                                                                                    'Subscript',
+                                                                                    'Superscript', '-', 'RemoveFormat'
+                                                                                ]
+                                                                        },
+                                                                        '/',
+                                                                        { name: 'colors', items: ['TextColor', 'BGColor'] },
+                                                                        {
+                                                                            name: 'paragraph',
+                                                                            items:
+                                                                                [
+                                                                                    'NumberedList', 'BulletedList', '-', 'Outdent',
+                                                                                    'Indent', '-', 'Blockquote', '-', 'JustifyLeft',
+                                                                                    'JustifyCenter', 'JustifyRight', 'JustifyBlock'
+                                                                                ]
+                                                                        },
+                                                                        {
+                                                                            name: 'insert',
+                                                                            items:
+                                                                                [
+                                                                                    'Image', 'Youtube', 'Flash', 'Table',
+                                                                                    'HorizontalRule',
+                                                                                    'Smiley', 'SpecialChar', 'PageBreak', 'Iframe'
+                                                                                ]
+                                                                        },
+                                                                        { name: 'links', items: ['Link', 'Unlink', 'Maximize'] }
+                                                                    ],
+                                                                    height: 500
+                                                                });
+                                                        });
+                                                    </script>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12 tab-pane active" id="tabs-info">
+                                        <div class="form-group">
+                                            <label for="txtName" class="control-label col-md-3">Tên sản phẩm :<span class="required">*</span></label>
+                                            <div class="col-md-9">
+                                                <div class="input-icon right">
+                                                    <input type="text" id="txtName" maxlength="200" name="title" value="@Model.Name" class="form-control" placeholder="Nhập tên sản phẩm" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group" style="display: none">
+                                            <label for="select_language" class="control-label col-md-3">Ngôn ngữ :<span class="required">*</span></label>
+                                            <div class="col-md-9">
+                                                <div class="input-icon right">
+                                                    <select id="select_language" name="select_language" class="form-control">
+                                                        <option value="vi-vn">Tiếng Việt</option>
+                                                        <option value="en-us">Tiếng Anh</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="select_category" class="control-label col-md-3">Chuyên mục :<span class="required">*</span></label>
+                                            <div class="col-md-9">
+                                                <div class="input-icon right">
+                                                    <select id="select_category" name="select_category" class="form-control"></select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group" style="display:none">
+                                            <label for="select_category" class="control-label col-md-3">Hãng :</label>
+                                            <div class="col-md-9">
+                                                <div class="input-icon right">
+                                                    <select id="select_manu" name="select_manu" class="form-control"></select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="txtImgPath" class="control-label col-md-3">Ảnh Đại Diện (850x850) :<span class="required">*</span></label>
+                                            <div class="col-md-6">
+                                                <input type="text" id="txtImgPath" name="imgPath" value="@Model.DescriptImage" class="form-control" placeholder="Nhập ảnh đại diện" />
+                                            </div>
+                                            <div class="col-md-1">
+                                                <a href="javascript:;" onclick="CommonCtrl.PopupManagerImages('txtImgPath');"><i class="fa fa-file"></i></a>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="txtPrice" class="control-label col-md-3">Giá :<span class="required">*</span></label>
+                                            <div class="col-md-2">
+                                                <div class="input-icon right">
+                                                    <input type="number" min="0" step="10000" id="txtPrice" name="price" required value="@Model.Price" class="form-control" placeholder="Nhập giá sản phẩm" />
+                                                </div>
+                                            </div>
+                                            <label id="textMoneyVND" class="control-label col-md-4">
+
+                                            </label>
+                                        </div>
+                                        <div class="form-group" style="display:none">
+                                            <label for="txtPriceReal" class="control-label col-md-3">Giá cũ :</label>
+                                            <div class="col-md-2">
+                                                <div class="input-icon right">
+                                                    <input type="number" min="0" step="10000" id="txtPriceReal" name="price" required value="@Model.PriceReal" class="form-control" placeholder="Nhập giá sản phẩm" />
+                                                </div>
+                                            </div>
+                                            <label id="textMoneyVNDReal" class="control-label col-md-4">
+
+                                            </label>
+
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="txtDescription" class="control-label col-md-3">Mô tả ngắn:<span class="required">*</span></label>
+                                            <div class="col-md-9">
+                                                <div class="input-icon right">
+                                                    <textarea id="txtDescription" style="height: 100px;" cols="20" name="description" class="form-control" placeholder="Nhập mô tả">@Model.Description</textarea>
+                                                </div>
+                                                <script>
+                                                    $(document).ready(function () {
+                                                        var editor2 = CKEDITOR.instances['txtDescription'];
+                                                        //if (editor2) {
+                                                        //    CKEDITOR.remove(editor2);
+                                                        //}
+                                                        CKEDITOR.replace('txtDescription',
+                                                            {
+                                                                filebrowserBrowseUrl: "/AdminImages/ManageImage",
+                                                                filebrowserWindowWidth: '1100',
+                                                                filebrowserWindowHeight: '800',
+                                                                uiColor: '#FAFAFA',
+                                                                allowedContent: true,
+                                                                extraAllowedContent: '*(*)',
+                                                                extraPlugins: 'youtube',
+                                                                toolbar: [
+                                                                    {
+                                                                        name: 'document',
+                                                                        items: ['Source', '-', 'NewPage', 'Preview', '-']
+                                                                    },
+                                                                    [
+                                                                        'Cut', 'Copy', 'Paste', 'PasteText', 'PasteFromWord', '-',
+                                                                        'Undo', 'Redo'
+                                                                    ],
+                                                                    { name: 'styles', items: ['Font', 'FontSize'] },
+                                                                    {
+                                                                        name: 'basicstyles',
+                                                                        items:
+                                                                            [
+                                                                                'Bold', 'Italic', 'Underline', 'Strike', 'Subscript',
+                                                                                'Superscript', '-', 'RemoveFormat'
+                                                                            ]
+                                                                    },
+                                                                    '/',
+                                                                    { name: 'colors', items: ['TextColor', 'BGColor'] },
+                                                                    {
+                                                                        name: 'paragraph',
+                                                                        items:
+                                                                            [
+                                                                                'NumberedList', 'BulletedList', '-', 'Outdent',
+                                                                                'Indent', '-', 'Blockquote', '-', 'JustifyLeft',
+                                                                                'JustifyCenter', 'JustifyRight', 'JustifyBlock'
+                                                                            ]
+                                                                    },
+                                                                    {
+                                                                        name: 'insert',
+                                                                        items:
+                                                                            [
+                                                                                'Image', 'Youtube', 'Flash', 'Table', 'HorizontalRule',
+                                                                                'Smiley', 'SpecialChar', 'PageBreak', 'Iframe'
+                                                                            ]
+                                                                    },
+                                                                    { name: 'links', items: ['Link', 'Unlink', 'Maximize'] }
+                                                                ],
+                                                                height: 200
+                                                            });
+                                                    });
+                                                </script>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group" >
+                                            <label for="txtPriceReal" class="control-label col-md-3">Cân nặng(Tấn) :</label>
+                                            <div class="col-md-2">
+                                                <div class="input-icon right">
+                                                    <input type="text" id="txtW" name="w" required value="@Model.W" class="form-control" placeholder="" />
+                                                </div>
+                                            </div>
+                                            <label id="textMoneyVNDReal" class="control-label col-md-4">
+
+                                            </label>
+
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="control-label col-md-3" for="cbxIsActive">Sản phẩm Hot :</label>
+                                            <div class="col-md-4">
+                                                <div class="checkbox">
+                                                    @if (Model.IsHot.GetValueOrDefault())
+                                                    {<input type="checkbox" id="cbxIsHot" checked="checked" />}
+                                                    else
+                                                    {<input type="checkbox" id="cbxIsHot" />
+                                                    }
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="control-label col-md-3" for="cbxIsActive">Sản phẩm mới :</label>
+                                            <div class="col-md-4">
+                                                <div class="checkbox">
+                                                    @if (Model.IsNew.GetValueOrDefault())
+                                                    {<input type="checkbox" id="cbxIsNew" checked="checked" />}
+                                                    else
+                                                    {<input type="checkbox" id="cbxIsNew" />
+                                                    }
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="control-label col-md-3" for="cbxIsActive">Đã bán :</label>
+                                            <div class="col-md-4">
+                                                <div class="checkbox">
+                                                    @if (Model.AvailableSell.GetValueOrDefault())
+                                                    {<input type="checkbox" id="cbxAvailableSell" checked="checked" />}
+                                                    else
+                                                    {<input type="checkbox" id="cbxAvailableSell" />
+                                                    }
+
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label class="control-label col-md-3" for="cbxIsActive1">Trạng thái :</label>
+                                            <div class="col-md-4">
+                                                <div class="checkbox">
+                                                    @if (Model.Status.GetValueOrDefault() == 1)
+                                                    {
+                                                        <input type="checkbox" id="cbxIsActive1" checked="checked" />
+                                                    }
+                                                    else
+                                                    {
+                                                        <input type="checkbox" id="cbxIsActive1" />
+                                                    }
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+                                    <div class="col-md-12 tab-pane" id="tabs-image">
+                                        <div class="form-group">
+                                            <label for="txtImgPath1" class="control-label col-md-3">Ảnh 1 :<span class="required">*</span></label>
+                                            <div class="col-md-6">
+                                                <input type="text" id="txtImgPath1" name="imgPath1" value="@Model.ImageParam.Path1" class="form-control" placeholder="Nhập ảnh" />
+                                            </div>
+                                            <div class="col-md-1">
+                                                <a href="javascript:;" onclick="CommonCtrl.PopupManagerImages('txtImgPath1');"><i class="fa fa-file"></i></a>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="txtImgPath2" class="control-label col-md-3">Ảnh 2 :<span class="required">*</span></label>
+                                            <div class="col-md-6">
+                                                <input type="text" id="txtImgPath2" name="imgPath2" value="@Model.ImageParam.Path2" class="form-control" placeholder="Nhập ảnh " />
+                                            </div>
+                                            <div class="col-md-1">
+                                                <a href="javascript:;" onclick="CommonCtrl.PopupManagerImages('txtImgPath2');"><i class="fa fa-file"></i></a>
+
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="txtImgPath3" class="control-label col-md-3">Ảnh 3 :<span class="required">*</span></label>
+                                            <div class="col-md-6">
+                                                <input type="text" id="txtImgPath3" name="imgPath3" value="@Model.ImageParam.Path3" class="form-control" placeholder="Nhập ảnh" />
+                                            </div>
+                                            <div class="col-md-1">
+                                                <a href="javascript:;" onclick="CommonCtrl.PopupManagerImages('txtImgPath3');"><i class="fa fa-file"></i></a>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="txtImgPath4" class="control-label col-md-3">Ảnh 4 :<span class="required">*</span></label>
+                                            <div class="col-md-6">
+                                                <input type="text" id="txtImgPath4" name="imgPath4" value="@Model.ImageParam.Path4" class="form-control" placeholder="Nhập ảnh " />
+                                            </div>
+                                            <div class="col-md-1">
+                                                <a href="javascript:;" onclick="CommonCtrl.PopupManagerImages('txtImgPath4');"><i class="fa fa-file"></i></a>
+
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="txtImgPath5" class="control-label col-md-3">Ảnh 5 :<span class="required">*</span></label>
+                                            <div class="col-md-6">
+                                                <input type="text" id="txtImgPath5" name="imgPath5" value="@Model.ImageParam.Path5" class="form-control" placeholder="Nhập ảnh" />
+                                            </div>
+                                            <div class="col-md-1">
+                                                <a href="javascript:;" onclick="CommonCtrl.PopupManagerImages('txtImgPath5');"><i class="fa fa-file"></i></a>
+                                            </div>
+                                        </div>
+                                        <div class="form-group" style="display:none">
+                                            <label for="txtImgPath3" class="control-label col-md-3">Ảnh 6 :<span class="required">*</span></label>
+                                            <div class="col-md-6">
+                                                <input type="text" id="txtImgPath6" name="imgPath5" value="@Model.ImageParam.Path6" class="form-control" placeholder="Nhập ảnh" />
+                                            </div>
+                                            <div class="col-md-1">
+                                                <a href="javascript:;" onclick="CommonCtrl.PopupManagerImages('txtImgPath6');"><i class="fa fa-file"></i></a>
+
+                                            </div>
+                                        </div>
+                                        <div class="form-group" style="display:none">
+                                            <label for="txtImgPath7" class="control-label col-md-3">Ảnh 7 :<span class="required">*</span></label>
+                                            <div class="col-md-6">
+                                                <input type="text" id="txtImgPath7" name="imgPath5" value="@Model.ImageParam.Path7" class="form-control" placeholder="Nhập ảnh" />
+                                            </div>
+                                            <div class="col-md-1">
+                                                <a href="javascript:;" onclick="CommonCtrl.PopupManagerImages('txtImgPath7');"><i class="fa fa-file"></i></a>
+                                            </div>
+                                        </div>
+                                        <div class="form-group" style="display:none">
+                                            <label for="txtImgPath8" class="control-label col-md-3">Ảnh 8 :<span class="required">*</span></label>
+                                            <div class="col-md-6">
+                                                <input type="text" id="txtImgPath8" name="imgPath8" value="@Model.ImageParam.Path8" class="form-control" placeholder="Nhập ảnh" />
+                                            </div>
+                                            <div class="col-md-1">
+                                                <a href="javascript:;" onclick="CommonCtrl.PopupManagerImages('txtImgPath8');"><i class="fa fa-file"></i></a>
+
+                                            </div>
+                                        </div>
+                                        <div class="form-group" style="display:none">
+                                            <label for="txtImgPath9" class="control-label col-md-3">Ảnh 9 :<span class="required">*</span></label>
+                                            <div class="col-md-6">
+                                                <input type="text" id="txtImgPath9" name="imgPath9" value="@Model.ImageParam.Path9" class="form-control" placeholder="Nhập ảnh" />
+                                            </div>
+                                            <div class="col-md-1">
+                                                <a href="javascript:;" onclick="CommonCtrl.PopupManagerImages('txtImgPath9');"><i class="fa fa-file"></i></a>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+                                    <div class="col-md-12">
+                                        <div class="panel-footer form-horizontal">
+                                            <div class="form-group submit">
+                                                <button type="submit" class="btn btn-primary" id="btnSave"><i class="fa fa-save"></i>Lưu lại</button>
+
+                                                <button type="button" class="btn btn-default" id="btnBack" onclick="GotoListpage()"><i class="fa fa-backward"></i>Quay lại</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="clear"></div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script>
+    $('#menu_addproduct').addClass("active");
+
+</script>
+<script type="text/javascript">
+
+
+    function formatPrice(price) {
+        var fixedToSix = (Math.round(price * 1000000) / 1000000);
+        return (Math.round(fixedToSix) == fixedToSix + 0.000001 ? fixedToSix + 0.000001 : fixedToSix);
+    }
+    Number.prototype.formatMoney = function (c, d, t) {
+        var n = this,
+            c = isNaN(c = Math.abs(c)) ? 2 : c,
+            d = d == undefined ? "." : d,
+            t = t == undefined ? "," : t,
+            s = n < 0 ? "-" : "",
+            i = parseInt(n = Math.abs(+n || 0).toFixed(c)) + "",
+            j = (j = i.length) > 3 ? j % 3 : 0;
+        return s + (j ? i.substr(0, j) + t : "") + i.substr(j).replace(/(\d{3})(?=\d)/g, "$1" + t) + (c ? d + Math.abs(n - i).toFixed(c).slice(2) : "");
+    };
+
+    var unformat = function (value, decimal) {
+        // Recursively unformat arrays:
+        //            if (isArray(value)) {
+        //                return map(value, function (val) {
+        //                    return unformat(val, decimal);
+        //                });
+        //            }
+        // Fails silently (need decent errors):
+        value = value || 0;
+        // Return the value as-is if it's already a number:
+        if (typeof value === "number") return value;
+        // Default decimal point is "." but could be set to eg. "," in opts:
+        decimal = decimal || ",";
+        // Build regex to strip out everything except digits, decimal point and minus sign:
+        var regex = new RegExp("[^0-9-" + decimal + "]", ["g"]),
+            unformatted = parseFloat(
+                ("" + value)
+                    .replace(/\((.*)\)/, "-$1") // replace bracketed values with negatives
+                    .replace(regex, '') // strip out any cruft
+                    .replace(decimal, ',') // make sure decimal point is standard
+            );
+        // This will fail silently which may cause trouble, let's wait and see:
+        return !isNaN(unformatted) ? unformatted : 0;
+    };
+    var DocTienBangChu = function (SoTien) {
+        var ChuSo = new Array(" không ", " một ", " hai ", " ba ", " bốn ", " năm ", " sáu ", " bảy ", " tám ", " chín ");
+        var Tien = new Array("", " nghìn", " triệu", " tỷ", " nghìn tỷ", " triệu tỷ");
+        var lan = 0;
+        var i = 0;
+        var so = 0;
+        var KetQua = "";
+        var tmp = "";
+        var ViTri = new Array();
+        if (SoTien < 0) return "Số tiền âm !";
+        if (SoTien == 0) return "Không";
+        if (SoTien > 0) {
+            so = SoTien;
+        }
+        else {
+            so = -SoTien;
+        }
+        if (SoTien > 8999999999999999) {
+            //SoTien = 0;
+            return "Số quá lớn!";
+        }
+        ViTri[5] = Math.floor(so / 1000000000000000);
+        if (isNaN(ViTri[5]))
+            ViTri[5] = "0";
+        so = so - parseFloat(ViTri[5].toString()) * 1000000000000000;
+        ViTri[4] = Math.floor(so / 1000000000000);
+        if (isNaN(ViTri[4]))
+            ViTri[4] = "0";
+        so = so - parseFloat(ViTri[4].toString()) * 1000000000000;
+        ViTri[3] = Math.floor(so / 1000000000);
+        if (isNaN(ViTri[3]))
+            ViTri[3] = "0";
+        so = so - parseFloat(ViTri[3].toString()) * 1000000000;
+        ViTri[2] = parseInt(so / 1000000);
+        if (isNaN(ViTri[2]))
+            ViTri[2] = "0";
+        ViTri[1] = parseInt((so % 1000000) / 1000);
+        if (isNaN(ViTri[1]))
+            ViTri[1] = "0";
+        ViTri[0] = parseInt(so % 1000);
+        if (isNaN(ViTri[0]))
+            ViTri[0] = "0";
+        if (ViTri[5] > 0) {
+            lan = 5;
+        }
+        else if (ViTri[4] > 0) {
+            lan = 4;
+        }
+        else if (ViTri[3] > 0) {
+            lan = 3;
+        }
+        else if (ViTri[2] > 0) {
+            lan = 2;
+        }
+        else if (ViTri[1] > 0) {
+            lan = 1;
+        }
+        else {
+            lan = 0;
+        }
+        for (i = lan; i >= 0; i--) {
+            tmp = DocSo3ChuSo(ViTri[i]);
+            KetQua += tmp;
+            if (ViTri[i] > 0) KetQua += Tien[i];
+            if ((i > 0) && (tmp.length > 0)) KetQua += ',';//&& (!string.IsNullOrEmpty(tmp))
+        }
+        if (KetQua.substring(KetQua.length - 1) == ',') {
+            KetQua = KetQua.substring(0, KetQua.length - 1);
+        }
+        KetQua = KetQua.substring(1, 2).toUpperCase() + KetQua.substring(2);
+        //KetQua += " GG";
+        return KetQua;//.substring(0, 1);//.toUpperCase();// + KetQua.substring(1);
+    }
+    //Hàm chuyển số thành chữ
+    var DocSo3ChuSo = function (baso) {
+        var ChuSo = new Array(" không ", " một ", " hai ", " ba ", " bốn ", " năm ", " sáu ", " bảy ", " tám ", " chín ");
+        var Tien = new Array("", " nghìn", " triệu", " tỷ", " nghìn tỷ", " triệu tỷ");
+        var tram;
+        var chuc;
+        var donvi;
+        var KetQua = "";
+        tram = parseInt(baso / 100);
+        chuc = parseInt((baso % 100) / 10);
+        donvi = baso % 10;
+        if (tram == 0 && chuc == 0 && donvi == 0) return "";
+        if (tram != 0) {
+            KetQua += ChuSo[tram] + " trăm ";
+            if ((chuc == 0) && (donvi != 0)) KetQua += " linh ";
+        }
+        if ((chuc != 0) && (chuc != 1)) {
+            KetQua += ChuSo[chuc] + " mươi";
+            if ((chuc == 0) && (donvi != 0)) KetQua = KetQua + " linh ";
+        }
+        if (chuc == 1) KetQua += " mười ";
+        switch (donvi) {
+            case 1:
+                if ((chuc != 0) && (chuc != 1)) {
+                    KetQua += " mốt ";
+                }
+                else {
+                    KetQua += ChuSo[donvi];
+                }
+                break;
+            case 5:
+                if (chuc == 0) {
+                    KetQua += ChuSo[donvi];
+                }
+                else {
+                    KetQua += " lăm ";
+                }
+                break;
+            default:
+                if (donvi != 0) {
+                    KetQua += ChuSo[donvi];
+                }
+                break;
+        }
+        return KetQua;
+    }
+</script>
+<script type="text/javascript">
+    $(document).ready(function () {
+
+        $('#defaultForm').bootstrapValidator({
+            message: 'This value is not valid',
+            //live: 'submitted',
+            feedbackIcons: {
+                valid: 'glyphicon glyphicon-ok',
+                invalid: 'glyphicon glyphicon-remove',
+                validating: 'glyphicon glyphicon-refresh'
+            },
+            fields: {
+
+                title: {
+                    message: 'Nhập tên sản phẩm',
+                    validators: {
+                        notEmpty: {
+                            message: 'tên sản phẩm không được bỏ trống'
+                        },
+
+                        stringLength: {
+                            min: 5,
+                            max: 200,
+                            message: 'tên sản phẩm nhỏ nhất 5 ký tự và nhiều nhất 200 ký tự'
+                        },
+
+                    }
+                },
+
+
+            }
+        })
+        .on('success.form.bv', function (e) {
+            // Prevent submit form
+            e.preventDefault();
+
+            var $form = $(e.target),
+                        validator = $form.data('bootstrapValidator');
+            SaveData();
+            $(".close").click(function () {
+                $(".alert-success").css("display", "none");
+            });
+        })
+        .on('error.form.bv', function (e) {
+            // Active the panel element containing the first invalid element
+            e.preventDefault();
+            var $form = $(e.target),
+                    validator = $form.data('bootstrapValidator');
+            $(".alert-danger label").text("Có một vài lỗi trong khung nhập liệu dưới đây ! kiểm tra lại");
+            $(".alert-danger").css("display", "block");
+            $(".close").click(function () {
+                $(".alert-danger").css("display", "none");
+                $(".alert-success").css("display", "none");
+            });
+        });
+
+        function SaveData() {
+            //var content = tinyMCE.get('txtIntro').getContent();
+
+            var param = {
+                'Id': '@Model.Id',
+                'Name': $("#txtName").val(),
+                'Price': $("#txtPrice").val(),
+                'PriceReal': $("#txtPriceReal").val(),
+                'W': $("#txtW").val(),
+                'Intro': CKEDITOR.instances['txtIntro'].getSnapshot(),
+                'DescriptImage': $("#txtImgPath").val(),
+                'Description': CKEDITOR.instances['txtDescription'].getSnapshot(),
+                'CategoryId': $("#select_category").val(),
+                'ManufactoryId': 0,
+                'Language': $("#select_language").val(),
+                'CategoryPathway': $("#select_category option:selected").attr('title'),
+                'IsHot': $("#cbxIsHot").is(":checked") ? true : false,
+                'IsNew': $("#cbxIsNew").is(":checked") ? true : false,
+                'AvailableSell': $("#cbxAvailableSell").is(":checked") ? true : false,
+                'Status': $("#cbxIsActive1").is(":checked") ? 1 : 0,
+                'Path1': $("#txtImgPath1").val(),
+                'Path2': $("#txtImgPath2").val(),
+                'Path3': $("#txtImgPath3").val(),
+                'Path4': $("#txtImgPath4").val(),
+                'Path5': $("#txtImgPath5").val(),
+                'Path6': $("#txtImgPath6").val(),
+                'Path7': $("#txtImgPath7").val(),
+                'Path8': $("#txtImgPath8").val(),
+                'Path9': $("#txtImgPath9").val(),
+            }
+            Utils.Loading();
+            $.ajax({
+                type: 'POST',
+                url: "/AdminProduct/SaveData",
+                data: addAntiForgeryToken(param),
+                async: true,
+                success: function (data) {
+
+                    Utils.UnLoading();
+                    if (data.ResponseCode >= 0) {
+                        $("html,body").animate({ scrollTop: $('#TemplateContent').offset().top }, 'fast');
+                        $(".alert-success").show("slow");
+                        $(".alert-danger").hide("slow");
+                        setTimeout(function () { $(".alert-success").hide("slow"); GotoListpage(); }, 500);
+
+                    }
+                    else {
+                        $("html,body").animate({ scrollTop: $('#TemplateContent').offset().top }, 'fast');
+                        $("#ErrorMessage").text(data.Description);
+                        $(".alert-danger").show("slow");
+                        $(".alert-success").hide("slow");
+                        setTimeout(function () { $(".alert-danger").hide("slow"); }, 2000);
+                    }
+                }
+            });
+        }
+    });
+    function LoadManu(rvalue, cateid) {
+        $.ajax({
+            cache: false,
+            type: "GET",
+            url: "/AdminProduct/GetListManu?CategoryId=" + cateid,
+            data: {},
+            success: function (data) {
+                $('#select_manu').html('');
+                var html = '';
+                $.each(data, function (id, item) {
+
+                    if (rvalue == item.Id) {
+                        html = '<option selected="selected" value="' + item.Id + '" title="' + item.Title + '">';
+                    }
+                    else {
+                        html = '<option value="' + item.Id + '" title="' + item.Title + '">';
+                    }
+
+
+                    html += item.Title;
+                    html += '</option>';
+
+                    $('#select_manu').append(html);
+
+
+
+                });
+            },
+
+        });
+    }
+    function LoadCate(rvalue, lang) {
+        $.ajax({
+            cache: false,
+            type: "GET",
+            url: "/AdminProduct/GetListCate?lang=" + lang,
+            data: {},
+            success: function (data) {
+                $('#select_category').html('');
+                var html = '';
+                $.each(data, function (id, item) {
+
+                    if (rvalue == item.Id) {
+                        html = '<option selected="selected" value="' + item.Id + '" title="' + item.Pathway + '">';
+                    }
+                    else {
+                        html = '<option value="' + item.Id + '" title="' + item.Pathway + '">';
+                    }
+                    if (item.NodeLevel != 0) {
+                        for (var i = 1; i < item.NodeLevel; i++) {
+                            html += '-+&nbsp;';
+                        }
+                    }
+
+                    html += item.Name;
+                    html += '</option>';
+
+                    if (item.ParentId != 0) {
+                        if ($('#select_category option[value=' + item.ParentId + ']').length)
+                            $('#select_category option[value=' + item.ParentId + ']').after(html);
+                        else
+                            $('#select_category').append(html);
+                    }
+                    else
+                        $('#select_category').append(html);
+
+
+                });
+                LoadManu('@Model.ManufactoryId', rvalue)
+            },
+
+        });
+    }
+    @*$("#select_category").change(function () {
+        LoadManu('@Model.ManufactoryId', $(this).val())
+    });*@
+    LoadCate('@Model.CategoryId', 'vi-vn');
+
+
+    $("#select_language").change(function () {
+        LoadCate('0', $(this).val())
+
+    });
+
+    function GotoListpage() {
+        window.location.href = '/AdminProduct/';
+    }
+
+
+    $("#txtPrice").blur(function () {
+        var val = $(this).val();
+        if (val) {
+
+            val = unformat(val, 0);
+            $(this).val(val);
+
+            var price = parseInt(val);
+            var textMoneyVND = DocTienBangChu(price) + " đồng";
+            var formatMoneyVNDVal = price.formatMoney(0, '', '.') + " VNĐ";
+            $("#textMoneyVND").html(formatMoneyVNDVal + " (" + textMoneyVND + ")");
+        }
+    });
+    $("#txtPrice").change(function () {
+        var val = $(this).val();
+        if (val) {
+
+            val = unformat(val, 0);
+            $(this).val(val);
+
+            var price = parseInt(val);
+            var textMoneyVND = DocTienBangChu(price) + " đồng";
+            var formatMoneyVNDVal = price.formatMoney(0, '', '.') + " VNĐ";
+            $("#textMoneyVND").html(formatMoneyVNDVal + " (" + textMoneyVND + ")");
+        }
+    });
+
+    $("#txtPriceReal").blur(function () {
+        var val = $(this).val();
+        if (val) {
+
+            val = unformat(val, 0);
+            $(this).val(val);
+
+            var price = parseInt(val);
+            var textMoneyVND = DocTienBangChu(price) + " đồng";
+            var formatMoneyVNDVal = price.formatMoney(0, '', '.') + " VNĐ";
+            $("#textMoneyVNDReal").html(formatMoneyVNDVal + " (" + textMoneyVND + ")");
+        }
+    });
+    $("#txtPriceReal").change(function () {
+        var val = $(this).val();
+        if (val) {
+
+            val = unformat(val, 0);
+            $(this).val(val);
+
+            var price = parseInt(val);
+            var textMoneyVND = DocTienBangChu(price) + " đồng";
+            var formatMoneyVNDVal = price.formatMoney(0, '', '.') + " VNĐ";
+            $("#textMoneyVNDReal").html(formatMoneyVNDVal + " (" + textMoneyVND + ")");
+        }
+    });
+    var price = parseInt($("#txtPrice").val());
+    var textMoneyVND = DocTienBangChu(price) + " đồng";
+    var formatMoneyVNDVal = price.formatMoney(0, '', '.') + " VNĐ";
+    $("#textMoneyVND").html(formatMoneyVNDVal + " (" + textMoneyVND + ")");
+
+    var pricereal = parseInt($("#txtPriceReal").val());
+    var textMoneyVNDreal = DocTienBangChu(pricereal) + " đồng";
+    var formatMoneyVNDRealVal = pricereal.formatMoney(0, '', '.') + " VNĐ";
+    $("#textMoneyVNDReal").html(formatMoneyVNDRealVal + " (" + textMoneyVNDreal + ")");
+</script>
+

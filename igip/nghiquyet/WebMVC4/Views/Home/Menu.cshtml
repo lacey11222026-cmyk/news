@@ -1,0 +1,21 @@
+﻿@using BIZ
+@using UTILS
+@using WebMVC4.Helper
+@model List<BIZ.Entity.CATEGORY_FULL>
+@if (Model != null)
+{
+
+    if (Model.Count > 0)
+    {
+        foreach (var item in Model.Select((value, i) => new { i, value }))
+        {
+
+            <li id="menu_@(item.value.Id)">
+                <a href="@Utils.FormatUrlRewriteByType(item.value.Id, item.value.Name, int.Parse(item.value.Type.ToString()), item.value.Link)" >@item.value.Name </a>
+                @Html.Raw(HtmlHelpers.BindChildCategories(Convert.ToInt32(item.value.Id), int.Parse(item.value.Type.ToString())))
+            </li>
+        }
+    }
+}
+
+

@@ -1,0 +1,128 @@
+﻿@using BIZ
+@using UTILS
+@using WebMVC4.Helper
+@model List<BIZ.Entity.CATEGORY_FULL>
+
+
+@{Html.RenderAction("Slide", "Home");}
+
+<script>
+    $(window).load(function () {
+        $("#slide-news2").flexisel({
+            visibleItems: 1,
+            animationSpeed: 200,
+            autoPlay: true,
+            autoPlaySpeed: 8000,
+            pauseOnHover: true,
+            enableResponsiveBreakpoints: true,
+            responsiveBreakpoints: {
+                portrait: {
+                    changePoint: 480,
+                    visibleItems: 1
+                },
+                landscape: {
+                    changePoint: 640,
+                    visibleItems: 1
+                },
+                tablet: {
+                    changePoint: 768,
+                    visibleItems: 1
+                }
+            }
+        });
+    });
+
+</script>
+@{Html.RenderAction("Banner", "Home", new { Index = 1 });}
+
+@if (Model != null)
+{
+
+    if (Model.Count > 0)
+    {
+        foreach (var item in Model.Where(x => x.Id != 97).Select((value, i) => new { i, value }))
+        {
+            if (item.value.Id == 32)
+            {
+                item.value.Id = 111;
+            }
+
+            if (item.value.Id != 97)
+            {
+                if (item.i % 2 == 0)
+                {
+
+                    <div class="boxtin fl">
+                        @{Html.RenderAction("LastestNews", "Home", new { CateName = "", CategoryId = item.value.Id, MaxLastestNews = 3 });}
+                    </div>
+
+                }
+                else
+                {
+                    <div class="boxtin fr">
+                        @{Html.RenderAction("LastestNews", "Home", new { CateName = "", CategoryId = item.value.Id, MaxLastestNews = 3 });}
+                    </div>
+                    <div class="clear"></div>
+
+                }
+
+                if (item.value.Id == 106)
+                {
+                    <div class="clear"></div>
+                    { Html.RenderAction("Banner", "Home", new { Index = 2 }); }
+                    <div class="clear"></div>
+                }
+            }
+        }
+    }
+}
+<div class="clear clear1"></div>
+<div class="boxtin fl">
+    @{Html.RenderAction("LastestNews", "Home", new { CateName = "", CategoryId = 33, MaxLastestNews = 3 });}
+</div>
+<div class="boxtin fr">
+    @{Html.RenderAction("LastestNews", "Home", new { CateName = "", CategoryId = 59, MaxLastestNews = 3 });}
+</div>
+<div class="clear"></div>
+
+
+<div class="boxtin fl">
+    @{Html.RenderAction("LastestNews", "Home", new { CateName = "", CategoryId = 60, MaxLastestNews = 3 });}
+</div>
+<div class="boxtin fr">
+    @{Html.RenderAction("LastestNews", "Home", new { CateName = "", CategoryId = 61, MaxLastestNews = 3 });}
+</div>
+<div class="clear"></div>
+
+
+
+
+
+
+
+<script src="~/fancybox2.1.5/jquery.fancybox.pack.js"></script>
+<link href="~/fancybox2.1.5/jquery.fancybox.css" rel="stylesheet" />
+<div id="example2" style="display: none;width:100%">
+    <a href="https://cuocsongantoan.laodongcongdoan.vn/cuoc-thi-cong-nhan-vien-chuc-lao-dong-tim-hieu-ve-luat-cong-doan-va-luat-bao-hiem-xa-hoi-nam-2024" target="_blank">
+        <img src="~/Images/cuocthi2025.gif?vs=05" style="max-width:100%;" />
+    </a>
+    <style>
+        .wrapper {
+            opacity: 0.5;
+        }
+
+        .fancybox-skin {
+            background-color: transparent !important;
+            box-shadow: none !important;
+        }
+    </style>
+</div>
+<script type="text/javascript">
+    $(document).ready(function () {
+
+
+        setTimeout(function () {
+            //$.fancybox("#example2");
+        }, 1000);
+    });
+</script>

@@ -1,0 +1,136 @@
+﻿
+<table class="admintable" id="configuration_container">
+
+    <tr>
+        <td>
+            <div>
+                Danh sách kênh tin
+                                    
+                                @Html.ListBox("AvailableNews", null, new { @size = "4", @style = "width:450px;height:450px;" })
+            </div>
+        </td>
+        <td>
+            <div>
+                <img src="/Administrator/images/dualist/select.gif" alt="top" height="16px" width="16px"
+                    title="chọn" style="cursor: pointer;" onclick="add();" /><br />
+                <img src="/Administrator/images/dualist/selectall.gif" alt="top" height="16px" width="16px"
+                    title="chọn tất cả" style="cursor: pointer;" onclick="addall();" /><br />
+                <img src="/Administrator/images/dualist/remove.gif" alt="top" height="16px" width="16px"
+                    title="loại bỏ" style="cursor: pointer;" onclick="fremove();" /><br />
+                <img src="/Administrator/images/dualist/removeall.gif" alt="top" height="16px" width="16px"
+                    title="bỏ tất cả" style="cursor: pointer;" onclick="removeall();" /><br />
+            </div>
+        </td>
+        <td>
+            <div>
+                Danh sách kênh tin nổi bật
+                                  
+                                 @Html.ListBox("SelectedNews", null, new { @size = "4", @style = "width:450px;height:450px;" })
+                <div style="clear: both;">
+                </div>
+            </div>
+        </td>
+        <td>
+            <div>
+                <img src="/Administrator/images/dualist/top.gif" alt="top" height="16px" width="16px"
+                    title="lên trên cùng" style="cursor: pointer;" onclick="moveTopItem();" /><br />
+                <img src="/Administrator/images/dualist/up.gif" alt="up" height="16px" width="16px"
+                    title="lên trên" style="cursor: pointer;" onclick="moveUpItem();" /><br />
+                <img src="/Administrator/images/dualist/down.gif" alt="down" height="16px" width="16px"
+                    title="xuống dưới" style="cursor: pointer;" onclick="moveDownItem();" /><br />
+                <img src="/Administrator/images/dualist/bottom.gif" alt="bottom" height="16px" width="16px"
+                    title="xuống dưới cùng" style="cursor: pointer;" onclick="moveBottomItem();" /><br />
+            </div>
+        </td>
+    </tr>
+</table>
+<br />
+<div class="button_login">
+
+    <input type="button" onclick="Save();" value="Lưu lại">
+</div>
+<script type="text/javascript">
+
+
+    var redirectUrl = '@Url.Action("Users", "System")';
+
+
+
+    function Save() {
+
+
+
+        var s = ",";
+        $("#SelectedNews option").each(function () {
+            s = s + $(this).attr('value') + ",";
+
+        });
+
+        $.post('@Url.Action("SaveUserCategory", "System")', { "svalue": s, "username": '@ViewBag.username' },
+                        function (data) {
+                            window.location = redirectUrl;
+                        });
+
+    }
+
+
+
+    function add() {
+        $("#AvailableNews option:selected").appendTo("#SelectedNews");
+
+    }
+    function addall() {
+        $("#AvailableNews option").appendTo("#SelectedNews");
+
+    }
+
+    function fremove() {
+        $("#SelectedNews option:selected").appendTo("#AvailableNews");
+    }
+
+    function removeall() {
+        $("#SelectedNews option").appendTo("#AvailableNews");
+    }
+
+
+    function moveTopItem() {
+
+
+        //            if ($('#SelectedNews option:selected').attr('index') > $('#SelectedNews option:first').attr('index')) {
+
+        $('#SelectedNews option:selected').insertBefore($('#SelectedNews option:first'));
+
+        //            }
+        return false;
+
+    }
+
+    function moveUpItem() {
+        $('#SelectedNews option:selected').each(function () {
+
+            $(this).insertBefore($(this).prev());
+        });
+    }
+
+    function moveDownItem() {
+
+        $('#SelectedNews option:selected').each(function () {
+            $(this).insertAfter($(this).next());
+        });
+
+    }
+    function moveBottomItem() {
+
+        //            if ($('#SelectedNews option:selected').attr('index') < $('#SelectedNews option:last').attr('index')) {
+
+        $('#SelectedNews option:selected').insertAfter($('#SelectedNews option:last'));
+
+        //            }
+        return false;
+
+    }
+
+
+
+
+</script>

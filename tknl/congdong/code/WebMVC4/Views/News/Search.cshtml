@@ -1,0 +1,191 @@
+﻿@using BIZ
+@using BIZ
+@using UTILS
+@using WebMVC4.Helper
+@model WebMVC4.Models.NewsModel
+
+@if (Model != null)
+{
+    <div class="container mt30">
+        <div class="">
+            <h2 class="title-cm"><a href="#">Tìm kiếm</a></h2>
+
+            <div class="mt30">
+                <div class="text-center search">
+                    <form class="form-inline">
+                        <div class="form-group">
+                            <label class="">Từ khoá  </label>
+                            <input id="txtkeyword" class="form-control" type="text" value="@ViewBag.keyword" width="190">
+                        </div>
+
+                        <div class="form-group">
+                            <label> Từ ngày  </label>
+                            <input id="txtfromdate" placeholder="dd/MM/yyyy" value="@ViewBag.fromdate" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label> Đến ngày  </label>
+                            <input id="txttodate" placeholder="dd/MM/yyyy" value="@ViewBag.todate" class="form-control">
+                        </div>
+                        <div class="form-group" style="display: none">
+                            <label class="">Chuyên mục</label>
+                            @Html.DropDownList("drlCategory", new SelectList(ViewBag.CategoryList as System.Collections.IEnumerable, "Id", "Name", ViewBag.CategoryId), new { @class = "form-control" })
+                        </div>
+
+                        <button type="button" onclick="searchnews();" class="btn-search">Tìm kiếm </button>
+
+                    </form>
+
+                </div>
+
+            </div>
+        </div>
+        <div class="mt40 pb100">
+            <div class="row row-10 content-left">
+                <div class="col-lg-9 col-md-12">
+                    <ul class="news-hz border-top-gray">
+                        @if (Model.listdata != null)
+                        {
+                            foreach (var item in Model.listdata.Select((value, i) => new { i, value }))
+                            {
+                                <li>
+                                    <div class="img-wrap"><a href="@item.value.LinkUrl"><img src="@item.value.MainImage2?w=336&mode=crop" alt=""></a></div>
+                                    <div class="new-content">
+                                        <a href="@item.value.LinkUrl" class="news-name">@item.value.Title</a>
+                                        <span class="dategray mt15">@item.value.PublishDate.ToString("dd/MM/yyyy")</span>
+                                        <p class="news-content mt15">@item.value.IntroText</p>
+                                    </div>
+                                </li>
+                            }
+                        }
+
+                    </ul>
+                </div>
+            </div>
+            <div class="paging mt50">
+                <ul>
+                    @{Html.RenderPartial("Pagination", new WebMVC4.Models.PaginationInfo
+                        {
+                            PageUrl = Url.SetParameter("Page", "!0"),
+                            CurrentPage = Model.pageIndex,
+                            PageSize = Model.pageSize,
+                            TotalItemCount = Model.total,
+                        }); }
+                </ul>
+            </div>
+        </div>
+    </div><!-- end container -->
+
+
+
+
+
+    <div class="clear padtop10"></div>
+    <link href="~/Scripts/jquery-ui-1.8.15.custom/css/smoothness/jquery-ui-1.8.15.custom.css" rel="stylesheet" />
+    <script src="~/Scripts/jquery-ui-1.8.15.custom/js/jquery-ui-1.8.15.custom.min.js"></script>
+    <script src="~/Scripts/jquery.query.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+
+            $("#txtfromdate").datepicker({
+                changeYear: true,
+                changeMonth: true,
+                dateFormat: "dd/mm/yy",
+                duration: 'fast',
+            });
+            $("#txttodate").datepicker({
+                changeYear: true,
+                changeMonth: true,
+                dateFormat: "dd/mm/yy",
+                duration: 'fast',
+            });
+        });
+
+        function searchnews() {
+            var keyword = $("#txtkeyword").val();
+            var fromdate = $("#txtfromdate").val();
+            var todate = $("#txttodate").val();
+            var cateid = $('#drlCategory option:selected').val();
+            window.location = jQuery.query.set("q", keyword).set("fromdate", fromdate).set("todate", todate).set("categoryid", "-1").set("Page", "1");
+        }
+    </script>
+    <style>
+        .ui-datepicker table {
+            font-size: 11px !important;
+        }
+
+        .search {
+            width: 100%;
+            margin: 20px 0;
+        }
+
+            .search .btn-search {
+                padding: 5px 0;
+                font-size: 13px;
+                font-weight: bold;
+                background-color: #1f5ecb;
+                color: #fff;
+                margin-left: 5px;
+                border: none;
+                width: 9%;
+                text-align: center;
+            }
+
+            .search input {
+                height: 30px;
+                border: 1px solid #ccc;
+                border-radius: 0
+            }
+
+            .search .form-inline > .form-group:nth-child(1) input {
+                width: calc(100% - 65px);
+            }
+
+            .search .form-inline > .form-group:nth-child(2) input {
+                width: calc(100% - 75px);
+            }
+
+            .search .form-inline > .form-group:nth-child(3) input {
+                width: calc(100% - 85px);
+            }
+
+            .search label {
+                font-size: 14px;
+                margin-left: 10px;
+                padding-right: 10px;
+            }
+
+            .search .form-group:nth-child(1) label {
+                margin-left: 0
+            }
+
+           
+
+        @@media(max-width:767px) {
+            .search .form-inline .form-group {
+                float: left;
+                margin-bottom: 10px;
+            }
+
+            .search .form-inline .form-group {
+                width: 100%;
+                float: left;
+            }
+
+                .search .form-inline .form-group input {
+                    width: 80% !important;
+                }
+
+                .search .form-inline .form-group label {
+                    width: 20%;
+                    float: left;
+                    padding-right: 20px;
+                    margin-left: 0;
+                }
+
+            .search .btn-search {
+                margin: 0 auto 0 auto;
+                width: 130px;
+            }
+        }
+    </style>
+}

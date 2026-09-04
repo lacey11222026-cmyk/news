@@ -1,0 +1,140 @@
+﻿@using BIZ
+@using UTILS
+@using WebMVC4.Helper
+<div class="content01 container mt30">
+    <div class="row">
+        <div class="col-lg-8 col-md-12 col-sm-12">
+            @{Html.RenderAction("Slide", "Home");}
+        </div><!--/End content left-->
+        <div class="col-lg-4 col-md-12 sidebar-right">
+            <div class="bg-blue">
+                @{Html.RenderAction("RightNews", "Home", new { MaxLastestNews = 2 });}
+            </div>
+            <div class="mt20 bg-gray">
+                @{Html.RenderAction("TopDocument", "Home");}
+               
+            </div>
+        </div><!--/End content right-->
+    </div><!-- end row-->
+</div><!-- end content 01 -->
+
+<div class="content02 container mt40">
+    <div class="row newsbox-list">
+        <div class="col-md-4 col-sm-12">
+            @{Html.RenderAction("LastestNews", "Home", new { CateName = "", CategoryId = 14, MaxLastestNews = 4, cssClass = "maxheight01" });}
+        </div>
+        <div class="col-md-4 col-sm-12">
+            @{Html.RenderAction("LastestNews", "Home", new { CateName = "", CategoryId = 12, MaxLastestNews = 4, cssClass = "maxheight01" });}
+        </div>
+        <div class="col-md-4 col-sm-12">
+            @{Html.RenderAction("LastestNews", "Home", new { CateName = "", CategoryId = 44, MaxLastestNews = 4, cssClass = "maxheight01" });}
+        </div>
+    </div>
+</div>
+
+<div class="content03 mt40 container">
+    <div class="lib-box bg-gray">
+        <ul class="nav title-tabs-02" role="tablist">
+            <li class="nav-item">
+                <a class="nav-link active" id="lib01-tab" data-toggle="tab" href="#libtab-01" role="tab" aria-controls="libtab-01" aria-selected="false"><span>Thư viện hình ảnh</span> </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="lib02-tab" data-toggle="tab" href="#libtab-02" role="tab" aria-controls="libtab-02" aria-selected="true"><span>Video</span></a>
+            </li>
+        </ul>
+        <div class="tab-content mt30">
+            <div class="tab-pane fade active show" id="libtab-01" role="tabpanel" aria-labelledby="lib01-tab">
+                @{Html.RenderAction("TopAlbum", "Home", new { CateName = "Thư viện hình ảnh", CategoryId = 35, Top = 4 });}
+            </div>
+            <div class="tab-pane fade" id="libtab-02" role="tabpanel" aria-labelledby="lib02-tab">
+                @{Html.RenderAction("HomeAudio", "Home", new { CateName = "", CategoryId = 36 });}
+            </div>
+        </div>
+    </div>
+</div><!-- end content03-->
+
+<div class="content04 container mt30">
+    
+    <div class="row">
+        <div class="col-lg-8 col-md-12 col-sm-12">
+            @{Html.RenderAction("LastestNews4", "Home", new { CateName = "", CategoryId = 15, MaxLastestNews = 4, cssClass = "maxheight01" });}
+
+        </div><!--/End content left-->
+        <div class="col-lg-4 col-md-12 sidebar-right">
+            <div class="bnr-list">
+                @{Html.RenderAction("BannerRight", "Home");}
+            </div>
+
+        </div><!--/End content right-->
+    </div><!-- end row-->
+</div>
+
+<div class="content05 container mt40">
+    <div class="row newsbox-list">
+        <div class="col-md-4 col-sm-12">
+            @{Html.RenderAction("LastestNews", "Home", new { CateName = "", CategoryId = 16, MaxLastestNews = 4, cssClass = "maxheight01" });}
+        </div>
+        <div class="col-md-4 col-sm-12">
+            @{Html.RenderAction("LastestNews", "Home", new { CateName = "", CategoryId = 33, MaxLastestNews = 4, cssClass = "maxheight01" });}
+        </div>
+        <div class="col-md-4 col-sm-12">
+            @{Html.RenderAction("LastestNews", "Home", new { CateName = "", CategoryId = 51, MaxLastestNews = 4, cssClass = "maxheight01" });}
+        </div>
+    </div>
+</div>
+<div class="bnrCenter container mt40">
+    <div class="bnrSlider">
+        @{Html.RenderAction("BannerCenter2", "Home");}
+    </div>
+</div>
+<div class="content06 mt40 container">
+    <div class="othernews-box">
+        <ul class="nav title-tabs-03" role="tablist">
+            <li class="nav-item">
+                <a class="nav-link othernews-title"><span>nghiệp đoàn nghề cá</span> </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/gioi-thieu/c29/gioi-thieu.html"><span>Giới thiệu</span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link active" id="othernews03-tab" data-toggle="tab" href="#othernews-03" role="tab" aria-controls="othernews-03" aria-selected="true"><span>Nghiên cứu trao đổi</span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="othernews04-tab" data-toggle="tab" href="#othernews-04" role="tab" aria-controls="othernews-04" aria-selected="true"><span>Tin hoạt động</span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="othernews05-tab" data-toggle="tab" href="#othernews-05" role="tab" aria-controls="othernews-05" aria-selected="true"><span>Văn bản</span></a>
+            </li>
+        </ul>
+        <div class="tab-content mt30">
+            <div class="tab-pane fade active show" id="othernews-03" role="tabpanel" aria-labelledby="othernews-tab">
+                @{Html.RenderAction("LastestNews2", "Home", new { CateName = "", CategoryId = 30, MaxLastestNews = 7, cssClass = "maxheight01" });}
+            </div>
+            <div class="tab-pane fade" id="othernews-04" role="tabpanel" aria-labelledby="othernews-tab">
+                @{Html.RenderAction("LastestNews2", "Home", new { CateName = "", CategoryId = 31, MaxLastestNews = 7, cssClass = "maxheight01" });}
+            </div>
+            <div class="tab-pane fade" id="othernews-05" role="tabpanel" aria-labelledby="othernews-tab">
+                <div class="row mt30">
+                    @{Html.RenderAction("TopDocument2", "Home");}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="content07 mt50 container">
+    @{Html.RenderAction("LastestNews3", "Home", new { CateName = "", CategoryId = 38, MaxLastestNews = 4, cssClass = "maxheight01" });}
+    
+</div>
+<div class="container content08 mt40">
+
+
+    @{Html.RenderAction("BannerBottom", "Home");}
+
+
+
+</div>
+<style>
+    .title-cm a {
+        font-size: 19px;
+    }
+</style>

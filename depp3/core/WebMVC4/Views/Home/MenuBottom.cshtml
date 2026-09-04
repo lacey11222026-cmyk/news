@@ -1,0 +1,11 @@
+﻿@using BIZ
+@using UTILS
+@using WebMVC4.Helper
+@model List<BIZ.Entity.CATEGORY_FULL>
+@{
+    var langpage = WorkContext.GetLanguage();
+}
+@foreach (var item in Model.Select((value, i) => new { i, value }))
+{
+    <li><a href="@item.value.Url" @(item.value.Id == 37||item.value.Id == 62 ? " target='_blank'" : "")>@item.value.Name</a></li>
+}

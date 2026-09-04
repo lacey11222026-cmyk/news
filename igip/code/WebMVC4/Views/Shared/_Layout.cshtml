@@ -1,0 +1,58 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+
+    @Html.Partial("MetaData")
+
+    <link rel="stylesheet" href="/Content/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/Content/css/common.css?vs=05">
+    <link rel="stylesheet" href="/Content/css/style.css?vs=08">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
+    <link href="/Content/css/slick.css" type="text/css" rel="stylesheet" />
+    <link href="~/Content/css/extend.css?vs=03" rel="stylesheet" />
+</head>
+<body id="body">
+    <!-- nav mobile --->
+    <script src="/Content/js/jquery.min.js"></script>
+    <script src="/Content/js/bootstrap.min.js"></script>
+    <script src="/Content/js/jquery.matchHeight.js" type="text/javascript"></script>
+    <script src="/Content/js/slick.min.js"></script>
+    @Html.Partial("Site_Header")
+    @RenderBody()
+    @Html.Partial("Site_Footer")
+
+
+    <div id="fb-root"></div>
+    <div class="clearfix">
+    </div>
+
+    <script src="/Content/js/script.js?vs=04"></script>
+
+    <script src="https://sp.zalo.me/plugins/sdk.js"></script>
+    <script>
+
+        (function (d, s, id) {
+            var js, fjs = d.getElementsByTagName(s)[0];
+            if (d.getElementById(id)) return;
+            js = d.createElement(s); js.id = id;
+            js.src = "//connect.facebook.net/vi_VN/sdk.js#xfbml=1&version=v2.8&appId=275786053207358";
+            fjs.parentNode.insertBefore(js, fjs);
+        }(document, 'script', 'facebook-jssdk'));
+    </script>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-4ET93R9QWS"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'G-4ET93R9QWS');
+    </script>
+</body>
+
+
+
+
+
+</html>

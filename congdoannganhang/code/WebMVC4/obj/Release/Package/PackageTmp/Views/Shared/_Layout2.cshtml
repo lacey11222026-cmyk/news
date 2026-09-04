@@ -1,0 +1,107 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>@ViewBag.Title </title>
+    <meta name="description" content="@Html.Raw(ViewBag.Description)" />
+    <meta name="keywords" content="@Html.Raw(ViewBag.Keywords)" />
+    <meta name="news_keywords" content="@Html.Raw(ViewBag.Keywords)" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="author" content="cong doan ngan hang" />
+    <meta name="google-site-verification" content="kunYSencvCeqCCNmrPIs2-sdgUKplCPKspCOzxD2yTY" />
+    <meta content="general" name="rating" />
+    <meta content="cong doan ngan hang Viet Nam" name="copyright" />
+    <meta content="never" name="expires" />
+    <meta content="global" name="distribution" />
+    <meta content="DOCUMENT" name="RESOURCE-TYPE" />
+    <meta content="vnubw.org.vn" name="GENERATOR" />
+    <meta name="robots" content="index,follow" />
+    <meta name="Googlebot" content="index,follow,noarchive" />
+
+    <meta content="@ViewBag.MainImage" property="og:image">
+    <link rel="shortcut icon" href="/images/ico-logo.png" />
+
+    @Styles.Render("~/Content/site.css")
+
+</head>
+<body onorientationchange="updateOrientation();">
+    @{Html.RenderAction("Menu", "Home");}
+
+    <div>
+        @Html.Partial("Site_Header")
+        <section class="content-wrap container">
+            <div class="row">
+                <div class="col-md-9 col-sm-12 col-xs-12" id="divbody">
+                    @RenderBody()
+                </div>
+                <div class="col-md-3 col-sm-12 col-xs-12 sidebar">
+                    @Html.Partial("Site_Right")
+                </div>
+                <div class="clearfix"></div>
+                @{Html.RenderAction("BannerMobile", "Home");}
+            </div>
+            @{Html.RenderAction("MenuBottom", "Home");}
+            <div class="clearfix"></div>
+            @Html.Partial("Site_Footer")
+        </section>
+        <div class="total-view">
+            <div class="container">
+                <div class="pull-left">
+                    Phát triển bởi <a href="http://vtkmedia.vn/"><img src="/Content2/images/vtk-logo03.png" alt="VtkMedia"></a>
+                </div>
+                <div class="pull-right">
+                    <span>Tổng số lượt truy cập :</span>
+                    <ul>
+                        @foreach (var s in HttpContext.Current.Application["TotalVisited"].ToString().Select(c => c.ToString()).ToList())
+                        {
+                            <li>@s</li>
+                        }
+
+
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="top_gototop"><a href="javascript:;" class="gototop clearfix"><img src="/Content2/images/gotop.png" alt="lên đầu trang" /></a></div>
+    <script src="/Content2/js/jquery.js"></script>
+    <script src="/Content2/js/bootstrap.js"></script>
+    @Scripts.Render("~/sitescript")
+    @RenderSection("scripts", required: false)
+    <style>
+        .fixed {
+            position: fixed;
+            top: 0px !important;
+            margin-top: 0px !important;
+            width: 270px;
+        }
+
+        .fixed-2 {
+            position: absolute;
+            bottom: 0px !important;
+            margin-top: 0px !important;
+            width: 270px;
+        }
+
+        .video h2 {
+            font-size: 16px !important;
+        }
+    </style>
+    <script>
+        (function (i, s, o, g, r, a, m) {
+            i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () {
+                (i[r].q = i[r].q || []).push(arguments)
+            }, i[r].l = 1 * new Date(); a = s.createElement(o),
+                m = s.getElementsByTagName(o)[0]; a.async = 1; a.src = g; m.parentNode.insertBefore(a, m)
+        })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+
+        ga('create', 'UA-56178734-1', 'auto');
+        ga('send', 'pageview');
+
+    </script>
+
+</body>
+
+
+</html>

@@ -1,0 +1,22 @@
+﻿<div style="width: 660px;">
+    <p class="news_details_tit" id="news_details_tit"></p>
+    <div class="new_details_content">
+
+        <p id="news_details_description"></p>
+        <div id="news_details_newscontent">
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    $("#btnreview").click(function () {
+        
+        
+            tinyMCE.triggerSave();
+            $("#news_details_newscontent").html(tinyMCE.get('News_Content').getContent());
+            $("#news_details_description").html("<strong>" + $("#News_Description").val() + "</strong>");
+            $("#news_details_tit").html($("#News_Title").val());
+        
+       
+
+    });
+</script>

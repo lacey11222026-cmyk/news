@@ -1,0 +1,621 @@
+﻿
+@using Car.Data
+@using Car.Utility
+@using Car.CMS.Helper
+@using Car.CMS.Models
+@model PlanItemModel
+<div class="row" id="ContentPopUp">
+    <div class="col-lg-12">
+        <div class="box box-primary">
+
+            <form id="defaultForm2" method="post" class="form-horizontal defaultForm2" autocomplete="off">
+                <div class="form-horizontal">
+                    <div class="messager-body">
+                        <div class="alert alert-success display-hide alert-dismissable">
+                            <button type="button" class="close" data-close="alert" aria-hidden="true">×</button>
+                            <span class="glyphicon glyphicon-ok"></span>
+                            <label>Đã lưu dữ liệu thành công !!!</label>
+                        </div>
+                        <div class="alert alert-danger display-hide alert-dismissable">
+                            <button type="button" class="close" data-close="alert" aria-hidden="true">×</button>
+                            <span class="glyphicon glyphicon-warning-sign"></span>
+                            <label id="ErrorMessage2">Có một vài lỗi trong khung nhập liệu dưới đây ! kiểm tra lại</label>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="txtMainCate" class="control-label col-md-5">Chọn dự án :<span class="required">*</span></label>
+                        <div class="col-md-7">
+                            <div class="input-icon right">
+                                <select class="form-control" id="ddlProject">
+                                </select>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="txtName" class="control-label col-md-5">Tên dự án  :</label>
+                        <div class="col-md-7">
+                            <div class="input-icon right">
+                                <input type="text" id="txtProjectName" maxlength="500" name="projectname" value="@Model.Name" class="form-control" autocomplete="off" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="txtTotal1" class="control-label col-md-5">Mức TKNL đạt được (MWh/năm)  :</label>
+                        <div class="col-md-5">
+                            <div class="input-icon right">
+                                <input type="text" id="txtTotal1" maxlength="500" name="Total1" value="@Model.Total1" class="form-control" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="txtTotal2" class="control-label col-md-5">Giảm phát thải KNK (Tấn CO2/năm)  :</label>
+                        <div class="col-md-5">
+                            <div class="input-icon right">
+                                <input type="text" id="txtTotal2" maxlength="500" name="Total2" value="@Model.Total2" class="form-control" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="txtNumberPeople" class="control-label col-md-5">Số lượng người hưởng lợi trực tiếp </label>
+                        <div class="col-md-5">
+                            <div class="input-icon right">
+                                <input id="txtNumberPeople" maxlength="20" name="NumberPeople" value="@Model.NumberPeople" class="form-control" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="txtWomanRate" class="control-label col-md-5">Tỷ lệ người hưởng lợi là phụ nữ (%) </label>
+                        <div class="col-md-5">
+                            <div class="input-icon right">
+                                <input id="txtWomanRate" maxlength="20" name="WomanRate" value="@Model.WomanRate" class="form-control" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="txtTime" class="control-label col-md-5">Ngày bắt đầu vận hành :</label>
+                        <div class="col-md-5">
+                            <div class="input-icon right input-group">
+                                <div class="input-group-addon">
+                                    <i class="fa fa-calendar"></i>
+                                </div>
+                                <input type="text" value="@Model.Time.GetValueOrDefault().ToString("dd/MM/yyy")" id="txtTime" data-format="DD/MM/YYYY" name="time" class="form-control" />
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="nav-tabs-custom">
+                        <ul class="nav nav-tabs">
+                            <li class="active"><a href="#tab_1" data-toggle="tab" aria-expanded="false">Vốn vay WB</a></li>
+                            <li class="">
+                                <a href="#tab_2" data-toggle="tab" aria-expanded="true">
+                                    Vốn đối ứng của PFI
+
+                                </a>
+                            </li>
+                            <li class="">
+                                <a href="#tab_3" data-toggle="tab" aria-expanded="true">
+                                    Vốn đối ứng của IE
+
+                                </a>
+                            </li>
+
+                        </ul>
+                        <br />
+                        <div class="tab-content">
+                            <div class="tab-pane active" id="tab_1">
+                                <div class="form-group">
+                                    <label for="txtMoney1" class="control-label col-md-5">Tổng vốn vay(VND) :</label>
+                                    <div class="col-md-7">
+                                        <div class="input-icon right">
+                                            <input type="text" id="txtMoney1" maxlength="500" value="@StringUtils.InsertCommaNoStyle(Model.Item1.Money.ToString())" class="form-control amount" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group" style="display:none">
+                                    <label for="txtCurrency1" class="control-label col-md-5">Đơn vị tiền tệ :</label>
+                                    <div class="col-md-7">
+                                        <div class="input-icon right">
+                                            <input type="text" id="txtCurrency1" maxlength="500" value="@Model.Item1.Currency" class="form-control" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="txtCurrencyRate1" class="control-label col-md-5">Tỷ giá :</label>
+                                    <div class="col-md-5">
+                                        <div class="input-icon right">
+                                            <input type="text" id="txtCurrencyRate1" maxlength="20" value="@Model.Item1.CurrencyRate" class="form-control" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="txtPlanYear1" class="control-label col-md-5">Kế hoạch giải ngân năm (VND):</label>
+                                    <div class="col-md-5">
+                                        <div class="input-icon right">
+                                            <input type="text" id="txtPlanYear1" maxlength="20" value="@StringUtils.InsertCommaNoStyle(Model.Item1.PlanYear.ToString())" class="form-control amount" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="txtPlanCurrent1" class="control-label col-md-5">Kế hoạch đến thời điểm báo cáo(VND) :</label>
+                                    <div class="col-md-5">
+                                        <div class="input-icon right">
+                                            <input type="text" id="txtPlanCurrent1" maxlength="20" value="@StringUtils.InsertCommaNoStyle(Model.Item1.PlanCurrent.ToString())" class="form-control amount" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="txtPlanQ1" class="control-label col-md-5">Giải ngân trong quý/năm (VND):</label>
+                                    <div class="col-md-5">
+                                        <div class="input-icon right">
+                                            <input type="text" id="txtPlanQ1" maxlength="20" value="@StringUtils.InsertCommaNoStyle(Model.Item1.PlanQ.ToString())" class="form-control amount" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="txtBalanceYear1" class="control-label col-md-5">Lũy kế từ đầu năm (VND):</label>
+                                    <div class="col-md-5">
+                                        <div class="input-icon right">
+                                            <input type="text" id="txtBalanceYear1" maxlength="20" value="@StringUtils.InsertCommaNoStyle(Model.Item1.BalanceYear.ToString())" class="form-control amount" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="txBalance1" class="control-label col-md-5">Lũy kế giải ngân(VND) :</label>
+                                    <div class="col-md-5">
+                                        <div class="input-icon right">
+                                            <input type="text" id="txtBalance1" maxlength="20" value="@StringUtils.InsertCommaNoStyle(Model.Item1.Balance.ToString())" class="form-control amount" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- /.tab-pane -->
+                            <div class="tab-pane" id="tab_2">
+                                <div class="form-group">
+                                    <label for="txtMoney2" class="control-label col-md-5">Tổng vốn vay(VND) :</label>
+                                    <div class="col-md-7">
+                                        <div class="input-icon right">
+                                            <input type="text" id="txtMoney2" maxlength="500" value="@StringUtils.InsertCommaNoStyle(Model.Item2.Money.ToString())" class="form-control amount" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group" style="display:none">
+                                    <label for="txtCurrency2" class="control-label col-md-5">Đơn vị tiền tệ :</label>
+                                    <div class="col-md-5">
+                                        <div class="input-icon right">
+                                            <input type="text" id="txtCurrency2" maxlength="500" value="@Model.Item2.Currency" class="form-control" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="txtCurrencyRate2" class="control-label col-md-5">Tỷ giá :</label>
+                                    <div class="col-md-5">
+                                        <div class="input-icon right">
+                                            <input type="text" id="txtCurrencyRate2" maxlength="20" value="@Model.Item2.CurrencyRate" class="form-control " />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="txtPlanYear2" class="control-label col-md-5">Kế hoạch giải ngân năm(VND) :</label>
+                                    <div class="col-md-5">
+                                        <div class="input-icon right">
+                                            <input type="text" id="txtPlanYear2" maxlength="20" value="@StringUtils.InsertCommaNoStyle(Model.Item2.PlanYear.ToString())" class="form-control amount" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="txtPlanCurrent2" class="control-label col-md-5">Kế hoạch đến thời điểm báo cáo(VND) :</label>
+                                    <div class="col-md-5">
+                                        <div class="input-icon right">
+                                            <input type="text" id="txtPlanCurrent2" maxlength="20" value="@StringUtils.InsertCommaNoStyle(Model.Item2.PlanCurrent.ToString())" class="form-control amount" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="txtPlanQ2" class="control-label col-md-5">Giải ngân trong quý/năm (VND):</label>
+                                    <div class="col-md-5">
+                                        <div class="input-icon right">
+                                            <input type="text" id="txtPlanQ2" maxlength="20" value="@StringUtils.InsertCommaNoStyle(Model.Item2.PlanQ.ToString())" class="form-control amount" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="txtBalanceYear2" class="control-label col-md-5">Lũy kế từ đầu năm (VND):</label>
+                                    <div class="col-md-5">
+                                        <div class="input-icon right">
+                                            <input type="text" id="txtBalanceYear2" maxlength="20" value="@StringUtils.InsertCommaNoStyle(Model.Item2.BalanceYear.ToString())" class="form-control amount" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="txBalance2" class="control-label col-md-5">Lũy kế giải ngân (VND):</label>
+                                    <div class="col-md-5">
+                                        <div class="input-icon right">
+                                            <input type="text" id="txtBalance2" maxlength="20" value="@StringUtils.InsertCommaNoStyle(Model.Item2.Balance.ToString())" class="form-control amount" />
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="tab-pane" id="tab_3">
+                                <div class="form-group">
+                                    <label for="txtMoney3" class="control-label col-md-5">Tổng vốn vay (VND) :</label>
+                                    <div class="col-md-7">
+                                        <div class="input-icon right">
+                                            <input type="text" id="txtMoney3" maxlength="500" value="@StringUtils.InsertCommaNoStyle(Model.Item3.Money.ToString())" class="form-control amount" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group" style="display:none">
+                                    <label for="txtCurrency3" class="control-label col-md-5">Đơn vị tiền tệ :</label>
+                                    <div class="col-md-5">
+                                        <div class="input-icon right">
+                                            <input type="text" id="txtCurrency3" maxlength="500" value="@Model.Item3.Currency" class="form-control" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="txtCurrencyRate3" class="control-label col-md-5">Tỷ giá :</label>
+                                    <div class="col-md-5">
+                                        <div class="input-icon right">
+                                            <input type="text" id="txtCurrencyRate3" maxlength="20" value="@Model.Item3.CurrencyRate" class="form-control" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="txtPlanYear3" class="control-label col-md-5">Kế hoạch giải ngân năm (VND) :</label>
+                                    <div class="col-md-5">
+                                        <div class="input-icon right">
+                                            <input type="text" id="txtPlanYear3" maxlength="20" value="@StringUtils.InsertCommaNoStyle(Model.Item3.PlanYear.ToString())" class="form-control amount" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="txtPlanCurrent3" class="control-label col-md-5">Kế hoạch đến thời điểm báo cáo (VND) :</label>
+                                    <div class="col-md-5">
+                                        <div class="input-icon right">
+                                            <input type="text" id="txtPlanCurrent3" maxlength="20" value="@StringUtils.InsertCommaNoStyle(Model.Item3.PlanCurrent.ToString())" class="form-control amount" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="txtPlanQ3" class="control-label col-md-5">Giải ngân trong quý/năm (VND):</label>
+                                    <div class="col-md-5">
+                                        <div class="input-icon right">
+                                            <input type="text" id="txtPlanQ3" maxlength="20" value="@StringUtils.InsertCommaNoStyle(Model.Item3.PlanQ.ToString())" class="form-control amount" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="txtBalanceYear3" class="control-label col-md-5">Lũy kế từ đầu năm (VND) :</label>
+                                    <div class="col-md-5">
+                                        <div class="input-icon right">
+                                            <input type="text" id="txtBalanceYear3" maxlength="20" value="@StringUtils.InsertCommaNoStyle(Model.Item3.BalanceYear.ToString())" class="form-control amount" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="txBalance3" class="control-label col-md-5">Lũy kế giải ngân (VND):</label>
+                                    <div class="col-md-5">
+                                        <div class="input-icon right">
+                                            <input type="text" id="txtBalance3" maxlength="20" value="@StringUtils.InsertCommaNoStyle(Model.Item3.Balance.ToString())" class="form-control amount" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- /.tab-pane -->
+                            <!-- /.tab-pane -->
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="panel-footer form-horizontal">
+
+                    <div class="form-group" style="display:none">
+                        <label class="control-label col-md-5" for="cbxIsActive2">Trạng thái :</label>
+                        <div class="col-md-4">
+                            <div class="checkbox">
+                                @if (Model.Status == 1)
+                                {<input type="checkbox" id="cbxIsActive2" checked="checked" />}
+                                else
+                                {<input type="checkbox" id="cbxIsActive2" />}
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group submit">
+                        <button type="submit" class="btn btn-primary" id="btnSave2"><i class="fa fa-save"></i> Cập nhập</button>
+
+                        @*<button type="button" class="btn btn-default" id="btnBack" data-dismiss="modal"><i class="fa fa-backward"></i> Hủy</button>*@
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    function formate(input) {
+   var dateString = input.substr(6);
+var currentTime = new Date(parseInt(dateString ));
+var month = currentTime.getMonth() + 1;
+var day = currentTime.getDate();
+        var year = currentTime.getFullYear();
+        if (day < 10)
+            day = '0' + day;
+          if (month < 10)
+            month = '0' + month;
+return day + "/" + month + "/" + year;
+}
+     function LoadProject(rvalue) {
+        $('#ddlProject').html('<option value="-1">- Chọn dự án -</option>');
+        $.ajax({
+            cache: false,
+            type: "GET",
+            url: '/BankReport/GetReport?year='+$('#ddlYear').val()+'&type='+$('#ddlType').val(),
+            data: {},
+            success: function (data) {
+                //$('#select_manu').html('');
+                var html = '';
+
+                $.each(data, function (i, item) {
+
+
+                    if (rvalue == item.Name) {
+                        html = '<option selected="selected" value="' + item.Name + '" title="' + item.Name + '">';
+                    }
+                    else {
+                        html = '<option value="' + item.Name + '" title="' + item.Name + '">';
+                    }
+
+
+                    html += item.Name;
+                    html += '</option>';
+
+                    $('#ddlProject').append(html);
+
+                });
+            },
+
+        });
+    }
+    $(document).ready(function () {
+
+         //$('#txtTime').datetimepicker({
+         //       format: 'DD/MM/YYYY',
+         //       autoclose: true,
+         //       pickTime: false,
+         //       inline: true,
+         //       sideBySide: true,
+         //       showTodayButton: true
+         //   });
+           LoadProject('@Html.Raw(Model.Name)');
+          $("#ddlProject").change(function () {
+             $.ajax({
+            cache: false,
+            type: "GET",
+           url: '/BankReport/GetReport?year='+$('#ddlYear').val()+'&type='+$('#ddlType').val()+'&key='+$('#ddlProject').val(),
+            data: {},
+                 success: function (data) {
+                $("#txtProjectName").val(data[0].Name);
+                 $("#txtTotal1").val(data[0].Result1);
+                $("#txtTotal2").val(data[0].Result2);
+                $("#txtMoney1").val(jQuery.parseJSON(data[0].ProjectInfo).Total2.formatMoney(0, '', '.'));
+
+                  $("#txtNumberPeople").val(data[0].NumberPeople);
+                $("#txtWomanRate").val(data[0].WomanRate);
+                $("#txtTime").val(formate(data[0].Time));
+            },
+
+        });
+        });
+                    @*$('#txtProjectName').typeahead({
+            hint: false,
+            minLength: 1,
+            source: function (query, process) {
+
+                $.ajax({
+                    url: "@Url.Action("GetReport")",
+                    data: 'key=' + query+'&year='+$('#ddlYear').val()+'&type='+$('#ddlType').val(),
+                    dataType: "json",
+                    type: "Post",
+                    success: function (data) {
+                        objects = [];
+                        map = {};
+                        $.each(data, function (i, object) {
+                            map[object.Name] = object;
+                            objects.push(object.Name);
+                        });
+                        process(objects);
+                    }
+                });
+            },
+            updater: function (item) {
+                $("#txtTotal1").val(map[item].Result1);
+                $("#txtTotal2").val(map[item].Result2);
+                $("#txtMoney1").val(jQuery.parseJSON(map[item].ProjectInfo).Total2.formatMoney(0, '', '.'));
+                //console.log(map[item].Id);
+                return item;
+            }
+        });*@
+
+         $(".amount").keyup(function () {
+            var val = $(this).val();
+
+            if (val) {
+
+                val = val.replace(/\./g, '');
+                val = unformat(val, 0);
+                //$(this).val(val);
+
+                var price = parseInt(val);
+
+                var formatMoneyVNDVal = price.formatMoney(0, '', '.');
+                $(this).val(formatMoneyVNDVal);
+            }
+        }).blur(function () {
+            var val = $(this).val();
+
+            if (val) {
+                //console.log(val);
+                val = val.replace('.', '').replace(/\./g, '');
+                val = unformat(val, 0);
+                //$(this).val(val);
+
+                var price = parseInt(val);
+
+                var formatMoneyVNDVal = price.formatMoney(0, '', '.');
+                $(this).val(formatMoneyVNDVal);
+            }
+            });
+
+
+            $("button.close").click(function () {
+                $(this).parent().css("display", "none");
+            });
+            $('#defaultForm2').bootstrapValidator({
+                message: 'This value is not valid',
+                //live: 'submitted',
+                feedbackIcons: {
+                    valid: 'glyphicon glyphicon-ok',
+                    invalid: 'glyphicon glyphicon-remove',
+                    validating: 'glyphicon glyphicon-refresh'
+                },
+                fields: {
+
+
+                projectname: {
+                    message: 'Nhập tên dự án',
+                    validators: {
+                        notEmpty: {
+                            message: 'Tên dự án không được bỏ trống'
+                        },
+
+                    }
+                },
+                }
+            })
+            .on('success.form.bv', function (e) {
+                // Prevent submit form
+                e.preventDefault();
+
+                var $form = $(e.target),
+                    validator = $form.data('bootstrapValidator');
+                SaveData2();
+                $(".close").click(function () {
+                    $(".alert-success").css("display", "none");
+                });
+            })
+            .on('error.form.bv', function (e) {
+                // Active the panel element containing the first invalid element
+                e.preventDefault();
+                var $form = $(e.target),
+                validator = $form.data('bootstrapValidator');
+                $("#defaultForm2 .alert-danger label").text("Có một vài lỗi trong khung nhập liệu dưới đây ! kiểm tra lại");
+                $("#defaultForm2 .alert-danger").css("display", "block");
+                $(".close").click(function () {
+                    $(".alert-danger").css("display", "none");
+                    $(".alert-success").css("display", "none");
+                });
+            });
+
+            //$("#btnReset").click(function () {
+            //    $('#defaultForm2').data('bootstrapValidator').resetForm(true);
+            //    $(".alert-danger").css("display", "none");
+            //    $(".alert-success").css("display", "none");
+            //});
+            //Save Data
+            function SaveData2() {
+                var param = {
+                    'Id': '@Model.Id',
+                    'PlanId': '@Model.PlanId',
+                    'Name': $("#txtProjectName").val(),
+                    'Status': $("#cbxIsActive2").is(":checked") ? 1 : 0,
+
+                    'Money1': $("#txtMoney1").val().replace(/\./g, ''),
+                    'Currency1': $("#txtCurrency1").val(),
+                    'CurrencyRate1': $("#txtCurrencyRate1").val().replace(/\./g, ''),
+                    'PlanYear1': $("#txtPlanYear1").val().replace(/\./g, ''),
+                    'PlanCurrent1': $("#txtPlanCurrent1").val().replace(/\./g, ''),
+                    'PlanQ1': $("#txtPlanQ1").val().replace(/\./g, ''),
+                    'BalanceYear1': $("#txtBalanceYear1").val().replace(/\./g, ''),
+                    'Balance1': $("#txtBalance1").val().replace(/\./g, ''),
+
+                    'Money2': $("#txtMoney2").val().replace(/\./g, ''),
+                    'Currency2': $("#txtCurrency2").val(),
+                    'CurrencyRate2': $("#txtCurrencyRate2").val(),
+                    'PlanYear2': $("#txtPlanYear2").val().replace(/\./g, ''),
+                    'PlanCurrent2': $("#txtPlanCurrent2").val().replace(/\./g, ''),
+                    'PlanQ2': $("#txtPlanQ2").val().replace(/\./g, ''),
+                    'BalanceYear2': $("#txtBalanceYear2").val().replace(/\./g, ''),
+                    'Balance2': $("#txtBalance2").val().replace(/\./g, ''),
+
+                    'Money3': $("#txtMoney3").val().replace(/\./g, ''),
+                    'Currency3': $("#txtCurrency3").val(),
+                    'CurrencyRate3': $("#txtCurrencyRate3").val(),
+                    'PlanYear3': $("#txtPlanYear3").val().replace(/\./g, ''),
+                    'PlanCurrent3': $("#txtPlanCurrent3").val().replace(/\./g, ''),
+                    'PlanQ3': $("#txtPlanQ3").val().replace(/\./g, ''),
+                    'BalanceYear3': $("#txtBalanceYear3").val().replace(/\./g, ''),
+                    'Balance3': $("#txtBalance3").val().replace(/\./g, ''),
+                    'Total1': $("#txtTotal1").val(),
+                    'Total2': $("#txtTotal2").val(),
+                      'WomanRate': $("#txtWomanRate").val(),
+                'NumberPeople': $("#txtNumberPeople").val(),
+                 'STime': $("#txtTime").val(),
+                }
+
+                Utils.Loading();
+                $.ajax({
+                    type: 'POST',
+                    url: "@Url.Action("PlanItemSaveData")",
+                    data: addAntiForgeryToken(param),
+                    async: true,
+                    success: function (data) {
+                        Utils.UnLoading();
+                        if (data.ResponseCode >= 0) {
+
+                            $(".defaultForm2.alert-success").show("slow");
+                            $(".defaultForm2.alert-danger").hide("slow");
+
+                            $('.modal ').modal('hide');
+                             loadPlanItem();
+                             loadPlanStuck();
+                        }
+                        else {
+
+                            $("#ErrorMessage2").text(data.Description);
+                            $(".defaultForm2 .alert-danger").show("slow");
+                            $(".defaultForm2 .alert-success").hide("slow");
+                            setTimeout(function () { $(".defaultForm2 .alert-danger").hide("slow"); }, 5000);
+                        }
+                    }
+                });
+            };
+        });
+
+
+
+</script>
+<style type="text/css">
+    .modal-dialog {
+        width: 60% !important;
+        height: 98% !important;
+    }
+
+    .form-group {
+        margin-bottom: 7px;
+    }
+
+    .modal-footer {
+        display: none;
+    }
+
+    @@media (max-width: 768px) {
+
+        .modal-dialog {
+            width: 90% !important;
+            height: 90% !important;
+        }
+    }
+</style>

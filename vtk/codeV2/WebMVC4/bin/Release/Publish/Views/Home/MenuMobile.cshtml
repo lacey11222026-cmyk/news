@@ -1,0 +1,45 @@
+﻿@using BIZ
+@using UTILS
+@using WebMVC4.Helper
+@model List<BIZ.Entity.CATEGORY_FULL>
+
+@{
+    var langpage = WorkContext.GetLanguage();
+}
+<ul>
+    @if (langpage == "vi-vn")
+    {
+        <li>
+            <input type="text" placeholder="Tìm kiếm" class="m-search" id="txtKeywordMobile" onkeydown="javascript: return MAnyInput_KeyDown(this, event);">
+        </li>
+        foreach (var item in Model.Select((value, i) => new { i, value }))
+        {
+
+            <li>
+                <a href="@Utils.FormatUrlRewriteByType(item.value.Id, item.value.Name, int.Parse(item.value.Type.ToString()), item.value.Link)" @(item.value.Type.GetValueOrDefault() == 11 ? " target='_blank'" : "")>@item.value.Name </a>
+                @Html.Raw(HtmlHelpers.BindChildCategories(Convert.ToInt32(item.value.Id), int.Parse(item.value.Type.ToString())))
+            </li>
+        }
+    }
+    else
+    {
+
+        <li>
+            <input type="text" placeholder="Search" class="m-search" id="txtKeywordMobile" onkeydown="javascript: return MAnyInput_KeyDown(this, event);">
+        </li>
+        foreach (var item in Model.Select((value, i) => new { i, value }))
+        {
+
+            <li>
+                <a href="@Utils.FormatUrlRewriteByType(item.value.Id, item.value.Name, int.Parse(item.value.Type.ToString()), item.value.Link)" @(item.value.Type.GetValueOrDefault() == 11 ? " target='_blank'" : "")>@item.value.Language </a>
+                @Html.Raw(HtmlHelpers.BindChildCategoriesEn(Convert.ToInt32(item.value.Id), int.Parse(item.value.Type.ToString())))
+            </li>
+        }
+
+    }
+    <li>
+        <a href="/Home/Language?lang=vi-vn">VN</a>
+
+    </li>
+    <li><a href="/Home/Language?lang=en-us">English</a></li>
+</ul>

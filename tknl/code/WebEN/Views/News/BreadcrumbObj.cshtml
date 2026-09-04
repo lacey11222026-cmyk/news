@@ -1,0 +1,10 @@
+﻿@using BIZ
+@using UTILS
+@using  WebEN.Helper
+@model BIZ.Entity.CATEGORY_FULL
+
+@if (Model != null)
+{
+    <div class="title-cm02 mt20"><a href="@Utils.FormatUrlRewriteByType(Model.Id, Model.Name, (int)Model.Type)">@Model.Name</a></div>
+    
+}

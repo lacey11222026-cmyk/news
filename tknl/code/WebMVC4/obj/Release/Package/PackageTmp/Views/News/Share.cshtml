@@ -1,0 +1,28 @@
+﻿@using BIZ
+@using UTILS
+@using  WebMVC4
+@using  WebMVC4.Helper
+@model BIZ.Entity.CONTENT_FULL
+
+<div class="social">
+    <ul>
+        <li><a href="@Url.Action("Print", "News", new {Id=Model.Id})" target="_blank"><img src="@(MvcApplication.StaticSiteUrl)images/chitiet_11.jpg" /> Bản in</a></li>
+        @* <li><a href="#"><img src="@(MvcApplication.StaticSiteUrl)images/chitiet_09.jpg" /> Email</a></li>*@
+       @* <li><a href="javascript:void(0);" onclick="openWin('@ViewBag.ZingShare');"><img src="@(MvcApplication.StaticSiteUrl)images/chitiet_07.jpg" /></a></li>*@
+        <li><a href="javascript:void(0);" onclick="openWin('@ViewBag.GoogleShare');"><img src="@(MvcApplication.StaticSiteUrl)images/chitiet_05.jpg" /></a></li>
+        <li><a href="javascript:void(0);" onclick="openWin('@ViewBag.FacebookShare');"><img src="@(MvcApplication.StaticSiteUrl)images/chitiet_03.jpg" /></a></li>
+        
+    </ul>
+     <h5>@Utils.formatDateofWeek(Model.PublishDate.DayOfWeek), @Model.PublishDate.ToString("dd/MM/yyyy") - @Model.PublishDate.ToString("HH:mm") </h5>
+    <div class="clear"></div>
+</div>
+
+<script type="text/javascript">
+
+        $("#cate_@Model.CategoryId").addClass("chon");
+
+        function openWin(url) {
+            var myWindow = window.open(url, '', 'width=700,height=500');
+            myWindow.focus();
+        }
+    </script>

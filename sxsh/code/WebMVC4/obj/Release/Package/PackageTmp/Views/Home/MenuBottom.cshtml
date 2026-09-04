@@ -1,0 +1,38 @@
+﻿@using BIZ
+@using UTILS
+@using WebMVC4.Helper
+@{
+    var langpage = WorkContext.GetLanguage();
+}
+@model List<BIZ.Entity.CATEGORY_FULL>
+<div class="nav-inner">
+    <nav class="nav-left">
+        <ul>
+            <li class="active"><a href="#"><img src="/Content/img/icon-home-white.png" alt="Trang chủ" width="22"></a></li>
+            @foreach (var item in Model.Select((value, i) => new { i, value }))
+            {
+                <li>
+                    <a href="@Utils.FormatUrlRewriteByType(item.value.Id, item.value.Name, int.Parse(item.value.Type.ToString()), item.value.Link)">@item.value.Name.Replace("Video En", "Video") </a>
+
+                </li>
+            }
+        </ul>
+    </nav>
+    <div class="nav-right">
+        <ul>
+            @if (langpage == "vi-vn")
+            {
+
+
+                <li><a href="/Home/Language?lang=en-us"><img src="/Content/img/icon-en.png"></a></li>
+            }
+            else
+            {
+                <li><a href="/Home/Language?lang=vi-vn" class="icon-language"><img src="/Content/img/icon-vn.png"></a></li>
+            }
+
+        </ul>
+    </div>
+</div>
+
+

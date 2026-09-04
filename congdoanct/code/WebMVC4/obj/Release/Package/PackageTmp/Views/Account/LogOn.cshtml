@@ -1,0 +1,223 @@
+﻿@using UTILS;
+@{
+    ViewBag.Title = "FormLogin";
+    Layout = "~/Views/Shared/_LayoutLogin.cshtml";
+	Session["Captcha"] = "123";
+}
+<div class="login-box">
+    <div class="login-logo">
+        <a href="/admin"><b>VTK</b>CMS</a>
+    </div>
+    <!-- /.login-logo -->
+    <div class="login-box-body">
+        <p class="login-box-msg">Đăng nhập hệ thống</p>
+        <div class="messager-body">
+            <div class="alert alert-success display-hide alert-dismissable">
+                <button type="button" class="close" data-close="alert" aria-hidden="true">×</button>
+                <span class="glyphicon glyphicon-ok"></span>
+                <label>Đăng nhập thành công !!!</label>
+            </div>
+            <div class="alert alert-danger display-hide alert-dismissable">
+                <button type="button" class="close" data-close="alert" aria-hidden="true">×</button>
+                <span class="glyphicon glyphicon-warning-sign"></span>
+                <label id="ErrorLbl">Có lỗi trong khung đăng nhập</label>
+            </div>
+        </div>
+        <form  role="form" id="loginForm" method="post">
+            <div class="form-group has-feedback">
+
+                <input class="form-control" id="Username" name="Username" placeholder="Tên đăng nhập" required="" type="text">
+
+            </div>
+            <div class="form-group has-feedback password">
+
+                <input class="form-control" id="Password" name="Password" placeholder="Mật khẩu" required="" type="password">
+                <a href="javascript:;" onmousedown="document.getElementById('Password').type = 'txt'" onmouseup="document.getElementById('Password').type = 'password'" class="eys"><i class="fa fa-eye"></i></a>
+            </div>
+            @*<div class="form-group has-feedback Capcha">
+
+
+                <input type="text" id="txtCapchar" class="form-control" placeholder="Mã xác thực" maxlength="3" name="Capchar" />
+                <img id="imgCapcha" src="~/Get/CaptchaImage.ashx?w=60&h=40&rnd=@(Utils.RandomNumber(0, 100))" style="height:34px" alt="" />
+                <div style="clear: both;"></div>
+
+            </div>*@
+            <div class="row">
+                <div class="col-xs-12">
+                    <a onclick="SaveData()" class="btn btn-primary btn-block btn-flat" id="btnSave">
+                        Đăng nhập
+                    </a>
+                </div>
+            </div>
+
+        </form>
+        <div class="social-auth-links text-center">
+            <p>- Hoặc -</p>
+            
+            <a href="javascript:;" onclick="LoginFacebook()" class="btn btn-block btn-social btn-google btn-flat">
+                <i class="fa fa-google-plus"></i> Đăng nhập bằng Gmail
+                Google+
+            </a>
+        </div>
+    </div>
+    <!-- /.login-box-body -->
+</div>
+
+<style>
+    .form-group  a.eys {
+    display: inline-block;
+    position: absolute;
+    width: 26px;
+    right: 0;
+    top: 50%;
+    -webkit-transform: perspective(1px) translateY(-50%);
+    -moz-transform: perspective(1px) translateY(-50%);
+    transform: perspective(1px) translateY(-50%);
+    color: #999999;
+    font-size: 20px;
+}
+    #txtCapchar {
+        width: 68%;
+        float: left;
+    }
+    .Capcha .glyphicon,.password .glyphicon
+    {
+        display:none !important;
+    }
+    #imgCapcha {
+        float: right;
+        
+    }
+</style>
+<script type="text/javascript">
+    function LoginFacebook() {
+        window.location.href = '/LoginGoogle.aspx?state='+'@ViewBag.Url';
+    }
+    function refreshCaptcha() {
+        var capt = "/Get/CaptchaImage.ashx?ss=" + Math.random() + "&w=100&h=40";
+        $("#imgCapcha").attr("src", capt);
+    }
+    $('.form-group input[type="text"],.form-group input[type="password"]').keypress(function (event) {
+        if (event.which == 13) {
+            $("#btnSave").click();
+        }
+    });
+    $("#txtCapchar").keyup(function () {
+        var val = $(this).val();
+        val = val.toUpperCase();
+        $(this).val(val);
+    });
+    $(document).ready(function () {
+
+        $('#loginForm').bootstrapValidator({
+            message: 'This value is not valid',
+            //live: 'submitted',
+            feedbackIcons: {
+                valid: 'glyphicon glyphicon-ok',
+                invalid: 'glyphicon glyphicon-remove',
+                validating: 'glyphicon glyphicon-refresh'
+            },
+            fields: {
+                Username: {
+                    message: 'The username is not valid',
+                    validators: {
+                        notEmpty: {
+                            message: 'Tên đăng nhập không được bỏ trống'
+                        },
+                        regexp: {
+                            regexp: /^[a-zA-Z0-9\.]+$/,
+                            message: 'Tên đăng nhập nhập vào sai định dạng'
+                        },
+                        stringLength: {
+                            min: 3,
+                            max: 30,
+                            message: 'Tên đăng nhập trong khoảng 3 - 30 ký tự'
+                        }
+                    }
+                },
+                Password: {
+                    validators: {
+                        notEmpty: {
+                            message: 'Mật khẩu không thể bỏ trống'
+                        },
+                        stringLength: {
+                            min: 6,
+                            max: 30,
+                            message: 'Mật khẩu phải từ 6 đến 30 ký tự'
+                        }
+                    }
+                },
+               
+
+
+            }
+        })
+        .on('success.form.bv', function (e) {
+            // Prevent submit form
+            e.preventDefault();
+
+            var $form = $(e.target),
+                validator = $form.data('bootstrapValidator');
+            SaveData();
+            $(".close").click(function () {
+                $(".alert-success").css("display", "none");
+            });
+        })
+        .on('error.form.bv', function (e) {
+            // Active the panel element containing the first invalid element
+            e.preventDefault();
+            var $form = $(e.target),
+            validator = $form.data('bootstrapValidator');
+            $(".alert-danger label").text("Có một vài lỗi trong khung đăng nhập");
+            $(".alert-danger").css("display", "block");
+            $(".close").click(function () {
+                $(".alert-danger").css("display", "none");
+                $(".alert-success").css("display", "none");
+            });
+            var Username = $("#Username").val();
+            if (Username == null || Username == '')
+                $("#Username").focus();
+            else
+                $("#Password").focus();
+        });
+
+    });
+
+    function SaveData() {
+        var param = {
+            UserName: $("#Username").val(),
+            Password: $("#Password").val(),
+            capchar: '123',
+        };
+        Utils.Loading();
+
+        $.ajax({
+            type: 'POST',
+            url: "@Url.Action("LogOn","Account")",
+            data: addAntiForgeryToken(param),
+            async: true,
+            success: function (data) {
+                Utils.UnLoading();
+                if (data.success == true) {
+                    $(".alert-success").show("slow");
+                    $(".alert-danger").hide("slow");
+                    setTimeout(function () {
+                        $(".alert-success").hide("slow");
+
+                        location.href = '@ViewBag.Url';
+
+                    }, 500);
+                }
+                else {
+                    Utils.UnLoading();
+                    refreshCaptcha();
+                    $(".alert-danger label").text(data.msg);
+                    $(".alert-danger").show("slow");
+                    $(".alert-success").hide("slow");
+                    $("#Password").focus();
+                    setTimeout(function () { $(".alert-danger").hide("slow"); }, 3000);
+                }
+            }
+        });
+    };
+</script>

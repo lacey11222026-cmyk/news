@@ -1,0 +1,264 @@
+﻿@{
+    Layout = "~/Views/Shared/_AdminV2.cshtml";
+}
+@using BIZ.Entity
+@using UTILS
+@using WebMVC4.Helper
+@{
+    ViewBag.Title = ViewBag.Name;
+}
+<div class="row">
+    <div class="col-lg-12">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <span class="glyphicon glyphicon-user"></span>Giải ngân trong quý
+                <div class="box-tools pull-right">
+                    <a href="javascript:;" onclick="AddPlanItem()" class="btn btn-success"><i class="fa fa-user-plus"></i>Thêm Mới</a>
+
+                </div>
+            </div>
+            <div class="panel-body">
+               
+                <div class="table-responsive">
+                    <div id="dgrid" class="dataTables_wrapper form-inline" role="grid">
+                        <div id="ListPlanItem">
+                            @Html.Action("ListPlanItem", "AdminPlan", new { planId = ViewBag.Id })
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-lg-12">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <span class="glyphicon glyphicon-user"></span>Các vướng mắc
+                <div class="box-tools pull-right">
+                    <a href="javascript:;" onclick="AddPlanStuck()" class="btn btn-success"><i class="fa fa-user-plus"></i>Thêm Mới</a>
+
+                </div>
+            </div>
+            <div class="panel-body">
+               
+                <div class="table-responsive">
+                    <div id="dgrid" class="dataTables_wrapper form-inline" role="grid">
+                        <div id="ListPlanStuck">
+                            @Html.Action("ListPlanStuck", "AdminPlan", new { planId = ViewBag.Id })
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-lg-12">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <span class="glyphicon glyphicon-user"></span>Các khuyến nghị
+                <div class="box-tools pull-right">
+                    <a href="javascript:;" onclick="AddPlanRequire()" class="btn btn-success"><i class="fa fa-user-plus"></i>Thêm Mới</a>
+
+                </div>
+            </div>
+            <div class="panel-body">
+                
+                <div class="table-responsive">
+                    <div id="dgrid" class="dataTables_wrapper form-inline" role="grid">
+                        <div id="ListPlanStuck">
+                            @Html.Action("ListPlanRequire", "AdminPlan", new { planId = ViewBag.Id })
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $("#pageTitle").html('@ViewBag.Name');
+    function AddPlanStuck() {
+
+        var pageurl = "/AdminPlan/AddPlanStuck/?planId=" + "@ViewBag.Id";
+        $.ajax({
+            type: 'GET',
+            url: pageurl,
+            data: {},
+            contentType: "application/json; charset=utf-8",
+            dataType: "html",
+            success: function (data) {
+                bootbox.dialog({
+                    title: "Thêm mới vướng mắc",
+                    message: data,
+                    buttons: {
+                        success: {
+                            label: "Đóng",
+                            className: "btn-success",
+                            callback: function () {
+
+                                location.reload();
+                            }
+                        }
+                    }
+                });
+            }
+        });
+
+
+    }
+     function EditPlanStuck( Id) {
+
+        var pageurl = "/AdminPlan/PlanStuckDetail/?Id=" + Id;
+        $.ajax({
+            type: 'GET',
+            url: pageurl,
+            data: {},
+            contentType: "application/json; charset=utf-8",
+            dataType: "html",
+            success: function (data) {
+                bootbox.dialog({
+                    title: "Cập nhật vướng mắc",
+                    message: data,
+                    buttons: {
+                        success: {
+                            label: "Đóng",
+                            className: "btn-success",
+                            callback: function () {
+
+                                location.reload();
+                            }
+                        }
+                    }
+                });
+            }
+        });
+
+
+    }
+</script>
+<script>
+
+    function AddPlanRequire() {
+
+        var pageurl = "/AdminPlan/AddPlanRequire/?planId=" + "@ViewBag.Id";
+        $.ajax({
+            type: 'GET',
+            url: pageurl,
+            data: {},
+            contentType: "application/json; charset=utf-8",
+            dataType: "html",
+            success: function (data) {
+                bootbox.dialog({
+                    title: "Thêm mới khuyến nghị",
+                    message: data,
+                    buttons: {
+                        success: {
+                            label: "Đóng",
+                            className: "btn-success",
+                            callback: function () {
+
+                                location.reload();
+                            }
+                        }
+                    }
+                });
+            }
+        });
+
+
+    }
+     function EditPlanRequire( Id) {
+
+        var pageurl = "/AdminPlan/PlanRequireDetail/?Id=" + Id;
+        $.ajax({
+            type: 'GET',
+            url: pageurl,
+            data: {},
+            contentType: "application/json; charset=utf-8",
+            dataType: "html",
+            success: function (data) {
+                bootbox.dialog({
+                    title: "Cập nhật khuyến nghị",
+                    message: data,
+                    buttons: {
+                        success: {
+                            label: "Đóng",
+                            className: "btn-success",
+                            callback: function () {
+
+                                location.reload();
+                            }
+                        }
+                    }
+                });
+            }
+        });
+
+
+    }
+</script>
+<script>
+
+    function AddPlanItem() {
+
+        var pageurl = "/AdminPlan/AddPlanItem/?planId=" + "@ViewBag.Id";
+        $.ajax({
+            type: 'GET',
+            url: pageurl,
+            data: {},
+            contentType: "application/json; charset=utf-8",
+            dataType: "html",
+            success: function (data) {
+                bootbox.dialog({
+                    title: "Thêm mới tiểu dự án",
+                    message: data,
+                    buttons: {
+                        success: {
+                            label: "Đóng",
+                            className: "btn-success",
+                            callback: function () {
+
+                                location.reload();
+                            }
+                        }
+                    }
+                });
+            }
+        });
+
+
+    }
+     function EditPlanItem( Id) {
+
+        var pageurl = "/AdminPlan/PlanItemDetail/?Id=" + Id;
+        $.ajax({
+            type: 'GET',
+            url: pageurl,
+            data: {},
+            contentType: "application/json; charset=utf-8",
+            dataType: "html",
+            success: function (data) {
+                bootbox.dialog({
+                    title: "Cập nhật tiểu dự án",
+                    message: data,
+                    buttons: {
+                        success: {
+                            label: "Đóng",
+                            className: "btn-success",
+                            callback: function () {
+
+                                location.reload();
+                            }
+                        }
+                    }
+                });
+            }
+        });
+
+
+    }
+</script>

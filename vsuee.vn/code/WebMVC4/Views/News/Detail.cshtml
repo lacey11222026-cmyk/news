@@ -1,0 +1,154 @@
+﻿@using BIZ
+@using UTILS
+@using WebMVC4.Helper
+@model BIZ.Entity.CONTENT_FULL
+@{var RelateTitle = Resources.Global.RelateNews;}
+@{
+    var langpage = WorkContext.GetLanguage();
+}
+@if (Model != null)
+{
+    <div class="post-new-detail-page container pb60 pt40">
+        <div class="row row-50">
+            <div class="col-lg-8 col-md-12">
+                <div class="post-detail">
+                    <h2 class="title-cm-02"><a href="@ViewBag.Url">@Model.CategoryName</a></h2>
+                    <div class="mt30 detail-content">
+                        <p class="big-name">@Model.Title</p>
+                        <p class="date mt15">
+                            @Model.PublishDate.ToString("HH:mm") - @Model.PublishDate.ToString("dd/MM/yyyy")
+                        </p>
+                        <ul class="mt30 news-list-03">
+                            @if (ViewBag.lstRef != null)
+                            {
+                                foreach (var item in ViewBag.lstRef)
+                                {
+                                    <li>
+                                        <a href="@Utils.FormatUrlRewrite(item.Id, item.Title, "ArticleDetail")">@item.Title </a>
+                                    </li>
+                                }
+
+                            }
+                        </ul>
+                        <div class="subtitle mt40 dis-flex">
+                            <img src="/Content/images/vsuee-icon.png" alt="vsuee">
+                            <p>@Model.IntroText</p>
+                        </div>
+
+                        <div class="detail-content mt50" id="NewsContent">
+
+                            @Html.Raw(Model.Contents.Replace("font-size: small", ""))
+
+
+                            @if (Model.CategoryId == 69 || Model.CategoryId == 80 || Model.CategoryId == 95 || Model.CategoryId == 81 || Model.CategoryId == 63|| Model.CategoryId == 92 || Model.CategoryId == 91)
+                            {
+                                <div>Download : <a href="@Url.Action("DownloadFile", "News", new {Id=Model.Id})" >@Model.FileParam.Name1 </a></div>
+                            }
+                        </div>
+
+
+                        <div class="network text-right mt30">
+                            <ul class="list-inline">
+                                <li> <div class="fb-like" data-href="@(Model.LinkUrl)" data-layout="button_count" data-action="like" data-show-faces="false" data-share="true"></div></li>
+                                @*<li><a href="#"><img src="images/share.png" alt=""></a></li>*@
+                                <li><div class="zalo-share-button" data-href="@(Model.LinkUrl)" data-oaid="579745863508352884" data-layout="2" data-color="blue" data-customize=false></div></li>
+                                <li><a href="javascript:void(0);" onclick="openWin('@ViewBag.MailShare');"><img style="position:relative;top:-8px;" src="/Content/images/mail.png" alt=""></a></li>
+                                <li><a href="@Url.Action("Print", "News", new {Id=Model.Id})" target="_blank"><img style="position:relative;top:-8px;" src="/Content/images/print.png" alt=""></a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="view-more mt50">
+                    <h2 class="title-cm-02"><a href="#">@Resources.Global.More</a></h2>
+                    <ul class="mt30 post-list">
+                        @{Html.RenderAction("Relate", "News", new { CategoryId = Model.CategoryId });}
+                        @*<li>
+                                <a href="#"><img src="images/img-01.jpg" alt=""></a>
+                                <div class="post-content">
+                                    <a href="#" class="post-big-name">Chương trình DEPP3 được xây dựng trong khuôn khổ Chương trình Hợp tác Đối tác Năng lượng của Đan Mạch với quốc gia Việt Nam</a>
+                                    <p class="mt15">Tài sản của 400 người giàu nhất nước Mỹ (Forbes 400) đã tăng mạnh trong 20 năm qua. Để lọt vào Forbes 400 năm 2022, các tỷ phú phải sở hữu tài sản ít nhất 2,7 tỷ USD. Tài sản của 400 người giàu nhất nước Mỹ</p>
+                                    <p class="date mt15">10:49    7/10/2022</p>
+                                </div>
+                            </li>*@
+
+                    </ul>
+
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-12 sidebar">
+                @Html.Partial("Site_Right2")
+            </div>
+        </div>
+    </div><!-- end main content-->
+    <h2 class="title-cm"><a href="#">@Resources.Global.BankSupport</a></h2>
+    <br />
+    <div class="bg-gray pt40 pb40">
+        <div class="container">
+
+            <ul class="slick02">
+                @{Html.RenderAction("BannerBottom", "Home", new { lang = langpage });}
+            </ul>
+        </div>
+    </div>
+
+
+}
+<script>
+    $('.news_detail_img').removeAttr('style');
+    $('.news_detail_img').attr('style', 'margin:0 auto;text-align:center');
+    $('#NewsContent table').removeAttr('width');
+    $('#NewsContent span img').removeAttr('width');
+    $('#NewsContent img').removeAttr('width');
+    $('#NewsContent img').removeAttr('height');
+    $('#NewsContent img').removeAttr('style');
+
+    $('#topbanner').hide();
+
+</script>
+<style>
+    .header-pc {
+        position: inherit;
+    }
+</style>
+<style>
+
+    #NewsContent ul {
+        display: block;
+       /* list-style-type: disc;*/
+        margin-block-start: 1em;
+        margin-block-end: 1em;
+        margin-inline-start: 0px;
+        margin-inline-end: 0px;
+        padding-inline-start: 40px;
+    }
+
+    #NewsContent li {
+        display: list-item;
+        /*list-style-type: disc;*/
+        text-align: -webkit-match-parent;
+    }
+
+    @@media screen and (max-width: 767px) {
+        .subtitle img {
+            display: none;
+        }
+    }
+</style>
+<script type="text/javascript">
+
+
+
+    function openWin(url) {
+        var myWindow = window.open(url, '', 'width=700,height=500');
+        myWindow.focus();
+    }
+</script>
+@section scripts {
+    <script type="text/javascript">
+
+        $('#menu_' + '@ViewBag.CurrentCategoryId').addClass("active");
+
+     $('#menu_' + '@ViewBag.ParentCategoryId').addClass("active");
+        $('#menu_0').removeClass("active");
+    </script>
+}

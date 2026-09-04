@@ -1,0 +1,117 @@
+﻿@using DATA.ContentDB
+@model List<UserProject>
+
+@using WebMVC4.Helper
+<table class="table table-striped table-bordered table-hover dataTable no-footer" id="dataTables">
+    <thead>
+        <tr class="rowsao">
+            <th>ID </th>
+
+            <th>Tên dự án</th>
+            <th>Loại dự án</th>
+            <th>Hạng mục</th>
+            <th>Tổng vốn dự án</th>
+            <th class="noExl">Thời gian tạo</th>
+            <th class="noExl">Thời gian gửi</th>
+            <th class="noExl"> Người gửi</th>
+
+
+            <th class="noExl">Quản trị</th>
+
+
+        </tr>
+    </thead>
+    @if (Model != null && Model.Count > 0)
+    {
+        for (int i = 0; i < Model.Count; i++)
+        {
+            var obj = Model[i];
+            <tr>
+                <td>@obj.Id</td>
+
+                @if (obj.ViewCount > 0)
+                {
+                    <td>@obj.Name</td>
+                }
+                else
+                {
+                    <td><b>@obj.Name</b></td>
+                }
+                <td>@HtmlHelpers.UserProjectType(obj.Type)</td>
+                <td>@HtmlHelpers.UserProjectSubType(obj.SubType, obj.Type)</td>
+                @if (obj.Type == 1)
+                {
+                    <td>@obj.Total</td>
+                }
+                else
+                {
+                    <td>@obj.Total @obj.Currency</td>
+                }
+                <td class="noExl">@obj.CreateTime.ToString("dd/MM/yyyy HH:mm")</td>
+                <td class="noExl">@obj.SendTime.ToString("dd/MM/yyyy HH:mm")</td>
+                <td class="noExl">@obj.Username</td>
+
+                <td class="noExl" style="text-align:center;width:120px">
+                    <text>&nbsp;</text> <a href="javascript:" onclick="CommonCtrl.PopupManagerPage('@Url.Action("Detail",new { id=obj.Id})');">Xem</a>
+                    @if (obj.Type == 1)
+                    {
+                        <text>&nbsp;</text> <a href="@Url.Action("ExportExcel",new { id=obj.Id})" target="_blank">Tải Excel</a>
+                    }
+                    else
+                    {
+                        <text>&nbsp;</text> <a href="@Url.Action("ExportExcel2",new { id=obj.Id})" target="_blank">Tải Excel</a>
+                    }
+
+                </td>
+
+
+
+            </tr>
+        }
+    }
+</table>
+
+<script type="text/javascript">
+    var PageOnSize = '@ViewBag.PageSize';
+    var CurrentPage = '@ViewBag.CurrentPage';
+    function BindDataRequest(currentPage) {
+
+        var params = {
+            type: $('#ddlActive :selected').val(),
+            keyword: $("#txtTitle").val(),
+            username: $("#txtUserName").val(),
+            pageSize: PageOnSize
+        };
+        var urlRequestAns = "/AdminUserProject/ListProject";
+        Utils.Loading();
+        $.ajax({
+            type: 'GET',
+            url: urlRequestAns,
+            data: params,
+            success: function (data) {
+                $("#ListProject").html(data);
+                Utils.UnLoading();
+            },
+            error: function () {
+                Utils.UnLoading();
+            }
+        });
+    };
+    $(document).ready(function () {
+
+
+        $("#pager").pager({
+            pagenumber: CurrentPage,
+            pagecount: Math.ceil('@ViewBag.TotalRecord' / PageOnSize),
+            buttonClickCallback: function (page) { BindDataRequest(page); }
+        });
+
+
+    });
+    function Detail(id) {
+        var url = "/AdminUserProject/Detail/" + id;
+        var confirmFunc = BindDataRequest();
+        Utils.PopupManager(url, confirmFunc);
+    }
+    $("#total").html("Tổng số dự án : " +"@ViewBag.TotalRecord");
+</script>

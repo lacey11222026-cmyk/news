@@ -1,0 +1,58 @@
+﻿@using System.Configuration
+@using UTILS
+
+@model BIZ.Entity.CONTENT_FULL
+@{
+    var domain = ConfigurationManager.AppSettings["Domain"];
+}
+<div class="maincontent">
+    <div class="container pt60 b4-content">
+        <h3 class="font-weight-bold text-center title-ketthuc">@Model.Title</h3>
+        @*<p class="text-center mt-4" style="font-size: 20px;">
+                Kết quả: <strong class="textblue">@ViewBag.Mark/@ViewBag.TotalMark</strong> câu trả lời đúng. Thời gian thi: <strong class="textblue">23 giây</strong><br>
+                Kết quả sẽ được công bố trên website: <a href="http://vnubw.org.vn/" class="textblue font-weight-bold" style="text-decoration: underline; display: inline-block;">http://vnubw.org.vn/</a>
+            </p>*@
+        <div id="NewsContent">
+            @Html.Raw(Model.Contents.Replace("/Images", domain + "/Images"))
+        </div>
+    </div>
+</div>
+
+@*<section class="wrap-content b3-content">
+        <div class="test-name">
+            <h2 class="container"><a href="@Utils.FormatUrlRewrite(Model.CategoryId.GetValueOrDefault(), ViewBag.CateName, "Articles", "").Replace(".html","")">@ViewBag.CateName</a></h2>
+        </div>
+        <div class="container mt20 b4-content wow fadeInDown" data-wow-offset="200">
+            <div class="row">
+                <div class="col-md-12 col-sm-12 col-xs-12 post-content">
+                    <h3 class="name-post">@Model.Title</h3>
+                    <span class="time-post text-orange">Cập nhật : @Model.PublishDate.ToString("dd/MM/yyyy")</span>
+                    <div id="NewsContent">
+                        @Html.Raw(Model.Contents.Replace("/Images", domain + "/Images"))
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </section>*@
+
+<footer class="bg-gradient-03">
+    <p class="container">Bản quyền thuộc <strong>Công đoàn Ngân hàng Việt Nam</strong></p>
+</footer>
+<style>
+    .post-content {
+        min-height: 600px;
+    }
+
+    #NewsContent div {
+        margin-top: 15px;
+    }
+    #NewsContent {
+        font-family: sans-serif, Arial, Verdana, "Trebuchet MS";
+    }
+    .title-ketthuc {
+        font-size: 24px;
+        
+    }
+</style>

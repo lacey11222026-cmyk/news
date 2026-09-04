@@ -1,0 +1,32 @@
+﻿
+@using BIZ
+@using UTILS
+@using WebMVC4.Helper
+@model WebMVC4.Models.LastestNewModel
+@if (Model != null)
+{
+    if (Model.lstdata.Count > 0)
+    {
+        foreach (var item in Model.lstdata.Select((value, i) => new { i, value }))
+        {
+            
+            <li>
+                <div class="expert-content">
+                    <a href="@item.value.LinkUrl" class="expert-name">@item.value.Title</a>
+                    
+                </div>
+                <div class="expert-img">
+                    <a href="/tac-gia/@(item.value.Alias)">
+                        <img src="@item.value.Avatar?w=128&h=128&mode=crop" alt="">
+                        
+                    </a>
+                   
+                    <span class="author-work"> <a href="/tac-gia/@(item.value.Alias)">@item.value.FullName </a></span>
+                   
+                </div>
+                <div class="clearfix"></div>
+            </li>
+        }
+    }
+
+}

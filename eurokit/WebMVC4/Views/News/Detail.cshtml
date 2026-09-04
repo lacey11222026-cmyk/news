@@ -1,0 +1,98 @@
+﻿@using BIZ
+@using UTILS
+@using WebMVC4.Helper
+@model BIZ.Entity.CONTENT_FULL
+
+
+@if (Model != null)
+{
+    <section id="breadcrumb-wrapper2" class="breadcrumb-w-img">
+        <div class="breadcrumb-overlay"></div>
+        <div class="breadcrumb-content">
+            <div class="wrapper">
+                <div class="inner text-center">
+                    <div class="breadcrumb-big">
+                        <span class="h2">@Model.Title</span>
+                    </div>
+                    <div class="breadcrumb-small">
+                        <a href="/" title="Trang chủ">Trang chủ</a> <span aria-hidden="true">/</span>
+                        <a href="/tin-tuc/c90/tin-tuc.html" title="Tin tức">Tin tức</a> <span aria-hidden="true">/</span>
+                      
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <div id="PageContainer" class="is-moved-by-drawer">
+        <main class="main-content" role="main">
+            <section id="blog-wrapper">
+                <div class="wrapper">
+                    <div class="inner">
+                        <div class="grid">
+                            <article class="float-right grid__item large--nine-twelfths medium--one-whole small--one-whole" itemscope="" itemtype="http://schema.org/Article">
+                                <div class="article-content">
+                                    <div class="article-head">
+                                        <h1>@Model.Title</h1>
+                                        <div class="grid mg-left-15">
+                                            <div class="grid__item large--one-whole medium--one-whole small--one-whole pd-left15">
+                                                <div class="article-date-comment">
+                                                    <div class="date"><i class="fa fa-calendar-alt"></i> @Model.PublishDate.ToString("dd/MM/yyyy")</div>
+
+                                                    <div class="author"> <i class="fa fa-folder-open-o"></i> Tin tức </div>
+                                                </div>
+                                            </div>
+                                            <div class="grid__item large--one-whole medium--one-whole small--one-whole pd-left15">
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="article-body">
+                                        <div class="entry-content default-content" id="NewContent">
+                                            @Html.Raw(Model.Contents)
+
+                                        </div>
+                                    </div>
+
+                                    <hr>
+
+                                </div>
+                                <div id="section-fbcomment" class="fb-comments-wrapper">
+                                    <div class="fb-comments" data-href="http://@HttpContext.Current.Request.Url.Host@Utils.FormatUrlRewrite(Model.Id, Model.Title, "ArticleDetail")" data-numposts="5" data-order-by="reverse_time"></div>
+
+                                </div>
+
+                            </article>
+                            <div class="grid__item large--three-twelfths medium--one-whole small--one-whole">
+                                <div class="blog-sidebar">
+
+                                    <div class="featured-post">
+                                        <div class="blog-sb-title clearfix"><h3>Tin mới nhất</h3> </div>
+                                        <ul class="featured-list">
+
+                                            @{ Html.RenderAction("RightLastestNews", "News", new { MaxLastestNews = 6, CategoryId = 90, CateName = "Tin tức" }); }
+                                        </ul>
+                                    </div>
+
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+    
+
+
+
+    if (ViewBag.IsMobile)
+    {
+        <script>
+            $('#NewsContent table').removeAttr('width');
+
+            $('#NewsContent  img').removeAttr('width');
+        </script>
+    }
+
+}

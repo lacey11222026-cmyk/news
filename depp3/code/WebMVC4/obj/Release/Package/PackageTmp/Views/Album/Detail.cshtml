@@ -1,0 +1,71 @@
+﻿@using BIZ
+@using UTILS
+@using WebMVC4.Helper
+@model DATA.Album
+@{
+    var langpage = WorkContext.GetLanguage();
+}
+<link href="/fancybox2.1.5/jquery.fancybox.css" rel="stylesheet" />
+<script src="/fancybox2.1.5/jquery.fancybox.js"></script>
+@if (Model != null)
+{
+    <div class="document-page container pb80">
+        <div class="row mt30">
+            <div class="col-md-12 col-lg-8 pb-5">
+                @{Html.RenderAction("Breadcrumb", "News", new { CategoryId = Model.CategoryId });}
+                <h3>@Model.Title</h3>
+                <p>
+                    @Html.Raw(Model.Description)
+                </p>
+                @if (ViewBag.ImgList != null)
+                {
+                    <div id="PnlLightBox">
+                        <ul class="box-news row" id="lstlightbox">
+                            @foreach (BIZ.Entity.AlbumImage item in ViewBag.ImgList)
+                            {
+                                <li class="col-md-3 col-sm-4 col-xs-6">
+                                    <a href="@(item.Name)?w=0&h=@(ViewBag.Height)&mode=crop" class="chum_anh" title="@item.Text" rel="group">
+                                        <img src="@(item.Name)?w=300&h=200&mode=crop" width="236"
+                                             alt="" />
+                                    </a>
+                                </li>
+                            }
+
+                        </ul>
+                        <div class="clear">
+                        </div>
+
+                        <script type='text/javascript'>
+
+                            $(document).ready(function () {
+                                $("#lstlightbox a").fancybox({
+
+                                });
+                            });
+                        </script>
+                    </div>
+                }
+            </div>
+            <div class="col-md-12 col-lg-4">
+                @{Html.RenderAction("LastestNews", "News", new { MaxLastestNews = 8, lang = langpage });}
+
+            </div>
+        </div>
+    </div>
+
+
+    <div class="detail-content">
+
+
+
+
+    </div>
+}
+@section scripts {
+    <script type="text/javascript">
+
+        
+        $('#menu_66').addClass("active");
+
+    </script>
+}

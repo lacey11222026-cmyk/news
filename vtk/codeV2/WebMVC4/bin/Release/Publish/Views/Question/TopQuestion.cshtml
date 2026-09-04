@@ -1,0 +1,25 @@
+﻿@model List<DATA.QA>
+<!-- faq update 201903 -->
+<div class="faq col-md-12 col-sm-12 col-xs-12">
+    <h2 class="title-cm03"><a href="/hoi-dap-ve-thong-tu-21">HỎI ĐÁP VỀ THÔNG TƯ 21</a></h2>
+    <div class="faqcontent" style="overflow: hidden;">
+        @if (Model != null)
+        {
+		<marquee  direction="up" height="260px" scrolldelay="500" loop="100">
+        <ul class="toptobottom" >
+            @foreach (var item in Model.Select((value, i) => new { i, value }))
+            {
+                <li >
+				
+                    <div class="maxheight"><span>@(item.i+1)</span></div>
+                    <a  class="maxheight" href="/hoi-dap-ve-thong-tu-21/?Id=@(item.value.Id)" ><span>@item.value.Name : </span>@item.value.Question </a>
+					
+                </li>
+                
+                    }
+            </ul>
+			</marquee>
+        }
+
+    </div>
+</div><!-- end faq-->

@@ -1,0 +1,31 @@
+﻿@*<div class="sidebar">
+        <div id="secondary" class="secondary">
+            <div id="widget-area" class="widget-area" role="complementary">
+
+                <div id="menu-range">
+
+                </div>
+                @Html.Action("Menu", "Product")
+                <div id="menu-manu">
+
+                </div>
+
+                @Html.Action("RightLastestNews", "News",new { MaxLastestNews = 5, CategoryId =5 })
+
+
+            </div><!-- .widget-area -->
+        </div><!-- .secondary -->
+    </div>*@
+<div id="shop-sidebar" class="sidebar-inner">
+    <div id="menu-manu">
+
+    </div>
+    <aside id="woocommerce_product_categories-2" class="widget woocommerce widget_product_categories">
+        <span class="widget-title shop-sidebar">Danh mục sản phẩm</span><div class="is-divider small"></div>
+        <ul class="product-categories">
+            @Html.Action("Menu", "Product")
+
+        </ul>
+    </aside>
+
+</div><!-- .sidebar-inner -->

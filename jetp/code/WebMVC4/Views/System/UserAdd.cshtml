@@ -1,0 +1,279 @@
+﻿@{
+
+    Layout = "~/Views/Shared/_AdminV2.cshtml";
+
+}
+@using BIZ
+@using UTILS
+@using WebMVC4.Helper
+@model String[]
+
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <i class="fa fa-fw fa-user-plus"></i><span>@ViewBag.Title</span>
+            </div>
+            <form id="defaultForm" method="post" class="form-horizontal">
+                <div class="panel-group" id="steps">
+
+                    <div class="panel panel-info">
+                        <div id="Errordiv" style="margin:20px;color:red;font-size:13pt"><center></center></div><br />
+                        @*<div class="panel-heading">
+                                <h4 class="panel-title"><i class="fa fa-wrench" style="margin-right:7px"></i>Thông Tin Cơ Bản</h4>
+                            </div>*@
+                        <div style="padding: 10px 0 0 0;background-color:#fff !important">
+                            <ul class="nav nav-tabs">
+                                <li class="active"><a href="#tabs-info" data-toggle="tab"><strong>Thông tin</strong></a></li>
+                                <li><a href="#tabs-role" data-toggle="tab"><strong>Vai trò</strong></a></li>
+                                <li>
+                            </ul>
+                            <div class="tab-content" style="margin-top: 30px;">
+                                <div class="col-md-12 tab-pane active" id="tabs-info">
+                                    <div class="col-md-12">
+
+                                        <!-- dành cho UpdateFunction -->
+                                        <div class="form-group">
+                                            <label for="UserName" class="control-label col-md-2">Tên người dùng :<span class="required">*</span></label>
+                                            <div class="col-md-10">
+                                                <div class="input-icon right">
+                                                    <input type="text" id="UserName" name="UserName" class="form-control" placeholder="" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="NewPassword" class="control-label col-md-2">Mật khẩu :<span class="required">*</span></label>
+                                            <div class="col-md-10">
+                                                <div class="input-icon right">
+                                                    <input type="password" id="NewPassword" name="NewPassword" class="form-control" placeholder="" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="ConfirmPassword" class="control-label col-md-2">Xác nhận mật khẩu :<span class="required">*</span></label>
+                                            <div class="col-md-10">
+                                                <div class="input-icon right">
+                                                    <input type="password" id="ConfirmPassword" name="ConfirmPassword" class="form-control" placeholder="" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="Email" class="control-label col-md-2">Email :<span class="required">*</span></label>
+                                            <div class="col-md-10">
+                                                <div class="input-icon right">
+                                                    <input type="text" id="Email" name="Email" class="form-control" placeholder="" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group" style="display:none">
+                                            <label for="FullName" class="control-label col-md-2">Họ Tên :</label>
+                                            <div class="col-md-6">
+                                                <div class="input-icon2 right">
+                                                    <input type="text" id="FullName" name="FullName" class="form-control" placeholder="" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group" style="display:none">
+                                            <label for="Avatar" class="control-label col-md-2">Ảnh đại diện (600x600) :</label>
+                                            <div class="col-md-5">
+                                                <div class="input-icon2 right">
+                                                    <input type="text" id="Avatar" name="Avatar" class="form-control" placeholder="" />
+                                                </div>
+                                            </div>
+                                            <div class="col-md-1">
+                                                <a href="javascript:;" onclick="CommonCtrl.PopupManagerImages('Avatar');"><i class="fa fa-file"></i></a>
+                                            </div>
+                                        </div>
+                                        <div class="form-group" style="display:none">
+                                            <label for="Title" class="control-label col-md-2">Chức danh :</label>
+                                            <div class="col-md-6">
+                                                <div class="input-icon2 right">
+                                                    <input type="text" id="Title" name="Title" class="form-control" placeholder="" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group" style="display:none">
+                                            <label for="Description" class="control-label col-md-2">Mô tả :</label>
+                                            <div class="col-md-6">
+                                                <div class="input-icon2 right">
+                                                    <textarea id="Description" style="height: 75px;" cols="20" name="description" class="form-control"></textarea>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group" style="display:none">
+                                            <label for="Content" class="control-label col-md-2">Chi tiết :</label>
+                                            <div class="col-md-6">
+                                                <div class="input-icon2 right">
+                                                    <textarea id="Content" style="height: 75px;" cols="20" name="description" class="form-control"></textarea>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group" style="display:none">
+                                            <label for="Order" class="control-label col-md-2">Thứ tự :</label>
+                                            <div class="col-md-6">
+                                                <div class="input-icon2 right">
+                                                    <input type="text" id="Order" name="Order" value="0" class="form-control" placeholder="" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-12 tab-pane" id="tabs-role">
+                                    <div class="col-md-12">
+                                        @foreach (string role in Model)
+                                        {
+                                            <div class="col-md-4 data" style="padding-left:0px;">
+                                                <input type="checkbox" value="@role" name="chkRole" class="chkRole" />  @HtmlHelpers.GetRoleName(role)
+
+                                            </div>
+                                       
+                                        }
+                                    </div>
+
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="panel-footer form-horizontal">
+                                        <div class="form-group submit">
+                                            <button type="button" class="btn btn-primary" id="btsubmit" onclick="SubmitForm();"><i class="fa fa-save"></i>Lưu lại</button>
+                                            <button type="button" class="btn btn-default" id="btnBack" onclick="GotoListpage();"><i class="fa fa-backward"></i>Quay lại</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div style="clear:both"></div>
+                        </div>
+
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<style>
+    .input-icon {
+        position: relative;
+        width: 100%;
+    }
+</style>
+
+<script>
+   $('#menu_adduser').addClass("active");
+    $(document).ready(function () {
+
+        var editor = CKEDITOR.instances['Content'];
+        if (editor) {
+            CKEDITOR.remove(editor);
+        }
+        CKEDITOR.replace('Content', {
+            filebrowserBrowseUrl: "/AdminImages/ManageImage",
+            filebrowserWindowWidth: '1200',
+            filebrowserWindowHeight: '400',
+            uiColor: '#FAFAFA',
+            allowedContent: true,
+            extraAllowedContent: '*(*)',
+            // ALLOW <i></i>
+
+            //extraAllowedContent: 'p(*)[*]{*};div(*)[*]{*};li(*)[*]{*};ul(*)[*]{*}',
+            extraPlugins: 'youtube,tableresize',
+            toolbar: [
+             { name: 'document', items: ['Source', '-', 'NewPage', 'Preview', '-'] },
+             ['Cut', 'Copy', 'Paste', 'PasteText', 'PasteFromWord', '-', 'Undo', 'Redo'],
+            { name: 'styles', items: ['Font', 'FontSize'] },
+            { name: 'basicstyles', items: ['Bold', 'Italic', 'Underline', 'Strike', 'Subscript', 'Superscript', '-', 'RemoveFormat'] },
+
+            '/',
+            { name: 'colors', items: ['TextColor', 'BGColor'] }, { name: 'paragraph', items: ['NumberedList', 'BulletedList', '-', 'Outdent', 'Indent', '-', 'Blockquote', '-', 'JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock'] },
+            { name: 'insert', items: ['Image', 'Youtube', 'Flash', 'Table', 'HorizontalRule', 'Smiley', 'SpecialChar', 'PageBreak', 'Iframe'] },
+            { name: 'links', items: ['Link', 'Unlink', 'Maximize'] }
+            ],
+            height: 400
+        });
+         });
+</script>
+
+
+<script type="text/javascript">
+   
+    function GotoListpage() {
+        window.location = '@Url.Action("Users","System")';
+    }
+
+    function SubmitForm() {
+
+        if (confirm("Bạn có chắc chắn muốn tạo mới người dùng")) {
+            validateForm();
+            var Username = $('#UserName').val();
+            var NewPassword = $('#NewPassword').val();
+            var Email = $('#Email').val();
+            var Avatar = $('#Avatar').val();
+            var FullName = $('#FullName').val();
+            var Title = $('#Title').val();
+            var Description = $('#Description').val();
+             var Order = $('#Order').val();
+            var Content = CKEDITOR.instances['Content'].getSnapshot();
+            var roles = "";
+            var lstrole = $('input[type="checkbox"][name="chkRole"]:checked');
+            $.each(lstrole, function (i, role) {
+
+                roles += $(role).val() + "|";
+
+            });
+            $.post('@Url.Action("UserAdd", "System")',
+                {
+                    "username": Username,
+                    "newPassword": NewPassword,
+                    "email": Email,
+                    "lstrole": roles,
+                    "Avatar": Avatar,
+                    "Order": Order,
+                    "FullName": FullName,
+                    "Title": Title,
+                    "Description": Description,
+                    "Content": Content
+                },
+                function (data) {
+                    GotoListpage();
+
+                });
+
+        }
+    }
+    function validateForm() {
+        var Username = $('#Username').val();
+        var NewPassword = $('#NewPassword').val();
+        var ConfirmPassword = $('#ConfirmPassword').val();
+        var Email = $('#Email').val();
+        if (Username == "") {
+            alert('Tên không được trống');
+            $('#Username').focus();
+            return false;
+        }
+        if (Email == "") {
+            alert('Tên không được trống');
+            $('#Email').focus();
+            return false;
+        }
+        if (NewPassword == "") {
+            alert('Mật khẩu không được trống');
+            $('#NewPassword').focus();
+            return false;
+        }
+        if (NewPassword.length < 6) {
+            alert('Mật khẩu phải trên 6 kí tự');
+            $('#NewPassword').focus();
+            return false;
+        }
+        if (NewPassword != ConfirmPassword) {
+            alert('Mật khẩu không hợp lệ');
+            $('#ConfirmPassword').focus();
+            return false;
+        }
+
+        return true;
+
+    }
+</script>

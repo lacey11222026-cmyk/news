@@ -1,0 +1,37 @@
+﻿@model List<DATA.Project>
+@using UTILS
+@using WebMVC4.Helper
+@{
+    var langpage = WorkContext.GetLanguage();
+}
+@if (langpage == "vi-vn")
+{
+    <h2 class="title-cm"><a href="/congnghe-thietbi-danhsach.html">CÔNG NGHỆ VÀ THIẾT BỊ CHUYỂN GIAO</a></h2>
+}
+else
+{
+    <h2 class="title-cm">
+        <a href="/congnghe-thietbi-danhsach.html">
+            TECHNOLOGY AND TRANSFER DEVICES
+        </a>
+    </h2>
+}
+
+<ul class="row list-cm02">
+    @if (Model != null)
+    {
+        foreach (var item in Model.Select((value, i) => new { i, value }))
+        {
+
+            <li class="col-md-6 col-sm-6 col-xs-12">
+                <div class="wrap-img"><a href="@Url.Action("Detail","Project",new { Id=item.value.Id})"><img src="@item.value.Image?w=115&h=118&mode=crop" alt=""> </a> </div>
+                <a href="@Url.Action("Detail","Project",new { Id=item.value.Id})">@item.value.Name </a>
+            </li>
+
+        }
+
+
+    }
+
+
+</ul>

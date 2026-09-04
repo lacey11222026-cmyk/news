@@ -1,0 +1,128 @@
+﻿@using BIZ
+@using UTILS
+@using WebMVC4.Helper
+@model WebMVC4.Models.DocumentModel
+
+
+<div class="content01 container mt10">
+    <div class="row">
+        <div class="col-lg-8 col-md-12 col-sm-12">
+
+            @if (Model != null)
+            {
+                <h2 class="title-cm-02"><a href="@ViewBag.CateUrl">@ViewBag.CateName</a></h2>
+
+                <div class="mt30">
+                    <div class="text-center document-search">
+                        <div class="form-group">
+                            <label class="">@Resources.Global.Keyword</label>
+                            <input id="txtkeyword" class="form-control" type="text" value="@ViewBag.keyword">
+                        </div>
+                        <div class="form-group">
+                            <label>@Resources.Global.FromDate</label>
+                            <input id="txtfromdate" placeholder="dd/MM/yyyy" value="@ViewBag.fromdate" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label>@Resources.Global.ToDate</label>
+                            <input id="txttodate" placeholder="dd/MM/yyyy" value="@ViewBag.todate" class="form-control">
+                        </div>
+                        <div>
+                            <a href="javascript:;" onclick="searchdoc();" class="btn-green">@Resources.Global.MenuSearch</a>
+                        </div>
+                    </div>
+                    <div class="document-tabs mt30">
+                        <ul>
+                            @foreach (var item in Model.subcate.Select((value, i) => new { i, value }))
+                            {
+                                <li><a href="@Utils.FormatUrlRewriteByType(item.value.Id, item.value.Name, int.Parse(item.value.Type.ToString()), item.value.Link)">@item.value.Name </a></li>
+                            }
+                        </ul>
+                    </div>
+                    <div class="document-table table-responsive mt20">
+                        <table>
+                            <tbody>
+                                <tr>
+                                    <th>@Resources.Global.DocNumber </th>
+                                    @if (ViewBag.CurrentCategoryId != 8 && ViewBag.ParentCategoryId != 8 && ViewBag.CurrentCategoryId != 55 && ViewBag.ParentCategoryId != 55)
+                                    {
+                                        <th>@Resources.Global.DocCode </th>
+
+                                    }
+                                    <th>@Resources.Global.DocName </th>
+                                    @if (ViewBag.CurrentCategoryId != 8 && ViewBag.ParentCategoryId != 8 && ViewBag.CurrentCategoryId != 55 && ViewBag.ParentCategoryId != 55)
+                                    {
+                                        <th>@Resources.Global.DocPublishDate </th>
+                                    }
+                                    <th>@Resources.Global.DocDownload </th>
+
+                                </tr>
+                                @foreach (var item in Model.listdata.Select((value, i) => new { i, value }))
+                                {
+                                    <tr>
+                                        <td style="text-align: center" align="center">@(item.i + 1) </td>
+                                        @if (ViewBag.CurrentCategoryId != 8 && ViewBag.ParentCategoryId != 8 && ViewBag.CurrentCategoryId != 55 && ViewBag.ParentCategoryId != 55)
+                                        {
+
+                                            <td>@item.value.Code</td>
+                                        }
+
+                                        <td style="min-width:160px;">
+                                            <a href="@Url.Action("Detail","Document",new { id=item.value.Id})">
+                                                @Html.Raw(item.value.Name)
+                                            </a>
+                                        </td>
+                                        @if (ViewBag.CurrentCategoryId != 8 && ViewBag.ParentCategoryId != 8 && ViewBag.CurrentCategoryId != 55 && ViewBag.ParentCategoryId != 55)
+                                        {
+                                            <td style="min-width:120px;"> @Convert.ToDateTime(item.value.PublishDate).ToString(@" dd'/'MM'/'yyyy") </td>
+                                        }
+                                        <td>
+                                            <div>
+                                                <a href="@Url.Action("DownloadFile", "Document", new {id = item.value.Id})" class="document-view">
+                                                    <img src="/Content/img/icon-pdf-02.svg" width="45">
+
+                                                </a><br />
+                                                <a href="@Url.Action("ViewFile", "Document", new {id = item.value.Id})" class="document-view">
+                                                    <span>@Resources.Global.DocViewOnline</span>
+
+                                                </a>
+                                            </div>
+                                        </td>
+                                        
+                                    </tr>
+                                }
+                        </table>
+                    </div>
+                    <div class="paging mt30">
+                        <ul>
+                            @{Html.RenderPartial("Pagination", new WebMVC4.Models.PaginationInfo
+                                {
+                                    PageUrl = Url.SetParameter("Page", "!0"),
+                                    CurrentPage = Model.pageIndex,
+                                    PageSize = Model.pageSize,
+                                    TotalItemCount = Model.total,
+                                }); }
+                        </ul>
+                    </div>
+                </div>
+
+            }
+        </div><!--/End content left-->
+        <div class="col-lg-4 col-md-12">
+            @Html.Partial("Site_Right2")
+        </div><!--/End content right-->
+    </div><!-- end row-->
+</div>
+
+
+<script type="text/javascript">
+
+
+    function searchdoc() {
+        var id = '@Model.CategoryId';
+        var keyword = $("#txtkeyword").val();
+        var fromdate = $("#txtfromdate").val();
+        var todate = $("#txttodate").val();
+        window.location = '/Document/Index/' + id + '/?keyword=' + keyword + '&fromdate=' + fromdate + '&todate=' + todate;
+        //window.location = jQuery.query.set("keyword", keyword).set("fromdate", fromdate).set("todate", todate).set("Page", "1");
+    }
+</script>

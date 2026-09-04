@@ -1,0 +1,13 @@
+﻿@using BIZ.Entity
+@using UTILS
+@using WebMVC4.Helper
+@model List<CATEGORY_FULL>
+@if (Model != null)
+{
+    foreach (var item in Model.Select((value, i) => new { i, value }))
+    {
+    <li id="menu-item-@item.value.Id" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-@item.value item-level-2"><a href="@Utils.FormatUrlRewriteByType(item.value.Id, item.value.Name, int.Parse(item.value.Type.ToString()), item.value.Link)" class="woodmart-nav-link"><span class="nav-link-text">@item.value.Name</span></a></li>
+
+
+    }
+}

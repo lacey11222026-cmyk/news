@@ -1,0 +1,512 @@
+﻿@{
+    Layout = "~/Views/Shared/_AdminV2.cshtml";
+}
+@using BIZ.Entity
+@using UTILS
+@using WebMVC4.Helper
+@model Album_FULL
+@{
+    List<CATEGORY_FULL> ListCate = ViewBag.CategoryList;
+}
+@{ List<SelectListItem> ListImage = ViewBag.FileImage;}
+<div class="well">
+    <span class="label label-danger">
+        Chú ý!
+    </span>
+    <span>
+        Hãy chắc chắn nhập vào đầy đủ thông tin tại các mục bắt buộc đánh dấu (*)
+    </span>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <i class="fa fa-fw fa-user-md"></i><span>@ViewBag.Title </span>
+            </div>
+            <form id="defaultForm" method="post" class="form-horizontal">
+                <div class="panel-group" id="steps">
+                    <div class="messager-body">
+                        <div class="alert alert-success display-hide alert-dismissable">
+                            <button type="button" class="close" data-close="alert" aria-hidden="true">×</button>
+                            <span class="glyphicon glyphicon-ok"></span>
+                            <label>Đã lưu dữ liệu thành công !!!</label>
+                        </div>
+                        <div class="alert alert-danger display-hide alert-dismissable">
+                            <button type="button" class="close" data-close="alert" aria-hidden="true">×</button>
+                            <span class="glyphicon glyphicon-warning-sign"></span>
+                            <label>Có một vài lỗi trong khung nhập liệu dưới đây ! kiểm tra lại</label>
+                        </div>
+                    </div>
+                    <div class="panel panel-info">
+                        @*<div id="Errordiv" style="margin:20px;color:red;font-size:13pt"><center></center></div><br />*@
+                        @*<div class="panel-heading">
+                                <h4 class="panel-title"><i class="fa fa-wrench" style="margin-right:7px"></i>Thông Tin Cơ Bản</h4>
+                            </div>*@
+                        <div style="padding: 10px 0 0 0;background-color:#fff !important">
+                            <ul class="nav nav-tabs">
+                                <li class="active"><a href="#tabs-info" data-toggle="tab"><strong>Thông tin chính</strong></a></li>
+                                @if (Model.Id > 0)
+                                {
+                                    <li><a href="#tabs-image" data-toggle="tab"><strong>Ảnh</strong></a></li>
+                                }
+
+
+                            </ul>
+
+                            <div class="tab-content" style="margin-top: 30px;">
+                                <div class="col-md-12 tab-pane active" id="tabs-info">
+                                    <!-- dành cho UpdateFunction -->
+                                    <div class="form-group">
+                                        <label for="txtTitle" class="control-label col-md-3">Tên album :<span class="required">*</span></label>
+                                        <div class="col-md-9">
+                                            <div class="input-icon right">
+                                                <input type="text" id="txtTitle" name="title" value="@Model.Title" class="form-control" placeholder="Nhập tiêu đề cho bài viết" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="txtMainCate" class="control-label col-md-3">Chuyên Mục :<span class="required">*</span></label>
+                                        <div class="col-md-9">
+                                            <div class="input-icon right">
+                                                <select class="form-control" id="ddlMainCate">
+
+                                                    @if (ListCate != null && ListCate.Count > 0)
+                                                    {
+                                                        foreach (var obj in ListCate)
+                                                        {
+                                                            <option value="@obj.Id" title="@obj.Pathway" @if (obj.Id == Model.CategoryId) { @Html.Raw("selected='selected'")                   ; }>@obj.Name</option>
+                                                        }
+                                                    }
+                                                </select>
+
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="txtSummary" class="control-label col-md-3">Mô tả :<span class="required">*</span></label>
+                                        <div class="col-md-9">
+                                            <div class="input-icon right">
+                                                <textarea id="txtSummary" style="height: 100px;" cols="20" name="description" class="form-control">@Model.Description</textarea>
+
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="txtPublicTime" class="control-label col-md-3">Ngày xuất bản :<span class="required">*</span></label>
+                                        <div class="col-md-9">
+                                            <div class="input-icon right">
+                                                <input type="text" id="txtPublicTime" data-format="DD/MM/YYYY HH:mm" name="publictime" value="@Model.PublishDate.GetValueOrDefault().ToString("dd/MM/yyyy HH:mm")" class="form-control" />
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="ddlType" class="control-label col-md-3">Style hiển thị<span class="required">*</span></label>
+                                        <div class="col-md-9">
+                                            <div class="input-icon right">
+                                                <select id="ddlStyle" name="Type" class="form-control">
+                                                    <option value="1" @(Model.Style == 1 ? "selected='selected'" : "")>Light Box</option>
+                                                    <option value="2" @(Model.Style == 2 ? "selected='selected'" : "")>Gallery</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label col-md-3" for="cbxIsActive">Trạng thái :</label>
+                                        <div class="col-md-4">
+                                            <div class="checkbox">
+                                                @if (Model.Status == 1)
+                                                {<input type="checkbox" id="cbxIsActive" checked="checked" />}
+                                                else
+                                                {<input type="checkbox" id="cbxIsActive" /> }
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                @if (Model.Id > 0)
+                                {
+                                    <div class="col-md-12 tab-pane" id="tabs-image">
+                                        @{ Html.RenderAction("FileInfo", new { id = Model.Id });}
+                                        <div class="table-responsive" id="images_container">
+                                            <div id="dgrid" class="dataTables_wrapper form-inline" role="grid">
+                                                <table class="table table-striped table-bordered table-hover dataTable no-footer" id="dataTables">
+                                                    <thead>
+                                                        <tr class="rowsao" id="imagefirst_item">
+                                                            <th width="20%">Ảnh</th>
+                                                            <th width="60%">Mô tả</th>
+                                                            <th width="10%"><input id="checkall" type="checkbox" onclick="checkAll(this);" name="checkall" /> Chọn</th>
+                                                            <th width="10%">Ảnh bìa</th>
+                                                            <th width="10%">Xóa</th>
+                                                        </tr>
+                                                    </thead>
+                                                    @if (ListImage != null)
+                                                    {
+                                                        if (Model.AlbumImage != null)
+                                                        {
+                                                            foreach (var data in Model.AlbumImage.Select((value, i) => new { i, value }))
+                                                            {
+                                                                <tr>
+                                                                    <td width="20%" align="left">
+                                                                        <img src="@(ViewBag.ImgUrl)@(data.value.Name)?w=50&h=50&mode=crop" width="50" height="50" /> (@data.value.Name)
+                                                                    </td>
+                                                                    <td width="60%">
+                                                                        <input name="image_text" id="image_text_@(data.value.Name.Replace(".",""))" value="@data.value.Text" type="text" style="width:100%;" />
+                                                                    </td>
+                                                                    <td width="10%" align="center">
+                                                                        <input name="image_name" type="checkbox" checked="checked" value="@data.value.Name" />
+                                                                    </td>
+                                                                    <td width="10%" align="center">
+                                                                        @if (data.i == 0)
+                                                                        {
+
+                                                                            <input name="main_image" type="radio" checked="checked" value="@data.value.Name" />
+                                                                        }
+                                                                        else
+                                                                        {
+
+                                                                            <input name="main_image" type="radio" value="@data.value.Text" />
+                                                                        }
+                                                                    </td>
+                                                                    <td width="10%" align="center">
+                                                                        <a href="javascript:;" title="Delete" onclick="DeleteImage('@data.value.Text', this)"><i class="fa fa-trash-o"></i></a>
+
+                                                                    </td>
+                                                                </tr>
+                                                            }
+                                                        }
+
+                                                        foreach (var image in ListImage)
+                                                        {
+                                                            if (!Model.AlbumImage.Where(x => x.Name == image.Value).Any())
+                                                            {
+                                                                <tr>
+                                                                    <td width="20%" align="left">
+                                                                        <img src="@image.Text?w=50&h=50&mode=crop" width="50" height="50" /> (@image.Value)
+                                                                    </td>
+                                                                    <td width="60%">
+                                                                        <input name="image_text" id="image_text_@(image.Value.Replace(".",""))" value="" style="width:100%;" type="text" />
+                                                                    </td>
+                                                                    <td width="10%" align="center">
+                                                                        <input name="image_name" type="checkbox" value="@image.Value" style="" />
+                                                                    </td>
+                                                                    <td width="10%" align="center">
+                                                                        <input name="main_image" type="radio" value="@image.Value" />
+                                                                    </td>
+
+
+                                                                    <td width="10%" align="center">
+                                                                        <a href="javascript:;" title="Delete" onclick="DeleteImage('@image.Value', this)"><i class="fa fa-trash-o"></i></a>
+
+                                                                    </td>
+                                                                </tr>
+                                                            }
+
+                                                        }
+
+                                                    }
+                                                </table>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                            }
+                                <div class="col-md-12">
+                                    <div class="panel-footer form-horizontal">
+                                        <div class="form-group submit">
+                                            <button type="submit" class="btn btn-primary" id="btsubmit"><i class="fa fa-save"></i>Lưu lại</button>
+                                            <button type="button" class="btn btn-default" id="btnBack" onclick="GotoListpage();"><i class="fa fa-backward"></i>Quay lại</button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div style="clear:both"></div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script src="/Scripts/site.lib.encode.js" type="text/javascript"></script>
+<script>
+    $('#menu_addalbum').addClass("active");
+    $('#menu_3').addClass("active");
+</script>
+<script>
+
+    if (typeof (CKEDITOR) !== "undefined") {
+        CKEDITOR.env.isCompatible = true;
+    }
+</script>
+<script src="~/Administrator/Scripts/jquery-ui-1.12.1.custom/jquery-ui.min.js"></script>
+<script>
+    //LoadImagesForAlbumInDB('@(Model.Images)');
+    $("#dgrid").children().children().sortable();
+    function GotoListpage() {
+        window.location = '@Url.Action("Index")';
+    }
+    function decodeEntities(encodedString) {
+        var textArea = document.createElement('textarea');
+        textArea.innerHTML = encodedString;
+        return textArea.value;
+    }
+    $(document).ready(function () {
+
+        var editor = CKEDITOR.instances['txtSummary'];
+        if (editor) {
+            CKEDITOR.remove(editor);
+        }
+        CKEDITOR.replace('txtSummary', {
+            filebrowserBrowseUrl: "/Adminimages/ManageImage",
+            filebrowserWindowWidth: '1200',
+            filebrowserWindowHeight: '800',
+            uiColor: '#FAFAFA',
+            allowedContent: true,
+            extraAllowedContent: '*(*)',
+           
+            height: 400
+        });
+
+        $('#txtPublicTime').datetimepicker({
+            format: 'DD/MM/YYYY HH:mm',
+            inline: true,
+            sideBySide: true,
+            showTodayButton: true
+        });
+        $("button.close").click(function () {
+            $(this).parent().css("display", "none");
+        });
+        $('#defaultForm').bootstrapValidator({
+            message: 'This value is not valid',
+            //live: 'submitted',
+            feedbackIcons: {
+                valid: 'glyphicon glyphicon-ok',
+                invalid: 'glyphicon glyphicon-remove',
+                validating: 'glyphicon glyphicon-refresh'
+            },
+            fields: {
+
+                title: {
+                    message: 'Nhập tên album',
+                    validators: {
+                        notEmpty: {
+                            message: 'tên album không được bỏ trống'
+                        },
+
+                        stringLength: {
+                            min: 10,
+                            max: 250,
+                            message: 'tên album nhỏ nhất 10 ký tự và nhiều nhất 250 ký tự'
+                        },
+
+                    }
+                },
+                description: {
+                    message: 'Bạn chưa nhập mô tả.',
+                    validators: {
+                        notEmpty: {
+                            message: 'Bạn chưa nhập mô tả'
+                        },
+
+                    }
+                },
+
+            }
+        })
+        .on('success.form.bv', function (e) {
+            // Prevent submit form
+            e.preventDefault();
+
+            var $form = $(e.target),
+                        validator = $form.data('bootstrapValidator');
+            SaveData();
+            $(".close").click(function () {
+                $(".alert-success").css("display", "none");
+            });
+        })
+        .on('error.form.bv', function (e) {
+            // Active the panel element containing the first invalid element
+            e.preventDefault();
+            var $form = $(e.target),
+                    validator = $form.data('bootstrapValidator');
+            $(".alert-danger label").text("Có một vài lỗi trong khung nhập liệu dưới đây ! kiểm tra lại");
+            $(".alert-danger").css("display", "block");
+            $(".close").click(function () {
+                $(".alert-danger").css("display", "none");
+                $(".alert-success").css("display", "none");
+            });
+        });
+
+        $("#btnReset").click(function () {
+            $('#defaultForm').data('bootstrapValidator').resetForm(true);
+            $(".alert-danger").css("display", "none");
+            $(".alert-success").css("display", "none");
+        });
+
+        //Save Data
+        function SaveData() {
+            var main_image_json = '';
+            var main_image = $('input[type="radio"][name="main_image"]:checked').val();
+            if (main_image == undefined || main_image == null || main_image == '') {
+                main_image_json = '';
+            }
+            else {
+                var main_text = $('#image_text_' + main_image.replace('.', '')).val().toString();
+
+                if (main_text == undefined || main_text == null)
+                    main_text = '';
+
+                main_image_json = { Name: main_image, Text: main_text };
+
+            }
+
+
+            //other image
+            var images_json = [];
+            if (main_image_json != '') {
+                images_json.push(main_image_json);
+            }
+
+            var images = $('input[type="checkbox"][name="image_name"]:checked');
+            $.each(images, function (i, image) {
+                var imagevalue = $(image).val();
+
+                if (imagevalue != main_image) {
+                    var text = $('#image_text_' + imagevalue.replace('.', '')).val();
+
+                    if (text == undefined || text == null)
+                        text = '';
+                    var json = { Name: imagevalue, Text: text };
+                    images_json.push(json);
+                }
+
+            });
+
+            var param = {
+                'Id': '@Model.Id',
+                'Title': $("#txtTitle").val(),
+                'Description': CKEDITOR.instances['txtSummary'].getSnapshot(),
+                'Style': $("#ddlStyle").val(),
+                'CategoryId': $("#ddlMainCate").val(),
+                'CategoryPathway': $("#ddlMainCate option:selected").attr("title"),
+                'SPublishDate': $('#txtPublicTime').val(),
+                'Status': $("#cbxIsActive").is(":checked") ? 1 : 0,
+                'Images': JSON.stringify(images_json),
+            }
+            Utils.Loading();
+            $.ajax({
+                type: 'POST',
+                url: "@Url.Action("SaveData")",
+                data: addAntiForgeryToken(param),
+                async: true,
+                success: function (data) {
+                    Utils.UnLoading();
+                    if (data.ResponseCode >= 0) {
+                        $("html,body").animate({ scrollTop: $('#TemplateContent').offset().top }, 'fast');
+                        $(".alert-success").show("slow");
+                        $(".alert-danger").hide("slow");
+                        setTimeout(function () { $(".alert-success").hide("slow"); GotoListpage(); }, 500);
+
+                    }
+                    else {
+                        $("html,body").animate({ scrollTop: $('#TemplateContent').offset().top }, 'fast');
+                        $("#ErrorMessage").text(data.Description);
+                        $(".alert-danger").show("slow");
+                        $(".alert-success").hide("slow");
+                        setTimeout(function () { $(".alert-danger").hide("slow"); }, 2000);
+                    }
+                }
+            });
+        };
+    });
+    function checkAll(obj1) {
+
+        $('input[type="checkbox"][name="image_name"]').each(function (i, e) {
+
+            if (obj1.checked == true) {
+                $(e).prop("checked", true);
+
+            }
+            else {
+                $(e).prop("checked", false);
+
+            }
+
+
+        });
+
+
+    }
+    //function LoadImagesForAlbumInDB(imgdata) {
+    //    //load by database
+    //    imgdata = decodeEntities(imgdata);
+    //    try {
+    //        if (imgdata != null && imgdata != undefined && imgdata != '') {
+    //            alert(imgdata);
+    //            var arr_images = jQuery.parseJSON(imgdata);
+    //            alert(arr_images);
+    //            var preimg = 'imagefirst_item';
+
+    //            $.each(arr_images, function (index, item) {
+    //                alert(item.Name);
+    //                $('#imageitem_' + item.Name.replace('.', '')).insertAfter($("#" + preimg));
+    //                preimg = 'imageitem_' + item.Name.replace('.', '');
+    //                if (index == 0) {
+
+
+    //                    $('#images_container').find('input[type="radio"][name="main_image"][value="' + item.Name + '"]').prop("checked", true);
+
+
+    //                }
+    //                $('#image_text_' + item.Name.replace('.', '')).val(item.Text);
+    //                $('#images_container').find('input[type="checkbox"][name="image_name"][value="' + item.Name + '"]').prop("checked", true);
+    //            });
+
+    //        }
+    //    }
+    //    catch (e) {
+    //        // statements to handle any exceptions
+    //        //logMyErrors(e); // pass exception object to error handler
+    //    }
+    //    $("#dgrid").children().children().sortable();
+
+    //}
+    function DeleteImage(image, elm) {
+
+        bootbox.confirm("Bạn chắc chắn muốn xóa ảnh này ??? ", function (result) {
+            if (result == true) {
+                var postdata = {
+                    __m: 'del',
+                    _id: '@Model.Id',
+                    _en: 'Album',
+                    fna: image
+                };
+                Utils.Loading();
+                $.ajax({
+                    type: 'POST',
+                    url: "/Post/ImageService.ashx",
+                    data: postdata,
+                    success: function (data) {
+                        Utils.UnLoading();
+                        if (data != undefined && data != null && data != '') {
+                            // var json_data = eval('(' + data + ')');
+                            var json_data = $.parseJSON(data.substring(data.indexOf("{"), data.lastIndexOf("}") + 1));
+                            if (json_data.Success) {
+
+                                $(elm).parent().parent().remove();
+                            }
+
+
+                        }
+                    }
+                });
+            }
+        });
+
+    }
+</script>

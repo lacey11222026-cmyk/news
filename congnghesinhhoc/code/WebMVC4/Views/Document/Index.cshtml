@@ -1,0 +1,127 @@
+﻿@using BIZ
+@using UTILS
+@using WebMVC4.Helper
+@model WebMVC4.Models.DocumentModel
+
+@{
+    var langpage = WorkContext.GetLanguage();
+}
+
+@{Html.RenderAction("Breadcrumb", "News", new { CategoryId = Model.CategoryId });}
+@{
+    int index = 3;
+    if (Model.subcate.Count <= 3)
+    {
+        index = 1;
+    }
+}
+<div id="document" class="main-content">
+    <div class="list-page">
+        <div class="text-center search">
+            <form class="form-inline">
+                <div class="form-group">
+                    <label class="">@Resources.Global.Keyword</label>
+                    <input id="txtkeyword" class="form-control" type="text" value="@ViewBag.keyword" width="190">
+                </div>
+                <div class="form-group">
+                    <label>@Resources.Global.FromDate</label>
+                    <input id="txtfromdate" placeholder="dd/MM/yyyy" value="@ViewBag.fromdate" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label>@Resources.Global.ToDate</label>
+                    <input id="txttodate" placeholder="dd/MM/yyyy" value="@ViewBag.todate" class="form-control">
+                </div>
+                <button type="button" onclick="searchdoc();" class="btn-search">@Resources.Global.MenuSearch</button>
+            </form>
+        </div>
+        <div class="clearfix"></div>
+        <div class="document-tabs">
+            <ul>
+
+                @foreach (var item in Model.subcate.Select((value, i) => new { i, value }))
+                {
+                    if (item.i % index == 0)
+                    {
+                        @Html.Raw("<li><ul>")
+
+                    }
+                <li>
+                    <a href="@Utils.FormatUrlRewriteByType(item.value.Id, item.value.Name, int.Parse(item.value.Type.ToString()), item.value.Link)">@item.value.Name </a>
+
+                </li>
+
+                    if (item.i % index == index - 1 || item.i == Model.subcate.Count - 1)
+                    {
+                        @Html.Raw("</ul></li>")
+
+
+                    }
+                }
+
+            </ul>
+        </div>
+        <div class="clearfix"></div>
+        <div class="document-table table-responsive mt20">
+            <table>
+                <tbody>
+                    <tr>
+                        <th>@Resources.Global.DocNumber </th>
+                        <th>@Resources.Global.DocCode </th>
+                        <th>@Resources.Global.DocName </th>
+                        <th>@Resources.Global.DocPublishDate </th>
+                        <th>@Resources.Global.DocDownload </th>
+                        
+                    </tr>
+                    @foreach (var item in Model.listdata.Select((value, i) => new { i, value }))
+                    {
+                        <tr>
+                            <td style="text-align: center" align="center">@(item.i + 1) </td>
+                            <td>@item.value.Code</td>
+                            <td style="min-width:160px;">
+                                <a href="@Url.Action("Detail","Document",new { id=item.value.Id})">
+                                    @item.value.Name
+                                </a>
+                            </td>
+                            <td> @Convert.ToDateTime(item.value.PublishDate).ToString(@" dd'/'MM'/'yyyy") </td>
+                            <td align="center">
+                                <div style="width: 79px;">
+                                    <a href="@Url.Action("DownloadFile", "Document", new {id = item.value.Id})">
+                                        <img style="width: 17px;" src="/Content/images/ico-pdf02.png">
+                                    </a>
+                                    <br />
+                                    <a href="@Url.Action("ViewFile", "Document", new {id = item.value.Id})" target="_blank">Xem online</a>
+                                </div>
+
+                            </td>
+
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div><!-- end news list-->
+    <div class="pagination pull-right mt30">
+        <ul>
+            @{Html.RenderPartial("Pagination", new WebMVC4.Models.PaginationInfo
+                {
+                    PageUrl = Url.SetParameter("Page", "!0"),
+                    CurrentPage = Model.pageIndex,
+                    PageSize = Model.pageSize,
+                    TotalItemCount = Model.total,
+                }); }
+        </ul>
+    </div>
+    <div class="clearfix"></div>
+</div>
+<script type="text/javascript">
+
+
+    function searchdoc() {
+        var id = '@Model.CategoryId';
+        var keyword = $("#txtkeyword").val();
+        var fromdate = $("#txtfromdate").val();
+        var todate = $("#txttodate").val();
+        window.location = '/Document/Index/' + id + '/?keyword=' + keyword + '&fromdate=' + fromdate + '&todate=' + todate;
+        //window.location = jQuery.query.set("keyword", keyword).set("fromdate", fromdate).set("todate", todate).set("Page", "1");
+    }
+</script>

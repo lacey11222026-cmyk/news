@@ -1,0 +1,39 @@
+﻿@using BIZ
+@using UTILS
+@using WebMVC4.Helper
+@model WebMVC4.Models.LastestNewModel
+@if (Model != null)
+{
+    if (Model.lstdata != null)
+    {
+        <div class="container">
+            <div class="title text-center"><h2>@Model.HeaderTitle.ToUpper()</h2></div>
+            <div class="row row-20">
+                @foreach (var item in Model.lstdata.Select((value, i) => new { i, value }))
+                {
+                    <div class="col-sm-6 col-lg-4 col-item">
+                        <div class="news-item">
+                            <a href="@item.value.LinkUrl" class="picture">
+                                <span class="label blu">@item.value.CategoryName</span>
+                                <img src="@item.value.MainImage?w=373&h=247&mode=crop">
+                            </a>
+                            <div class="desc">
+                                <h3><a href="@item.value.LinkUrl">@item.value.Title</a></h3>
+                                <p>@item.value.IntroText</p>
+
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+            <div class="text-center mt30">
+                <a href="@Model.Url" class="btn-cm btn-gradient">@Resources.Global.More</a>
+            </div>
+
+        </div>
+        
+
+
+
+    }
+}

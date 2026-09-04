@@ -1,0 +1,16 @@
+﻿@using UTILS
+@using WebMVC4.Helper
+
+<div class="ctpaging">
+
+    <ul class="paging">
+        @{Html.RenderPartial("Pagination", new WebMVC4.Models.PaginationInfo
+            {
+                PageUrl = Url.SetParameter("Page", "!0"),
+                CurrentPage = ViewBag.pageIndex,
+                PageSize = ViewBag.pageSize,
+                TotalItemCount = ViewBag.total,
+            }); }
+    </ul>
+
+</div>

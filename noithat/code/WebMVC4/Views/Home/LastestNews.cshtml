@@ -1,0 +1,77 @@
+﻿@using BIZ
+@using UTILS
+@using WebMVC4.Helper
+
+@model WebMVC4.Models.LastestNewModel
+@if (Model != null)
+{
+    if (Model.lstdata != null)
+    {
+        <div class="wpb_column vc_column_container vc_col-sm-12">
+            <div class="vc_column-inner">
+                <div class="wpb_wrapper">
+                    <div id="wd-5fc1d6f99b75b" class="title-wrapper  woodmart-title-color-default woodmart-title-style-bordered woodmart-title-width-100 text-center woodmart-title-size-medium ">
+
+                        <div class="liner-continer">
+                            <span class="left-line"></span>
+                            <div class="woodmart-title-container title  woodmart-font-weight-">@Model.HeaderTitle</div>
+                            <span class="right-line"></span>
+                        </div>
+
+
+                    </div>
+
+                    <div class="woodmart-blog-holder blog-shortcode  masonry-container woodmart-spacing-30 row blog-pagination-" id="6010d98b0d9af" data-paged="1"  data-source="shortcode" style="position: relative; height: 429.328px;">
+                        @foreach (var item in Model.lstdata.Select((value, i) => new { i, value }))
+                        {
+                            <article id="post-@item.value.Id" class="blog-design-masonry blog-post-loop blog-style-shadow  col-md-4 col-sm-6 col-12 post-3108 post type-post status-publish format-standard has-post-thumbnail hentry category-cam-nang-noi-that" >
+                                <div class="article-inner">
+                                    <header class="entry-header">
+                                        <figure id="carousel-150" class="entry-thumbnail">
+
+                                            <div class="post-img-wrapp">
+                                                <a href="@item.value.LinkUrl">
+                                                    <img class="attachment-large wp-post-image " src="@item.value.MainImage?h=250&w=400&mode=crop" alt="@item.value.Title" width="400" height="250">
+                                                </a>
+                                            </div>
+                                            <div class="post-image-mask">
+                                                <span></span>
+                                            </div>
+
+                                        </figure>
+
+                                        <div class="post-date woodmart-post-date" onclick="">
+                                            <span class="post-date-day">
+                                                @item.value.PublishDate.Day
+                                            </span>
+                                            <span class="post-date-month">
+                                                Th@(item.value.PublishDate.Month)
+                                            </span>
+                                        </div>
+
+                                    </header><!-- .entry-header -->
+
+                                    <div class="article-body-container" >
+
+                                       
+                                        <h3 class="entry-title title" style="height:75px;">
+                                            <a href="@Utils.FormatUrlRewrite(item.value.Id, item.value.Title, "ArticleDetail")" rel="bookmark">@item.value.Title</a>
+                                        </h3>
+
+                                        
+
+                                    </div>
+                                </div>
+                            </article><!-- #post -->
+
+                        }
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+
+
+    }
+}

@@ -1,0 +1,42 @@
+﻿<div style="width: 660px;">
+    <p class="news_details_tit" id="news_details_tit"></p>
+    <div class="new_details_content">
+        <br />
+        <div id="news_details_newscontent">
+            <script src="/flash/jwplayer.js" type="text/javascript"></script>
+            <div id="newsgo_video_viewer">
+            </div>
+        </div>
+        <br />
+        <p id="news_details_description"></p>
+
+    </div>
+</div>
+<style>
+   
+</style>
+<script type="text/javascript">
+    $("#btnreview").click(function () {
+
+
+        $("#news_details_description").html($("#Description").val());
+        $("#news_details_tit").html($("#Title").val());
+        
+        
+        jwplayer('newsgo_video_viewer').setup({
+            'flashplayer': '/flash/player.flash.swf',
+             'id': 'playerID',
+             'width': '660',
+             'height': '365',
+             'file': '@ViewBag.Url',
+                            'image': '',
+             //'plugins': { 'ova-jw': {} },
+             //'config': configadsvideo,
+                            'abouttext': 'vtkmedia.vn',
+                            'aboutlink': 'http://vtkmedia.vn',
+                            //'skin': '/flash/newsplayerskin.zip',
+                        'autostart': 'true',
+         });
+
+    });
+</script>

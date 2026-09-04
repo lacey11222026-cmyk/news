@@ -1,0 +1,123 @@
+﻿@using BIZ
+@using UTILS
+@using WebMVC4.Helper
+@model BIZ.Entity.CONTENT_FULL
+@{var RelateTitle = "Tin cùng chuyên mục";}
+
+@if (Model != null)
+{
+
+    <div class="tintuc-page container mt20">
+        @{Html.RenderAction("Breadcrumb", "News", new { CategoryId = Model.CategoryId });}
+
+        <div class="row mt20">
+            <div class="col-md-9 col-sm-8 col-xs-12">
+                <h3 class="newsname">@Model.Title</h3>
+                <p class="newsdecs" style="font-weight:bold">@Model.IntroText </p>
+                <span class="newsdate">@Model.PublishDate.ToString("dd/MM/yyyy - HH:mm")</span>
+                <div class="tinlienquan">
+                    <ul class="related-posts">
+                        @if (ViewBag.lstRef != null)
+                        {
+                            foreach (var item in ViewBag.lstRef)
+                            {
+                        <li>
+                            <a href="@Utils.FormatUrlRewrite(item.Id, item.Title, "ArticleDetail")">@item.Title </a>
+                        </li>
+                            }
+
+                        }
+                        </ul>
+                </div>
+                <div class="clearfix"></div>
+                <ul class="detail-link clearfix mt20 brbottom">
+                    <li>  <div class="fb-like" data-href="@(Model.LinkUrl)" data-layout="button_count" data-action="like" data-show-faces="false" data-share="true"></div></li>
+
+                </ul>
+                <div class="clearfix"></div>
+                <div class="nd" id="NewsContent">
+                    @Html.Raw(Model.Contents.Replace("font-size: small", ""))
+                </div>
+                @if (!string.IsNullOrEmpty(Model.FileParam.Name1))
+                {
+                    <div class="document-attach">
+                        <div class="bg_org"><span class="icon-attach"></span> Tài liệu đính kèm <div class="clear"></div></div>
+                        <ul class="list">
+
+                            <li><a title="@Model.FileParam.Name1" href="@Model.FileParam.Path1" target="_blank">@Model.FileParam.Name1 </a></li>
+                            @if (!string.IsNullOrEmpty(Model.FileParam.Name2))
+                            {
+                                <li><a title="@Model.FileParam.Name2" href="@Model.FileParam.Path2" target="_blank">@Model.FileParam.Name2 </a></li>
+                            }
+                            @if (!string.IsNullOrEmpty(Model.FileParam.Name3))
+                            {
+                                <li><a title="@Model.FileParam.Name3" href="@Model.FileParam.Path3" target="_blank">@Model.FileParam.Name3 </a></li>
+                            }
+
+
+
+
+                        </ul>
+                        <div class="clear"></div>
+                    </div>
+                }
+                <div class="clearfix"></div>
+                <ul class="detail-link clearfix mt20 brbottom">
+                    <li>  <div class="fb-like" data-href="@(Model.LinkUrl)" data-layout="button_count" data-action="like" data-show-faces="false" data-share="true"></div></li>
+
+                </ul>
+                <div class="clearfix"></div>
+                @if (Model.SiteUrl != null)
+                {
+                    if (!String.IsNullOrEmpty(Model.SiteUrl.Trim()))
+                    {
+                        <div class="tags mt20">
+                            <span class="pull-left">Tag:</span>
+                            <ul class="list-inline">
+                                @foreach (var item in Model.SiteUrl.Split(',').Select((value, i) => new { i, value }))
+                                {
+                                    <li>  <a href="@Url.Action("Search", new { q = item.value.Trim() })">@item.value.Trim()</a></li>
+                                }
+                            </ul>
+                        </div>
+
+                    }
+                }
+                @{Html.RenderAction("Relate", "News", new { CategoryId = Model.CategoryId });}
+            </div>
+            <div class="col-md-3 col-sm-4 col-xs-12">
+                @{Html.RenderAction("TopViewNews2", "News", new { CateName = "Tin đọc nhiều", CategoryId = Model.CategoryId, MaxLastestNews = 8 });}
+            </div>
+            <div class="col-md-9 col-sm-8 col-xs-12">
+                <div class="border-top-gray mt30">
+                    <h2 class="title-cm mt20"><a href="#">Xem thêm</a></h2>
+                    <ul class="viewmore-list mt20">
+                        @{Html.RenderAction("LastestNews", "News", new { CateName = "Tin mới", CategoryId = 0, MaxLastestNews = 10 });}
+
+                    </ul>
+                </div>
+            </div>       
+        </div>
+    </div>
+
+  
+}
+<script>
+    $('.news_detail_img').removeAttr('style');
+    $('.news_detail_img').attr('style','margin:0 auto;text-align:center');
+    $('#NewsContent table').removeAttr('width');
+    $('#NewsContent span img').removeAttr('width');
+    $('#NewsContent img').removeAttr('width');
+    $('#NewsContent img').removeAttr('height');
+    $('#NewsContent img').removeAttr('style');
+   
+</script>
+<script type="text/javascript">
+
+
+
+    function openWin(url) {
+        var myWindow = window.open(url, '', 'width=700,height=500');
+        myWindow.focus();
+    }
+</script>

@@ -1,0 +1,324 @@
+﻿@using Car.Data
+@model Project
+@using Car.Utility
+
+
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="box box-primary">
+            <div class="box-header">
+                <i class="fa fa-fw fa-user-md"></i><span>@ViewBag.Title </span>
+            </div>
+            <form id="defaultForm" method="post" class="form-horizontal">
+                <div class="panel-group" id="steps">
+                    <div class="messager-body">
+                        <div class="alert alert-success display-hide alert-dismissable">
+                            <button type="button" class="close" data-close="alert" aria-hidden="true">×</button>
+                            <span class="glyphicon glyphicon-ok"></span>
+                            <label>Đã lưu dữ liệu thành công !!!</label>
+                        </div>
+                        <div class="alert alert-danger display-hide alert-dismissable">
+                            <button type="button" class="close" data-close="alert" aria-hidden="true">×</button>
+                            <span class="glyphicon glyphicon-warning-sign"></span>
+                            <label>Có một vài lỗi trong khung nhập liệu dưới đây ! kiểm tra lại</label>
+                        </div>
+                    </div>
+                    <div class="panel">
+
+                        <div class="panel-body">
+                            <!-- dành cho UpdateFunction -->
+                            <div style="padding: 10px 0 0 0;background-color:#fff !important">
+
+
+                                <div class="col-md-9">
+                                    <div class="form-group">
+                                        <label for="txtName" class="control-label col-md-3">Tên dự án  :<span class="required">*</span></label>
+                                        <div class="col-md-6">
+                                            <div class="input-icon right">
+                                                <input type="text" id="txtName" maxlength="500" name="name" value="@Model.Name" class="form-control" placeholder="Tên dự án " />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="txtInvestor" class="control-label col-md-3">Chủ đầu tư </label>
+                                        <div class="col-md-6">
+                                            <div class="input-icon right">
+                                                <input type="text" id="txtInvestor" name="Investor" value="@Model.Investor" class="form-control" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="txtAddress" class="control-label col-md-3">Địa chỉ </label>
+                                        <div class="col-md-6">
+                                            <div class="input-icon right">
+                                                <input type="text" id="txtAddress" name="Address" value="@Model.Address" class="form-control" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="txtContact" class="control-label col-md-3">Người liên hệ </label>
+                                        <div class="col-md-6">
+                                            <div class="input-icon right">
+                                                <input type="text" id="txtContact" name="Address" value="@Model.Contact" class="form-control" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="txtOrgan" class="control-label col-md-3">Chức danh </label>
+                                        <div class="col-md-6">
+                                            <div class="input-icon right">
+                                                <input type="text" id="txtOrgan" name="Organ" value="@Model.Organ" class="form-control" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="txtGroupName" class="control-label col-md-3">Phòng/ban </label>
+                                        <div class="col-md-6">
+                                            <div class="input-icon right">
+                                                <input type="text" id="txtGroupName" name="GroupName" value="@Model.GroupName" class="form-control" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="txtTel" class="control-label col-md-3">Số điện thoại </label>
+                                        <div class="col-md-6">
+                                            <div class="input-icon right">
+                                                <input type="text" id="txtTel" name="Tel" value="@Model.Tel" class="form-control" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="txtEmail" class="control-label col-md-3">Email </label>
+                                        <div class="col-md-6">
+                                            <div class="input-icon right">
+                                                <input type="text" id="txtEmail" name="Email" value="@Model.Email" class="form-control" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="txtTotal" class="control-label col-md-3">Tổng vốn đầu tư (VND) </label>
+                                        <div class="col-md-3">
+                                            <div class="input-icon right">
+                                                <input id="txtTotal" maxlength="20" name="Total" value="@StringUtils.InsertCommaNoStyle(Model.Total.ToString())" class="form-control amount" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="txtTotal1" class="control-label col-md-3">Tổng vốn vay (VND) </label>
+                                        <div class="col-md-3">
+                                            <div class="input-icon right">
+                                                <input id="txtTotal1" maxlength="20" name="Total1" value="@StringUtils.InsertCommaNoStyle(Model.Total1.ToString())" class="form-control amount" />
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+                                    <div class="form-group">
+                                        <label for="txtTotal2" class="control-label col-md-3">Vốn vay WB (VND) </label>
+                                        <div class="col-md-3">
+                                            <div class="input-icon right">
+                                                <input id="txtTotal2" maxlength="20" name="Total2" value="@StringUtils.InsertCommaNoStyle(Model.Total2.ToString())" class="form-control amount" />
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+                                    <div class="form-group">
+
+                                        <label for="txtTimeExpire" class="control-label col-md-3">
+                                            Thời gian thực hiện dự án
+                                        </label>
+                                        <div class="col-md-9">
+
+                                            <div class="input-icon right">
+                                                <input id="txtTimeExpire" name="TimeExpire" value="@Model.TimeExpire" class="form-control" />
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="ddlBank" class="control-label col-md-3">Ngân hàng :</label>
+                                        <div class="col-md-9">
+                                            <div class="input-icon right">
+                                                <select class="form-control" id="ddlBank">
+
+                                                    <option value="vcb" @(Model.Bank == "vcb" ? "selected='selected'" : "")>Ngân hàng Vietcombank</option>
+                                                    <option value="bidv" @(Model.Bank == "bidv" ? "selected='selected'" : "")>Ngân hàng BIDV</option>
+                                                </select>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group" style="display:none">
+                                        <label class="control-label col-md-3" for="cbxIsActive">Trạng thái :</label>
+                                        <div class="col-md-4">
+                                            <div class="checkbox">
+                                                @if (Model.Status == 1)
+                                                {<input type="checkbox" id="cbxIsActive" checked="checked" />}
+                                                else
+                                                {<input type="checkbox" id="cbxIsActive" />}
+
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="panel-footer form-horizontal">
+                                        <div class="form-group submit">
+                                            <button type="submit" class="btn btn-primary" id="btnSave"><i class="fa fa-save"></i>Lưu lại</button>
+
+                                            <button type="button" class="btn btn-default" id="btnBack" onclick="GotoListpage()"><i class="fa fa-backward"></i>Back</button>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="clear"></div>
+                        </div>
+
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<style>
+    .input-icon {
+        position: relative;
+        width: 100%;
+    }
+</style>
+<script type="text/javascript">
+    function GotoListpage() {
+        window.location = "/Project/Index";
+    }
+    $(document).ready(function () {
+         $(".amount").keyup(function () {
+            var val = $(this).val();
+
+            if (val) {
+
+                val = val.replace(/\./g, '');
+                val = unformat(val, 0);
+                //$(this).val(val);
+
+                var price = parseInt(val);
+
+                var formatMoneyVNDVal = price.formatMoney(0, '', '.');
+                $(this).val(formatMoneyVNDVal);
+            }
+        }).blur(function () {
+            var val = $(this).val();
+
+            if (val) {
+                //console.log(val);
+                val = val.replace('.', '').replace(/\./g, '');
+                val = unformat(val, 0);
+                //$(this).val(val);
+
+                var price = parseInt(val);
+
+                var formatMoneyVNDVal = price.formatMoney(0, '', '.');
+                $(this).val(formatMoneyVNDVal);
+            }
+                });
+        $("button.close").click(function () {
+            $(this).parent().css("display", "none");
+        });
+        $('#defaultForm').bootstrapValidator({
+            message: 'This value is not valid',
+            //live: 'submitted',
+            feedbackIcons: {
+                valid: 'glyphicon glyphicon-ok',
+                invalid: 'glyphicon glyphicon-remove',
+                validating: 'glyphicon glyphicon-refresh'
+            },
+            fields: {
+
+                name: {
+                    message: 'Nhập tên dự án',
+                    validators: {
+                        notEmpty: {
+                            message: 'Tên dự án không được bỏ trống'
+                        },
+
+                    }
+                },
+
+            }
+        })
+        .on('success.form.bv', function (e) {
+            // Prevent submit form
+            e.preventDefault();
+
+            var $form = $(e.target),
+                validator = $form.data('bootstrapValidator');
+            SaveData();
+            $(".close").click(function () {
+                $(".alert-success").css("display", "none");
+            });
+        })
+        .on('error.form.bv', function (e) {
+            // Active the panel element containing the first invalid element
+            e.preventDefault();
+            var $form = $(e.target),
+            validator = $form.data('bootstrapValidator');
+            $(".alert-danger label").text("Có một vài lỗi trong khung nhập liệu dưới đây ! kiểm tra lại");
+            $(".alert-danger").css("display", "block");
+            $(".close").click(function () {
+                $(".alert-danger").css("display", "none");
+                $(".alert-success").css("display", "none");
+            });
+        });
+
+        $("#btnReset").click(function () {
+            $('#defaultForm').data('bootstrapValidator').resetForm(true);
+            $(".alert-danger").css("display", "none");
+            $(".alert-success").css("display", "none");
+        });
+        //Save Data
+        function SaveData() {
+            var param = {
+                'Id': '@Model.Id',
+                'Name': $("#txtName").val(),
+                'Investor': $("#txtInvestor").val(),
+                'Contact': $("#txtContact").val(),
+                'Address': $("#txtAddress").val(),
+                'Organ': $("#txtOrgan").val(),
+                'GroupName': $("#txtGroupName").val(),
+                'TimeExpire': $("#txtTimeExpire").val(),
+                'Tel': $("#txtTel").val(),
+                'Email': $("#txtEmail").val(),
+                'Organ': $("#txtOrgan").val(),
+                'Total': $("#txtTotal").val().replace(/\./g, ''),
+                'Total1': $("#txtTotal1").val().replace(/\./g, ''),
+                'Total2': $("#txtTotal2").val().replace(/\./g, ''),
+                'Bank': $("#ddlBank").val(),
+                'Status': $("#cbxIsActive").is(":checked") ? 1 : 0,
+
+            };
+            Utils.Loading();
+            $.ajax({
+                type: 'POST',
+                url: "/Project/SaveData",
+                data: param,
+                async: true,
+                success: function (data) {
+                    Utils.UnLoading();
+                    if (data.ResponseCode >= 0) {
+                        $(".alert-success").show("slow");
+                        $(".alert-danger").hide("slow");
+                        setTimeout(function () { $(".alert-success").hide("slow"); GotoListpage(); }, 2000);
+                    }
+                    else {
+
+                        $("#ErrorMessage").text(data.NameEn);
+                        $(".alert-danger").show("slow");
+                        $(".alert-success").hide("slow");
+                        setTimeout(function () { $(".alert-danger").hide("slow"); }, 2000);
+                    }
+                }
+            });
+        };
+    });
+</script>

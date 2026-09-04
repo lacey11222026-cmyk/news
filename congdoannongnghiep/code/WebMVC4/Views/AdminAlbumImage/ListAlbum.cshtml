@@ -1,0 +1,139 @@
+﻿@using BIZ.Entity
+@using UTILS
+@model List<AlbumImage_FULL>
+@using WebMVC4.Helper
+
+<table  id="dataTables">
+    <thead>
+        <tr class="rowsao">
+            @*<th>#</th>*@
+
+
+            <th>MS</th>
+            <th>
+                Tác giả
+            </th>
+            <th>Đơn vị</th>
+            
+            <th>Mô tả
+            </th>
+            @*<th>
+                Điểm
+            </th>
+            <th>
+                Điểm đoàn viên
+            </th>
+            <th>
+                Điểm công đoàn
+            </th>*@
+          
+        </tr>
+    </thead>
+    @if (Model != null && Model.Count > 0)
+    {
+        for (int i = 0; i < Model.Count; i++)
+        {
+            var obj = Model[i];
+    <tr>
+        @*<td><img src="@obj.Image?w=150&h=100&mode=crop" width="150" height="100"></td>*@
+
+
+        <td>@Html.Raw(obj.Code)</td>
+        <td>@obj.Author</td>
+        <td>@obj.GroupName</td>
+        <td >
+            @Html.Raw(obj.Album[0].Description)
+
+        </td>
+        
+       
+        @*<td>@obj.Point/@obj.TotalVote</td>
+        <td>@obj.Point1/@obj.TotalVote1</td>
+        <td>@obj.Point2/@obj.TotalVote2</td>*@
+       
+
+    </tr>
+        }
+    }
+</table>
+<script type="text/javascript">
+    var PageOnSize = '@ViewBag.PageSize';
+    var CurrentPage = '@ViewBag.CurrentPage';
+    function BindDataRequest(currentPage) {
+        var params = {
+            title: $("#txtKeyword").val(),
+            status: $('#ddlStatus :selected').val(),
+            type: $('#ddlType :selected').val(),
+            order: $('#ddlOrder :selected').val(),
+            currentPage: currentPage,
+            pageSize: PageOnSize
+        };
+        var urlRequestAns = '@Url.Action("ListAlbum")';
+        Utils.Loading();
+        $.ajax({
+            type: 'GET',
+            url: urlRequestAns,
+            data: params,
+            success: function (data) {
+                $("#ListAlbum").html(data);
+                Utils.UnLoading();
+            },
+            error: function () {
+                Utils.UnLoading();
+            }
+        });
+    };
+    $(document).ready(function () {
+
+
+        $("#pager").pager({
+            pagenumber: CurrentPage,
+            pagecount: Math.ceil('@ViewBag.TotalRecord' / PageOnSize),
+            buttonClickCallback: function (page) { BindDataRequest(page); }
+        });
+
+
+    });
+    function updatestatus(id, status) {
+        bootbox.confirm("Bạn chắc chắn muốn cập nhật trạng thái album này ??? ", function (result) {
+            if (result == true) {
+                var postdata = {
+                    '_id': id,
+                    Status: status
+                };
+                Utils.Loading();
+                $.ajax({
+                    type: 'POST',
+                    url: "@Url.Action("UpdateStatus")",
+                    data: addAntiForgeryToken(postdata),
+                    success: function (data) {
+                        Utils.UnLoading();
+                        BindDataRequest(CurrentPage);
+                    }
+                });
+            }
+        });
+    }
+    function DeleteData(id) {
+
+        bootbox.confirm("Bạn chắc chắn muốn xóa album này ??? ", function (result) {
+            if (result == true) {
+                var postdata = {
+                    '_id': id,
+                };
+                Utils.Loading();
+                $.ajax({
+                    type: 'POST',
+                    url: "@Url.Action("Delete")",
+                    data: addAntiForgeryToken(postdata),
+                    success: function (data) {
+                        Utils.UnLoading();
+                        BindDataRequest(CurrentPage);
+                    }
+                });
+            }
+        });
+
+    }
+
+</script>

@@ -1,0 +1,8 @@
+version: '3'
+
+services:
+  webmvc4:
+    image: webmvc4
+    build:
+      context: .\WebMVC4
+      dockerfile: Dockerfile

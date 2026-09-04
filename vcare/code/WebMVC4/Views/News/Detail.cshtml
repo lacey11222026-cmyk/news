@@ -1,0 +1,158 @@
+﻿@using BIZ
+@using UTILS
+@using WebMVC4.Helper
+@model BIZ.Entity.CONTENT_FULL
+
+
+@if (Model != null)
+{
+    <div id="PageContainer" class="is-moved-by-drawer">
+        <main class="main-content" role="main">
+            <section id="blog-wrapper">
+                <div class="wrapper">
+                    <div class="inner">
+                        <div class="grid">
+                            <article class=" grid__item large--three-quarters medium--one-whole small--one-whole" itemscope="" itemtype="http://schema.org/Article">
+                                <div class="article-content">
+                                    <div class="article-head">
+                                        <h1>@Model.Title</h1>
+                                        <div class="grid mg-left-15">
+                                            <div class="grid__item large--one-half medium--one-half small--one-half pd-left15">
+                                                <div class="article-date-comment">
+                                                    <div class="date"><svg class="svg-inline--fa fa-calendar fa-w-14" aria-hidden="true" data-prefix="fa" data-icon="calendar" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" data-fa-i2svg=""><path fill="currentColor" d="M12 192h424c6.6 0 12 5.4 12 12v260c0 26.5-21.5 48-48 48H48c-26.5 0-48-21.5-48-48V204c0-6.6 5.4-12 12-12zm436-44v-36c0-26.5-21.5-48-48-48h-48V12c0-6.6-5.4-12-12-12h-40c-6.6 0-12 5.4-12 12v52H160V12c0-6.6-5.4-12-12-12h-40c-6.6 0-12 5.4-12 12v52H48C21.5 64 0 85.5 0 112v36c0 6.6 5.4 12 12 12h424c6.6 0 12-5.4 12-12z"></path></svg><!-- <i class="fa fa-calendar" aria-hidden="true"></i> --> @Model.PublishDate.ToString("dd/MM/yyyy")</div>
+
+                                                    <div class="author">
+                                                        <svg class="svg-inline--fa fa-user fa-w-16" aria-hidden="true" data-prefix="fa" data-icon="user" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" data-fa-i2svg=""><path fill="currentColor" d="M256 0c88.366 0 160 71.634 160 160s-71.634 160-160 160S96 248.366 96 160 167.634 0 256 0zm183.283 333.821l-71.313-17.828c-74.923 53.89-165.738 41.864-223.94 0l-71.313 17.828C29.981 344.505 0 382.903 0 426.955V464c0 26.51 21.49 48 48 48h416c26.51 0 48-21.49 48-48v-37.045c0-44.052-29.981-82.45-72.717-93.134z"></path></svg><!-- <i class="fa fa-user" aria-hidden="true"></i> --> Vcare
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="grid__item large--one-half medium--one-half small--one-half pd-left15">
+                                                <div class="social-network-actions text-right">
+                                                    <div class="fb-like" data-href="https://vcare.com.vn@(Model.LinkUrl)" data-layout="button_count" data-action="like" data-size="small" data-show-faces="true" data-share="true"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="article-tldr clearfix">
+
+                                    </div>
+
+                                    <div class="article-body" id="NewsContent">
+                                        @Html.Raw(Model.Contents)
+                                    </div>
+
+                                </div>
+                                <div class="social-network-actions-outside text-right">
+                                    <div class="fb-send" data-href="https://vcare.com.vn@(Model.LinkUrl)"></div>
+                                    <div class="fb-like" data-href="https://vcare.com.vn@(Model.LinkUrl)" data-layout="button" data-action="like" data-size="small" data-show-faces="true" data-share="true"></div>
+                                </div>
+                                <div id="section-fbcomment" class="fb-comments-wrapper">
+                                    <div class="fb-comments" data-href="https://vcare.com.vn@(Model.LinkUrl)" data-width="100%" data-numposts="5"></div>
+                                </div>
+
+                                <!--<div class="related-articles">
+                                    <div class="related-articles-head">
+                                        <h3>
+                                            Các bài viết liên quan
+                                        </h3>
+                                    </div>
+                                    <div class="related-articles-body">
+                                        <ul class="no-bullets">
+
+
+
+
+                                            <li>
+                                                <svg class="svg-inline--fa fa-caret-right fa-w-6" aria-hidden="true" data-prefix="fas" data-icon="caret-right" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 192 512" data-fa-i2svg=""><path fill="currentColor" d="M0 384.662V127.338c0-17.818 21.543-26.741 34.142-14.142l128.662 128.662c7.81 7.81 7.81 20.474 0 28.284L34.142 398.804C21.543 411.404 0 402.48 0 384.662z"></path></svg>--><!-- <i class="fas fa-caret-right"></i> -->
+                                                <!--<a href="/blogs/news/luon-lo-vo-lo-khoi-so-dom-ngo">LƯỢN LỜ VÔ LO - KHỎI SỢ DÒM NGÓ</a>
+                                            </li>
+
+
+
+
+
+                                        </ul>
+                                    </div>
+                                </div>-->
+
+
+                            </article>
+
+                            <div class="grid__item large--one-quarter medium--one-whole small--one-whole">
+                                <div class="blog-sb-wrapper">
+
+
+                                    <div class="blog-sidebar">
+                                        <h3>Bài viết gần đây</h3>
+                                        <div class="panel">
+                                            <ul class="recent-blogs no-bullets">
+
+                                                @Html.Action("RightLastestNews", "News", new { CategoryId = 3, MaxLastestNews = 3 })
+
+
+
+                                            </ul>
+                                        </div>
+                                    </div>
+
+
+
+
+                                    <div class="grid">
+
+
+
+
+
+                                        <div class="grid__item large--one-whole medium--one-half small--one-whole">
+                                            <div class="blog-sidebar">
+                                                <a href="/collections/all" class="bs-banner"><img src="/Content/blog_banner_1.webp?v=31" alt="Vcare Car Care"></a>
+                                            </div>
+                                        </div>
+
+
+
+
+
+
+                                        <div class="grid__item large--one-whole medium--one-half small--one-whole">
+                                            <div class="blog-sidebar">
+                                                <a href="/collections/all" class="bs-banner"><img src="/Content//blog_banner_2.png?v=31" alt="Vcare Car Care"></a>
+                                            </div>
+                                        </div>
+
+
+                                    </div>
+
+                                    <div class="fb-page medium--hide small--hide" data-href="https://www.facebook.com/Vcarecarcare" data-tabs="timeline" data-small-header="false" data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="true"><blockquote cite="https://www.facebook.com/Vcarecarcare" class="fb-xfbml-parse-ignore"><a href="https://www.facebook.com/Vcarecarcare">Facebook</a></blockquote></div>
+                                </div>
+
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+        </main>
+    </div>
+
+
+
+    <script>
+        $('#NewsContent table').removeAttr('width');
+
+        $('#NewsContent  img').removeAttr('width');
+    </script>
+    <script>
+    $("#menu_@Model.CategoryId").addClass("active");
+
+    </script>
+    @*<script src="https://apis.google.com/js/platform.js" async defer></script>
+        <script>
+            !function (d, s, id) {
+                var js, fjs = d.getElementsByTagName(s)
+                [0], p = /^http:/.test(d.location) ? 'http' : 'https'; if (!d.getElementById(id)) { js = d.createElement(s); js.id = id; js.src = p + '://platform.twitter.com/widgets.js'; fjs.parentNode.insertBefore(js, fjs); }
+            }(document, 'script', 'twitter-wjs');</script>*@
+}

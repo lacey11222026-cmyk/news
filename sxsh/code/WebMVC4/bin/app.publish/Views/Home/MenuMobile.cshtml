@@ -1,0 +1,29 @@
+﻿@using BIZ
+@using UTILS
+@using WebMVC4.Helper
+@model List<BIZ.Entity.CATEGORY_FULL>
+
+<div class="nav-mobile">
+    <div class="header-m">
+        <a href="#menu">
+            <img src="/Content/img/ico-menu.png" class="ico-menu pull-right">
+        </a>
+    </div>
+    <div id="menu">
+        <ul>
+            <li class="search-box w100">
+                <button class="search-icon" onclick="Msearch()"></button>
+                <input type="text" class="form-control" id="txtKeywordMobile" onkeydown="javascript: return MAnyInput_KeyDown(this, event);">
+            </li>
+            <li class="active"><a href="/">@Resources.Global.HomePage</a></li>
+            @foreach (var item in Model.Select((value, i) => new { i, value }))
+            {
+
+                <li>
+                    <a href="@Utils.FormatUrlRewriteByType(item.value.Id, item.value.Name, int.Parse(item.value.Type.ToString()), item.value.Link)">@item.value.Name.Replace("Video En", "Video") </a>
+                    @Html.Raw(HtmlHelpers.BindChildCategories(Convert.ToInt32(item.value.Id), int.Parse(item.value.Type.ToString())))
+                </li>
+            }
+        </ul>
+    </div>
+</div>

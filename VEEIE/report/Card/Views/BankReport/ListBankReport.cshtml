@@ -1,0 +1,183 @@
+﻿@using Car.Data
+@using Car.Utility
+@using Car.CMS.Helper
+@model List<Plan>
+@{ var idx = 0; }
+<table class="table table-striped table-bordered table-hover dataTable no-footer" id="dataTables">
+    <thead>
+        <tr class="rowsao">
+            <th>STT </th>
+            @if (ViewBag.Type != 3)
+            {
+                <th>Ngân hàng</th>
+
+            }
+
+            <th>Loại báo cáo</th>
+            <th>Năm</th>
+
+            @if (ViewBag.IsUpdate)
+            {
+                <th>Trạng Thái</th>
+            }
+            <th>Quản trị</th>
+
+        </tr>
+    </thead>
+    @if (Model != null && Model.Count > 0)
+    {
+        foreach (var obj in Model.Where(x => x.Name != ""))
+        {
+            { idx++; }
+            <tr>
+                <td>@(idx)</td>
+
+                @if (ViewBag.Type != 3)
+                {
+                    <td>@HtmlHelpers.GetBankName2(obj.UserName)</td>
+
+                }
+                <td>@HtmlHelpers.GetReportType(obj.Type.GetValueOrDefault())</td>
+                <td>@obj.Year</td>
+                @if (ViewBag.IsUpdate)
+                {
+            <td class="fun-arrange">
+                @if (obj.Status == 1)
+                {
+                    <text>Đã gửi báo cáo</text>
+
+                }
+                else
+                {
+                    if (obj.Status == 2)
+                    {
+                        <text>Bị trả lại </text>
+                    }
+                    else
+                    {
+                        <text>Chưa gửi báo cáo </text>
+                    }
+
+
+                }
+            </td>
+                }
+                <td style="text-align:left;max-width:200px;">
+                    <div style="width:100%; ">
+                        <div style="width:250px;margin: 0 auto;text-align:right" >
+                            @if (ViewBag.IsUpdate && obj.Status != 1)
+                            {
+                                <a href="@Url.Action("Info", new { id = obj.Id })"> Cập nhật</a> <text>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</text>
+
+                            }
+                            <a href="@Url.Action("View",new { id=obj.Id})" >Xem</a> <text>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</text>
+                            <a href="@Url.Action("ExportExcel",new { id=obj.Id})" target="_blank">Tải Excel</a> <text>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</text>
+                            @if (ViewBag.Type != 3)
+                            {
+                                <a href="javascript:;" onclick="UpdateStatus(@obj.Id,1);">Trả lại</a>
+                            }
+                        </div>
+                    </div>
+                   
+                </td>
+
+
+
+
+            </tr>
+        }
+    }
+</table>
+<script type="text/javascript">
+    var PageOnSize = '@ViewBag.PageSize';
+    var CurrentPage = '@ViewBag.CurrentPage';
+    function BindDataRequest(currentPage) {
+        var params = {
+            type: $("#ddlType").val(),
+            year: $("#ddlYear").val(),
+            bank: $("#ddlBank").val(),
+            currentPage: currentPage,
+            pageSize: PageOnSize
+        };
+        var urlRequestAns = "/BankReport/ListBankReport";
+        Utils.Loading();
+        $.ajax({
+            type: 'GET',
+            url: urlRequestAns,
+            data: params,
+            success: function (data) {
+                $("#ListReport").html(data);
+                Utils.UnLoading();
+            },
+            error: function () {
+                Utils.UnLoading();
+            }
+        });
+    };
+    $(document).ready(function () {
+
+
+        $("#pager").pager({
+            pagenumber: CurrentPage,
+            pagecount: Math.ceil('@ViewBag.TotalRecord' / PageOnSize),
+            buttonClickCallback: function (page) { BindDataRequest(page); }
+        });
+
+
+    });
+    function UpdateSortOrder(Id, UpOrder) {
+        var param = {
+            Id: Id,
+            SortOrder: UpOrder
+        }
+        $.ajax({
+            type: 'POST',
+            url: '/BankReport/UpdateSortOrder',
+            data: JSON.stringify(param),
+            contentType: 'application/json; charset=utf-8',
+            dataType: 'json',
+            async: true,
+            success: function (data) {
+                Utils.UnLoading();
+                var msg = data.Msg;
+                if (data.ResponseCode > 0) {
+                    BindDataRequest(CurrentPage);
+                }
+                else {
+                    bootbox.alert(msg);
+                }
+            }
+        });
+    }
+    function UpdateStatus(id,status) {
+        var type = "Trả lại";
+        if (status == 0) {
+            type = "Kích hoạt";
+        }
+        bootbox.confirm("Bạn muốn " + type + " báo cáo này ?", function (result) {
+            if (result == true) {
+                Utils.Loading();
+                $.ajax({
+                    type: 'POST',
+                    url: "/BankReport/UpdateStatus",
+                    data: {
+                        'id': id
+                    },
+                    success: function (data) {
+                        Utils.UnLoading();
+                        if (data.ResponseCode >= 0) {
+                            bootbox.alert(data.Description);
+                            BindDataRequest(CurrentPage);
+                        }
+                        else {
+                            bootbox.alert(data.Description);
+                            return;
+                        }
+                    }
+                });
+            }
+        });
+
+    }
+
+</script>

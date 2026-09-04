@@ -1,0 +1,40 @@
+﻿@using BIZ
+@using UTILS
+@using WebMVC4.Helper
+@model BIZ.Entity.CATEGORY_FULL
+@{
+    List<BIZ.Entity.CATEGORY_FULL> data = ViewBag.lstrelate;
+}
+@if (Model != null)
+{
+
+    <div class="data-page container">
+        <div class="row mt20">
+            <div class="col-md-3 col-sm-3 col-xs-12 data-list hidden-sm">
+                @if (Model.Id == 2 || Model.ParentId.GetValueOrDefault() == 2)
+                {
+                    <ul>
+                        <li id="intro_27"><a href="/gioi-thieu/c27/co-so-phap-ly.html">Cơ sở pháp lý</a></li>
+                        <li id="intro_28"><a href="/gioi-thieu/c28/to-chuc-quan-ly.html">Tổ chức quản lý</a></li>
+                        <li id="intro_38"><a href="/gioi-thieu/c38/quy-trinh-thuc-hien.html">Quy trình thực hiện</a></li>
+                    </ul>
+                }
+
+            </div><!-- end side bar left-->
+
+            <div class="col-md-9 col-sm-8 col-xs-12">
+                <h2 class="title-blue"><a href="#">@Model.Name</a></h2>
+                <div class="intro" id="NewsContent">
+                    @Html.Raw(Model.Contents)
+                </div>
+            </div>
+        </div>
+    </div><!-- end cong nghe page-->
+
+    
+    <script>
+        $('#intro_' +@(Model.Id)).addClass("active");
+    </script>
+   
+}
+

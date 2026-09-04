@@ -1,0 +1,9 @@
+﻿@model List<BIZ.Entity.MANUFACTORY_FULL>
+
+<ul  class="ul02">
+    @foreach (var item in Model.Select((value, i) => new { i, value }))
+    {
+        <li><a href="/san-pham.html?manufactory=,@(item.value.Id),">@item.value.Title</a></li>
+    }
+
+</ul>

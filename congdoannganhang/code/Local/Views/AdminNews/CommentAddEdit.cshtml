@@ -1,0 +1,266 @@
+﻿@{
+   
+    Layout = "~/Views/Shared/_Admin.cshtml";
+}
+
+<asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
+    <script type="text/javascript">
+        OpenAlertDialog('Đang xử lý ...');
+    </script>
+    <div id="toolbar-box">
+        <div class="t">
+            <div class="t">
+                <div class="t">
+                </div>
+            </div>
+        </div>
+        <div class="m">
+            <div class="toolbar" id="toolbar">
+                <table class="toolbar">
+                    <tr>
+                        <td class="button" id="toolbar-save">
+                            <a id="lnkSave" class="toolbar" href="javascript:void(0);" onclick="Save('close');">
+                                <span class="icon-32-save" title="Save"></span>Lưu lại</a>
+                        </td>
+                        <td class="button" id="toolbar-apply">
+                            <a id="lnkApply" class="toolbar" href="javascript:void(0);" onclick="Save();"><span
+                                class="icon-32-apply" title="Apply"></span>Áp dụng</a>
+                        </td>
+                        <td class="button" id="toolbar-cancel">
+                            <a id="lnkClose" class="toolbar" href="javascript:void(0);" onclick="Close();"><span
+                                class="icon-32-cancel" title="Close"></span>Đóng</a>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            
+            <div class="clr">
+            </div>
+        </div>
+        <div class="b">
+            <div class="b">
+                <div class="b">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="clr">
+    </div>
+    <div id="element-box">
+        <div class="t">
+            <div class="t">
+                <div class="t">
+                </div>
+            </div>
+        </div>
+        <div class="m" id="all_item_info_container">
+            <div id="jalert_notification">
+                &nbsp;</div>
+            <div class="col width-50">
+                <fieldset>
+                    <legend>Bình luận</legend>
+                    <table class="admintable" cellspacing="1">
+                        <tr>
+                            <td width="250" class="key">
+                                <label for="">
+                                    Loại đối tượng
+                                </label>
+                            </td>
+                            <td>
+                                  <select id="select_type" name="select_type" disabled="disabled" >
+                                        <option value="2">Tin tức</option>
+                                        <option value="4">Album Ảnh</option>
+                                        <option value="0">Sản phẩm</option>
+                                        
+                                    </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td width="250" class="key">
+                                <label for="">
+                                    Tên đối tượng
+                                </label>
+                            </td>
+                            <td>
+                                <input id="txtItemName" type="text" class="inputbox" maxlength="250" style="width: 250px" disabled="disabled" />
+                            </td>
+                        </tr>
+                         <tr>
+                            <td width="250" class="key">
+                                <label for="">
+                                    Người viết
+                                </label>
+                            </td>
+                            <td>
+                                <input id="txtUserName" type="text" class="inputbox" maxlength="250" style="width: 250px"  />
+                            </td>
+                        </tr>
+                         <tr>
+                            <td class="key">
+                                <label for="">
+                                    Nội dung
+                                </label>
+                            </td>
+                            <td>
+                                 <textarea id="txtMessage" cols="20" class="inputbox" style="width: 350px; height: 50px;"></textarea>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="key">
+                                <label for="">
+                                    Tình trạng
+                                </label>
+                            </td>
+                            <td>
+                               
+                                <input name="radPublished" type="radio" value="1" checked="checked" />
+                               Duyệt
+                                 <input name="radPublished" type="radio" value="0"  />
+                               Chưa duyệt
+                            </td>
+                        </tr>
+                       
+                        
+                    </table>
+                </fieldset>
+            </div>
+            <div class="clr">
+            </div>
+        </div>
+        <div class="b">
+            <div class="b">
+                <div class="b">
+                </div>
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript">
+
+        var id = '@ViewBag.Id';
+        var redirectUrl = '@Url.Action("Comment","AdminNews")';
+
+        $(document).ready(function () {
+            OnLoad();
+        });
+
+        function OnLoad() {
+
+            if (id != 0) {
+
+                $('#spDetailTitle').text('Sửa chữa');
+
+                $.Services({
+                    serviceName: 'CommentService.ashx',
+                    data: {
+                        __m: 'get_comment',
+                        _id: id
+                    },
+                    success: function (data) {
+
+                        if (data != undefined && data != null && data != '')
+                            BindData(data);
+                        else
+                            $('#all_item_info_container').html("Bình luận hoặc đã bị xóa");
+
+                        DestroyDialog();
+                    }
+                });
+            }
+            else {
+                $('#all_item_info_container').html("Bình luận hoặc đã bị xóa");
+                DestroyDialog();
+            }
+        }
+
+        function BindData(data) {
+
+            $('#txtItemName').val(data.ItemName);
+            $('#txtUserName').val(data.UserName);
+
+            $('input[name="radPublished"]').each(function (i, e) {
+                if ($(e).val() == data.Published)
+                    $(e).attr('checked', 'checked');
+                else
+                    $(e).removeAttr('checked');
+            });
+            $('#select_type option[value=' + data.Type + ']').attr('selected', 'selected');
+            $('#txtMessage').val(data.Message);
+        }
+
+        function PostObj(method) {
+            var itemname = $.trim(Encoder.urlEndcode($('#txtItemName').val()));
+            if (itemname == '') {
+                $('#txtItemName').focus();
+                return;
+            }
+            var username = $.trim(Encoder.urlEndcode($('#txtUserName').val()));
+            if (username == '') {
+                $('#txtUserName').focus();
+                return;
+            }
+            var message = $.trim(Encoder.urlEndcode($('#txtMessage').val()));
+            if (message == '') {
+                $('#txtMessage').focus();
+                return;
+            }
+            var published = 0;
+            published = $('input[name="radPublished"]:checked').val();
+           
+
+            var post_data = {
+                __m: method,
+                id:id,
+                username: username,
+                message: message,
+                published: published
+               
+            }
+
+            return post_data;
+        }
+
+        function Save(type) {
+
+            OpenLoadingDialog("<div align=\"center\" style=\"padding:5px\>Đang xử lý...</div>");
+
+            $.Services({
+
+                isCrossDomain: false,
+                url: POST_URL + 'CommentService.ashx',
+                data: PostObj('save'),
+                success: function (data) {
+
+                    if (data != undefined && data != null && data != '') {
+                        var json_data = eval('(' + data + ')');
+
+                        if (json_data.Success) {
+
+                            if (json_data.Value != 0 && json_data.Value != null && json_data.Value != undefined && json_data.Value != '') {
+                                attributeGroupId = json_data.Value;
+                            }
+
+                            //OnLoad();
+                        }
+                    }
+
+                    if (type != undefined && type != null && type != '' && type == 'close')
+                        Close();
+
+                    DestroyDialog();
+
+                    var jalert_type = "info";
+                    if (!json_data.Success)
+                        jalert_type = "fatal";
+
+                    $('#jalert_notification').jAlert(json_data.Text, jalert_type, "edit", 400);
+                }
+            });
+        }
+
+        function Close() {
+            window.location.href = redirectUrl;
+        }
+                    
+    </script>
+</asp:Content>
+

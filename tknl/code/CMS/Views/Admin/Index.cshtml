@@ -1,0 +1,168 @@
+﻿@{
+   
+    Layout = "~/Views/Shared/_AdminV2.cshtml";
+     ViewBag.url = "https://docs.google.com/gview?url=http://media.vneec.gov.vn/Images/admin_tietkiemnangluong.pdf&embedded=true";
+}
+@using CMS
+@{
+    var IsUser = Request.IsAuthenticated;
+    var IsCategory = false;
+    var IsAlbum = false;
+    var IsContact = false;
+   
+    var IsNews = false;
+    var IsAdmin = false;
+    var IsReport = false;
+    var IsComment = false;
+    var IsMark = false;
+    bool IsSurvey = HttpContext.Current.User.IsInRole("Administrator") || HttpContext.Current.User.IsInRole("Survey");
+  
+    bool IsDocument = HttpContext.Current.User.IsInRole("Administrator") || HttpContext.Current.User.IsInRole("Document");
+    if (HttpContext.Current.User.IsInRole("Administrator") || HttpContext.Current.User.IsInRole("Category"))
+    {
+        IsCategory = true;
+    }
+    if (HttpContext.Current.User.IsInRole("Administrator") || HttpContext.Current.User.IsInRole("Album"))
+    {
+        IsAlbum = true;
+    }
+
+    if (HttpContext.Current.User.IsInRole("Administrator") || HttpContext.Current.User.IsInRole("Comment"))
+    {
+        IsComment = true;
+    }
+    if (HttpContext.Current.User.IsInRole("Administrator") || HttpContext.Current.User.IsInRole("Contact"))
+    {
+        IsContact = true;
+    }
+    if (HttpContext.Current.User.IsInRole("Administrator") || HttpContext.Current.User.IsInRole("Report"))
+    {
+        IsReport = true;
+    }
+
+    if (HttpContext.Current.User.IsInRole("Administrator"))
+    {
+        IsAdmin = true;
+    }
+    if (HttpContext.Current.User.IsInRole("Administrator") || HttpContext.Current.User.IsInRole("Mark"))
+    {
+
+        IsMark = true;
+    }
+
+    if (HttpContext.Current.User.IsInRole("Administrator") || HttpContext.Current.User.IsInRole("NewsEdit") || HttpContext.Current.User.IsInRole("NewsPublish") || HttpContext.Current.User.IsInRole("NewsCreate"))
+    {
+        IsNews = true;
+    }
+
+    
+}
+<div id="content">
+    <div class="inner">
+        <h1>Khung điều khiển</h1>
+        <ul id="shortcut">
+            @*<li>
+                <a id="shortcut_home" href="@CMS.MvcApplication.SiteUrl" title="Trang chủ">
+                    <img alt="home" src="/styles/admin/images/shortcut/home.png"><br>
+                    <strong>Trang chủ</strong>
+                </a>
+            </li>*@
+            @if (IsCategory)
+            {
+                <li>
+                    <a href="@Url.Action("Index", "AdminCategory")" title="Chuyên mục">
+                        <img alt="calendar" src="/styles/admin/images/shortcut/category.png" height="40" width="40"><br>
+                        <strong>Chuyên mục</strong>
+                    </a>
+                </li> 
+         
+            }
+            @if (IsNews)
+            {
+         
+                <li>
+                    <a title="Tin tức" id="shortcut_posts" href="@Url.Action("Index", "AdminNews2")">
+                        <img alt="posts" src="/styles/admin/images/shortcut/posts.png"><br>
+                        <strong>Tin tức</strong>
+                    </a>
+                </li>
+            }
+            @if (IsDocument)
+            {
+         
+                <li>
+                    <a title="Kênh tin" id="shortcut_channel" href="@Url.Action("Index", "AdminDocument")">
+                        <img alt="posts" src="/styles/admin/images/shortcut/calendar.png"><br>
+                        <strong>Văn bản</strong>
+                    </a>
+                </li>
+            }
+
+
+            @if (IsMark && UTILS.Utils.GetAppSettingValue("EnableMark") == "1" )
+            {
+                <li>
+                    <a title="Hệ thống" href="@Url.Action("Index", "Mark")">
+                        <img alt="setting" src="/styles/admin/images/shortcut/money.png" height="40" width="40"><br>
+                        <strong>Nhuận bút</strong>
+                    </a>
+                </li>
+            }
+            @if (IsComment || HttpContext.Current.User.IsInRole("NewsPublish"))
+            {
+                <li>
+                    <a title="Bình luận" href="@Url.Action("Index", "AdminComment")">
+                        <img alt="setting" src="/styles/admin/images/shortcut/comment.png" height="40" width="40"><br>
+                        <strong>Bình luận</strong>
+                    </a>
+                </li>
+
+            }
+
+            @if (IsReport || HttpContext.Current.User.IsInRole("NewsPublish"))
+            {
+                <li>
+                    <a title="Hệ thống" href="@Url.Action("Index", "AdminReport")">
+                        <img alt="setting" src="/styles/admin/images/shortcut/stats.png"><br>
+                        <strong>Thống kê</strong>
+                    </a>
+                </li>
+
+            }
+            @if (IsAdmin)
+            {
+                <li>
+                    <a title="Hệ thống" href="@Url.Action("Users", "System")">
+                        <img alt="setting" src="/styles/admin/images/shortcut/setting.png"><br>
+                        <strong>Hệ thống</strong>
+                    </a>
+                </li>
+
+            }
+@*<li>
+                <a title="Click me to open modal window" href="modal_window.html">
+                    <img alt="stats" src="/styles/admin/images/shortcut/stats.png"><br>
+                    <strong>Stats</strong>
+                </a>
+            </li>
+            
+            <li>
+                <a title="Click me to open modal window" id="shortcut_contacts" href="modal_window.html">
+                    <img alt="contacts" src="/styles/admin/images/shortcut/contacts.png"><br>
+                    <strong>Contacts</strong>
+                </a>
+            </li>*@
+
+        </ul>
+
+    </div>
+	 <div>
+        <iframe src="@ViewBag.url" style="width: 100%; height:1000px; border: 0px none;" id="source"></iframe>
+    </div>
+</div>
+<script type="text/javascript" language="javascript">
+    $(document).ready(function () {
+        $('#menu_generate').click();
+    });
+
+</script>

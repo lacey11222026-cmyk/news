@@ -1,0 +1,18 @@
+﻿@model List<DATA.Banner>
+@if (Model != null)
+{
+    <div class="column-inner">
+        <div class="wpb_wrapper">
+            <div class="wpb_single_image wpb_content_element align_center">
+                @foreach (var item in Model.Select((value, i) => new { i, value }))
+                {
+                    <figure class="wpb_wrapper figure">
+                        <a href="@item.value.Url" rel="nofollow" target="_blank">
+                            <img src="@item.value.Data" alt="">
+                        </a>
+                    </figure>
+                }
+            </div>
+        </div>
+    </div>
+}

@@ -1,0 +1,72 @@
+﻿@using BIZ
+@using UTILS
+@using WebMVC4.Helper
+@model List<BIZ.Entity.CATEGORY_FULL>
+@{
+    Layout = "~/Views/Shared/_Home.cshtml";
+
+}
+
+
+
+<div class="row content01">
+    <div class="col-md-8 col-sm-8 col-xs-12">
+        @{Html.RenderAction("LastestNews", "Home", new { CateName = "", CategoryId = 16, MaxLastestNews = 7 });}
+    </div>
+    <div class="col-md-4 col-sm-4 col-xs-12 banklist">
+        @{Html.RenderAction("ReportEn", "Home", new { param = "" });}
+        <ul class="bnrlogo mt15">
+            @{Html.RenderAction("BannerRight1", "Home", new { param = "" });}
+        </ul>
+    </div>
+</div><!-- end row-->
+
+@{Html.RenderAction("Banner", "Home", new { Type = 2 });}
+<div class="row mt30">
+    <div class="col-md-4 col-sm-4 col-xs-6 box-item maxheight03">
+        @{Html.RenderAction("LastestNews2", "Home", new { CateName = "", CategoryId = 46, MaxLastestNews = 3 });}
+    </div>
+
+    <div class="col-md-4 col-sm-4 col-xs-6 maxheight03 border-l-gray box-item pull-right">
+        <ul class="link-list">
+            @{Html.RenderAction("BannerRight2", "Home");}
+        </ul>
+    </div>
+    <div class="col-md-4 col-sm-4 col-xs-12 border-l-gray maxheight03 pull-left fixmb">
+        <div class="row">
+            <div class="col-sm-12 col-xs-6 maxheight04" style="">
+                @{Html.RenderAction("TopQuestion", "Home", new { CateName = "", CategoryId = 22, MaxLastestNews = 5 });}
+            </div>
+            <div class="col-sm-12 col-xs-6 maxheight04" style="">
+                <div class="maxheight02 mt30" style=""><h2 class="title-cm"><a href="/Document/Index/19">MATERIALS</a></h2></div>
+                <ul class="document-list">
+                    <li><a href="/Document/Index/24">PROJECT DOCUMENTS</a></li>
+                    <li><a href="/Document/Index/25">ENERGY EFFICIENCY HANDBOOK</a></li>
+                    <li><a href="/hoi-dap/c23/consulting-firms.html">CONSULTING FIRMS</a></li>
+                    <li><a href="/hoi-dap/c21/application-form.html">APPLICATION FORM</a></li>
+                    <li><a href="/Document/Index/39">OTHER MATERIALS</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script>
+
+        function loadslide() {
+            $.ajax({
+                type: "Get",
+                url: "@Url.Action("Banner2", new { Type = 2 })",
+                success: function (data) {
+                    if (data) {
+                        $("#bnr-slide").html(data);
+                    }
+                }
+            });
+        }
+        setTimeout(function () {
+            loadslide();
+        }, 2);
+
+</script>

@@ -1,0 +1,35 @@
+﻿@using BIZ
+@using UTILS
+@using WebEN.Helper
+
+
+@{Html.RenderAction("Slide", "Home");}
+
+
+
+@{Html.RenderAction("BannerCenter1", "Banner",new { currentCategoryId=10001});}
+
+
+<div class="mt40 content02-en">
+    @{Html.RenderAction("LastestNews", "Home", new { CategoryId = 17, MaxLastestNews = 4 });}
+
+</div>
+<div class="mt40 content02-en">
+    @{Html.RenderAction("LastestNews", "Home", new { CategoryId = 18, MaxLastestNews = 4 });}
+
+</div>
+<div class="clear"></div>
+
+@{Html.RenderAction("BannerCenter3", "Banner", new { currentCategoryId = 10001 });}
+
+
+<div class="clear"></div>
+
+@section scripts {
+    <script>
+        //$("#menu_home").addClass("active homeactive");
+        $("#foot_home").addClass("active homeactive");
+        //$("#menu_home img").attr("src", "https://media.tietkiemnangluong.com.vn//Content/images/icon-home-green.png")
+        $("#foot_home img").attr("src", "https://media.tietkiemnangluong.com.vn//Content/images/icon-home-green.png")
+    </script>
+}

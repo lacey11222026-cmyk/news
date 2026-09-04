@@ -1,0 +1,144 @@
+﻿@using BIZ
+@using UTILS
+@using WebMVC4.Helper
+@model WebMVC4.Models.DocumentModel
+
+@{
+    var langpage = WorkContext.GetLanguage();
+}
+<div class="vanban-page container pb60 pt40">
+    <div class="row row-50">
+        <div class="col-lg-8 col-md-12">
+            @{Html.RenderAction("Breadcrumb", "News", new { CategoryId = Model.CategoryId });}
+            <div class="mt30">
+                <div class="text-center document-search">
+                    <div class="form-group">
+                        <label class="">@Resources.Global.Keyword</label>
+                        <input id="txtkeyword" class="form-control" type="text" value="@ViewBag.keyword">
+                    </div>
+                    <div class="form-group">
+                        <label class="">@Resources.Global.FromDate</label>
+                        <input id="txtfromdate" class="form-control" type="text" value="@ViewBag.fromdate" placeholder="dd/MM/yyyy">
+                    </div>
+                    <div class="form-group">
+                        <label class="">@Resources.Global.ToDate</label>
+                        <input id="txtfromdate" class="form-control" type="text" value="@ViewBag.todate" placeholder="dd/MM/yyyy">
+                    </div>
+                    <div>
+                        <a href="javascript:;" onclick="searchdoc();" class="btn-green">@Resources.Global.MenuSearch</a>
+                    </div>
+                </div>
+                @*<div class="text-center document-search">
+                        <form class="form-inline">
+                            <div class="form-group">
+                                <label class="">@Resources.Global.Keyword</label>
+                                <input id="txtkeyword" class="form-control" type="text" value="@ViewBag.keyword" width="190">
+                            </div>
+                            <div class="form-group">
+                                <label>@Resources.Global.FromDate</label>
+                                <input id="txtfromdate" placeholder="dd/MM/yyyy" value="@ViewBag.fromdate" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label>@Resources.Global.ToDate</label>
+                                <input id="txttodate" placeholder="dd/MM/yyyy" value="@ViewBag.todate" class="form-control">
+                            </div>
+                            <div>
+                                <button type="button" onclick="searchdoc();" class="btn-green">@Resources.Global.MenuSearch</button>
+                            </div>
+
+                        </form>
+                    </div>*@
+                <div class="document-tbl table-responsive mt20">
+                    <table>
+                        <tbody>
+                            <tr>
+                                <th>@Resources.Global.DocNumber </th>
+                                <th>@Resources.Global.DocCode </th>
+                                <th style="width: 320px;">@Resources.Global.DocName </th>
+                                <th>@Resources.Global.DocPublishDate </th>
+                                <th>@Resources.Global.DocDownload </th>
+
+                            </tr>
+                            @foreach (var item in Model.listdata.Select((value, i) => new { i, value }))
+                            {
+                                <tr>
+                                    <td style="text-align: center" align="center">@(item.i + 1) </td>
+                                    <td align="center">@item.value.Code</td>
+                                    <td style="width:320px;">
+                                        <a href="@Url.Action("Detail","Document",new { id=item.value.Id})">
+                                            @item.value.Name
+                                        </a>
+                                    </td>
+                                    <td align="center"> @Convert.ToDateTime(item.value.PublishDate).ToString(@" dd'/'MM'/'yyyy") </td>
+                                    <td align="center">
+                                        <div style="width: 99px;">
+                                            <a href="@Url.Action("DownloadFile", "Document", new {id = item.value.Id})">
+                                                <img style="width: 17px;" src="/Content/images/icon-pdf.png">
+                                            </a>
+                                            <br />
+                                            <a href="@Url.Action("ViewFile", "Document", new {id = item.value.Id})" target="_blank">@Resources.Global.DocViewOnline </a>
+                                        </div>
+
+                                    </td>
+
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="paging mt50 text-center">
+                    <ul>
+                        @{Html.RenderPartial("Pagination", new WebMVC4.Models.PaginationInfo
+                            {
+                                PageUrl = Url.SetParameter("Page", "!0"),
+                                CurrentPage = Model.pageIndex,
+                                PageSize = Model.pageSize,
+                                TotalItemCount = Model.total,
+                            }); }
+                    </ul>
+                </div>
+            </div>
+
+
+        </div>
+        <div class="col-lg-4 col-md-12 sidebar">
+            @Html.Partial("Site_Right2")
+        </div>
+    </div>
+</div><!-- end main content-->
+<h2 class="title-cm"><a href="#">@Resources.Global.BankSupport</a></h2>
+<br />
+<div class="bg-gray pt40 pb40">
+    <div class="container">
+        <ul class="slick02">
+            @{Html.RenderAction("BannerBottom", "Home", new { lang = langpage });}
+        </ul>
+    </div>
+</div>
+
+
+
+
+
+<script type="text/javascript">
+
+
+    function searchdoc() {
+        var id = '@Model.CategoryId';
+        var keyword = $("#txtkeyword").val();
+        var fromdate = $("#txtfromdate").val();
+        var todate = $("#txttodate").val();
+        window.location = '/Document/Index/' + id + '/?keyword=' + keyword + '&fromdate=' + fromdate + '&todate=' + todate;
+        //window.location = jQuery.query.set("keyword", keyword).set("fromdate", fromdate).set("todate", todate).set("Page", "1");
+    }
+</script>
+@section scripts {
+    <script type="text/javascript">
+
+        $('#menu_3').addClass("active");
+
+        $('#menu_56').addClass("active");
+
+    </script>
+}

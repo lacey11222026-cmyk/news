@@ -1,0 +1,17 @@
+﻿@using BIZ.Entity
+@using UTILS
+@using WebMVC4.Helper
+@model List<CATEGORY_FULL>
+
+@foreach (var item in Model.Select((value, i) => new { i, value }))
+{
+    if (item.value.Param.IsFooter == 0)
+    {
+        <li class="menu-item menu-item-type-taxonomy menu-item-object-product_cat menu-item-@item.value.Id item-level-0"><a href="@item.value.Url" class="woodmart-nav-link"><span class="nav-link-text">@item.value.Name</span></a></li>
+    }
+    else
+    {
+        <li class="menu-item menu-item-type-taxonomy menu-item-object-product_cat menu-item-@item.value.Id item-level-0 menu-item-has-block menu-item-has-children"><a href="@item.value.Url" class="woodmart-nav-link"><span class="nav-link-text">@item.value.Name</span></a><span class="icon-sub-menu"></span></li>
+    }
+
+}

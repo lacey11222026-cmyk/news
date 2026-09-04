@@ -1,0 +1,112 @@
+﻿@{
+
+    Layout = "~/Views/Shared/_Layout3.cshtml";
+
+}
+
+<img src="/images/timkiem.jpg" />
+<div class="clear"></div>
+
+<table class="bgt-table-search">
+    <tr>
+        <td width="11%" height="40">Tuyến</td>
+        <td width="28%" height="40">
+            <select id="lstuyen">
+                <option value="0">- Chọn tuyến -</option>
+                <option value="3">Hà Nội - Sài Gòn</option>
+                <option value="4">Sài Gòn - Hà Nội</option>
+                <option value="1">Hà nội - Lào cai</option>
+                <option value="5">Lào Cai - Hà Nội</option>
+                <option value="6">Hà Nội - Hải Phòng</option>
+                <option value="7">Hải Phòng - Hà Nội</option>
+                <option value="8">Hà Nội - Đồng Đăng</option>
+                <option value="9">Đồng Đăng - Hà Nội</option>
+                <option value="11">Hà Nội - Quán Triều</option>
+                <option value="12">Quán Triều - Hà Nội</option>
+                <option value="13">Hà Nội - Lào</option>
+            </select>
+        </td>
+        <td width="20%" height="40">&nbsp;</td>
+        <td width="20%" height="40">Mã tàu</td>
+        <td width="21%" height="40">
+            <select id="lsmatau" style="border:solid 1px #CCC; padding:4px;">
+                <option value="">- Tất cả -</option>
+            </select>
+        </td>
+    </tr>
+    <tr>
+        <td height="40">Ga đi</td>
+        <td height="40">
+            <select id="lsfrom" style="border:solid 1px #CCC; padding:4px;">
+                <option value="">- Tất cả -</option>
+            </select>
+        </td>
+        <td height="40">&nbsp;</td>
+        <td height="40">Ga đến</td>
+        <td height="40">
+            <select id="lsto" style="border:solid 1px #CCC; padding:4px;">
+                <option value="">- Tất cả -</option>
+            </select>
+        </td>
+    </tr>
+    <tr>
+        <td>&nbsp;</td>
+        <td colspan="3">
+            <button onclick="viewdetail(); return false;" class="btn-search">
+                <span>Xem giờ</span>
+            </button>
+        </td>
+    </tr>
+</table>
+
+<div id="railwaycontainer" style="padding-bottom: 40px; display:none;" class="clear">
+    <h2 class="lich">Lịch trình các chuyến tàu</h2>
+    <div class="clear"></div>
+    <div id="railway">
+
+    </div>
+</div>
+<br />
+
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#lstuyen').change(function (e) {
+            $.ajax({
+                type: "POST",
+                url: "/Post/TrafficManual.ashx?m=getsection&id=" + window.encodeURIComponent($(this).val()),
+                cache: false
+            }).done(function (msg) {
+                var obj = jQuery.parseJSON(msg);
+                $('#lsmatau option,#lsfrom option,#lsto option').not(":first").remove();
+                $.each(obj.matau, function (i, item) {
+                    $('#lsmatau').append($('<option>', {
+                        value: item,
+                        text: item
+                    }));
+                });
+                $.each(obj.stop, function (i, item) {
+                    $('#lsfrom').append($('<option>', {
+                        value: item,
+                        text: item
+                    }));
+                    $('#lsto').prepend($('<option>', {
+                        value: item,
+                        text: item
+                    })).val($("#lsto option:first").val());
+                });
+            });
+        });
+    });
+
+    function viewdetail() {
+        $.ajax({
+            type: "POST",
+            url: "/Post/TrafficManual.ashx?m=gettime&section=" + window.encodeURIComponent($('#lstuyen').val()) + "&train=" + window.encodeURIComponent($('#lsmatau').val()) + "&from=" + window.encodeURIComponent($('#lsfrom').val()) + "&to=" + window.encodeURIComponent($('#lsto').val()),
+            cache: true
+        }).done(function (msg) {
+            $('#railway').html(msg);
+            $('#railwaycontainer').show();
+        });
+    }
+</script>

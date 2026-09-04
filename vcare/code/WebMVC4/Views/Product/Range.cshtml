@@ -1,0 +1,160 @@
+﻿@model List<BIZ.Entity.MANUFACTORY_FULL>
+<aside id="nav_menu-15" class="widget widget_nav_menu">
+    <h2 class="widget-title">Chọn khoảng giá</h2>
+    <div class="menu-loc-theo-hang-2-container">
+        <ul class="price">
+            <li onclick="selectPrice(this)">
+                <input value="1" class="price-filter even-filter" type="checkbox" @(ViewBag.Type == 1 ? "checked" : "")>
+                <span>Dưới 20 triệu</span>
+            </li>
+            <li onclick="selectPrice(this)">
+                <input value="2" class="price-filter even-filter" type="checkbox" @(ViewBag.Type == 2 ? "checked" : "")>
+                <span>Từ 20 triệu - 50 triệu</span>
+            </li>
+            <li onclick="selectPrice(this)">
+                <input value="3" class="price-filter even-filter" type="checkbox" @(ViewBag.Type == 3 ? "checked" : "")>
+                <span>Từ 50 triệu - 70 triệu</span>
+            </li>
+            <li onclick="selectPrice(this)">
+                <input value="4" class="price-filter even-filter" type="checkbox" @(ViewBag.Type == 4 ? "checked" : "")>
+                <span>Từ 70 triệu - 100 triệu</span>
+            </li>
+
+            <li onclick="selectPrice(this)">
+                <input value="5" class="price-filter even-filter" type="checkbox" @(ViewBag.Type == 5 ? "checked" : "")>
+                <span>Trên 100 triệu</span>
+            </li>
+        </ul>
+    </div>
+    <div>
+        <h3 class="widget-title">Xuất sứ</h3>
+        <div class="tab-select national">
+            <label onclick="filternational()">
+                <input type="checkbox" name="made_in" value="1" @(ViewBag.National.Contains(",1,") ? "checked" : "")>Nhật Bản
+            </label>
+            <label onclick="filternational()">
+                <input type="checkbox" name="made_in" value="2" @(ViewBag.National.Contains(",2,") ? "checked" : "")>Hàn Quốc
+            </label>
+        </div>
+    </div>
+    <div>
+        <h3 class="widget-title">Hãng sản xuất</h3>
+        <div class="tab-select">
+            @foreach (var item in Model.Select((value, i) => new { i, value }))
+            {
+                <label onclick="filtermanu()"><input type="checkbox" name="manu" value="@item.value.Id" @(ViewBag.Manufactory.Contains(","+item.value.Id+",") ? "checked" : "")>@item.value.Title</label>
+            }
+        </div></>
+    </div>
+    <div>
+        <h3 class="widget-title">Tấm lá điện phân</h3>
+        <div class="tab-select">
+            <label onclick="filterflag()"><input type="checkbox" name="electrolytic" value="3" @(ViewBag.Flag.Contains(",3,") ? "checked" : "")>3 tấm</label>
+            <label onclick="filterflag()"><input type="checkbox" name="electrolytic" value="5" @(ViewBag.Flag.Contains(",5,") ? "checked" : "")>5 tấm</label>
+            <label onclick="filterflag()"><input type="checkbox" name="electrolytic" value="7" @(ViewBag.Flag.Contains(",7,") ? "checked" : "")>7 tấm</label>
+            <label onclick="filterflag()"><input type="checkbox" name="electrolytic" value="8" @(ViewBag.Flag.Contains(",8,") ? "checked" : "")>8 tấm</label>
+            <label onclick="filterflag()"><input type="checkbox" name="electrolytic" value="9" @(ViewBag.Flag.Contains(",9,") ? "checked" : "")>9 tấm</label>
+            <label onclick="filterflag()"><input type="checkbox" name="electrolytic" value="11" @(ViewBag.Flag.Contains(",11,") ? "checked" : "")>11 tấm</label>
+            <label onclick="filterflag()"><input type="checkbox" name="electrolytic" value="12" @(ViewBag.Flag.Contains(",12,") ? "checked" : "")>12 tấm</label>
+        </div></>
+    </div>
+    <div>
+        <h3 class="widget-title">Nước tạo ra</h3>
+        <div class="tab-select">
+            <label onclick="filterwater()"><input type="checkbox" name="water_type" value="5" @(ViewBag.WaterType.Contains(",5,") ? "checked" : "")>5 loại nước</label>
+            <label onclick="filterwater()"><input type="checkbox" name="water_type" value="6" @(ViewBag.WaterType.Contains(",6,") ? "checked" : "")>6 loại nước</label>
+            <label onclick="filterwater()"><input type="checkbox" name="water_type" value="7" @(ViewBag.WaterType.Contains(",7,") ? "checked" : "")>7 loại nước</label>
+            <label onclick="filterwater()"><input type="checkbox" name="water_type" value="8" @(ViewBag.WaterType.Contains(",8,") ? "checked" : "")>8 loại nước</label>
+        </div>
+    </div>
+</aside>
+<script>
+    var updateQueryStringParam = function (key, value) {
+        var baseUrl = [location.protocol, '//', location.host, location.pathname].join(''),
+            urlQueryString = document.location.search,
+            newParam = key + '=' + value,
+            params = '?' + newParam;
+
+        // If the "search" string exists, then build params from it
+        if (urlQueryString) {
+            var keyRegex = new RegExp('([\?&])' + key + '[^&]*');
+
+            // If param exists already, update it
+            if (urlQueryString.match(keyRegex) !== null) {
+                params = urlQueryString.replace(keyRegex, "$1" + newParam);
+            } else { // Otherwise, add it to end of query string
+                params = urlQueryString + '&' + newParam;
+            }
+        }
+        window.history.replaceState({}, "", baseUrl + params);
+    };
+    function selectPrice(obj) {
+        var o = $(obj).find(".price input");
+        var value = o.val();
+        //alert(!o.is(":checked"));
+        if (!o.is(":checked")) {
+            value = 0;
+        }
+
+        updateQueryStringParam('type', value);
+        location.reload();
+
+
+    }
+    function filternational() {
+        var value = '';
+        var data = $('input[type="checkbox"][name="made_in"]:checked');
+        $.each(data, function (i, item) {
+
+            value += "," + $(item).val();
+
+        });
+        if (value.length > 1) {
+            value += ",";
+        }
+        updateQueryStringParam('national', value);
+        location.reload();
+    }
+    function filterflag() {
+        var value = '';
+        var data = $('input[type="checkbox"][name="electrolytic"]:checked');
+        $.each(data, function (i, item) {
+
+            value += "," + $(item).val();
+
+        });
+        if (value.length > 1) {
+            value += ",";
+        }
+        updateQueryStringParam('flag', value);
+        location.reload();
+    }
+    function filtermanu() {
+        var value = '';
+        var data = $('input[type="checkbox"][name="manu"]:checked');
+        $.each(data, function (i, item) {
+
+            value += "," + $(item).val();
+
+        });
+        if (value.length > 1) {
+            value += ",";
+        }
+        updateQueryStringParam('manufactory', value);
+        location.reload();
+    }
+    function filterwater() {
+        var value = '';
+        var data = $('input[type="checkbox"][name="water_type"]:checked');
+        $.each(data, function (i, item) {
+
+            value += "," + $(item).val();
+
+        });
+        if (value.length > 1) {
+            value += ",";
+        }
+        updateQueryStringParam('waterType', value);
+        location.reload();
+    }
+</script>

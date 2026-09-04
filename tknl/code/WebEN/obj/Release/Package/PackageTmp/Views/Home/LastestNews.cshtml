@@ -1,0 +1,51 @@
+﻿@using BIZ
+@using UTILS
+@using WebEN.Helper
+@model WebEN.Models.LastestNewModel
+@if (Model != null)
+{
+    if (Model.lstdata.Count > 0)
+    {
+        <div class="newsen-boxcm container">
+            <div class="title-en">
+                <a href="@Model.Url">@Model.HeaderTitle</a>
+            </div>
+            <div class="row mt20">
+                @foreach (var item in Model.lstdata.Take(1).Select((value, i) => new { i, value }))
+                {
+                    <div class="col-md-5 col-sm-6 col-xs-12 news-en-big02">
+                        <a href="@item.value.LinkUrl">
+                            <img src="@item.value.MainImage?w=466&h=307&mode=crop">
+                            <span class="mt10">@item.value.Title</span>
+                        </a>
+                        <span class="newsdate mt10">@item.value.PublishDate.ToString("dd/MM/yyyy")</span>
+                        <p class="mt10">@item.value.IntroText</p>
+                    </div>
+                }
+                <div class="col-md-7 col-sm-6 col-xs-12">
+                    <ul class="news-en-list">
+                        @foreach (var item in Model.lstdata.Skip(1).Select((value, i) => new { i, value }))
+                        {
+                            <li>
+                                <a href="@item.value.LinkUrl">
+                                    <img src="@item.value.MainImage?w=199&h=131&mode=crop">
+                                </a>
+                                <div>
+                                    <a href="@item.value.LinkUrl">@item.value.Title</a>
+                                    <span class="newsdate mt10">@item.value.PublishDate.ToString("dd/MM/yyyy")</span>
+                                    <p class="mt10">@item.value.IntroText</p>
+                                </div>
+                            </li>
+                        }
+
+                    </ul>
+                    <a href="@Model.Url" class="btn-en-viewmore">View more</a>
+                </div>
+            </div>
+        </div>
+
+
+
+
+    }
+}

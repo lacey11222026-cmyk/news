@@ -1,0 +1,15 @@
+﻿<div class="sidebar-right box-03">
+    @Html.Action("BannerRight", "Home")
+    <div class="document">
+        <a href="/Document/Index/8" class="title-cm">VĂN BẢN VÀ THÔNG BÁO</a>
+        @*<img src="~/Content/images/img_document.jpg">*@
+        @Html.Action("TopDocument", "Home")
+    </div>
+    @Html.Action("HomeVideo", "Home")
+   
+    
+    @Html.Action("RightLastestNews", "Home", new { CategoryId = 9, CateName = "Tài liệu", MaxLastestNews = 3 })
+   
+    @Html.Action("BannerRight2", "Home")
+</div><!-- end side bar right-->
+<div class="clearfix"></div>

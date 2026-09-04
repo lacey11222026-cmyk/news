@@ -1,0 +1,68 @@
+﻿@using BIZ
+@using UTILS
+@using WebMVC4.Helper
+
+
+@{
+    Layout = "~/Views/Shared/_Home.cshtml";
+}
+<div class="row">
+    <div class="col-md-8 col-sm-12 col-xs-12">
+        <div class="maxheight10">
+            @{Html.RenderAction("LastestNews2", "Home", new { CateName = "", CategoryId = 5, MaxLastestNews = 8, cssClass = "" });}
+        </div>
+
+        <div class="row">
+            @{Html.RenderAction("Banner", "Home");}
+        </div>
+    </div><!-- end main content-->
+
+    <div class="col-md-4 col-sm-12 col-xs-12 sidebar">
+        <div class="row">
+            <div class="col-md-12 col-sm-12 col-xs-12 box-document maxheight10">
+                <h2 class="title-cm"><a href="javascript:;">Tin nổi bật</a></h2>
+                @{Html.RenderAction("HotNews", "Home");}
+            </div>
+            <ul class="col-md-12 bnr-link hidden-sm" style="margin-top:20px;">
+                @{Html.RenderAction("BannerRight", "Home", new { top = 1 });}
+            </ul>
+        </div>
+    </div><!-- end sidebar-->
+    <div class="clearfix"></div>
+</div><!-- end row-->
+
+<div class="border-t-green mt15">
+    <div class="row item-cm mt15">
+        <div class="col-md-4 col-sm-4 col-xs-12 box-item">
+            @{Html.RenderAction("LastestNews", "Home", new { CateName = "", CategoryId = 7, MaxLastestNews = 3, cssClass = "maxheight02" });}
+        </div>
+        <div class="col-md-4 col-sm-4 col-xs-12 box-item border-l-gray">
+            @{Html.RenderAction("LastestNews", "Home", new { CateName = "", CategoryId = 15, MaxLastestNews = 3, cssClass = "maxheight02" });}
+        </div>
+        <div class="col-md-4 col-sm-4 col-xs-12 box-item border-l-gray">
+            @{Html.RenderAction("LastestNews", "Home", new { CateName = "", CategoryId = 19, MaxLastestNews = 3, cssClass = "maxheight02" });}
+        </div>
+    </div>
+</div><!-- edn item common-->
+
+<div class="row">
+    <div class="col-md-8 col-sm-12 col-xs-12">
+        @{Html.RenderAction("HomeVideo", "Home", new { CateName = "", CategoryId = 6 });}
+        <div class="clearfix"></div>
+    </div><!-- end col-md-8-->
+    <div class="col-md-4 col-sm-12 col-xs-12">
+        <ul class="bnr-link hidden-sm">
+            @{Html.RenderAction("BannerRight2", "Home");}
+        </ul>
+    </div><!-- end col-md-4-->
+
+</div><!-- end video-->
+<div class="thietbi mt50">
+    <h2><span class="border-t-green"></span><a href="/congnghe-thietbi-danhsach.html">THIẾT BỊ VÀ CÔNG NGHỆ CHUYỂN GIAO</a></h2>
+    <div class=" slide02">
+        <ul id="flexiselDemo2">
+            @{Html.RenderAction("TopProject", "Project");}
+
+        </ul>
+    </div>
+</div><!-- end thiet bij-->

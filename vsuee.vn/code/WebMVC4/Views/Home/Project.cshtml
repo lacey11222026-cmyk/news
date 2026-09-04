@@ -1,0 +1,144 @@
+﻿@using BIZ
+
+@using WebMVC4.Helper
+@{
+    var langpage = WorkContext.GetLanguage();
+}
+
+@{
+    var Result1 = new SystemConfigBO().GetValueByKey("Result1");
+    var Result2 = new SystemConfigBO().GetValueByKey("Result2");
+    var Result3 = new SystemConfigBO().GetValueByKey("Result3");
+    var Result4 = new SystemConfigBO().GetValueByKey("Result4");
+    var Result5 = new SystemConfigBO().GetValueByKey("Result5");
+}
+
+@if (langpage == "vi-vn")
+{
+    <li>
+        <div class="project-item">
+            <img src="/Content/images/1.png" alt="">
+            <div class="project-content">
+                <h3>LƯỢNG TIẾT KIỆM NĂNG LƯỢNG</h3>
+                <p>@Result1 MWh/năm</p>
+            </div>
+        </div>
+    </li>
+    <li>
+        <div class="project-item">
+            <img src="/Content/images/2.png" alt="">
+            <div class="project-content">
+                <h3>LƯỢNG GIẢM PHÁT THẢI</h3>
+                <p>@Result2 tấn CO2/năm</p>
+            </div>
+        </div>
+    </li>
+    <li>
+        <div class="project-item">
+            <img src="/Content/images/3.png" alt="">
+            <div class="project-content">
+                <h3>GIẢI NGÂN</h3>
+                <p>@Result3 VND</p>
+            </div>
+        </div>
+    </li>
+    <li>
+        <div class="project-item">
+            <img src="/Content/images/4.png?vs=02" alt="">
+            <div class="project-content">
+                <h3>Số doanh nghiệp hưởng lợi</h3>
+                <p>@Result4</p>
+            </div>
+        </div>
+    </li>
+    <li>
+        <div class="project-item">
+            <img src="/Content/images/5.png" alt="">
+            <div class="project-content">
+                <h3>Số tiểu dự án được hỗ trợ</h3>
+                <p>@Result5</p>
+            </div>
+        </div>
+    </li>
+}
+else
+{
+    <li>
+        <div class="project-item">
+            <img src="/Content/images/1.png" alt="">
+            <div class="project-content">
+                <h3>
+                    ENERGY SAVING
+                </h3>
+                <p>@Result1 MWh/year</p>
+            </div>
+        </div>
+    </li>
+    <li>
+        <div class="project-item">
+            <img src="/Content/images/2.png" alt="">
+            <div class="project-content">
+                <h3>EMISSION REDUCTION</h3>
+                <p>@Result2 ton CO2/year</p>
+            </div>
+        </div>
+    </li>
+    <li>
+        <div class="project-item">
+            <img src="/Content/images/3.png" alt="">
+            <div class="project-content">
+                <h3>DISBURSEMENT</h3>
+                <p>@Result3 VND</p>
+            </div>
+        </div>
+    </li>
+    <li>
+        <div class="project-item">
+            <img src="/Content/images/4.png?vs=02" alt="">
+            <div class="project-content">
+                <h3>Number of enterprises benefited</h3>
+                <p>@Result4</p>
+            </div>
+        </div>
+    </li>
+    <li>
+        <div class="project-item">
+            <img src="/Content/images/5.png" alt="">
+            <div class="project-content">
+                <h3>Number of subprojects assisted</h3>
+                <p>@Result5</p>
+            </div>
+        </div>
+    </li>
+}
+<style>
+    .project-content h3 {
+        display: block;
+        font-size: 14px;
+    }
+    .project-content p {
+        font-weight: bold;
+        font-size: 14px;
+    }
+    .project-list  li{
+        width:20%;
+    }
+    .project-content {
+        padding-left: 5px;
+    }
+    .project-item img {
+        object-fit: contain;
+        margin-left: 10px;
+        max-width: 100px;
+        margin-right: 10px;
+    }
+    @@media (max-width: 767px)
+    {
+        .project-list li {
+            width: 100%;
+            max-width: 100%;
+            margin-bottom: 30px;
+        }
+    }
+    
+</style>

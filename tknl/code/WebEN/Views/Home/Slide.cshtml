@@ -1,0 +1,93 @@
+﻿@using BIZ
+@using BIZ.Entity
+@using UTILS
+@using WebEN.Helper
+@model WebEN.Models.SlideModel
+@if (Model != null)
+{
+
+
+    <div class="content01-en container mt10">
+        <div class="row">
+            <div class="col-md-8 col-sm-12">
+                <div class="row">
+                    <div class="col-sm-4 hidden-xs">
+                        <div class="titlenews-en"><a href="#">News</a></div>
+                        <ul class="newsen-list">
+                            @foreach (var item in Model.LstLastestNews.Select((value, i) => new { i, value }))
+                            {
+                                if (item.i < 4)
+                                {
+                                    <li>
+                                        <div class="newsen-num">@(item.i+1)</div>
+                                        <div class="newsen-name">
+                                            <a href="@item.value.LinkUrl">
+                                                @item.value.Title
+                                            </a>
+                                            <span class="newsdate mt10">@item.value.PublishDate.ToString("dd/MM/yyyy")</span>
+                                        </div>
+                                    </li>
+                                }
+
+                            }
+
+
+                        </ul>
+                    </div>
+                    <div class="col-sm-8 col-xs-12">
+                        @foreach (var item in Model.LstHotNews.Take(1).Select((value, i) => new { i, value }))
+                        {
+                            <div class="news-en-big" id="newsbig">
+                                <a href="@item.value.LinkUrl"><img src="@item.value.MainImage?w=499&h=329&mode=crop" alt=""></a>
+                                <h2 class="mt10"><a href="@item.value.LinkUrl">@item.value.Title</a></h2>
+                                <p class="mt10">@item.value.IntroText</p>
+                            </div>
+                        }
+                    </div>
+                </div>
+                <div class="mt20">
+                    <ul class="newshot row">
+                        @foreach (var item in Model.LstHotNews.Skip(1).Take(3).Select((value, i) => new { i, value }))
+                        {
+                            <li class="col-sm-4 col-xs-12">
+                                <a href="@item.value.LinkUrl">
+                                    <img src="@item.value.MainImage?w=234&h=154&mode=crop">
+                                    <span class="mt10">@item.value.Title</span>
+                                </a>
+                            </li>
+                        }
+                    </ul>
+                </div>
+            </div>
+            <div class="col-md-4 col-sm-12">
+                <div class="sidebar-bnr bnr-slider mt20">
+                    @if (ViewBag.CurrentCategoryId != null)
+                    {
+                        { Html.RenderAction("BannerRight1", "Banner", new { currentCategoryId = ViewBag.CurrentCategoryId }); }
+                    }
+                    else
+                    {
+                        { Html.RenderAction("BannerRight1", "Banner", new { currentCategoryId = 10001 }); }
+                    }
+                </div>
+                
+                @{ Html.RenderAction("TopDocument", "Document"); }
+            </div>
+        </div><!-- end row-->
+    </div><!-- end content 01 -->
+
+
+
+    <style>
+        .link-list li:nth-child(1) {
+            margin-top: 0px;
+        }
+
+        @@media (max-width: 767px) {
+            .link-list li:nth-child(1) {
+                margin-top: 20px;
+            }
+        }
+    </style>
+
+}

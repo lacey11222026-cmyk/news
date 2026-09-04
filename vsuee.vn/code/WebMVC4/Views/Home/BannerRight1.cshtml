@@ -1,0 +1,15 @@
+﻿@model List<DATA.Banner>
+@if (Model != null)
+{
+    
+    
+         foreach (var item in Model.Select((value, i) => new { i, value }))
+         {
+             @*<a href="@item.value.Url" class="opa">
+                 <img width="248" src="@item.value.Data" alt="@item.value.Name" />
+             </a>*@
+             <a href="@item.value.Url"><img src="item.value.Data" alt="" class="w-100"></a>
+         }
+    
+    
+}

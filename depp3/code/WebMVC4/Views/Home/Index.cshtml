@@ -1,0 +1,109 @@
+﻿@using BIZ
+@using UTILS
+@using WebMVC4.Helper
+
+@{
+    var langpage = WorkContext.GetLanguage();
+}
+
+@if (langpage == "vi-vn")
+{
+    <div class="info container">
+        <div class="info-list">
+            <div class="info-item">
+                <a href="/gioi-thieu/c63/hop-phan-1.html">
+                    <div class="wrap-img"><img src="/Content/images/icon-01.png" alt=""></div>
+                    <h2>hợp phần 1</h2>
+                    <p>Nâng cao năng lực về Quy hoạch ngành năng lượng dài hạn</p>
+                </a>
+            </div>
+            <div class="info-item">
+                <a href="/gioi-thieu/c64/hop-phan-2.html">
+                    <div class="wrap-img"><img src="/Content/images/icon-02.png" alt=""></div>
+                    <h2>hợp phần 2</h2>
+                    <p>Nâng cao năng lực tích hợp năng lượng tái tạo vào hệ thống điện</p>
+</a>
+            </div>
+            <div class="info-item">
+                <a href="/gioi-thieu/c65/hop-phan-3.html">
+                    <div class="wrap-img"><img src="/Content/images/icon-03.png" alt=""></div>
+                    <h2>hợp phần 3</h2>
+                    <p>Phát triển carbon thấp trong ngành công nghiệp</p>
+                </a>
+            </div>
+        </div>
+    </div>
+    <div class="content-02 pt50 pb50">
+        @{Html.RenderAction("LastestNews", "Home", new { CateName = "Chính sách", CategoryId = 37, MaxLastestNews = 6, cssClass = "maxheight02", lang = langpage });}
+    </div>
+    <div class="content-03 pt50 pb50">
+        @{Html.RenderAction("LastestNews2", "Home", new { CateName = "Hoạt động", CategoryId = 5, MaxLastestNews = 6, cssClass = "maxheight02", lang = langpage });}
+    </div>
+    <div class="content-04 pt50 pb50">
+        <div class="container">
+            <div class="row row-50">
+
+                <div class="col-md-6 col-12 maxheight01 document-box float-left">
+                    @{Html.RenderAction("TopDocument", "Home", new { MaxLastestNews = 5, CateName = "", CategoryId = 3 });}
+                </div>
+                <div class="col-md-6 col-12 maxheight01 movie-box float-right">
+                    @{Html.RenderAction("HomeVideo", "Home", new { CateName = "", CategoryId = 6 });}
+                </div>
+            </div>
+        </div>
+    </div>
+}
+else
+{
+    <div class="info container">
+        <div class="info-list">
+            <div class="info-item">
+                <a href="/gioi-thieu/c61/development-engagement-1.html">
+                    <div class="wrap-img"><img src="/Content/images/icon-01.png" alt=""></div>
+                    <h2>Development Engagement 1</h2>
+                    <p style="font-size:13px">
+                        Capacity Development for long-term energy sector planning
+                    </p>
+                </a>
+            </div>
+            <div class="info-item">
+                <a href="/gioi-thieu/c57/development-engagement-2.html">
+                    <div class="wrap-img"><img src="/Content/images/icon-02.png" alt=""></div>
+                    <h2>Development Engagement 2</h2>
+                    <p style="font-size:13px">Capacity Development for Renewable Energy Integration into the Power System</p>
+                </a>
+            </div>
+            <div class="info-item">
+                <a href="/gioi-thieu/c58/development-engagement-3.html">
+                    <div class="wrap-img"><img src="/Content/images/icon-03.png" alt=""></div>
+                    <h2>Development Engagement 3</h2>
+                    <p style="font-size:13px">Low carbon development in the industrial sector</p>
+                </a>
+            </div>
+        </div>
+    </div>
+    <div class="content-02 pt50 pb50">
+        @{Html.RenderAction("LastestNews", "Home", new { CateName = "Policy", CategoryId = 49, MaxLastestNews = 6, cssClass = "maxheight02", lang = langpage });}
+    </div>
+    <div class="content-03 pt50 pb50">
+        @{Html.RenderAction("LastestNews2", "Home", new { CateName = "Activities", CategoryId = 51, MaxLastestNews = 6, cssClass = "maxheight02", lang = langpage });}
+    </div>
+    <div class="content-04 pt50 pb50">
+        <div class="container">
+            <div class="row row-50">
+
+                <div class="col-md-6 col-12 maxheight01 document-box float-left">
+                    @{Html.RenderAction("TopDocument", "Home", new { MaxLastestNews = 5, CateName = "", CategoryId = 56 });}
+                </div>
+                <div class="col-md-6 col-12 maxheight01 movie-box float-right">
+                    @{Html.RenderAction("HomeVideo", "Home", new { CateName = "", CategoryId = 59 });}
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+
+<script>
+    $('#menu_0').addClass("active");
+</script>

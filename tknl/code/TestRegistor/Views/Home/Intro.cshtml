@@ -1,0 +1,112 @@
+﻿
+<div class="banner">
+    <div class="slickSlide">
+        <div>
+            <img src="/Content/images/bnr01.png" alt="" class="hidden-xs">
+            <img src="/Content/images/bnr01-mb.jpg" alt="" class="block-xs">
+        </div>
+        <div>
+            <img src="/Content/images/bnr02.png" alt="" class="hidden-xs">
+            <img src="/Content/images/bnr02-mb.png" alt="" class="block-xs">
+        </div>
+    </div>
+</div><!-- end bannr --->
+<div class="maincontent screen01-content pt60 pb60">
+    <div class="container">
+        <div class="row">
+            @{Html.RenderAction("TopTestRegister");}
+
+        </div>
+    </div>
+</div>
+
+<!-- end main-->
+<script>
+
+    function JoinTest(id) {
+        bootbox.confirm("Bạn muốn tham dự cuộc thi này?",
+            function(result) {
+                if (result === true) {
+                    var postdata = {
+                        'id': id
+
+                    };
+                    ShowProgress();
+                    $.ajax({
+                        type: 'POST',
+                        url: "@Url.Action("Start")",
+                        data: postdata,
+                        success: function(data) {
+                            HideProgress();
+                            if (data.ResponseCode >= 0) {
+                                window.location.href = '@Url.Action("Exam")';
+
+                                return;
+                            } else {
+                                if (data.ResponseCode === -101) {
+                                    window.location.href = '@Url.Action("Logon")';
+                                    return;
+                                }
+                                //Kết quả
+                                if (data.ResponseCode === -102) {
+                                    window.location.href = '@Url.Action("ResultExam")?id=' + id;
+                                    return;
+                                }
+                                bootbox.alert(data.Description);
+                                return;
+                            }
+                        }
+                    });
+                }
+            });
+    }
+    function ShowProgress() {
+        $('#TB_overlay').show();
+    }
+    function HideProgress() {
+        $('#TB_overlay').hide();
+    }
+</script>
+<style>
+    .footer {
+        display: none;
+    }
+</style>
+@if (!String.IsNullOrEmpty(ViewBag.Test))
+{
+    <script>
+        //return;
+         var postdata = {
+                        'id': '@ViewBag.Test'
+
+                    };
+                    ShowProgress();
+                    $.ajax({
+                        type: 'POST',
+                        url: "@Url.Action("Start")",
+                        data: postdata,
+                        success: function(data) {
+                            HideProgress();
+                            if (data.ResponseCode >= 0) {
+                                window.location.href = '@Url.Action("Exam")';
+
+                                return;
+                            } else {
+                                if (data.ResponseCode === -101) {
+                                    window.location.href = '@Url.Action("Logon")';
+                                    return;
+                                }
+                                //Kết quả
+                                if (data.ResponseCode === -102) {
+                                    window.location.href = '@Url.Action("ResultExam")?id=' + '@ViewBag.Test';
+                                    return;
+                                }
+                                bootbox.alert(data.Description);
+                                return;
+                            }
+                        }
+                    });
+    </script>
+}
+
+

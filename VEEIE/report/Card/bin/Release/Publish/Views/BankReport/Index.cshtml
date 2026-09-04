@@ -1,0 +1,104 @@
+﻿<div class="row">
+    <div class="col-lg-12">
+        <div class="box box-primary">
+            <div class="box-header"><span class="glyphicon glyphicon-user"></span>@ViewBag.Title</div>
+            <div class="box-body">
+                <div class="row" id="form">
+                    <div class="col-md-12">
+                        <div class="form-group col-md-3 col-xs-12 col-sm-6" @if (ViewBag.Type == 3) { @Html.Raw("style='display:none'") ; }>
+                            <select class="form-control" id="ddlBank">
+                                <option value="">--Ngân hàng--</option>
+                                <option value="vcb">Ngân hàng Vietcombank</option>
+                                <option value="bidv">Ngân hàng BIDV</option>
+                            </select>
+                        </div>
+                        <div class="form-group col-md-3 col-xs-12 col-sm-6">
+                            <select class="form-control" id="ddlType">
+                                <option value="-1">--Loại báo cáo--</option>
+                                <option value="2">Năm</option>
+                                <option value="1">Quý</option>
+                            </select>
+                        </div>
+                        <div class="form-group col-md-3 col-xs-12 col-sm-6">
+                            <select class="form-control" id="ddlYear">
+                                <option value="-1">--Năm--</option>
+                                @for (var i = DateTime.Now.Year+1; i >= 2017; i--)
+                                {
+
+                                    <option value="@i">Năm @(i)</option>
+                                }
+                            </select>
+                        </div>
+                        @if (ViewBag.IsUpdate)
+                        {
+                            <div class="form-group submit" style="text-align:center">
+                                <a href="@Url.Action("Add")" class="btn btn-success"><i class="fa fa-user-plus"></i> Thêm Mới</a>
+
+                            </div>
+                        }
+                        </div>
+
+                </div>
+                <div class="table-responsive">
+                    <div id="dgrid" class="dataTables_wrapper form-inline" role="grid">
+                        <div id="ListReport">
+                            @Html.Action("ListBankReport", "BankReport")
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    $(document).ready(function () {
+        
+        $("#form").keypress(function (event) {
+            if (event.which == 13) {
+                $("#btnSearch").click();
+            }
+        });
+        $("#btnSearch").click(function () {
+            GetList(1);
+        });
+        $("#ddlType").change(function () {
+            GetList(1);
+        });
+         $("#ddlBank").change(function () {
+            GetList(1);
+        });
+         $("#ddlYear").change(function () {
+            GetList(1);
+        });
+
+        function GetList(currentPage) {
+
+            btnSearch(currentPage);
+        };
+        function btnSearch(currentPage) {
+            var parameters = {
+            type: $("#ddlType").val(),
+            bank: $("#ddlBank").val(),
+            year: $("#ddlYear").val(),
+        };
+            Utils.Loading();
+            var urlRequestAns = "/BankReport/ListBankReport";
+            $.ajax({
+                type: 'GET',
+                data: parameters,
+                url: urlRequestAns,
+                success: function (data) {
+                    $("#ListReport").html(data);
+                    Utils.UnLoading();
+                },
+                error: function () {
+                    Utils.UnLoading();
+                }
+            });
+        }
+
+    });
+
+</script>
+

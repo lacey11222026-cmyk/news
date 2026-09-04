@@ -1,0 +1,378 @@
+﻿@{
+    Layout = "~/Views/Shared/_AdminV2.cshtml";
+}
+@using BIZ.Entity
+@using UTILS
+@using DATA
+@using WebMVC4.Helper
+@using DATA.ContentDB
+@model AuditorFull
+
+@{
+    List<TestLocation> ListCate = ViewBag.listLocation;
+}
+
+<div class="well">
+    <span class="label label-danger">
+        Chú ý!
+    </span>
+    <span>
+        Hãy chắc chắn nhập vào đầy đủ thông tin tại các mục bắt buộc đánh dấu (*)
+    </span>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <i class="fa fa-fw fa-user-md"></i><span>@ViewBag.Title </span>
+            </div>
+            <form id="defaultForm" method="post" class="form-horizontal">
+                <div class="panel-group" id="steps">
+                    <div class="messager-body">
+                        <div class="alert alert-success display-hide alert-dismissable">
+                            <button type="button" class="close" data-close="alert" aria-hidden="true">×</button>
+                            <span class="glyphicon glyphicon-ok"></span>
+                            <label>Đã lưu dữ liệu thành công!</label>
+                        </div>
+                        <div class="alert alert-danger display-hide alert-dismissable">
+                            <button type="button" class="close" data-close="alert" aria-hidden="true">×</button>
+                            <span class="glyphicon glyphicon-warning-sign"></span>
+                            <label id="ErrorMessage">Có lỗi trong dữ liệu nhập, vui lòng kiểm tra lại.</label>
+                        </div>
+                    </div>
+
+                    <div class="panel panel-info">
+                        <div class="panel-body">
+                            <div style="padding:10px 0;background-color:#fff !important">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="control-label col-md-3">Họ và tên<span class="required">*</span></label>
+                                        <div class="col-md-9">
+                                            <input type="text" id="txtFullName" name="FullName" value="@Model.FullName" class="form-control" placeholder="Nhập Họ và tên" />
+                                        </div>
+                                    </div>
+
+
+                                    <div class="form-group">
+                                        <label class="control-label col-md-3">Ảnh dại diện</label>
+                                        <div class="col-md-8">
+                                            <input type="text" id="txtImages" name="Images" value="@Model.Images" class="form-control" placeholder="Nhập ảnh" />
+                                        </div>
+                                        <div class="col-md-1">
+                                            <a href="javascript:;" onclick="CommonCtrl.PopupManagerImages('txtImages');"><i class="fa fa-file"></i></a>
+                                        </div>
+                                    </div>
+
+
+                                    <div class="form-group">
+                                        <label class="control-label col-md-3">Giới tính</label>
+                                        <div class="col-md-9">
+                                            <input type="text" id="txtTitle" name="Title" value="@Model.Title" class="form-control" placeholder="Nhập Giới tính " />
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="control-label col-md-3">Loại chứng chỉ</label>
+                                        <div class="col-md-9">
+                                            <input type="text" id="txtType" name="Type" value="@Model.Type" class="form-control" placeholder="Nhập loại" />
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="control-label col-md-3">Số chứng chỉ</label>
+                                        <div class="col-md-9">
+                                            <input type="text" id="txtNo" name="No" value="@Model.No" class="form-control" placeholder="Nhập số chứng chỉ " />
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="control-label col-md-3">Ngày sinh</label>
+                                        <div class="col-md-9">
+                                            <input type="text" id="txtBirthDay" name="BirthDay" value="@Model.BirthDay" class="form-control" placeholder="dd/MM/yyyy" />
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="control-label col-md-3">Số CMND</label>
+                                        <div class="col-md-9">
+                                            <input type="text" id="txtPassport" name="Passport" value="@Model.Passport" class="form-control" placeholder="Nhập số CMND" />
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="control-label col-md-3">Quốc tịch</label>
+                                        <div class="col-md-9">
+                                            <input type="text" id="txtNation" name="Nation" value="@Model.Nation" class="form-control" placeholder="Nhập quốc tịch" />
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="control-label col-md-3">Trình độ /Chuyên môn</label>
+                                        <div class="col-md-9">
+                                            <input type="text" id="txtLevel" name="Level" value="@Model.Level" class="form-control" placeholder="Nhập Trình độ /Chuyên môn" />
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="control-label col-md-3">Cơ quan, Đơn vị công tác</label>
+                                        <div class="col-md-9">
+                                            <input type="text" id="txtOrgan" name="Organ" value="@Model.Organ" class="form-control" placeholder="Nhập Cơ quan, Đơn vị công tác" />
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="control-label col-md-3">Mã số doanh nghiệp</label>
+                                        <div class="col-md-9">
+                                            <input type="text" id="txtMSDN" name="MSDN" value="@Model.MSDN" class="form-control" placeholder="Nhập MSDN" />
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="control-label col-md-3">Chức danh</label>
+                                        <div class="col-md-9">
+                                            <input type="text" id="txtRole" name="Role" value="@Model.Role" class="form-control" placeholder="Nhập Chức danh" />
+                                        </div>
+                                    </div>
+
+
+
+                                    <div class="form-group">
+                                        <label class="control-label col-md-3">Địa chỉ</label>
+                                        <div class="col-md-9">
+                                            <input type="text" id="txtAddress" name="Address" value="@Model.Address" class="form-control" placeholder="Nhập địa chỉ" />
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label col-md-3">Điện thoại office</label>
+                                        <div class="col-md-9">
+                                            <input type="text" id="txtMobileOffice" name="MobileOffice" value="@Model.ProjectConfig.MobileOffice" class="form-control" placeholder="Nhập số điện thoại office" />
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label col-md-3">Điện thoại</label>
+                                        <div class="col-md-9">
+                                            <input type="text" id="txtMobile" name="Mobile" value="@Model.Mobile" class="form-control" placeholder="Nhập số điện thoại" />
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="control-label col-md-3">Email</label>
+                                        <div class="col-md-9">
+                                            <input type="email" id="txtEmail" name="Email" value="@Model.Email" class="form-control" placeholder="Nhập email" />
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="control-label col-md-3">Đơn vị đào tạo</label>
+                                        <div class="col-md-9">
+                                            <input type="text" id="txtGroup" name="Group" value="@Model.Group" class="form-control" placeholder="Nhập Đơn vị đào tạo" />
+                                        </div>
+                                    </div>
+
+                                  
+
+                                    <div class="form-group">
+                                        <label class="control-label col-md-3">Thời gian đào tạo</label>
+                                        <div class="col-md-9">
+                                            <input type="text" id="txtTrainingTime" name="TrainingTime" value="@Model.ProjectConfig.TrainingTime" class="form-control" placeholder="Nhập thời gian đào tạo" />
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="control-label col-md-3">Ngày cấp</label>
+                                        <div class="col-md-9">
+                                            <input type="text" id="txtIssueDate" name="IssueDate" value="@Model.ProjectConfig.IssueDate" class="form-control" placeholder="dd/MM/yyyy" />
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="control-label col-md-3">Ngày hết hạn</label>
+                                        <div class="col-md-9">
+                                            <input type="text" id="txtExpirationDate" name="ExpirationDate" value="@Model.ProjectConfig.ExpirationDate" class="form-control" placeholder="dd/MM/yyyy" />
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="control-label col-md-3">Năm</label>
+                                        <div class="col-md-9">
+                                            <select class="form-control" id="ddlProvince">
+                                                <option value="">Năm</option>
+                                                <option value="2025" @if (Model.Province == "2025") { @Html.Raw("selected='selected'") ; }>2025</option>
+                                                <option value="2024" @if (Model.Province == "2024") { @Html.Raw("selected='selected'") ; }>2024</option>
+                                                <option value="2023" @if (Model.Province == "2023") { @Html.Raw("selected='selected'") ; }>2023</option>
+                                                <option value="2022" @if (Model.Province == "2022") { @Html.Raw("selected='selected'") ; }>2022</option>
+                                                <option value="2021" @if (Model.Province == "2021") { @Html.Raw("selected='selected'") ; }>2021</option>
+                                                <option value="2020" @if (Model.Province == "2020") { @Html.Raw("selected='selected'") ; }>2020</option>
+                                                <option value="2019" @if (Model.Province == "2019") { @Html.Raw("selected='selected'") ; }>2019</option>
+
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label col-md-3">Trạng thái</label>
+                                        <div class="col-md-9">
+                                            <select class="form-control" id="ddlStatus">
+                                                <option value="1" @(Model.Status == 1 ? "selected='selected'" : "")>Còn hiệu lực</option>
+                                                <option value="2" @(Model.Status == 2 ? "selected='selected'" : "")>Hết hạn</option>
+                                                <option value="3" @(Model.Status == 3 ? "selected='selected'" : "")>Đình chỉ</option>
+
+
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="panel-footer form-horizontal text-center">
+                                    <button type="submit" class="btn btn-primary" id="btnSave"><i class="fa fa-save"></i> Lưu lại</button>
+                                   
+                                    <button type="button" class="btn btn-default" id="btnBack" onclick="GotoListpage()"><i class="fa fa-backward"></i> Trở về</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<style>
+    .input-icon {
+        position: relative;
+        width: 100%;
+    }
+</style>
+<script type="text/javascript">
+    function GotoListpage() {
+        window.location = "/AdminAuditor/ManageAuditor";
+    }
+    $(document).ready(function () {
+
+
+        $("#txtOrder").keypress(function (e) {
+            //if the letter is not digit then display error and don't type anything
+            if (e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57)) {
+                //display error message
+                $("#errmsg").html("Chỉ Nhập Được Số").show().fadeOut(1000);
+                return false;
+            }
+        });
+        $("button.close").click(function () {
+            $(this).parent().css("display", "none");
+        });
+        $('#defaultForm').bootstrapValidator({
+            message: 'This value is not valid',
+            //live: 'submitted',
+            feedbackIcons: {
+                valid: 'glyphicon glyphicon-ok',
+                invalid: 'glyphicon glyphicon-remove',
+                validating: 'glyphicon glyphicon-refresh'
+            },
+            fields: {
+
+                name: {
+                    message: 'Nhập tên',
+                    validators: {
+                        notEmpty: {
+                            message: 'Tên không được trống '
+                        },
+
+
+
+                    }
+                },
+
+
+
+            }
+        })
+        .on('success.form.bv', function (e) {
+            // Prevent submit form
+            e.preventDefault();
+
+            var $form = $(e.target),
+                validator = $form.data('bootstrapValidator');
+            SaveData();
+            $(".close").click(function () {
+                $(".alert-success").css("display", "none");
+            });
+        })
+        .on('error.form.bv', function (e) {
+            // Active the panel element containing the first invalid element
+            e.preventDefault();
+            var $form = $(e.target),
+            validator = $form.data('bootstrapValidator');
+            $(".alert-danger label").text("Có một vài lỗi trong khung nhập liệu dưới đây ! kiểm tra lại");
+            $(".alert-danger").css("display", "block");
+            $(".close").click(function () {
+                $(".alert-danger").css("display", "none");
+                $(".alert-success").css("display", "none");
+            });
+        });
+
+        $("#btnReset").click(function () {
+            $('#defaultForm').data('bootstrapValidator').resetForm(true);
+            $(".alert-danger").css("display", "none");
+            $(".alert-success").css("display", "none");
+        });
+        //Save Data
+        function SaveData() {
+            var param = {
+                Id: '@Model.Id',
+                    Name: $("#txtName").val(),
+                    FullName: $("#txtFullName").val(),
+                    Title: $("#txtTitle").val(),
+                    Type: $("#txtType").val(),
+                    No: $("#txtNo").val(),
+                    BirthDay: $("#txtBirthDay").val(),
+                    Passport: $("#txtPassport").val(),
+                    Nation: $("#txtNation").val(),
+                    Level: $("#txtLevel").val(),
+                    Organ: $("#txtOrgan").val(),
+                    MSDN: $("#txtMSDN").val(),
+                    Role: $("#txtRole").val(),
+                    Config: $("#txtConfig").val(),
+                    Address: $("#txtAddress").val(),
+                    Mobile: $("#txtMobile").val(),
+                    Email: $("#txtEmail").val(),
+                    Group: $("#txtGroup").val(),
+                    MobileOffice: $("#txtMobileOffice").val(),
+                    TrainingTime: $("#txtTrainingTime").val(),
+                    IssueDate: $("#txtIssueDate").val(),
+                    ExpirationDate: $("#txtExpirationDate").val(),
+                    Order: $("#txtOrder").val(),
+                Status: $("#ddlStatus").val(),
+                Province: $("#ddlProvince").val(),
+                Images: $("#txtImages").val(),
+            }
+            Utils.Loading();
+            $.ajax({
+                type: 'POST',
+                url: "/AdminAuditor/SaveData",
+                data: param,
+                async: true,
+                success: function (data) {
+                    Utils.UnLoading();
+                    if (data.ResponseCode >= 0) {
+                        $("html,body").animate({ scrollTop: $('#TemplateContent').offset().top }, 'fast');
+                        $(".alert-success").show("slow");
+                        $(".alert-danger").hide("slow");
+                        setTimeout(function () { $(".alert-success").hide("slow"); GotoListpage(); }, 2000);
+                    }
+                    else {
+                        $("html,body").animate({ scrollTop: $('#TemplateContent').offset().top }, 'fast');
+                        $("#ErrorMessage").text(data.NameEn);
+                        $(".alert-danger").show("slow");
+                        $(".alert-success").hide("slow");
+                        setTimeout(function () { $(".alert-danger").hide("slow"); }, 2000);
+                    }
+                }
+            });
+        };
+    });
+</script>
+<script>
+    $('#menu_manageAuditor').addClass("active");
+</script>
+

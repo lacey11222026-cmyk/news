@@ -1,0 +1,258 @@
+﻿@using Car.Data
+@using Car.Utility
+@using Car.CMS.Helper
+@model PlanRequire
+<div class="row" id="ContentPopUp">
+    <div class="col-lg-12">
+        <div class="box box-primary">
+
+            <form id="defaultForm4" method="post" class="form-horizontal defaultForm4">
+                <div class="form-horizontal">
+                    <div class="messager-body">
+                        <div class="alert alert-success display-hide alert-dismissable">
+                            <button type="button" class="close" data-close="alert" aria-hidden="true">×</button>
+                            <span class="glyphicon glyphicon-ok"></span>
+                            <label>Đã lưu dữ liệu thành công !!!</label>
+                        </div>
+                        <div class="alert alert-danger display-hide alert-dismissable">
+                            <button type="button" class="close" data-close="alert" aria-hidden="true">×</button>
+                            <span class="glyphicon glyphicon-warning-sign"></span>
+                            <label id="ErrorMessage3">Có một vài lỗi trong khung nhập liệu dưới đây ! kiểm tra lại</label>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="txtFinishDate" class="control-label col-md-3"> Tên dự án :</label>
+                        <div class="col-md-9">
+                            <div class="input-icon right">
+                                <input type="text" id="txtFinishDate" name="FinishDate" value="@Model.FinishDate" class="form-control" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="txtPlace" class="control-label col-md-3"> Địa điểm thực hiện dự án :</label>
+                        <div class="col-md-9">
+                            <div class="input-icon right">
+                                <input type="text" id="txtPlace" name="txtPlace" value="@Model.Place" class="form-control" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="txtDescriptionRequire" class="control-label col-md-3">Loại dự án  :</label>
+                        <div class="col-md-9">
+                            <div class="input-icon right">
+                                <input type="text" id="txtDescriptionRequire" name="DescriptionRequire" value="@Model.Description" class="form-control" />
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="txtTotal" class="control-label col-md-3">Tổng chi phí đầu tư(triệu VND) :</label>
+                        <div class="col-md-9">
+                            <div class="input-icon right">
+                                <input type="text" id="txtTotal" name="Total" value="@Model.Total" class="form-control" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="txtTotal1" class="control-label col-md-3">Tổng vay(triệu VND) :</label>
+                        <div class="col-md-9">
+                            <div class="input-icon right">
+                                <input type="text" id="txtTotal1" name="Total1" value="@Model.Total1" class="form-control" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="txtTotal2" class="control-label col-md-3"> Vốn vay IBRD (triệu VND) :</label>
+                        <div class="col-md-9">
+                            <div class="input-icon right">
+                                <input type="text" id="txtTotal2" name="Total2" value="@Model.Total2" class="form-control" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="txtName" class="control-label col-md-3"> Hiện trạng :</label>
+                        <div class="col-md-9">
+                            <div class="input-icon right">
+                                <select class="form-control" id="ddlResult">
+                                    <option value="Xong FS" @(Model.Result.Equals("Xong FS") ? "selected='selected'" : "")>Xong FS</option>
+                                    <option value="Xây dựng xong các báo cáo kĩ thuật MT-XH" @(Model.Result.Equals("Xây dựng xong các báo cáo kĩ thuật MT-XH") ? "selected='selected'" : "")>Xây dựng xong các báo cáo kĩ thuật MT-XH</option>
+                                    <option value="Đã được PFIs/WB đánh giá" @(Model.Result.Equals("Đã được PFIs/WB đánh giá") ? "selected='selected'" : "")>Đã được PFIs/WB đánh giá</option>
+                                    <option value="Đang chờ WB phê duyệt" @(Model.Result.Equals("Đang chờ WB phê duyệt") ? "selected='selected'" : "")>Đang chờ WB phê duyệt</option>
+                                    <option value="Khác" @(Model.Result.Equals("Khác") ? "selected='selected'" : "")>Khác</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group" id="dvStatus" style="display:none">
+                        <label for="txtResultOther" class="control-label col-md-3"> Nội dung chi tiết :</label>
+                        <div class="col-md-9">
+                            <div class="input-icon right">
+                                <input type="text" id="txtResultOther" name="ResultOther" value="@Model.ResultOther" class="form-control" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group" style="display:none">
+                        <label class="control-label col-md-3" for="cbxIsActive3">Trạng thái :</label>
+                        <div class="col-md-4">
+                            <div class="checkbox">
+                                @if (Model.Status == 1)
+                                {<input type="checkbox" id="cbxIsActive4" checked="checked" />}
+                                else
+                                {<input type="checkbox" id="cbxIsActive4" />}
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="panel-footer form-horizontal">
+                    <div class="form-group submit">
+                        <button type="submit" class="btn btn-primary" id="btnSave4"><i class="fa fa-save"></i> Cập nhập</button>
+                        @*<button type="button" class="btn btn-default" id="btnBack" data-dismiss="modal"><i class="fa fa-backward"></i> Hủy</button>*@
+
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<script>
+    var type = '@Html.Raw(Model.Result)';
+    if (type == 'Khác') {
+        $("#dvStatus").show();
+    }
+    $('#ddlResult').on('change', function () {
+        if (this.value == 'Khác') {
+            $("#dvStatus").show();
+
+        }
+        else {
+
+            $("#dvStatus").hide();
+        }
+
+
+    });
+
+</script>
+<script type="text/javascript">
+
+
+    $(document).ready(function () {
+
+
+            $("button.close").click(function () {
+                $(this).parent().css("display", "none");
+            });
+            $('#defaultForm4').bootstrapValidator({
+                message: 'This value is not valid',
+                //live: 'submitted',
+                feedbackIcons: {
+                    valid: 'glyphicon glyphicon-ok',
+                    invalid: 'glyphicon glyphicon-remove',
+                    validating: 'glyphicon glyphicon-refresh'
+                },
+                fields: {
+
+                    FinishDate: {
+                    message: 'Nhập tên dự án',
+                    validators: {
+                        notEmpty: {
+                            message: 'tên không được bỏ trống'
+                        },
+
+                    }
+                },
+
+                }
+            })
+            .on('success.form.bv', function (e) {
+                // Prevent submit form
+                e.preventDefault();
+
+                var $form = $(e.target),
+                    validator = $form.data('bootstrapValidator');
+                SaveData3();
+                $(".close").click(function () {
+                    $(".alert-success").css("display", "none");
+                });
+            })
+            .on('error.form.bv', function (e) {
+                // Active the panel element containing the first invalid element
+                e.preventDefault();
+                var $form = $(e.target),
+                validator = $form.data('bootstrapValidator');
+                $("#defaultForm4 .alert-danger label").text("Có một vài lỗi trong khung nhập liệu dưới đây ! kiểm tra lại");
+                $("#defaultForm4 .alert-danger").css("display", "block");
+                $(".close").click(function () {
+                    $(".alert-danger").css("display", "none");
+                    $(".alert-success").css("display", "none");
+                });
+            });
+
+
+            //Save Data
+            function SaveData3() {
+                var param = {
+                    'Id': '@Model.Id',
+                    'PlanId': '@Model.PlanId',
+                    'Total2': $("#txtTotal2").val(),
+                    'Description': $("#txtDescriptionRequire").val(),
+                    'Total': $("#txtTotal").val(),
+                    'FinishDate': $("#txtFinishDate").val(),
+                    'Result': $("#ddlResult").val(),
+                    'ResultOther': $("#txtResultOther").val(),
+                    'Place': $("#txtPlace").val(),
+                    'Total1': $("#txtTotal1").val(),
+                    'Status': $("#cbxIsActive4").is(":checked") ? 1 : 0,
+                }
+
+                Utils.Loading();
+                $.ajax({
+                    type: 'POST',
+                    url: "@Url.Action("PlanRequireSaveData")",
+                    data: addAntiForgeryToken(param),
+                    async: true,
+                    success: function (data) {
+                        Utils.UnLoading();
+                        if (data.ResponseCode >= 0) {
+
+                            $(".defaultForm4.alert-success").show("slow");
+                            $(".defaultForm4.alert-danger").hide("slow");
+
+                            $('.modal ').modal('hide');
+                            loadPlanRequire();
+                        }
+                        else {
+
+                            $("#ErrorMessage3").text(data.Description);
+                           $(".defaultForm4 .alert-danger").show("slow");
+                            $(".defaultForm4 .alert-success").hide("slow");
+                            setTimeout(function () { $(".defaultForm4  .alert-danger").hide("slow"); }, 5000);
+                        }
+                    }
+                });
+            };
+        });
+
+
+
+</script>
+<style type="text/css">
+    .modal-dialog {
+        width: 60% !important;
+        height: 60% !important;
+    }
+
+    .modal-footer {
+        display: none;
+    }
+
+    @@media (max-width: 768px) {
+
+        .modal-dialog {
+            width: 90% !important;
+            height: 90% !important;
+        }
+    }
+</style>

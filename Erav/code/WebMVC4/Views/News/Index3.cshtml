@@ -1,0 +1,41 @@
+﻿@using BIZ
+@using UTILS
+@using WebMVC4.Helper
+@model WebMVC4.Models.News2Model
+
+
+<div class="technology-page container mt30">
+
+    @{Html.RenderAction("Breadcrumb", "News", new { CategoryId = ViewBag.CategoryId });}
+    <ul class="row row-8 news-list mt30">
+        @foreach (var item in Model.articles.Select((value, i) => new { i, value }))
+        {
+
+
+            <li class="col-lg-3 col-md-4 col-sm-6 col-6">
+                <a href="@item.value.LinkUrl">
+                    <div class="wrap-img">
+                        <img src="@item.value.MainImage?w=281&h=480&mode=crop" alt="@item.value.Title" />
+                    </div>
+                    <h3>@item.value.Title</h3>
+                    <p>@item.value.IntroText</p>
+                </a>
+            </li>
+        }
+
+    </ul>
+    <div class="paging mt50">
+        <ul>
+            @{Html.RenderPartial("Pagination", new WebMVC4.Models.PaginationInfo
+                {
+                    PageUrl = Url.SetParameter("Page", "!0"),
+                    CurrentPage = ViewBag.Page,
+                    PageSize = ViewBag.PageSize,
+                    TotalItemCount = ViewBag.Total,
+                }); }
+        </ul>
+    </div>
+</div>
+<div class="container pr-box mt30">
+    @{Html.RenderAction("Banner2", "Home");}
+</div>

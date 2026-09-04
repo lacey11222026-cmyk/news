@@ -1,0 +1,77 @@
+﻿@using BIZ
+@using UTILS
+@using CMS.Helper
+@model CMS.Models.NewsModel
+@if (Model != null)
+{
+    <div>
+        Từ khóa:
+        <input id="txtkeyword" value="@ViewBag.keyword" width="190" style="width: 190px;" />&nbsp;&nbsp;
+                Từ ngày:
+        <input id="txtfromdate" class="searchtext" value="@ViewBag.fromdate"/>&nbsp;&nbsp;
+                Đến ngày:
+        <input id="txttodate" class="searchtext"  value="@ViewBag.todate"/>
+        &nbsp;&nbsp;
+        <button onclick="searchdoc();">Tra cứu</button><br />
+        <br />
+    </div>
+    
+    <div class="best">
+
+        @if (Model.listdata.Count > 0)
+        {
+            foreach (var item in Model.listdata.Select((value, i) => new { i, value }))
+            {
+                if (item.i >= (int)(ViewBag.PageSize / 2))
+                {
+                    break;
+                }
+            <div class="listtin" style="min-width: 500px;">
+                <a href="@item.value.LinkUrl" title="@item.value.Title">
+                    <img width="140" alt="@item.value.Title" src="@item.value.MainImage?w=140&mode=crop "/></a>
+                <p><a href="@item.value.LinkUrl" title="@item.value.Title">@item.value.Title</a></p>
+                @*<p class="date">@item.value.PublishDate.ToString("HH:mm") ngày @item.value.PublishDate.ToString("dd/MM/yyyy")</p>*@
+                <span>@item.value.IntroText &nbsp;</span>
+                <div class="clear"></div>
+            </div>
+            
+                
+            }
+        }
+        else
+        {
+            <text>Không tìm thấy kết quả phù hơp</text>
+        }
+
+        <div class="ctpaging">
+
+            <ul class="paging">
+                @{Html.RenderPartial("Pagination", new CMS.Models.PaginationInfo
+                                                       {
+                                                           PageUrl = Url.SetParameter("Page", "!0"),
+                                                           CurrentPage = Model.pageIndex,
+                                                           PageSize = Model.pageSize,
+                                                           TotalItemCount = Model.total,
+                                                       }); }
+            </ul>
+
+        </div>
+        <div class="clear padtop10"></div>
+
+
+    </div>
+     <script type="text/javascript">
+        $(document).ready(function () {
+
+            $("#txtfromdate").datepicker({ dateFormat: "dd/mm/yy" });
+            $("#txttodate").datepicker({ dateFormat: "dd/mm/yy" });
+        });
+
+        function searchdoc() {
+            var keyword = $("#txtkeyword").val();
+            var fromdate = $("#txtfromdate").val();
+            var todate = $("#txttodate").val();
+            window.location = jQuery.query.set("keyword", keyword).set("fromdate", fromdate).set("todate", todate).set("Page","1");
+        }
+    </script>
+}

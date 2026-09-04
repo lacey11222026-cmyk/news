@@ -1,0 +1,147 @@
+﻿@{
+   
+    Layout = "~/Views/Shared/_AdminV2.cshtml";
+    double totalMark = 0;
+}
+@using System.Globalization
+@using BIZ
+@using UTILS
+@using  CMS.Helper
+@model CMS.Models.GoNewsModel
+
+
+<div class="onecolumn">
+    <div class="header">
+        <span>@ViewBag.Title</span>
+    </div>
+    <br class="clear">
+    <div class="content">
+        Chuyên mục: &nbsp;@Html.DropDownList("drlCategory", new SelectList(ViewBag.CategoryList, "Id", "Name", ViewBag.categoryId), new { @class = "drl_Group" }) &nbsp;&nbsp;&nbsp;
+                  
+                    Từ ngày:&nbsp;
+                    <input name="fromdate" id="txtFromdate" value="@ViewBag.fromdate" />&nbsp;&nbsp;&nbsp;
+                    Từ đến ngày:&nbsp;
+                    <input name="todate" id="txtTodate" value="@ViewBag.todate" />&nbsp;&nbsp;&nbsp;
+        <button onclick="fillter();">Tra cứu</button>&nbsp;&nbsp;&nbsp;
+        <br />
+        <br />
+        @if (Model.listdata.Count > 0)
+        {
+            <table width="100%" cellspacing="0" cellpadding="0" class="data" id="mytable">
+                <thead>
+                    <tr>
+                        <th width="1%" class="title">#
+                        </th>
+
+                        <th width="20%" class="title">Tên bài viết
+                        </th>
+                        <th width="5%" class="title">Ảnh đại diện
+                        </th>
+                        <th width="6%" class="title" nowrap="nowrap">Ngày viết
+                        </th>
+                        <th width="7%" class="title">Chuyên mục
+                        </th>
+                        <th width="7%" class="title">Nguồn
+                        </th>
+                        <th width="20%" class="title">Url
+                        </th>
+                        <th width="5%" class="title">Quản trị
+                        </th>
+
+
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.listdata)
+                    {
+                        
+                        <tr id="row_@(item.Id)">
+
+                            <td width="1%">@item.Id</td>
+                            <td width="20%">
+                                <a target="_blank" href='@Url.Action("Edit", "Spider", new { Id = item.Id })'>
+                                    @item.News_Title</a>
+
+                            </td>
+                            <td width="5%" align="center">
+                                @if (String.IsNullOrEmpty(item.News_Image2) || !item.News_Image2.Contains(".jpg"))
+                                {
+                                    <img width="70px" src="@item.News_Image" />
+                                }
+                                else
+                                {
+                                    <img width="70px" src="@item.News_Image2" />
+                                }
+
+                            </td>
+
+                            <td width="6%" align="left">
+                                @item.News_CreatedDate.GetValueOrDefault().ToString("dd/MM/yyyy HH:mm")
+                            </td>
+                            <td width="7%" align="left">
+                                @HtmlHelpers.GetCategoryName(item.News_CategoryId)
+                            </td>
+                            <td width="7%" align="left">
+                                @HtmlHelpers.GetSourceName(item.News_Url)
+                            </td>
+                            <td width="20%" align="left">
+                                <a href="@item.News_Url" target="_blank">@item.News_Url</a>
+                            </td>
+                            <td width="5%">  <a onclick="return deletenews('@item.Id ');" href="javascript:void(0);"> <img class="help" alt="delete" src="/Styles/admin/images/icon_delete.png"> </a></td>
+
+                        </tr>
+                    }
+
+
+
+                </tbody>
+            </table>
+             <div class="pagination">
+                @{Html.RenderPartial("AdminPagination", new CMS.Models.PaginationInfo
+                  {
+                      PageUrl = Url.SetParameter("page", "!0"),
+                      CurrentPage = Model.pageIndex,
+                      PageSize = Model.pageSize,
+                      TotalItemCount = Model.total,
+                  }); }
+            </div>
+  
+       
+        }
+    </div>
+</div>
+
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+        $('#menu_newsconfig').click();
+        $("#txtFromdate").datepicker({ dateFormat: "dd/mm/yy" });
+        $("#txtTodate").datepicker({ dateFormat: "dd/mm/yy" });
+    });
+    function openWin(url) {
+        myWindow = window.open(url, '', 'width=868,height=668');
+
+        myWindow.focus();
+    }
+    $('#drlCategory').change(function () {
+        fillter();
+    });
+    function fillter() {
+
+        var fromdate = $("#txtFromdate").val();
+        var todate = $("#txtTodate").val();
+        var categoryId = $('#drlCategory option:selected').val();
+
+        window.location = jQuery.query.set("categoryId", categoryId).set("fromdate", fromdate).set("todate", todate).set("page", "1");
+    }
+    function deletenews(Id) {
+        if (confirm("Bạn có chắc chắn muốn xóa?")) {
+            $.post('@Url.Action("Delete", "Spider")', { "Id": Id },
+                function (data) {
+                    $('#row_' + Id).hide();
+                });
+        }
+    }
+</script>
+

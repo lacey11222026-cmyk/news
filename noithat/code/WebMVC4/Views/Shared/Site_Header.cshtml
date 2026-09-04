@@ -1,0 +1,164 @@
+﻿@using WebMVC4.Helper
+@using BIZ
+@using UTILS
+
+
+@{
+    var cartProductCount = OrderHelper.GetShopingCart().ListProduct.Count;
+   
+
+}
+
+<!-- HEADER -->
+<header class="whb-header whb-sticky-shadow whb-scroll-slide whb-sticky-clone">
+
+    <div class="whb-main-header">
+
+        <div class="whb-row whb-top-bar whb-not-sticky-row whb-with-bg whb-without-border whb-color-light whb-flex-flex-middle">
+            <div class="container">
+                <div class="whb-flex-row whb-top-bar-inner">
+                    <div class="whb-column whb-col-left ">
+
+                        <div class="whb-text-element reset-mb-10 "><strong><span style="color: #ffffff;">Giải pháp nội thất tổng thể cho ngôi nhà của bạn!</span></strong></div>
+                    </div>
+                    <div class="whb-column whb-col-center whb-visible-lg whb-empty-column">
+                    </div>
+                    @*<div class="whb-column whb-col-right whb-visible-lg">
+                        <ul class="nav top-bar-nav nav-right nav-small  nav-divided">
+
+                            @Html.Action("TopMenu", "Home")
+                        </ul>
+                    </div>*@
+                </div>
+            </div>
+        </div>
+        <div class="whb-row whb-general-header whb-not-sticky-row whb-without-bg whb-border-fullwidth whb-color-dark whb-flex-equal-sides">
+            <div class="container">
+                <div class="whb-flex-row whb-general-header-inner">
+                    <div class="whb-column whb-col-left whb-visible-lg">
+                        <div class="site-logo">
+                            <div class="woodmart-logo-wrap">
+                                <a href="/" class="woodmart-logo woodmart-main-logo" rel="home">
+                                    <img src="~/Content/images/logo.jpg?vs=02" alt="Trung Tâm Nội Thất Minh Phú" style="max-width: 210px;">
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="whb-column whb-col-center whb-visible-lg">
+                        <div class="woodmart-search-form">
+                            <form role="search" method="get" class="searchform  has-categories-dropdown search-style-default woodmart-ajax-search" action="/Product/Search" data-thumbnail="1" data-price="1" data-post_type="product" data-count="20" data-sku="0" data-symbols_count="3">
+                                <input type="text"  class="s" placeholder="Tìm kiếm sản phẩm" name="q" style="padding-right: 184.4px;" autocomplete="off">
+
+
+                                <button type="submit" class="searchsubmit">
+                                    Search
+                                </button>
+                            </form>
+                            <div class="search-results-wrapper"><div class="woodmart-scroll has-scrollbar"><div class="woodmart-search-results woodmart-scroll-content" tabindex="0" style="margin-right: -17px;"><div class="autocomplete-suggestions" style="position: absolute; display: none; max-height: 300px; z-index: 9999;"></div></div><div class="woodmart-scroll-pane" style="display: none;"><div class="woodmart-scroll-slider" style="height: 20px; transform: translate(0px);"></div></div></div><div class="woodmart-search-loader wd-fill"></div></div>
+                        </div>
+                    </div>
+
+                    <div class="whb-column whb-col-right whb-visible-lg">
+                        <div class="whb-space-element " style="width:15px;"></div>
+
+
+                        <ul class="header-nav header-nav-main nav nav-right  nav-uppercase">
+
+                            <li class="html custom html_topbar_right"><span style="color: #000000;">Hotline tư vấn</span><h3><span style="color: rgba(128, 106, 80, 1);"><i class="fa fa-phone-square" aria-hidden="true"></i> 0922311333</span></h3></li>
+                            <li class="header-divider"></li>
+                            <li class="cart-item has-icon has-dropdown">
+                                <div class="woodmart-shopping-cart wd-tools-element woodmart-cart-design-2 woodmart-cart-alt cart-widget-opener" title="Giỏ hàng">
+                                    <a href="@Url.Action("ShoppingCart", "Order")">
+                                        <span class="woodmart-cart-icon wd-tools-icon">
+
+                                            <span class="woodmart-cart-number">@cartProductCount <span>items</span></span>
+
+                                        </span>
+
+                                    </a>
+                                </div>
+
+
+                            </li>
+
+                        </ul>
+                    </div>
+                    <div class="whb-column whb-mobile-left whb-hidden-lg">
+                        <div class="woodmart-burger-icon wd-tools-element mobile-nav-icon whb-mobile-nav-icon wd-style-text">
+                            <a href="#">
+                                <span class="woodmart-burger wd-tools-icon"></span>
+                                <span class="woodmart-burger-label wd-tools-text">Menu</span>
+                            </a>
+                        </div><!--END MOBILE-NAV-ICON-->
+                    </div>
+                    <div class="whb-column whb-mobile-center whb-hidden-lg">
+                        <div class="site-logo">
+                            <div class="woodmart-logo-wrap">
+                                <a href="h/" class="woodmart-logo woodmart-main-logo" rel="home">
+                                    <img src="/Content/images/logo.png" alt="Trung Tâm Nội Thất Minh Phú" style="max-width: 179px;">
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="whb-column whb-mobile-right whb-hidden-lg">
+
+                        <div class="woodmart-shopping-cart wd-tools-element woodmart-cart-design-5 woodmart-cart-alt cart-widget-opener" title="Giỏ hàng">
+                            <a href="@Url.Action("ShoppingCart", "Order")">
+
+                                <span class="woodmart-cart-icon wd-tools-icon">
+
+                                    <span class="woodmart-cart-number">@cartProductCount <span>items</span></span>
+
+                                </span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="whb-row whb-header-bottom whb-sticky-row whb-without-bg whb-border-fullwidth whb-color-dark whb-flex-flex-middle whb-hidden-mobile">
+            <div class="container">
+                <div class="whb-flex-row whb-header-bottom-inner">
+                    <div class="whb-column whb-col-left whb-visible-lg">
+
+                        <div class="header-categories-nav show-on-hover whb-wjlcubfdmlq3d7jvmt23" role="navigation">
+                            <div class="header-categories-nav-wrap">
+                                <span class="menu-opener color-scheme-light has-bg">
+                                    <span class="woodmart-burger"></span>
+
+                                    <span class="menu-open-label">
+                                        Danh Mục Sản Phẩm
+                                    </span>
+                                    <span class="arrow-opener"></span>
+                                </span>
+                                <div class="categories-menu-dropdown vertical-navigation woodmart-navigation">
+                                    <div class="menu-danhmucsp-container">
+                                        <ul id="menu-danhmucsp" class="menu wd-cat-nav">
+                                            @Html.Action("MenuProduct", "Home")
+
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="whb-column whb-col-center whb-visible-lg">
+                        <div class="whb-navigation whb-primary-menu main-nav site-navigation woodmart-navigation menu-left navigation-style-default" role="navigation">
+                            <div class="menu-mainmenu2-container">
+                                <ul id="menu-mainmenu2" class="menu">
+                                    @Html.Action("Menu", "Home")
+                                </ul>
+                            </div>
+                        </div><!--END MAIN-NAV-->
+                    </div>
+
+                    <div class="whb-column whb-col-mobile whb-hidden-lg whb-empty-column">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</header>
+

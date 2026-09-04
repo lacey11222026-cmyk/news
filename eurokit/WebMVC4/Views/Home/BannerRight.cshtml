@@ -1,0 +1,19 @@
+﻿@model List<DATA.Banner>
+@if (Model != null)
+{
+
+   
+    foreach (var item in Model.Select((value, i) => new { i, value }))
+    {
+        <div class="banner-slider mg-bottom-10 wow fadeInRight" style="visibility: visible; animation-name: fadeInRight;">
+            <a href="@item.value.Url" title="@item.value.Name">
+                <img src="@item.value.Data" alt="@item.value.Name">
+            </a>
+        </div>
+       
+    }
+
+
+
+}
+

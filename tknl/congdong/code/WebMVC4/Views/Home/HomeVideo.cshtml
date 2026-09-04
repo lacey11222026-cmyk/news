@@ -1,0 +1,61 @@
+﻿@using BIZ
+@using UTILS
+@using WebMVC4.Helper
+@model WebMVC4.Models.LastestNewModel
+@if (Model != null)
+{
+    if (Model.lstdata.Count > 0)
+    {
+
+        <div class="box-news-big row box-video-list">
+            <div class="col-md-6">
+                @foreach (var item in Model.lstdata.Take(1).Select((value, i) => new { i, value }))
+                {
+                    <div class="news-item-big">
+                        <div class="img-wrap"><a href="/chuyen-de-cong-nghe?VideoId=@(item.value.Id)"><img src="@item.value.MainImage?w=534&h=327&mode=crop" alt=""></a></div>
+                        <div class="new-content">
+                            <a href="/chuyen-de-cong-nghe?VideoId=@(item.value.Id)" class="news-name mt15"> @item.value.Title</a>
+                            <span class="dategray mt15">@item.value.PublishDate.ToString("dd/MM/yyyy")</span>
+                            <p class="mt15 news-txt">@item.value.IntroText</p>
+                        </div>
+                    </div>
+                }
+            </div>
+            <div class="col-md-3">
+                <div class="grid-cols-1">
+                    @foreach (var item in Model.lstdata.Skip(1).Take(2).Select((value, i) => new { i, value }))
+                    {
+                        <div class="news-item-small">
+                            <div class="img-wrap"><a href="/chuyen-de-cong-nghe?VideoId=@(item.value.Id)"><img src="@item.value.MainImage?w=252&h=155&mode=crop" alt=""></a></div>
+                            <div class="new-content">
+                                <a href="/chuyen-de-cong-nghe?VideoId=@(item.value.Id)" class="news-name mt15">@item.value.Title</a>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="grid-cols-1">
+                    @foreach (var item in Model.lstdata.Skip(3).Take(2).Select((value, i) => new { i, value }))
+                    {
+                        <div class="news-item-small">
+                            <div class="img-wrap"><a href="/chuyen-de-cong-nghe?VideoId=@(item.value.Id)"><img src="@item.value.MainImage?w=252&h=155&mode=crop" alt=""></a></div>
+                            <div class="new-content">
+                                <a href="/chuyen-de-cong-nghe?VideoId=@(item.value.Id)" class="news-name mt15">@item.value.Title</a>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+        <div class="text-center btn-tab"><a href="/chuyen-de-cong-nghe" class="btn-view">Xem thêm</a></div>
+
+
+    }
+
+}
+
+
+
+
+

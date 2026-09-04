@@ -1,0 +1,102 @@
+﻿@{
+   
+    Layout = "~/Views/Shared/_AdminV2.cshtml";
+    
+}
+<div class="onecolumn">
+    <div class="header">
+        <span>@ViewBag.Title</span>
+
+    </div>
+    <br class="clear">
+    <div class="content">
+        <div class="login" style="float: left">
+            <fieldset>
+                <legend>Thiết lập cache</legend><br />
+                <div style="margin-bottom:15px;">
+                    <input id="btnFlushCache" type="button" value="Xóa toàn bộ cache" onclick="SetCache('flush')" /><br />
+                </div>
+                <div style="margin-bottom:15px;">
+                    <input id="Button1" type="button" value="Xóa cache chuyên mục" onclick="SetCache('category')" /><br />
+                </div>
+                <div style="margin-bottom:15px;">
+               @*     <input id="Button2" type="button" value="Xóa cache sản phẩm" onclick="SetCache('product')" /><br />
+                </div>*@
+               <div style="margin-bottom:15px;">
+                    <input id="Button3" type="button" value="Xóa cache bài viết" onclick="SetCache('article')" /><br />
+
+                </div>
+               @* <div style="margin-bottom:15px;">
+                    <input id="Button4" type="button" value="Xóa cache album ảnh" onclick="SetCache('album')" /><br />
+                </div>*@
+                <div>
+                    <input id="Button5" type="button" value="Xóa cache bình luận" onclick="SetCache('comment')" /><br />
+                </div>
+
+            </fieldset>
+        </div>
+        <div class="login" style="float: right; margin-right: 150px;">
+            <fieldset>
+                <legend>Cấu hình chức ănng</legend>
+                <table class="admintable" cellspacing="1">
+                    <tr>
+                        <td class="key" style="width: 245px;">
+                            <label for="">
+                                Có/không(1/0) sử dụng chức năng nhuận bút
+                            </label>
+                        </td>
+                        <td>
+                            <input id="EnableMark" name="appSettings" type="text" value="@UTILS.Utils.GetAppSettingValue("EnableMark")" style="width:50px;" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">
+                            <input type="button" value="Lưu lại" onclick="SaveAppSettings()" />
+                        </td>
+                    </tr>
+                </table>
+            </fieldset>
+        </div>
+        <div class="clear"></div>
+    </div>
+</div>
+
+
+<script type="text/javascript">
+    function SetCache(method) {
+        $.Services({
+            isCrossDomain: false,
+            url: POST_URL + 'SystemService.ashx',
+            data: {
+                __m: method
+            }
+        });
+    }
+
+    function SaveAppSettings() {
+
+        var postData = [];
+        var values = '';
+
+        $('#appSettingsCont').find('input[name="appSettings"]').each(function (i, e) {
+
+            values = $(e).attr('id') + '|' + $(e).val();
+            postData.push(values);
+        });
+
+
+        $.Services({
+            isCrossDomain: false,
+            url: POST_URL + 'SystemService.ashx',
+            data: {
+                __m: 'save_appsettings',
+                'data': postData
+            }
+        });
+
+    }
+    $(document).ready(function () {
+        $('#menu_user').click();
+
+    });
+</script>

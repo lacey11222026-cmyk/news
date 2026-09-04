@@ -1,0 +1,28 @@
+﻿@using WebMVC4.Helper
+@{
+    var langpage = WorkContext.GetLanguage();
+}
+
+@if (langpage == "vi-vn")
+{
+    <div class="col-lg-4 col-md-12 sidebar-right">
+        <div class="box-blue learn-info">
+            @{Html.RenderAction("Intro", "Home", new { MaxLastestNews = 5, CateName = "news", CategoryId = 107 });}
+        </div>
+
+        <div class="news-box-right mt40">
+            @{Html.RenderAction("RightLastestNews", "News", new { MaxLastestNews = 5, CateName = "tin tức", CategoryId = 44 });}
+        </div>
+    </div><!-- end content right-->
+}
+else
+{
+    <div class="col-lg-4 col-md-12 sidebar-right">
+        <div class="box-blue learn-info">
+            @{Html.RenderAction("Intro", "Home", new { MaxLastestNews = 5, CateName = "news", CategoryId = 108 });}
+        </div>
+        <div class="news-box-right mt40">
+            @{Html.RenderAction("RightLastestNews", "News", new { MaxLastestNews = 5, CateName = "news", CategoryId = 55 });}
+        </div>
+    </div><!-- end content right-->
+}

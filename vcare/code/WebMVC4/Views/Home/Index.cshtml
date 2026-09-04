@@ -1,0 +1,420 @@
+﻿@using BIZ
+@using UTILS
+@using WebMVC4.Helper
+
+
+<div id="main-slider">
+    <form id="search-collection-form" accept-charset="UTF-8" action="/search" class="search-form" method="get">
+        <select class="mobile-select-collection">
+            <option value="0" selected="selected">Tất cả</option>
+
+
+        </select>
+        <div class="input-group">
+            <input type="text" placeholder="Tìm kiếm ..." name="q">
+            <input type="hidden" value="product" name="type">
+            <span class="input-group-btn">
+                <button type="submit"><svg class="svg-inline--fa fa-search fa-w-16" aria-hidden="true" data-prefix="fas" data-icon="search" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" data-fa-i2svg=""><path fill="currentColor" d="M505 442.7L405.3 343c-4.5-4.5-10.6-7-17-7H372c27.6-35.3 44-79.7 44-128C416 93.1 322.9 0 208 0S0 93.1 0 208s93.1 208 208 208c48.3 0 92.7-16.4 128-44v16.3c0 6.4 2.5 12.5 7 17l99.7 99.7c9.4 9.4 24.6 9.4 33.9 0l28.3-28.3c9.4-9.4 9.4-24.6.1-34zM208 336c-70.7 0-128-57.2-128-128 0-70.7 57.2-128 128-128 70.7 0 128 57.2 128 128 0 70.7-57.2 128-128 128z"></path></svg><!-- <i class="fas fa-search"></i> --></button>
+            </span>
+        </div>
+    </form>
+
+
+    <div id="owl-main-slider" class="owl-carousel owl-theme owl-loaded">
+
+        @Html.Action("Banner", "Home")
+
+
+    </div>
+</div>
+
+
+<div id="PageContainer" class="is-moved-by-drawer">
+    <main class="main-content" role="main">
+
+
+
+        <section id="home-aboutus">
+            @Html.Action("Intro", "Home", new { CategoryId = 32 })
+        </section>
+
+
+
+
+
+        <section id="home-banner">
+            <div class="wrapper">
+                <div class="inner">
+                    @Html.Action("Intro", "Home", new { CategoryId = 33 })
+                </div>
+            </div>
+        </section>
+
+
+
+
+
+
+        <section id="home-flash-sale">
+            <div class="wrapper">
+                <div class="inner">
+                    <div class="home-section-head">
+                        <h2 class="section-title">
+                            <span>Dịch vụ nổi bật</span>
+                        </h2>
+                    </div>
+                    <div class="home-section-body">
+                        <div class="section-desc">
+
+                        </div>
+
+                        <div class="hfs-product-wrapper">
+                            @Html.Action("HotProduct", "Product", new { Top = 4 })
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+
+
+
+
+
+
+        <section id="home-product" class="home-product">
+            <div class="wrapper">
+                <div class="inner">
+                    <div class="home-section-head">
+                        <h2 class="section-title">
+                            <span>Dịch vụ</span>
+                        </h2>
+                    </div>
+                    <div class="home-section-body">
+                        <div class="section-desc">
+
+                        </div>
+                        <div class="tab clearfix text-center">
+
+
+                            <button class="pro-tablinks active" onclick="openProTabs(event, 'collection1')" id="defaultOpenProTabs">
+                                Chăm sóc Ngoại thất xe
+                            </button>
+                            @*<button class="pro-tablinks" onclick="openProTabs(event, 'collection2')" id="defaultOpenProTabs2">
+                                Chăm sóc nột thất xe
+                            </button>*@
+
+                        </div>
+
+
+
+
+
+                        <div id="collection1" class="pro-tabcontent" style="display: block;">
+
+                            @Html.Action("TopProduct", "Product", new { Top = 4, categoryId=10, manufactoryId=-1 })
+
+                        </div>
+
+                        @*<div id="collection2" class="pro-tabcontent" style="display: none;">
+
+                            @Html.Action("TopProduct", "Product", new { Top = 4, categoryId = 18, manufactoryId = -1 })
+
+                        </div>*@
+
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+
+
+
+
+
+
+        <section id="home-policy">
+            <div class="wrapper">
+                <div class="inner">
+                    <div class="grid-uniform">
+
+
+                        @Html.Action("Intro", "Home", new { CategoryId = 34 })
+
+
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+
+
+
+
+
+        <section id="home-articles">
+            <div class="wrapper">
+                <div class="inner">
+                    <div class="home-section-head">
+                        <h2 class="section-title">
+                            <span>Tin tức</span>
+                        </h2>
+                    </div>
+                    <div class="home-section-body">
+                        <div class="section-desc">
+                            Các tin tức mới nhất và hot nhất về thế giới công nghệ xe hơi
+                        </div>
+
+                        <div id="owl-home-articles" class="owl-carousel owl-theme owl-loaded owl-drag">
+
+                            @Html.Action("LastestNews", "Home", new { CategoryId = 3, MaxLastestNews = 8 })
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+
+
+
+
+        <section id="home-service">
+            <div class="home-section-head">
+                <div class="wrapper">
+                    <div class="inner">
+                        <h2 class="section-title">
+                            <span>Dịch vụ</span>
+                        </h2>
+                    </div>
+                </div>
+            </div>
+            <div class="section-desc text-center">
+                <div class="wrapper">
+                    <div class="inner">
+                        Dịch vụ chăm sóc khách hàng đa dạng và phong phú
+                    </div>
+                </div>
+            </div>
+            <div class="home-section-body">
+                <div class="service-video medium--hide small--hide">
+                    <div class="video-wrapper">
+                        <iframe width="100%" allowfullscreen="1" src="https://www.youtube.com/embed/5J-V4hAZt74?&amp;autoplay=1&amp;controls=0&amp;showinfo=0&amp;rel=0&amp;loop=1&amp;mute=1" frameborder="0" allow="autoplay; encrypted-media"></iframe>
+                    </div>
+                </div>
+                <div class="service-bg medium--hide small--hide"></div>
+                <div class="wrapper">
+                    <div class="inner">
+                        <div id="owl-service" class="owl-carousel owl-theme owl-loaded owl-drag">
+
+                            @Html.Action("Service", "Home")
+
+
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+
+
+
+
+        <section id="home-brand">
+            <div class="wrapper">
+                <div class="inner">
+                    <div class="home-section-head">
+                        <h2 class="section-title">
+                            <span>Thương hiệu</span>
+                        </h2>
+                    </div>
+                    <div class="home-section-body">
+                        <div class="section-desc">
+                            Các thương hiệu mà cửa hàng chúng tôi đang cung cấp
+                        </div>
+                        <div id="owl-brand" class="owl-carousel owl-theme owl-loaded owl-drag">
+
+
+                            @Html.Action("BannerBottom", "Home")
+
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+    </main>
+</div>
+
+
+
+
+
+
+
+
+
+
+<script>
+    $("#menu_home").addClass("active");
+
+</script>
+<script>
+    $(document).ready(function () {
+        $('#owl-main-slider').owlCarousel({
+            smartSpeed: 1000,
+            animateOut: 'fadeOut',
+            autoplayTimeout: 7000,
+            animateIn: 'fadeIn',
+            nav: false,
+            autoplayHoverPause: true,
+            mouseDrag: false,
+            touchDrag: false,
+            dots: true,
+            rewind: true,
+            autoplay: true,
+            responsiveRefreshRate: 200,
+            navText: ['<i class="fa fa-angle-left" aria-hidden="true"></i>', '<i class="fa fa-angle-right" aria-hidden="true"></i>'],
+            responsive: {
+                0: {
+                    items: 1
+                },
+                480: {
+                    items: 1
+                },
+                768: {
+                    items: 1
+                },
+                1000: {
+                    items: 1,
+                    nav: true,
+                }
+            }
+        })
+        $('#owl-home-flash-sale').owlCarousel({
+            smartSpeed: 500,
+            nav: false,
+            dots: true,
+            loop: false,
+            rewind: true,
+            responsiveRefreshRate: 200,
+            navText: ['<i class="fa fa-angle-left" aria-hidden="true"></i>', '<i class="fa fa-angle-right" aria-hidden="true"></i>'],
+            responsive: {
+                0: {
+                    items: 2,
+                    margin: 5
+                },
+                480: {
+                    items: 3,
+                    margin: 5
+                },
+                768: {
+                    items: 3,
+                    margin: 15,
+                },
+                1000: {
+                    items: 3,
+                    margin: 30,
+                    nav: true,
+                    dots: false
+                }
+            }
+        })
+
+
+        $('#owl-home-articles').owlCarousel({
+            smartSpeed: 200,
+            nav: false,
+            dots: true,
+            loop: false,
+            autoplay: false,
+            rewind: true,
+            margin: 5,
+            autoplayHoverPause: true,
+            responsiveRefreshRate: 200,
+            responsive: {
+                0: {
+                    items: 2,
+                },
+                480: {
+                    items: 3,
+                },
+                768: {
+                    items: 3,
+                    margin: 15,
+                },
+                1000: {
+                    items: 2,
+                    margin: 30,
+                }
+            }
+        })
+        $('#owl-service').owlCarousel({
+            smartSpeed: 200,
+            nav: false,
+            dots: true,
+            loop: false,
+            autoplayHoverPause: true,
+            autoplay: true,
+            autoplayTimeout: 3000,
+            rewind: true,
+            autoplayHoverPause: true,
+            responsiveRefreshRate: 200,
+            responsive: {
+                0: {
+                    items: 2
+                },
+                480: {
+                    items: 2
+                },
+                768: {
+                    items: 3
+                },
+                1000: {
+                    items: 4
+                }
+            }
+        })
+        $('#owl-brand').owlCarousel({
+            smartSpeed: 200,
+            nav: false,
+            dots: false,
+            autoplayHoverPause: true,
+            loop: true,
+            autoplay: true,
+            autoplayTimeout: 3000,
+            margin: 5,
+            autoplayHoverPause: true,
+            responsiveRefreshRate: 200,
+            navText: ['<i class="fa fa-angle-left" aria-hidden="true"></i>', '<i class="fa fa-angle-right" aria-hidden="true"></i>'],
+            responsive: {
+                0: {
+                    items: 2
+                },
+                480: {
+                    items: 4,
+                },
+                768: {
+                    items: 4,
+                    margin: 15,
+                },
+                1000: {
+                    items: 5,
+                    margin: 30,
+                    nav: true,
+                }
+            }
+        })
+    });
+</script>

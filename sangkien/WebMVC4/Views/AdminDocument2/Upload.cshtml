@@ -1,0 +1,224 @@
+﻿@{
+    Layout = "~/Views/Shared/_AdminV2.cshtml";
+}
+@{
+    ViewBag.Title = "Danh sách sáng kiến";
+}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.7.7/xlsx.core.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xls/0.7.4-a/xls.core.min.js"></script>
+<div class="row">
+    <div class="col-lg-12">
+        <div class="panel panel-primary">
+            <div class="panel-heading"><span class="glyphicon glyphicon-user"></span>@ViewBag.Title</div>
+            <div class="panel-body">
+                <div class="" >
+
+                    <div class="form-group">
+
+                        <label for="fileName" class="text-info ng-binding">Chọn file</label>
+                        <input type="file" id="excelfile2" uploader="uploader" name="fileName">
+
+
+
+                    </div>
+                    <div class="form-group">
+                        <button type="button" class="btn btn-primary" onclick="validateData2()" id="btnSave2"><i class="fa fa-save"></i> Upload</button>
+                    </div>
+                    <div class="form-group" style="font-size:120%;font-weight:bold">
+
+                        <br />Tải file mẫu tại <a href="~/Content/SK.xlsx" target="_blank">đây</a>
+
+                    </div>
+
+
+
+
+
+
+                </div>
+                <br />
+                <br />
+                <div class="row" id="form">
+                    <div class="form-group submit col-md-3 col-xs-12 col-sm-6 " style="float:right">
+                      
+                        <a id="" onclick="CheckCanel()" href="javascript:;" class="btn btn-default">Xoá</a>
+                        <a id="btnCreate" onclick="CheckApp()" href="javascript:;" class="btn btn-success">Chuyển đổi</a>
+                    </div>
+
+                </div>
+                <div class="table-responsive">
+                    <div id="dgrid" class="dataTables_wrapper form-inline" role="grid">
+                        <div id="ListDocument">
+                            @Html.Action("ListDocument2")
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+</div>
+<script>
+    $('#menu_managedoc').addClass("active");
+
+</script>
+<script>
+
+    function validateData2() {
+
+
+        ExportToTable2();
+    }
+    function ExportToTable2() {
+        var regex = /^(.*?)+(.xlsx|.xls)$/;
+        /*Checks whether the file is a valid excel file*/
+        if (regex.test($("#excelfile2").val().toLowerCase())) {
+            var xlsxflag = false; /*Flag for checking whether excel is .xls format or .xlsx format*/
+            if ($("#excelfile2").val().toLowerCase().indexOf(".xlsx") > 0) {
+                xlsxflag = true;
+            }
+            /*Checks whether the browser supports HTML5*/
+            if (typeof (FileReader) != "undefined") {
+                var reader = new FileReader();
+                reader.onload = function (e) {
+                    var data = e.target.result;
+                    /*Converts the excel data in to object*/
+                    if (xlsxflag) {
+                        var workbook = XLSX.read(data, { type: 'binary' });
+                    }
+                    else {
+                        var workbook = XLS.read(data, { type: 'binary' });
+                    }
+                    /*Gets all the sheetnames of excel in to a variable*/
+                    var sheet_name_list = workbook.SheetNames;
+
+                    var cnt = 0; /*This is used for restricting the script to consider only first sheet of excel*/
+                    sheet_name_list.forEach(function (y) { /*Iterate through all sheets*/
+                        /*Convert the cell value to Json*/
+                        if (xlsxflag) {
+                            var exceljson = XLSX.utils.sheet_to_json(workbook.Sheets[y]);
+                        }
+                        else {
+                            var exceljson = XLS.utils.sheet_to_row_object_array(workbook.Sheets[y]);
+                        }
+                        if (exceljson.length > 0 && cnt == 0) {
+                            var jsonResult = BindTable2(exceljson);
+                            SaveData2(jsonResult);
+                            cnt++;
+
+
+
+                        }
+                    });
+                    $('#exceltable').show();
+                }
+                if (xlsxflag) {/*If excel file is .xlsx extension than creates a Array Buffer from excel*/
+                    reader.readAsArrayBuffer($("#excelfile2")[0].files[0]);
+                }
+                else {
+                    reader.readAsBinaryString($("#excelfile2")[0].files[0]);
+                }
+            }
+            else {
+                alert("Sorry! Your browser does not support HTML5!");
+            }
+        }
+        else {
+            alert("Please upload a valid Excel file!");
+        }
+    }
+    function SaveData2(jsonResult)
+    {
+
+          //datatemp += "| 199:" + jsonResult[0].Ussd;
+        bootbox.confirm("<b>Bạn chắc chắn lấy dữ liệu???</b> ", function (result) {
+            //console.log(JSON.stringify(jsonResult));
+            //return;
+            if (!result) {
+                return;
+            }
+            Utils.Loading();
+             $.ajax({
+                type: 'POST',
+                url: "@Url.Action("SaveUpload")",
+                 data: JSON.stringify(jsonResult),
+                contentType: 'application/json; charset=utf-8',
+                dataType: 'json',
+                async: true,
+                success: function (data) {
+                    Utils.UnLoading();
+                    if (data.ResponseCode >= 0) {
+
+                        //$('.modal ').modal('hide');
+
+                        location.reload();
+                    }
+                    else {
+
+                        alert(data.Description);
+                    }
+                }
+            });
+        });
+
+    }
+    function BindTable2(jsondata) {/*Function used to convert the JSON array to Html Table*/
+        var columns = BindTableHeader2(jsondata); /*Gets all the column headings of Excel*/
+        var jsonResult = [];
+        for (var i = 0; i < jsondata.length; i++) {
+
+            var param = {
+                'Code': jsondata[i][columns[0]] ,
+                'Name': jsondata[i][columns[1]] != undefined ? jsondata[i][columns[1]] : '',
+                'No': jsondata[i][columns[2]] != undefined ? jsondata[i][columns[2]] : '',
+                'SPublishDate': jsondata[i][columns[3]] != undefined ? jsondata[i][columns[3]] : '',
+                'Proposer': jsondata[i][columns[4]]  != undefined ?  jsondata[i][columns[4]] : '0',
+                'Unit': jsondata[i][columns[5]] != undefined ? jsondata[i][columns[5]] : '0',
+                'ProgressPercent': jsondata[i][columns[6]] != undefined ? jsondata[i][columns[6]] : '',
+                'Result': jsondata[i][columns[7]] != undefined ? jsondata[i][columns[7]] : '',
+                'Mark': jsondata[i][columns[7]] != undefined ? jsondata[i][columns[7]] : '',
+                'Status': jsondata[i][columns[8]] != undefined ? jsondata[i][columns[8]] : '',
+                'Effective': jsondata[i][columns[9]] != undefined ? jsondata[i][columns[9]] : ' ',
+                'FilePath': jsondata[i][columns[10]] != undefined ? jsondata[i][columns[10]] : ' ',
+                'Region': ' ',
+                'Followers': ' ',
+            };
+
+            //console.log(jsondata[i][columns[columnAmountMin]]);
+            //console.log(param);
+            if (param.Code != '') {
+                jsonResult.push(param);
+            }
+            //var row$ = $('<tr/>');
+            //for (var colIndex = 0; colIndex < columns.length; colIndex++) {
+            //    var cellValue = jsondata[i][columns[colIndex]];
+            //    //if (cellValue == null)
+            //    //    cellValue = "";
+            //    row$.append($('<td/>').html(cellValue));
+            //}
+            //$(tableid).append(row$);
+        }
+        return jsonResult;
+    }
+    function BindTableHeader2(jsondata) {/*Function used to get all column names from JSON and bind the html table header*/
+        var columnSet = [];
+        //var headerTr$ = $('<tr/>');
+        for (var i = 0; i < jsondata.length; i++) {
+            var rowHash = jsondata[i];
+            for (var key in rowHash) {
+                if (rowHash.hasOwnProperty(key)) {
+                    if ($.inArray(key, columnSet) == -1) {/*Adding each unique column names to a variable array*/
+                        columnSet.push(key);
+                        //headerTr$.append($('<th/>').html(key));
+                    }
+                }
+            }
+        }
+        //$(tableid).append(headerTr$);
+        return columnSet;
+    }
+
+</script>

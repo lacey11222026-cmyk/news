@@ -1,0 +1,83 @@
+﻿@using DATA
+@model List<Shop>
+<script async defer
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDXq0LYkc382zc07LZqDD_cREqJ0YWsNA8">
+</script>
+<section class="content p-t-30 p-b-30">
+    <div class="container" style="width:100%">
+        <div class="row">
+            <!-- Help-->
+            <div class="post-content post-content-single col-md-4">
+                <h3>Hệ thống đại lý phân phối </h3>
+                <div class="tabs simple">
+                 
+                  
+                    <div class="tabs-content p-b-0" style="min-height: inherit;">
+                        <div class="tab-pane active" id="ListAgent">
+                            <ul class="address">
+                                @foreach (var item in Model.Select((value, i) => new { i, value }))
+                                {
+                                    <li id="agent_@(item.value.Id)" class="@(item.value.Id==ViewBag.agentId?@Html.Raw("active"):@Html.Raw(""))">
+                                        <a href="javascript:;" onclick="LoadMappingByAgent(@item.value.Id)">
+                                            <div class="row">
+                                                <div class="col-xs-1 p-t-5"><i class="fa fa-map-marker fa-2x"></i></div>
+                                                <div class="col-xs-10 p-l-0">
+                                                    <strong>@item.value.Name</strong><br>
+                                                    @item.value.Address<br>
+                                                    Liên hệ: @item.value.Phone
+                                                </div>
+                                            </div>
+                                        </a>
+                                    </li>
+                                }
+
+
+                            </ul>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <!-- END: Help-->
+            <!-- Sidebar-->
+            <div class="sidebar sidebar-modern col-md-8">
+
+                <div id="LoadMapping">
+
+                </div>
+
+            </div>
+            <!-- END: Sidebar-->
+        </div>
+    </div>
+</section>
+<script>
+    var CityId = 1;
+    $(document).ready(function () {
+        LoadMapping(1, 0, 0);
+    });
+     function LoadMappingByAgent(agentId) {
+        $(".address li").removeClass("active");
+        $("#agent_" + agentId).addClass("active");
+        LoadMapping(CityId, 0, agentId)
+    }
+    function LoadMapping(cityId,districtId, agentId) {
+
+        var parameters = {
+            cityId: cityId,
+            districtId: districtId,
+            agentId: agentId
+        };
+        $.ajax({
+            type: 'GET',
+            url: '@Url.Action("LoadMapping")',
+            data: parameters,
+            success: function (data) {
+                
+                $("#LoadMapping").html(data);
+                initialize();
+            }
+
+        });
+    }
+</script>

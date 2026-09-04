@@ -1,0 +1,20 @@
+﻿@using BIZ
+@using UTILS
+@using WebMVC4.Helper
+@model List<BIZ.Entity.DOCUMENT_FULL>
+@if (Model != null)
+{
+
+    <ul class="document-list-02 mt20">
+        @foreach (var item in Model.Select((value, i) => new { i, value }))
+        {
+            <li>
+                <a href="@Url.Action("ViewFile", "Document", new { id = item.value.Id })"
+                   title="@item.value.Name">
+                    @item.value.Name
+                </a>
+            </li>
+
+        }
+    </ul>
+}

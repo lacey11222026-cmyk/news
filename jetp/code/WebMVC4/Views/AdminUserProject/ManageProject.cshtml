@@ -1,0 +1,130 @@
+﻿@{
+    Layout = "~/Views/Shared/_AdminV2.cshtml";
+}
+@using BIZ.Entity
+@using UTILS
+@using WebMVC4.Helper
+
+
+<div class="row">
+    <div class="col-lg-12">
+        <div class="panel panel-primary">
+            <div class="panel-heading"><span class="glyphicon glyphicon-user"></span>@ViewBag.Title</div>
+            <div class="panel-body">
+                <div class="row" id="form">
+                    <div class="col-md-12">
+
+                        <div class="form-group col-md-3 col-xs-12 col-sm-6">
+                            <input type="text" id="txtTitle" class="form-control" placeholder="Nhập từ khóa">
+                        </div>
+                        <div class="form-group col-md-3 col-xs-12 col-sm-6">
+                            <input type="text" id="txtUserName" class="form-control" placeholder="Nhập người gửi hoặc ID">
+                        </div>
+
+                        <div class="form-group col-md-4 col-xs-12 col-sm-6">
+                            <label class="control-label"><i class="fa fa-flag"></i>Loại</label>
+                            <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
+
+                                <select class="form-control" id="ddlActive">
+                                    <option value="-1">Tất cả</option>
+                                    <option value="1">Dự án đầu tư có cấu phần xây dựng</option>
+                                    <option value="2">Dự án hỗ trợ kỹ thuật</option>
+
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-group submit col-md-3 col-xs-12 col-sm-6">
+                            <button type="button" id="btnSearch" class="btn btn-info"><i class="fa fa-search"></i>Tìm Kiếm</button>
+                            <button type="button" id="btn_export" class="btn btn-success"><i class="fa fa-file-excel-o"></i>Download</button>
+
+                        </div>
+                        <div class="col-md-2 col-xs-12 col-sm-6" id="total" style="float:right;font-weight:bold;text-align:right">
+
+                        </div>
+
+                    </div>
+
+                </div>
+                <div class="table-responsive">
+                    <div id="dgrid" class="dataTables_wrapper form-inline" role="grid">
+                        <div id="ListProject">
+                            @Html.Action("ListProject", "AdminUserProject", new { key = ViewBag.key })
+                        </div>
+                        <div class="dataTables_paginate" id="pager">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    $(document).ready(function () {
+        var parameters = {
+        };
+        $("#form").keypress(function (event) {
+            if (event.which == 13) {
+                $("#btnSearch").click();
+            }
+        });
+        $("#btnSearch").click(function () {
+            GetList(1);
+        });
+        $("#ddlActive").change(function () {
+            GetList(1);
+        });
+        $("#ddlCate").change(function () {
+            GetList(1);
+        });
+        function GetList(currentPage) {
+            key = '@ViewBag.key';
+            parameters = {
+                type: $('#ddlActive :selected').val(),
+                keyword: $("#txtTitle").val(),
+                username: $("#txtUserName").val(),
+                currentPage: currentPage
+            };
+            btnSearch(currentPage);
+        };
+        function btnSearch(currentPage) {
+            Utils.Loading();
+            var urlRequestAns = "/AdminUserProject/ListProject";
+            $.ajax({
+                type: 'GET',
+                url: urlRequestAns,
+                data: parameters,
+                success: function (data) {
+                    $("#ListProject").html(data);
+                    Utils.UnLoading();
+                },
+                error: function () {
+                    Utils.UnLoading();
+                }
+            });
+        }
+
+    });
+
+</script>
+<script>
+    $('#menu_manageuProject').addClass("active");
+</script>
+
+<script src="//cdn.rawgit.com/rainabba/jquery-table2excel/1.1.0/dist/jquery.table2excel.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $("#btn_export").click(function () {
+            $("#dataTables").table2excel({
+                exclude: ".noExl",
+                name: "duan",
+                filename: "duan",
+                fileext: ".xls",
+                exclude_img: true,
+                exclude_links: true,
+                exclude_inputs: true
+            });
+        });
+
+    });
+</script>

@@ -1,0 +1,486 @@
+﻿@{
+    ViewBag.Title = "AddEdit";
+    Layout = "~/Views/Shared/_Admin.cshtml";
+}
+
+
+
+ <script type="text/javascript" language="javascript" src="/Administrator/Scripts/Zapatec/zapatec.js"></script>
+<script type="text/javascript" language="javascript" src="/Administrator/Scripts/Zapatec/calendar.js"></script>
+<script type="text/javascript" language="javascript" src="/Administrator/Scripts/Zapatec/calendar-en.js"></script>
+<link href="/Administrator/Scripts/Zapatec/zpcal.css" rel="stylesheet" type="text/css" />
+<link href="/Administrator/Scripts/Zapatec/greengrass.css" rel="stylesheet" type="text/css"/>
+   
+    <script type="text/javascript">
+        OpenAlertDialog('Đang xử lý ...');
+    </script>
+    <div id="toolbar-box">
+        <div class="t">
+            <div class="t">
+                <div class="t">
+                </div>
+            </div>
+        </div>
+        <div class="m">
+            <div class="toolbar" id="toolbar">
+                <table class="toolbar">
+                    <tr>
+                        <td class="button" id="toolbar-save">
+                            <a id="lnkSave" class="toolbar" href="javascript:void(0);" onclick="Save('close');">
+                                <span class="icon-32-save" title="Save"></span>Lưu lại</a>
+                        </td>
+                        <td class="button" id="toolbar-apply">
+                            <a id="lnkApply" class="toolbar" href="javascript:void(0);" onclick="Save();"><span
+                                class="icon-32-apply" title="Apply"></span>Áp dụng</a>
+                        </td>
+                        <td class="button" id="toolbar-cancel">
+                            <a id="lnkClose" class="toolbar" href="javascript:void(0);" onclick="Close();"><span
+                                class="icon-32-cancel" title="Close"></span>Đóng</a>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div class="header icon-48-addedit">
+                Văn bản: <small><span id="spDetailTitle"></span></small>
+            </div>
+            <div class="clr">
+            </div>
+        </div>
+        <div class="b">
+            <div class="b">
+                <div class="b">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="clr">
+    </div>
+    <div id="element-box">
+        <div class="t">
+            <div class="t">
+                <div class="t">
+                </div>
+            </div>
+        </div>
+        <div class="m" id="all_item_info_container">
+            <div id="jalert_notification">
+                &nbsp;</div>
+            <div id="tabs">
+                <ul>
+                    <li><a href="#tabs-1">Thông tin cơ bản</a></li>
+                    
+                </ul>
+                <div class="col width-70" id="tabs-1">
+                    <fieldset>
+                        <legend>Thông tin chi tiết văn bản</legend>
+                        <table class="admintable" cellspacing="1">
+                            <tr>
+                                <td width="250" class="key">
+                                    <label for="">
+                                        Tên văn bản
+                                    </label>
+                                </td>
+                                <td>
+                                    <input id="txtName" type="text" class="inputbox" maxlength="250" style="width: 650px" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="key">
+                                    <label for="">
+                                        Chuyên mục
+                                    </label>
+                                </td>
+                                <td>
+                                    <select id="select_category" name="select_category">
+                                    </select>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td width="250" class="key">
+                                    <label for="">
+                                        Mã
+                                    </label>
+                                </td>
+                                <td>
+                                    <input id="txtCode" type="text" class="inputbox" maxlength="250" style="width: 350px" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td width="250" class="key">
+                                    <label for="">
+                                        File
+                                    </label>
+                                </td>
+                                <td>
+                                    <input id="txtFilePath" type="text" class="inputbox" maxlength="250" style="width: 650px" />&nbsp;
+                                    <a href="javascript:void(0)" onclick="openWin()"><b>Upload file</b></a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td width="250" class="key">
+                                    <label for="">
+                                        Tóm lược
+                                    </label>
+                                </td>
+                                <td>
+                                    <textarea id="txtDescription" cols="20" class="inputbox" style="width: 650px; height: 100px;"></textarea>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="key">
+                                    <label for="">
+                                        Cơ quan ban hành
+                                    </label>
+                                </td>
+                                <td>
+                                    <input id="txtSignedByDesc" type="text" class="inputbox" maxlength="250" style="width: 350px" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="key">
+                                    <label for="">
+                                        Người ký
+                                    </label>
+                                </td>
+                                <td>
+                                    <input id="txtSignedBy" type="text" class="inputbox" maxlength="250" style="width: 350px" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="key">
+                                    <label for="">
+                                        Ngày ban hành
+                                    </label>
+                                </td>
+                                <td>
+                                    <input id="txtPublishDate" type="text" class="inputbox" maxlength="250" style="width: 250px" />
+                                    &nbsp;<img width="19" height="21"  src="../..//Content/images/calendar.gif" id="checkInCal1"
+                                        alt=""  style="vertical-align:bottom;"/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="key">
+                                    <label for="">
+                                        Ngày có hiệu lực
+                                    </label>
+                                </td>
+                                <td>
+                                    <input id="txtEffectiveDate" type="text" class="inputbox" maxlength="250" style="width: 250px" />
+                                    &nbsp;<img width="19" height="21"  src="../..//Content/images/calendar.gif" id="checkInCal2"
+                                        alt=""  style="vertical-align:bottom;"/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="key">
+                                    <label for="">
+                                        Ngày hết hiệu lực
+                                    </label>
+                                </td>
+                                <td>
+                                    <input id="txtExpiryDate" type="text" class="inputbox" maxlength="250" style="width: 250px" />
+                                    &nbsp;<img width="19" height="21"  src="../..//Content/images/calendar.gif" id="checkInCal3"
+                                        alt=""  style="vertical-align:bottom;"/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="key">
+                                    <label for="">
+                                        Tình trạng
+                                    </label>
+                                </td>
+                                <td>
+                                    <input name="radPublished" type="radio" value="0" />
+                                    Khóa
+                                    <input name="radPublished" type="radio" value="1" checked="checked" />
+                                    Hoạt động
+                                </td>
+                            </tr>
+                        </table>
+                    </fieldset>
+                </div>
+                <div class="clr">
+                </div>
+            </div>
+        </div>
+        <div class="b">
+            <div class="b">
+                <div class="b">
+                </div>
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript">
+        var DocumentId = '@ViewBag.Id';
+        var currentCategorytId = 0;
+        var redirectUrl = '@Url.Action("Index","AdminDocument")';
+        var entityName = 'Document';
+
+        $(document).ready(function () {
+            InitCalendar();
+            BindCategoriesToSelectBox();
+
+            $("#tabs").tabs({ selected: 0 });
+
+
+        });
+        function InitCalendar() {
+           
+            var cal1 = Zapatec.Calendar.setup({
+                inputField: 'txtPublishDate',
+                button: "checkInCal1",
+                ifFormat: "%d/%m/%Y",
+                timeFormat: "24",
+                showsTime: false,
+                electric: false
+            });
+            var cal2 = Zapatec.Calendar.setup({
+                inputField: 'txtEffectiveDate',
+                button: "checkInCal2",
+                ifFormat: "%d/%m/%Y",
+                timeFormat: "24",
+                showsTime: false,
+                electric: false
+            });
+            var cal3 = Zapatec.Calendar.setup({
+                inputField: 'txtExpiryDate',
+                button: "checkInCal3",
+                ifFormat: "%d/%m/%Y",
+                timeFormat: "24",
+                showsTime: false,
+                electric: false
+            });
+        }
+
+        function OnLoad() {
+
+            if (DocumentId != 0) {
+
+                $('#spDetailTitle').text('Sửa chữa');
+
+
+                $.Services({
+                    serviceName: 'DocumentService.ashx',
+                    data: {
+                        __m: 'get_document',
+                        _id: DocumentId
+                    },
+                    success: function (data) {
+
+                        if (data != undefined && data != null && data != '')
+                            BindData(data);
+                        else
+                            $('#all_item_info_container').html("Văn bản không tồn tại hoặc đã bị xóa");
+
+                        DestroyDialog();
+                    }
+                });
+            }
+            else {
+
+                $('#spDetailTitle').text('Tạo mới');
+
+
+
+                DestroyDialog();
+            }
+
+        }
+
+        function BindData(data) {
+
+            $('#txtName').val(data.Name);
+            $('#txtCode').val(data.Code);
+            $('#txtDescription').val(data.Description);
+            $('#select_style option[value=' + data.Style + ']').attr('selected', 'selected');
+            $('#select_category option[value=' + data.CategoryId + ']').attr('selected', 'selected');
+
+            currentCategorytId = data.CategoryId;
+
+            $('#txtFilePath').val(data.FilePath);
+            $('#txtSignedByDesc').val(data.SignedByDesc);
+            $('#txtSignedBy').val(data.SignedBy);
+            $('#txtPublishDate').val(dateFormat(data.PublishDate, 'dd/mm/yyyy'));
+            $('#txtEffectiveDate').val(dateFormat(data.EffectiveDate, 'dd/mm/yyyy'));
+            $('#txtExpiryDate').val(dateFormat(data.ExpiryDate, 'dd/mm/yyyy'));
+
+
+            $('input[name="radPublished"]').each(function (i, e) {
+                if ($(e).val() == data.Status)
+                    $(e).attr('checked', 'checked');
+                else
+                    $(e).removeAttr('checked');
+            });
+
+
+        }
+
+        function FormValidate() {
+            var title = $.trim($('#txtName').val());
+            if (title == '') {
+                $('#jalert_notification').jAlert('Tên Document không được để trống', 'warning', "edit", 400);
+                $('#txtName').focus();
+                return false;
+            }
+
+
+            return true;
+        }
+
+
+        function PostObj(method) {
+
+            var name = Encoder.urlEndcode($.trim($('#txtName').val()));
+            var description = Encoder.urlEndcode($('#txtDescription').val());
+            var cateogryId = $('#select_category option:selected').val();
+
+            var categorypathway = $('#select_category option:selected').attr('title');
+            var status = 0;
+            status = $('input[name="radPublished"]:checked').val();
+
+            var code = $.trim($('#txtCode').val());
+            var filepath = $.trim($('#txtFilePath').val());
+            var signedbydesc = Encoder.urlEndcode($.trim($('#txtSignedByDesc').val()));
+            var signedby = Encoder.urlEndcode($.trim($('#txtSignedBy').val()));
+            var publishdate = $.trim($('#txtPublishDate').val());
+            var effectivedDate = $.trim($('#txtEffectiveDate').val());
+            var expirydDate = $.trim($('#txtExpiryDate').val());
+
+
+
+            var post_data = {
+                __m: method,
+                id: DocumentId,
+                name: name,
+                categoryid: cateogryId,
+                categorypathway: categorypathway,
+                description: description,
+                code: code,
+                status: status,
+                filepath: filepath,
+                signedbydesc: signedbydesc,
+                signedby: signedby,
+                publishdate: publishdate,
+                effectivedate: effectivedDate,
+                expirydate: expirydDate
+            }
+
+            return post_data;
+        }
+
+        function Save(type) {
+
+            DestroyJAlert();
+
+            if (!FormValidate())
+                return;
+
+            OpenAlertDialog('Đang xử lý ...');
+
+            $.Services({
+
+                isCrossDomain: false,
+                url: POST_URL + 'DocumentService.ashx',
+                data: PostObj('save'),
+                success: function (data) {
+
+                    if (data != undefined && data != null && data != '') {
+                        var json_data = eval('(' + data + ')');
+
+                        if (json_data.Success) {
+
+                            if (json_data.Value != 0 && json_data.Value != null && json_data.Value != undefined && json_data.Value != '') {
+                                DocumentId = json_data.Value;
+
+                            }
+
+                            //OnLoad();                               
+                        }
+
+
+                        if (type != undefined && type != null && type != '' && type == 'close')
+                            Close();
+
+
+                        DestroyDialog();
+
+                        var jalert_type = "info";
+                        if (!json_data.Success)
+                            jalert_type = "fatal";
+
+                        $('#jalert_notification').jAlert(json_data.Text, jalert_type, "edit", 400);
+                    }
+
+
+
+                }
+            });
+        }
+
+        function Close() {
+
+            window.location.href = redirectUrl;
+        }
+
+        function BindCategoriesToSelectBox() {
+
+            //$('#select_category').html('<option value="0">- Không thuộc nhóm nào -</option>');
+
+            $.Services({
+
+                serviceName: 'CategoryService.ashx',
+                data: {
+                    __m: 'get_all_categories',
+                    ctype: 5
+                },
+                success: function (data) {
+                    html = '';
+
+                    if (data != undefined && data != null && data != '') {
+
+                        $.each(data, function (i, item) {
+
+                            html = '<option value="' + item.Id + '" title="' + item.Pathway + '">';
+
+                            if (item.NodeLevel != 0) {
+                                for (var i = 1; i < item.NodeLevel; i++) {
+                                    html += '-+&nbsp;';
+                                }
+                            }
+
+                            html += item.Name;
+                            html += '</option>';
+
+                            if (item.ParentId != 0) {
+                                if ($('#select_category option[value=' + item.ParentId + ']').length)
+                                    $('#select_category option[value=' + item.ParentId + ']').after(html);
+                                else
+                                    $('#select_category').append(html);
+                            }
+                            else
+                                $('#select_category').append(html);
+
+
+
+                        });
+
+                        OnLoad();
+
+                    }
+
+                }
+            });
+
+
+
+        }
+
+        function openWin() {
+            myWindow = window.open('@Url.Action("MultiUpload","Admin")', '', 'width=700,height=500');
+
+            myWindow.focus();
+        }
+
+       
+
+
+    </script>

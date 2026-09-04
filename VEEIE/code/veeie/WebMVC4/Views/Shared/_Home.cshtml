@@ -1,0 +1,97 @@
+﻿@using WebMVC4.Helper
+@{
+    var langpage = WorkContext.GetLanguage();
+}
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+
+    @Html.Partial("MetaData")
+    @Styles.Render("~/Content/site.css")
+
+</head>
+<body onorientationchange="updateOrientation();">
+    <!-- Script-->
+    <script src="/Content/js/jquery.min.js"></script>
+    <script src="/Content/js/bootstrap.min.js"></script>
+
+    <script type="text/javascript" src="/Content/js/jquery.mmenu.min.all.js"></script>
+        <script type="text/javascript" src="/Content/js/jquery.flexisel.js"></script>
+    <script>
+        function updateOrientation() {
+            window.location.reload();
+        }
+    </script>
+    @{Html.RenderAction("Menu", "Home", new { lang = langpage });}
+    <div class="container" id="pagecontainer">
+
+
+        @RenderBody()
+        <div class="tags mt30">
+            @{Html.RenderAction("MenuBottom", "Home", new { lang = langpage });}
+            <div class="f-nav text-right">
+                @if (langpage == "vi-vn")
+                {
+                    <ul class="">
+                        <li><a href="/">Trang chủ</a></li>
+                        <li><a href="/Home/SiteMap/">Sơ đồ</a></li>
+                        <li><a href="/gioi-thieu/c40/quy-che.html">Quy chế</a></li>
+                    </ul>
+                }
+                else
+                {
+                    <ul class="f-nav text-right">
+                        <li><a href="/">Home</a></li>
+                        <li><a href="/Home/SiteMap/">Sitemap</a></li>
+                        <li><a href="/gioi-thieu/c41/policy.html">Private Policy</a></li>
+                    </ul>
+                }
+                <a href="https://www.facebook.com/scp.gov.vn/" class="pull-right"><img src="~/Content/images/facebook.png" alt="Facebook" class="mt5 fb"></a>
+            </div>
+
+            <div class="clearfix"></div>
+        </div>
+        <footer class="footer">
+            @Html.Raw(Resources.Global.FooterContent)
+        </footer>
+    </div><!-- end tags-->
+    @Html.Partial("Site_Footer")
+    <div id="fb-root"></div>
+
+    <div class="clearfix"></div>
+
+
+
+
+    <!-- end footer-->
+
+
+    @*@Scripts.Render("~/sitescript")*@
+    <script src="/Content/js/script.js?vs=21"></script>
+
+    <script src="https://sp.zalo.me/plugins/sdk.js"></script>
+    <script>
+
+        (function (d, s, id) {
+            var js, fjs = d.getElementsByTagName(s)[0];
+            if (d.getElementById(id)) return;
+            js = d.createElement(s); js.id = id;
+            js.src = "//connect.facebook.net/vi_VN/sdk.js#xfbml=1&version=v2.8&appId=668812996848171";
+            fjs.parentNode.insertBefore(js, fjs);
+        }(document, 'script', 'facebook-jssdk'));
+    </script>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-46237204-3"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'UA-46237204-3');
+    </script>
+
+
+</body>
+
+
+</html>

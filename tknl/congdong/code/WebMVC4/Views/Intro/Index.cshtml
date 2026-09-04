@@ -1,0 +1,34 @@
+﻿@using BIZ
+@using UTILS
+@using WebMVC4.Helper
+@model BIZ.Entity.CATEGORY_FULL
+
+@if (Model.Id == 2)
+{
+    <div class="container mt30 pb100 intro-page">
+        <div class="map-box">
+            <div class="map-left">
+                <div class="intro-page-content">
+                    <h2 class="title-cm"><a href="@Model.Url">@Model.Name</a></h2>
+                    <div class="mt30 intro-content" id="NewsContent">
+                        @Html.Raw(Model.Contents)
+                    </div>
+                </div>
+            </div>
+            <div class="map-right">
+                @{Html.RenderAction("Map", "Home");}
+            </div>
+        </div>
+
+    </div>
+}
+
+else
+{
+<div class="container mt30 pb100 intro-page">
+    <div class="mt30 intro-content" id="NewsContent">
+        @Html.Raw(Model.Contents)
+    </div>
+
+</div>
+}

@@ -1,0 +1,62 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+
+    <title>@ViewBag.Title </title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="@ViewBag.Description" />
+    <meta name="keywords" content="@ViewBag.Keywords" />
+    <meta name="news_keywords" content="@ViewBag.Keywords" />
+    <meta name="author" content="vecea" />
+
+    <meta content="general" name="rating" />
+    <meta content="vecea" name="copyright" />
+    <meta content="never" name="expires" />
+    <meta content="global" name="distribution" />
+    <meta content="DOCUMENT" name="RESOURCE-TYPE" />
+    <meta content="vecea.vn" name="GENERATOR" />
+    <meta name="robots" content="index,follow" />
+    <meta name="Googlebot" content="index,follow,noarchive" />
+    <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
+    <meta content="@ViewBag.MainImage" property="og:image">
+    <link rel="icon" type="image/icon" href="~/Content/images/logo-icon.png">
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+    @Styles.Render("~/Content/sitecss")
+
+
+
+</head>
+<body>
+    @Scripts.Render("~/Content/sitejs")
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js	"></script>
+    <div class="container">
+        @Html.Partial("Site_Header")
+        <section class="main row">
+            @RenderBody()
+            @Html.Partial("Site_Right")
+            @Html.Action("BannerBottom", "Home")
+        </section>
+
+        <div class="clear"></div>
+        @Html.Partial("Site_Footer")
+    </div>
+    <script>
+        (function (i, s, o, g, r, a, m) {
+            i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () {
+                (i[r].q = i[r].q || []).push(arguments)
+            }, i[r].l = 1 * new Date(); a = s.createElement(o),
+                m = s.getElementsByTagName(o)[0]; a.async = 1; a.src = g; m.parentNode.insertBefore(a, m)
+        })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
+
+        ga('create', 'UA-98646180-1', 'auto');
+        ga('send', 'pageview');
+
+    </script>
+    <script>
+        $("#qnmb").remove();
+    </script>
+</body>
+
+
+</html>

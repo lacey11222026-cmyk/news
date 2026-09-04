@@ -1,0 +1,95 @@
+﻿@using BIZ
+@using UTILS
+@using WebMVC4.Helper
+@model WebMVC4.Models.DocumentModel
+
+@if (Model.listdata != null)
+{
+    <div class="main-content box-09 video-page">
+        @{Html.RenderAction("Breadcrumb", "News", new { CategoryId = Model.CategoryId });}
+       
+        <form class="form-inline mt20">
+            <div class="form-group">
+                <label>Từ khóa :</label>
+                <input type="email" id="txtkeyword" value="@ViewBag.keyword" class="form-control">
+            </div>
+            <div class="form-group">
+                <label>Từ ngày :</label>
+                <div  id="datetimeFromDate" style="display:inline-block">
+                    <input type="text" data-date-format="DD/MM/YYYY" name="datetimeFromDate" class="form-control" id="txtfromdate" value="@ViewBag.fromdate">
+                </div>
+            </div>
+            <div class="form-group">
+                <label>Đến ngày :</label>
+                <div id="datetimeToDate" style="display:inline-block">
+                    <input type="text" data-date-format="DD/MM/YYYY" name="datetimeToDate" class="form-control" id="txttodate" value="@ViewBag.todate">
+                </div>
+            </div>
+            <button onclick="searchdoc();" class="btn btn-primary">Tìm kiếm</button>
+        </form>
+        <div class="wrapp-table">
+            <table class="document-table mt20">
+
+                <tr>
+                    <th>STT </th>
+                    <th>Số hiệu </th>
+                    <th>Tên văn bản </th>
+                    <th>Ngày ban hành </th>
+                    <th>Download </th>
+                </tr>
+                @foreach (var item in Model.listdata.Select((value, i) => new { i, value }))
+                {
+                    <tr>
+                        <td>@(item.i + 1) </td>
+                        <td>@item.value.Code</td>
+                        <td>
+                            <a href="@Url.Action("Detail","Document",new { id=item.value.Id})" >
+                                @item.value.Name
+                            </a>
+                        </td>
+                        <td> @Convert.ToDateTime(item.value.PublishDate).ToString(@" dd'/'MM'/'yyyy") </td>
+                        <td align="center">
+                            <a href="@Url.Action("DownloadFile","Document",new { id=item.value.Id})">
+                                <img src="/Content/images/icon-pdf.png">
+                            </a><br />
+                            <a href="@Url.Action("ViewFile","Document",new { id=item.value.Id})" target="_blank">Xem online</a>
+                        </td>
+                    </tr>
+
+                }
+
+            </table>
+        </div>
+        <div class="text-center mt10">
+            <ul class="pagination text-center">
+                @{Html.RenderPartial("Pagination", new WebMVC4.Models.PaginationInfo
+                    {
+                        PageUrl = Url.SetParameter("Page", "!0"),
+                        CurrentPage = Model.pageIndex,
+                        PageSize = Model.pageSize,
+                        TotalItemCount = Model.total,
+                    }); }
+            </ul>
+        </div>
+    </div>
+<!-- end content-->
+    <link href="~/Administrator/Styles/plugins/datetimepicker/bootstrap-datetimepicker.css" rel="stylesheet" />
+    <script src="~/Administrator/Scripts/plugins/datetimepicker/moment.js"></script>
+    <script src="~/Administrator/Scripts/plugins/datetimepicker/bootstrap-datetimepicker.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+
+            $('#datetimeFromDate').datetimepicker();
+            $('#datetimeToDate').datetimepicker();
+        });
+
+        function searchdoc() {
+            var id='@Model.CategoryId';
+            var keyword = $("#txtkeyword").val();
+            var fromdate = $("#txtfromdate").val();
+            var todate = $("#txttodate").val();
+            window.location = '/Document/Index/'+id+'/?keyword=' + keyword + '&fromdate=' + fromdate + '&todate=' + todate;
+            //window.location = jQuery.query.set("keyword", keyword).set("fromdate", fromdate).set("todate", todate).set("Page", "1");
+        }
+    </script>
+}

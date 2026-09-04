@@ -1,0 +1,77 @@
+﻿@using WebMVC4
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+
+    <title>Cục Đổi mới sáng tạo, Chuyển đổi xanh và Khuyến công</title>
+    <meta name="Keywords" content="hoạt động khoa học công nghệ ngành công thương, khoa học công nghệ ngành công thương, khoa học công nghệ" />
+    <meta name="Description" content="hoạt động khoa học công nghệ ngành công thương" />
+
+
+    <meta content="never" name="expires" />
+    <meta content="global" name="distribution" />
+    <meta content="DOCUMENT" name="RESOURCE-TYPE" />
+
+    @*<link type="image/x-icon" href="/site.ico" rel="Shortcut Icon" />*@
+
+    <link rel="shortcut icon" href="/Content/images/icon-logo.png" />
+    <!-- jquery core -->
+    <script src="/Scripts/jquery-1.4.1.min.js" type="text/javascript"></script>
+    <!-- jquery plugin -->
+    @* <script src="/Scripts/jcarousellite_1.0.1.min.js" type="text/javascript"></script>*@
+    <!-- member class -->
+    <script src="/Scripts/site.constant.js" type="text/javascript"></script>
+    <script src="/Scripts/site.utils.js" type="text/javascript"></script>
+    <script src="/Scripts/site.lib.string.js" type="text/javascript"></script>
+    <script src="/Scripts/site.lib.encode.js" type="text/javascript"></script>
+    @*<script src="/Scripts/jquery-services-110405.js" type="text/javascript"></script>
+        <link href="/Scripts/Popup/popup.css" rel="stylesheet" type="text/css" />*@
+
+    <script src="/Scripts/site.utils.js" type="text/javascript"></script>
+    <script src="/Scripts/jquery.lightbox-0.5.js" type="text/javascript"></script>
+    <link href="/Styles/jquery.lightbox-0.5.css" rel="stylesheet" type="text/css" />
+    <script src="/Scripts/jquery.jcarousel.min.js" type="text/javascript"></script>
+    @*<script type="text/javascript" src="/Scripts/slides.min.jquery.js"></script>
+        <script type="text/javascript" src="/Scripts/jquery.tipsy.js"></script>*@
+    @*<link rel="stylesheet" type="text/css" href="/Styles/ddsmoothmenu.css" />
+        <script type="text/javascript" src="/Scripts/ddsmoothmenu.js"></script>*@
+
+    <!--[if IE 6]>
+    <script src="/Scripts/pngfix.js"></script>
+    <script>DD_belatedPNG.fix('img,');</script>
+    <![endif]-->
+
+    <link href="/Styles/print.css" rel="stylesheet" type="text/css" />
+
+    <style>
+
+
+        #NewsContent div, #NewsContent p {
+            margin: 1em 0;
+        }
+    </style>
+
+</head>
+<body>
+
+
+    <div id="main">
+        
+        <div id="body">
+            <div class="print"><span onclick="window.print()" class="cursor">[In trang]</span></div>
+            <div id="article">
+                @RenderBody()
+            </div>
+        </div>
+        <div id="footer">
+            <div class="print"><span onclick="window.print()" class="cursor">[In trang]</span></div>
+            
+        </div>
+    </div>
+
+
+    
+</body>
+
+
+</html>

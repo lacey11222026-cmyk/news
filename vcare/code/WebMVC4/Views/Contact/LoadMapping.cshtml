@@ -1,0 +1,42 @@
+﻿@model string
+<div id="googleMap" style="width:100%;height:300px;"></div>
+<script type="text/javascript">
+
+
+        var markers = [];
+        var map;
+        var infowindow = new google.maps.InfoWindow();
+        function initialize() {
+            var map_canvas = document.getElementById('googleMap');
+            var map_options = {
+                center: new google.maps.LatLng(21.041993, 105.838050),
+                zoom: 14,
+                mapTypeId: google.maps.MapTypeId.ROADMAP
+            };
+            map = new google.maps.Map(map_canvas, map_options);
+
+
+            addMarkerActive(new google.maps.LatLng(21.041993, 105.838050), 'Địa chỉ: 295 Hoàng Hoa Thám, Liễu Giai, Ba Đình, Hà Nội');
+
+        }
+        function addMarkerActive(latlng, myTitle, html) {
+            marker = new google.maps.Marker({
+                position: latlng,
+                map: map,
+                title: myTitle,
+                icon: "https://maps.google.com/mapfiles/marker.png"
+            });
+            google.maps.event.addListener(marker, 'mouseover', (function (marker) {
+                return function () {
+                    infowindow.setContent(html);
+                    infowindow.open(map, marker);
+                }
+            })(marker));
+            markers.push(marker);
+
+            infowindow.setContent(html);
+            infowindow.open(map, marker);
+        }
+
+        initialize();
+</script>

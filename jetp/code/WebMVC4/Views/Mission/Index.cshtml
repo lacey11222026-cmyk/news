@@ -1,0 +1,81 @@
+﻿@using BIZ
+@using UTILS
+@using WebMVC4.Helper
+@model WebMVC4.Models.MissionModel
+
+
+@{
+    var langpage = WorkContext.GetLanguage();
+}
+
+<div class="faq-page">
+    <div class="breadcrumbs-03 mt30">
+        <div class="container">
+            <ul>
+                <ul>
+                    <li><a href="/">@Resources.Global.Home</a></li>
+                    <li><span>@ViewBag.CateName</span></li>
+                </ul>
+            </ul>
+        </div>
+    </div>
+    <section class="section-contact-1 mt50 pb100">
+        <div class="container">
+            <div class="content">
+                <div class="col-left">
+                    <div class="picture">
+                        <img src="@ViewBag.CateImg" alt="images">
+                    </div>
+                </div>
+                <div class="col-right">
+                    <div class="faq-tab">
+                        <div class="title">
+                            <p>@ViewBag.CateDescription</p>
+                        </div>
+                        <div class="accordion-faq">
+                            <ul class="item-tab">
+                                @foreach (var item in Model.listdata.Select((value, i) => new { i, value }))
+                                {
+
+                                    <li>
+                                        <div class="title-tab">
+                                            <span class="icon"></span>
+                                            <p>@item.value.Description</p>
+                                        </div>
+                                        <div class="content-tab" style="display: none;">
+                                            @Html.Raw(item.value.Organ)
+                                        </div>
+                                    </li>
+                                }
+
+
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+
+</div>
+<script>
+    $(document).ready(function () {
+        (function ($) {
+            $('.item-tab > li:first-child .title-tab').addClass('show').next().slideDown();
+            $('.item-tab .title-tab').click(function (j) {
+                var dropDown = $(this).closest('li').find('.content-tab');
+                $(this).closest('.item-tab').find('.content-tab').not(dropDown).slideUp();
+                if ($(this).hasClass('show')) {
+                    $(this).removeClass('show');
+                } else {
+                    $(this).closest('.item-tab').find('.title-tab.show').removeClass('show');
+                    $(this).addClass('show');
+                }
+                dropDown.stop(false, true).slideToggle();
+                j.preventDefault();
+            });
+        })(jQuery);
+    });
+</script>

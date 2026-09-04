@@ -1,0 +1,45 @@
+﻿@using BIZ
+@using UTILS
+@using WebMVC4.Helper
+@model List<BIZ.Entity.Album_FULL>
+@if (Model != null)
+{
+
+    <div class="row">
+        <div class="col-lg-7 col-md-6 col-sm-12">
+            @foreach (var item in Model.Take(1).Select((value, i) => new { i, value }))
+            {
+
+                <a href="@Utils.FormatUrlRewrite(item.value.Id, item.value.Title, "AlbumDetail")">
+                    <img src="@item.value.MainImage?w=629&h=350&mode=crop" alt="">
+                    <h3 class="mt20 movie-text"><a href="@Utils.FormatUrlRewrite(item.value.Id, item.value.Title, "AlbumDetail")">@item.value.Title</a></h3>
+                </a>
+                <span class="newsdate mt10">@item.value.PublishDate.GetValueOrDefault().ToString("dd/MM/yyyy")</span>
+                <p class="mt10">@Html.Raw(item.value.Description)</p>
+            }
+        </div>
+        <div class="col-lg-5 col-md-6 col-sm-12">
+            <ul class="videolist">
+                @foreach (var item in Model.Skip(1).Select((value, i) => new { i, value }))
+                {
+                    <li>
+                        <a href="@Utils.FormatUrlRewrite(item.value.Id, item.value.Title, "AlbumDetail")" class="video-img">
+                            <img src="@item.value.MainImage?w=176&h=99&mode=crop">
+                        </a>
+                        <a href="@Utils.FormatUrlRewrite(item.value.Id, item.value.Title, "AlbumDetail")" class="video-text">@item.value.Title</a>
+                    </li>
+                }
+                </ul>
+            <a href="/thu-vien-anh/c47/hinh-anh.html" class="btn-viewmore mt20">Xem thêm <span>&#62;</span></a>
+        </div>
+    </div>
+
+
+    
+
+}
+
+
+
+
+

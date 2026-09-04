@@ -1,0 +1,38 @@
+﻿<footer class="footer">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 col-sm-6 col-xs-12">
+                <p class="textwhite">
+                    <strong>Chương trình phát triển một số ngành công nghiệp công nghệ cao</strong><br>
+                    Địa chỉ: 54 Hai Bà Trưng, Hoàn Kiếm, Hà Nội<br>
+                    Điện thoại: 024.22202.438<br>
+                    Cơ quan chủ quản: Bộ Công Thương<br>
+                    Người chịu trách nhiệm: Ông Trần Việt Hòa - Vụ trưởng Vụ Khoa học và Công nghệ
+                </p>
+                <div>
+                    <a href="https://tinnhiemmang.vn/danh-ba-tin-nhiem/congnghiepcongnghecaocomvn-1642155730" title="Chung nhan Tin Nhiem Mang" target="_blank"><img src="https://tinnhiemmang.vn/handle_cert?id=congnghiepcongnghecao.com.vn" width="150px" height="auto" alt="Chung nhan Tin Nhiem Mang"></a>
+                </div>
+            </div>
+            <div class="col-md-6 col-sm-6 col-xs-12">
+                <p class="textwhite">
+                    Giấy phép hoạt động số 295/GP-TTĐT của Bộ Thông tin và Truyền thông cấp ngày 23 tháng 11 năm 2018<br>
+                    Ghi rõ nguồn <a href="http://congnghiepcongnghecao.com.vn">http://congnghiepcongnghecao.com.vn</a> khi sử dụng thông tin từ website này<br><br>
+                    Phát triển bởi <a href="http://vtkmedia.vn/" target="_blank"><img src="/Content/images/logo-vtk.png" alt="vtkmedia"></a>
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+<div class="total-view">
+    <div class="container">
+        <div class="pull-right">
+            <span> Tổng số lượt truy cập :</span>
+            <ul>
+                @foreach (var s in HttpContext.Current.Application["TotalVisited"].ToString().Select(c => c.ToString()).ToList())
+                {
+                    <li>@s</li>
+                }
+            </ul>
+        </div>
+    </div>
+</div>

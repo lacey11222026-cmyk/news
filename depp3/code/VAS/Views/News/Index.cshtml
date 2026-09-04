@@ -1,0 +1,156 @@
+﻿@using BIZ
+@using BIZ.Entity
+@using UTILS
+@using VAS.Helper
+@model VAS.Models.News2Model
+@if (Model.hotnews != null)
+{
+    <div class="cap1-content01 container mt10">
+        <div class="row">
+            <div class="col-md-8 col-sm-12">
+                <div class="date-icon hidden-xs hidden-sm">
+                    <label>Search by day </label>
+                    <div id="datepicker" class="input-group date" data-date-format="dd-mm-yyyy">
+                        <input class="form-control" readonly="" type="text">
+                        <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+                    </div>
+                </div>
+                @{ Html.RenderAction("Breadcrumb", "News", new { CategoryId = ViewBag.CurrentCategoryId }); }
+
+                <div class="mt20 row">
+                    @{ Html.RenderAction("HotNews", "News", new { lstdata = Model.hotnews }); }
+
+                </div>
+            </div>
+            <div class="col-md-4 col-sm-12 hidden-sm">
+                @{Html.RenderAction("LastestNews", "News", new { MaxLastestNews = 3 });}
+            </div>
+        </div><!-- end row-->
+    </div><!-- end content 01 -->
+    if (ViewBag.CurrentCategoryId != null)
+    {
+        { Html.RenderAction("BannerCenter1", "Banner", new { currentCategoryId = ViewBag.CurrentCategoryId }); }
+    }
+    else
+    {
+        { Html.RenderAction("BannerCenter1", "Banner"); }
+    }
+
+    if (Model.articles != null)
+    {
+
+
+        <div class="border-bottom">
+            <div class="mt30 cap1-content02 container">
+                <div class="row ">
+                    <div class="col-md-8 col-sm-12 text-left">
+                        <div class="title-cm03">
+                            <a href="#">View More</a>
+                        </div>
+                        <ul class="mt20 viewmore-list">
+                            @foreach (var item in Model.articles.Take(3).Select((value, i) => new { i, value }))
+                            {
+                                <li>
+                                    <a href="@item.value.LinkUrl"><img src="@item.value.MainImage?w=260&mode=crop"></a>
+                                    <div>
+                                        <a href="@item.value.LinkUrl">@item.value.Title</a>
+                                        <span class="newsdate mt10">@item.value.PublishDate.ToString("dd/MM/yyyy")</span>
+                                    </div>
+                                    <div class="hidden-xs">
+                                        @item.value.IntroText
+                                    </div>
+                                </li>
+                            }
+                        </ul>
+                        @if (ViewBag.CurrentCategoryId != null)
+                        {
+                            { Html.RenderAction("BannerCenter2", "Banner", new { currentCategoryId = ViewBag.CurrentCategoryId }); }
+                        }
+                        else
+                        {
+                            { Html.RenderAction("BannerCenter2", "Banner"); }
+                        }
+                        <ul class="mt40 viewmore-list">
+                            @foreach (var item in Model.articles.Skip(3).Select((value, i) => new { i, value }))
+                            {
+                                <li>
+                                    <a href="@item.value.LinkUrl"><img src="@item.value.MainImage?w=260&mode=crop"></a>
+                                    <div>
+                                        <a href="@item.value.LinkUrl">@item.value.Title</a>
+                                        <span class="newsdate mt10">@item.value.PublishDate.ToString("dd/MM/yyyy")</span>
+                                    </div>
+                                    <div class="hidden-xs">
+                                        @item.value.IntroText
+                                    </div>
+                                </li>
+                            }
+                        </ul>
+                        <div class="paging mt50 text-center">
+                            @{ Html.RenderAction("Pagging", "News", new { pageindex = ViewBag.Page, pagesize = ViewBag.PageSize, total = ViewBag.Total, CategoryId = ViewBag.CurrentCategoryId, CateName = ViewBag.CateName, PageNextShow = ViewBag.PageNextShow, pageNext = ViewBag.pageNext }); }
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-sm-12">
+
+                        <div class="sidebar-bnr bnr-slider mt20">
+                            @if (ViewBag.CurrentCategoryId != null)
+                            {
+                                { Html.RenderAction("BannerRight1", "Banner", new { currentCategoryId = ViewBag.CurrentCategoryId }); }
+                            }
+                            else
+                            {
+                                { Html.RenderAction("BannerRight1", "Banner", new { currentCategoryId = 10001 }); }
+                            }
+                            <div class="clearfix"></div>
+                        </div>
+                        <div class="mt40 readmore">
+                            @{Html.RenderAction("TopViewNews", "News", new { MaxLastestNews = 7, CategoryId = -1 });}
+                        </div>
+                        <div class="clearfix"></div>
+
+                    </div>
+                </div>
+            </div><!-- end content 02-->
+        </div>
+
+    }
+
+}
+<script src="/js/bootstrap-datepicker.js"></script>
+<script type="text/javascript">
+    var categoryid = '@ViewBag.CurrentCategoryId';
+    function getFormattedDate(date) {
+        var year = date.getFullYear();
+
+        var month = (1 + date.getMonth()).toString();
+        month = month.length > 1 ? month : '0' + month;
+
+        var day = date.getDate().toString();
+        day = day.length > 1 ? day : '0' + day;
+
+        return day + '/' +  month+ '/' + year;
+    }
+    $(function () {
+        $("#datepicker").datepicker({
+
+            duration: 'fast',
+            showOn: "button",
+            dateFormat: "dd/mm/yy",
+            todayHighlight: true
+        }).datepicker('update', new Date())
+            .change(function (e) {
+
+                var date =getFormattedDate( $('#datepicker').data().datepicker.viewDate);
+                window.location.href = '@Url.Action("SearchByDay", "News")' + '?fromdate=' + date + '&todate=' + date + '&categoryId=' + categoryid;
+
+        });
+    });
+</script>
+@section scripts {
+    <script type="text/javascript">
+
+    $('#menu_' + '@ViewBag.CurrentCategoryId').addClass("active");
+    $('#foot_' + '@ViewBag.CurrentCategoryId').addClass("active");
+     $('#menu_' + '@ViewBag.ParentCategoryId').addClass("active");
+    $('#foot_' + '@ViewBag.ParentCategoryId').addClass("active");
+    </script>
+}

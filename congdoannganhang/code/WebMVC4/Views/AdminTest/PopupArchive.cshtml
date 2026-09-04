@@ -1,0 +1,103 @@
+﻿@using UTILS
+@model List<BIZ.Entity.TestQuestionArchive>
+<div class="row" id="ContentPopUp">
+<div class="col-lg-12">
+    <div class="panel panel-primary">
+        <div class="panel-heading"><span class="glyphicon"></span>Chi tiết bài thi: @ViewBag.Name</div>
+        <div class="panel-body">
+            @if (Model != null)
+            {
+                <div class="col-md-12 col-xs-12">
+                    <div class="lb_bailam" id="lb_bailam">
+                        @foreach (var item in Model.Select((value, i) => new { i, value }))
+                        {
+                            <div id="lb_question_item_@item.value.Id" class="lb_question_item">
+                                @if (item.value.Status == 1)
+                                {
+                                    <div class="lb_cau">Câu số @(item.i + 1) </div>
+                                }
+                                else
+                                {
+                                    <div class="lb_cau" style="color:red">Câu số @(item.i + 1) </div>
+                                }
+
+                                <div class="space5"></div>
+                                <div class="lb_cauhoi">
+                                    @Html.Raw(item.value.Contents)
+                                </div>
+                                <div class="space5"></div>
+                                @if (item.value.Type == 1)
+                                {
+                                    <div class="lb_question">
+                                        @foreach (var itemA in item.value.AnswerArchiveInfo.Select((value, i) => new {i, value}))
+                                        {
+
+                                            <div class="lb_q_row">
+                                                <input type="radio" name="anwswer_@(item.value.Id)" value="@item.value.Id" @(itemA.value.IsCheck ? "checked='checked'" : "") class="lb_radio">
+                                                <span class="lb_q_mark">@Utils.IntToLetters(itemA.value.Order)<text>. </text>  </span>
+                                                <span class="lb_q_text">
+                                                    <span >
+                                                        @if (itemA.value.IsUserCheck)
+                                                        {
+                                                            <b>@itemA.value.Name</b>
+                                                        }
+                                                        else
+                                                        {
+                                                            @itemA.value.Name
+                                                        }
+                                                    </span>
+                                                </span>
+                                            </div>
+                                        }
+
+                                    </div>
+                                }
+                                else
+                                {
+                                    <div class="lb_question">
+                                        @foreach (var itemA in item.value.AnswerArchiveInfo.Select((value, i) => new { i, value }))
+                                        {
+
+                                            <div class="lb_q_row">
+                                                <input type="checkbox" name="anwswer_@(item.value.Id)" value="@item.value.Id" @(itemA.value.IsCheck ? "checked='checked'" : "") class="lb_radio">
+                                                <span class="lb_q_mark">@Utils.IntToLetters(itemA.value.Order)<text>. </text>  </span>
+                                                <span class="lb_q_text">
+                                                    <span>
+                                                        @if (itemA.value.IsUserCheck)
+                                                        {
+                                                            <b>@itemA.value.Name</b>
+                                                        }
+                                                        else
+                                                        {
+                                                            @itemA.value.Name
+                                                        }
+                                                    </span>
+                                                </span>
+                                            </div>
+                                        }
+
+                                    </div>
+                                }
+
+                                <div class="space10"></div>
+                                <div class="baseline"></div>
+                                <div class="space10"></div>
+                            </div>
+                        }
+                    </div>
+                </div>
+            }
+           
+           
+
+        </div>
+    </div>
+</div>
+</div>
+
+<style type="text/css">
+    .modal-dialog {
+        width: 90% !important;
+        height: 90% !important;
+    }
+</style>

@@ -1,0 +1,159 @@
+﻿@{
+   
+    Layout = "~/Views/Shared/_AdminV2.cshtml";
+    
+}
+@using BIZ
+@using UTILS
+@using  CMS.Helper
+@model String[]
+<style>
+    .login input[type="text"], .login input[type="password"], .login textarea {
+        width: 280px;
+    }
+</style>
+<div class="onecolumn">
+    <div class="header">
+        <span>@ViewBag.Title</span>
+
+    </div>
+    <br class="clear">
+    <div class="content">
+        <div class="login" style="float: left">
+            <div class="login-left">
+                @Html.Label("Tên đăng nhập:")
+            </div>
+            <div class="login-right">
+                @Html.TextBox("UserName")
+            </div>
+            <div class="clear">
+            </div>
+            <div class="login-left">
+                @Html.Label("Mật khẩu:")
+            </div>
+            <div class="login-right">
+                @Html.Password("NewPassword")
+            </div>
+            <div class="clear">
+            </div>
+            <div class="login-left">
+                @Html.Label("Xác nhận mật khẩu:")
+            </div>
+            <div class="login-right">
+                @Html.Password("ConfirmPassword")
+            </div>
+            <div class="clear">
+            </div>
+            <div class="login-left">
+                @Html.Label("Email:")
+            </div>
+            <div class="login-right">
+                @Html.TextBox("Email")
+            </div>
+            <div class="clear">
+            </div>
+        </div>
+        <div class="login" style="float: right; margin-right: 150px;">
+            <b>Vai trò</b><br />
+            @foreach (string role in Model)
+            {
+                <div>
+
+
+                    <input type="checkbox"  value="@role" name ="chkRole" class="chkRole" />
+                    @role
+
+                </div>
+            }
+        </div>
+        <br class="clear" />
+        <div class="button_login">
+
+            <input type="button" onclick="SubmitForm();" value="Tạo mới">
+        </div>
+    </div>
+</div>
+
+
+
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#menu_user').click();
+
+    });
+    function Close() {
+        window.location.href = "@Url.Action("Users", "System")";
+    }
+
+
+    function SubmitForm() {
+
+        if (confirm("Bạn có chắc chắn muốn tạo mới người dùng")) {
+            validateForm();
+            var Username = $('#UserName').val();
+            var NewPassword = $('#NewPassword').val();
+            var Email = $('#Email').val();
+
+            var roles = "";
+            var lstrole = $('input[type="checkbox"][name="chkRole"]:checked');
+            $.each(lstrole, function (i, role) {
+
+                roles += $(role).val() + "|";
+
+            });
+            $.post('@Url.Action("UserAdd", "System")',
+                {
+                    "username": Encoder.urlEndcode(Username),
+                    "newPassword": Encoder.urlEndcode(NewPassword),
+                    "email": Encoder.urlEndcode(Email),
+
+                    "lstrole": Encoder.urlEndcode(roles)
+                },
+                function (data) {
+                    if (data == "1") {
+                        Close();
+                    }
+                    else {
+                        alert(data);
+                    }
+
+                });
+
+        }
+    }
+    function validateForm() {
+        var Username = $('#Username').val();
+        var NewPassword = $('#NewPassword').val();
+        var ConfirmPassword = $('#ConfirmPassword').val();
+        var Email = $('#Email').val();
+        if (Username == "") {
+            alert('Tên không được trống');
+            $('#Username').focus();
+            return false;
+        }
+        if (Email == "") {
+            alert('Tên không được trống');
+            $('#Email').focus();
+            return false;
+        }
+        if (NewPassword == "") {
+            alert('Mật khẩu không được trống');
+            $('#NewPassword').focus();
+            return false;
+        }
+        if (NewPassword.length < 6) {
+            alert('Mật khẩu phải trên 6 kí tự');
+            $('#NewPassword').focus();
+            return false;
+        }
+        if (NewPassword != ConfirmPassword) {
+            alert('Mật khẩu không hợp lệ');
+            $('#ConfirmPassword').focus();
+            return false;
+        }
+
+        return true;
+
+    }
+</script>

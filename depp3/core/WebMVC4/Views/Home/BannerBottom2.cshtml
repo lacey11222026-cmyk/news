@@ -1,0 +1,10 @@
+﻿@model List<DATA.Banner>
+
+    @foreach (var item in Model.Select((value, i) => new { i, value }))
+    {
+        <div><a href="@item.value.Url" target="_blank"><img src="@item.value.Data" /></a></div>
+    }
+
+
+   
+

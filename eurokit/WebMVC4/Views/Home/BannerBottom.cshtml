@@ -1,0 +1,14 @@
+﻿@model List<DATA.Banner>
+@if (Model != null)
+{
+    foreach (var item in Model.Select((value, i) => new { i, value }))
+    {
+        <div class="owl-item" style="width: 195px;">
+            <div class="item grid__item wow zoomIn" data-wow-delay="0.2s" data-wow-duration="0.75s" style="visibility: visible; animation-duration: 0.75s; animation-delay: 0.2s; animation-name: none;">
+                <a href="@item.value.Url" title="@item.value.Name" class="text-center"><img src="@item.value.Data" alt="@item.value.Name"></a>
+            </div>
+        </div>
+    }
+        
+
+    }

@@ -1,0 +1,25 @@
+﻿@using BIZ
+@using UTILS
+@using WebMVC4.Helper
+@model WebMVC4.Models.LastestNewModel
+@if (Model != null)
+{
+    if (Model.lstdata.Count > 0)
+    {
+        foreach (var item in Model.lstdata.Take(1).Select((value, i) => new { i, value }))
+        {
+            <div class="tabs-content-txt">
+                <p class="tabs-content-name">@item.value.Title</p>
+                <p class="mt20">@item.value.IntroText</p>
+                <div class="mt20 btn-list">
+                    <a href="@item.value.LinkUrl" class="btn-cm">@Resources.Global.More</a>
+                    <a href="@Model.Url" class="btn-cm btn-blue">@Resources.Global.Trainingcourse</a>
+                </div>
+            </div>
+            <div class="tabs-content-img"><img src="@item.value.MainImage?w=660&h=371&mode=crop" alt=""></div>
+        }
+
+        
+
+    }
+}

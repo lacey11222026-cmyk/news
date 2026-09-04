@@ -1,0 +1,155 @@
+﻿<div class="cate">
+    <div class="bg_cate pink">
+        <div class="animal">
+            <img src="/images/conong.png" alt="mau giao lieu giai"></div>
+        <div class="cate_text">
+            <span>Gửi bình luận</span></div>
+    </div>
+</div>
+<div class="clear">
+</div>
+<div class="comment">
+    <table width="90%" cellspacing="3" cellpadding="0" border="0">
+        <tbody>
+            <tr>
+                <td width="13%">
+                    Nickname:
+                </td>
+                <td width="87%">
+                    <input type="text" id="txtname" name="name" />
+                </td>
+            </tr>
+            <tr>
+                <td valign="top">
+                    Nội dung:
+                </td>
+                <td>
+                    <textarea rows="3" cols="60" id="txtmessage" name="message"> </textarea>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    &nbsp;
+                </td>
+                <td>
+                    <input type="button" value="Gửi bình luận" id="send" name="button" onclick="Send();" />
+                    <input type="button" value="Làm lại" id="reset" name="button2" onclick="Reset();" />
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+<div class="list_cm" id="list_cm">
+</div>
+<div id="lava-dialog">
+</div>
+<script type="text/javascript">
+
+    var itemid = '@ViewBag.ItemId';
+    var itemname = '@ViewBag.ItemName';
+    var type = '@ViewBag.Type';
+
+
+    function Reset() {
+        $('#txtname').val('');
+        $('#txtmessage').val('');
+    }
+
+    $(document).ready(function () {
+
+
+        gettopComment(5)
+    });
+    function gettopComment(top) {
+
+        $.Services({
+            element: $('#list_cm'),
+            loadingImg: 'Đang tải dữ liệu ...',
+            serviceName: 'CommentService.ashx',
+            data: {
+                __m: 'get_top_comments',
+
+                itemid: itemid,
+
+                top: top
+            },
+            success: function (data) {
+                var html = '';
+                if (data != undefined && data != null && data != '') {
+
+                    html = BindData(data);
+
+                }
+                if (top > 0) {
+                    html += ' <div class="listtin3"> <a onclick="gettopComment(0);" class="fr" href="javascript:void(0);" on><img src="/images/xemtiep.gif"></a> </div>';
+                }
+                $('#list_cm').html(html);
+            }
+        });
+
+    }
+    function BindData(data) {
+        var html = '';
+        $.each(data, function (index, item) {
+
+
+
+            html += '<p>';
+            html += '<span class="ten">';
+            html += item.UserName;
+            html += '</span>';
+
+            html += '<span class="ndcm">';
+            //html += dateFormat(item.CreatedDate, 'dd/mm/yyyy HH:MM');
+
+
+
+
+            html += item.Message + ' - <i>' + dateFormat(item.CreatedTime, 'dd/mm/yyyy HH:MM')+'</i>';
+            html += '</span>';
+            html += '</p>';
+        });
+
+        return html;
+    }
+
+    function Send() {
+        var username = $.trim(Encoder.urlEndcode($('#txtname').val()));
+        var message = $.trim(Encoder.urlEndcode($('#txtmessage').val()));
+        var post_data = {
+            __m: 'save',
+            id: '0',
+            username: username,
+            message: message,
+            itemid: itemid,
+            itemname: itemname,
+            type: type,
+            published: '0'
+        }
+
+        $.Services({
+
+            isCrossDomain: false,
+            url: POST_URL + 'CommentService.ashx',
+            data: post_data,
+            success: function (data) {
+
+                if (data != undefined && data != null && data != '') {
+                    var json_data = eval('(' + data + ')');
+
+                    if (json_data.Success) {
+
+                        if (json_data.Value != 0 && json_data.Value != null && json_data.Value != undefined && json_data.Value != '') {
+                            attributeGroupId = json_data.Value;
+                        }
+                        Reset();
+                        //OnLoad();
+                    }
+                }
+
+                alert(json_data.Text);
+                //OpenAlertDialog(json_data.Text, "Thông báo",400);
+            }
+        });
+    }                    
+</script>

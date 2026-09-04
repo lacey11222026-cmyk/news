@@ -1,0 +1,71 @@
+﻿@using BIZ
+@using UTILS
+@using WebMVC4.Helper
+
+
+@{
+    Layout = "~/Views/Shared/_Home.cshtml";
+}
+<div class="sidemenu">
+    <ul class="menu-product">
+        <li>
+            <a href="#dieuhoa">
+                <img src="@(Config.Domain)/Content/images/icon01.png" alt="điều hòa">
+                <span>Điều hòa</span>
+            </a>
+        </li>
+        <li>
+            <a href="#binhnuoc">
+                <img src="@(Config.Domain)/Content/images/icon03.png" alt="bình nước nóng">
+                <span>Bình nước nóng</span>
+            </a>
+        </li>
+        <li>
+            <a href="#binhnuocnong">
+                <img src="@(Config.Domain)/Content/images/icon_MayGiat.png" alt="máy giặt">
+                <span>Máy giặt</span>
+            </a>
+        </li>
+        <li>
+            <a href="#denled">
+                <img src="@(Config.Domain)/Content/images/icon04.png" alt="Đèn led">
+                <span>Đèn led</span>
+            </a>
+        </li>
+        <li>
+            <a href="#khac">
+                <img src="@(Config.Domain)/Content/images/icon05.png" alt="search">
+                <span>Sản phẩm khác</span>
+            </a>
+        </li>
+    </ul>
+</div>
+<div class="main">
+    <div class="container main-content">
+        <div class="row">
+            <div class="col-md-12 col-sm-12 col-xs-12 production">
+            </div>
+        </div>
+    </div>
+    <div class="experience container">
+        <div id="dieuhoa" class="product-item">
+            @{ Html.RenderAction("TopProduct", "Product", new { top = 4, categoryId = 38, manufactoryId = -1, ishot = true }); }
+        </div>
+        <div id="binhnuoc" class="product-item mt90">
+            @{ Html.RenderAction("TopProduct", "Product", new { top = 4, categoryId = 43, manufactoryId = -1, ishot = true }); }
+        </div>
+        <div id="binhnuocnong" class="product-item mt90">
+            @{ Html.RenderAction("TopProduct", "Product", new { top = 4, categoryId = 40, manufactoryId = -1, ishot = true }); }
+        </div>
+        <div id="denled" class="product-item mt90">
+            @{ Html.RenderAction("TopProduct", "Product", new { top = 4, categoryId = 41, manufactoryId = -1, ishot = true }); }
+        </div>
+        <div id="khac" class="product-item mt90">
+            @{ Html.RenderAction("TopProduct", "Product", new { top = 4, categoryId = 15, manufactoryId = -1, ishot = true }); }
+        </div>
+    </div>
+    <div class="experience container mt90">
+        <h2 class="title-cm02"><a href="https://tietkiemnangluong.com.vn/tin-tuc/c10/meo-tknl.html" target="_blank">Kinh nghiệm hay</a></h2>
+        @{ Html.RenderAction("LastestNewsAPI", "Home", new { MaxLastestNews = 4, CategoryId = 10}); }
+    </div><!-- end experience-->
+</div>

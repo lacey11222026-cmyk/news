@@ -1,0 +1,301 @@
+﻿@using BIZ
+@using UTILS
+@using WebMVC4.Helper
+@model WebMVC4.Models.ProductModel
+
+@if (Model != null)
+{
+
+    <div id="PageContainer" class="is-moved-by-drawer">
+        <main class="main-content" role="main">
+
+            <section id="collection-wrapper">
+                <div class="wrapper">
+                    <div class="inner">
+                        <div class="grid">
+
+                            <div class="grid__item large--three-quarters medium--one-whole small--one-whole float-right">
+                                <div class="collection-content-wrapper">
+                                    <div class="collection-head">
+                                        <div class="grid">
+                                            <div class="grid__item large--seven-twelfths medium--one-half small--one-whole">
+                                                <div class="collection-title">
+                                                    <h1>@Model.Cate.Name</h1>
+                                                </div>
+                                            </div>
+                                            <div class="grid__item large--five-twelfths medium--one-half small--one-whole">
+                                                <div class="collection-sorting-wrapper large--text-right medium--text-right">
+                                                    <!-- /snippets/collection-sorting.liquid -->
+                                                    <div class="form-horizontal">
+                                                        <label for="SortBy">Sắp xếp</label>
+
+                                                        <select name="SortBy" id="drlOrder">
+                                                            <option value="0">Tùy chọn</option>
+                                                            <option value="7" @(Model.OrderType == 7 ? "selected='selected'" : "")>Sản phẩm bán chạy</option>
+                                                            <option value="1" @(Model.OrderType == 1 ? "selected='selected'" : "")>Theo bảng chữ cái từ A-Z</option>
+                                                            <option value="2" @(Model.OrderType == 2 ? "selected='selected'" : "")>Theo bảng chữ cái từ Z-A</option>
+                                                            <option value="3" @(Model.OrderType == 3 ? "selected='selected'" : "")>Giá từ thấp tới cao</option>
+                                                            <option value="4" @(Model.OrderType == 4 ? "selected='selected'" : "")>Giá từ cao tới thấp</option>
+                                                            <option value="5" @(Model.OrderType == 5 ? "selected='selected'" : "")>Mới nhất</option>
+                                                            <option value="6" @(Model.OrderType == 6 ? "selected='selected'" : "")>Cũ nhất</option>
+                                                        </select>
+                                                    </div>
+
+
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    <div class="collection-body">
+
+                                        <div class="grid-uniform product-list md-mg-left-5">
+                                            @foreach (var item in Model.listdata.Select((value, i) => new { i, value }))
+                                            {
+
+                                                <div class="grid__item large--one-third medium--one-third small--one-half md-pd-left5">
+
+                                                    <div class="product-item">
+                                                        <div class="product-img">
+                                                            <a href="/products/@(item.value.Url)">
+                                                                @if (string.IsNullOrEmpty(item.value.Album))
+                                                                {
+                                                                    <img src="@item.value.DescriptImage" class="only-one" alt="@item.value.Name" />
+                                                                }
+                                                                else
+                                                                {
+                                                                    <img src="@item.value.DescriptImage"  alt="@item.value.Name" />
+                                                                    <img src="@item.value.Album"  alt="@item.value.Name" />
+                                                                }
+
+
+
+                                                            </a>
+
+
+                                                        </div>
+                                                        <div class="product-item-info">
+                                                            <div class="product-title">
+                                                                <a href="/products/@(item.value.Url)">@item.value.Name</a>
+                                                            </div>
+
+
+                                                            <div class="product-price clearfix test">
+                                                                @if (!string.IsNullOrEmpty(item.value.Language))
+                                                                {
+                                                                    <span class="current-price">@item.value.Language</span>
+                                                                }
+                                                                else
+                                                                {
+                                                                    if (item.value.Price > 0)
+                                                                    {
+                                                                        <span class="current-price">@Utils.InsertCommaNoStyle(item.value.Price.ToString()) đ</span>
+                                                                    }
+                                                                    else
+                                                                    {
+                                                                        <span class="current-price">Liên hệ</span>
+                                                                    }
+
+                                                                }
+
+                                                            </div>
+                                                        </div>
+
+                                                    </div>
+
+                                                </div>
+
+                                            }
+
+                                        </div>
+
+                                        <div class="pagination not-filter">
+
+
+                                            <div id="pagination-" class="text-center clear-left">
+                                                <div class="pagination-custom">
+                                                    @{Html.RenderPartial("Pagination", new WebMVC4.Models.PaginationInfo
+                                                        {
+                                                            PageUrl = Url.SetParameter("Page", "!0"),
+                                                            CurrentPage = Model.pageIndex,
+                                                            PageSize = Model.pageSize,
+                                                            TotalItemCount = Model.total,
+                                                        }); }
+
+
+                                                </div>
+                                            </div>
+
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="grid__item large--one-quarter medium--one-whole small--one-whole">
+                                <div class="collection-sidebar-wrapper">
+                                    <div class="grid-uniform mg-left-10">
+
+
+                                        <div class="grid__item large--one-whole medium--one-half small--one-whole pd-left10">
+                                            <div class="collection-categories">
+                                                <button class="accordion cs-title col-sb-trigger active">
+                                                    <span>Danh mục</span>
+                                                </button>
+                                                <div class="panel" style="max-height: 558px;">
+                                                    @Html.Action("MenuLeft", "Home")
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="grid__item large--one-whole medium--one-half small--one-whole pd-left10">
+                                            <div class="collection-filter-price">
+                                                <button class="accordion cs-title col-sb-trigger active">
+                                                    <span>Khoảng giá</span>
+                                                </button>
+                                                <div class="panel sidebar-sort" style="max-height: 179px;">
+                                                    <ul class="no-bullets filter-price clearfix">
+
+
+                                                        <li onclick="selectPrice(this)">
+                                                            <label>
+                                                                <input type="checkbox" name="price-filter" id="p01" value="1" @(ViewBag.Type == 1 ? "checked" : "")>
+                                                                <span>Nhỏ hơn 100,000₫</span>
+                                                            </label>
+                                                        </li>
+                                                        <li onclick="selectPrice(this)">
+                                                            <label>
+                                                                <input type="checkbox" name="price-filter" id="p01" value="2" @(ViewBag.Type == 2 ? "checked" : "")>
+                                                                <span>Từ 100,000₫ - 500,000₫</span>
+                                                            </label>
+                                                        </li>
+                                                        <li onclick="selectPrice(this)">
+                                                            <label>
+                                                                <input type="checkbox" name="price-filter" id="p03" value="3" @(ViewBag.Type == 3 ? "checked" : "")>
+                                                                <span>Từ 500,000₫ - 1,000,000₫</span>
+                                                            </label>
+                                                        </li>
+                                                        <li onclick="selectPrice(this)">
+                                                            <label>
+                                                                <input type="checkbox" name="price-filter" id="p04" value="4" @(ViewBag.Type == 4 ? "checked" : "")>
+                                                                <span>Từ 1,000,000₫ - 2,000,000₫</span>
+                                                            </label>
+                                                        </li>
+                                                        <li onclick="selectPrice(this)">
+                                                            <label>
+                                                                <input type="checkbox" name="price-filter" id="p05" value="5" @(ViewBag.Type == 5 ? "checked" : "")>
+                                                                <span>Lớn hơn 2,000,000₫</span>
+                                                            </label>
+                                                        </li>
+
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+
+
+                                        @if (Model.ListManu.Count() > 0)
+                                        {
+                                            <div class="grid__item large--one-whole medium--one-half small--one-whole pd-left10">
+                                                <div class="collection-filter-vendor">
+                                                    <button class="accordion cs-title col-sb-trigger active">
+                                                        <span>Thương hiệu</span>
+                                                    </button>
+                                                    <div class="panel sidebar-sort" style="max-height: 179px;">
+                                                        <ul class="no-bullets filter-vendor clearfix">
+
+                                                            @foreach (var item in Model.ListManu)
+                                                            {
+
+
+                                                                <li onclick="filtermanu(@item.Id)">
+
+                                                                    <input type="checkbox" name="manu" class="form-check-input" @(ViewBag.fManu.Contains("," + item.Id + ",") ? "checked" : "") value="@item.Id">
+                                                                    <label class="form-check-label" for="01">@item.Title</label>
+
+                                                                </li>
+                                                            }
+
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        }
+
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+
+
+        </main>
+    </div>
+
+
+
+
+    <script>
+
+        var updateQueryStringParam = function (key, value) {
+            var baseUrl = [location.protocol, '//', location.host, location.pathname].join(''),
+                urlQueryString = document.location.search,
+                newParam = key + '=' + value,
+                params = '?' + newParam;
+
+            // If the "search" string exists, then build params from it
+            if (urlQueryString) {
+                var keyRegex = new RegExp('([\?&])' + key + '[^&]*');
+
+                // If param exists already, update it
+                if (urlQueryString.match(keyRegex) !== null) {
+                    params = urlQueryString.replace(keyRegex, "$1" + newParam);
+                } else { // Otherwise, add it to end of query string
+                    params = urlQueryString + '&' + newParam;
+                }
+            }
+            window.history.replaceState({}, "", baseUrl + params);
+        };
+        $('#drlOrder').change(function () {
+            updateQueryStringParam('orderType', this.value);
+            location.reload();
+
+        });
+        function switchView(view) {
+            updateQueryStringParam('view', view);
+            location.reload();
+        }
+        function filtermanu() {
+            var value = '';
+            var data = $('input[type="checkbox"][name="manu"]:checked');
+            $.each(data, function (i, item) {
+
+                value += "," + $(item).val();
+
+            });
+            if (value.length > 1) {
+                value += ",";
+            }
+            updateQueryStringParam('fManu', value);
+            location.reload();
+        }
+        function selectPrice(obj) {
+            var o = $(obj).find("input");
+            var value = o.val();
+            //alert(!o.is(":checked"));
+            if (!o.is(":checked")) {
+                value = 0;
+            }
+
+            updateQueryStringParam('type', value);
+            location.reload();
+
+        }
+
+    </script>
+
+
+}

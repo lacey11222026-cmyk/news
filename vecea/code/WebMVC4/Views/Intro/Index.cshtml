@@ -1,0 +1,27 @@
+﻿@using BIZ
+@using UTILS
+@using WebMVC4.Helper
+@model BIZ.Entity.CATEGORY_FULL
+
+@if (Model != null)
+{
+    <div class="main-content box-09">
+        
+
+        <p class="title-cm">@Model.Name</p>
+        <div class="mt20">
+
+
+            <div class="nd" id="NewsContent">
+                @Html.Raw(Model.Contents)
+            </div>
+            @{
+                List<BIZ.Entity.CATEGORY_FULL> data = ViewBag.lstrelate;
+            }
+            @{Html.RenderAction("Relate", "Intro", new { data = data });}
+           
+        </div>
+    </div><!-- end main content-->
+    
+
+}

@@ -1,0 +1,86 @@
+﻿@using BIZ.Entity
+@using UTILS
+@using DATA
+@model List<ContentLog>
+@using Local.Helper
+
+<table class="table table-striped table-bordered table-hover dataTable no-footer" id="dataTables">
+    <thead>
+        <tr class="rowsao">
+            <th>ID</th>
+            <th>Tài khoản</th>
+            <th>Hành động</th>
+            <th>
+                Loại đối tượng
+            </th>
+            <th>Tên đối tượng</th>
+            <th>Thời gian</th>
+           
+            
+        </tr>
+    </thead>
+    @if (Model != null && Model.Count > 0)
+    {
+        for (int i = 0; i < Model.Count; i++)
+        {
+            var obj = Model[i];
+            <tr>
+                <td>@obj.Id</td>
+                
+                <td>@obj.UserName</td>
+                
+                <td>@obj.Note</td>
+                <td>@HtmlHelpers.GetItemLogTypeName(obj.ItemtType)</td>
+                <td style="text-align: left;" class="texttable">
+                    @obj.ItemName
+                </td>
+                <td>@obj.CreateTime.GetValueOrDefault().ToString("dd/MM/yyyy HH:mm")</td>
+                
+                
+
+            </tr>
+        }
+    }
+</table>
+<script type="text/javascript">
+    var PageOnSize = '@ViewBag.PageSize';
+    var CurrentPage = '@ViewBag.CurrentPage';
+    function BindDataRequest(currentPage) {
+        var params = {
+            username: $('#ddlUser :selected').val(),
+            itemtType: $('#ddlType :selected').val(),
+            status: $('#ddlStatus :selected').val(),
+            fromdate: $("#fromDate").val(),
+            todate: $("#toDate").val(),
+            currentPage: currentPage,
+            pageSize: PageOnSize
+        };
+        var urlRequestAns = '@Url.Action("ListLog")';
+        Utils.Loading();
+        $.ajax({
+            type: 'GET',
+            url: urlRequestAns,
+            data: params,
+            success: function (data) {
+                $("#ListLog").html(data);
+                Utils.UnLoading();
+            },
+            error: function () {
+                Utils.UnLoading();
+            }
+        });
+    };
+    $(document).ready(function () {
+
+
+        $("#pager").pager({
+            pagenumber: CurrentPage,
+            pagecount: Math.ceil('@ViewBag.TotalRecord' / PageOnSize),
+            buttonClickCallback: function (page) { BindDataRequest(page); }
+        });
+
+
+    });
+
+    
+</script>

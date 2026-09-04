@@ -1,0 +1,101 @@
+﻿@using BIZ
+@using UTILS
+@using WebMVC4.Helper
+@model BIZ.Entity.CATEGORY_FULL
+@{
+    var langpage = WorkContext.GetLanguage();
+}
+@if (Model != null)
+{
+    <div class="intro-page container pt70 pb70">
+        <div class="row">
+            <div class="col-lg-8 col-md-12 pb40">
+
+                @*@{Html.RenderAction("BreadcrumbObj", "News", new { data = Model }); }*@
+                <h2 class="title-cm ">
+                    <a href="#">@Model.Name</a>
+                </h2>
+                <div class="detail-content mt20 introdv" id="NewsContent2">
+
+
+
+                    @Html.Raw(Model.Contents)
+
+                </div>
+                @if (Model.Id == 7)
+                {
+                    <div class="mt40">
+                        <div class="dropdown">
+                            <div class="dropdown__inner">
+                                <h4>GIẢI THƯỞNG HIỆU QUẢ NĂNG LƯỢNG TRONG CÔNG NGHIỆP</h4>
+                                <div class="dropdownSub">
+                                    @{Html.RenderAction("Intro", "Home", new { CategoryId = 9 });}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="dropdown">
+                            <div class="dropdown__inner">
+                                <h4>GIẢI THƯỞNG HIỆU QUẢ NĂNG LƯỢNG TRONG XÂY DỰNG</h4>
+                                <div class="dropdownSub">
+                                    @{Html.RenderAction("Intro", "Home", new { CategoryId = 10 });}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="dropdown">
+                            <div class="dropdown__inner">
+                                <h4>GIẢI THƯỞNG SẢN PHẨM HIỆU SUẤT NĂNG LƯỢNG CAO NHẤT</h4>
+                                <div class="dropdownSub">
+                                    @{Html.RenderAction("Intro", "Home", new { CategoryId = 11 });}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="dropdown">
+                            <div class="dropdown__inner">
+                                <h4>GIẢI THƯỞNG GIẢI PHÁP CÔNG NGHỆ HIỆU QUẢ NĂNG LƯỢNG ĐỔI MỚI, SÁNG TẠO</h4>
+                                <div class="dropdownSub">
+                                    @{Html.RenderAction("Intro", "Home", new { CategoryId = 12 });}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div><!-- end content left-->
+
+            <div class="col-md-12 col-lg-4">
+                
+                @{Html.RenderAction("LastestNews", "News", new { lang = langpage, MaxLastestNews = 5 });}
+
+            </div>
+        </div>
+    </div>
+
+
+    <style>
+        #NewsContent table td {
+            padding: 10px;
+        }
+        .dropdownSub div, .dropdownSub p {
+            margin: 1em 0;
+            max-width: 688px !important;
+        }
+    </style>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $(".dropdown__inner h4").click(function () {
+                $(this).parent().toggleClass("dropdown_toggle");
+                $(this).siblings(".dropdownSub").slideToggle();
+            });
+        });
+    </script>
+
+}
+
+<script type="text/javascript">
+
+ $('#menu_' + '@ViewBag.CurrentCategoryId').addClass("active");
+
+  $('#menu_' + '@ViewBag.ParentCategoryId').addClass("active");
+
+
+
+</script>

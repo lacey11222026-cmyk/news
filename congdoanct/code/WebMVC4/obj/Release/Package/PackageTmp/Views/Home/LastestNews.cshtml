@@ -1,0 +1,63 @@
+﻿@using BIZ
+@using UTILS
+@using WebMVC4.Helper
+@model WebMVC4.Models.LastestNewModel
+@if (Model != null)
+{
+    if (Model.lstdata != null)
+    {
+
+        <div class="bg_blu"><a href="@Model.Url">@Model.HeaderTitle</a></div>
+
+        <div class="clear"></div>
+
+        <div class="boxtin_bg">
+            @foreach (var item in Model.lstdata.Select((value, i) => new { i, value }))
+            {
+                if (item.i == 0)
+                {
+                    <div class="tin_cate">
+                        <a title="@item.value.Title" href="@item.value.LinkUrl">
+                            <img alt="@item.value.Title" src="@item.value.MainImage?w=308&h=191&mode=crop">
+                        </a>
+                        <p><a title="@item.value.Title" href="@item.value.LinkUrl">@item.value.Title</a></p>
+                        <span>@UTILS.Utils.SubString(item.value.IntroText, 150) </span>
+                    </div>
+
+
+
+                }
+                else
+                {
+                    if (item.i == 1)
+                    {
+                        @Html.Raw("<ul class=\"list\">")
+
+                    }
+                    <li>
+                        <a href="@item.value.LinkUrl"
+                           title="@item.value.Title">
+                            @item.value.Title
+                    </a>
+                </li>
+                if (item.i == Model.lstdata.Count - 1)
+                {
+                    @Html.Raw("<div class=\"clear\"></div></ul>")
+                }
+            }
+        }
+
+            @*<div class="xemtiep2">
+                    <a href="@ViewBag.Url" class="opa">
+                        <img src="/images/xemtiep.jpg"></a>
+                </div>*@
+            <div class="clear"></div>
+        </div>
+
+
+
+
+
+
+    }
+}

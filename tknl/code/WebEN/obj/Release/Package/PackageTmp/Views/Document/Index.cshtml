@@ -1,0 +1,116 @@
+﻿@using BIZ
+@using UTILS
+@using WebEN
+@using WebEN.Helper
+@model WebEN.Models.DocumentModel
+
+@if (Model.listdata != null)
+{
+    <div class="danhgia-content01 container mt10">
+       
+        <div class="title-cm02 mt20">
+            <a href="/van-ban.html">Document</a>
+        </div>
+
+    </div>
+
+    <div class="border-bottom">
+        <div class="mt30 cap1-content02 container">
+            <div class="row row-40">
+                <div class="col-md-8 col-sm-12 text-left">
+                    <div class="text-center search">
+                        <form class="form-inline">
+                            <div class="form-group">
+                                <label class="">Keyword</label>
+                                <input id="txtkeyword" class="form-control" type="text" value="@ViewBag.keyword" width="190">
+                            </div>
+                            <div class="form-group">
+                                <label>From Date</label>
+                                <input id="txtfromdate" placeholder="dd/MM/yyyy" value="@ViewBag.fromdate" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label>To Date</label>
+                                <input id="txttodate" placeholder="dd/MM/yyyy" value="@ViewBag.todate" class="form-control">
+                            </div>
+                            <button type="button" onclick="searchdoc();" class="btn-search">Search</button>
+                        </form>
+                    </div>
+                    <div class="clear"></div>
+                    <div class="document-table table-responsive mt20">
+                        <table width="100%">
+                            <tr>
+                                <th>Number </th>
+                                <th>Code </th>
+                                <th>Name </th>
+                                <th>Publish Date </th>
+                                <th>Download </th>
+                            </tr>
+                            @foreach (var item in Model.listdata.Select((value, i) => new { i, value }))
+                            {
+
+
+                                <tr>
+                                    <td>@(item.i + 1) </td>
+                                    <td>@item.value.Code</td>
+                                    <td>
+                                        <a href="@UTILS.Utils.FormatUrlRewrite(item.value.Id, "", "DocumentDetail")">
+                                            @item.value.Name
+                                        </a>
+                                    </td>
+                                    <td>@Convert.ToDateTime(item.value.PublishDate).ToString(@" dd'/'MM'/'yyyy") </td>
+                                    <td align="center">
+                                        <a href="@item.value.FilePath">
+                                            <img style="width: 23px;" src="@(MvcApplication.StaticSiteUrl)images/icon-pdf.png">
+                                        </a>
+                                        &nbsp;@if (item.value.FileName.ToLower().Contains(".pdf"))
+                                        {
+
+                                            <br /> <a href="@Url.Action("ViewPDF", "Document", new { url = item.value.FilePath })" target="_blank">View</a>
+                                        }
+                                    </td>
+                                </tr>
+                            }
+                        </table>
+                    </div>
+                    <div class="paging mt50 text-center">
+
+                        <ul>
+                            @{Html.RenderPartial("Pagination", new WebEN.Models.PaginationInfo
+                                {
+                                    PageUrl = Url.SetParameter("page", "!0"),
+                                    CurrentPage = Model.pageIndex,
+                                    PageSize = Model.pageSize,
+                                    TotalItemCount = Model.total,
+                                }); }
+                        </ul>
+
+                    </div>
+
+
+                </div>
+                <div class="col-md-4 col-sm-12">
+
+                    @Html.Partial("Site_Right")
+                </div>
+            </div>
+        </div><!-- end content 02-->
+    </div>
+
+    
+    
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+
+            $("#txtfromdate").datepicker({ dateFormat: "dd/mm/yy" });
+            $("#txttodate").datepicker({ dateFormat: "dd/mm/yy" });
+        });
+
+        function searchdoc() {
+            var keyword = $("#txtkeyword").val();
+            var fromdate = $("#txtfromdate").val();
+            var todate = $("#txttodate").val();
+            window.location = jQuery.query.set("keyword", keyword).set("fromdate", fromdate).set("todate", todate).set("Page", "1");
+        }
+    </script>
+}

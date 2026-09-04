@@ -1,0 +1,14 @@
+﻿@model BIZ.ServerProcess.CONTENT_API
+@using UTILS
+<h2 class="title-cm mt0"><a href="#">Project Result</a></h2>
+<!-- update 202002-->
+<div class="bnr-new">
+    <img src="/Content/images/bnr-bg.png" alt="">
+    <div class="bnr-new-content">
+        <ul>
+            <li>Energy Saving: <span class="flash">@Utils.InsertCommaNoStyle(Model.Total1.ToString()) MWh/year</span></li>
+            <li>Emission Reduction: <span class="flash">@Utils.InsertCommaNoStyle(Model.Total2.ToString()) CO2 ton/year</span></li>
+            <li>Disbursement: <span class="flash">@Utils.InsertCommaNoStyle(Model.Money.ToString()) VND</span></li>
+        </ul>
+    </div>
+</div>

@@ -1,0 +1,109 @@
+﻿@using WebMVC4.Helper
+@{
+    var langpage = WorkContext.GetLanguage();
+}
+@if (langpage == "vi-vn")
+{
+    <div class="footer">
+        <div class="row">
+            <div class="col-md-8 col-sm-8 col-xs-12">
+                <div class="row">
+                    <div class="col-md-4 col-sm-4 col-xs-5"><img src="/Content2/images/logo-footer.png" alt="công nghệ sinh học" class="logo-f"></div>
+                    <div class="col-md-8 col-sm-8 col-xs-7">
+                        <h3>Bản quyền thuộc Ban Điều hành Đề án Phát triển và ứng dụng công nghệ sinh học trong công nghiệp chế biến đến năm 2020</h3>
+                        <p class="hidden-xs">
+                            Vụ Khoa học và Công nghệ - Bộ Công Thương<br>
+                            Địa chỉ: 54 Hai Bà Trưng, Hoàn Kiếm, Hà Nội, Việt Nam<br>
+                            Điện thoại: 84-24-2.2202.412<br>
+                            Fax: 84-24-2.2202.412<br>
+                            Cơ quan chủ quản: Bộ Công Thương<br>
+                            Người chịu trách nhiệm: Ông Trần Việt Hòa – Vụ trưởng Vụ Khoa học và Công nghệ
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 col-sm-4 col-xs-12 hidden-xs">
+                <p>
+                    Giấy phép hoạt động số 294/GP-TTĐT của Bộ Thông tin và Truyền thông cấp ngày 23 tháng 11 năm 2018 <br>
+                    Ghi rõ nguồn https://congnghiepsinhhocvietnam.com.vn/ khi sử dụng thông tin từ website này<br>
+                    Phát triển bởi : <span><img src="/Content2/images/vtk.png" alt="vtk" style="margin-top: 5px;"></span>
+                </p>
+                <div class="total-view02">
+                    <strong>Tổng số lượt truy cập : </strong>
+                    <ul>
+                        @foreach (var s in HttpContext.Current.Application["TotalVisited"].ToString().Select(c => c.ToString()).ToList())
+                        {
+                            <li>@s</li>
+                        }
+                    </ul>
+                </div>
+                <div>
+                    <a href="https://tinnhiemmang.vn/danh-ba-tin-nhiem/congnghiepsinhhocvietnamcomvn-1642155765" title="Chung nhan Tin Nhiem Mang" target="_blank"><img src="https://tinnhiemmang.vn/handle_cert?id=congnghiepsinhhocvietnam.com.vn" width="150px" height="auto" alt="Chung nhan Tin Nhiem Mang"></a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="total-view02 block-xs" style="border-top:1px solid #ccc; padding-top:10px; text-align:center;">
+        <strong>Tổng số lượt truy cập : </strong>
+        <ul>
+            @foreach (var s in HttpContext.Current.Application["TotalVisited"].ToString().Select(c => c.ToString()).ToList())
+            {
+                <li>@s</li>
+            }
+        </ul>
+    </div>
+}
+else
+{
+    <div class="footer">
+        <div class="row">
+            <div class="col-md-8 col-sm-8 col-xs-12">
+                <div class="row">
+                    <div class="col-md-4 col-sm-4 col-xs-5"><img src="/Content2/images/logo-footer.png" alt="công nghệ sinh học" class="logo-f"></div>
+                    <div class="col-md-8 col-sm-8 col-xs-7">
+                        <h3>The copyright owned by the Project management unit of Project on development and application of biotechnology in the food processing industry to 2020 </h3>
+                        <p class="hidden-xs">
+                            Department of Science and Technology – Ministry of Industry and Trade<br>
+                            Address: 54 Hai Ba Trung street, Hoan Kiem district, Hanoi, Vietnam<br>
+                            Tel: 84-24-2.2202.412<br />
+                            Fax: 84-24-2.2202.412<br />
+                            Lead agency: Ministry of Industry and Trade<br />
+                            Person in charge: Mr. Tran Viet Hoa – Director general of Department of Science and Technology
+
+
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 col-sm-4 col-xs-12 hidden-xs">
+                <p>
+                    License No. 294 / GP-TTĐT of the Ministry of Information and Communications issued on November 23, 2018<br />
+                    In case of use of any information on this website, please cite the website https://congnghiepsinhhocvietnam.com.vn/
+                    <br />
+                    Developed by : <span><img src="/Content2/images/vtk.png" alt="vtk" style="margin-top: 5px;"></span>
+                </p>
+                <div class="total-view02">
+                    <strong>Total Visited : </strong>
+                    <ul>
+                        @foreach (var s in HttpContext.Current.Application["TotalVisited"].ToString().Select(c => c.ToString()).ToList())
+                        {
+                            <li>@s</li>
+                        }
+                    </ul>
+                </div>
+                <div>
+                    <a href="https://tinnhiemmang.vn/danh-ba-tin-nhiem/congnghiepsinhhocvietnamcomvn-1642155765" title="Chung nhan Tin Nhiem Mang" target="_blank"><img src="https://tinnhiemmang.vn/handle_cert?id=congnghiepsinhhocvietnam.com.vn" width="150px" height="auto" alt="Chung nhan Tin Nhiem Mang"></a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="total-view02 block-xs" style="border-top:1px solid #ccc; padding-top:10px; text-align:center;">
+        <strong>Total Visited : </strong>
+        <ul>
+            @foreach (var s in HttpContext.Current.Application["TotalVisited"].ToString().Select(c => c.ToString()).ToList())
+            {
+                <li>@s</li>
+            }
+        </ul>
+    </div>
+}

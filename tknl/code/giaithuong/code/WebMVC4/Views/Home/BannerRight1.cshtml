@@ -1,0 +1,17 @@
+﻿@model List<DATA.Banner>
+@if (Model != null)
+{
+    
+     <div class="dm_blue">
+      <span class="text_w"><a href="#">danh mục liên kết</a></span>
+    </div>
+    <div class="bg_grey cen">
+       @foreach (var item in Model.Select((value, i) => new { i, value }))
+        {
+            <a href="@item.value.Url"  class="opa" >
+                <img width="248" src="@item.value.Data" alt="@item.value.Name" /></a>
+        }
+    </div>
+    <div class="padtop10 clear"></div> 
+    
+}

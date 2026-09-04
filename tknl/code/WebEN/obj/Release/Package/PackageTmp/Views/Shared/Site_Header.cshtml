@@ -1,0 +1,170 @@
+﻿@using BIZ
+@using UTILS
+@using WebEN
+@using WebEN.Helper
+@{
+    ViewBag.Date = DateTime.Now.DayOfWeek.ToString() + ", " + DateTime.Now.ToString("dd/MM/yyy ") + "| " + DateTime.Now.ToString("HH:mm") + " GMT+7";
+    var lstMenu = new CategoryBO().GetAllCategoryFullsByPosition(UTILS.Constants.CategoryPosition.Homepage, 18, false, "en-us");
+}
+
+@{var StaticSiteUrl = MvcApplication.StaticSiteUrl;}
+<div class="header" id="header">
+    <div class="header-conent01">
+        <img src="@(StaticSiteUrl)/Content/images/topbanner.gif?vs=02" alt="Chương trình quốc gia về sử dụng năng lượng tiết kiệm và hiệu quả" class="pull-right bnr-img hidden-xs">
+        <div class="bnr-content">
+            <div class="container">
+                <a href="/"><img src="@(StaticSiteUrl)/Content/images/Logo_VNEEP_EN.png" alt="vneep" height="100" class="logo-top"></a>
+            </div>
+        </div>
+    </div>
+    <div class="nav_top">
+        <div class="container">
+            <nav class="pull-left">
+                <ul>
+                    <li  id="menu_home" class="home"> <a href="/"><img src="@(StaticSiteUrl)/Content/images/icon-home-white.png" alt="Trang chủ"></a></li>
+                    @foreach (var item in lstMenu.Select((value, i) => new { i, value }))
+                    {
+
+                        <li id="menu_@item.value.Id">
+                            <a href="@UTILS.Utils.FormatUrlRewriteByType(item.value.Id, item.value.Name, int.Parse(item.value.Type.ToString()), item.value.Link)">@item.value.Name</a>
+                            @Html.Raw(HtmlHelpers.BindChildCategories(Convert.ToInt32(item.value.Id), int.Parse(item.value.Type.ToString())))
+                        </li>
+
+                    }
+
+                </ul>
+            </nav>
+            <div class="pull-right nav-right">
+                <ul>
+                    @*<li>
+                        <div class="search-box">
+                            <button class="search-icon" onclick="search()"></button>
+                            <input type="text" class="form-control" id="txtKeyword" onkeydown="javascript: return AnyInput_KeyDown(this, event);">
+                        </div>
+                    </li>*@
+                    <li><a href="http://tietkiemnangluong.com.vn/"><img src="@(StaticSiteUrl)/Content/images/icon-vn.png"></a></li>
+                    @*<li><a href="http://vneec.gov.vn/"><img src="@(StaticSiteUrl)/Content/images/icon-en.png"></a></li>*@
+                    <li><a href="https://www.youtube.com/channel/UCFfXHgMRa5zwPhGltIv89LQ"><img src="@(StaticSiteUrl)/Content/images/icon-youtube.png"></a></li>
+                    <li><a href="https://www.facebook.com/vptknl2019/"><img src="@(StaticSiteUrl)/Content/images/icon-face.png"></a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="nav-mobile">
+        <div class="header-m">
+            <a href="#menu">
+                <img src="@(StaticSiteUrl)/Content/images/ico-menu.png" class="ico-menu pull-right">
+            </a>
+        </div>
+        <div id="menu">
+            <ul>
+                <li class="search-box w100">
+                    <button class="search-icon" onclick="Msearch()"></button>
+                    <input type="text" class="form-control" placeholder="Tìm kiếm" id="MtxtKeyword" onkeydown="javascript: return AnyInput_KeyDown(this, event);">
+                </li>
+                <li class="active"><a href="/">Home</a></li>
+                @foreach (var item in lstMenu.Select((value, i) => new { i, value }))
+                {
+
+                    <li>
+                        <a href="@UTILS.Utils.FormatUrlRewriteByType(item.value.Id, item.value.Name, int.Parse(item.value.Type.ToString()), item.value.Link)">@item.value.Name</a>
+                        @Html.Raw(HtmlHelpers.BindChildCategories(Convert.ToInt32(item.value.Id), int.Parse(item.value.Type.ToString())))
+                    </li>
+
+                }
+            </ul>
+        </div>
+    </div>
+</div><!-- end header-->
+<div class="container tool" id="pageTool">
+    <p class="pull-left mt10">@ViewBag.Date</p>
+    <ul class="pull-right list-inline">
+        <li class="hotline"><a href="tel:02422202358">024.22202358</a></li>
+        <li class="lienket-area">
+            <select name="lienket" id="" onchange="window.open(this.options[this.selectedIndex].value,'_blank');this.options[0].selected=true">
+                <option>Link</option>
+                <option value="https://moit.gov.vn/">Bộ Công Thương</option>
+                <option value="http://scp.gov.vn/">SXSH & SXTDBV</option>
+                <option value="http://veeie.vn/">Dự án VEEIE</option>
+                <option value="http://vecea.vn/">Hội KHCN sử dụng năng lượng TK&HQ VN</option>
+            </select>
+        </li>
+        <li>
+            <div class="search-box">
+                <button class="search-icon" onclick="search()"></button>
+                <input type="text" class="form-control" placeholder="Search" id="txtKeyword" onkeydown="javascript: return AnyInput_KeyDown(this, event);">
+            </div>
+        </li>
+    </ul>
+    <ul class="pull-right hidden-lg toolmobile">
+        <li><a href="http://tietkiemnangluong.com.vn/"><img src="@(StaticSiteUrl)/Content/images/icon-vn.png"></a></li>
+        <li><a href="https://www.youtube.com/channel/UCFfXHgMRa5zwPhGltIv89LQ"><img src="@(StaticSiteUrl)//Images/icon-youtube.png"></a></li>
+        <li><a href="https://www.facebook.com/vptknl2019/"><img src="@(StaticSiteUrl)/Images/icon-face.png"></a></li>
+    </ul>
+</div>
+
+<script>
+    function search() {
+        var searchtext = $("#txtKeyword").val();
+        window.location = "/News/Search?keyword=" + searchtext;
+
+    }
+    function AnyInput_KeyDown(sender, e) {
+        if ((e.which && e.which == 13) || (e.keyCode && e.keyCode == 13)) {
+            search();
+
+            return false;
+        }
+
+        return true;
+    }
+    function Msearch() {
+        var searchtext = $("#MtxtKeyword").val();
+        window.location = "/News/Search?keyword=" + searchtext;
+
+    }
+    function MAnyInput_KeyDown(sender, e) {
+        if ((e.which && e.which == 13) || (e.keyCode && e.keyCode == 13)) {
+            Msearch();
+
+            return false;
+        }
+
+        return true;
+    }
+</script>
+<script>
+    if ($('#header').width() < 766) {
+        var distance = $('#header').offset().top;
+
+        $(window).scroll(function () {
+
+            if ($(window).scrollTop() >= distance) {
+                $('#header').addClass("affix");
+
+            } else {
+                $('#nheader').removeClass("affix");
+            }
+        });
+    }
+
+</script>
+<style>
+    #menu_33
+    {
+        display:none;
+    }
+    .toolmobile li {
+        float: left;
+        margin-left: 5px;
+    }
+    .affix {
+        width: 100%;
+        top: 0px;
+        position: fixed;
+        overflow: visible !important;
+        z-index: 500;
+        background-color: white;
+    }
+</style>

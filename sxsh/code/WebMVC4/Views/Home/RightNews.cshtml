@@ -1,0 +1,16 @@
+﻿@using BIZ
+@using UTILS
+@using WebMVC4.Helper
+@model WebMVC4.Models.LastestNewModel
+@if (Model != null)
+{
+    <h2 class="title-cm"><a href="/tieu-diem.html">@Resources.Global.Hotnews</a></h2>
+    <ul class="newslist-03 mt15">
+        @foreach (var item in Model.lstdata.Select((value, i) => new { i, value }))
+        {
+            <li><a href="@item.value.LinkUrl">@item.value.Title</a></li>
+        }
+        </ul>
+    <div class="text-right mt20"><a href="/tieu-diem.html" class="btn-viewmore">@Resources.Global.More +</a></div>
+
+}

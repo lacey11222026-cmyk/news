@@ -1,0 +1,23 @@
+﻿@using BIZ
+@using UTILS
+@using WebMVC4.Helper
+@model WebMVC4.Models.LastestNewModel
+@if (Model != null)
+{
+    if (Model.lstdata!=null)
+    {
+        <h2 class="title-cm"><a href="@Model.Url">@Model.HeaderTitle</a></h2>
+        <div class="mt30 slider-01">
+            <ul id="flexiselDemo1">
+                @foreach (var item in Model.lstdata.Select((value, i) => new { i, value }))
+                {
+                    <li>
+                        <a href="@item.value.LinkUrl"><img src="@item.value.MainImage?w=226&h=385&mode=crop" alt=""></a>
+                    </li>
+                }
+                </ul>
+        </div>
+        
+
+    }
+}

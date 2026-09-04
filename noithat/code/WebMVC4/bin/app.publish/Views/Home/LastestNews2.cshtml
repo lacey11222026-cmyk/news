@@ -1,0 +1,52 @@
+﻿@using BIZ
+@using UTILS
+@using WebMVC4.Helper
+
+@model WebMVC4.Models.LastestNewModel
+@if (Model != null)
+{
+    if (Model.lstdata != null)
+    {
+
+        <div class="masonry-container woodmart-portfolio-holder row woodmart-spacing-30 "  style="position: relative; height: 574.05px;">
+            @foreach (var item in Model.lstdata.Select((value, i) => new { i, value }))
+            {
+                <article id="post-@item.value.Id" class="portfolio-entry  col-md-4 col-sm-6 col-12 portfolio-single masonry-item portfolio-hover-inverse post-2266 portfolio type-portfolio status-publish has-post-thumbnail hentry" style="position: absolute; left: 0px; top: 0px;">
+                    <header class="entry-header">
+                        <a href="@item.value.LinkUrl" class="project-link"></a>
+                        <figure class="entry-thumbnail">
+                            <a href="@item.value.LinkUrl" class="portfolio-thumbnail">
+                                <img src="@item.value.MainImage?h=250&w=400&mode=crop" class="attachment-large size-large wp-post-image" alt="" loading="lazy" >
+                            </a>
+                        </figure>
+
+                        <div class="portfolio-info">
+
+
+                            <div class="wrap-title">
+                                <h3 class="entry-title">
+                                    <a href="@item.value.LinkUrl" rel="bookmark">@item.value.Title</a>
+                                </h3>
+                            </div>
+                        </div>
+                        
+                    </header>
+
+                    <div class="entry-summary">
+                    </div><!-- .entry-summary -->
+
+                </article><!-- #post -->
+
+            }
+
+        </div>
+
+        <div class="vc_row-full-width"></div>
+
+        <div class="woodmart-button-wrapper text-center">
+            <a href="@Model.Url" title="Xem tất cả" class="btn btn-color-black btn-style-link btn-shape-rectangle btn-size-extra-small">Xem tất cả</a>
+        </div>
+    }
+
+
+}

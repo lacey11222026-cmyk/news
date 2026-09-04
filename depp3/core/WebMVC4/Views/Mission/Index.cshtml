@@ -1,0 +1,86 @@
+﻿@using BIZ
+@using UTILS
+@using WebMVC4.Helper
+@model WebMVC4.Models.MissionModel
+
+
+@{
+    var langpage = WorkContext.GetLanguage();
+}
+@if (langpage == "vi-vn")
+{
+    <div class="bnr-detail">
+        @{Html.RenderAction("BannerTop", "Home", new { Type = 6 });}
+        <div class="bnr-detail-inner">
+            <div class="container">
+                <h2>Hỏi đáp</h2>
+            </div>
+        </div>
+    </div>
+}
+else
+{
+<div class="bnr-detail">
+    @*<img src="/Content/img/bnr-faq.jpg?vs=02" alt="" class="hidden-767">
+        <img src="/Content/img/bnr-faq-mb.jpg" alt="" class="block-767">*@
+    
+    @{Html.RenderAction("BannerTop", "Home", new { Type = 6 });}
+    <div class="bnr-detail-inner">
+        <div class="container">
+            <h2>Q&A</h2>
+        </div>
+    </div>
+</div>
+}
+
+<div class="bg-gray pt60 pb100">
+    <div class="container detail-content">
+        @if (langpage == "vi-vn")
+        {
+            <div class="breadcrumbs">
+                <ul>
+                    <li><a href="/">Trang chủ</a></li>
+                    <li><span>Hỏi đáp</span></li>
+                </ul>
+            </div>
+        }
+        else
+        {
+
+            <div class="breadcrumbs">
+                <ul>
+                    <li><a href="/">Home</a></li>
+                    <li><span>Q&A</span></li>
+                </ul>
+            </div>
+        }
+        <p class="date mt10">@DateTime.Now.ToString("HH:mm")   |   @DateTime.Now.ToString("dd/MM/yyyy")</p>
+        <div class="row mt20">
+            <div class="col-lg-8 col-md-12">
+                <div class="faq-list">
+                    @foreach (var item in Model.listdata.Select((value, i) => new { i, value }))
+                    {
+                    <div class="faq-item dropdown__inner">
+                        <div class="faq-question">
+                            <p>@item.value.Description</p>
+                        </div>
+                        <div class="dropdownSub faq-answer">
+                            @Html.Raw(item.value.Organ)
+                        </div>
+                    </div>
+                    }
+
+                </div><!-- end faq list-->
+
+            </div><!-- end content left-->
+            @Html.Partial("Site_Right")
+        </div><!-- end content-->
+    </div>
+</div>
+<script type="text/javascript">
+
+$('#menu_66').addClass("active");
+
+
+
+</script>

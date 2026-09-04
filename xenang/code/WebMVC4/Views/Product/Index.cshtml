@@ -1,0 +1,230 @@
+﻿@using BIZ
+@using UTILS
+@using WebMVC4.Helper
+@model WebMVC4.Models.ProductModel
+
+@if (Model != null)
+{
+    <script>
+        function loadmenu(categoryId, manuId,link) {
+            $.ajax({
+                type: "Get",
+                url: "@Url.Action("TopManu")?CategoryId=" + categoryId + "&ManuId=" + manuId + "&link=" + link,
+                success: function (data) {
+                    if (data) {
+                        $("#menu-manu").html(data);
+                    }
+                }
+            });
+        }
+
+        $('#menu_@(Model.Cate.Id)').addClass('active');
+         $('#menu_@(Model.Cate.ParentId)').addClass('active');
+    </script>
+
+
+    <div class="shop-page-title category-page-title page-title ">
+        <div class="page-title-inner flex-row medium-flex-wrap container" data-wpmeteor-mouseover="true" data-wpmeteor-mouseout="true">
+            <div class="flex-col flex-grow medium-text-center">
+                @if (Model.Cate.ParentId == 0)
+                {
+                    <div class="is-small">
+                        <nav class="woocommerce-breadcrumb breadcrumbs"><a href="/">Trang chủ</a> <span class="divider">/</span> <h1>@Model.Cate.Name</h1></nav>
+                    </div>
+                    <script>
+
+
+                            loadmenu('@Model.Cate.Id', '@ViewBag.ManuId','@Model.Cate.Url');
+                            setTimeout(function () {
+                                $('#manu_@ViewBag.ManuId').addClass('active');
+                            }, 1000);
+                    </script>
+                }
+                else
+                {
+                    <div class="is-small">
+                        <nav class="woocommerce-breadcrumb breadcrumbs"><a href="/">Trang chủ</a> <span class="divider">/</span> <a href="@Model.CateParrent.Url">@Model.CateParrent.Name</a> <span class="divider">/</span> <h1>@Model.Cate.Name</h1></nav>
+                    </div>
+                    <script>
+
+
+                            loadmenu('@Model.CateParrent.Id', '@ViewBag.ManuId','@Model.Cate.Url');
+                             setTimeout(function () {
+                                $('#manu_@ViewBag.ManuId').addClass('active');
+                            }, 1000);
+                    </script>
+                }
+
+            </div>
+            <div class="flex-col medium-text-center hiden-mobile">
+                @*<p class="woocommerce-result-count hide-for-medium"> Showing all 12 results</p>*@
+                <form class="woocommerce-ordering" method="get">
+                    <select name="cate" class="cate" id="drlCate">
+                        @if (Model.listcate != null && Model.listcate.Count() > 0)
+                        {
+                            foreach (var obj in Model.listcate)
+                            {
+                                <option value="@obj.Url" @if (obj.Id == Model.CategoryId) { @Html.Raw("selected='selected'") ; }>@obj.Name</option>
+                            }
+                        }
+                    </select>
+                    <input type="hidden" name="paged" value="1">
+                </form>
+            </div>
+            <div class="flex-col medium-text-center" style="display:none`   ">
+                @*<p class="woocommerce-result-count hide-for-medium"> Showing all 12 results</p>*@
+                <form class="woocommerce-ordering" method="get">
+                    <select name="orderby" class="orderby" id="drlOrder">
+                        <option value="0" @(ViewBag.OrderType == 1 ? "selected='selected'" : "")>Thứ tự theo sản phẩm mới</option>
+                        <option value="1" @(ViewBag.OrderType == 2 ? "selected='selected'" : "")>Thứ tự theo giá: thấp đến cao</option>
+                        <option value="2" @(ViewBag.OrderType == 3 ? "selected='selected'" : "")>Thứ tự theo giá: cao xuống thấp</option>
+                    </select>
+                    <input type="hidden" name="paged" value="1">
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <main id="main" class="">
+        <div class="row category-page-row">
+            <div class="large-3 col hide-for-medium ">
+                @Html.Partial("Site_Right")
+            </div><!-- large-3 -->
+            <div class="col large-9">
+                @if (Model.listdata.Count > 0)
+                {
+                    <div class="shop-container">
+
+                        <div class="woocommerce-notices-wrapper"></div>
+                        <div class="products row row-small large-columns-4 medium-columns-3 small-columns-2">
+                            @foreach (var item in Model.listdata.Select((value, i) => new { i, value }))
+                            {
+                                <div class="product-small col  type-product product-type-simple">
+                                    <div class="col-inner">
+                                        <div class="badge-container absolute left top z-1"></div><div class="product-small box ">
+                                            <div class="box-image">
+                                                <div class="image-none">
+                                                    <a href="@UTILS.Utils.FormatUrlRewrite(item.value.Id,item.value.Name,"ProductDetail")">
+                                                        <img alt="@item.value.Name" src="@item.value.DescriptImage?w=281&h=254&mode=crop" />
+
+                                                    </a>
+                                                </div>
+                                                <div class="image-tools is-small top right show-on-hover"></div>
+                                                <div class="image-tools is-small hide-for-small bottom left show-on-hover"></div>
+                                                <div class="image-tools grid-tools text-center hide-for-small bottom hover-slide-in show-on-hover"></div>
+                                                @if (item.value.AvailableSell.GetValueOrDefault())
+                                                {
+                                                    <span class="spdaban"></span>
+                                                }
+                                                else
+                                                {
+                                                    if (item.value.IsNew.GetValueOrDefault())
+                                                    {
+                                                        <span class="spmoi"></span>
+                                                    }
+                                                }
+                                            </div>
+                                            <div class="box-text box-text-products text-center grid-style-2">
+                                                <div class="title-wrapper">
+                                                    <p class="name product-title woocommerce-loop-product__title">
+                                                        <a href="@UTILS.Utils.FormatUrlRewrite(item.value.Id,item.value.Name,"ProductDetail")">@item.value.Name</a>
+                                                    </p>
+                                                </div>
+                                                <div class="price-wrapper">
+                                                    <span class="price">
+                                                        @if (item.value.Price > 0)
+                                                        {
+                                                            <span class="amount">Giá: @Utils.InsertCommaNoStyle(item.value.Price.ToString()) đ</span>
+                                                        }
+                                                        else
+                                                        {
+                                                            <span class="amount">Giá: liên hệ 0943888255</span>
+                                                        }
+
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                        </div><!-- row -->
+                    </div><!-- shop container -->
+                    <div class="container">
+                        <nav class="woocommerce-pagination">
+                            <ul class="page-numbers nav-pagination links text-center">
+                                @{Html.RenderPartial("Pagination", new WebMVC4.Models.PaginationInfo
+                                    {
+                                        PageUrl = Url.SetParameter("Page", "!0"),
+                                        CurrentPage = Model.pageIndex,
+                                        PageSize = Model.pageSize,
+                                        TotalItemCount = Model.total,
+                                    }); }
+
+                            </ul>
+                        </nav>
+                    </div>
+                    if (Model.pageIndex == 1)
+                    {
+                        <div class="container">
+                            <div class="entry-detail NewsContent" id="NewsContent">
+
+                                @Html.Raw(Model.Cate.Contents)
+
+                            </div>
+                        </div>
+                    }
+                }
+                else
+                {
+                    <div class="shop-container">
+                        <h4>Không có sản phẩm cần tìm !</h4>
+                    </div>
+                    <div class="container">
+                        <div class="entry-detail NewsContent" id="NewsContent">
+
+                            @Html.Raw(Model.Cate.Contents)
+
+                        </div>
+                    </div>
+                }
+
+            </div><!-- col-fit  -->
+
+
+        </div>
+
+    </main>
+    <script>
+
+        var updateQueryStringParam = function (key, value) {
+            var baseUrl = [location.protocol, '//', location.host, location.pathname].join(''),
+                urlQueryString = document.location.search,
+                newParam = key + '=' + value,
+                params = '?' + newParam;
+
+            // If the "search" string exists, then build params from it
+            if (urlQueryString) {
+                var keyRegex = new RegExp('([\?&])' + key + '[^&]*');
+
+                // If param exists already, update it
+                if (urlQueryString.match(keyRegex) !== null) {
+                    params = urlQueryString.replace(keyRegex, "$1" + newParam);
+                } else { // Otherwise, add it to end of query string
+                    params = urlQueryString + '&' + newParam;
+                }
+            }
+            window.history.replaceState({}, "", baseUrl + params);
+        };
+        $('#drlOrder').change(function () {
+            updateQueryStringParam('orderType', this.value);
+            location.reload();
+
+        });
+        $('#drlCate').change(function () {
+            
+            window.location = this.value;
+
+        });
+    </script>
+}

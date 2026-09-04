@@ -1,0 +1,77 @@
+﻿@using BIZ
+@using UTILS
+@using WebMVC4.Helper
+@using WebMVC4.Models
+@model ProductModel
+
+@if (Model != null)
+{
+
+
+    <div id="owl-home-flash-sale" class="owl-carousel owl-theme">
+
+        @foreach (var item in Model.listdata.Select((value, i) => new { i, value }))
+        {
+
+            <div class="item">
+
+                <div class="product-item">
+                    <div class="product-img">
+                        <a href="/products/@(item.value.Url)">
+                            @if (string.IsNullOrEmpty(item.value.Album))
+                            {
+                                <img src="@item.value.DescriptImage" class="only-one" alt="@item.value.Name" />
+                            }
+                            else
+                            {
+                                <img src="@item.value.DescriptImage" alt="@item.value.Name" />
+                                <img src="@item.value.Album" alt="@item.value.Name" />
+                            }
+
+
+
+                        </a>
+
+
+                    </div>
+                    <div class="product-item-info">
+                        <div class="product-title">
+                            <a href="/products/@(item.value.Url)">@item.value.Name</a>
+                        </div>
+
+
+                        <div class="product-price clearfix test">
+                            @if (!string.IsNullOrEmpty(item.value.Language))
+                            {
+                                <span class="current-price">@item.value.Language</span>
+                            }
+                            else
+                            {
+                                if (item.value.Price > 0)
+                                {
+                                    <span class="current-price">@Utils.InsertCommaNoStyle(item.value.Price.ToString()) đ</span>
+                                }
+                                else
+                                {
+                                    <span class="current-price">Liên hệ</span>
+                                }
+
+                            }
+
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+        }
+
+    </div>
+
+
+}
+else
+{
+
+}

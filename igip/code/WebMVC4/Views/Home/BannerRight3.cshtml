@@ -1,0 +1,24 @@
+﻿@model List<DATA.Banner>
+@if (Model != null)
+{
+    foreach (var item in Model.Select((value, i) => new { i, value }))
+    {
+        <div class="">
+
+            @if (ViewBag.lang == "vi-vn")
+            {
+                <a href="@item.value.Url"><img src="@item.value.Data" alt="@item.value.Name" alt="" class="w-100"></a>
+            }
+            else
+            {
+                <a href="@item.value.Url"><img src="@item.value.Description" alt="@item.value.Name" alt="" class="w-100"></a>
+            }
+
+
+        </div>
+
+    }
+
+
+
+}

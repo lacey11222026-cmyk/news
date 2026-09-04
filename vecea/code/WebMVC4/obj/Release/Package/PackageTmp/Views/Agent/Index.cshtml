@@ -1,0 +1,78 @@
+﻿@using BIZ
+@using UTILS
+@using WebMVC4.Helper
+@model WebMVC4.Models.AgentModel
+
+<div class="main-content box-09 video-page">
+    <a href="javascript:;" class="title-cm">Hội viên</a>
+    <form class="form-inline mt20">
+        <div class="form-group">
+            <label>Từ khóa :</label>
+            <input type="email" id="txtkeyword" value="@ViewBag.keyword" class="form-control">
+        </div>
+      
+        <button onclick="searchdoc();" class="btn btn-primary">Tìm kiếm</button>
+    </form>
+    <ul class="member-list mt10">
+        @if (Model.listdata != null)
+        {
+            foreach (var item in Model.listdata.Select((value, i) => new { i, value }))
+            {
+                <li>
+                    <div class="row">
+                        <div class="col-md-3 col-sm-3 col-xs-4">
+                            <a href="@item.value.Latitude" target="_blank"><img src="@item.value.CityName"></a>
+                        </div>
+                        <div class="col-md-9 col-sm-9 col-xs-8">
+                            <h4>@item.value.Name</h4>
+                            <table class="w100">
+                                <tr>
+                                    <td>Địa chỉ:</td>
+                                    <td>@item.value.Address</td>
+                                </tr>
+                                <tr>
+                                    <td>Điện thoại:</td>
+                                    <td>@item.value.Phone</td>
+                                </tr>
+                                <tr>
+                                    <td>Fax:</td>
+                                    <td>@item.value.Longitude</td>
+                                </tr>
+                                <tr>
+                                    <td>Email:</td>
+                                    <td>@item.value.Description</td>
+                                </tr>
+                                <tr>
+                                    <td>Website:</td>
+                                    <td><a href="@item.value.Latitude" target="_blank" class="textblue">@item.value.Latitude</a></td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div class="clearfix"></div>
+                    </div>
+                </li>
+            }
+        }
+        
+    </ul>
+    <div class="text-center mt10">
+        <ul class="pagination text-center">
+            @{Html.RenderPartial("Pagination", new WebMVC4.Models.PaginationInfo
+                {
+                    PageUrl = Url.SetParameter("Page", "!0"),
+                    CurrentPage = Model.pageIndex,
+                    PageSize = Model.pageSize,
+                    TotalItemCount = Model.total,
+                }); }
+        </ul>
+
+    </div>
+</div>
+<script type="text/javascript">
+                      
+                        function searchdoc() {
+                            var keyword = $("#txtkeyword").val();
+                            window.location = '/hoi-vien.html/?keyword=' + keyword;
+                            //window.location = jQuery.query.set("keyword", keyword).set("fromdate", fromdate).set("todate", todate).set("Page", "1");
+                        }
+</script>

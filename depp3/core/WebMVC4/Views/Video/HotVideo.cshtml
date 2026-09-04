@@ -1,0 +1,20 @@
+﻿@using BIZ
+@using UTILS
+@using WebMVC4.Helper
+@using BIZ.Entity
+@model List<CONTENT_FULL>
+@if (Model != null)
+{
+    <ul class="videohot-list">
+        @foreach (var item in Model.Select((value, i) => new { i, value }))
+        {
+            <li class="row-8px">
+                <a href="/video.html?VideoId=@(item.value.Id)">
+                    <img src="@item.value.MainImage?w=263&h=155&mode=crop" class="col-md-6 col-sm-6 col-xs-12">
+                    <span class="col-md-6 col-sm-6 col-xs-12">@item.value.Title</span>
+                </a>
+                <div class="clearfix"></div>
+            </li>
+        }
+    </ul>
+}

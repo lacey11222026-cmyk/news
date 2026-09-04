@@ -1,0 +1,47 @@
+﻿@using BIZ
+@using UTILS
+@using WebMVC4.Helper
+@model WebMVC4.Models.LastestNewModel
+@if (Model != null)
+{
+    if (Model.lstdata.Count > 0)
+    {
+        <div class="container">
+            <h2 class="title-cm"><a href="@Model.Url">@Model.HeaderTitle</a></h2>
+            <div class="mt30 row row-50">
+                <div class="col-md-6 col-sm-6 col-12">
+                    @foreach (var item in Model.lstdata.Take(1).Select((value, i) => new { i, value }))
+                    {
+                        <a href="@item.value.LinkUrl"><img src="@item.value.MainImage?w=470&h=263&mode=crop" alt="@item.value.Title" class="w-100"></a>
+                        <h3 class="post-name"><a href="@item.value.LinkUrl">@item.value.Title</a></h3>
+                        <p class="post-content">@item.value.IntroText</p>
+                    }
+                    <ul class="news-list">
+                        @foreach (var item in Model.lstdata.Skip(2).Take(2).Select((value, i) => new { i, value }))
+                        {
+                            <li><a href="@item.value.LinkUrl">@item.value.Title</a></li>
+                        }
+                    </ul>
+                </div>
+                <div class="col-md-6 col-sm-6 col-12">
+                    @foreach (var item in Model.lstdata.Skip(1).Take(1).Select((value, i) => new { i, value }))
+                    {
+                        <a href="@item.value.LinkUrl"><img src="@item.value.MainImage?w=470&h=263&mode=crop" alt="@item.value.Title" class="w-100"></a>
+                        <h3 class="post-name"><a href="@item.value.LinkUrl">@item.value.Title</a></h3>
+                        <p class="post-content">@item.value.IntroText</p>
+                    }
+                    <ul class="news-list">
+                        @foreach (var item in Model.lstdata.Skip(4).Take(2).Select((value, i) => new { i, value }))
+                        {
+                            <li><a href="@item.value.LinkUrl">@item.value.Title</a></li>
+                        }
+                    </ul>
+                </div>
+            </div>
+            <div class="text-right mt20"><a href="@Model.Url" class="btn-viewmore">@Resources.Global.More</a></div>
+        </div>
+        
+
+
+    }
+}

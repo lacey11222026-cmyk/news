@@ -1,0 +1,9 @@
+﻿@using BIZ
+@using UTILS
+@using WebMVC4.Helper
+@using WebMVC4.Models
+@model ProductModel
+@foreach (var item in Model.listmanu.Select((value, i) => new { i, value }))
+{
+    <li><a href="@Utils.FormatUrlRewriteByType(Model.Cate.Id, Model.Cate.Name, int.Parse(Model.Cate.Type.ToString()), Model.Cate.Link)?ManuId=@(item.value.ManufactoryId)">@item.value.ManufactoryName</a></li>
+}

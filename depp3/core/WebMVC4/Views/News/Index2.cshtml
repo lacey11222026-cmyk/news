@@ -1,0 +1,87 @@
+﻿@using BIZ
+@using UTILS
+@using WebMVC4.Helper
+@model WebMVC4.Models.News2Model
+
+@{
+    var langpage = WorkContext.GetLanguage();
+}
+<div class="bnr-detail">
+    @*<img src="/Content/img/bnr-tranning.jpg?vs=02" alt="" class="hidden-767">
+        <img src="/Content/img/bnr-tranning-mb.jpg" alt="" class="block-767">*@
+    @{Html.RenderAction("BannerTop", "Home", new { Type = 4 });}
+    <div class="bnr-detail-inner">
+        <div class="container">
+            <h2>@ViewBag.CateName</h2>
+        </div>
+    </div>
+</div>
+<div class="bg-gray pt60 pb100">
+    <div class="container detail-content">
+        <div class="breadcrumbs">
+            <ul>
+                
+                <li><a href="/">@Resources.Global.Home</a></li>
+                <li><span>@ViewBag.CateName</span></li>
+            </ul>
+        </div>
+        <p class="date mt10">@DateTime.Now.ToString("HH:mm")   |   @DateTime.Now.ToString("dd/MM/yyyy")</p>
+        @if (Model.articles != null)
+        {
+            if (Model.articles.Count > 0)
+            {
+                <div class="tranning-info mt30">
+                    @foreach (var item in Model.articles.Select((value, i) => new { i, value }))
+                    {
+                        <div class="tranning-wrap">
+                            <div class="tranning-item">
+                                <div class="tranning-item-left">
+                                    <div class="ticket"><span>@HtmlHelpers.GetNewsType2(item.value.FileParam.Type)</span></div>
+                                    <p class="mt20 tranning-name">
+                                       @item.value.Title
+                                    <div class="mt20 text-left">
+                                        <a href="@item.value.LinkUrl" class="btn-cm">@Resources.Global.More</a>
+                                    </div>
+                                </div>
+                                <div class="tranning-item-right">
+                                    <p>@item.value.IntroText</p>
+                                    <table class="tbl-cm mt20">
+                                        <tr>
+                                            <th><i class="icon-add"></i>@Resources.Global.Place</th>
+                                            <td class="text-green">@item.value.FileParam.Place</td>
+                                        </tr>
+                                        <tr>
+                                            <th><i class="icon-time"></i>@Resources.Global.Time</th>
+                                            <td class="text-green">@item.value.FileParam.Time</td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    }
+
+                </div><!-- end content-->
+            }
+        }
+        <div class="paging mt50">
+            <ul>
+                @{Html.RenderPartial("Pagination", new WebMVC4.Models.PaginationInfo
+                    {
+                        PageUrl = Url.SetParameter("Page", "!0"),
+                        CurrentPage = ViewBag.Page,
+                        PageSize = ViewBag.PageSize,
+                        TotalItemCount = ViewBag.Total,
+                    }); }
+            </ul>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+
+ $('#menu_' + '@ViewBag.CurrentCategoryId').addClass("active");
+
+  $('#menu_' + '@ViewBag.ParentCategoryId').addClass("active");
+
+
+
+</script>

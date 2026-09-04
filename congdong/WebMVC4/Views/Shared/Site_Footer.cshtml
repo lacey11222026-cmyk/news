@@ -1,0 +1,46 @@
+﻿@using WebMVC4.Helper
+@{
+    var langpage = WorkContext.GetLanguage();
+}
+
+
+
+<footer class="mt40">
+    <div class="">
+        <nav>
+            <ul class="container">
+                <li><a href="/"><img src="/Content/images/icon-home.svg" width="12"></a></li>
+                @{Html.RenderAction("MenuBottom", "Home", new { lang = langpage });}
+            </ul>
+        </nav>
+        <div class="f-content container">
+            <div class="f-content01">
+                <div><img src="/Content/images/logo-footer.png" width="160"></div>
+                <div class="f-add">
+                    <h2>© Bản quyền thuộc <strong>Cục Công nghiệp - Bộ Công Thương</strong></h2>
+                    <p class="mt20">
+                        Địa chỉ: 54 Hai Bà Trưng, Hoàn Kiếm, Hà Nội<br>
+                        Điện thoại: (024).3.996.7189
+                    </p>
+                </div>
+                <div>
+                    <p>
+                        Ghi rõ nguồn: <a href="via.gov.vn">via.gov.vn</a> khi sử dụng thông tin từ website này
+                    </p>
+                    <div class="total mt20">
+                        <span>Tổng số lượt truy cập </span>
+                        <ul>
+                            @foreach (var s in HttpContext.Current.Application["TotalVisited"].ToString().Select(c => c.ToString()).ToList())
+                            {
+                                <li>@s</li>
+                            }
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div><!-- end container-->
+</footer>
+<p><a href="#top" id="backToTop" class="backTop block" style="bottom: 65px;"></a></p>
+
+

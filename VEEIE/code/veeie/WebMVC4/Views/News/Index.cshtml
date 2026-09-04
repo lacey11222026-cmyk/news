@@ -1,0 +1,50 @@
+﻿@using BIZ
+@using UTILS
+@using WebMVC4.Helper
+@model WebMVC4.Models.NewsModel
+@if (Model.listdata != null)
+{
+    { Html.RenderAction("Breadcrumb", "News", new { CategoryId = ViewBag.CategoryId }); }
+
+
+    <ul class="cap1-news-list">
+        @if (Model.listdata != null)
+        {
+            foreach (var item in Model.listdata.Select((value, i) => new { i, value }))
+            {
+                <li>
+                    <a href="@item.value.LinkUrl">
+                        <img src="@item.value.MainImage?w=250&&mode=crop" alt="@item.value.Title ">
+                    </a>
+                    <div class="cap1-content">
+                        <h3><a href="@item.value.LinkUrl">@item.value.Title </a></h3>
+                        <p>
+                           @item.value.IntroText
+                        </p>
+                        <p class="newstime"><span class="glyphicon glyphicon-time" aria-hidden="true"></span> @item.value.PublishDate.ToString("dd/MM/yyyy")</p>
+                    </div>
+                    <div class="clearfix"></div>
+                </li>
+               
+
+            }
+        }
+    </ul>
+    if (Model.total > Model.pageSize)
+    {
+        <div class="pagination pull-right mt30">
+            <ul>
+                @{Html.RenderPartial("Pagination", new WebMVC4.Models.PaginationInfo
+                    {
+                        PageUrl = Url.SetParameter("Page", "!0"),
+                        CurrentPage = Model.pageIndex,
+                        PageSize = Model.pageSize,
+                        TotalItemCount = Model.total,
+                    }); }
+            </ul>
+        </div>
+    }
+
+
+
+}

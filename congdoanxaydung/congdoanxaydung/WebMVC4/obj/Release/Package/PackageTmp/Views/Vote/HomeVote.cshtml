@@ -1,0 +1,129 @@
+﻿@using UTILS
+@using WebMVC4.Models
+@using WebMVC4.Helper
+@model WebMVC4.Models.SurveyItemModel
+
+@if (Model != null)
+{
+    
+    <div class="test">
+        <h2 class="title-cm03">
+            <a href="#">Khảo sát</a>
+        </h2>
+        <div>
+            <div class="votecontent">@Html.Raw(Model.obj.Content)</div>
+            @foreach (var item in Model.listdata)
+            {
+                if (Model.obj.Type == 1)
+                {
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="danhgia" value="@item.Id">
+                        <label class="form-check-label">
+                            @item.Content
+                        </label>
+                    </div>
+
+                }
+                else
+                {
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" name="danhgia" value="@item.Id">
+                        <label class="form-check-label">
+                            @item.Content
+                        </label>
+                    </div>
+
+                }
+            }
+            <div style="display: none">
+                <a class="frame" id="viewvote" href="@Url.Action("View", "Vote", new {Id = Model.obj.Id})">Xem kết quả</a>
+            </div>
+            <button id="sendquestion" class="btn btn-primary mt10">Bình chọn</button>
+            <button id="viewquestion" class="btn btn-primary mt10">Xem kết quả</button>
+        </div>
+    </div>
+    <link href="/fancybox2.1.5/jquery.fancybox.css" rel="stylesheet" />
+    <script src="/fancybox2.1.5/jquery.fancybox.js"></script>
+    if (ViewBag.IsMobile)
+    {
+        <script type="text/javascript">
+            var height = Math.min(600, $(window).height() - 96);
+            $(document)
+                .ready(function () {
+
+
+                    $("a.frame")
+                        .fancybox({
+                            'padding': 0,
+                            'overlayColor': '#777777',
+                            'overlayShow': true,
+                            'autoDimensions': true,
+                            'type': 'iframe',
+                            'width': 320,
+                            'height': height,
+                            scrolling: 'no',
+                            hideOnOverlayClick: false,
+
+                        });
+
+                });
+        </script>
+    }
+    else
+    {
+        <script type="text/javascript">
+            //var height = Math.min(600, $(window).height() - 96);
+            $(document)
+                .ready(function () {
+
+
+                    $("a.frame")
+                        .fancybox({
+                            'padding': 0,
+                            'overlayColor': '#777777',
+                            'overlayShow': true,
+                            'autoDimensions': true,
+                            'type': 'iframe',
+                            'width': 600,
+                            'height': 680,
+                            scrolling: 'hidden',
+                            hideOnOverlayClick: false,
+                        });
+
+                });
+        </script>
+        <style>
+            .fancybox-overlay {
+                overflow: hidden !important;
+            }
+        </style>
+    }
+
+    <script type="text/javascript">
+        $("#viewquestion").click(function () {
+            $("#viewvote").click();
+        });
+        $("#sendquestion").click(function () {
+
+            var lstAnswer = '';
+            var answers = $('input[name="danhgia"]:checked');
+            $.each(answers, function (i, answer) {
+                lstAnswer += '|' + $(answer).val();
+            });
+            lstAnswer += '|'
+            if (lstAnswer == '|') {
+                alert("Chưa chọn câu trả lời");
+
+                return false;
+            }
+
+            $.post('@Url.Action("SubmitQuestion", "Vote")', { "lstAnswer": lstAnswer },
+                function (data) {
+                    $("#viewvote").click();
+
+                }, 'json');
+
+
+        });
+    </script>
+}

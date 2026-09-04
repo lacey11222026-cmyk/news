@@ -1,0 +1,62 @@
+﻿@using BIZ
+@using UTILS
+@using WebMVC4.Helper
+@model List<BIZ.Entity.CONTENT_FULL>
+@if (Model != null)
+{
+    if (Model.Count > 0)
+    {
+        <div class="title-cm03">
+            <a href="#">Cùng chuyên mục</a>
+        </div>
+        <div class="row mt20">
+            <div class="col-sm-6 col-xs-12">
+                @foreach (var item in Model.Take(1).Select((value, i) => new { i, value }))
+                {
+                    <div class="newsbig">
+                        <a href="@item.value.LinkUrl"><img src="@item.value.MainImage?w=358&h=236&mode=crop" alt=""></a>
+                        <h2 class="mt10"><a href="@item.value.LinkUrl">@item.value.Title</a></h2>
+                        <span class="newsdate mt10">@item.value.PublishDate.ToString("dd/MM/yyyy")</span>
+                    </div>
+                }
+                </div>
+            <div class="col-sm-6 col-xs-12">
+                <ul class="newslist04">
+                    @foreach (var item in Model.Skip(1).Take(4).Select((value, i) => new { i, value }))
+                    {
+                        <li>
+                            <a href="@item.value.LinkUrl">@item.value.Title </a>
+                            <span class="newsdate mt10">@item.value.PublishDate.ToString("dd/MM/yyyy")</span>
+                        </li>
+                    }
+                    </ul>
+            </div>
+        </div>
+        if(Model.Count>5)
+        { 
+        <div class="chuyenmuc mt20">
+            <ul class="mt30 chuyenmuc-list">
+                @foreach (var item in Model.Skip(5).Select((value, i) => new { i, value }))
+                {
+                <li>
+                    <a href="@item.value.LinkUrl"><img src="@item.value.MainImage?w=367&h=206&mode=crop"></a>
+                    <div>
+                        <a href="@item.value.LinkUrl">@item.value.Title</a>
+                        <span class="newsdate mt10">@item.value.PublishDate.ToString("dd/MM/yyyy")</span>
+                    </div>
+                    <div class="hidden-xs">
+                        @item.value.IntroText
+                    </div>
+                </li>
+                }
+                </ul>
+        </div>
+
+        }
+
+
+
+    }
+
+
+}

@@ -1,0 +1,312 @@
+﻿@using BIZ
+@using UTILS
+@using WebMVC4.Helper
+@model BIZ.Entity.CONTENT_FULL
+@{
+    var langpage = WorkContext.GetLanguage();
+}
+@if (Model != null)
+{
+
+    <div class="chitiet-content01 container mt20">
+        <div class="row row-40">
+            <div class="col-lg-8 col-mm-12">
+                <h2 class="title-cm01 title-inline"><a href="@ViewBag.Url">@Model.CategoryName</a></h2>
+                <div class="mt20">
+                    <h2 class="newsname-detail">@Model.Title</h2>
+                    <span class="newsdate mt30">@Model.PublishDate.ToString("dd/MM/yyy")</span>
+                    <ul class="newslist-04 suggest">
+                        @if (ViewBag.lstRef != null)
+                        {
+                            foreach (var item in ViewBag.lstRef)
+                            {
+                                <li>
+                                    <a href="@Utils.FormatUrlRewrite(item.Id, item.Title, "ArticleDetail")">@item.Title </a>
+                                </li>
+                            }
+
+                        }
+
+                    </ul>
+                    <div class="vneep-icon mt50">
+                        <strong>@Model.IntroText</strong>
+                    </div>
+                    @if (!string.IsNullOrEmpty(Model.FileParam.AudioFile1))
+                    {
+                        <div class="mp3 mt15">
+                            <div class="audio-player">
+                                <audio id="audioFile" src="@Model.FileParam.AudioFile1"></audio>
+                                <button id="playPauseButton" onclick="togglePlayPause()"></button>
+                                <span id="currentTime">0:00</span>
+                                <div class="progress-bar" id="progressBar">
+                                    <div class="progress" id="progress"></div>
+                                </div>
+                                <span id="totalTime">0:00</span>
+                                <div class="choose-voice dropdown__inner">
+                                    <p id="paudotitle">Giọng Nam miền Bắc</p>
+                                    <ul class="voice-list dropdownSub">
+
+                                        <li><a href="javascript:;" onclick="setaudio1()">Giọng Nam miền Bắc</a></li>
+                                        <li><a href="javascript:;" onclick="setaudio2()">Giọng Nữ miền Bắc</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        @Html.AntiForgeryToken()
+                        <script>
+                                    function addAntiForgeryToken(data) {
+                                        if (!data) {
+                                            data = {};
+                                        }
+                                        var tokenInput = $('input[name=__RequestVerificationToken]');
+                                        if (tokenInput.length) {
+                                            data.__RequestVerificationToken = tokenInput.val();
+                                        }
+                                        return data;
+                                    };
+                                    function setaudio2() {
+                                        $('#paudotitle').html("Giọng Nữ miền Bắc");
+                                        $('#audioFile').attr("src","@Model.FileParam.AudioFile2");
+                                    }
+                                     function setaudio1() {
+                                         $('#paudotitle').html("Giọng Nam miền Bắc");
+                                         $('#audioFile').attr("src","@Model.FileParam.AudioFile1");
+                                     }
+                                    var audio = document.getElementById('audioFile');
+                                    var progressBar = document.getElementById('progressBar');
+                                    var progress = document.getElementById('progress');
+                                    var playPauseButton = document.getElementById('playPauseButton');
+                                    var audioPlayer = document.querySelector('.audio-player');
+                                    var currentTimeElem = document.getElementById('currentTime');
+                                    var totalTimeElem = document.getElementById('totalTime');
+                                    @*audio.onplay = function () {
+                                        //console.log("The video has started to play");
+                                         var postdata = {
+                                             Id:'@Model.Id'
+                                         };
+                                         $.ajax({
+                                         type: 'POST',
+                                         url: "@Url.Action("AudioViewAdd")",
+                                         data: addAntiForgeryToken(postdata),
+                                         async: true,
+                                         success: function (data) {
+
+                                         }
+                                     });
+                                    };*@
+                                    // Toggle play/pause functionality and button appearance
+                                    function togglePlayPause() {
+                                        if (audio.paused || audio.ended) {
+                                            audio.play();
+                                            audioPlayer.classList.add('audio-playing');
+                                        } else {
+                                            audio.pause();
+                                            audioPlayer.classList.remove('audio-playing');
+                                        }
+                                    }
+
+                                    // Update the progress bar
+                                    audio.ontimeupdate = function () {
+                                        var percentage = Math.floor((100 / audio.duration) * audio.currentTime);
+                                        progress.style.width = percentage + '%';
+                                    }
+
+                                    // Click on progress bar to change the time
+                                    progressBar.addEventListener('click', function (e) {
+                                        var offset = this.getBoundingClientRect();
+                                        var x = e.pageX - offset.left;
+                                        audio.currentTime = (x / progressBar.offsetWidth) * audio.duration;
+                                    });
+
+                                    // Adjust progress element to grow from left to right
+                                    function skipTime(seconds) {
+                                        audio.currentTime += seconds;
+                                    }
+
+                                    // Format time in minutes:seconds
+                                    function formatTime(seconds) {
+                                        var minutes = Math.floor(seconds / 60);
+                                        var seconds = Math.floor(seconds % 60);
+                                        return minutes + ':' + (seconds < 10 ? '0' + seconds : seconds);
+                                    }
+
+                                    // Update the current time display
+                                    audio.ontimeupdate = function () {
+                                        var percentage = Math.floor((100 / audio.duration) * audio.currentTime);
+                                        progress.style.width = percentage + '%';
+                                        currentTimeElem.textContent = formatTime(audio.currentTime);
+                                    };
+
+                                    // Set the total time display
+                                    audio.onloadedmetadata = function () {
+                                        console.log(audio.duration); // Check if duration is a valid number
+                                        totalTimeElem.textContent = formatTime(audio.duration);
+                                    };
+
+                        </script>
+
+                    }
+                    <div class="detail-content mt40">
+                        <div class="detail-icon-list sticky">
+                            <div class="choose-font">
+                                <a href="javascript:;" onclick="addsize();"><img src="/Content/images/icon-plus.png" alt=""></a>
+                                <a href="#"><img src="/Content/images/icon-a.png" alt=""></a>
+                                <a href="javascript:;" onclick="plussize();"><img src="/Content/images/icon-minus.png" alt=""></a>
+                            </div>
+                            <a href="javascript:void(0);" onclick="openWin('@ViewBag.FacebookShare');"> <img src="/Content/images/icon-face02.png"></a>
+
+                            <a href="@Url.Action("Print", "News", new {Id=Model.Id})" target="_blank"><img src="/Content/images/icon-prt.png"></a>
+                        </div>
+                        <div class="detail-text" id="NewsContent">
+                            @Html.Raw(Model.Contents.Replace("font-size: small", ""))
+                        </div>
+                    </div>
+
+                    @if (Model.SiteUrl != null)
+                    {
+                        if (!String.IsNullOrEmpty(Model.SiteUrl.Trim()))
+                        {
+                            <div class="detail-tags mt50">
+
+                                <ul class="float-left mb-0">
+                                    <li>Tags:</li>
+
+                                    @foreach (var item in Model.SiteUrl.Split(',').Select((value, i) => new { i, value }))
+                                    {
+                                        <li>  <a href="@Url.Action("Search", new { q = item.value.Trim() })">@item.value.Trim()</a></li>
+                                    }
+
+                                </ul>
+
+                               
+                            </div>
+                        }
+                    }
+
+                    </div>
+            </div>
+
+            <div class="col-lg-4 col-md-12">
+                @{Html.RenderAction("LastestNews", "News", new { lang = langpage, MaxLastestNews = 4 });}
+                <div class="sidebar-right mt20">
+                    <div class="gray-box">
+                        @Html.Partial("Site_Right")
+                    </div>
+                    @if (langpage == "vi-vn")
+                    {
+                        <div class="gray-box mt20">
+                            @{Html.RenderAction("TopDocument", "Home", new { CategoryId = 3 });}
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="gray-box mt20">
+                            @{Html.RenderAction("TopDocument", "Home", new { CategoryId = 30 });}
+                        </div>
+                    }
+                </div>
+            </div>
+        </div><!-- end row-->
+    </div><!-- end content 01 -->
+    if (Model.CategoryId != 31 && Model.CategoryId != 18)
+    {
+        <div class="bnrCenter container mt40">
+            <div class="bnrSlider">
+                @{Html.RenderAction("Banner", "Home", new { lang = langpage });}
+            </div>
+        </div>
+        <div class="mt30 detail-content02 container">
+            <div class="row row-40">
+                <div class="col-lg-8 col-md-12 text-left">
+                    @{Html.RenderAction("Relate", "News", new { CategoryId = Model.CategoryId });}
+
+
+
+                </div>
+                <div class="col-lg-4 col-md-12">
+                    <ul class="link-list">
+                        @{Html.RenderAction("BannerRight", "Home", new { lang = langpage });}
+                        @{Html.RenderAction("BannerRight2", "Home", new { lang = langpage });}
+                    </ul>
+
+                    <div class="sidebar-newsnew mt20">
+                        @{Html.RenderAction("TopViewNews", "News", new { lang = langpage, MaxLastestNews = 4 });}
+
+                    </div>
+                </div>
+            </div>
+        </div><!-- end content 02-->
+
+    }
+
+
+
+}
+<script>
+    $('.news_detail_img').removeAttr('style');
+    $('.news_detail_img').attr('style', 'margin:0 auto;text-align:center');
+    $('#NewsContent table').removeAttr('width');
+    $('#NewsContent span img').removeAttr('width');
+    $('#NewsContent img').removeAttr('width');
+    $('#NewsContent img').removeAttr('height');
+    $('#NewsContent img').removeAttr('style');
+
+    fsize = 14;
+
+    function addsize() {
+
+        fsize = fsize + 1;
+        $('#NewsContent').attr('style', 'font-size:' + fsize + 'px');
+    }
+    function plussize() {
+        if (fsize > 8) {
+            fsize = fsize - 1;
+        }
+
+        $('#NewsContent').attr('style', 'font-size:' + fsize + 'px');
+    }
+
+</script>
+<style>
+    #NewsContent ul {
+        display: block;
+        list-style-type: disc;
+        margin-block-start: 1em;
+        margin-block-end: 1em;
+        margin-inline-start: 0px;
+        margin-inline-end: 0px;
+        padding-inline-start: 40px;
+    }
+
+    #NewsContent h2 {
+        font-size: 18px;
+    }
+
+    #NewsContent li {
+        display: list-item;
+        list-style-type: disc;
+        text-align: -webkit-match-parent;
+    }
+
+    #NewsContent table td {
+        padding: 10px;
+    }
+</style>
+<script type="text/javascript">
+
+
+
+    function openWin(url) {
+        var myWindow = window.open(url, '', 'width=700,height=500');
+        myWindow.focus();
+    }
+</script>
+<script type="text/javascript">
+
+ $('#menu_' + '@ViewBag.CurrentCategoryId').addClass("active");
+
+  $('#menu_' + '@ViewBag.ParentCategoryId').addClass("active");
+
+
+
+</script>

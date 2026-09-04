@@ -1,0 +1,27 @@
+﻿@using BIZ
+@using UTILS
+@using WebMVC4.Helper
+@model List<BIZ.Entity.DOCUMENT_FULL>
+@if (Model != null)
+{
+
+    <div class="mt50">
+        <ul class="document-list col-3-item">
+            @foreach (var item in Model.Select((value, i) => new { i, value }))
+            {
+                <li>
+                    <a href="@Url.Action("Detail","Document",new { id=item.value.Id})" title="@item.value.Name">
+                        @item.value.Name @if (item.value.PublishDate.GetValueOrDefault().AddDays(14) >= DateTime.Now)
+                        {
+                            <span class="stick-new">Mới</span>
+                        }
+                    </a>
+                    <span class="newsdate-green mt10">@Convert.ToDateTime(item.value.PublishDate).ToString(@" dd'/'MM'/'yyyy")</span>
+                </li>
+            }
+        </ul>
+        <a href="/Document/Index/3" class="btn-viewmore-red mt30">Xem thêm</a>
+    </div>
+
+
+}

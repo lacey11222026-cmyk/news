@@ -1,0 +1,16 @@
+﻿@model List<DATA.Banner>
+@if (Model != null)
+{
+    <div class="widget-container widget-quangcao-top widget_text">
+        @foreach (var item in Model.Select((value, i) => new { i, value }))
+        {
+            <div class="textwidget">
+                <a href="@item.value.Url" rel="nofollow"  target="_blank">
+                    <img src="@item.value.Data" alt="">
+                </a>
+            </div>
+        }
+
+       
+    </div>
+}

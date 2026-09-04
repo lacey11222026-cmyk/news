@@ -1,0 +1,66 @@
+﻿@using BIZ
+@using UTILS
+@using WebMVC4.Helper
+@model List<DATA.Product>
+
+
+@if (Model != null)
+{
+    if (Model.Count >= 5)
+    {
+        <div class="home-section-head clearfix">
+            <div class="section-title text-left">
+                <h2>
+                    Sản phẩm liên quan
+                </h2>
+                <span class="section-title-border"></span>
+            </div>
+        </div>
+        <div class="home-section-body">
+            <div class="grid mg-left-15">
+                <div id="owl-related-products-slider" class="owl-carousel owl-theme" style="opacity: 1; display: block;">
+                    <div class="owl-wrapper-outer">
+                        <div class="owl-wrapper" style="width: 100%; left: 0px; display: block;">
+
+                            @foreach (var item in Model.Take(5).Select((value, i) => new { i, value }))
+                            {
+                                <div class="owl-item" style="width: 231px;">
+                                    <div class="item grid__item pd-left15">
+                                        <div class="product-item">
+                                            <div class="product-img">
+                                                <a href="@UTILS.Utils.FormatUrlRewrite(item.value.Id,item.value.Name,"ProductDetail")" title="@item.value.Name">
+                                                    <img class="lazyload" src="@item.value.DescriptImage?h=400&w=400&mode=crop" data-src="@item.value.DescriptImage?h=400&w=400&mode=cropg" alt="@item.value.Name">
+                                                </a>
+
+                                            </div>
+                                            <div class="product-item-info text-center">
+                                                <div class="product-title">
+                                                    <a href="@UTILS.Utils.FormatUrlRewrite(item.value.Id,item.value.Name,"ProductDetail")" title="@item.value.Name">@item.value.Name</a>
+                                                </div>
+                                                <div class="product-price clearfix">
+                                                    @if (@item.value.Price > 0)
+                                                    {
+
+                                                        <span class="current-price">@Utils.InsertCommaNoStyle(item.value.Price.ToString()) đ</span>
+                                                    }
+                                                    else
+                                                    {
+                                                        <span class="current-price">Giá liên hệ</span>
+                                                    }
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+
+                        </div>
+                    </div>
+                    <div class="owl-controls clickable" style="display: none;"><div class="owl-buttons"><div class="owl-prev"><i class="fa fa-angle-left" aria-hidden="true"></i></div><div class="owl-next"><i class="fa fa-angle-right" aria-hidden="true"></i></div></div></div>
+                </div>
+            </div>
+        </div>
+
+    }
+}

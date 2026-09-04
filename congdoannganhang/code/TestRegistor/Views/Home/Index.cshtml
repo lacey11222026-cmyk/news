@@ -1,0 +1,171 @@
+﻿@using UTILS;
+
+<div class="banner">
+    <div class="slickSlide">
+        <div>
+            <img src="/Content/images/bnr01.png" alt="" class="hidden-xs">
+            <img src="/Content/images/bnr01_mb.png" alt="" class="block-xs">
+        </div>
+        <div>
+            <img src="/Content/images/bnr02.gif" alt="" class="hidden-xs">
+            <img src="/Content/images/bnr02_mb.gif" alt="" class="block-xs">
+        </div>
+        <div>
+            <img src="/Content/images/bnr03.gif" alt="" class="hidden-xs">
+            <img src="/Content/images/bnr03_mb.gif" alt="" class="block-xs">
+        </div>
+    </div>
+</div>
+<div class="maincontent screen04-content">
+    <div class="screen04-content-01 pb60 pt60 container">
+        <h2 class="title-cm wow bounceInLeft" data-wow-duration="1s"><i class="icon-time"></i>Thời gian tham dự</h2>
+        <div class="row mt30">
+            @{Html.RenderAction("TopTestRegister");}
+            <div class="col-lg-3 col-md-6 col-12 wow bounceInLeft" data-wow-duration="1.75s">
+                <img src="/Content/images/img-02.png" alt="" class="img-content">
+            </div>
+        </div>
+    </div>
+    <div class="screen04-content-02 pt60">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6 col-sm-12 wow bounceInLeft" data-wow-duration="1s">
+                    <h2 class="title-cm"><i class="icon-doituong"></i>Đối tượng tham gia</h2>
+                    <p class="mt20">Tất cả cán bộ, công chức, viên chức và người lao động đang công tác trong ngành Ngân hàng.</p>
+                    <div class="text-right doituong-img mt10">
+                        <img src="/Content/images/img-03.png" alt="">
+                    </div>
+                </div>
+                <div class="col-md-6 col-sm-12 wow bounceInLeft" data-wow-duration="1.25s">
+                    <h2 class="title-cm"><i class="icon-thamgia"></i>Cách thức tham gia</h2>
+                    <ul class="list-cm mt20">
+                        <li>Bước 1: Truy cập vào trang thông tin điện tử Công đoàn Ngân hàng Việt Nam: <a href="http://vnubw.org.vn/" class="web">http://vnubw.org.vn/</a></li>
+                        <li>Bước 2: Click vào banner/pop-up cuộc thi</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div><!-- end content 2-->
+    <div class="screen04-content-03 pt60 pb60">
+        <div class="container">
+            <div class="text-center"><h2 class="title-cm"><i class="icon-giaithuong"></i>Cơ cấu giải thưởng</h2></div>
+            <div class="row mt20">
+                <div class="col-lg-4 col-md-6 col-sm-12 wow bounceInLeft" data-wow-duration="1s">
+                    <div class="item-ittle">
+                        <img src="/Content/images/icon-user-02.png" alt="">
+                    </div>
+                    <div class="item-content">
+                        <p class="textblue">- Mỗi kỳ <span>10</span> giải thưởng</p>
+                        <p class="textblue mt-2">- Giá trị giải thưởng: <span>1.000.000</span>đ/giải + Giấy chứng nhận của Công đoàn NHVN.</p>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 col-sm-12 wow bounceInLeft" data-wow-duration="1.5s">
+                    <div class="item-ittle">
+                        <img src="/Content/images/icon-user-03.png" alt="">
+                    </div>
+                    <div class="item-content">
+                        <p class="textblue">- <span>03</span> giải tập thể cho 03 đơn vị có số lượng người tham gia nhiều nhất.</p>
+                        <p class="textblue mt-2">- Giá trị giải thưởng: <span>5.000.000</span>đ/giải + Bằng khen của Ban chấp hành Công đoàn NHVN.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="text-center">
+                <img src="/Content/images/img-01.png" alt="" width="300">
+            </div>
+        </div>
+    </div><!-- end content 3-->
+    <div class="screen04-content-04">
+        <div class="container">
+            <div class="qr-box">
+                <div class="qr-title"><img src="/Content/images/title-02.png" alt=""></div>
+                <div class="qr-code">
+                    <img src="/Content/images/qr.png" alt="" width="200">
+                </div>
+            </div>
+        </div>
+    </div><!-- end content 4-->
+</div><!-- end main content-->
+
+
+<footer>
+    <p class="container font-weight-bold textblue">Bản quyền thuộc <a href="/"><img src="/Content/images/logo.png" alt="" style="width: 400px; max-width: 85%; display: inline-block;margin-left: 20px;"></a></p>
+</footer>
+
+<script>
+
+    function JoinTest(id) {
+        bootbox.confirm("Bạn muốn tham dự cuộc thi này?",
+            function(result) {
+                if (result === true) {
+                    var postdata = {
+                        'id': id
+
+                    };
+                    ShowProgress();
+                    $.ajax({
+                        type: 'POST',
+                        url: "@Url.Action("Start")",
+                        data: postdata,
+                        success: function(data) {
+                            HideProgress();
+                            if (data.ResponseCode >= 0) {
+                                window.location.href = '@Url.Action("Exam")';
+
+                                return;
+                            } else {
+                                if (data.ResponseCode === -101) {
+                                    window.location.href = '@Url.Action("Logon")';
+                                    return;
+                                }
+                                //Kết quả
+                                if (data.ResponseCode === -102) {
+                                    window.location.href = '@Url.Action("ResultExam")?id=' + id;
+                                    return;
+                                }
+                                bootbox.alert(data.Description);
+                                return;
+                            }
+                        }
+                    });
+                }
+            });
+    }
+</script>
+
+
+@if (!String.IsNullOrEmpty(ViewBag.Test))
+{
+    <script>
+        //return;
+         var postdata = {
+                        'id': '@ViewBag.Test'
+
+                    };
+                    ShowProgress();
+                    $.ajax({
+                        type: 'POST',
+                        url: "@Url.Action("Start")",
+                        data: postdata,
+                        success: function(data) {
+                            HideProgress();
+                            if (data.ResponseCode >= 0) {
+                                window.location.href = '@Url.Action("Exam")';
+
+                                return;
+                            } else {
+                                if (data.ResponseCode === -101) {
+                                    window.location.href = '@Url.Action("Logon")';
+                                    return;
+                                }
+                                //Kết quả
+                                if (data.ResponseCode === -102) {
+                                    window.location.href = '@Url.Action("ResultExam")?id=' + '@ViewBag.Test';
+                                    return;
+                                }
+                                bootbox.alert(data.Description);
+                                return;
+                            }
+                        }
+                    });
+    </script>
+}

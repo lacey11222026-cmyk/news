@@ -1,0 +1,203 @@
+﻿@using UTILS;
+@model List<DATA.DAL.TestLocation>
+
+
+@{
+    Layout = "~/Views/Shared/_Layout2.cshtml";
+}
+<link href="//cdnjs.cloudflare.com/ajax/libs/select2/4.0.0/css/select2.min.css" rel="stylesheet" />
+<script src="//cdnjs.cloudflare.com/ajax/libs/select2/4.0.0/js/select2.min.js"></script>
+<style>
+
+    .select2-container .select2-selection--single {
+        height: 34px;
+        border-radius: 12px;
+    }
+</style>
+<script>
+
+    $(document).ready(function () {
+        $('.ddlLocation').select2({
+
+        });
+    });
+</script>
+<style>
+
+    .select2-container {
+        width: 100% !important;
+    }
+
+
+    .select2-hidden-accessible {
+        width: 1px !important;
+    }
+
+    .select2-container .select2-selection--single .select2-selection__rendered {
+        float: left;
+    }
+
+    .select2-container--default .select2-selection--single {
+        /* background-color: #e5e5e5;*/
+        border-radius: 12px;
+    }
+</style>
+<div class="maincontent screen02-content">
+    <h1 class="login-title-bg">
+        <img src="/Content/images/login-bnr.jpg?vs=2" alt="" class="hidden-md">
+        <img src="/Content/images/login-bnr-mb.jpg?vs=1" alt="" class="block-md">
+    </h1>
+    <div class="container login-content">
+        <div class="blue-box mt30 wow bounceInLeft">
+            <div class="form-box">
+                <label>Số điện thoại:</label>
+                <input type="text" class="form-control" id="txtMobile" placeholder="">
+            </div>
+            <div class="form-box mt20">
+                <label>Họ và tên:</label>
+                <input type="text" class="form-control" id="txtFullname" placeholder="">
+            </div>
+            <div class="form-box mt20">
+                <label>Đơn vị công tác:</label>
+                <input type="text" class="form-control" id="txtRole" placeholder="">
+            </div>
+            <div class="form-box mt20">
+                <label>Tỉnh/ Thành phố:</label>
+                <select class="form-control ddlLocation" id="ddlLocation">
+                    <option value="">Tỉnh/ Thành phố</option>
+                    @if (Model != null && Model.Count > 0)
+                    {
+                        foreach (var obj in Model)
+                        {
+                            if (obj.Name.Equals(ViewBag.Location))
+                            {
+                                <option value="@obj.Name" selected>@obj.Name</option>
+                            }
+                            else
+                            {
+                                <option value="@obj.Name">@obj.Name</option>
+                            }
+
+                        }
+                    }
+                    <option value="Khác">Khác</option>
+                </select>
+            </div>
+            <div class="form-box mt20">
+                <p style="color: red;text-align: left;" id="msgBox"></p>
+            </div>
+            <div class="text-center"><a href="javascript:;" onclick="validateData()" class="btn-cm btn-blue-02 mt20">Đăng nhập</a></div>
+
+
+        </div>
+    </div>
+</div>
+<footer class="bg-gradient">
+    <p class="container">Bản quyền thuộc <strong>Chương trình quốc gia về sử dụng năng lượng tiết kiệm và hiệu quả</strong></p>
+</footer>
+
+
+
+
+
+<script src="/Content/js/formvalidate.js"></script>
+<script>
+    function validatePhone() {
+        if (!ValidateControls("Vui lòng nhập số điện thoại !", "#txtMobile")) {
+            return false;
+        }
+
+        var phone = $('#txtMobile').val();
+
+        if (phone.length < 9 || phone.length > 12) {
+
+            $("#msgBox").html("Số điện thoại không hợp lệ.").show();
+            $('#txtMobile').focus();
+            return false;
+        }
+        if (!isInteger(phone)) {
+
+            $("#msgBox").html("Số điện thoại không hợp lệ.").show();
+
+            $('#txtMobile').focus();
+            return false;
+        }
+        return true;
+
+    }
+
+    function validateData() {
+
+        if (!validatePhone()) {
+            return false;
+        }
+        if (!ValidateControls("Vui lòng nhập họ và tên !", "#txtFullname", '#msgBox2')) {
+            return false;
+        }
+
+        if (!ValidateControls("Vui lòng nhập đơn vị công tác !", "#txtRole", '#msgBox')) {
+            return false;
+        }
+        if (!ValidateControls("Vui lòng chọn tỉnh thành !", "#ddlLocation", '#msgBox')) {
+            return false;
+        }
+        var param = {
+            Mobile: $("#txtMobile").val(),
+            FullName: $("#txtFullname").val(),
+            Location: $("#ddlLocation").val(),
+            Role: $("#txtRole").val(),
+        };
+        $.ajax({
+            type: 'POST',
+            url: "@Url.Action("LogOn")",
+            data: addAntiForgeryToken(param),
+            async: true,
+            success: function (data) {
+
+                if (data.success === true) {
+                    location.href = '@Url.Action("Index")';
+                } else {
+
+                    $("#msgBox").text(data.msg).show();
+                    return;
+                }
+            }
+        });
+    }
+    $('.blue-box input[type="text"],.blue-box input[type="password"]').keypress(function (event) {
+        if (event.which == 13) {
+            validateData()
+        }
+    });
+    function validateData2() {
+
+        if (!ValidateControls("Vui lòng nhập họ và tên !", "#txtFullname", '#msgBox2')) {
+            return false;
+        }
+
+
+        var param2 = {
+            Mobile: $("#txtMobile").val(),
+            FullName: $("#txtFullname").val(),
+            Location: $("#ddlLocation").val(),
+            Role: $("#txtRole").val(),
+            Note: $("#txtNote").val(),
+        };
+        $.ajax({
+            type: 'POST',
+            url: "@Url.Action("LogOn")",
+            data: addAntiForgeryToken(param2),
+            async: true,
+            success: function (data) {
+
+                if (data.success === true) {
+                    location.href = '@Url.Action("Index")';
+                } else {
+
+                    $("#msgBox2").text(data.msg).show();
+                    return;
+                }
+            }
+        });
+    }
+</script>

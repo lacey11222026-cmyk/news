@@ -1,0 +1,45 @@
+﻿@using BIZ
+@using UTILS
+@using WebMVC4.Helper
+@model WebMVC4.Models.LastestNewModel
+@if (Model != null)
+{
+    <div>
+        <a href="@Model.Url" class="title-cm">@Model.HeaderTitle</a>
+        @foreach (var cate in Model.listcate.Select((value, i) => new { i, value }))
+        {
+            <a href="@Utils.FormatUrlRewriteByType(cate.value.Id, cate.value.Name, (int)cate.value.Type)" class="title-sm">@cate.value.Name </a>
+        }
+
+    </div>
+    if (Model.lstdata != null)
+    {
+        <div class="row mt10">
+            @foreach (var item in Model.lstdata.Take(1).Select((value, i) => new { i, value }))
+            {
+                <div class="col-md-6 col-sm-6 col-xs-6 box-item">
+                    <a href="@item.value.LinkUrl">
+                        <img src="@item.value.MainImage?w=360&h=234&mode=crop">
+                    </a>
+                    <h3><a href="@item.value.LinkUrl">@item.value.Title </a></h3>
+                    <p>@item.value.IntroText</p>
+                </div>
+            }
+
+            <div class="col-md-6 col-sm-6 col-xs-6">
+                <ul class="news-list">
+                    @foreach (var item in Model.lstdata.Skip(1).Select((value, i) => new { i, value }))
+                    {
+                        <li><a href="@item.value.LinkUrl">@item.value.Title </a></li>
+                    }
+
+
+                </ul>
+            </div>
+        </div>
+    }
+
+   
+
+
+}

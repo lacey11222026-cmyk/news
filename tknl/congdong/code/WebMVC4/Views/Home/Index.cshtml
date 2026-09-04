@@ -1,0 +1,113 @@
+﻿@using BIZ
+@using UTILS
+@using WebMVC4.Helper
+@using DATA.ContentDB
+@model List<TestLocation>
+
+<div class="container mt30">
+    <div class="map-box">
+        <div class="map-left">
+            <div>
+                <ul class="intro-list">
+                    <li>
+                        <a href="/kiem-toan-vien-nang-luong" class="intro-item">
+                            <span class="intro-img"><img src="/Content/images/ava-04.png" alt=""></span>
+                            <span class="intro-txt">CỘNG ĐỒNG <br>KIỂM TOÁN VIÊN NĂNG LƯỢNG</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/nguoi-quan-ly-nang-luong" class="intro-item">
+                            <span class="intro-img"><img src="/Content/images/ava-03.png" alt=""></span>
+                            <span class="intro-txt">CỘNG ĐỒNG <br>NGƯỜI QUẢN LÝ NĂNG LƯỢNG</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/don-vi-cung-cap/" class="intro-item">
+                            <span class="intro-img"><img src="/Content/images/ava.jpg" alt=""></span>
+                            <span class="intro-txt">ĐƠN VỊ CUNG CẤP DỊCH VỤ, <br>ĐƠN VỊ TƯ VẤN</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="map-right">
+            @{Html.RenderAction("Map", "Home");}
+        </div>
+    </div>
+    <div class="total-info mt20">
+        <div class="total-info-inner">
+            <div class="total-info-item">
+                <img src="Content/images/icon-user.svg" alt="" width="35">
+                <p>Tổng số kiểm toán viên năng lượng</p>
+                <span class="total-num">@Model.FirstOrDefault(x => x.Name == "All").Number1.ToString("N0", new System.Globalization.CultureInfo("vi-VN"))</span>
+            </div>
+            <div class="total-info-item">
+                <img src="Content/images/icon-user.svg" alt="" width="35">
+                <p>Tổng số người quản lý năng lượng</p>
+                <span class="total-num">@Model.FirstOrDefault(x => x.Name == "All").Number2.ToString("N0", new System.Globalization.CultureInfo("vi-VN"))</span>
+            </div>
+            <div class="total-info-item">
+                <img src="Content/images/icon-support.svg" alt="" width="40">
+                <p>Tổng số đơn vị cung cấp dịch vụ, đơn vị tư vấn</p>
+                <span class="total-num">@Model.FirstOrDefault(x => x.Name == "All").Number3.ToString("N0", new System.Globalization.CultureInfo("vi-VN"))</span>
+            </div>
+        </div>
+    </div>
+    <div class="map-left-mb mt30">
+        <div>
+            <ul class="intro-list">
+                <li>
+                    <a href="/kiem-toan-vien-nang-luong" class="intro-item">
+                        <span class="intro-img"><img src="/Content/images/ava-04.png" alt=""></span>
+                        <span class="intro-txt">CỘNG ĐỒNG <br>KIỂM TOÁN VIÊN NĂNG LƯỢNG</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="/nguoi-quan-ly-nang-luong" class="intro-item">
+                        <span class="intro-img"><img src="/Content/images/ava-03.png" alt=""></span>
+                        <span class="intro-txt">CỘNG ĐỒNG <br>NGƯỜI QUẢN LÝ NĂNG LƯỢNG</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="/don-vi-cung-cap/" class="intro-item">
+                        <span class="intro-img"><img src="/Content/images/ava.jpg" alt=""></span>
+                        <span class="intro-txt">ĐƠN VỊ CUNG CẤP DỊCH VỤ, <br>ĐƠN VỊ TƯ VẤN</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+<div class="container pt60 pb60 content-box-02">
+    @{Html.RenderAction("LastestNews2", "Home", new { CateName = "", CategoryId = 6, MaxLastestNews = 7, CssClass = "" });}
+</div>
+<div class="mt50 container">
+    @{Html.RenderAction("Banner", "Home", new { param = "col-md-12 col-sm-6" });}
+
+</div>
+<div class="container content-box-03 mt50 pb100">
+    <div>
+
+        <ul class="multi-title nav nav-tabs">
+            <li><a href="#tab01" class="nav-link active" id="tab01-tab" data-toggle="tab" data-target="#tab01">CHUYÊN ĐỀ CÔNG NGHỆ</a></li>
+            <li><a href="#tab02" class="nav-link" id="tab02-tab" data-toggle="tab" data-target="#tab02">Chuyện của chuyên gia</a></li>
+            <li><a href="#tab03" class="nav-link" id="tab03-tab" data-toggle="tab" data-target="#tab03">Câu chuyện TKNL</a></li>
+        </ul>
+
+        <div class="tab-content videotabs-content">
+            <div class="tab-pane active" id="tab01">
+                @{Html.RenderAction("HomeVideo", "Home", new { CategoryName = "Video", CategoryId = 10, MaxLastestNews = 7 });}
+
+            </div>
+            <div class="multimedia-content tab-pane" id="tab02">
+                @{Html.RenderAction("Podcast", "Home", new { CategoryName = "Podcast", CategoryId = 8, MaxLastestNews = 4 });}
+
+            </div>
+            <div class="multimedia-content tab-pane" id="tab03">
+                @{Html.RenderAction("Podcast2", "Home", new { CategoryName = "Podcast", CategoryId = 8, MaxLastestNews = 4 });}
+
+            </div>
+        </div>
+
+    </div>
+</div>

@@ -1,0 +1,107 @@
+﻿@using BIZ
+@using UTILS
+@using WebMVC4.Helper
+@model WebMVC4.Models.News2Model
+
+@{
+    var langpage = WorkContext.GetLanguage();
+}
+
+<div class="post-new-page container pb60 pt40">
+    <div class="row row-50">
+        <div class="col-lg-8 col-md-12">
+            <div class="post-hot">
+                @{Html.RenderAction("Breadcrumb", "News", new { CategoryId = ViewBag.CategoryId });}
+                <div class="row mt30">
+                    <div class="col-md-8 col-sm-12">
+                        @foreach (var item in Model.hotnews.Take(1).Select((value, i) => new { i, value }))
+                        {
+                            <div>
+                                <a href="@item.value.LinkUrl"><img src="@item.value.MainImage?w=606&h=341&mode=crop" alt="" class="w-100"></a>
+                                <a href="@item.value.LinkUrl" class="post-big-name font-weight-bold mt15">@item.value.Title</a>
+                                <p class="date mt15">@item.value.PublishDate.ToString("HH:mm") - @item.value.PublishDate.ToString("dd/MM/yyyy")</p>
+                                <p class="mt15">@item.value.IntroText </p>
+                            </div>
+                        }
+                    </div>
+                    <div class="col-md-4 col-sm-12">
+                        <ul class="post-hot-list">
+                            @foreach (var item in Model.hotnews.Skip(1).Select((value, i) => new { i, value }))
+                            {
+                                <li>
+                                    <a href="@item.value.LinkUrl"><img src="@item.value.MainImage?w=288&h=168&mode=crop" alt="" class="w-100"></a>
+                                    <a href="@item.value.LinkUrl" class="mt15 font-weight-bold dis-block">@item.value.Title</a>
+                                    <p class="date mt15">@item.value.PublishDate.ToString("HH:mm") - @item.value.PublishDate.ToString("dd/MM/yyyy")</p>
+                                </li>
+                            }
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="mt40">
+                @{Html.RenderAction("BannerNews", "Home", new { lang = langpage });}
+            </div>
+            <div class="view-more mt50">
+                @if (Model.articles != null)
+                {
+                    if (Model.articles.Count > 0)
+                    {
+                        <h2 class="title-cm-02"><a href="#">@Resources.Global.More</a></h2>
+                        <ul class="mt30 post-list">
+                            @foreach (var item in Model.articles.Select((value, i) => new { i, value }))
+                            {
+
+
+                                <li>
+                                    <a href="@item.value.LinkUrl"><img src="@item.value.MainImage?w=277&h=170&mode=crop" alt="@item.value.Title" /></a>
+                                    <div class="post-content">
+                                        <a href="@item.value.LinkUrl" class="post-big-name">@item.value.Title</a>
+                                        <p class="mt15">@item.value.IntroText</p>
+                                        <p class="date mt15">@item.value.PublishDate.ToString("HH:mm") - @item.value.PublishDate.ToString("dd/MM/yyyy")</p>
+                                    </div>
+                                </li>
+                            }
+
+
+                        </ul>
+                        <div class="paging mt50 text-center">
+                            <ul>
+                                @{Html.RenderPartial("Pagination", new WebMVC4.Models.PaginationInfo
+                                    {
+                                        PageUrl = Url.SetParameter("Page", "!0"),
+                                        CurrentPage = ViewBag.Page,
+                                        PageSize = ViewBag.PageSize,
+                                        TotalItemCount = ViewBag.Total,
+                                    }); }
+                            </ul>
+                        </div>
+                    }
+                }
+            </div>
+        </div>
+        <div class="col-lg-4 col-md-12 sidebar">
+            @Html.Partial("Site_Right2")
+        </div>
+    </div>
+</div><!-- end main content-->
+<h2 class="title-cm"><a href="#">@Resources.Global.BankSupport</a></h2>
+<br />
+<div class="bg-gray pt40 pb40">
+    <div class="container">
+        <ul class="slick02">
+            @{Html.RenderAction("BannerBottom", "Home", new { lang = langpage });}
+        </ul>
+    </div>
+</div>
+
+@section scripts {
+    <script type="text/javascript">
+
+    $('#menu_' + '@ViewBag.CurrentCategoryId').addClass("active");
+
+     $('#menu_' + '@ViewBag.ParentCategoryId').addClass("active");
+
+         $('#menu_0').removeClass("active");
+
+    </script>
+}

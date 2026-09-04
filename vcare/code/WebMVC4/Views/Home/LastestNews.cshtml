@@ -1,0 +1,57 @@
+﻿@using BIZ
+@using UTILS
+@using WebMVC4.Helper
+
+@model WebMVC4.Models.LastestNewModel
+@if (Model != null)
+{
+    if (Model.lstdata != null)
+    {
+        foreach (var item in Model.lstdata.Select((value, i) => new { i, value }))
+        {
+            <div class="item">
+                <div class="article-item">
+                    <div class="grid mg-left-10">
+                        <div class="grid__item large--one-half medium--one-whole small--one-whole pd-left10">
+                            <div class="article-img">
+                                <a href="@item.value.LinkUrl">
+                                    <img src="@item.value.MainImage" alt="@item.value.Title" />
+                                </a>
+                            </div>
+                        </div>
+                        <div class="grid__item large--one-half medium--one-whole small--whole pd-left10">
+                            <div class="article-info-wrapper">
+                                <div class="article-info">
+                                    <div class="article-date">
+                                        <span class="article-day">@item.value.PublishDate.ToString("dd")</span>/
+                                        <span>@item.value.PublishDate.ToString("MM")</span>/
+                                        <span>@item.value.PublishDate.ToString("yyyy")</span>
+                                    </div>
+                                    <div class="article-title">
+                                        <a href="@item.value.LinkUrl">@item.value.Title</a>
+                                    </div>
+                                    <div class="article-author">
+                                        <i class="far fa-edit"></i> Đăng bởi: <span>Vcare</span>
+                                    </div>
+                                    @*<div class="article-comment">
+                                            <i class="far fa-comments"></i> <span class="fb-comments-count" data-href="https://vcare.com.vn@(item.value.Url)"></span>
+                                        </div>*@
+                                </div>
+                                <div class="article-desc medium--hide small--hide">
+
+                                    @Html.Raw(item.value.IntroText)
+
+                                </div>
+                                @*<a href="@item.value.Url" class="article-btn">Xem thêm</a>*@
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+
+        }
+
+    }
+}

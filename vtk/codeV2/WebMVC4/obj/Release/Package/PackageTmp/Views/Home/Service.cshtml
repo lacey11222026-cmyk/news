@@ -1,0 +1,37 @@
+﻿@using WebMVC4.Helper
+@{
+    var langpage = WorkContext.GetLanguage();
+}
+
+@if (langpage == "vi-vn")
+{
+    <div class="service pt60 pb60">
+        <div class="container">
+            <h2 class="title-cm"><a href="/tin-tuc/c2/dich-vu.html">dịch vụ của chúng tôi </a><span class="linegreen"></span></h2>
+            <p class="decs mt40">Chuyên nghiệp - Sáng tạo - Khác biệt</p>
+            <ul class="service-list row mt90">
+                <li class="col-md-3 col-sm-3 col-xs-3 wow slideInRight" data-wow-delay="0.2s"><a href="/tin-tuc/c17/thiet-ke-in-an.html"><span class="service-icon"></span> Thiết kế - In ấn</a></li>
+                <li class="col-md-3 col-sm-3 col-xs-3 wow slideInRight" data-wow-delay="0.2s"><a href="/tin-tuc/c3/tu-van-truyen-thong.html"><span class="service-icon"></span> tư vấn truyền thông</a></li>
+                <li class="col-md-3 col-sm-3 col-xs-3  wow slideInRight" data-wow-delay="0.4s"><a href="/tin-tuc/c4/to-chuc-su-kien.html"><span class="service-icon"></span> tổ chức sự kiện</a></li>
+                <li class="col-md-3 col-sm-3 col-xs-3 wow slideInRight" data-wow-delay="0.3s"><a href="/tin-tuc/c5/xay-dung-noi-dung.html"><span class="service-icon"></span> sản xuất nội dung</a></li>
+            </ul>
+        </div>
+    </div><!-- end service-->
+}
+else
+{
+    <div class="service pt60 pb60">
+        <div class="container">
+            <h2 class="title-cm"><a href="/tin-tuc/c2/dich-vu.html">Our Service </a><span class="linegreen"></span></h2>
+            <p class="decs mt40">Professional - Creative - Different
+            </p>
+            <ul class="service-list row mt90">
+                <li class="col-md-3 col-sm-3 col-xs-3 wow slideInRight" data-wow-delay="0.2s"><a href="/tin-tuc/c17/thiet-ke-in-an.html"><span class="service-icon"></span> Design - Printing</a></li>
+                <li class="col-md-3 col-sm-3 col-xs-3 wow slideInRight" data-wow-delay="0.2s"><a href="/tin-tuc/c3/tu-van-truyen-thong.html"><span class="service-icon"></span> Communication Consultancy</a></li>
+                <li class="col-md-3 col-sm-3 col-xs-3  wow slideInRight" data-wow-delay="0.4s"><a href="/tin-tuc/c4/to-chuc-su-kien.html"><span class="service-icon"></span> Event Organization</a></li>
+                <li class="col-md-3 col-sm-3 col-xs-3 wow slideInRight" data-wow-delay="0.3s"><a href="/tin-tuc/c5/xay-dung-noi-dung.html"><span class="service-icon"></span> Content Creation</a></li>
+
+            </ul>
+        </div>
+    </div>
+    }

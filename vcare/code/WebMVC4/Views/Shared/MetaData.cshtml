@@ -1,0 +1,65 @@
+﻿<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta http-equiv="REFRESH" content="1800">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+<meta content="INDEX,FOLLOW" name="robots" />
+<link rel="shortcut icon" href="/Content/images/icon-logo.png" />
+<meta property="fb:app_id" content="153947084460778" />
+
+<link rel="alternate" hreflang="x-default" href="https://vcare.com.vn/">
+<link rel="alternate" hreflang="vi" href="https://vcare.com.vn/">
+@if (string.IsNullOrEmpty(ViewBag.SiteTitle))
+{
+    <title>@Resources.Global.SiteTitle</title>
+    <meta property="og:title" content="@Resources.Global.SiteTitle" />
+}
+else
+{
+    <title>@Html.Raw(ViewBag.SiteTitle)</title>
+    <meta property="og:title" content="@Html.Raw(ViewBag.SiteTitle)" />
+}
+@if (string.IsNullOrEmpty(ViewBag.SiteDescription))
+{
+    <meta property="og:description" content="@Resources.Global.SiteDescription" />
+    <meta name="description" content="@Resources.Global.SiteDescription" />
+}
+else
+{
+    <meta name="description" content="@Html.Raw(ViewBag.SiteDescription)" />
+    <meta property="og:description" content="@Html.Raw(ViewBag.SiteDescription)" />
+}
+
+@if (string.IsNullOrEmpty(ViewBag.SiteImage))
+{
+    <meta property="og:image" content="/Content/images/share_fb_home.png" />
+    <link rel="image_src" href="/Content/images/share_fb_home.png" />
+    <meta property="og:type" content="article" />
+}
+else
+{
+    <meta property="og:image" content="@ViewBag.SiteImage" />
+    <link rel="image_src" href="@ViewBag.SiteImage" />
+    <meta property="og:type" content="website" />
+}
+<meta name="revisit-after" content="1 Days" />
+<meta property="article:publisher" content="https://www.facebook.com/Vcarecarcare/">
+<meta property="article:author" content="https://www.facebook.com/Vcarecarcare/">
+<meta property="og:url" content="@HttpContext.Current.Request.Url.AbsoluteUri" />
+<meta name="copyright" content="vcare.com.vn" />
+<meta name="author" content="vcare.com.vn" />
+<meta http-equiv="audience" content="General" />
+<meta name="resource-type" content="Document" />
+<meta name="distribution" content="Global" />
+<meta name="revisit-after" content="1 days" />
+<meta name="GENERATOR" content="vcare.com.vn" />
+<meta property="og:site_name" content="vcare.com.vn" />
+
+<meta property="og:locale" content="vi_VN" />
+<meta http-equiv="x-dns-prefetch-control" content="on">
+<link rel="publisher" href="https://www.facebook.com/Vcarecarcare/" />
+<link rel="author" href="https://www.facebook.com/Vcarecarcare/" />
+
+<meta name="geo.placename" content="Ha Noi, Viet Nam" />
+<meta name="geo.region" content="VN-HN" />
+
+

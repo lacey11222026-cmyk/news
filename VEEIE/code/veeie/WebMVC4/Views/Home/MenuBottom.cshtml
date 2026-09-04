@@ -1,0 +1,35 @@
+﻿@using BIZ
+@using UTILS
+@using WebMVC4.Helper
+@model List<BIZ.Entity.CATEGORY_FULL>
+    @{ 
+        var num = 2;
+        if(WorkContext.GetLanguage()=="en-us")
+        {
+            num = 2;
+        }
+    }
+<ul class="pull-left tags-list">
+    @foreach (var item in Model.Select((value, i) => new { i, value }))
+    {
+        if (item.i % num == 0)
+        {
+            @Html.Raw("<li s><ul>")
+
+
+
+        }
+        <li>
+            <a href="@Utils.FormatUrlRewriteByType(item.value.Id, item.value.Name, int.Parse(item.value.Type.ToString()), item.value.Link)">@item.value.Name.Replace("Video En", "Video") </a>
+
+        </li>
+        if (item.i % num == num-1 || item.i == Model.Count - 1)
+        {
+            @Html.Raw("</ul></li>")
+
+
+
+        }
+    }
+
+</ul>

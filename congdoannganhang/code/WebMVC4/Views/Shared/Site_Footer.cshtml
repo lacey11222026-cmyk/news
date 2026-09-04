@@ -1,0 +1,62 @@
+﻿<footer class="mt40">
+    <div class="nav_top">
+        <div class="container">
+            <div class="nav-inner">
+                <nav class="nav-left">
+                    <ul>
+                        <li class="active"><a href="/"><img src="/Content/img/ico-home.png" alt="Trang chủ" width="22"></a></li>
+                        @{Html.RenderAction("Menu", "Home");}
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </div>
+    <div class="f-content">
+        <div class="mt30 f-content container">
+            <div class="row justify-content-between f-content-inner">
+                <div class="col-md-4 col-sm-12">
+                    <div class="">
+                        <div class="f-content-01">
+                            <div class="maxheight01"><a href="/"><img src="/Content/img/logo-f.svg" alt="" width="310"></a></div>
+                            <p class="mt20">
+                                <strong>© Bản quyền thuộc Công đoàn Ngân hàng Việt Nam<br>Chịu trách nhiệm nội dung: Công đoàn Ngân hàng Việt Nam</strong><br>
+                                Giấy phép số 280/GP-TTĐT, cấp ngày 11/11/2024<br>
+                                Nơi cấp: Cục PT, TH và TTĐT - Bộ Thông tin và Truyền thông
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 col-sm-12">
+                    <div class="f-content-02">
+                        <p class="mt10">
+                            Địa chỉ: Tòa nhà Công đoàn Ngân hàng Việt Nam, Số 6 ngõ 82, phố Dịch Vọng Hậu, phường Dịch Vọng Hậu, quận Cầu Giấy, Hà Nội.<br>
+                            ĐT: 024. 3851 3168 - 024.3851 3169	Fax: (84-24)3 851 1419<br>
+                            Email: vanphong@vnubw.org.vn
+                        </p>
+                        <div class="total mt20">
+                            <span>Tổng số lượt truy cập </span>
+                            <ul>
+                                @foreach (var s in HttpContext.Current.Application["TotalVisited"].ToString().Select(c => c.ToString()).ToList())
+                                {
+                                    <li>@s</li>
+                                }
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 col-12">
+                    <div class="f-link">
+                        <a href="https://www.facebook.com/VNUBW/" class="btn-fan mt10">fanpage</a>
+                        <div class="f-link-map mt10">
+                            <a href="/Home/SiteMap">SƠ ĐỒ</a>
+                            <a href="/gioi-thieu/c115/quy-che.html">QUY CHÉ</a>
+                        </div>
+                    </div>
+                    <p class="mt10">Ghi rõ nguồn: vnubw.org.vn | congdoannganhangvn.org.vn<br>khi sử dụng thông tin từ website này.</p>
+                    <p class="mt30 text-right">Phát triển bởi: <img src="/Content/img/vtk.svg" alt="" width="40"></p>
+                </div>
+            </div>
+        </div>
+    </div><!-- end container-->
+</footer>
+<p><a href="#top" id="backToTop" class="backTop block"></a></p>

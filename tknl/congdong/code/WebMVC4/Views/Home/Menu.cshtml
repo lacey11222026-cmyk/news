@@ -1,0 +1,40 @@
+﻿@using BIZ
+@using UTILS
+@using WebMVC4.Helper
+@model List<BIZ.Entity.CATEGORY_FULL>
+
+
+<div class="nav-left">
+    <ul class="nav-list">
+        <li><a href="/" class="icon-home"><img src="/Content/images/icon-home.svg" alt="" width="16"> TRANG CHỦ</a></li>
+       
+        @foreach (var item in Model.Take(4).Select((value, i) => new { i, value }))
+        {
+
+            <li>
+                <a href="@Utils.FormatUrlRewriteByType(item.value.Id, item.value.Name, int.Parse(item.value.Type.ToString()), item.value.Link)">@item.value.Name.Replace("Video En", "Video") </a>
+                @Html.Raw(HtmlHelpers.BindChildCategories(Convert.ToInt32(item.value.Id), int.Parse(item.value.Type.ToString())))
+            </li>
+        }
+      
+
+    </ul>
+</div>
+<div class="nav-right">
+    <ul class="nav-list">
+
+        @foreach (var item in Model.Skip(4).Select((value, i) => new { i, value }))
+        {
+
+            <li>
+                <a href="@Utils.FormatUrlRewriteByType(item.value.Id, item.value.Name, int.Parse(item.value.Type.ToString()), item.value.Link)">@item.value.Name.Replace("Video En", "Video") </a>
+                @Html.Raw(HtmlHelpers.BindChildCategories(Convert.ToInt32(item.value.Id), int.Parse(item.value.Type.ToString())))
+            </li>
+        }
+
+    </ul>
+</div>
+
+
+
+

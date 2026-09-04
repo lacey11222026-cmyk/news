@@ -1,0 +1,108 @@
+﻿@{
+
+    Layout = "~/Views/Shared/_AdminV2.cshtml";
+
+}
+@using System.Globalization
+@using BIZ
+@using UTILS
+@using CMS.Helper
+@model List<DATA.MarkST>
+
+<div class="onecolumn" id="product-tabs">
+    <div class="header">
+        <span>@ViewBag.Title</span>
+    </div>
+
+    <br class="clear">
+    <div class="content">
+        <div>
+
+
+            Từ ngày:&nbsp;
+            <input name="fromdate" id="txtFromdate" value="@ViewBag.fromdate" />&nbsp;&nbsp;&nbsp;
+            Từ đến ngày:&nbsp;
+            <input name="todate" id="txtTodate" value="@ViewBag.todate" />&nbsp;&nbsp;&nbsp;
+            <button onclick="fillter();">Tra cứu</button>&nbsp;&nbsp;&nbsp;
+            <a href="@Url.Action("ToExcelReportByCate", "Mark", new { fromdate = ViewBag.fromdate, todate = ViewBag.todate })">Xuất ra Excel</a>
+        </div>
+        <br />
+        @if (Model != null)
+        {
+            <table cellspacing="0" cellpadding="0" class="data" id="mytable">
+
+                <thead>
+                    <tr>
+
+
+                        <th width="10%" class="title">
+                            Chuyên mục
+                        </th>
+
+                        <th width="10%" class="title">
+                            Số bài
+                        </th>
+
+                        <th width="10%" class="title">
+                            Tiền nhuận bút(VND)
+                        </th>
+
+
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+
+                        <tr>
+
+
+                            <td width="10%" align="left">
+                                @item.CreatedBy
+                            </td>
+
+
+                            <td width="10%" align="left">
+                                @item.TotalContent
+                            </td>
+
+                            <td width="5%" align="left">
+                                @Utils.FormatMoney(item.TotalMark)
+                            </td>
+
+                        </tr>
+                    }
+
+
+
+                </tbody>
+            </table>
+
+        }
+
+        <script type="text/javascript">
+
+            $(document).ready(function () {
+
+                $("#txtFromdate").datepicker({ dateFormat: "dd/mm/yy" });
+                $("#txtTodate").datepicker({ dateFormat: "dd/mm/yy" });
+                $('#menu_mark').click();
+            });
+            function openWin(url) {
+                myWindow = window.open(url, '', 'width=868,height=668');
+
+                myWindow.focus();
+            }
+            function fillter() {
+
+                var fromdate = $("#txtFromdate").val();
+                var todate = $("#txtTodate").val();
+
+                window.location = jQuery.query.set("fromdate", fromdate).set("todate", todate);
+            }
+        </script>
+    </div>
+</div>
+
+
+

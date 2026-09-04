@@ -1,0 +1,49 @@
+﻿
+
+<div class="header">
+    @if (Session["Mobile"] != null && Session["Fullname"] != null)
+    {
+        <div class="top-content bg-gradient-02">
+            <div class="user-info"><p onclick="myFunction()">Xin chào: <span>@Session["Mobile"].ToString()</span><span class=" dropbtn glyphicon glyphicon-triangle-bottom" aria-hidden="true"></span></p></div>
+            <ul id="myDropdown" class="dropdown-content">
+                <li><a href="@Url.Action("Logout","Home")"><span class="glyphicon glyphicon-log-out" aria-hidden="true"></span> Thoát</a></li>
+            </ul>
+        </div><!-- end top content-->
+    }
+        <div class="container">
+            <div class="header-pc">
+                <div class="logo"><a href="#"><img src="/Content/images/logo.png" alt="Công đoàn ngân hàng"></a></div>
+                <nav class="menu-pc bg-gradient">
+                    <ul>
+                        <li><a href="/"><img src="/Content/images/home-icon.png" alt="Trang chủ" style="margin-bottom: 3px;"></a></li>
+                        <li class="active"><a href="/tin-tuc/t8108/gioi-thieu-cuoc-thi-truc-tuyen-cong-doan-ngan-hang-viet-nam--30-nam-xay-dung-va-phat-trien-">Giới thiệu</a></li>
+                        <li><a href="/tin-tuc/t8109/the-le-cuoc-thi-truc-tuyen-cong-doan-ngan-hang-viet-nam--30-nam-xay-dung-va-phat-trien-">Thể lệ</a></li>
+                        <li><a href="/tin-tuc/t8154/tai-lieu-tham-khao-cuoc-thi-truc-tuyen--tim-hieu-lich-su-30-nam-thanh-lap-cong-doan-ngan-hang-viet-nam-">Tài liệu</a></li>
+                        <li><a href="/">Tham gia</a></li>
+                        <li><a href="#">Kết quả</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+
+        <div class="nav-mobile">
+            <div class="header-m">
+               
+                <a href="#menu" class="header-mb-content">
+                    <img src="/Content/images/logo.png" alt="Công đoàn ngân hàng" class="m-logo">
+                    <img src="/Content/images/ico-menu.png" class="ico-menu" alt="Menu">
+                </a>
+            </div>
+            <div id="menu">
+                <ul>
+                    <li><a href="/">Trang chủ</a></li>
+                    <li><a href="/tin-tuc/t8108/gioi-thieu-cuoc-thi-truc-tuyen-cong-doan-ngan-hang-viet-nam--30-nam-xay-dung-va-phat-trien-">Giới thiệu</a></li>
+                    <li><a href="/tin-tuc/t8109/the-le-cuoc-thi-truc-tuyen-cong-doan-ngan-hang-viet-nam--30-nam-xay-dung-va-phat-trien-">Thể lệ</a></li>
+                    <li><a href="/tin-tuc/t8154/tai-lieu-tham-khao-cuoc-thi-truc-tuyen--tim-hieu-lich-su-30-nam-thanh-lap-cong-doan-ngan-hang-viet-nam-">Tài liệu</a></li>
+                    <li><a href="/">Tham gia</a></li>
+                    <li><a href="#">Kết quả</a></li>
+                </ul>
+            </div>
+        </div>
+    </div><!-- end header-->
+

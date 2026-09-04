@@ -1,0 +1,29 @@
+﻿@using BIZ
+@using UTILS
+@using Local.Helper
+@model BIZ.Entity.CATEGORY_FULL
+
+@if (Model != null)
+{
+    <script type="text/javascript">
+        var index = $('#ddtabs2 li').index($('#cate_' + '@Model.Id'));
+        ddtabmenu.definemenu("ddtabs2", index);
+        setTimeout(function () {
+            $("#ddtabs2 .current").parent().addClass("select");
+        }, 3000);
+    </script>
+    <div class="best">
+        @{Html.RenderAction("BreadcrumbObj", "News", new { data = Model });}
+        <div class="clear">
+        </div>
+       
+        <div class="chitiet">
+            <div class="noidung">
+                @Html.Raw(Model.Contents)
+            </div>
+        </div>
+        <div class="clear">
+        </div>
+    </div>
+
+}

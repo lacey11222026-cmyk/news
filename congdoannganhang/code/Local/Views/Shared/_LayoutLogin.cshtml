@@ -1,0 +1,38 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <title>@ViewBag.Title</title>
+    <link href="~/Administrator/Styles/bootstrap.min.css" rel="stylesheet" />
+    @*@Styles.Render("~/Administrator/Styles/css")*@
+
+    <link href="~/Administrator/Styles/bootstrap.min.css" rel="stylesheet" />
+        <link href="~/Administrator/Styles/site.css" rel="stylesheet" />
+        <link href="~/Administrator/Styles/sb-admin.css" rel="stylesheet" />
+        <link href="~/Administrator/Styles/plugins/validation/bootstrapValidator.css" rel="stylesheet" />
+        <link href="~/Administrator/Styles/plugins/datetimepicker/bootstrap-datetimepicker.css" rel="stylesheet" />
+        <link href="~/Administrator/Styles/extend.css" rel="stylesheet" />
+   
+    
+   
+    @*@Scripts.Render("~/bundles/jquery")*@
+
+    <script src="~/Administrator/Scripts/jquery-1.10.2.min.js"></script>
+    <link href="~/Administrator/Styles/font-awesome/css/font-awesome.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
+    <link href="~/Administrator/Styles/loginextend.css" rel="stylesheet" />
+</head>
+<body class="hold-transition login-page">
+
+    @Html.AntiForgeryToken()
+    @RenderBody()
+    <script src="~/Administrator/Scripts/bootstrap.min.js"></script>
+    <script src="~/Administrator/Scripts/common.js"></script>
+    <script src="~/Administrator/Scripts/utils.js"></script>
+    <script src="~/Administrator/Scripts/plugins/validation/bootstrapValidator.js"></script>
+
+    @RenderSection("scripts", required: false)
+</body>
+</html>

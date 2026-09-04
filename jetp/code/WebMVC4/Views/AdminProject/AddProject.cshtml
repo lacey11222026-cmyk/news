@@ -1,0 +1,555 @@
+﻿@{
+    Layout = "~/Views/Shared/_AdminV2.cshtml";
+}
+@using BIZ.Entity
+@using UTILS
+@using DATA.ContentDB
+@using WebMVC4.Helper
+@model Project2Full
+@{
+    List<TestLocation> ListCate = ViewBag.listLocation;
+}
+
+
+<div class="well">
+    <span class="label label-danger">
+        Chú ý!
+    </span>
+    <span>
+        Hãy chắc chắn nhập vào đầy đủ thông tin tại các mục bắt buộc đánh dấu (*)
+    </span>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <i class="fa fa-fw fa-user-md"></i><span>@ViewBag.Title </span>
+            </div>
+            <form id="defaultForm" method="post" class="form-horizontal">
+                <div class="panel-group" id="steps">
+                    <div class="messager-body">
+                        <div class="alert alert-success display-hide alert-dismissable">
+                            <button type="button" class="close" data-close="alert" aria-hidden="true">×</button>
+                            <span class="glyphicon glyphicon-ok"></span>
+                            <label>Đã lưu dữ liệu thành công !!!</label>
+                        </div>
+                        <div class="alert alert-danger display-hide alert-dismissable">
+                            <button type="button" class="close" data-close="alert" aria-hidden="true">×</button>
+                            <span class="glyphicon glyphicon-warning-sign"></span>
+                            <label>Có một vài lỗi trong khung nhập liệu dưới đây ! kiểm tra lại</label>
+                        </div>
+                    </div>
+                    <div class="panel panel-info">
+
+                        <div>
+                            <!-- dành cho UpdateFunction -->
+                            <div style="padding: 10px 0 0 0;background-color:#fff !important">
+                                <ul class="nav nav-tabs">
+                                    <li class="active"><a href="#tabs-info" data-toggle="tab"><strong>I. Thông tin chung</strong></a></li>
+                                    <li><a href="#tabs-image" data-toggle="tab"><strong>II. Tính phù hợp JETP</strong></a></li>
+
+
+                                </ul>
+                                <div class="tab-content" style="margin-top: 30px;">
+                                    <div class="col-md-12 tab-pane active" id="tabs-info">
+                                        <div class="form-group">
+                                            <label for="txtName" class="control-label col-md-3">Tên :</label>
+                                            <div class="col-md-7">
+                                                <div class="input-icon right">
+                                                    <input type="text" id="txtTitle" maxlength="250" name="title" value="@Model.Name" class="form-control" placeholder="Tên dự án" />
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="ddlLanguage" class="control-label col-md-3">Ngôn ngữ :</label>
+                                            <div class="col-md-7">
+                                                <div class="input-icon right">
+                                                    <select class="form-control" id="ddlLanguage">
+
+                                                        <option value="vi-vn" @(Model.Username == "vi-vn" ? "selected='selected'" : "")>Tiếng Việt</option>
+
+                                                        <option value="en-us" @(Model.Username == "en-us" ? "selected='selected'" : "")>Tiếng Anh</option>
+                                                    </select>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="txtImgPath" class="control-label col-md-3">Ảnh Đại Diện:</label>
+                                            <div class="col-md-7">
+                                                <input type="text" id="txtImgPath" name="img" value="@Model.UnitIInfo" class="form-control" placeholder="Nhập ảnh đại diện" />
+                                            </div>
+                                            <div class="col-md-2">
+                                                <a href="javascript:;" onclick="CommonCtrl.PopupManagerImages('txtImgPath');"><i class="fa fa-upload" style="font-size:24px;margin-top:12px"></i></a>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="txtSupportGroup" class="control-label col-md-3">Địa điểm dự án:</label>
+                                            <div class="col-md-7">
+                                                <div class="input-icon right">
+                                                    <select id="location" class="form-control">
+                                                        <option value="999">Toàn quốc</option>
+                                                        <option value="998">Miền Bắc</option>
+                                                        <option value="997">Miền Trung</option>
+                                                        <option value="996">Miền Nam</option>
+                                                        @if (ListCate != null && ListCate.Count > 0)
+                                                        {
+
+                                                            foreach (var obj in ListCate)
+                                                            {
+                                                                <option value="@obj.Id" title="@obj.Name" @if (obj.Id.ToString() == Model.Location) { @Html.Raw("selected='selected'") ; }>@obj.Name</option>
+                                                            }
+                                                        }
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="ddlLanguage" class="control-label col-md-3">Hạng mục :</label>
+                                            <div class="col-md-7">
+                                                <div class="input-icon right">
+                                                    <select class="form-control" id="SubType">
+                                                        <option value="1" @(Model.SubType == 1 ? "selected='selected'" : "")>Các dự án về thúc đẩy chuyển đổi điện than sang năng lượng sạch</option>
+                                                        <option value="2" @(Model.SubType == 2 ? "selected='selected'" : "")>Các dự án về phát triển ngành công nghiệp năng lượng tái tạo</option>
+                                                        <option value="3" @(Model.SubType == 3 ? "selected='selected'" : "")> Sản xuất năng lượng tái tạo (gió, mặt trời, khác)</option>
+                                                        <option value="4" @(Model.SubType == 4 ? "selected='selected'" : "")>Sản xuất và sử dụng hydro xanh và các chất dẫn xuất</option>
+                                                        <option value="5" @(Model.SubType == 5 ? "selected='selected'" : "")>Các dự án về truyền tải điện và lưu trữ năng lượng</option>
+                                                        <option value="6" @(Model.SubType == 6 ? "selected='selected'" : "")>Các dự án về sử dụng năng lượng tiết kiệm và hiệu quả</option>
+                                                        <option value="7" @(Model.SubType == 7 ? "selected='selected'" : "")>Các dự án về chuyển đổi năng lượng xanh, giảm phát thải khí nhà kính của ngành giao thông vận tải</option>
+                                                    </select>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="txtSupportGroup" class="control-label col-md-3">Đơn vị đăng ký đề xuất:</label>
+                                            <div class="col-md-7">
+                                                <div class="input-icon right">
+                                                    <input type="text" id="unit" name="unit" value="@Model.Unit" class="form-control" placeholder="" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="txtSupportGroup" class="control-label col-md-3">Họ tên (đại diện đơn vị ký đề xuất):</label>
+                                            <div class="col-md-7">
+                                                <div class="input-icon right">
+                                                    <input type="text" id="fullname" name="fullname" value="@Model.ProjectConfig.Fullname" class="form-control" placeholder="" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="txtSupportGroup" class="control-label col-md-3">Chức danh (đại diện đơn vị ký đề xuất):</label>
+                                            <div class="col-md-7">
+                                                <div class="input-icon right">
+                                                    <input type="text" id="role" name="role" value="@Model.ProjectConfig.Role" class="form-control" placeholder="" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="txtSupportGroup" class="control-label col-md-3">Email(đại diện đơn vị ký đề xuất):</label>
+                                            <div class="col-md-7">
+                                                <div class="input-icon right">
+                                                    <input type="text" id="email" name="email" value="@Model.ProjectConfig.Email" class="form-control" placeholder="" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="txtSupportGroup" class="control-label col-md-3">Số điện thoại (đại diện đơn vị ký đề xuất):</label>
+                                            <div class="col-md-7">
+                                                <div class="input-icon right">
+                                                    <input type="text" id="mobile" name="mobile" value="@Model.ProjectConfig.Mobile" class="form-control" placeholder="" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="txtSupportGroup" class="control-label col-md-3">Đơn vị phát triển dự án:</label>
+                                            <div class="col-md-7">
+                                                <div class="input-icon right">
+                                                    <input type="text" id="UnitDev" name="UnitDev" value="@Model.ProjectConfig.UnitDev" class="form-control" placeholder="" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="txtSupportGroup" class="control-label col-md-3">Chủ dự án:</label>
+                                            <div class="col-md-7">
+                                                <div class="input-icon right">
+                                                    <input type="text" id="organ" name="organ" value="@Model.Organ" class="form-control" placeholder="" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="txtSupportGroup" class="control-label col-md-3">Tổng chi phí dự án:</label>
+                                            <div class="col-md-7">
+                                                <div class="input-icon right">
+                                                    <input type="text" id="total" name="total" value="@Model.Total" class="form-control" placeholder="" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="txtSupportGroup" class="control-label col-md-3">Đơn vị tiền tệ đầu tư mong muốn:</label>
+                                            <div class="col-md-7">
+                                                <div class="input-icon right">
+                                                    <input type="text" id="currency" name="currency" value="@Model.Currency" class="form-control" placeholder="" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="txtSupportGroup" class="control-label col-md-3">Chi tiết ngân sách:</label>
+                                            <div class="col-md-7">
+                                                <div class="input-icon right">
+                                                    <textarea id="detail" rows="3" name="detail" class="form-control" placeholder="">@Model.Detail</textarea>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="txtSupportGroup" class="control-label col-md-3">Nguồn tài chính:</label>
+                                            <div class="col-md-7">
+                                                <div class="input-icon right">
+                                                    <textarea id="source" rows="3" name="source" class="form-control" placeholder="">@Model.Source</textarea>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="txtSupportGroup" class="control-label col-md-3">Loại hình tài chính hiện có và mong muốn:</label>
+                                            <div class="col-md-7">
+                                                <div class="input-icon right">
+                                                    <textarea id="finance" rows="3" name="finance" class="form-control" placeholder="">@Model.ProjectConfig.Finance</textarea>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="txtSupportGroup" class="control-label col-md-3">Dòng doanh thu dự kiến:</label>
+                                            <div class="col-md-7">
+                                                <div class="input-icon right">
+                                                    <textarea id="revenue" rows="3" name="revenue" class="form-control" placeholder="">@Model.ProjectConfig.Revenue</textarea>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="Progress" class="control-label col-md-3">Tiến độ dự án :</label>
+                                            <div class="col-md-7">
+                                                <div class="input-icon right">
+                                                    <select class="form-control" id="Progress">
+                                                        <option value="1" @(Model.Progress == 1 ? "selected='selected'" : "")>Giai đoạn đề xuất ý tưởng</option>
+                                                        <option value="2" @(Model.Progress == 2 ? "selected='selected'" : "")>Giai đoạn nghiên cứu tiền khả thi</option>
+                                                        <option value="3" @(Model.Progress == 3 ? "selected='selected'" : "")>Giai đoạn nghiên cứu khả thi</option>
+                                                        <option value="4" @(Model.Progress == 4 ? "selected='selected'" : "")>Giai đoạn thu mua đất</option>
+                                                        <option value="5" @(Model.Progress == 5 ? "selected='selected'" : "")>Giai đoạn xin phép</option>
+                                                        <option value="6" @(Model.Progress == 6 ? "selected='selected'" : "")>Giai đoạn thiết kế kỹ thuật (thiết kế chi tiết)</option>
+                                                        <option value="7" @(Model.Progress == 7 ? "selected='selected'" : "")>Giai đoạn đàm phán tài chính</option>
+                                                        <option value="8" @(Model.Progress == 8 ? "selected='selected'" : "")>Giai đoạn thương thảo và ký kết hợp đồng</option>
+                                                        <option value="9" @(Model.Progress == 9 ? "selected='selected'" : "")>Giai đoạn khởi công xây dựng</option>
+                                                        <option value="10" @(Model.Progress == 10 ? "selected='selected'" : "")>Giai đoạn hoàn thành xây dựng</option>
+                                                        <option value="11" @(Model.Progress == 11 ? "selected='selected'" : "")>Giai đoạn vận hành thử nghiệm</option>
+                                                        <option value="12" @(Model.Progress == 12 ? "selected='selected'" : "")>Giai đoạn vận hành chính thức và bảo trì/bảo dưỡng</option>
+                                                    </select>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="txtSupportGroup" class="control-label col-md-3">Ngày dự kiến khởi công:</label>
+                                            <div class="col-md-7">
+                                                <div class="input-icon right">
+                                                    <input type="text" id="time" name="time" value="@Model.ProjectConfig.Time" class="form-control" placeholder="" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="txtSupportGroup" class="control-label col-md-3">Ngày dự kiến hoàn thành (CoD):</label>
+                                            <div class="col-md-7">
+                                                <div class="input-icon right">
+                                                    <input type="text" id="finish" name="finish" value="@Model.ProjectConfig.Finish" class="form-control" placeholder="" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="control-label col-md-3" for="cbxIsActive">Trạng thái :</label>
+                                            <div class="col-md-4">
+                                                <div class="checkbox">
+                                                    @if (Model.Status == 1)
+                                                    {<input type="checkbox" id="cbxIsActive" checked="checked" />}
+                                                    else
+                                                    {<input type="checkbox" id="cbxIsActive" />}
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12 tab-pane" id="tabs-image">
+                                        <div class="form-group">
+                                            <label for="txtSupportGroup" class="control-label col-md-3">Hiện trạng pháp lý :</label>
+                                            <div class="col-md-7">
+                                                <div class="input-icon right">
+                                                    <textarea id="legalStatus" rows="3" name="legalStatus" class="form-control" placeholder="">@Model.LegalStatus</textarea>
+
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="txtSupportGroup" class="control-label col-md-3">Mô tả ngắn gọn dự án và mục tiêu  :</label>
+                                            <div class="col-md-7">
+                                                <div class="input-icon right">
+                                                    <textarea id="description" rows="3" name="description" class="form-control" placeholder="">@Model.Description</textarea>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="txtSupportGroup" class="control-label col-md-3">Tác động dự kiến dự án tạo ra :</label>
+                                            <div class="col-md-7">
+                                                <div class="input-icon right">
+                                                    <textarea id="impact" rows="3" name="impact" class="form-control" placeholder="">@Model.Impact</textarea>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="control-label col-md-3" for="cbxIsActive">Cần gói Hỗ trợ Kỹ thuật (TA) :</label>
+                                            <div class="col-md-4">
+                                                <div class="checkbox">
+                                                    @if (Model.Status == 1)
+                                                    {<input type="checkbox" id="cbxTA" checked="checked" />}
+                                                    else
+                                                    {<input type="checkbox" id="cbxTA" />}
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="txtSupportGroup" class="control-label col-md-3">Loại hình TA mong muốn :</label>
+                                            <div class="col-md-7">
+                                                <div class="input-icon right">
+                                                    <textarea id="TADetail" rows="3" name="TADetail" class="form-control" placeholder="">@Model.ProjectConfig.TADetail</textarea>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="txtSupportGroup" class="control-label col-md-3">Nguyên tắc chung 1:</label>
+                                            <div class="col-md-7">
+                                                <div class="input-icon right">
+                                                    <textarea id="rule1" rows="3" name="rule1" class="form-control" placeholder="">@Model.Rule1</textarea>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="txtSupportGroup" class="control-label col-md-3">Nguyên tắc chung 2:</label>
+                                            <div class="col-md-7">
+                                                <div class="input-icon right">
+                                                    <textarea id="rule2" rows="3" name="rule2" class="form-control" placeholder="">@Model.Rule2</textarea>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="txtSupportGroup" class="control-label col-md-3">Nguyên tắc chung 3:</label>
+                                            <div class="col-md-7">
+                                                <div class="input-icon right">
+                                                    <textarea id="rule3" rows="3" name="rule3" class="form-control" placeholder="">@Model.Rule3</textarea>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="txtSupportGroup" class="control-label col-md-3">Nguyên tắc chung 4:</label>
+                                            <div class="col-md-7">
+                                                <div class="input-icon right">
+                                                    <textarea id="rule4" rows="3" name="rule4" class="form-control" placeholder="">@Model.Rule4</textarea>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="txtSupportGroup" class="control-label col-md-3">Các đánh giá tiền khả thi:</label>
+                                            <div class="col-md-7">
+                                                <div class="input-icon right">
+                                                    <textarea id="rate" rows="3" name="rate" class="form-control" placeholder="">@Model.ProjectConfig.Rate</textarea>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="txtSupportGroup" class="control-label col-md-3">Tài liệu dự án:</label>
+                                            <div class="col-md-7">
+                                                <div class="input-icon right">
+                                                    <textarea id="document" rows="3" name="document" class="form-control" placeholder="">@Model.Document</textarea>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+                                </div>
+                            </div>
+
+                            <div class="panel-footer form-horizontal">
+                                <div class="form-group submit">
+                                    <button type="submit" class="btn btn-primary" id="btnSave"><i class="fa fa-save"></i>Lưu lại</button>
+
+                                    <button type="button" class="btn btn-default" id="btnBack" onclick="GotoListpage()"><i class="fa fa-backward"></i>Back</button>
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </div>
+                    <div class="clear"></div>
+                </div>
+
+        </div>
+
+        </form>
+    </div>
+</div>
+</div>
+<div class="desc" style="display:none;"></div>
+<style>
+    .input-icon {
+        position: relative;
+        width: 100%;
+    }
+</style>
+<script type="text/javascript">
+    function GotoListpage() {
+
+        window.location = '/AdminProject/ManageProject/';
+    }
+
+
+    $(document).ready(function () {
+
+
+        $("button.close").click(function () {
+            $(this).parent().css("display", "none");
+        });
+        $('#defaultForm').bootstrapValidator({
+            message: 'This value is not valid',
+            //live: 'submitted',
+            feedbackIcons: {
+                valid: 'glyphicon glyphicon-ok',
+                invalid: 'glyphicon glyphicon-remove',
+                validating: 'glyphicon glyphicon-refresh'
+            },
+            fields: {
+
+                title: {
+                    message: 'Nhập Tên ',
+                    validators: {
+                        notEmpty: {
+                            message: 'tên không được bỏ trống'
+                        },
+
+
+
+                    }
+                },
+
+
+
+            }
+        })
+        .on('success.form.bv', function (e) {
+            // Prevent submit form
+            e.preventDefault();
+
+            var $form = $(e.target),
+                validator = $form.data('bootstrapValidator');
+            SaveData();
+            $(".close").click(function () {
+                $(".alert-success").css("display", "none");
+            });
+        })
+        .on('error.form.bv', function (e) {
+            // Active the panel element containing the first invalid element
+            e.preventDefault();
+            var $form = $(e.target),
+            validator = $form.data('bootstrapValidator');
+            $(".alert-danger label").text("Có một vài lỗi trong khung nhập liệu dưới đây ! kiểm tra lại");
+            $(".alert-danger").css("display", "block");
+            $(".close").click(function () {
+                $(".alert-danger").css("display", "none");
+                $(".alert-success").css("display", "none");
+            });
+        });
+
+        $("#btnReset").click(function () {
+            $('#defaultForm').data('bootstrapValidator').resetForm(true);
+            $(".alert-danger").css("display", "none");
+            $(".alert-success").css("display", "none");
+        });
+        //Save Data
+        function SaveData() {
+
+            var param = {
+                'Id': '@Model.Id',
+                'Name': $("#txtTitle").val(),
+                'Username': $("#ddlLanguage").val(),
+                Location: $("#location").val(),
+                SubType: $("#SubType").val(),
+                Unit: $("#unit").val(),
+                UnitIInfo: $("#txtImgPath").val(),
+                UnitDev: $("#UnitDev").val(),
+                Fullname: $("#fullname").val(),
+                Mobile: $("#mobile").val(),
+                Role: $("#role").val(),
+                Email: $("#email").val(),
+                Organ: $("#organ").val(),
+
+                Total: $("#total").val(),
+                Detail: $("#detail").val(),
+                Finance: $("#finance").val(),
+                Source: $("#source").val(),
+                Revenue: $("#revenue").val(),
+                Progress: $("#Progress").val(),
+                Time: $("#time").val(),
+                Finish: $("#finish").val(),
+                LegalStatus: $("#legalStatus").val(),
+                Description: $("#description").val(),
+                Impact: $("#impact").val(),
+                TADetail: $("#TADetail").val(),
+                Document: $("#document").val(),
+                Rule1: $("#rule1").val(),
+                Rule2: $("#rule2").val(),
+                Rule3: $("#rule3").val(),
+                Rule4: $("#rule4").val(),
+                Rate: $("#rate").val(),
+                Currency: $("#currency").val(),
+                'Status': $("#cbxIsActive").is(":checked") ? 1 : 0,
+                TA: $("#cbxTA").is(":checked") ? 1 : 0,
+                Type: 1,
+            }
+            Utils.Loading();
+            $.ajax({
+                type: 'POST',
+                url: "/AdminProject/SaveData",
+                data: param,
+                async: true,
+                success: function (data) {
+                    Utils.UnLoading();
+                    if (data.ResponseCode >= 0) {
+                        $("html,body").animate({ scrollTop: $('#TemplateContent').offset().top }, 'fast');
+                        $(".alert-success").show("slow");
+                        $(".alert-danger").hide("slow");
+                        setTimeout(function () { $(".alert-success").hide("slow"); GotoListpage(); }, 2000);
+                    }
+                    else {
+                        $("html,body").animate({ scrollTop: $('#TemplateContent').offset().top }, 'fast');
+                        $("#ErrorMessage").text(data.Description);
+                        $(".alert-danger").show("slow");
+                        $(".alert-success").hide("slow");
+                        setTimeout(function () { $(".alert-danger").hide("slow"); }, 2000);
+                    }
+                }
+            });
+        };
+    });
+</script>

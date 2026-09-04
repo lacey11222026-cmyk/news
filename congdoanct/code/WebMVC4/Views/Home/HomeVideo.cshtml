@@ -1,0 +1,49 @@
+﻿@using BIZ
+@using UTILS
+@using WebMVC4.Helper
+@model BIZ.Entity.CONTENT_FULL
+@if (Model != null)
+{
+
+    <div class="bg_anh bor" style="margin-bottom: 0px; font-weight: bold; text-align: center">
+        <a href="/da-phuong-tien">Đa phương tiện</a>
+
+    </div>
+    <div class="video">
+        @{ Html.RenderAction("TopAlbum", "Home", new { CateName = "Tư liệu ảnh", CategoryId = 71, Top =3 }); }
+        <div style="padding-top: 15px;">
+            <div class="video-content" id="hVideoContent">
+                @if (Model.Url.Contains("youtube.com"))
+                {
+                    <iframe id="hifvideo" width="376" height="250" frameborder="0" allowfullscreen
+                            src="@(Model.Url.Replace("watch?v=", "embed/"))"></iframe>
+                }
+                else
+                {
+                    <video poster="@Model.MainImage" controls preload="auto" width="376" height="250" id="hifvideo">
+                        <source src="@Model.Url" type="video/mp4" />
+                    </video>
+                }
+                <div class="video_text" style="margin: 0 5px;"><a href="@Model.LinkUrl">@Model.Title</a></div>
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript">
+        var width = $("#hVideoContent").width();
+        var height = width / 1.502040816326531;
+
+        $("#hifvideo").width(width);
+        $("#hifvideo").height(height);
+    </script>
+        <style>
+            .bg_anh a {
+                font-weight: bold;
+                color: #d50b03;
+            }
+        </style>
+}
+
+
+
+
+

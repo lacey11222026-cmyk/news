@@ -1,0 +1,37 @@
+﻿@{
+   
+    Layout = "~/Views/Shared/_PrintLayout.cshtml";
+
+}
+@using BIZ
+@using UTILS
+@using  WebEN
+@using  WebEN.Helper
+@model BIZ.Entity.CONTENT_FULL
+@if (!String.IsNullOrEmpty(Model.Alias))
+{
+    <h2 id="newssubTitle">@Model.Alias</h2>
+}
+<div id="title" class="title">@Model.Title</div>
+<div id="date" class="date">
+    @Utils.formatDateofWeek(Model.PublishDate.DayOfWeek), @Model.PublishDate.ToString("dd/MM/yyyy") - @Model.PublishDate.ToString("HH:mm")
+</div>
+<div id="introNews" class="intro" style="font-weight: bold; margin-bottom: 5px;">@Model.IntroText</div>
+<div id="NewsContent" class="content" style="width: 100%; text-align: justify;">
+    @Html.Raw(Model.Contents)
+
+</div>
+
+
+<script>
+
+    $('#NewsContent span').removeStyle('font-size');
+    $('#NewsContent div').removeStyle('font-size');
+    $('#NewsContent p').removeStyle('font-size');
+
+    $('#NewsContent span').removeStyle('font-family');
+    $('#NewsContent div').removeStyle('font-family');
+    $('#NewsContent p').removeStyle('font-family');
+
+
+</script>

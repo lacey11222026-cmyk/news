@@ -1,0 +1,83 @@
+﻿@using WebMVC4.Helper
+@{
+    var langpage = WorkContext.GetLanguage();
+}
+<footer>
+    <div class="nav_top">
+        <div class="container">
+            <div class="nav-inner">
+                <nav class="nav-left">
+                    <ul>
+                        <li class="active"><a href="/"><img src="/Content/img/icon-home.svg" alt="Trang chủ" width="21"></a></li>
+                        @{Html.RenderAction("MenuBottom", "Home", new { lang = langpage });}
+                    </ul>
+                </nav>
+                <div class="nav-right">
+                    @if (langpage == "vi-vn")
+                    {
+                        <div class="lienket">
+                            <select class="form-control" id="Select1" onchange="window.open(this.options[this.selectedIndex].value,'_blank');this.options[0].selected=true">
+                                <option>Liên kết</option>
+                                <option value="https://depp3.vn/">Chương trình DEPP3 </option>
+                            </select>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="lienket">
+                            <select class="form-control" id="Select1" onchange="window.open(this.options[this.selectedIndex].value,'_blank');this.options[0].selected=true">
+                                <option>Link</option>
+                                <option value="https://depp3.vn/">DEPP3 Program </option>
+                            </select>
+                        </div>
+                    }
+                    <div class="search-box">
+                        <button class="search-icon"></button>
+                        <input type="text" class="form-control">
+                    </div>
+                    @if (langpage == "vi-vn")
+                    {
+                        <div class="flag">
+                            <a href="/Home/Language?lang=en-us"><img src="/Content/img/en.png" alt="" width="30"></a>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="flag">
+                            <a href="/Home/Language?lang=vi-vn"><img src="/Content/img/vn.png" alt="" width="30"></a>
+                        </div>
+                    }
+
+                </div>
+            </div>
+        </div>
+    </div>
+    @if (langpage == "vi-vn")
+    {
+        <div class="container f-content text-center">
+            <p class="f-title">trung tâm Xuất Sắc về hiệu quả năng lượng</p>
+            <ul class="f-contact mt10">
+                <li><i class="icon-mess"></i>Cục Đổi mới sáng tạo, Chuyển đổi xanh và Khuyến công, Bộ Công Thương</li>
+                <li><i class="icon-map"></i>Nhà B, 54 Hai Bà Trưng, Quận Hoàn Kiếm, Hà Nội</li>
+                @*<li><i class="icon-phone"></i><a href="tell:02422205528">024. 2220 5528</a></li>*@
+            </ul>
+            <p class="mt10">
+                @@2024&nbsp; | &nbsp;Phát triển bởi &nbsp;<img src="/content/img/vtk.svg" alt="" width="40">
+            </p>
+        </div>
+    }
+    else
+    {
+        <div class="container f-content text-center">
+            <p class="f-title">CENTER OF EXCELLENCE FOR ENERGY EFFICIENCY</p>
+            <ul class="f-contact mt10">
+                <li><i class="icon-mess"></i>Agency for Innovation, Green Transition and Industry Promotion, Ministry of Industry and Trade</li>
+                <li><i class="icon-map"></i>Building B, 54 Hai Ba Trung Street, Hoan Kiem District, Hanoi</li>
+                @*<li><i class="icon-phone"></i><a href="tell:02422205528">024. 2220 5528</a></li>*@
+            </ul>
+            <p class="mt10">
+                @@2024&nbsp; | &nbsp;Developed by  &nbsp;<img src="/Content/img/vtk.svg" alt="" width="40">
+            </p>
+        </div>
+    }
+</footer>

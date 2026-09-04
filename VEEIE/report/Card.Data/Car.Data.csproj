@@ -1,0 +1,120 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{1B5A902E-2B11-4114-82E5-C242783C6B4D}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Car.Data</RootNamespace>
+    <AssemblyName>Car.Data</AssemblyName>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.12.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.Linq" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Api\ResponeData.cs" />
+    <Compile Include="Api\ServerProcess.cs" />
+    <Compile Include="Api\Utilities.cs" />
+    <Compile Include="Factory\AbstractDAOFactory.cs" />
+    <Compile Include="Factory\ADODAOFactory.cs" />
+    <Compile Include="Main.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Main.dbml</DependentUpon>
+    </Compile>
+    <Compile Include="MainDataBase.cs" />
+    <Compile Include="DTO\Groups.cs" />
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
+    <Compile Include="Service\GroupsService.cs" />
+    <Compile Include="Service\FunctionsService.cs" />
+    <Compile Include="Service\IGroupsService y.cs" />
+    <Compile Include="Service\FinancesService.cs" />
+    <Compile Include="Service\PlanItemsService.cs" />
+    <Compile Include="Service\PlanRequiresService.cs" />
+    <Compile Include="Service\PaysService.cs" />
+    <Compile Include="Service\PlansService.cs" />
+    <Compile Include="Service\PlanStucksService.cs" />
+    <Compile Include="Service\ProjectReportsService.cs" />
+    <Compile Include="Service\ProjectsService.cs" />
+    <Compile Include="Service\UserRoleService.cs" />
+    <Compile Include="Service\UsersService.cs" />
+    <Compile Include="Service\UsersLogService.cs" />
+    <Compile Include="Service\IFucntionsService.cs" />
+    <Compile Include="Service\IUserRoleService.cs" />
+    <Compile Include="Service\IUsersService.cs" />
+    <Compile Include="Service\IUsersLogService.cs" />
+    <Compile Include="DBHelper.cs" />
+    <Compile Include="DTO\Functions.cs" />
+    <Compile Include="DTO\Users.cs" />
+    <Compile Include="DTO\UsersLog.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Card.Utility\Card.Utility.csproj">
+      <Project>{7bef7c1f-dce6-4bb6-8e65-5859a3d90575}</Project>
+      <Name>Card.Utility</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+    <None Include="Main.dbml">
+      <Generator>MSLinqToSQLGenerator</Generator>
+      <LastGenOutput>Main.designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Main.dbml.layout">
+      <DependentUpon>Main.dbml</DependentUpon>
+    </None>
+    <None Include="packages.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{3259AA49-8AA1-44D3-9025-A0B520596A8C}" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

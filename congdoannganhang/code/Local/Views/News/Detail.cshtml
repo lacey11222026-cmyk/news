@@ -1,0 +1,50 @@
+﻿@using BIZ
+@using UTILS
+@using Local.Helper
+@model BIZ.Entity.CONTENT_FULL
+@{var RelateTitle = "Các tin khác";}
+@if (Model != null)
+{
+    /*active menu*/
+   <div class="n_border i_content_bottom">
+        @{Html.RenderAction("Breadcrumb", "News", new { CategoryId = Model.CategoryId });}
+
+        <div class="noidung"><br/>
+            <h4>@Model.Title</h4>
+            <div class="text_blue">Cập nhật lúc @Model.PublishDate.ToString("hh:mm") ngày @Model.PublishDate.ToString("dd/MM/yyyy")</div>
+
+            <div id="introNews" class="intro"></div>
+            <div id="igmNews" style="display: none">@Model.MainImage</div>
+            <div class="pad7">
+                @if (Model.Type == 1)
+                {
+                    @Html.Raw(Model.Contents)
+
+                }
+                else if (Model.Type == 2)
+                {
+                    <br />
+                    @Html.Raw(HtmlHelpers.EmbedVideo(Model.Url, Model.MainImage, "600", "360"))
+                    RelateTitle = "Các Video khác";
+                }
+                else
+                {
+                    @Html.Raw(HtmlHelpers.EmbedVideo(Model.Url, "/flash/playerimg.jpg", "600", "376"))
+                    RelateTitle = "Các bài khác";
+                }
+                <div class="clear"></div>
+            </div>
+            <div class="clear"></div>
+        </div>
+
+        <div class="clear">
+        </div>
+        <div class="best">
+            @{Html.RenderAction("Relate", "News", new { CategoryId = Model.CategoryId, CateName = ViewBag.CateName, HeaderTitle = RelateTitle, PageNextShow = false, pageNext = 2 });}
+        </div>
+    </div>
+    
+
+  
+   
+}

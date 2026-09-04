@@ -1,0 +1,57 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout2.cshtml";
+}
+<div class="movie" id="movie">
+    <video autoplay id="myVideo">
+        <source src="/Content2/video/IntroVID.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+        Please download the mp4 plugin to see the CTAS Intro.
+    </video>
+</div>
+<div id="manhinh1" style="display:none">
+    <div class="screen1a">
+        <img src="/Content2/images/name.png">
+    </div>
+    <div class="screen1b">
+        <div class="menu wow bounceInDown center">
+            <div class="wrapper">
+                <img src="/Content2/images/name-small.png" alt="cuộc thi nét đẹp văn hóa ngàng ngân hàng" class="name float-left">
+            </div>
+        </div>
+        <div class="screen1b-2 " >
+            <img src="/Content2/images/text-phanthi.png">
+        </div>
+    </div>
+</div>
+
+<script type='text/javascript'>
+
+    //video = document.getElementById('myVideo');
+    //function removeControls(video) {
+    //    video.removeAttribute('controls');
+       
+    //}
+    //window.onload = removeControls(video);
+
+    document.getElementById('myVideo').addEventListener('ended', myHandler, false);
+    function myHandler(e) {
+        $("#movie").hide();
+        $("#manhinh1").show();
+        $(".screen1b").hide();
+        setTimeout(function () {
+            $(".screen1a").hide(500);
+            $(".screen1b").show(1000);
+        }, 4000);
+    }
+    $(document).keydown(function (event) {
+        console.log(event.which);
+        if (event.which == '13') {
+            window.location.href = '/Event/TopTestRegister';
+            
+        }
+        if (event.which == '32') {
+
+            $("#myVideo").get(0).play();
+        }
+    });
+</script>

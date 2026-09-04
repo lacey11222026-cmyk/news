@@ -1,0 +1,62 @@
+﻿@using BIZ
+@using UTILS
+@using  WebMVC4.Helper
+@model WebMVC4.Models.AlbumModel
+@if (Model.listdata != null)
+{
+    /*active menu*/
+    if (ViewBag.ParentCategoryId > 0)
+    {
+    <script type="text/javascript">
+        var index = $('#ddtabs1 li').index($('#cate_' + '@ViewBag.ParentCategoryId'));
+        ddtabmenu.definemenu("ddtabs1", index);
+       
+        setTimeout(function () {
+            $("#ddtabs1 .current").parent().addClass("select");
+
+        }, 1000);
+    </script>
+       
+    }
+    else
+    {
+    <script type="text/javascript">
+        var index = $('#ddtabs1 li').index($('#cate_' + '@ViewBag.CurrentCategoryId'));
+       
+        ddtabmenu.definemenu("ddtabs1", index);
+        setTimeout(function () {
+            $("#ddtabs1 .current").parent().addClass("select");
+
+        }, 1000);
+    </script>
+       
+    }
+    <div class="cate">
+        @{Html.RenderAction("Breadcrumb", "News", new { CategoryId = Model.CategoryId });}
+        @foreach (var item in Model.listdata.Select((value, i) => new { i, value }))
+        {
+           
+              <div class="listtin" style="min-width: 500px;">
+                <a title="@item.value.Title" href="@Utils.FormatUrlRewrite(item.value.Id, item.value.Title, "AlbumDetail")">
+                    <img src=" @item.value.MainImage?w=140&h=170&mode=crop" width="135px" alt="@item.value.Title" /></a>
+                <p><a href="@Utils.FormatUrlRewrite(item.value.Id, item.value.Title, "AlbumDetail")" title="@item.value.Title">@item.value.Title</a></p>
+                @*<p class="date">@item.value.PublishDate.ToString("HH:mm") ngày @item.value.PublishDate.ToString("dd/MM/yyyy")</p>*@
+                <span> &nbsp;</span>
+                <div class="clear"></div>
+            </div>
+        }
+        <div class="ctpaging">
+
+            <ul class="paging">
+                @{Html.RenderPartial("Pagination", new WebMVC4.Models.PaginationInfo
+                  {
+                      PageUrl = Url.SetParameter("Page", "!0"),
+                      CurrentPage = Model.pageIndex,
+                      PageSize = Model.pageSize,
+                      TotalItemCount = Model.total,
+                  }); }
+            </ul>
+
+        </div>
+    </div>
+}

@@ -1,0 +1,105 @@
+﻿@using WebMVC4.Helper
+@using BIZ
+@using UTILS
+
+
+
+
+<header id="header" class="header has-sticky sticky-jump" style="">
+    <div class="header-wrapper">
+        
+        <div id="masthead" class="header-main ">
+            <div class="header-main header-inner flex-row container logo-left medium-logo-center" role="navigation" data-wpmeteor-mouseover="true" data-wpmeteor-mouseout="true">
+                <div id="logo" class="flex-col logo">
+                    <a href="/" title="Xe Nâng Bắc Trung Nam - Chuyên mua bán xe nâng mới và qua sử dụng, cung cấp phụ tùng – thiết bị- linh kiện xe nâng xuất xứ Nhật Bản" rel="home">
+                        <img src="~/Content/images/logo.jpg?vs=02" />
+                    </a>
+                </div>
+                <div class="header-top-info" style="margin-top: 0px;">
+                    <div class="pull-right block-mobile">
+                        <div class="header-secondary-phone">
+                            <div class="phone">
+                                <span class="phone-label">Hỗ trợ <span>mua hàng</span>:</span>
+                                <span class="phone-number heading-font"><a href="tel:0973766284">0973766284</a></span>
+                            </div>
+                            <div class="phone">
+                                <span class="phone-label">Hỗ trợ <span>kỹ thuật</span>:</span>
+                                <span class="phone-number heading-font"><a href="tel:0973766284">0973766284</a></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="pull-right block-mobile">
+                        <div class="header-main-phone heading-font">
+                            <i class="fa fa-phone-square"></i>
+                            <div class="phone">
+                                <span class="phone-label">Hotline:</span>
+                                <span class="phone-number heading-font"><a href="tel:02436225216">02436225216</a></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="pull-right block-mobile">
+                        <div class="header-address">
+                            <i class="fa fa-envelope-o"></i>
+                            <div class="address">
+                                <span class="heading-font">Email <span>công ty</span><br><p class="email">contact@samnon.com</p></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex-col show-for-medium flex-left">
+                    <ul class="mobile-nav nav nav-left ">
+                        <li class="nav-icon has-icon"> <a href="#" data-open="#main-menu" data-pos="left" data-bg="main-menu-overlay" data-color="" class="is-small" aria-label="Menu" aria-controls="main-menu" aria-expanded="false"> <i class="icon-menu"> </i> </a> </li>
+                    </ul>
+                </div>
+                <div class="flex-col hide-for-medium flex-left flex-grow"> <ul class="header-nav header-nav-main nav nav-left nav-line-grow nav-size-small nav-spacing-xsmall nav-uppercase"> </ul> </div>
+
+                <div class="flex-col show-for-medium flex-right">
+                    <ul class="mobile-nav nav nav-right ">
+                        <li class="header-search header-search-dropdown has-icon has-dropdown menu-item-has-children">
+                            <div class="header-button"> <a href="#" aria-label="Tìm kiếm" class="icon button round is-outline is-small"> <i class="icon-search"> </i> </a> </div>
+                            <ul class="nav-dropdown nav-dropdown-bold dark"> <li class="header-search-form search-form html relative has-icon"> <div class="header-search-form-wrapper"> <div class="searchform-wrapper ux-search-box relative is-normal"> <form role="search" method="get" class="searchform" action="/"> <div class="flex-row relative"> <div class="flex-col flex-grow"> <label class="screen-reader-text" for="woocommerce-product-search-field-1">Tìm kiếm:</label> <input type="search" id="woocommerce-product-search-field-1" class="search-field mb-0" placeholder="Nhập từ khóa tìm kiếm..." name="s"> <input type="hidden" name="post_type" value="product"> </div> <div class="flex-col"> <button type="submit" value="Tìm kiếm" class="ux-search-submit submit-button secondary button icon mb-0"> <i class="icon-search"> </i> </button> </div> </div> <div class="live-search-results text-left z-top"> </div> </form> </div> </div> </li> </ul>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="header-main header-nav header-nav-transparent block-mobile" style="height:52px!important;position:relative">
+            <div class="container" style="height:52px!important;">
+                <ul class="header-nav header-nav-main nav nav-line-grow nav-size-small nav-spacing-xsmall nav-uppercase">
+                    @Html.Action("Menu", "Home")
+                    <li class="header-search header-search-dropdown has-icon has-dropdown menu-item-has-children">
+                        <div class="header-button">
+                            <a href="#" aria-label="Tìm kiếm" class="icon button round is-outline is-small"> <i class="icon-search"> </i> </a>
+                        </div>
+                        <ul class="nav-dropdown nav-dropdown-bold dark">
+                            <li class="header-search-form search-form html relative has-icon">
+                                <div class="header-search-form-wrapper">
+                                    <div class="searchform-wrapper ux-search-box relative is-normal">
+                                        <form role="search" method="get" class="searchform" action="/Product/Search">
+                                            <div class="flex-row relative">
+                                                <div class="flex-col flex-grow">
+                                                    <label class="screen-reader-text" for="woocommerce-product-search-field-0">Tìm kiếm:</label> <input type="search" class="search-field mb-0" placeholder="Nhập từ khóa tìm kiếm..." name="q"> <input type="hidden" name="post_type" value="product">
+                                                </div>
+                                                <div class="flex-col">
+                                                    <button type="submit" value="Tìm kiếm" class="ux-search-submit submit-button secondary button icon mb-0"> <i class="icon-search"> </i> </button>
+                                                </div>
+                                            </div>
+                                            <div class="live-search-results text-left z-top"> </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="header-bg-container fill">
+            <div class="header-bg-image fill"> </div>
+            <div class="header-bg-color fill"> </div>
+        </div>
+    </div>
+</header>
+<div style="clear:both">
+
+</div>

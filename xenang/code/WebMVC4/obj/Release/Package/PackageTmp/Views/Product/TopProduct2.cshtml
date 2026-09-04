@@ -1,0 +1,76 @@
+﻿@using BIZ
+@using UTILS
+@using WebMVC4.Helper
+@using WebMVC4.Models
+@model ProductModel
+
+@if (Model != null)
+{
+    <div class="category-title">
+        <h3 class="tieu-de">
+            <i class="fa fa-car" aria-hidden="true"></i>@Model.Cate.Name
+        </h3>
+        <div class="sub-menu">
+            <ul>
+                @foreach (var item in Model.listcate.Select((value, i) => new { i, value }))
+                    {
+                    <li>
+                        <a href="@item.value.Url">@item.value.Description</a>
+                    </li>
+                    }
+                
+                <li></li>
+                <li class="more-all"><a href="@Model.Cate.Url">Xem tất cả</a></li>
+            </ul>
+        </div>
+    </div>
+    <div class="row large-columns-4 medium-columns-3 small-columns-2 row-small slider row-slider slider-nav-reveal slider-nav-push" data-flickity-options='{"imagesLoaded": true, "groupCells": "100%", "dragThreshold" : 5, "cellAlign": "left","wrapAround": true,"prevNextButtons": true,"percentPosition": true,"pageDots": false, "rightToLeft": false, "autoPlay" : false}'>
+        @foreach (var item in Model.listdata.Select((value, i) => new { i, value }))
+        {
+            <div class="product-small col  type-product product-type-simple" style="border:none !important">
+                <div class="col-inner">
+                    <div class="badge-container absolute left top z-1"></div><div class="product-small box ">
+                        <div class="box-image">
+                            <div class="image-none">
+                                <a href="@UTILS.Utils.FormatUrlRewrite(item.value.Id,item.value.Name,"ProductDetail")">
+                                    <img  alt="@item.value.Name"   src="@item.value.DescriptImage?w=281&h=254&mode=crop" />
+
+                                </a>
+                            </div>
+                            <div class="image-tools is-small top right show-on-hover"></div>
+                            <div class="image-tools is-small hide-for-small bottom left show-on-hover"></div>
+                            <div class="image-tools grid-tools text-center hide-for-small bottom hover-slide-in show-on-hover"></div>
+                        </div>
+                        <div class="box-text box-text-products text-center grid-style-2">
+                            <div class="title-wrapper">
+                                <p class="name product-title woocommerce-loop-product__title">
+                                    <a href="@UTILS.Utils.FormatUrlRewrite(item.value.Id,item.value.Name,"ProductDetail")">@item.value.Name</a>
+                                </p>
+                            </div>
+                            <div class="price-wrapper">
+                                <span class="price">
+                                    @if (item.value.PriceReal > 0)
+                                    {
+                                        <span class="amount">Giá: @Utils.InsertCommaNoStyle(item.value.PriceReal.ToString()) đ</span>
+                                    }
+                                    else
+                                    {
+                                        <span class="amount">Giá: liên hệ 0943888255</span>
+                                    }
+
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+
+
+
+}
+else
+{
+
+}

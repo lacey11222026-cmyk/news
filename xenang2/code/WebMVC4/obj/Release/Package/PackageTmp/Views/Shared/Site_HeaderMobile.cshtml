@@ -1,0 +1,40 @@
+﻿@using WebMVC4.Helper
+
+
+
+<!-- Mobile Sidebar -->
+<div id="main-menu" class="mobile-sidebar no-scrollbar mfp-hide">
+    <div class="sidebar-menu no-scrollbar ">
+        <ul class="nav nav-sidebar  nav-vertical nav-uppercase">
+            <li class="header-search-form search-form html relative has-icon">
+                <div class="header-search-form-wrapper">
+                    <div class="searchform-wrapper ux-search-box relative form- is-normal">
+
+                        <div class="flex-row relative">
+                            <div class="flex-col flex-grow">
+                                <input type="search" class="search-field mb-0" name="s" placeholder="Tìm kiếm…" autocomplete="off">
+                                <input type="hidden" name="post_type" value="product">
+                            </div><!-- .flex-col -->
+                            <div class="flex-col">
+                                <button type="submit" class="ux-search-submit submit-button secondary button icon mb-0">
+                                    <i class="icon-search"></i>
+                                </button>
+                            </div><!-- .flex-col -->
+                        </div><!-- .flex-row -->
+
+
+                    </div>
+                </div>
+            </li>
+            @Html.Action("MenuProductMobile", "Home")
+
+            <li class="html custom html_topbar_right"><span style="color: #000000;">Hotline tư vấn</span><h3><span style="color: #ed1c24;"><i class="fa fa-phone-square" aria-hidden="true"></i> 0984 535 085</span></h3></li>
+
+            @Html.Action("Menu", "Home")
+
+        </ul>
+        <div style="height:50px;">
+            &nbsp;&nbsp;
+        </div>
+    </div><!-- inner -->
+</div><!-- #mobile-menu -->

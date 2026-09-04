@@ -1,0 +1,23 @@
+﻿@using BIZ
+@using UTILS
+@using WebMVC4.Helper
+@model BIZ.Entity.CATEGORY_FULL
+<div class="content01 container mt10">
+    <div class="row">
+        <div class="col-lg-8 col-md-12 col-sm-12">
+
+            @if (Model != null)
+            {
+                {Html.RenderAction("BreadcrumbObj", "News", new { data = Model });}
+                <div class="mt30 intro-content" id="NewsContent">
+                    @Html.Raw(Model.Contents)
+                </div>
+
+
+            }
+        </div><!--/End content left-->
+        <div class="col-lg-4 col-md-12">
+            @Html.Partial("Site_Right")
+        </div><!--/End content right-->
+    </div><!-- end row-->
+</div>

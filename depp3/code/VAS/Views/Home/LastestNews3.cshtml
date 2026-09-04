@@ -1,0 +1,52 @@
+﻿@using BIZ
+@using UTILS
+@using  VAS.Helper
+@model VAS.Models.LastestNewModel
+
+
+@if (Model != null)
+{
+    if (Model.lstdata.Count > 0)
+    {
+
+        <div class="n_list4 slidenews3">
+            <div class="title10"><a href="@Model.Url">@Model.HeaderTitle</a></div>
+            <ul class="slidenewsul3">
+                @foreach (var item in Model.lstdata.Select((value, i) => new { i, value }))
+                {
+                    @*if (item.i == 0)
+                        {
+                        @Html.Raw("<li style='padding-left:0;'>");
+                        }
+                        else
+                        {
+                           if (item.i == 3)
+                           {
+                               @Html.Raw("<li style='padding-left:11px;'>");
+                           }
+                           else
+                           {
+                               @Html.Raw("<li>");
+                           }
+
+                        }*@
+                    @Html.Raw("<li>");
+
+                    <a href="@item.value.LinkUrl" title="@item.value.Title">
+                        <img src="@item.value.MainImage?w=300&h=200&mode=crop" alt="@item.value.Title" />
+                    </a>
+                    <a href="@item.value.LinkUrl" title="@item.value.Title">
+                        @item.value.Title
+                    </a>
+
+
+                    @Html.Raw("</li>");
+
+                }
+
+            </ul>
+            <div class="clear"></div>
+        </div>
+    }
+
+}

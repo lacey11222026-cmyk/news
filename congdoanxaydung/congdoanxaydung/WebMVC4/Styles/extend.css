@@ -1,0 +1,76 @@
+﻿ul.menu .select  {
+    background: url("../images/menuhov.jpg") repeat scroll 0 0 transparent;
+}
+.padtop10 {
+    padding-top: 10px;
+}
+.clear {
+    clear: both;
+}
+/*page*/
+.ctpaging {
+    float: right;
+    margin: 0;
+    padding-right: 6px;
+    padding-top: 10px;
+}
+.ctpaging ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+.ctpaging li {
+    display: inline;
+    padding: 0 4px;
+}
+.ctpaging a, .ctpaging a:visited {
+    background-color: #E7E7E7;
+    border: 1px solid #D3D3D3;
+    color: #545454;
+    font: bold 12px Arial,Helvetica,sans-serif;
+    padding: 2px 5px;
+    text-decoration: none;
+}
+.ctpaging a:hover {
+    background-color: #008BD3;
+    border: 1px solid #008BD3;
+    color: #FFFFFF;
+}
+.ctpaging a.currentpage {
+    background-color: #008BD3 !important;
+    border: 1px solid #008BD3 !important;
+    color: #FFFFFF !important;
+    cursor: default;
+}
+
+/*home laster news*/
+
+.bg_blu a, .bg_org a {
+     text-transform:uppercase;
+}
+/*slide*/
+
+#hotnews .jcarousel-prev {
+   background: url( "../images/left.jpg" ) no-repeat scroll 0 0 transparent;
+    position: absolute;
+    bottom: 20px;
+    left: 0;
+    z-index: 10;
+    text-indent: -9999px;
+    width: 47px;
+    height: 39px;
+    border: 0 none;
+    cursor: pointer;
+}
+#hotnews .jcarousel-next {
+     background: url( "../images/right.jpg" ) no-repeat scroll 0 0 transparent;
+    position: absolute;
+    bottom: 20px;
+    right: 0;
+    z-index: 10;
+    text-indent: -9999px;
+    width: 47px;
+    height: 39px;
+    border: 0 none;
+    cursor: pointer;
+}

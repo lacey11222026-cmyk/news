@@ -1,0 +1,46 @@
+﻿@using BIZ
+@using UTILS
+@using WebMVC4.Helper
+@model DATA.Project
+
+    @{
+        Layout = "~/Views/Shared/_Home.cshtml";
+    }
+    <h2 class="title-cm mt0">CÔNG NGHỆ VÀ THIẾT BỊ CHUYỂN GIAO</h2>
+    <div class="row product-detail mt30">
+        <div class="col-md-5 col-sm-5 col-xs-5">
+            <img src="@Model.Image?w=800&h=0&mode=crop">
+        </div>
+        <div class="col-md-7 col-sm-7 col-xs-7">
+            <h3 class="product-title">@Model.Name</h3>
+            <ul>
+                <li class="title-tb">Tên dự án: </li>
+                <li class="mt10">@Model.Name</li>
+                <li class="title-tb mt20">Thông tin liên hệ: </li>
+                <li class="mt10">
+                   @Html.Raw(Model.Infomation)
+                </li>
+            </ul>
+        </div>
+        <div class="col-md-12 col-xs-12 mt50">
+            <p class="title-tb">MÔ TẢ SẢN PHẨM </p>
+            <p class="mt15">
+                @Html.Raw(Model.Description)
+            </p>
+        </div>
+    </div><!-- end row-->
+
+
+
+
+
+    <div class="thietbi mt50">
+        <h2><span class="border-t-green"></span><a href="javascript:;">Sản phẩm khác</a></h2>
+        <div class=" slide02">
+            <ul id="flexiselDemo2">
+                @{Html.RenderAction("TopProject", "Project");}
+
+            </ul>
+        </div>
+    </div><!-- end thiet bij-->
+    <div class="clearfix"></div>

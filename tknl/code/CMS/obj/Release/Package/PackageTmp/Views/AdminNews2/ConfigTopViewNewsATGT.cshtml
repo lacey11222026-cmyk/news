@@ -1,0 +1,243 @@
+﻿@{
+   
+    Layout = "~/Views/Shared/_AdminV2.cshtml";
+}
+<div class="onecolumn">
+    <div class="header">
+        <span>@ViewBag.Title</span>
+    </div>
+    <br class="clear">
+    <div class="content">
+        <div class="login">
+            
+                <table class="admintable" id="configuration_container">
+                    <tr>
+                        <td colspan="3">Tên bài viết:
+                                <input id="txt_filterbyname" type="text" style="width: 200px;" />
+                            <input id="btn_search" type="button" value="Lọc" onclick="BinDataAvailableNews();" />
+                            &nbsp; &nbsp;Chuyên mục:
+                                @Html.DropDownList("select_filterbycategory", new SelectList(ViewBag.CategoryList as System.Collections.IEnumerable, "Id", "Name", ViewBag.categoryId), new { @class = "drl_Publisher",@onchange="Filter();" })
+                            <br />
+                            <br />
+                        </td>
+                        <td width="40%">&nbsp;
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div>
+                                Danh sách tin
+                                     <select id="AvailableNews" style="height: 400px; width: 500px;" multiple="multiple" name="AvailableNews" size="4">
+                                     </select>
+                            </div>
+                        </td>
+                        <td>
+                            <div>
+                                <img src="/Administrator/images/dualist/select.gif" alt="top" height="16px" width="16px"
+                                    title="chọn" style="cursor: pointer;" onclick="add();" /><br />
+                                <img src="/Administrator/images/dualist/selectall.gif" alt="top" height="16px" width="16px"
+                                    title="chọn tất cả" style="cursor: pointer;" onclick="addall();" /><br />
+                                <img src="/Administrator/images/dualist/remove.gif" alt="top" height="16px" width="16px"
+                                    title="loại bỏ" style="cursor: pointer;" onclick="fremove();" /><br />
+                                <img src="/Administrator/images/dualist/removeall.gif" alt="top" height="16px" width="16px"
+                                    title="bỏ tất cả" style="cursor: pointer;" onclick="removeall();" /><br />
+                            </div>
+                        </td>
+                        <td>
+                            <div>
+                                Danh sách tin xem nhiều
+                                    <select id="SelectedNews" style="height: 400px; width: 500px;" multiple="multiple" name="SelectedNews" size="4">
+                                    </select>
+                                <div style="clear: both;">
+                                </div>
+                            </div>
+                        </td>
+                        <td>
+                            <div>
+                                <img src="/Administrator/images/dualist/top.gif" alt="top" height="16px" width="16px"
+                                    title="lên trên cùng" style="cursor: pointer;" onclick="moveTopItem();" /><br />
+                                <img src="/Administrator/images/dualist/up.gif" alt="up" height="16px" width="16px"
+                                    title="lên trên" style="cursor: pointer;" onclick="moveUpItem();" /><br />
+                                <img src="/Administrator/images/dualist/down.gif" alt="down" height="16px" width="16px"
+                                    title="xuống dưới" style="cursor: pointer;" onclick="moveDownItem();" /><br />
+                                <img src="/Administrator/images/dualist/bottom.gif" alt="bottom" height="16px" width="16px"
+                                    title="xuống dưới cùng" style="cursor: pointer;" onclick="moveBottomItem();" /><br />
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+            <br />
+                <div class="button_login">
+
+            <input type="button" onclick="Save();" value="Lưu lại">
+        </div>
+        </div>
+    </div>
+</div>
+<script  type="text/javascript">
+   
+    $(document).ready(function () {
+        $('#menu_newsconfig').click();
+       
+    });
+    var redirectUrl = '@Url.Action("Index", "AdminNews2")';
+    $('#txt_filterbyname').val(jQuery.query.get("keyword"));
+    var categoryId = jQuery.query.get("categoryId");
+    BinDataAvailableNews();
+    BinDataSelectedNews('@ViewBag.lstNews');
+    
+    function BinDataSelectedNews(lstid) {
+      
+        if (lstid == null || lstid == '') {
+            return;
+        }
+        var tit = $('#txt_filterbyname').val();
+        var cid = $('#select_filterbycategory option:selected').val();
+
+
+        $.Services({
+            element: $('#AvailableNews'),
+            loadingImg: '',
+            serviceName: 'ArticleService.ashx',
+            data: {
+                __m: 'get_article_byids',
+                _lstid: lstid
+            },
+            success: function (data) {
+
+                if (data != undefined && data != null && data != '') {
+                    var html = '';
+                    $.each(data, function (index, item) {
+                        html += '<option value="' + item.Id + '">' + item.Title + '</option>';
+                    });
+                    $("#SelectedNews").html(html);
+
+                }
+
+
+            }
+        });
+    }
+
+    function Save() {
+        var cid = $('#select_filterbycategory option:selected').val();
+       
+            
+            var s = "";
+            $("#SelectedNews option").each(function () {
+                s = s + $(this).attr('value')+",";
+
+            });
+            ShowProgress();
+            $.post('@Url.Action("SaveConfigTopViewNewsATGT", "AdminNews2")', { "svalue": s, "categoryId": cid },
+                        function (data) {
+                            location.reload();
+                        });
+       
+    }
+    function Filter() {
+        BinDataAvailableNews();
+    }
+    function BinDataAvailableNews() {
+
+
+        var tit = $('#txt_filterbyname').val();
+        var cid = $('#select_filterbycategory option:selected').val();
+
+
+        $.Services({
+            element: $('#AvailableNews'),
+            loadingImg: '',
+            serviceName: 'ArticleService.ashx',
+            data: {
+                __m: 'get_filter_topview_articles',
+                tit: tit,
+                cid: cid,
+                tid: 1,
+                createdby: '',
+                _pi: 1,
+                _ps: 30
+            },
+            success: function (data) {
+                var html = '';
+                if (data != undefined && data != null && data != '') {
+                    //var items = data.Items;
+                    //var total = data.Total;
+
+                    html = BinHtmlAvailableNews(data);
+
+                }
+
+                $("#AvailableNews ").html(html);
+            }
+
+        });
+    }
+    function BinHtmlAvailableNews(data) {
+        var html = '';
+        $.each(data, function (index, item) {
+            html += '<option value="' + item.Id + '">' + item.Title + '</option>';
+        });
+        
+        return html;
+    }
+    
+    function add() {
+        $("#AvailableNews option:selected").appendTo("#SelectedNews");
+
+    }
+    function addall() {
+        $("#AvailableNews option").appendTo("#SelectedNews");
+
+    }
+
+    function fremove() {
+        $("#SelectedNews option:selected").appendTo("#AvailableNews");
+    }
+
+    function removeall() {
+        $("#SelectedNews option").appendTo("#AvailableNews");
+    }
+
+
+    function moveTopItem() {
+
+
+        //            if ($('#SelectedNews option:selected').attr('index') > $('#SelectedNews option:first').attr('index')) {
+
+        $('#SelectedNews option:selected').insertBefore($('#SelectedNews option:first'));
+
+        //            }
+        return false;
+
+    }
+
+    function moveUpItem() {
+        $('#SelectedNews option:selected').each(function () {
+
+            $(this).insertBefore($(this).prev());
+        });
+    }
+
+    function moveDownItem() {
+
+        $('#SelectedNews option:selected').each(function () {
+            $(this).insertAfter($(this).next());
+        });
+
+    }
+    function moveBottomItem() {
+
+        //            if ($('#SelectedNews option:selected').attr('index') < $('#SelectedNews option:last').attr('index')) {
+
+        $('#SelectedNews option:selected').insertAfter($('#SelectedNews option:last'));
+
+        //            }
+        return false;
+
+    }
+
+
+
+
+</script>

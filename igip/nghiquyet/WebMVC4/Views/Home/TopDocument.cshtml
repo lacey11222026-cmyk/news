@@ -1,0 +1,53 @@
+﻿@using BIZ
+@using UTILS
+@using WebMVC4.Helper
+@model List<BIZ.Entity.DOCUMENT_FULL>
+@if (Model != null)
+{
+
+    <div class="document-table table-responsive mt20">
+        <table>
+            <tbody>
+                <tr>
+                    <th>STT </th>
+                    <th>Số hiệu </th>
+                    <th>Tên văn bản </th>
+                    <th>Ngày ban hành </th>
+                    <th>Download </th>
+                </tr>
+                @foreach (var item in Model.Select((value, i) => new { i, value }))
+                {
+                    <tr>
+                        <td style="text-align: center">@(item.i+1) </td>
+                        <td>@item.value.Code</td>
+                        <td>
+                            <a href="@Url.Action("Detail","Document",new { id=item.value.Id})">
+                                @item.value.Name
+                            </a>
+                        </td>
+                        <td>  @Convert.ToDateTime(item.value.PublishDate).ToString(@" dd'/'MM'/'yyyy") </td>
+                        <td>
+                            <div>
+                                <a href="@Url.Action("DownloadFile", "Document", new {id = item.value.Id})">
+                                    <img src="/Content/images/ico-pdf02.png">
+                                </a>
+                                <a href="@Url.Action("ViewFile", "Document", new {id = item.value.Id})" target="_blank">Xem online</a>
+                            </div>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+    <div class="mt30 text-center"><a href="#" class="btn btn-success btn-collapse">Thu gọn</a></div>
+
+
+    <script>
+        $('.btn-collapse').click(function (e) {
+            e.preventDefault();
+            $('.search-results').slideUp();
+            $(this).hide();
+        });
+    </script>
+
+}

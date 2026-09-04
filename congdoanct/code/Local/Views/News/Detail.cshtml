@@ -1,0 +1,61 @@
+﻿@using BIZ
+@using UTILS
+@using Local.Helper
+@model BIZ.Entity.CONTENT_FULL
+
+<section class="container main-content mt10">
+    <div class="row">
+        <div class="col-md-8 col-sm-12 col-xs-12 schedule">
+            <div class="schedule-title">
+                <h3>@ViewBag.CateName</h3>
+
+                <div class="clearfix"></div>
+            </div>
+            <div class="clearfix"></div>
+            @if (Model != null)
+            {
+                <div class="tenbai">@Model.Title</div>
+                <div class="schedule-wrap mt10">
+                    @Html.Raw(Model.Contents)
+                    <div class="clearfix"></div>
+                    @if (!string.IsNullOrEmpty(Model.FileParam.Name1))
+                    {
+                    <div class="document-attach">
+                        <div class="bg_org"><span class="icon-attach"></span> Tài liệu đính kèm <div class="clear"></div></div>
+                        <ul class="list">
+
+                            <li><a title="@Model.FileParam.Name1" href="@Model.FileParam.Path1" target="_blank">@Model.FileParam.Name1 </a></li>
+                            @if (!string.IsNullOrEmpty(Model.FileParam.Name2))
+                            {
+                                <li><a title="@Model.FileParam.Name2" href="@Model.FileParam.Path2" target="_blank">@Model.FileParam.Name2 </a></li>
+                            }
+                            @if (!string.IsNullOrEmpty(Model.FileParam.Name3))
+                            {
+                                <li><a title="@Model.FileParam.Name3" href="@Model.FileParam.Path3" target="_blank">@Model.FileParam.Name3 </a></li>
+                            }
+
+
+
+
+                        </ul>
+                        <div class="clear"></div>
+                    </div>
+                    }
+                </div>
+                                }
+        </div>
+        <!-- end schedule -->
+
+        @Html.Partial("Site_Right")
+        <!-- end sidebar-->
+    </div><!-- end row-->
+    <div class="clearfix"></div>
+
+
+</section>
+<style>
+    .schedule-title h3 {
+        background: none;
+    }
+</style>
+

@@ -1,0 +1,254 @@
+﻿@using BIZ
+@using UTILS
+@using WebMVC4.Helper
+@model BIZ.Entity.CONTENT_FULL
+@{var RelateTitle = Resources.Global.RelateNews;}
+@{
+    var langpage = WorkContext.GetLanguage();
+}
+@{
+    var Type = 3;
+    if (Model.CategoryId == 72 || Model.CategoryId == 39)
+    {
+        Type = 7;
+    }
+    if (Model.CategoryId >= 81 && Model.CategoryId <= 93)
+    {
+        Type = 2;
+    }
+}
+@if (Model != null)
+{
+    <div class="bnr-detail">
+        @*<img src="/Content/img/bnr-news.jpg?vs=02" alt="" class="hidden-767">
+            <img src="/Content/img/bnr-news-mb.jpg" alt="" class="block-767">*@
+        @{Html.RenderAction("BannerTop", "Home", new { Type = Type });}
+        <div class="bnr-detail-inner">
+            <div class="container">
+                <h2>@Model.CategoryName</h2>
+            </div>
+        </div>
+    </div>
+    <div class="bg-gray pt60 pb60">
+        <div class="container detail-content">
+            <div class="breadcrumbs">
+                <ul>
+                    <li><a href="/">@Resources.Global.Home</a></li>
+                    <li><a href="@ViewBag.Url">@Model.CategoryName</a></li>
+                    @if (ViewBag.ParentCategoryId > 0)
+                    {
+                        <li><a href="@ViewBag.PCateUrl">@ViewBag.PCateName</a></li>
+                    }
+                    <li><span>@Model.Title</span></li>
+                </ul>
+            </div>
+            <p class="date mt10">@DateTime.Now.ToString("HH:mm")   |   @DateTime.Now.ToString("dd/MM/yyyy")</p>
+            <div class="row mt20">
+                <div class="col-lg-8 col-md-12">
+                    <div class="detail-content mt30">
+                        <p class="newsdetail-name-big">@Model.Title</p>
+                        <p class="date-green mt15">@Model.PublishDate.ToString("dd/MM/yyyy")</p>
+                        @if (Model.CategoryId != 39 && Model.CategoryId != 72)
+                        {
+                            <div class="mt30">
+                                <ul class="list-dot list-dot-oange suggest">
+                                    @if (ViewBag.lstRef != null)
+                                    {
+                                        foreach (var item in ViewBag.lstRef)
+                                        {
+                                            <li>
+                                                <a href="@Utils.FormatUrlRewrite(item.Id, item.Title, "ArticleDetail")">@item.Title </a>
+                                            </li>
+                                        }
+
+                                    }
+                                </ul>
+                            </div>
+                        }
+
+                        <div class="mt30">
+                            <div class="detail-icon-list sticky">
+                                <div class="choose-font">
+                                    <a href="javascript:;" onclick="addsize();"><img src="/Content/img/icon-plus.png" alt=""></a>
+                                    <a href="#"><img src="/Content/img/icon-a.png" alt=""></a>
+                                    <a href="javascript:;" onclick="plussize();"><img src="/Content/img/icon-minus.png" alt=""></a>
+                                </div>
+                                <ul class="choose-other mt10">
+                                    @*<li><a href="#"><img src="img/icon-01.png" alt=""></a></li>*@
+                                    <li><a href="javascript:void(0);" onclick="openWin('@ViewBag.FacebookShare');"><img src="/Content/img/icon-02.png" alt=""></a></li>
+                                    <li><a href="@Url.Action("Print", "News", new {Id=Model.Id})" target="_blank"><img src="/Content/img/icon-03.png" alt=""></a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="detail-text" id="NewsContent">
+                            <p class="newsdetail-typo">@Model.IntroText</p>
+                            @if (Model.Type == 2)
+                            {
+                                <script>
+w                                       indow.location='/video.html?VideoId='+'@Model.Id'
+                                </script>
+
+                            }
+
+                            @Html.Raw(Model.Contents.Replace("<div style=\"text-align: justify;\"><br></div>", "").Replace("<div><br></div>", ""))
+                        </div>
+                    </div>
+                    <div class="detail-tags mt30">
+                        <div class="detail-tags-content">
+                            @if (Model.SiteUrl != null)
+                            {
+                                if (!String.IsNullOrEmpty(Model.SiteUrl.Trim()))
+                                {
+
+                                    <p class="tags-title font-italic">Tags:</p>
+                                    <ul>
+                                        @foreach (var item in Model.SiteUrl.Split(',').Select((value, i) => new
+                                        {
+                                            i,
+                                            value
+                                        }))
+                                        {
+                                            <li>  <a href="@Url.Action("Search", new { q = item.value.Trim() })">@item.value.Trim()</a></li>
+                                        }
+                                    </ul>
+
+
+                                }
+                            }
+                        </div>
+                        <div class="text-right facebook-box">
+                            <div class="fb-like" data-href="@(Request.Url)" data-layout="button_count" data-action="like" data-show-faces="false" data-share="true"></div>
+                        </div>
+                    </div>
+                    @if ((Model.CategoryId == 39 || Model.CategoryId == 72) && ViewBag.lstRef != null)
+                    {
+                        <div class="mt50 news-project">
+                            @if (Model.CategoryId == 39)
+                            {
+                                <h2 class="title-cm">tin liên quan dự án</h2>
+                            }
+                            else
+                            {
+                                <h2 class="title-cm">PROJECT-RELATED NEWS</h2>
+                            }
+
+                            <ul class="mt20 news-project">
+                                @foreach (var item in ViewBag.lstRef)
+                                {
+                                    <li>
+                                        <a href="@Utils.FormatUrlRewrite(item.Id, item.Title, "ArticleDetail")">@item.Title </a>
+                                    </li>
+                                }
+                            </ul>
+                        </div>
+                    }
+                <div class="other-news pt-3">
+                    @if (Model.CategoryId == 39)
+                    {
+                        <h2 class="title-cm">Các dự án VAS</h2>
+                    }
+                    else
+                    {
+                        if (Model.CategoryId == 72)
+                        {
+                            <h2 class="title-cm">VAS PROJECTS</h2>
+                        }
+                        else
+                        {
+                            if (Model.CategoryId == 44 || Model.CategoryId == 55)
+                            {
+                                <h2 class="title-cm">@Resources.Global.RelateNews</h2>
+                            }
+                            else
+                            {
+                                if (langpage == "vi-vn")
+                                {
+                                    <h2 class="title-cm">Tài liệu liên quan</h2>
+                                }
+                                else
+                                {
+                                    <h2 class="title-cm">Related materials</h2>
+                                }
+                            }
+                        }
+
+                    }
+
+                    @{Html.RenderAction("Relate", "News", new { CategoryId = Model.CategoryId });}
+                </div><!-- end other news-->
+
+                </div><!-- end content left-->
+                @Html.Partial("Site_Right2")
+            </div><!-- end content-->
+        </div>
+    </div>
+
+
+}
+<script>
+    $('.news_detail_img').removeAttr('style');
+    $('.news_detail_img').attr('style', 'margin:0 auto;text-align:center');
+    $('#NewsContent table').removeAttr('width');
+    $('#NewsContent span img').removeAttr('width');
+    $('#NewsContent img').removeAttr('width');
+    $('#NewsContent img').removeAttr('height');
+    $('#NewsContent img').removeAttr('style');
+
+</script>
+<style>
+
+    #NewsContent ul {
+        display: block;
+        list-style-type: disc;
+        margin-block-start: 1em;
+        margin-block-end: 1em;
+        margin-inline-start: 0px;
+        margin-inline-end: 0px;
+        padding-inline-start: 40px;
+    }
+
+    #NewsContent li {
+        display: list-item;
+        list-style-type: disc;
+        text-align: -webkit-match-parent;
+    }
+</style>
+<script type="text/javascript">
+
+    function openWin(url) {
+        var myWindow = window.open(url, '', 'width=700,height=500');
+        myWindow.focus();
+    }
+</script>
+<script>
+    $('.news_detail_img').removeAttr('style');
+    $('.news_detail_img').attr('style', 'margin:0 auto;text-align:center');
+    $('#NewsContent table').removeAttr('width');
+    $('#NewsContent span img').removeAttr('width');
+    $('#NewsContent img').removeAttr('width');
+    $('#NewsContent img').removeAttr('height');
+    $('#NewsContent img').removeAttr('style');
+
+
+    fsize = 14;
+
+    function addsize() {
+
+        fsize = fsize + 1;
+        $('#NewsContent').attr('style', 'font-size:' + fsize + 'px');
+    }
+    function plussize() {
+        if (fsize > 8) {
+            fsize = fsize - 1;
+        }
+
+        $('#NewsContent').attr('style', 'font-size:' + fsize + 'px');
+    }
+</script>
+<script type="text/javascript">
+
+$('#menu_' + '@ViewBag.CurrentCategoryId').addClass("active");
+
+$('#menu_' + '@ViewBag.ParentCategoryId').addClass("active");
+
+</script>

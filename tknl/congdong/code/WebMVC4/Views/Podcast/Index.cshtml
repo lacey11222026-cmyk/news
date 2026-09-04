@@ -1,0 +1,146 @@
+﻿@using BIZ
+@using UTILS
+@using WebMVC4.Helper
+@model BIZ.Entity.CONTENT_FULL
+
+
+<div class="container mt30">
+    <div class="">
+        <h2 class="title-cm text-center"><a href="#">Chuyện của chuyên gia</a></h2>
+        <div class="box-gray">
+            <div class="podcast-bignew">
+                <div class="img-wrap"><a href="#"><img src="@Model.MainImage?w=407&mode=crop" alt=""></a></div>
+                <div class="podcast-bignew-content">
+                    <p class="dategray">@Model.PublishDate.ToString("dd/MM/yyyy")</p>
+                    <h3 class="news-name mt15">@Model.Title</h3>
+                    <p class="mt20">
+                        @Model.IntroText
+                    </p>
+                    <div class="mp3 mt50">
+                        <div class="audio-player">
+                            <audio id="audioFile" src="@Model.Url"></audio>
+                            <div class="audio-progress-bar" id="audioProgressBar">
+                                <div class="audio-progress" id="audioProgress"></div>
+                            </div>
+                            <div class="audio-nav mt30">
+                                <div class="volume-controls">
+                                    <button onclick="changeVolume(-0.1)"><img src="/Content/images/speaker-01.svg" alt="" width="22"></button>
+                                    <input type="range" id="volumeSlider" min="0" max="1" step="0.01" value="1">
+                                    <button onclick="changeVolume(0.1)"><img src="/Content/images/speaker-02.svg" alt="" width="25"></button>
+                                </div>
+                                <div class="audio-time">
+                                    <button onclick="skipTime(-10)" class="audio-back">10s</button>
+                                    <button id="playPauseButton" onclick="togglePlayPause()"></button>
+                                    <button onclick="skipTime(10)" class="audio-next">10s</button>
+                                </div>
+                                <div class="speed-controls">
+                                    <label for="speedSelect">Tốc độ phát:</label>
+                                    <select id="speedSelect" onchange="changeSpeed(this.value)">
+                                        <option value="0.5">0.5x</option>
+                                        <option value="1" selected>1x</option>
+                                        <option value="1.5">1.5x</option>
+                                        <option value="2">2x</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <!--                <span id="currentTime">0:00</span>-->
+                            <!--                <span id="totalTime">0:00</span>-->
+                        </div>
+                    </div>
+                    <div class="mt50">
+                        <ul class="network">
+                            <li><a href="javascript:void(0);" onclick="openWin('@ViewBag.FacebookShare');" class="icon-small"><img src="/Content/images/icon-like.svg" alt="" width="18">Thích</a></li>
+                            <li><a href="javascript:void(0);" onclick="openWin('@ViewBag.FacebookShare');" class="icon-small"><img src="/Content/images/icon-share.svg" alt="" width="18">Chia sẻ</a></li>
+                            <li><a href="javascript:void(0);" onclick="copyFromElement()" class="icon-small"><img src="/Content/images/icon-link.svg" alt="" width="18">Copy link</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div><!-- end container -->
+<div class="container pt60 pb100">
+    <h2 class="title-cm text-center"><a href="#">PODCAST MỚI NHẤT</a></h2>
+    <div id="lstVideo">
+        @Html.Action("LoadVideo", new { VideoId = Model.Id, page = 1 })
+    </div>
+    
+</div>
+
+
+
+<script type="text/javascript">
+
+    function openWin(url) {
+        var myWindow = window.open(url, '', 'width=700,height=500');
+        myWindow.focus();
+    }
+
+</script>
+<script>
+    function copyFromElement() {
+        const text = "@ViewBag.Url"
+        navigator.clipboard.writeText(text)
+            .then(() => alert("Đã copy: " + text));
+    }
+</script>
+<script src="/Content/js/audio.js" type="text/javascript"></script>
+@*<script src="https://kit.fontawesome.com/9d8584fa51.js" crossorigin="anonymous"></script>
+<script>
+    var audio = document.getElementById('audioFile');
+    var progressBar = document.getElementById('progressBar');
+    var progress = document.getElementById('progress');
+    var playPauseButton = document.getElementById('playPauseButton');
+    var audioPlayer = document.querySelector('.audio-player');
+    var currentTimeElem = document.getElementById('currentTime');
+    var totalTimeElem = document.getElementById('totalTime');
+
+    // Toggle play/pause functionality and button appearance
+    function togglePlayPause() {
+        if (audio.paused || audio.ended) {
+            audio.play();
+            audioPlayer.classList.add('audio-playing');
+        } else {
+            audio.pause();
+            audioPlayer.classList.remove('audio-playing');
+        }
+    }
+
+    // Update the progress bar
+    audio.ontimeupdate = function () {
+        var percentage = Math.floor((100 / audio.duration) * audio.currentTime);
+        progress.style.width = percentage + '%';
+    }
+
+    // Click on progress bar to change the time
+    progressBar.addEventListener('click', function (e) {
+        var offset = this.getBoundingClientRect();
+        var x = e.pageX - offset.left;
+        audio.currentTime = (x / progressBar.offsetWidth) * audio.duration;
+    });
+
+    // Adjust progress element to grow from left to right
+    function skipTime(seconds) {
+        audio.currentTime += seconds;
+    }
+
+    // Format time in minutes:seconds
+    function formatTime(seconds) {
+        var minutes = Math.floor(seconds / 60);
+        var seconds = Math.floor(seconds % 60);
+        return minutes + ':' + (seconds < 10 ? '0' + seconds : seconds);
+    }
+
+    // Update the current time display
+    audio.ontimeupdate = function () {
+        var percentage = Math.floor((100 / audio.duration) * audio.currentTime);
+        progress.style.width = percentage + '%';
+        currentTimeElem.textContent = formatTime(audio.currentTime);
+    };
+
+    // Set the total time display
+    audio.onloadedmetadata = function () {
+        totalTimeElem.textContent = formatTime(audio.duration);
+    };
+
+</script>*@

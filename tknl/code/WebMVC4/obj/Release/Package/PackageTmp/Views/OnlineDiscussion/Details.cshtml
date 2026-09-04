@@ -1,0 +1,309 @@
+﻿<div class="detail">
+    @*<div class="tit_cate2"><span>Giao lưu trực tuyến</span></div>*@
+    <div class="share">
+        <div style="clear: both"></div>
+    </div>
+    <div class="paddetail" style="background: rgba(255,255,255,.5); width: 640px; padding: 5px;">
+        @*<span class="fl">@(new WebMVC4.libs.DateTimeUtil().ReadDay(ViewBag.DateCreate))</span>*@
+        <div class="title_c1"><a href="/giao-luu-truc-tuyen.html">GIAO LƯU TRỰC TUYẾN</a></div>
+        <div class="giaoluubox">
+            <a class="giaoluu_image">
+                <img src="@ViewBag.BgImg" width="640" height="400"><br />
+            </a>
+            <div class="giaoluu_content">
+                <b>@ViewBag.Title</b><br />
+                <span>@ViewBag.Summary</span>
+            </div>
+        </div>
+
+        @Html.Raw(ViewBag.Discuss)
+
+        <div style="clear: both"></div>
+        <script type="text/javascript">
+            if ($('.urlVideo').size() > 0) {
+                $('.detail video').remove();
+                $('.detail object').remove();
+            }
+            $('.urlVideo').each(function (i, j) {
+                var file = $(this).text();
+                if (file.indexOf("youtube.com") == -1) {
+                    $(this).replaceWith('<video id="' + "video_" + i + '" src="' + file + '" width="620" height="350" controls="controls" preload="none"></video>');
+                }
+                else {
+                    $(this).replaceWith('<video width="620" height="350" id="' + "video_" + i + '" preload="none"> \
+                                    <source type="video/youtube" src="' + file + '" /> \
+                                </video>');
+                }
+            });
+            $('video').attr('poster', '@ViewBag.ImgPathReal');
+            $('video').attr('width', '620').attr('height', '350');
+            $('video,audio').mediaelementplayer();
+        </script>
+
+        @if (ViewBag.StartTime <= DateTime.Now && DateTime.Now <= ViewBag.EndTime)
+        {
+            <fieldset class="fieldQuestion">
+                <legend>Tham gia giao lưu</legend>
+                @if (ViewBag.ReaderID <= 0)
+                {
+                    <table width="100%" border="0" cellspacing="3" cellpadding="3">
+
+                        <tr>
+                            <td align="right" class="t_dangky">Họ và tên</td>
+                            <td>
+                                <input type="text" name="textfield" id="txtName" maxlength="50" class="dangky_form" style="width: 340px;" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td align="right" class="t_dangky">Tuổi</td>
+                            <td>
+                                <input type="text" name="textfield2" id="txtAge" style="width: 70px;" class="dangky_form" onkeypress=" return /\d/.test(String.fromCharCode(((event || window.event).which || (event || window.event).which))); " />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td align="right" class="t_dangky">Giới tính</td>
+                            <td>
+                                <select id="ddlSex" class="dangky_form" style="width: 70px;">
+                                    <option value="1">Nam</option>
+                                    <option value="0">Nữ</option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td align="right" class="t_dangky">Nơi ở hiện tại</td>
+                            <td>
+                                <input type="text" id="txtLocation" maxlength="250" style="width: 340px;" name="textfield3" id="textfield3" class="dangky_form" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td align="right" class="t_dangky">Câu hỏi giao lưu</td>
+                            <td>
+                                <select id="dllGuest" class="dangky_form" style="width: 400px;">
+                                    @foreach (WebMVC4.libs.Guest item in ViewBag.lstGuest)
+                                    {
+                                        <option value="@item.GuestId">@item.FullName</option>
+                                    }
+
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td align="right" class="t_dangky">Câu hỏi</td>
+                            <td>
+                                <textarea id="txtQuestion1" style="width: 98%; height: 90px; border: 1px solid #CACACA; color: #333333; font: 11px Tahoma, Geneva, sans-serif; overflow: auto;"
+                                          cols="20"
+                                          rows="5"></textarea>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td align="right">&nbsp;</td>
+                            <td>
+                                <input id="btnReg" type="button" class="t_dangky" value="Gửi câu hỏi" />
+                            </td>
+                        </tr>
+                    </table>
+
+                    <br />
+                    <div class="online-reader">
+                        <h2>@Html.Raw(ViewBag.Reader)</h2>
+                    </div>
+                }
+
+                @if (ViewBag.ReaderID > 0)
+                {
+                    <div class="online-question">
+                        <table border="0" cellpadding="2" width="100%">
+                            <tr>
+                                <td>
+                                    <select id="dllGuest" class="dangky_form" style="width: 400px;">
+                                        @foreach (WebMVC4.libs.Guest item in ViewBag.lstGuest)
+                                        {
+                                            <option value="@item.GuestId">@item.FullName</option>
+                                        }
+
+                                    </select>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td width="90%" valign="top">
+
+                                    <textarea id="txtQuestion" style="width: 98%; height: 90px; border: 1px solid #CACACA; color: #333333; font: 11px Tahoma, Geneva, sans-serif; overflow: auto;"
+                                              cols="20"
+                                              rows="5"></textarea>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td align="left" valign="top" width="10%">
+                                    <input id="btnPost" type="button" class="t_dangky" value="Gửi câu hỏi" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2">
+                                    <span id="post_error" style="color: Red;"></span>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                }
+            </fieldset>
+        }
+
+        <br />
+        <div style="clear: both"></div>
+        <div id="div_discuss">
+        </div>
+        <br />
+        <div class="phantrang" id="pager" style="float: left;">
+        </div>
+        <div id="div_discuss_loading" style="float: left">
+        </div>
+        <div style="clear: both"></div>
+        <br />
+    </div>
+</div>
+
+<script type="text/javascript">
+    /*if (navigator.userAgent.match(/Android/i) ||
+                navigator.userAgent.match(/webOS/i) ||
+                navigator.userAgent.match(/iPhone/i) ||
+                navigator.userAgent.match(/iPad/i) ||
+                navigator.userAgent.match(/iPod/i) ||
+                navigator.userAgent.match(/BlackBerry/) ||
+                navigator.userAgent.match(/Windows Phone/i) ||
+                navigator.userAgent.match(/ZuneWP7/i)
+            ) {
+        $(".paddetail img").each(function (i) {
+            if ($(this).width() > 273) {
+                $(this).css('width', '273px');
+            }
+            if ($(this).height() > 185) {
+                $(this).css('height', '185px');
+            }
+
+        });
+    }*/
+    $(document).ready(function () {
+        $(".paddetail img").each(function (i) {
+            if ($(this).width() > 640) {
+                $(this).css('width', '640px');
+            }
+        });
+    });
+
+
+
+    $("#loading").hide();
+    //$("#btnReg").show();
+    function regQuestion() {
+        var _name = $('#txtName').val();
+        var _age = $('#txtAge').val();
+        var _sex = $('#ddlSex').val();
+        var _location = $('#txtLocation').val();
+        var _question = $('#txtQuestion1').val();
+
+        if (_name == "" || _age == "" || _location == "" || _question == "") {
+            alert("Bạn vui lòng điền đầy đủ thông tin");
+            return;
+        }
+        $("#loading").show();
+        $.post('@(Url.Action("RegisterAdd", "OnlineDiscussion") + "")', { name: _name, age: _age, sex: _sex, location: _location, ques : _question }, function (data) {
+            if (data > 0) {
+                window.location = "/";
+                return;
+            }
+            alert(data);
+            $("#loading").hide();
+        });
+    };
+
+</script>
+
+
+<script type="text/javascript">
+    var currPage = 1;
+    var pageCount = 1;
+    var discussID = @(ViewBag.DiscussID);
+        var readerID =  @(ViewBag.ReaderID);
+    var isAuto = false;
+    function getDisscuss(page) {
+        loading();
+
+        $.getJSON('@(Url.Action("GetDiscuss", "OnlineDiscussion"))', { 'id': discussID, 'p': page, 'd': $("#hdfCurrentDate").val() }, function(data) {
+                currPage = page;
+                pageCount = parseInt(data.totalPage);
+
+                $("#div_discuss").html(data.items);
+                $("#div_discuss_loading").html("");
+                $("#pager").pager({ pagenumber: page, pagecount: pageCount, buttonClickCallback: PageClick });
+
+                if(isAuto)
+                    setTimeout(function(){
+                        getDisscuss(pageCount);
+                    }, 60000);
+            });
+        }
+
+        ;
+
+        PageClick = function(pageclickednumber) {
+            $("#pager").pager({ pagenumber: pageclickednumber, pagecount: pageCount, buttonClickCallback: PageClick });
+            if (pageclickednumber == pageCount)
+                isAuto = true;
+            else
+                isAuto = false;
+            getDisscuss(pageclickednumber);
+        };
+
+        function postQuestion() {
+            if (validRequireField($("#txtQuestion").val(), "Câu hỏi")) {
+                $("#btnPost").attr('disabled', 'disabled');
+
+                var dataString = "id=" + discussID + "&r=" + readerID+ "&q=" + $("#txtQuestion").val() + "&g=" + $('#dllGuest').val();
+                $.ajax({
+                    type: "POST",
+                    url: "@(Url.Action("PostQuestion", "OnlineDiscussion") + "")",
+                    data: dataString,
+                    cache: false,
+                    success: function(data) {
+                        if (data == "-1") {
+                            alert("Bạn hãy điền đầy đủ thông tin.");
+                            return;
+                        } else if (data == "-2") {
+                            alert("Bạn hãy chờ 10 giây để tiếp tục đưa ý kiến.");
+                            return;
+                        } else {
+                            $("#txtQuestion").val("");
+
+                            alert("Thông tin của bạn đã được gửi.");
+                        }
+
+                        $("#btnPost").attr('disabled', '');
+                    }
+                });
+            }
+        }
+
+        ;
+
+        function validRequireField(str, name) {
+
+            if ($.trim(str) == "" || $.trim(str) == name) {
+                alert(name + " không được để trống.");
+                return false;
+            }
+
+            return true;
+        }
+
+        function loading() {
+            $("#div_discuss_loading").html("<div style='margin: 0px auto;'>Loading ...</div>");
+        }
+
+        $(document).ready(function() {
+            $("#btnPost").click(postQuestion);
+            $("#btnReg").click(regQuestion);
+            getDisscuss(1);
+
+        });
+
+</script>

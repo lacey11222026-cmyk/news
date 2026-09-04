@@ -1,0 +1,303 @@
+﻿@using CMS
+@{
+    var IsUser = Request.IsAuthenticated;
+    var IsCategory = false;
+    var IsAlbum = false;
+    var IsContact = false;
+    var IsDocument = false;
+    var IsNews = false;
+    var IsAdmin = false;
+    var IsReport = false;
+    var IsComment = false;
+    var IsMark = false;
+   
+    var IsSurvey = false;
+    bool IsBanner = HttpContext.Current.User.IsInRole("Administrator") || HttpContext.Current.User.IsInRole("Banner");
+    if (HttpContext.Current.User.IsInRole("Administrator") || HttpContext.Current.User.IsInRole("Survey"))
+    {
+        IsSurvey = true;
+    }
+    if (HttpContext.Current.User.IsInRole("Administrator") || HttpContext.Current.User.IsInRole("Document"))
+    {
+        IsDocument = true;
+    }
+    if (HttpContext.Current.User.IsInRole("Administrator") || HttpContext.Current.User.IsInRole("Category"))
+    {
+        IsCategory = true;
+    }
+    if (HttpContext.Current.User.IsInRole("Administrator") || HttpContext.Current.User.IsInRole("Album"))
+    {
+        IsAlbum = true;
+    }
+
+    if (HttpContext.Current.User.IsInRole("Administrator") || HttpContext.Current.User.IsInRole("Comment"))
+    {
+        IsComment = true;
+    }
+    if (HttpContext.Current.User.IsInRole("Administrator") || HttpContext.Current.User.IsInRole("Contact"))
+    {
+        IsContact = true;
+    }
+    if (HttpContext.Current.User.IsInRole("Administrator") || HttpContext.Current.User.IsInRole("Report"))
+    {
+        IsReport = true;
+    }
+
+    if (HttpContext.Current.User.IsInRole("Administrator"))
+    {
+        IsAdmin = true;
+    }
+    if (HttpContext.Current.User.IsInRole("Administrator") || HttpContext.Current.User.IsInRole("Mark"))
+    {
+        IsMark = true;
+    }
+
+    if (HttpContext.Current.User.IsInRole("Administrator") || HttpContext.Current.User.IsInRole("NewsEdit") || HttpContext.Current.User.IsInRole("NewsPublish") || HttpContext.Current.User.IsInRole("NewsCreate"))
+    {
+        IsNews = true;
+    }
+
+}
+<ul id="main_menu">
+
+    <li>
+        <a href="@MvcApplication.SiteUrl">
+            <img src="/Styles/admin/images/icon_home.png" alt="Home" />Trang
+            chủ
+        </a>
+        <li>
+    @if (IsUser)
+    {
+        <li>
+            <a href="javascript:void(0)" id="menu_generate">
+                <img src="/Styles/admin/images/icon_display.png" alt="Users" />Quản trị chung
+            </a>
+            <ul>
+                <li>
+                    <a href="@Url.Action("Index", "Admin")">Khung
+                        điều khiển
+                    </a>
+                    <a href="@Url.Action("MultiUpload", "Admin")">Upload nhiều file</a>
+                    <a href="@Url.Action("UserEdit", "Admin")">Thông tin tài khoản</a>
+                </li>
+            </ul>
+        </li>
+
+
+    }
+    @if (IsCategory || IsSurvey || IsBanner)
+    {
+        <li>
+            <a href="javascript:void(0)" id="menu_category">
+                <img src="/Styles/admin/images/icon_category.png" alt="System" />Chuyên mục
+            </a>
+            <ul>
+                @if (IsCategory)
+                {
+                    <li><a href="@Url.Action("Index", "AdminCategory")">Quản trị chuyên mục</a> </li>
+                    <li><a href="@Url.Action("Intro", "AdminCategory")">Quản trị nội dung giới thiệu</a> </li>
+
+                }
+                @if (IsBanner)
+                {
+                    <li><a href="@Url.Action("Banner", "AdminCategory")">Quản trị banner</a> </li>
+
+                }
+                @if (IsSurvey)
+                {
+                    <li><a href="@Url.Action("Survey", "AdminCategory")">Quản trị khảo sát</a> </li>
+                    <li><a href="@Url.Action("ConfigHotSurvey", "AdminCategory")">Cấu hình khảo sát nổi bật</a> </li>
+
+                }
+
+
+            </ul>
+        </li>
+    }
+    @if (IsNews)
+    {
+
+        <li>
+            <a href="javascript:void(0)" id="menu_news">
+                <img src="/Styles/admin/images/icon_news.png" alt="System" />Tin tức
+            </a>
+            <ul>
+                <li><a href="@Url.Action("Add", "AdminNews2")">Thêm mới</a></li>
+
+
+
+                @if (HttpContext.Current.User.IsInRole("Administrator") || HttpContext.Current.User.IsInRole("NewsPublish") || HttpContext.Current.User.IsInRole("NewsEdit"))
+                {
+                    //chung
+                    <li><a href="@Url.Action("NewsByCTV", "AdminNews2", new { Status = (int)UTILS.Constants.NewsStatus.Draft })">Đang viết</a></li>
+
+                    //thu ky toa soan: ca bien tap + xuat ban
+                    if (HttpContext.Current.User.IsInRole("Administrator") || (HttpContext.Current.User.IsInRole("NewsPublish") && HttpContext.Current.User.IsInRole("NewsEdit")))
+                    {
+                    <li><a href="@Url.Action("NewsByXB", "AdminNews2", new { Status = (int)UTILS.Constants.NewsStatus.PublishWait })">Chờ xuất bản</a></li>
+                    <li><a href="@Url.Action("NewsByXB", "AdminNews2", new { Status = (int)UTILS.Constants.NewsStatus.Publish })">Đã xuất bản</a></li>
+                    <li><a href="@Url.Action("NewsByBT", "AdminNews2", new { Status = (int)UTILS.Constants.NewsStatus.EditReject })">Trả biên tập</a></li>
+                    <li><a href="@Url.Action("NewsByBT", "AdminNews2", new { Status = (int)UTILS.Constants.NewsStatus.Reject })">Trả phóng viên</a></li>
+                    <li><a href="@Url.Action("NewsByBT", "AdminNews2", new { Status = (int)UTILS.Constants.NewsStatus.EditWait })">Đợi biên tập</a></li>
+                    <li><a href="@Url.Action("NewsByBT", "AdminNews2", new { Status = (int)UTILS.Constants.NewsStatus.Editting })">Đang biên tập</a></li>
+                    <li><a href="@Url.Action("NewsByXB", "AdminNews2", new { Status = (int)UTILS.Constants.NewsStatus.Disable })">Thùng rác</a></li>
+
+
+                    }
+                    else
+                    {
+                        //danh cho xuat ban
+                        if (HttpContext.Current.User.IsInRole("NewsPublish"))
+                        {
+                    <li><a href="@Url.Action("NewsByXB", "AdminNews2", new { Status = (int)UTILS.Constants.NewsStatus.PublishWait })">Chờ xuất bản</a></li>
+                    <li><a href="@Url.Action("NewsByXB", "AdminNews2", new { Status = (int)UTILS.Constants.NewsStatus.Publish })">Đã xuất bản</a></li>
+                    <li><a href="@Url.Action("NewsByXB", "AdminNews2", new { Status = (int)UTILS.Constants.NewsStatus.EditReject })">Trả biên tập</a></li>
+                    <li><a href="@Url.Action("NewsByXB", "AdminNews2", new { Status = (int)UTILS.Constants.NewsStatus.Disable })">Thùng rác</a></li>
+
+                        }
+                        //danh rieng cho bien tap
+                        if (HttpContext.Current.User.IsInRole("NewsEdit"))
+                        {
+                    <li><a href="@Url.Action("NewsByBT", "AdminNews2", new { Status = (int)UTILS.Constants.NewsStatus.EditWait })">Chờ biên tập</a></li>
+
+                    <li><a href="@Url.Action("NewsByBT", "AdminNews2", new { Status = (int)UTILS.Constants.NewsStatus.Editting })">Đang biên tập</a></li>
+                    <li><a href="@Url.Action("NewsByBT", "AdminNews2", new { Status = (int)UTILS.Constants.NewsStatus.EditReject })">Bị trả lại</a></li>
+                    <li><a href="@Url.Action("NewsByBT", "AdminNews2", new { Status = (int)UTILS.Constants.NewsStatus.Reject })">Trả phóng viên</a></li>
+                    <li><a href="@Url.Action("NewsByBT", "AdminNews2", new { Status = (int)UTILS.Constants.NewsStatus.PublishWait })">Đợi xuất bản</a></li>
+                    <li><a href="@Url.Action("NewsByBT", "AdminNews2", new { Status = (int)UTILS.Constants.NewsStatus.Publish })">Đã xuất bản</a></li>
+                    <li><a href="@Url.Action("NewsByBT", "AdminNews2", new { Status = (int)UTILS.Constants.NewsStatus.Disable })">Thùng rác</a></li>
+
+
+                        }
+                    }
+
+
+                }
+                else //danh cho phong vien
+                {
+                    <li><a href="@Url.Action("NewsByCTV", "AdminNews2", new { Status = (int)UTILS.Constants.NewsStatus.Draft })">Đang viết</a></li>
+                    <li><a href="@Url.Action("NewsByCTV", "AdminNews2", new { Status = (int)UTILS.Constants.NewsStatus.Reject })">Bị trả lại</a></li>
+                    <li><a href="@Url.Action("NewsByCTV", "AdminNews2", new { Status = (int)UTILS.Constants.NewsStatus.EditWait })">Chờ biên tập</a></li>
+                    <li><a href="@Url.Action("NewsByCTV", "AdminNews2", new { Status = (int)UTILS.Constants.NewsStatus.Editting })">Đang biên tập</a></li>
+                    <li><a href="@Url.Action("NewsByCTV", "AdminNews2", new { Status = (int)UTILS.Constants.NewsStatus.EditReject })">Trả biên tập</a></li>
+                    <li><a href="@Url.Action("NewsByCTV", "AdminNews2", new { Status = (int)UTILS.Constants.NewsStatus.PublishWait })">Đợi xuất bản</a></li>
+                    <li><a href="@Url.Action("NewsByCTV", "AdminNews2", new { Status = (int)UTILS.Constants.NewsStatus.Publish })">Đã xuất bản</a></li>
+                    <li><a href="@Url.Action("NewsByCTV", "AdminNews2", new { Status = (int)UTILS.Constants.NewsStatus.Disable })">Thùng rác</a></li>
+
+
+
+                }
+
+
+            </ul>
+
+
+        </li>
+    }
+    @if (HttpContext.Current.User.IsInRole("Administrator") || HttpContext.Current.User.IsInRole("NewsPublish") || HttpContext.Current.User.IsInRole("NewsEdit"))
+    {
+
+        <li>
+            <a href="javascript:void(0)" id="menu_newsconfig">
+                <img src="/Styles/admin/images/icon_news.png" alt="System" />Cấu hình tin tức
+            </a>
+            <ul>
+                @if (HttpContext.Current.User.IsInRole("Administrator") || HttpContext.Current.User.IsInRole("NewsPublish"))
+                {
+                    <li><a href="@Url.Action("ConfigHotNews", "AdminNews2")">Cấu hình tin nổi bật</a></li>@*
+                    <li><a href="@Url.Action("ConfigHotNewsATGT", "AdminNews2")">Cấu hình tin nổi bật(ATGT)</a></li>*@
+
+                    <li><a href="@Url.Action("ConfigTopViewNews", "AdminNews2")">Cấu hình tin xem nhiều</a></li>
+                    @*<li><a href="@Url.Action("ConfigTopViewNewsATGT", "AdminNews2")">Cấu hình tin xem nhiều(ATGT)</a></li>*@
+                    if (HttpContext.Current.User.IsInRole("Administrator"))
+                    {
+                    <li><a href="@Url.Action("ConfigHotVideo", "AdminNews2")">Cấu hình video nổi bật</a></li>
+                    @*<li><a href="@Url.Action("ConfigHotPhoto", "AdminNews2")">Cấu hình tin ảnh nổi bật</a></li>*@
+                    }
+                }
+
+
+                <li><a href="@Url.Action("Index", "Spider")">Tin Crawler</a> </li>
+
+
+            </ul>
+        </li>
+    }
+
+    @if (IsDocument )
+    {
+        <li>
+            <a href="javascript:void(0)" id="menu_document">
+                <img src="/Styles/admin/images/inconchannel.png" alt="Users" />Văn bản
+            </a>
+            <ul>
+                <li><a href="@Url.Action("Index", "AdminDocument")">Quản trị Văn bản</a> </li>
+
+               
+
+
+            </ul>
+        </li>
+    }
+    @if (IsComment )
+    {
+        <li>
+            <a href="javascript:void(0)" id="menu_comment">
+                <img src="/Styles/admin/images/icon_comment.png" alt="Users" />Bình luận
+            </a>
+            <ul>
+                <li><a href="@Url.Action("Index", "AdminComment", new { status = 0, page = 1 })">Duyệt bình luận</a> </li>
+
+
+            </ul>
+        </li>
+    }
+
+    @if (IsMark && UTILS.Utils.GetAppSettingValue("EnableMark") == "1" || HttpContext.Current.User.IsInRole("Mark"))
+    {
+        <li>
+            <a href="javascript:void(0)" id="menu_mark">
+                <img src="/Styles/admin/images/icon_money.png" alt="Users" />Nhuận bút
+            </a>
+            <ul>
+                <li><a href="@Url.Action("Index", "Mark")">Chấm nhuận bút</a> </li>
+                <li><a href="@Url.Action("Report", "Mark")">Thống kê theo tác giả</a> </li>
+                <li><a href="@Url.Action("ReportByCate", "Mark")">Thống kê theo chuyên mục</a> </li>
+
+            </ul>
+        </li>
+    }
+    @if (IsReport )
+    {
+        <li>
+            <a href="javascript:void(0)" id="menu_report">
+                <img src="/Styles/admin/images/icon_st.png" alt="Users" />Thống kê
+            </a>
+            <ul>
+                <li><a href="@Url.Action("Overview", "AdminReport")">Thống kê truy cập theo giờ</a> </li>
+                <li><a href="@Url.Action("GetTopCategory", "AdminReport")">Top chuyên mục</a> </li>
+                <li><a href="@Url.Action("GetTopContent", "AdminReport")">Top bài viết</a> </li>
+                <li><a href="@Url.Action("Index", "AdminReport")">Thống kê số lượng tin bài</a> </li>
+            </ul>
+        </li>
+    }
+    @if (IsAdmin)
+    {
+        <li>
+            <a href="javascript:void(0)" id="menu_user">
+                <img src="/Styles/admin/images/icon_users.png" alt="Users" />Hệ thống
+            </a>
+            <ul>
+                <li><a href="@Url.Action("Configuration", "System")">Thiết lập</a></li>
+                <li>
+                    <a href="@Url.Action("Users", "System")">Quản trị
+                            người dùng
+                    </a>
+                </li>
+            </ul>
+        </li>
+
+
+
+    }
+</ul>

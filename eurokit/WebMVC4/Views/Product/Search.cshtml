@@ -1,0 +1,107 @@
+﻿@using BIZ
+@using UTILS
+@using WebMVC4.Helper
+@model WebMVC4.Models.ProductModel
+
+@if (Model != null)
+{
+    <section id="breadcrumb-wrapper2" class="breadcrumb-w-img">
+        <div class="breadcrumb-overlay"></div>
+        <div class="breadcrumb-content">
+            <div class="wrapper">
+                <div class="inner text-center">
+                    <div class="breadcrumb-big">
+                        <span class="h2">Tìm kiếm từ khóa "@(ViewBag.Keyword)"</span>
+                    </div>
+                    <div class="breadcrumb-small">
+                        <a href="/" title="Trang chủ">Trang chủ</a> <span aria-hidden="true">/</span>
+
+                        <span>Tìm kiếm</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <div id="PageContainer" class="is-moved-by-drawer">
+        <main class="main-content" role="main">
+            <section id="collection-wrapper">
+                <div class="wrapper">
+                    <div class="inner">
+                        <div class="grid">
+                            <div class="grid__item large--three-quarters medium--one-whole small--one-whole float-right">
+                                <div class="collection-content-wrapper">
+                                    
+                                    <div class="collection-body">
+                                        <div class="grid-uniform product-list mg-left-15">
+                                            @foreach (var item in Model.listdata.Select((value, i) => new { i, value }))
+                                            {
+
+
+                                                <div class="grid__item large--one-quarter medium--one-third small--one-half pd-left15">
+                                                    <div class="product-item">
+                                                        <div class="product-img">
+                                                            <a href="@UTILS.Utils.FormatUrlRewrite(item.value.Id,item.value.Name,"ProductDetail")" title="item.value.Name"> <img src="@item.value.DescriptImage?h=400&w=400&mode=crop" alt="item.value.Name"> </a>
+
+                                                        </div>
+                                                        <div class="product-item-info text-center">
+                                                            <div class="product-title">
+                                                                <a href="@UTILS.Utils.FormatUrlRewrite(item.value.Id,item.value.Name,"ProductDetail")" title="@item.value.Name">@item.value.Name</a>
+                                                            </div>
+                                                            <div class="product-price clearfix">
+                                                                @if (item.value.Price > 0)
+                                                                {
+
+                                                                    <span class="current-price">@Utils.InsertCommaNoStyle(item.value.Price.ToString()) đ</span>
+                                                                }
+                                                                else
+                                                                {
+                                                                    <span class="current-price">Giá liên hệ</span>
+                                                                }
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+
+                                            }
+                                        </div>
+                                        <div class="pagination not-filter">
+                                            <div id="pagination-" class="text-center clear-left">
+                                                @{Html.RenderPartial("Pagination", new WebMVC4.Models.PaginationInfo
+                                                    {
+                                                        PageUrl = Url.SetParameter("Page", "!0"),
+                                                        CurrentPage = Model.pageIndex,
+                                                        PageSize = Model.pageSize,
+                                                        TotalItemCount = Model.total,
+                                                    }); }
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="grid__item large--one-quarter medium--one-whole small--one-whole">
+                                @Html.Partial("Site_Right")
+
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+   
+    <script>
+        function loadmenu(categoryId, categoryName, manuId) {
+            $.ajax({
+                type: "Get",
+                url: "@Url.Action("TopManu")?CategoryId=" + categoryId + "&CateName=" + categoryName + "&ManuId=" + manuId,
+                success: function (data) {
+                    if (data) {
+                        $("#menu-manu").html(data);
+                    }
+                }
+            });
+        }
+    </script>
+}

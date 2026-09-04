@@ -1,0 +1,116 @@
+﻿@{
+
+    Layout = "~/Views/Shared/_VoteLayout.cshtml";
+
+}
+@using UTILS
+@using WebMVC4.Models
+@using WebMVC4.Helper
+@model WebMVC4.Models.SurveyItemModel
+
+<div style="font-family:Arial; width:100%; height: 450px;">
+    <div style="line-height: 30px; font-weight: bold; padding-left:20px;border: 1px solid #ededed;">Kết quả bình chọn</div>
+    <div style="background:#ededed; padding:1px 20px; font-size:13px;">
+        <p>
+            @Html.Raw(Model.obj.Content)
+            <span style="font-size:12px;">Tổng cộng: @Model.listdata.Sum(x => x.Count) phiếu</span>
+        </p>
+    </div>
+    <div id="container" style="min-width: 310px; max-width: 600px; height: 300px; margin: 0 auto"></div>
+</div>
+<script src="https://code.highcharts.com/highcharts.js"></script>
+<script src="https://code.highcharts.com/modules/exporting.js"></script>
+<script>
+    Highcharts.chart('container', {
+        chart: {
+            type: 'bar'
+        },
+        colors: [
+    '#4572A7',
+    '#89A54E',
+    '#80699B',
+    '#3D96AE',
+    '#DB843D',
+    '#92A8CD',
+    '#A47D7C',
+    '#B5CA92'
+        ],
+        title: {
+            text: null
+        },
+        navigation: {
+            buttonOptions: {
+                enabled: false
+            }
+        },
+        xAxis: {
+            categories: [@(Html.Raw(Model.cate))],
+            title: {
+                text: "Tiêu chí"
+            }
+        },
+        yAxis: {
+            min: 0,
+            title: {
+                text: "Số lượt"
+            },
+            labels: {
+                overflow: 'justify'
+            }
+        },
+        credits: { enabled: false },
+        tooltip: {
+           
+        },
+        plotOptions: {
+            bar: {
+                dataLabels: {
+                    enabled: true
+                },
+                colorByPoint: true
+            },
+
+        },
+        legend: {
+            layout: 'vertical',
+            align: 'right',
+            verticalAlign: 'top',
+            x: -40,
+            y: 80,
+            floating: true,
+            borderWidth: 1,
+            backgroundColor: ((Highcharts.theme && Highcharts.theme.legendBackgroundColor) || '#FFFFFF'),
+            shadow: true
+        },
+
+        series: [{
+            showInLegend: false,
+            name: 'Số lượt',
+            data: [@(Html.Raw(Model.data))]
+        }]
+    });
+</script>
+
+@*<script type="text/javascript">
+    google.load("visualization", "1", { packages: ["corechart"] });
+    google.setOnLoadCallback(drawChart);
+    function drawChart() {
+        var data = google.visualization.arrayToDataTable([@(Html.Raw(Model.data))]);
+
+        var options = {
+            legend: { position: 'top', maxLines: 5 },
+            axisTitlesPosition: 'none',
+            Axis: {
+                
+                minValue: 0,
+                viewWindow: { min: 0 }, /*this also makes 0 = min value*/
+                format: '0',
+            },
+            bar: { groupWidth: 60 },
+            chartArea: { width: '90%', height: '60%' }
+        };
+
+        var chart = new google.visualization.BarChart(document.getElementById('votechartcontainer'));
+        chart.draw(data, options);
+    }
+</script>*@

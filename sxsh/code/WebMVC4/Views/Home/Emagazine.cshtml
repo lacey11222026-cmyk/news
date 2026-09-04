@@ -1,0 +1,34 @@
+﻿@using BIZ
+@using UTILS
+@using WebMVC4.Helper
+@model WebMVC4.Models.LastestNewModel
+@if (Model != null)
+{
+
+    <div class="row">
+        <div class="col-lg-8 col-md-6 col-sm-12">
+            @foreach (var item in Model.lstdata.Take(1).Select((value, i) => new { i, value }))
+            {
+                <div class="img-big">
+                    <a href="@item.value.LinkUrl"> <img src="@item.value.MainImage2?w=765&h=431&mode=crop" alt="" class="w-100"></a>
+                </div>
+                <a href="@item.value.LinkUrl" class="news-name mt15">@item.value.Title</a>
+            }
+        </div>
+        <div class="col-lg-4 col-md-6 col-sm-12">
+            <div class="newslist-02">
+                @foreach (var item in Model.lstdata.Skip(1).Select((value, i) => new { i, value }))
+                {
+                    <div class="news-item">
+                        <a href="@item.value.LinkUrl">
+                            <img src="@item.value.MainImage2?w=163&h=108&mode=crop" alt="">
+                            <span>@item.value.Title</span>
+                        </a>
+                    </div>
+                }
+            </div>
+            <div class="text-right mt20"><a href="/tin-tuc/c66/e-magazine" class="btn-viewmore">Xem thêm +</a></div>
+        </div>
+    </div><!--/ End row-->
+   
+}

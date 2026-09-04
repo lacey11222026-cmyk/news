@@ -1,0 +1,79 @@
+﻿@using BIZ
+@using UTILS
+@using WebMVC4.Helper
+@model BIZ.Entity.CONTENT_FULL
+
+
+<div class="video-page mt30">
+    <div class="title-cm01 container"><span>Video</span></div>
+    <div class="video-big mt20">
+        <div class="wrapper-video">
+            <div class="row">
+                <div class="col-lg-8 col-md-12">
+                    <div class="movie">
+                        @if (Model.Url.Contains("youtube.com"))
+                        {
+                            <iframe src="@(Model.Url.Replace("watch?v=", "embed/"))?autoplay=1&rel=0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen style="position: absolute; top: 0px; right: 0px; bottom: 0px; left: 0px; width: 100%; height: 100%;"></iframe>
+                        }
+                        else
+                        {
+                            <video controls autoplay preload="auto" poster="@Model.MainImage" name="myvideo" id="myvideo" style="width: 100%">
+
+
+                                <source src="@Model.Url" type="video/mp4" />
+
+                            </video>
+                        }
+
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-12 pb15">
+                    <h3 class="videonews-name">@Model.Title</h3>
+                    <span class="newsdate mt10">@Model.PublishDate.ToString("dd/MM/yyyy")</span>
+                    <p class="mt20 videonews-detail">
+                        @Model.IntroText
+                    </p>
+                    @if (Model.SiteUrl != null)
+                    {
+                        if (!String.IsNullOrEmpty(Model.SiteUrl.Trim()))
+                        {
+                            <div class="tags mt50">
+
+                                <ul>
+                                    <li>Tags:</li>
+
+                                    @foreach (var item in Model.SiteUrl.Split(',').Select((value, i) => new { i, value }))
+                                    {
+                                        <li>  <a href="@Url.Action("Search", new { q = item.value.Trim() })">@item.value.Trim()</a></li>
+                                    }
+
+                                </ul>
+
+
+                            </div>
+                        }
+                    }
+
+                    <div class="mt50 likebox">
+                        <div class="fb-like" data-href="@(Model.LinkUrl)" data-layout="button_count" data-action="like" data-show-faces="false" data-share="true"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container mt30" id="lstVideo">
+        @Html.Action("LoadVideo", "Video", new { VideoId = Model.Id, page = 1 })
+
+
+
+
+    </div>
+
+
+
+
+
+
+
+
+</div><!-- end content 01 -->

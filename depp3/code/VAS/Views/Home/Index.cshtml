@@ -1,0 +1,622 @@
+﻿@using BIZ
+@using UTILS
+@using VAS.Helper
+
+@{
+    var langpage = WorkContext.GetLanguage();
+}
+@if (langpage == "vi-vn")
+{
+
+
+    <div class="vas-info container pt60">
+        <div class="vas-inner">
+            <div class="">
+                <h2 class="title-cm text-center">Dự án</h2>
+                <div class="mt50 map">
+                    <div class="map-info">
+                        <ul>
+                            <li class="map-info-item"><p><span>14</span>Dự án</p></li>
+                            <li class="map-info-item"><p><span>11</span>NGÀNH CÔNG NGHIỆP</p></li>
+                            <li class="map-info-item"><p><span>11</span>tỉnh, thành phố</p></li>
+                        </ul>
+                    </div>
+                  <div class="map-inner">
+                      <img src="/Content/img/map/map.png?vs=02" alt="" width="520" usemap="#Map">
+                      <map name="Map">
+                          <area shape="circle" coords="148,121,10" href="#" class="namdinh">
+                          <area shape="poly" coords="141,80,145,72,153,78,161,73,163,69,172,73,176,80,171,86,170,86,157,84,148,86,140,84,139,78,145,72" href="#" class="bacgiang">
+                          <area shape="poly" coords="99,68,99,78,99,87,106,95,111,95,113,96,113,87,119,80,113,73,110,66" href="#" class="phutho">
+                          <area shape="poly" coords="134,158,118,152,110,145,107,135,102,130,86,145,70,144,67,152,60,159,75,167,84,171,102,180,109,183,119,184,127,184,132,178,127,171,129,164" href="#" class="nghean">
+                          <area shape="poly" coords="122,519,135,520,134,518,134,512,129,512,125,508,121,506,116,506,114,508,112,511" href="#" class="cantho">
+                          <area shape="poly" coords="113,551,111,541,102,536,96,538,94,554,94,565,92,573,105,572,112,565,118,557" href="#" class="camau">
+                          <area shape="poly" coords="126,50,121,58,122,68,127,77,132,78,134,78,140,76,143,69,147,66,143,64,144,53,131,61,130,50,124,49" href="#" class="thainguyen">
+                          <area shape="poly" coords="150,103,156,101,157,98,160,94,158,88,153,85,150,94,145,95,147,100,148,107" href="#" class="haiduong">
+                          <area shape="poly" coords="145,93,136,90,134,97,138,104,143,112,154,102,148,102,145,97" href="#" class="hungyen">
+                          <area shape="poly" coords="79,118,85,109,93,107,104,108,114,114,127,123,139,129,145,132,135,143,133,151,132,158,118,151,108,143,109,135,100,128,89,123,90,115,82,118" href="#" class="thanhhoa">
+                          <area shape="poly" coords="167,467,168,463,167,457,153,460,155,473,161,476,165,482,171,485,175,476,178,470" href="#" class="binhduong">
+                      </map>
+                      <div class="area-list">
+                          <div class="haiduong-content map-item">
+                              <p class="name-add-mb">Tỉnh: Hải Dương</p>
+                              <img src="/Content/img/map/haiduong.png?vs=01" alt="" width="520" usemap="#Map" class="haiduong-img map-img">
+                              <div class="circle"></div>
+                              <div class="line"></div>
+                              <div class="area-content">
+                                  <div>
+                                      <ul class="list-area">
+                                          <li><i class="icon-add"></i>Tỉnh: <span class="area-name">Hải Dương</span></li>
+                                          <li><i class="icon-project"></i>Tổng số dự án: <span>01</span></li>
+                                          <li><i class="icon-service"></i>Lĩnh vực: <span>Vật liệu xây dựng</span></li>
+                                      </ul>
+                                  </div>
+                              </div>
+                          </div>
+                          <div class="thainguyen-content map-item">
+                              <p class="name-add-mb">Tỉnh: Thái Nguyên</p>
+                              <img src="/Content/img/map/thainguyen.png?v=01" alt="" width="520" usemap="#Map" class="thainguyen-img map-img">
+                              <div class="circle"></div>
+                              <div class="line"></div>
+                              <div class="area-content">
+                                  <div>
+                                      <ul class="list-area">
+                                          <li><i class="icon-add"></i>Tỉnh: <span class="area-name">Thái Nguyên</span></li>
+                                          <li><i class="icon-project"></i>Tổng số dự án: <span>02</span></li>
+                                          <li><i class="icon-service"></i>Lĩnh vực: <span>Thép, Cơ khí</span></li>
+                                      </ul>
+                                  </div>
+                              </div>
+                          </div>
+                          <div class="bacgiang-content map-item">
+                              <p class="name-add-mb">Tỉnh: Bắc Giang</p>
+                              <img src="/Content/img/map/bacgiang.png?v=01" alt="" width="520" usemap="#Map" class="bacgiang-img map-img">
+                              <div class="circle"></div>
+                              <div class="line"></div>
+                              <div class="area-content">
+                                  <div>
+                                      <ul class="list-area">
+                                          <li><i class="icon-add"></i>Tỉnh: <span class="area-name">Bắc Giang</span></li>
+                                          <li><i class="icon-project"></i>Tổng số dự án: <span>01</span></li>
+                                          <li><i class="icon-service"></i>Lĩnh vực: <span>Giấy</span></li>
+                                      </ul>
+                                  </div>
+                              </div>
+                          </div>
+                          <div class="namdinh-content map-item">
+                              <p class="name-add-mb">Tỉnh: Nam Định</p>
+                              <img src="/Content/img/map/namdinh.png?v=01" alt="" width="520" usemap="#Map" class="namdinh-img map-img">
+                              <div class="circle"></div>
+                              <div class="line"></div>
+                              <div class="area-content">
+                                  <div>
+                                      <ul class="list-area">
+                                          <li><i class="icon-add"></i>Tỉnh: <span class="area-name">Nam Định</span></li>
+                                          <li><i class="icon-project"></i>Tổng số dự án: <span>01</span></li>
+                                          <li><i class="icon-service"></i>Lĩnh vực: <span>Chế biến gỗ</span></li>
+                                      </ul>
+                                  </div>
+                              </div>
+                          </div>
+                          <div class="hungyen-content map-item">
+                              <p class="name-add-mb">Tỉnh: Hưng Yên</p>
+                              <img src="/Content/img/map/hungyen.png?v=01" alt="" width="520" usemap="#Map" class="hungyen-img map-img">
+                              <div class="circle"></div>
+                              <div class="line"></div>
+                              <div class="area-content">
+                                  <div>
+                                      <ul class="list-area">
+                                          <li><i class="icon-add"></i>Tỉnh: <span class="area-name">Hưng Yên</span></li>
+                                          <li><i class="icon-project"></i>Tổng số dự án: <span>01</span></li>
+                                          <li><i class="icon-service"></i>Lĩnh vực: <span>Bia</span></li>
+                                      </ul>
+                                  </div>
+                              </div>
+                          </div>
+                          <div class="phutho-content map-item">
+                              <p class="name-add-mb">Tỉnh: Phú Thọ</p>
+                              <img src="/Content/img/map/phutho.png?v=01" alt="" width="520" usemap="#Map" class="phutho-img map-img">
+                              <div class="circle"></div>
+                              <div class="line"></div>
+                              <div class="area-content">
+                                  <div>
+                                      <ul class="list-area">
+                                          <li><i class="icon-add"></i>Tỉnh: <span class="area-name">Phú Thọ</span></li>
+                                          <li><i class="icon-project"></i>Tổng số dự án: <span>01</span></li>
+                                          <li><i class="icon-service"></i>Lĩnh vực: <span>Vật liệu xây dựng</span></li>
+                                      </ul>
+                                  </div>
+                              </div>
+                          </div>
+                          <div class="nghean-content map-item">
+                              <p class="name-add-mb">Tỉnh: Nghệ An</p>
+                              <img src="/Content/img/map/nghean.png?v=01" alt="" width="520" usemap="#Map" class="nghean-img map-img">
+                              <div class="circle"></div>
+                              <div class="line"></div>
+                              <div class="area-content">
+                                  <div>
+                                      <ul class="list-area">
+                                          <li><i class="icon-add"></i>Tỉnh: <span class="area-name">Nghệ An</span></li>
+                                          <li><i class="icon-project"></i>Tổng số dự án: <span>01</span></li>
+                                          <li><i class="icon-service"></i>Lĩnh vực: <span>Chế biến gỗ</span></li>
+                                      </ul>
+                                  </div>
+                              </div>
+                          </div>
+                          <div class="thanhhoa-content map-item">
+                              <p class="name-add-mb">Tỉnh: Thanh Hóa</p>
+                              <img src="/Content/img/map/thanhhoa.png?v=01" alt="" width="520" usemap="#Map" class="thanhhoa-img map-img">
+                              <div class="circle"></div>
+                              <div class="line"></div>
+                              <div class="area-content">
+                                  <div>
+                                      <ul class="list-area">
+                                          <li><i class="icon-add"></i>Tỉnh: <span class="area-name">Thanh Hóa</span></li>
+                                          <li><i class="icon-project"></i>Tổng số dự án: <span>02</span></li>
+                                          <li><i class="icon-service"></i>Lĩnh vực: <span>Nhiệt điện, Xi măng</span></li>
+                                      </ul>
+                                  </div>
+                              </div>
+                          </div>
+                          <div class="binhduong-content map-item">
+                              <p class="name-add-mb">Tỉnh: Bình Dương</p>
+                              <img src="/Content/img/map/binhduong.png?v=01" alt="" width="520" usemap="#Map" class="binhduong-img map-img">
+                              <div class="circle"></div>
+                              <div class="line"></div>
+                              <div class="area-content">
+                                  <div>
+                                      <ul class="list-area">
+                                          <li><i class="icon-add"></i>Tỉnh: <span class="area-name">Bình Dương</span></li>
+                                          <li><i class="icon-project"></i>Tổng số dự án: <span>01</span></li>
+                                          <li><i class="icon-service"></i>Lĩnh vực: <span>Dệt may</span></li>
+                                      </ul>
+                                  </div>
+                              </div>
+                          </div>
+                          <div class="cantho-content map-item">
+                              <p class="name-add-mb">Tỉnh: Cần Thơ</p>
+                              <img src="/Content/img/map/cantho.png?v=01" alt="" width="520" usemap="#Map" class="cantho-img map-img">
+                              <div class="circle"></div>
+                              <div class="line"></div>
+                              <div class="area-content">
+                                  <div>
+                                      <ul class="list-area">
+                                          <li><i class="icon-add"></i>Tỉnh: <span class="area-name">Cần Thơ</span></li>
+                                          <li><i class="icon-project"></i>Tổng số dự án: <span>02</span></li>
+                                          <li><i class="icon-service"></i>Lĩnh vực: <span>Thép, Thủy hải sản</span></li>
+                                      </ul>
+                                  </div>
+                              </div>
+                          </div>
+                          <div class="camau-content map-item">
+                              <p class="name-add-mb">Tỉnh: Cà Mau</p>
+                              <img src="/Content/img/map/camau.png?v=01" alt="" width="520" usemap="#Map" class="camau-img map-img">
+                              <div class="circle"></div>
+                              <div class="line"></div>
+                              <div class="area-content">
+                                  <div>
+                                      <ul class="list-area">
+                                          <li><i class="icon-add"></i>Tỉnh: <span class="area-name">Cà Mau</span></li>
+                                          <li><i class="icon-project"></i>Tổng số dự án: <span>01</span></li>
+                                          <li><i class="icon-service"></i>Lĩnh vực: <span>Phân bón</span></li>
+                                      </ul>
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+                </div>
+            </div>
+            <div class="vas-intro">
+                <h2 class="title-cm text-center">VAS LÀ GÌ</h2>
+                <p class="mt50">
+                    Chương trình Thỏa thuận tự nguyện thúc đẩy sử dụng năng lượng tiết kiệm và hiệu quả trong lĩnh vực công nghiệp (Chương trình VAS) cung cấp hỗ trợ chất lượng cao cho các doanh nghiệp công nghiệp nhằm cải thiện hiệu quả năng lượng cho doanh nghiệp. Khi các doanh nghiệp tham gia VAS, Chương trình DEPP3 sẽ cung cấp các chuyên gia kỹ thuật với hiểu biết chuyên sâu về các quy trình sản xuất trong các ngành/phân ngành công nghiệp để hỗ trợ doanh nghiệp thực hiện kiểm toán năng lượng chất lượng cao, nghiên cứu tính khả thi của các giải pháp tiết kiệm năng lượng tiềm năng để doanh nghiệp xem xét quyết định triển khai đầu tư.
+                </p>
+                <div class="text-center mt40">
+                    <a href="/gioi-thieu" class="btn-cm">Xem thêm <i class="icon-next"></i></a>
+                </div>
+                <img src="/Content//img/info-img.png" alt="" class="mt40">
+            </div>
+        </div>
+    </div>
+
+
+    <div class="service container pt100 pb60" id="tech">
+        <h2 class="title-cm text-center">hỗ trợ kỹ thuật</h2>
+        <div class="mt50 service-list">
+            <div class="service-item">
+                <div class="service-img maxheight">
+                    <img src="Content/img/service-01.jpg" alt="">
+                </div>
+                <div class="service-content maxheight">
+                    <div>
+                        <p class="service-name">Chuẩn bị</p>
+                        <p class="mt20">Để tham gia Chương trình VAS, doanh nghiệp cần:</p>
+                        <ul class="list-cm mt10">
+                            <li>Gửi bản đăng ký cho Chương trình</li>
+                            <li>Cho phép đơn vị tư vấn quốc tế và tư vấn trong nước của Chương trình tiến hành khảo sát sơ bộ tại nhà máy </li>
+                            <li>Cung cấp các thông tin cần thiết để xây dựng đề xuất kỹ thuật chi tiết </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="service-item">
+                <div class="service-img maxheight">
+                    <img src="Content/img/service-02.jpg" alt="">
+                </div>
+                <div class="service-content maxheight">
+                    <div>
+                        <p class="service-name">Ký thỏa thuận</p>
+                        <p class="mt20">Ký thỏa thuận tự nguyện với Bộ Công Thương</p>
+                        <p class="mt20">Tham khảo mẫu Thỏa thuận tự nguyện <a href="https://drive.google.com/file/d/1zg61uMWBxLYj5rR1XcHyPFrUeuvx8Omj/view" target="_blank" style="color:#fff">TẠI ĐÂY</a></p>
+                    </div>
+                </div>
+            </div>
+            <div class="service-item">
+                <div class="service-img maxheight">
+                    <img src="Content/img/service-03.jpg" alt="">
+                </div>
+                <div class="service-content maxheight">
+                    <div>
+                        <p class="service-name">Phát triển dự án tiết kiệm năng lượng </p>
+                        <p class="mt20">
+                            Tùy theo kết quả của từng hoạt động, nhu cầu của doanh nghiệp và nguồn lực của Chương trình, Chương trình sẽ cung cấp hỗ trợ kỹ thuật để doanh nghiệp thực hiện một vài hoặc tất cả các hoạt động sau:
+                        </p>
+                        <ul class="list-cm mt20">
+                            <li>Kiếm toán năng lượng theo tiêu chuẩn quốc tế</li>
+                            <li>Nghiên cứu tiền khả thi  </li>
+                            <li>Nghiên cứu khả thi</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="service-item">
+                <div class="service-img maxheight">
+                    <img src="Content/img/service-04.jpg" alt="">
+                </div>
+                <div class="service-content maxheight">
+                    <div>
+                        <p class="service-name">Chuẩn bị hồ sơ vay vốn</p>
+                        <p class="mt20">
+                            Dựa trên kết quả của báo cáo nghiên cứu khả thi và nhu cầu của doanh nghiệp, Chương trình có thể cung cấp hỗ trợ kỹ thuật cho doanh nghiệp để:
+                        </p>
+                        <ul class="list-cm mt20">
+                            <li>Chuẩn bị hồ sơ vay vốn</li>
+                            <li>Kết nối với các tổ chức tài chính phù hợp</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="bnr-center">
+        @{Html.RenderAction("BannerCenter", "Banner", new { lang = langpage });}
+    </div>
+
+
+    <div class="pt100">
+        <h2 class="title-cm text-center">@Resources.Global.FEEDBACK</h2>
+        <div class="about-us mt50">
+            <div class="container">
+                <div class="">
+                    @{Html.RenderAction("TopMission", "Home", new { lang = langpage });}
+                </div>
+            </div>
+        </div>
+    </div>
+
+}
+
+else
+{
+    <div class="vas-info container pt60">
+        <div class="vas-inner">
+            <div class="">
+                <h2 class="title-cm text-center">PROJECTS</h2>
+                <div class="mt50 map">
+                    <div class="map-info">
+                        <ul>
+                           
+                            <li class="map-info-item"><p><span>14</span>Projects</p></li>
+                            <li class="map-info-item"><p><span>11</span>INDUSTRIES</p></li>
+                            <li class="map-info-item"><p><span>11</span>provinces</p></li>
+                        </ul>
+                    </div>
+                    <div class="map-inner">
+
+                        <img src="/Content/img/map/map_eng.png?v=02" alt="" width="520" usemap="#Map">
+                        <map name="Map">
+                            <area shape="circle" coords="148,121,10" href="#" class="namdinh">
+                            <area shape="poly" coords="141,80,145,72,153,78,161,73,163,69,172,73,176,80,171,86,170,86,157,84,148,86,140,84,139,78,145,72" href="#" class="bacgiang">
+                            <area shape="poly" coords="99,68,99,78,99,87,106,95,111,95,113,96,113,87,119,80,113,73,110,66" href="#" class="phutho">
+                            <area shape="poly" coords="134,158,118,152,110,145,107,135,102,130,86,145,70,144,67,152,60,159,75,167,84,171,102,180,109,183,119,184,127,184,132,178,127,171,129,164" href="#" class="nghean">
+                            <area shape="poly" coords="122,519,135,520,134,518,134,512,129,512,125,508,121,506,116,506,114,508,112,511" href="#" class="cantho">
+                            <area shape="poly" coords="113,551,111,541,102,536,96,538,94,554,94,565,92,573,105,572,112,565,118,557" href="#" class="camau">
+                            <area shape="poly" coords="126,50,121,58,122,68,127,77,132,78,134,78,140,76,143,69,147,66,143,64,144,53,131,61,130,50,124,49" href="#" class="thainguyen">
+                            <area shape="poly" coords="150,103,156,101,157,98,160,94,158,88,153,85,150,94,145,95,147,100,148,107" href="#" class="haiduong">
+                            <area shape="poly" coords="145,93,136,90,134,97,138,104,143,112,154,102,148,102,145,97" href="#" class="hungyen">
+                            <area shape="poly" coords="79,118,85,109,93,107,104,108,114,114,127,123,139,129,145,132,135,143,133,151,132,158,118,151,108,143,109,135,100,128,89,123,90,115,82,118" href="#" class="thanhhoa">
+                            <area shape="poly" coords="167,467,168,463,167,457,153,460,155,473,161,476,165,482,171,485,175,476,178,470" href="#" class="binhduong">
+                        </map>
+                        <div class="area-list">
+                            <div class="haiduong-content map-item">
+                                <p class="name-add-mb">Province: Hai Duong</p>
+                                <img src="/Content//img/map/haiduong_eng.png?v=01" alt="" width="520" usemap="#Map" class="haiduong-img map-img">
+                                <div class="circle"></div>
+                                <div class="line"></div>
+                                <div class="area-content">
+                                    <div>
+                                        <ul class="list-area">
+                                            <li><i class="icon-add"></i>Province: <span class="area-name">Hai Duong</span></li>
+                                            <li><i class="icon-project"></i>Total number of projects: <span>01</span></li>
+                                            <li><i class="icon-service"></i>Sector: <span>Brick and ceramics</span></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="thainguyen-content map-item">
+                                <p class="name-add-mb">Province: Thai Nguyen</p>
+                                <img src="/Content//img/map/thainguyen_eng.png?v=01" alt="" width="520" usemap="#Map" class="thainguyen-img map-img">
+                                <div class="circle"></div>
+                                <div class="line"></div>
+                                <div class="area-content">
+                                    <div>
+                                        <ul class="list-area">
+                                            <li><i class="icon-add"></i>Province: <span class="area-name">Thai Nguyen</span></li>
+                                            <li><i class="icon-project"></i>Total number of projects: <span>02</span></li>
+                                            <li><i class="icon-service"></i>Sector: <span>Steel, Mechanical industry</span></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="bacgiang-content map-item">
+                                <p class="name-add-mb">Province: Bac Giang</p>
+                                <img src="/Content//img/map/bacgiang_eng.png?v=01" alt="" width="520" usemap="#Map" class="bacgiang-img map-img">
+                                <div class="circle"></div>
+                                <div class="line"></div>
+                                <div class="area-content">
+                                    <div>
+                                        <ul class="list-area">
+                                            <li><i class="icon-add"></i>Province: <span class="area-name">Bac Giang</span></li>
+                                            <li><i class="icon-project"></i>Total number of projects: <span>01</span></li>
+                                            <li><i class="icon-service"></i>Sector: <span>Paper</span></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="namdinh-content map-item">
+                                <p class="name-add-mb">Province: Nam Dinh</p>
+                                <img src="/Content//img/map/namdinh_eng.png?v=01" alt="" width="520" usemap="#Map" class="namdinh-img map-img">
+                                <div class="circle"></div>
+                                <div class="line"></div>
+                                <div class="area-content">
+                                    <div>
+                                        <ul class="list-area">
+                                            <li><i class="icon-add"></i>Province: <span class="area-name">Nam Dinh</span></li>
+                                            <li><i class="icon-project"></i>Total number of projects: <span>01</span></li>
+                                            <li><i class="icon-service"></i>Sector: <span>Wood processing industry</span></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="hungyen-content map-item">
+                                <p class="name-add-mb">Province: Hung Yen</p>
+                                <img src="/Content//img/map/hungyen_eng.png?v=01" alt="" width="520" usemap="#Map" class="hungyen-img map-img">
+                                <div class="circle"></div>
+                                <div class="line"></div>
+                                <div class="area-content">
+                                    <div>
+                                        <ul class="list-area">
+                                            <li><i class="icon-add"></i>Province: <span class="area-name">Hung Yen</span></li>
+                                            <li><i class="icon-project"></i>Total number of projects: <span>01</span></li>
+                                            <li><i class="icon-service"></i>Sector: <span>Beer</span></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="phutho-content map-item">
+                                <p class="name-add-mb">Province: Phu Tho</p>
+                                <img src="/Content//img/map/phutho_eng.png?v=01" alt="" width="520" usemap="#Map" class="phutho-img map-img">
+                                <div class="circle"></div>
+                                <div class="line"></div>
+                                <div class="area-content">
+                                    <div>
+                                        <ul class="list-area">
+                                            <li><i class="icon-add"></i>Province: <span class="area-name">Phu Tho</span></li>
+                                            <li><i class="icon-project"></i>Total number of projects: <span>01</span></li>
+                                            <li><i class="icon-service"></i>Sector: <span>Brick and ceramicsg</span></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="nghean-content map-item">
+                                <p class="name-add-mb">Province: Nghe An</p>
+                                <img src="/Content//img/map/nghean_eng.png?v=01" alt="" width="520" usemap="#Map" class="nghean-img map-img">
+                                <div class="circle"></div>
+                                <div class="line"></div>
+                                <div class="area-content">
+                                    <div>
+                                        <ul class="list-area">
+                                            <li><i class="icon-add"></i>Province: <span class="area-name">Nghe An</span></li>
+                                            <li><i class="icon-project"></i>Total number of projects: <span>01</span></li>
+                                            <li><i class="icon-service"></i>Sector: <span>Wood processing industry</span></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="thanhhoa-content map-item">
+                                <p class="name-add-mb">Province: Thanh Hoa</p>
+                                <img src="/Content//img/map/thanhhoa.png?v=01" alt="" width="520" usemap="#Map" class="thanhhoa-img map-img">
+                                <div class="circle"></div>
+                                <div class="line"></div>
+                                <div class="area-content">
+                                    <div>
+                                        <ul class="list-area">
+                                            <li><i class="icon-add"></i>Province: <span class="area-name">Thanh Hoa</span></li>
+                                            <li><i class="icon-project"></i>Total number of projects: <span>02</span></li>
+                                            <li><i class="icon-service"></i>Sector: <span>Power generation, Cement</span></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="binhduong-content map-item">
+                                <p class="name-add-mb">Province: Binh Duong</p>
+                                <img src="/Content//img/map/binhduong_eng.png?v=01" alt="" width="520" usemap="#Map" class="binhduong-img map-img">
+                                <div class="circle"></div>
+                                <div class="line"></div>
+                                <div class="area-content">
+                                    <div>
+                                        <ul class="list-area">
+                                            <li><i class="icon-add"></i>Province: <span class="area-name">Binh Duong</span></li>
+                                            <li><i class="icon-project"></i>Total number of projects: <span>01</span></li>
+                                            <li><i class="icon-service"></i>Sector: <span>Textile</span></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="cantho-content map-item">
+                                <p class="name-add-mb">Province: Can Tho</p>
+                                <img src="/Content//img/map/cantho_eng.png?v=01" alt="" width="520" usemap="#Map" class="cantho-img map-img">
+                                <div class="circle"></div>
+                                <div class="line"></div>
+                                <div class="area-content">
+                                    <div>
+                                        <ul class="list-area">
+                                            <li><i class="icon-add"></i>Province: <span class="area-name">Can Tho</span></li>
+                                            <li><i class="icon-project"></i>Total number of projects: <span>02</span></li>
+                                            <li><i class="icon-service"></i>Sector: <span>Steel, Seafood</span></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="camau-content map-item">
+                                <p class="name-add-mb">Province: Ca Mau</p>
+                                <img src="/Content//img/map/camau_eng.png?v=01" alt="" width="520" usemap="#Map" class="camau-img map-img">
+                                <div class="circle"></div>
+                                <div class="line"></div>
+                                <div class="area-content">
+                                    <div>
+                                        <ul class="list-area">
+                                            <li><i class="icon-add"></i>Province: <span class="area-name">Ca Mau</span></li>
+                                            <li><i class="icon-project"></i>Total number of projects: <span>01</span></li>
+                                            <li><i class="icon-service"></i>Sector: <span>Fertiliser</span></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="vas-intro">
+                <h2 class="title-cm text-center">WHAT IS VAS?</h2>
+                <p class="mt50">
+                    Voluntary Agreement Scheme on Energy Efficiency in Energy Intensive Industries (VAS Program) offers high-quality technical assistance to industrial enterprises to improve their energy efficiency. When participating in the VAS Program, enterprises benefit from the DEPP3 Program's provision of technical experts proficient in manufacturing processes across different industries/sub-sectors. These experts will assist businesses in executing high-quality energy audits and studying the feasibility of potential energy efficiency solutions so that enterprises can consider their investments.
+                </p>
+                <div class="text-center mt40">
+                    <a href="introduction" class="btn-cm">More <i class="icon-next"></i></a>
+                </div>
+                <img src="/Content//img/info-img.png" alt="" class="mt40">
+            </div>
+        </div>
+    </div>
+
+
+    <div class="service container pt100 pb60" id="tech">
+        <h2 class="title-cm text-center">TECHNICAL SUPPORT</h2>
+        <div class="mt50 service-list">
+            <div class="service-item">
+                <div class="service-img maxheight">
+                    <img src="/Content//img/service-01.jpg" alt="">
+                </div>
+                <div class="service-content maxheight">
+                    <div>
+                        <p class="service-name">Preparation</p>
+                        <p class="mt20">To participate in the Voluntary Agreement Scheme, enterprises need to:</p>
+                        <ul class="list-cm mt10">
+                            <li>Submit a registration form to the Program.</li>
+                            <li>Facilitate the local energy auditing firm and international consultants from the DEPP3 Program to conduct a preliminary survey at the enterprise premises.</li>
+                            <li>Provide the necessary information to the local energy auditing firm to develop a technical proposal.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="service-item">
+                <div class="service-img maxheight">
+                    <img src="/Content//img/service-02.jpg" alt="">
+                </div>
+                <div class="service-content maxheight">
+                    <div>
+                        <p class="service-name">Signing the Agreement</p>
+                        <p class="mt20">Signing the voluntary agreement with the Ministry of Industry and Trade </p>
+                        <p class="mt20">Refer to the VA template <a href="https://drive.google.com/file/d/1iFbYcCmdLHBf77A53gHGTDYaP_u7-1QP/view" target="_blank" style="color:#fff">HERE</a></p>
+                      
+                    </div>
+                </div>
+            </div>
+            <div class="service-item">
+                <div class="service-img maxheight">
+                    <img src="/Content//img/service-03.jpg" alt="">
+                </div>
+                <div class="service-content maxheight">
+                    <div>
+                        <p class="service-name">Develop energy efficiency projects</p>
+                        <p class="mt20">
+                            Depending on the results of each activity, enterprises’ needs, and the Program’s resources, the Program will provide technical support for enterprises to implement separate or all the following initiatives:
+                        </p>
+                        <ul class="list-cm mt20">
+                            <li>Conducting energy audits in comformity with international standards</li>
+                            <li>Developing pre-feasibility studies</li>
+                            <li>Developing feasibility studies</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="service-item">
+                <div class="service-img maxheight">
+                    <img src="/Content//img/service-04.jpg" alt="">
+                </div>
+                <div class="service-content maxheight">
+                    <div>
+                        <p class="service-name">Preparing loan application </p>
+                        <p class="mt20">
+                            Based on the results of the feasibility study and the enterprises’ interest, the DEPP3 Program may provide technical support for the enterprises in:
+                        </p>
+                        <ul class="list-cm mt20">
+                            <li>Preparing loan applications </li>
+                            <li>Connecting with suitable financial institutions.</li>
+                            
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="bnr-center">
+        @{Html.RenderAction("BannerCenter", "Banner", new { lang = langpage });}
+        
+    </div>
+
+
+    <div class="pt100">
+        <h2 class="title-cm text-center">@Resources.Global.FEEDBACK</h2>
+        <div class="about-us mt50">
+            <div class="container">
+                <div class="">
+                    @{Html.RenderAction("TopMission", "Home", new { lang = langpage });}
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+<div class="container content08 pt60 pb60">
+    <h2 class="title-cm text-center">@Resources.Global.CONSULTING</h2>
+    <div class="bnr-list-02 bnrSmallSlider02 mt50">
+
+        @{Html.RenderAction("BannerBotom", "Banner", new { lang = langpage });}
+    </div>
+</div>

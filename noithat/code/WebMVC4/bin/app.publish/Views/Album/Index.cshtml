@@ -1,0 +1,98 @@
+﻿@using BIZ
+@using UTILS
+@using WebMVC4.Helper
+@model WebMVC4.Models.AlbumModel
+<div id="page-header-94164037" class="page-header-wrapper">
+    <div class="page-title dark normal-title">
+
+        <div class="page-title-bg">
+            <div class="title-bg fill bg-fill parallax-active" data-parallax-container=".page-title" data-parallax-background="" data-parallax="-">
+            </div>
+            <div class="title-overlay fill"></div>
+        </div>
+
+        <div class="page-title-inner container align-center flex-row medium-flex-wrap">
+            <div class="title-wrapper is-small flex-col text-left medium-text-center">
+                <h1 class="entry-title mb-0">
+                    Công trình đã thực hiện
+                </h1>
+            </div>
+            <div class="title-content flex-col flex-right text-right medium-text-center">
+                <div class="title-breadcrumbs pb-half pt-half"><nav class="woocommerce-breadcrumb breadcrumbs"><a href="/">Trang chủ</a>  Công trình</nav></div>
+            </div>
+        </div><!-- flex-row -->
+
+
+
+    </div><!-- .page-title -->
+</div>
+@if (Model.listdata != null)
+{
+    <section class="section" id="section_482009799">
+       
+
+        <div class="section-content relative">
+
+            <div class="gap-element clearfix" style="display:block; height:auto; padding-top:50px"></div>
+            <div id="portfolio-202906070" class="portfolio-element-wrapper has-filtering">
+
+                <div class="row large-columns-3 medium-columns- small-columns-2 row-small">
+                    @foreach (var item in Model.listdata.Select((value, i) => new { i, value }))
+                    {
+                        
+                        <div class="col" data-id="Dự án">
+                            <div class="col-inner">
+                                <a href="@Utils.FormatUrlRewrite(item.value.Id, item.value.Title, "AlbumDetail")" class="plain ">
+                                    <div class="portfolio-box box has-hover box-normal">
+                                        <div class="box-image">
+                                            <div class="image-zoom image-cover" style="padding-top:200px;">
+                                                <img width="800" height="450" src="@item.value.CreatedBy" class="attachment-original size-original" alt="">
+                                            </div>
+                                        </div><!-- box-image -->
+                                        <div class="box-text text-center" style="background-color:rgba(246, 247, 251, 0.66);padding:14px 0px 6px 0px;">
+                                            <div class="box-text-inner">
+                                                <h6 class="uppercase portfolio-box-title">@item.value.Title</h6>
+                                                
+                                            </div><!-- box-text-inner -->
+                                        </div><!-- box-text -->
+                                    </div><!-- .box  -->
+                                </a>
+                            </div><!-- .col-inner -->
+                        </div><!-- .col -->
+
+                    }
+
+
+                </div>
+            </div>
+            <style scope="scope">
+
+                #portfolio-202906070 .box-text {
+                    padding: 14px 0px 6px 0px;
+                }
+            </style>
+
+        </div><!-- .section-content -->
+
+
+        <style scope="scope">
+
+            #section_482009799 {
+                padding-top: 0px;
+                padding-bottom: 0px;
+            }
+        </style>
+    </section>
+    <style scope="scope">
+
+        #page-header-94164037 .title-bg {
+            background-image: url(/Content/images/blue-background-2.jpg);
+        }
+
+        #page-header-94164037 .title-overlay {
+            background-color: rgba(255, 255, 255, 0.04);
+        }
+    </style>
+
+}
+

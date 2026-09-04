@@ -1,0 +1,45 @@
+﻿@using BIZ
+@using UTILS
+@using WebMVC4.Helper
+@model WebMVC4.Models.LastestNewModel
+@if (Model != null)
+{
+    if (Model.lstdata.Count > 0)
+    {
+        <div >
+            <h2 class="title-cm">
+                <a href="/trang-chu-video.html">Video</a> /
+                <a href="/thu-vien-anh/c47/hinh-anh.html">Hình ảnh</a>
+            </h2>
+        </div>
+        foreach (var item in Model.lstdata.Take(1).Select((value, i) => new { i, value }))
+        {
+            <a href="/trang-chu-video.html?VideoId=@(item.value.Id)">
+                <img src="@item.value.MainImage?w=360&h=234&mode=crop">
+            </a>
+            <h3><a href="trang-chu-video.html?VideoId=@(item.value.Id)">@item.value.Title </a></h3>
+            <p>@item.value.IntroText</p>
+        }
+        <ul class="item-news-list">
+            @foreach (var item in Model.lstdata.Skip(1).Select((value, i) => new { i, value }))
+            {
+                <li><a href="trang-chu-video.html?VideoId=@(item.value.Id)">@item.value.Title </a></li>
+            }
+        </ul>
+
+
+    }
+
+}
+
+
+
+
+
+@*<script type="text/javascript">
+        var width = $("#hVideoContent").width();
+        var height = width * 9 / 16;
+
+        $("#hifvideo").width(width);
+        $("#hifvideo").height(height);
+    </script>*@

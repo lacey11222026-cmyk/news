@@ -1,0 +1,41 @@
+﻿#NewsContent img, #NewsContent table {
+    max-width: 695px;
+}
+
+#NewsContent p, #NewsContent div, #NewsContent span {
+    margin: 1em 0;
+}
+
+#NewsContent img, #NewsContent table {
+    margin: 0px auto !important;
+    text-align: center;
+    height: auto !important;
+}
+
+#NewsContent table {
+    width: auto !important;
+}
+
+@media screen and (max-width: 767px) {
+
+
+    #NewsContent img {
+        height: auto !important;
+    }
+
+    #NewsContent img, #NewsContent table {
+        max-width: 360px;
+        text-align: center;
+    }
+}
+
+@media screen and (max-width: 485px) {
+    #NewsContent img, #NewsContent table {
+        max-width: 300px;
+        text-align: center;
+    }
+}
+
+.slick-dots li button:before {
+    font-size: 12px !important;
+}

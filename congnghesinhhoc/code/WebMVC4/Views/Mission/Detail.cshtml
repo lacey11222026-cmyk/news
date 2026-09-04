@@ -1,0 +1,84 @@
+﻿@using BIZ
+@using UTILS
+@using WebMVC4.Helper
+@model BIZ.Entity.MISSION_FULL
+
+@{
+    Layout = "~/Views/Shared/_Home.cshtml";
+}
+<h2 class="title-cm mt0"><span>DANH MỤC NHIỆM VỤ KHCN</span></h2>
+<div class="row">
+    <div class="col-md-3 col-sm-3 col-xs-3 hidden-xs danhmuc-list">
+        <ul>
+            <li>
+                <p>Danh mục</p>
+                <ul>
+                    <li><a href="@Url.Action("Index",new { categoryId=1})">Đề tài</a></li>
+                    <li><a href="@Url.Action("Index",new { categoryId=1})">Dự án SXTN</a></li>
+                </ul>
+            </li>
+            <li>
+                <p onclick="showtime()" style="cursor:pointer">Thời gian</p>
+                <ul class="list-time" style="display:none" id="list-time">
+                    @for (var i = DateTime.Now.Year; i >= 2007; i--)
+                    {
+                        <li><a href="@Url.SetParameter("year", i)"> Năm @i</a></li>
+                    }
+
+
+                </ul>
+            </li>
+            <li>
+                <p>Đơn vị thực hiện</p>
+                <ul class="list-orther">
+                    <li><a href="@Url.Action("Index",new { createdBy=1})">Khối viện</a></li>
+                    <li><a href="@Url.Action("Index",new { createdBy=2})">Khối trường</a></li>
+                    <li><a href="@Url.Action("Index",new { createdBy=3})">Đơn vị khác</a></li>
+                </ul>
+            </li>
+        </ul>
+
+    </div><!-- end side bar left-->
+
+    <div class="col-md-9 col-sm-9 col-xs-9">
+        <table class="dm-table03">
+            <tr>
+                <td>Tên nhiệm vụ</td>
+                <td colspan="2">@Model.Name</td>
+            </tr>
+            <tr>
+                <td>Cơ quan chủ trì</td>
+                <td colspan="2">@Html.Raw(Model.Organ.Replace(";", "<br>"))</td>
+            </tr>
+            <tr>
+                <td>Thời gian thực hiện</td>
+                <td>Từ: <span>@Model.FromDate</span></td>
+                @if (Model.ToDate > 0)
+                {
+                    <td>Đến: <span>@Model.ToDate</span></td>
+                }
+
+            </tr>
+            <tr>
+                <td>Tình trạng nghiệm thu</td>
+                <td colspan="2">@HtmlHelpers.MissionAccept(Model.Accept)</td>
+            </tr>
+            <tr>
+                <td>Kết quả nghiệm thu</td>
+                <td colspan="2">@HtmlHelpers.MissionResult(Model.Result)</td>
+            </tr>
+            <tr>
+                <td>Kết quả thực hiện</td>
+                <td colspan="2">@Model.Description</td>
+            </tr>
+        </table>
+
+    </div><!-- end main content-->
+</div><!-- end row-->
+<script>
+    function showtime() {
+
+        $('#list-time').toggle();
+    }
+    $("#content-wrap").addClass("danhmuc-page");
+</script>

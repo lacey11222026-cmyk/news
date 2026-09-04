@@ -1,0 +1,44 @@
+﻿@using BIZ
+@using UTILS
+@using WebMVC4.Helper
+@model WebMVC4.Models.LastestNewModel
+
+@if (Model != null)
+{
+    if (Model.lstdata.Count > 0)
+    {
+
+        <a href="@Model.Url" class="title-cm">@Model.HeaderTitle</a>
+
+        foreach (var item in Model.lstdata.Select((value, i) => new { i, value }))
+        {
+            if (item.i == 0)
+            {
+                <a href="@Utils.FormatUrlRewrite(item.value.Id, item.value.Title, "ArticleDetail")"><img src="@item.value.MainImage?w=450&h=300&mode=crop"></a>
+                <a href="@Utils.FormatUrlRewrite(item.value.Id, item.value.Title, "ArticleDetail")" class="textblue">@item.value.Title</a>
+                <p class="homedesc">@Utils.SubstringByWord(item.value.IntroText, 260)</p>
+            }
+            else
+            {
+                if (item.i == 1)
+                {
+                    @Html.Raw("<ul>")
+
+                }
+                <li>
+                    <a href="@Utils.FormatUrlRewrite(item.value.Id, item.value.Title, "ArticleDetail")"
+                       title="@item.value.Title">
+                        @item.value.Title
+                </a>
+            </li>
+                if (item.i == Model.lstdata.Count - 1)
+                {
+                    @Html.Raw("</ul>")
+                }
+            }
+        }
+
+
+
+    }
+}

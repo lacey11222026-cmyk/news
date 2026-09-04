@@ -1,0 +1,121 @@
+﻿@using BIZ
+@using BIZ.Entity
+@using UTILS
+@using WebMVC4.Helper
+@model List<BIZ.Entity.CONTENT_FULL>
+@if (Model != null)
+{
+    <div id="hotnew">
+
+
+        <div class="best">
+            <div class="toptin">
+                <ul id="slide-news2">
+                    @foreach (var item in Model.Take(5).Select((value, i) => new { i, value }))
+                    {
+                        
+                            <li>
+                                <div class="anh_toptin">
+                                    <a href="@item.value.LinkUrl"><img src="@item.value.MainImage?w=460&h=290&mode=crop" width="460" height="290" border="0" /></a>
+                                </div>
+                                <div class="tit_toptin">
+                                    <p>
+                                        <a href="@item.value.LinkUrl">@item.value.Title</a>
+                                    </p>
+                                    <p class="sapo">@UTILS.Utils.SubString(item.value.IntroText, 200).</p>
+                                </div>
+                            </li>
+                        
+                    }
+
+                </ul>
+                
+            </div>
+
+
+            <div class="tinmoi">
+                <ul id="home_tabnews" class="home_tab">
+                    <li id="tabnews_1" class="chon"><a onclick="tabnews(1);" href="javascript:void(0);" class="select_new">Tin mới nhất</a></li>
+                    <li id="tabnews_2"><a onclick="tabnews(2);" href="javascript:void(0);" class="select_view">Tin nổi bật</a></li>
+                </ul>
+            </div>
+            <div id="homeside_2" class="homeside" style="display: none;">
+                <ul class="listtinmoi">
+                    @{
+                        List<CONTENT_FULL> data = ViewBag.Contents;
+                    }
+                    @foreach (var item in data.Select((value, i) => new { i, value }))
+                    {
+                        if (item.i < 10)
+                        {
+                            <li><a href="@item.value.LinkUrl">@item.value.Title</a></li>
+                        }
+
+                    }
+
+
+                </ul>
+            </div>
+            <div id="homeside_1" class="homeside">
+                <ul class="listtinmoi">
+
+                    @foreach (var item in Model.Select((value, i) => new { i, value }))
+                    {
+                        if (item.i < 10)
+                        {
+                            <li><a href="@item.value.LinkUrl">@item.value.Title</a></li>
+                        }
+
+                    }
+
+
+                </ul>
+            </div>
+
+
+
+
+        </div>
+        <div class="clear"></div>
+        <div class="best">
+            <div class="list_new2">
+                @{
+                    List<CONTENT_FULL> data2 = ViewBag.HotNews;
+                }
+                @foreach (var item in data2.Select((value, i) => new { i, value }))
+                {
+                    if (item.i < 3)
+                    {
+                        <div class="box_list_img">
+                            <a href="@item.value.LinkUrl">
+                                <span class="wrapper-img"><img src="@item.value.MainImage?w=208&h=117&mode=crop" /></span>@item.value.Title
+                            </a>
+                        </div>
+                        if (item.i == 2)
+                        {
+                            <div class="clear"></div>
+                        }
+                    }
+
+
+                }
+
+
+            </div>
+            <div class="clear"></div>
+        </div>
+
+    </div>
+
+            <script type="text/javascript">
+                function tabnews(idex) {
+                    $(".homeside").hide();
+                    $("#homeside_" + idex).show();
+                    $("#home_tabnews li").removeClass("chon");
+                    $("#tabnews_" + idex).addClass("chon");
+                }
+               
+
+            </script>
+
+                    }

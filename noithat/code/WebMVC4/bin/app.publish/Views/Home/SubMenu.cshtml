@@ -1,0 +1,26 @@
+﻿@using BIZ.Entity
+@using UTILS
+@using WebMVC4.Helper
+@model List<CATEGORY_FULL>
+@if (Model != null)
+{
+    foreach (var item in Model.Select((value, i) => new { i, value }))
+    {
+        if (item.value.Param.IsFooter == 0)
+        {
+            <li id="menu-item-@item.value.Id" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-@item.value item-level-1"><a href="@Utils.FormatUrlRewriteByType(item.value.Id, item.value.Name, int.Parse(item.value.Type.ToString()), item.value.Link)" class="woodmart-nav-link"><span class="nav-link-text">@item.value.Name</span></a></li>
+        }
+        else
+        {
+            <li id="menu-item-@item.value.Id" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-@item.value.Id item-level-1">
+                <a href="@item.value.Url" class="woodmart-nav-link"><span class="nav-link-text">@item.value.Name</span></a>
+                <ul class="sub-sub-menu color-scheme-dark">
+
+                    @Html.Action("SubMenu2", "Home", new { CategoryId = item.value.Id })
+                </ul>
+            </li>
+        }
+
+
+    }
+}

@@ -1,0 +1,156 @@
+﻿@{
+   
+    Layout = "~/Views/Shared/_AdminV2.cshtml";
+            //double totalMark = 0;
+}
+@using System.Globalization
+@using BIZ
+@using UTILS
+@using CMS.Helper
+@model CMS.Models.NewsModel
+
+<div class="onecolumn" id="product-tabs">
+    <div class="header">
+        <span>@ViewBag.Title</span>
+    </div>
+
+    <br class="clear">
+    <div class="content">
+        <b>Từ khóa:</b>&nbsp;
+        <input name="keyword" value="@ViewBag.keyword" id="txtKeyword" />&nbsp;&nbsp;&nbsp;
+
+                    <b>Chuyên mục:</b> &nbsp;@Html.DropDownList("drlCategory", new SelectList(ViewBag.CategoryList, "Id", "Name", ViewBag.categoryId), new { @class = "drl_Group" }) &nbsp;&nbsp;&nbsp;
+                    <br />
+        <br />
+        <b>Tác giả:</b> &nbsp;<input name="account" value="@ViewBag.createdby" id="txtaccount"/>@*@Html.DropDownList("drlUser", new SelectList(ViewBag.UserList, "Value", "Text", ViewBag.createdby), new { @class = "drl_Group" })*@ &nbsp;&nbsp;&nbsp;
+                   
+        <b>Từ ngày:</b>&nbsp;
+                    <input name="fromdate" id="txtFromdate" value="@ViewBag.fromdate" />&nbsp;&nbsp;&nbsp;
+                    <b>Đến ngày</b>:&nbsp;
+                    <input name="todate" id="txtTodate" value="@ViewBag.todate" />&nbsp;&nbsp;&nbsp;
+        <button onclick="fillter();">Tra cứu</button>&nbsp;&nbsp;&nbsp;<a href="@Url.Action("ToExcel", "Mark", new { title = ViewBag.keyword, categoryId = ViewBag.categoryId, createdby = ViewBag.createdby, fromdate = ViewBag.fromdate, todate = ViewBag.todate })">Xuất ra Excel</a>
+
+
+        <br />
+        <br />
+        @if (Model.listdata != null || Model.listdata.Count > 0)
+        {
+            <br />
+            <div style="width: 100%;font-size: 14px; text-align: right"><b>Tổng số bài viết:&nbsp;&nbsp;@Model.total</b>&nbsp;&nbsp;<b>Tổng số tiền:&nbsp;&nbsp; @Utils.FormatMoney(ViewBag.TotalMark) VND</b></div>
+            
+            <br />
+            <table width="100%" cellspacing="0" cellpadding="0" class="data" id="mytable">
+                <thead>
+                    <tr>
+                        @*<th width="1%" class="title">#
+                        </th>*@
+
+                        <th width="20%" class="title">Tên bài viết
+                        </th>
+                        <th width="7%" class="title">Tác giả
+                        </th>
+                        <th width="10%" class="title" nowrap="nowrap">Ngày xuất bản
+                        </th>
+
+                        <th width="10%" class="title">Chuyên mục
+                        </th>
+                        <th width="5%" class="title">Lượt xem
+                        </th>
+                         <th width="5%" class="title">Chi tiết
+                        </th>
+                        <th width="12%" class="title">Nhuận bút(VND)
+                        </th>
+                        <th width="12%" class="title">Chấm nhuận bút
+                        </th>
+
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.listdata)
+                    {
+                        
+                        <tr>
+
+                            @* <td width="1%">@item.Id</td>*@
+                            <td width="20%">
+                                <a target="_blank" href='@Url.Action("Edit","AdminNews2",new {Id=item.Id})' target="_blank">@item.Title</a>
+                                
+                            </td>
+                            <td width="10%" align="left">
+                                @item.Album
+                            </td>
+
+                            <td width="10%" align="left">
+                                @item.PublishDate.ToString("dd/MM/yyyy HH:mm")
+                            </td>
+                            <td width="10%" align="left">
+                                @item.CategoryName
+                            </td>
+                            <td width="5%" align="center">
+                                @item.Hits
+                            </td>
+                             <td width="5%" align="center">
+                                <a  target="_blank" href='@Utils.FormatUrlRewrite(item.Id, item.Title, "ArticleDetail", item.CategoryName)'>
+                                    Chi tiết </a>
+                            </td>
+                            <td width="5%" align="center">
+                                @Utils.FormatMoney(item.Mark)
+                            </td>
+                            <td width="7%" class="alt">
+                                <a onclick="openWin('@Url.Action("AddMark", "Mark", new { id = item.Id })');" href='javascript:void(0);'>Chấm nhuận bút</a>
+                            </td>
+                        </tr>
+                    }
+
+
+
+                </tbody>
+            </table>
+            <div class="pagination">
+                @{Html.RenderPartial("AdminPagination", new CMS.Models.PaginationInfo
+                                                       {
+                                                           PageUrl = Url.SetParameter("page", "!0"),
+                                                           CurrentPage = Model.pageIndex,
+                                                           PageSize = Model.pageSize,
+                                                           TotalItemCount = Model.total,
+                                                       }); }
+            </div>
+        }
+
+        <script type="text/javascript">
+
+            $(document).ready(function () {
+                $('#menu_mark').click();
+                $("#txtFromdate").datepicker({ dateFormat: "dd/mm/yy" });
+                $("#txtTodate").datepicker({ dateFormat: "dd/mm/yy" });
+                $("#txtaccount").autocomplete({
+                    source: function (request, response) {
+                        $.ajax({
+                            url: "/AdminNews2/AutoCompleteUser/?Searchtext=" + request.term,
+                            dataType: "json",
+                            success: function (data) {
+                                response(data);
+
+                            }
+                        });
+                    },
+                    minLength: 1
+                });
+            });
+            function openWin(url) {
+                myWindow = window.open(url, '', 'width=868,height=668');
+
+                myWindow.focus();
+            }
+            function fillter() {
+                var title = $("#txtKeyword").val();
+                var fromdate = $("#txtFromdate").val();
+                var todate = $("#txtTodate").val();
+                var categoryId = $('#drlCategory option:selected').val();
+                var createdby = $("#txtaccount").val();
+                window.location = jQuery.query.set("categoryId", categoryId).set("createdby", createdby).set("title", title).set("fromdate", fromdate).set("todate", todate).set("page", "1");
+            }
+        </script>
+    </div>
+</div>
+

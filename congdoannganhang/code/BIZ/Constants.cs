@@ -1,0 +1,141 @@
+﻿namespace BIZ
+{
+    public class Constants
+    {
+        public static string CACHE_KEY_CONTACT = "KEYCONTACT";
+        public static string CACHE_KEY_ALL_CONTACTS_BYCATEGORY = "KEYALLCONTACTSBYCATEGORY";
+
+        public static string CACHE_KEY_MARKLOG = "KEYMARKLOG";
+        public static string CACHE_KEY_ALL_MARKLOG_BYCONTENT = "KEYALLMARKLOGSBYCONTENT";
+        
+        public static string CACHE_KEY_Comment = "KEYCOMMENT";
+        public static string CACHE_KEY_TOP_LASTEST_Comments = "CACHE_KEY_TOP_LASTEST_COMMENTS";
+        public static string CACHE_KEY_CommentS_PAGED_JSON = "KEYCOMMENTSPAGEDJSON";
+        
+        public static string CACHE_KEY_Banner = "KEYBANNER";
+        public static string CACHE_KEY_TOP_LASTEST_Banners = "CACHE_KEY_TOP_LASTEST_BANNERS";
+
+        public static string CACHE_KEY_DOCUMENT = "KEYDOCUMENT";
+        public static string CACHE_KEY_DOCUMENTS_PAGED_JSON = "KEYDOCUMENTSPAGEDJSON";
+        public static string CACHE_KEY_TOP_LASTEST_DOCUMENTS = "CACHE_KEY_TOP_LASTEST_DOCUMENTS";
+        
+
+        public static string CACHE_KEY_ALBUM = "KEYALBUM";
+        public static string CACHE_KEY_ALBUMS_PAGED_JSON = "KEYALBUMSPAGEDJSON";
+        public static string CACHE_KEY_TOP_ALBUMS_BYIDS = "KEYTOP_ALBUMBYIDS";
+        public static string CACHE_KEY_TOP_LASTEST_ALBUMS = "CACHE_KEY_TOP_LASTEST_ALBUMS";
+
+
+
+        public static string CACHE_KEY_ALBUM_IMAGE = "KEYALBUMIMAGE";
+        public static string CACHE_KEY_ALBUMS_IMAGE_PAGED_JSON = "KEYALBUMIMAGEPAGEDJSON";
+        public static string CACHE_KEY_TOP_ALBUM_IMAGE_BYIDS = "KEYTOP_ALBUMIMAGEBYIDS";
+        public static string CACHE_KEY_TOP_LASTEST_ALBUM_IMAGE = "CACHE_KEY_TOP_LASTEST_ALBUMIMAGE";
+        /* Key Cache contants*/
+
+        public static string CACHE_KEY_CATEGORY = "KEYCATEGORY";
+        public static string CACHE_KEY_ALL_CATEGORIES_PAGED = "KEYALLCATEGORIESPAGED";
+        public static string CACHE_KEY_ALL_CATEGORIES = "KEYALLCATEGORIES";
+        public static string CACHE_KEY_ALL_HOMEPAGE_CATEGORIES = "KEYALLHOMEPAGECATEGORIES";
+        public static string CACHE_KEY_ALL_CATEGORIES_BY_POSITION = "KEYALLCATEGORIESBYPOSITION";
+        public static string CACHE_KEY_ALL_CHILDCATEGORIES = "KEYALLCHILDCATEGORIES";
+
+        public static string CACHE_KEY_ATTRIBUTEGROUP = "KEYATTRIBUTEGROUP";
+        public static string CACHE_KEY_ALL_ATTRIBUTEGROUPS = "KEYALLATTRIBUTEGROUPS";
+
+        public static string CACHE_KEY_ATTRIBUTE = "KEYATTRIBUTE";
+        public static string CACHE_KEY_ALL_ATTRIBUTES_PAGED = "KEYALLATTRIBUTESPAGED";
+        public static string CACHE_KEY_ALL_ATTRIBUTES_PAGED_JSON = "KEYALLATTRIBUTESPAGEDJSON";
+        public static string CACHE_KEY_ALL_ATTRIBUTES = "KEYALLATTRIBUTES";
+        public static string CACHE_KEY_ALL_ATTRIBUTES_BYCATEGORY = "ALLATTRIBUTESBYCATEGORY";
+
+        public static string CACHE_KEY_PROMOTION = "KEYPROMOTION";
+        public static string CACHE_KEY_ALL_PROMOTIONS_PAGED = "KEYALLPROMOTIONSPAGED";
+        public static string CACHE_KEY_ALL_PROMOTIONS_PAGED_JSON = "KEYALLPROMOTIONSPAGEDJSON";
+        public static string CACHE_KEY_ALL_PROMOTIONS = "KEYALLPROMOTIONS";
+        public static string CACHE_KEY_ALL_PROMOTIONS_BYCATEGORY = "KEYALLPROMOTIONSBYCATEGORY";
+        public static string CACHE_KEY_ALL_PROMOTIONS_BYCODE = "KEYALLPROMOTIONSBYCODE";
+        public static string CACHE_KEY_ALL_PUBLISHED_PROMOTIONS = "KEYALLPUBLISHEDPROMOTIONS";
+        public static string CACHE_HOTNEWS = "KEY_HOTNEWS";
+         public static string CACHE_KEY_TOP_LASTEST_CONTENTS_FRONTEND = "KEYTOPLASTESTCONTENTSFRONTEND";
+        public static string CACHE_KEY_CONTENT = "KEYCONTENT";
+        public static string CACHE_KEY_ALL_CONTENTS_PAGED = "KEYALLCONTENTSPAGED";
+        public static string CACHE_KEY_ALL_CONTENTS_PAGED_JSON = "KEYALLCONTENTSPAGEDJSON";
+        public static string CACHE_KEY_ALL_CONTENTS = "KEYALLCONTENTS";
+        public static string CACHE_KEY_ALL_CONTENTS_BYCATEGORY = "ALLCONTENTSBYCATEGORY";
+        public static string CACHE_KEY_TOP_LASTEST_CONTENTS = "KEYTOPLASTESTCONTENTS";
+        public static string CACHE_KEY_TOP_VIEW_CONTENTS = "KEYTOPVIEWCONTENTS";
+        public static string CACHE_KEY_TOP_CONTENTS_BYIDS = "KEYTOP_CONTENTSBYIDS";
+        public static string CACHE_KEY_TOP_POPUP_CONTENTS = "KEYTOPPOPUPCONTENTS";
+     
+
+        public static string CACHE_KEY_PRODUCTORDER = "KEYPRODUCTORDER";
+        public static string CACHE_KEY_ALL_PRODUCTORDERS_PAGED = "KEYALLPRODUCTORDERSPAGED";
+        public static string CACHE_KEY_ALL_PRODUCTORDERS_PAGED_JSON = "KEYALLPRODUCTORDERSPAGEDJSON";
+        public static string CACHE_KEY_ALL_PRODUCTORDERS = "KEYALLPRODUCTORDERS";
+        public static string CACHE_KEY_ALL_PRODUCTORDERS_BYCATEGORY = "ALLPRODUCTORDERSBYCATEGORY";
+
+        public static string CACHE_KEY_SUPPORT = "KEYSUPPORT";
+        public static string CACHE_KEY_ALL_SUPPORTS_PAGED = "KEYALLSUPPORTSPAGED";
+        public static string CACHE_KEY_ALL_SUPPORTS_PAGED_JSON = "KEYALLSUPPORTSPAGEDJSON";
+        public static string CACHE_KEY_ALL_SUPPORTS = "KEYALLSUPPORTS";
+        public static string CACHE_KEY_ALL_SUPPORTS_BYCATEGORY = "ALLSUPPORTSBYCATEGORY";
+        public static string CACHE_KEY_TOP_SUPPORTS = "KEYTOPSUPPORTS";
+
+        public static string CACHE_KEY_PRODUCT = "KEYPRODUCT";
+        public static string CACHE_KEY_ALL_PRODUCT_PAGED = "KEYALLPRODUCTPAGED";
+        public static string CACHE_KEY_ALL_PRODUCTS_PAGED_JSON = "KEYALLPRODUCTSPAGEDJSON";
+        public static string CACHE_KEY_ALL_PRODUCTS_BYCATEGORY_BYPUBLISHED = "KEYALLPRODUCTSBYCATEGORYBYPUBLISHED";
+        public static string CACHE_KEY_TOP_PRODUCTS_BY_CATEGORY = "KEYTOPPRODUCTSBYCATEGORY";
+        public static string CACHE_KEY_PUBLISHED_PRODUCTS_BY_CATEGORY = "KEYPUBLISHEDPRODUCTSBYCATEGORY";
+        public static string CACHE_KEY_ALL_PRODUCTS_BY_PRICERANGE = "KEYALLPRODUCTSBYPRICERANGE";
+        public static string CACHE_KEY_ALL_PRODUCTS_BY_PUBLISHED = "KEYALLPRODUCTSBYPUBLISHED";
+        public static string CACHE_KEY_TOP_PRODUCTS_BYIDS = "KEYTOP_PRODUCTSBYIDS";
+
+        public static string CACHE_KEY_MANUFACTORY = "KEYMANUFACTORY";
+        public static string CACHE_KEY_ALL_MANUFACTORIES_PAGED = "KEYALLMANUFACTORYPAGED";
+        public static string CACHE_KEY_ALL_MANUFACTORIES_PAGED_JSON = "KEYALLMANUFACTORYSPAGEDJSON";
+        public static string CACHE_KEY_ALL_MANUFACTORIES = "KEYALLMANUFACTORYSPAGEDJSON";
+
+        public static string CACHE_KEY_PRODUCTATTRIBUTE = "KEYPRODUCTATTRIBUTE";
+        public static string CACHE_KEY_ALL_PRODUCTATTRIBUTES_BY_ATTRIBUTE = "KEYALLPRODUCTATTRIBUTESBYATTRIBUTE";
+        public static string CACHE_KEY_ALL_PRODUCTATTRIBUTES_BY_PRODUCT = "KEYALLPRODUCTATTRIBUTESBYPRODUCT";
+
+        public static string CACHE_KEY_ALL_CONTENTLOG_BYCONTENT = "KEYALLCONTENTLOG_BYCONTENT";
+        public static string CACHE_KEY_ALL_CONTENTLOG_BYID = "KEYALLCONTENTLOG_BYID";
+        public static string CACHE_KEY_ALL_PUBLISHERCATEGORY_BYUSERNAME = "KEYALLPUBLISHERCATEGORYBYUSERNAME";
+
+        public static string CACHE_KEY_ALL_QUESTIONS_BY_ID = "KEYALLQUESTIONSBYPUBLISHED";
+
+        public static string CACHE_KEY_CHANNEL = "KEYCHANNEL";
+        public static string CACHE_KEY_TOP_CHANNEL_BYIDS = "KEYTOP_CHANNELBYIDS";
+        public static string CACHE_KEY_TOP_LASTEST_CHANNEL = "KEYTOPLASTESTCHANNEL";
+
+        /* Key of group key*/
+        public static string SiteCode = "CDNH2_";
+        public static string CACHE_GROUPKEY_TEST = SiteCode + "GROUPKEYTETS";
+        public static string CACHE_GROUPKEY_DOCUMENT = SiteCode + "GROUPKEYDOCUMENT";
+        public static string CACHE_GROUPKEY_CONTACT = SiteCode + "GROUPKEYCONTACT";
+        public static string CACHE_GROUPKEY_MARKLOG = SiteCode + "GROUPKEYMARKLOG";
+        public static string CACHE_GROUPKEY_COMMENT = SiteCode + "GROUPKEYCOMMENT";
+        public static string CACHE_GROUPKEY_BANNER = SiteCode + "GROUPKEYBANNER";
+        public static string CACHE_GROUPKEY_ALBUM = SiteCode + "GROUPKEYALBUM";
+        public static string CACHE_GROUPKEY_ALBUM_IMAGE = SiteCode + "GROUPKEYALBUMIMAGE";
+        public static string CACHE_GROUPKEY_CATEGORY = SiteCode + "GROUPKEYCATEGORY";
+        public static string CACHE_GROUPKEY_ATTRIBUTEGROUP = SiteCode + "GROUPKEYATTRIBUTEGROUP";
+        public static string CACHE_GROUPKEY_ATTRIBUTE = SiteCode + "GROUPKEYATTRIBUTE";
+        public static string CACHE_GROUPKEY_PROMOTION = SiteCode + "GROUPKEYPROMOTION";
+        public static string CACHE_GROUPKEY_CONTENT = SiteCode + "GROUPKEYCONTENT";
+        public static string CACHE_GROUPKEY_PRODUCTORDER = SiteCode + "GROUPKEYPRODUCTORDER";
+        public static string CACHE_GROUPKEY_PRODUCT = SiteCode + "GROUPKEYPRODUCT";
+        public static string CACHE_GROUPKEY_PRODUCTATTRIBUTE = SiteCode + "GROUPKEYPRODUCTATTRIBUTE";
+        public static string CACHE_GROUPKEY_MANUFACTORY = SiteCode + "GROUPKEYMANUFACTORY";
+        public static string CACHE_GROUPKEY_SUPPORT = SiteCode + "GROUPKEYSUPPORT";
+        public static string CACHE_GROUPKEY_CONTENTLOG = SiteCode + "GROUPKEYCONTENTLOG";
+        public static string CACHE_GROUPKEY_PUBLISHERCATEGORY = SiteCode + "GROUPKEYPUBLISHERCATEGORY";
+        public static string CACHE_GROUPKEY_QUESTION = SiteCode + "GROUPKEYQUESTION";
+        public static string CACHE_GROUPKEY_CHANNEL = SiteCode + "GROUPKEYCHANNE";
+
+        public static string CACHE_KEY_TEST = "KEYTEST";
+    }
+}

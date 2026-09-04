@@ -1,0 +1,158 @@
+﻿@using BIZ
+@using UTILS
+@using WebMVC4.Helper
+@model BIZ.Entity.CONTENT_FULL
+@{var RelateTitle = Resources.Global.RelateNews;}
+@{
+    var langpage = WorkContext.GetLanguage();
+}
+@if (Model != null)
+{
+    <div class="section-news">
+        <div class="breadcrumbs-03 mt30">
+            <div class="container">
+                <ul>
+                    <li><a href="/">@Resources.Global.Home</a></li>
+                    <li><a href="@ViewBag.CateUrl">@ViewBag.CateName</a></li>
+                </ul>
+            </div>
+        </div>
+        <section class="section-news-3 mt50 pb100">
+            <div class="container">
+                <div class="content">
+                    <div class="row row-10">
+                        <div class="col-lg-8 p-10 col-left">
+                            <div class="content-left">
+                                <div class="title">
+                                    <h2>@Model.Title</h2>
+                                </div>
+                                <div class="content-text">
+                                    <div class="v-card">
+                                        <div class="time-read">
+                                            <i class="fa-regular fa-clock"></i>
+                                            <span>@Model.PublishDate.ToString("dd/MM/yyyy")</span>
+                                        </div>
+                                    </div>
+                                    <ul class="newslist-02 mt30">
+                                        @if (ViewBag.lstRef != null)
+                                        {
+                                            foreach (var item in ViewBag.lstRef)
+                                            {
+                                                <li>
+                                                    <a href="@Utils.FormatUrlRewrite(item.Id, item.Title, "ArticleDetail")">@item.Title </a>
+                                                </li>
+                                            }
+
+                                        }
+                                    </ul>
+                                    <div class="full-content mt30" id="NewsContent">
+                                        <p class="font-weight-bold sapo-txt">@Html.Raw(Model.IntroText)</p>
+                                        @Html.Raw(Model.Contents.Replace("font-size: small", ""))
+                                    </div>
+                                </div>
+                                <div class="link-wrap mt50">
+                                    <div class="tag">
+                                        @if (Model.SiteUrl != null)
+                                        {
+                                            if (!String.IsNullOrEmpty(Model.SiteUrl.Trim()))
+                                            {
+                                                <h2>Tags:</h2>
+                                                <div class="list-tag">
+                                                    <ul>
+                                                        @foreach (var item in Model.SiteUrl.Split(',').Select((value, i) => new { i, value }))
+                                                        {
+
+                                                            if (!String.IsNullOrEmpty(item.value))
+                                                            {
+                                                                <li>
+                                                                    <a href="@Url.Action("Search", new { q = item.value.Trim() })">@item.value.Trim()</a>
+                                                                </li>
+
+                                                            }
+
+                                                        }
+                                                    </ul>
+                                                </div>
+                                              
+                                            }
+                                        }
+
+                                    </div>
+                                    <div class="social">
+                                         <div class="fb-like" data-href="@(Model.LinkUrl)" data-layout="button_count" data-action="like" data-show-faces="false" data-share="true"></div>
+                                    </div>
+                                </div>
+                                <div class="relate mt50">
+                                    @{Html.RenderAction("Relate", "News", new { CategoryId = Model.CategoryId });}
+                                    
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 p-10 col-right">
+                            @{ Html.RenderAction("RightLastestNews", "News", new { lang = langpage, MaxLastestNews = 4, CategoryId = 5, CateName = "" }); }
+                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+
+
+
+
+}
+<script>
+    $('.news_detail_img').removeAttr('style');
+    $('.news_detail_img').attr('style', 'margin:0 auto;text-align:center');
+    $('#NewsContent table').removeAttr('width');
+    $('#NewsContent span img').removeAttr('width');
+    $('#NewsContent img').removeAttr('width');
+    $('#NewsContent img').removeAttr('height');
+    $('#NewsContent img').removeAttr('style');
+
+    $('#topbanner').hide();
+
+</script>
+<style>
+    .header-pc {
+        position: inherit;
+    }
+</style>
+<style>
+
+    #NewsContent ul {
+        display: block;
+        list-style-type: disc;
+        margin-block-start: 1em;
+        margin-block-end: 1em;
+        margin-inline-start: 0px;
+        margin-inline-end: 0px;
+        padding-inline-start: 40px;
+    }
+
+    #NewsContent li {
+        display: list-item;
+        list-style-type: disc;
+        text-align: -webkit-match-parent;
+    }
+    #NewsContent strong{
+        color:inherit !important;
+    }
+
+    @@media screen and (max-width: 767px) {
+        .subtitle img {
+            display: none;
+        }
+    }
+</style>
+<script type="text/javascript">
+
+
+
+    function openWin(url) {
+        var myWindow = window.open(url, '', 'width=700,height=500');
+        myWindow.focus();
+    }
+</script>

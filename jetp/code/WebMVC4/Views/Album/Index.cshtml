@@ -1,0 +1,64 @@
+﻿@using BIZ
+@using UTILS
+@using WebMVC4.Helper
+@model WebMVC4.Models.AlbumModel
+@{
+    var langpage = WorkContext.GetLanguage();
+}
+<div class="section-news">
+    <section class="section-intro-1" style="background-image: url('@ViewBag.CateImg');">
+        <div class="container">
+            <div class="content">
+                <div class="title">
+                    <h1>@ViewBag.CateName</h1>
+                    <div class="breadcrumbs-02">
+                        <ul>
+                            <li><a href="/">@Resources.Global.Home</a></li>
+                            <li><span>@ViewBag.CateName</span></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="section-news-2 mt50 pb100">
+        <div class="container">
+            <div class="content">
+                <div class="news-list">
+                    @foreach (var item in Model.listdata.Select((value, i) => new { i, value }))
+                    {
+                        <div>
+                            <div class="news-item">
+                                <a href="@Utils.FormatUrlRewrite(item.value.Id, item.value.Title, "AlbumDetail")" class="picture"><img src="@item.value.MainImage?w=372&h=248&mode=crop"></a>
+                                <div class="desc">
+                                    <div class="v-card">
+                                        <div class="time-read">
+                                            <i class="fa-regular fa-clock"></i>
+                                            <span>@item.value.PublishDate.GetValueOrDefault().ToString("dd/MM/yyyy")</span>
+                                        </div>
+                                    </div>
+                                    <h3><a href="@Utils.FormatUrlRewrite(item.value.Id, item.value.Title, "AlbumDetail")">@item.value.Title</a></h3>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+                <nav data-aos="fade-up" aria-label="navigation" class="navigation-nav aos-init mt50">
+                    <ul class="pagination">
+                        <ul class="page-numbers">
+                            @{Html.RenderPartial("Pagination", new WebMVC4.Models.PaginationInfo
+                                {
+                                    PageUrl = Url.SetParameter("Page", "!0"),
+                                    CurrentPage = Model.pageIndex,
+                                    PageSize = Model.pageSize,
+                                    TotalItemCount = Model.total,
+                                }); }
+                        </ul>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </section>
+</div>
+
+

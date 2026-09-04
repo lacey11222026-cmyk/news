@@ -1,0 +1,36 @@
+﻿@using BIZ.Entity
+@using UTILS
+@using WebMVC4.Helper
+@model List<CATEGORY_FULL>
+<li id="menu-item-2737" class="menu-item menu-item-type-custom menu-item-object-custom current-menu-item current_page_item menu-item-home menu-item-2737 item-level-0 menu-item-design-default menu-simple-dropdown item-event-hover"><a href="/" class="woodmart-nav-link"><span class="nav-link-text">Trang chủ</span></a></li>
+@foreach (var item in Model.Select((value, i) => new { i, value }))
+{
+
+    if (item.value.Param.IsFooter == 0)
+    {
+        <li id="menu-item-@(item.value.Id)" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-2740 item-level-0 menu-item-design-default menu-simple-dropdown item-event-hover  menu-item-@(item.value.Id)"><a href="@Utils.FormatUrlRewriteByType(item.value.Id, item.value.Name, int.Parse(item.value.Type.ToString()), item.value.Link)" class="woodmart-nav-link"> <span class="nav-link-text"> @item.value.Name </span> </a></li>
+    }
+    else
+    {
+        <li id="menu-item-@(item.value.Id)" class="menu-item menu-item-type-custom menu-item-object-custom current-menu-item current_page_item menu-item-home menu-item-has-children menu-item-2738 item-level-0 menu-item-design-default menu-simple-dropdown item-event-hover">
+            <a href="@Utils.FormatUrlRewriteByType(item.value.Id, item.value.Name, int.Parse(item.value.Type.ToString()), item.value.Link)" class="woodmart-nav-link"><span class="nav-link-text">@item.value.Name</span></a>
+            <div class="sub-menu-dropdown color-scheme-dark">
+
+                <div class="container">
+
+                    <ul class="sub-menu color-scheme-dark">
+
+                        @Html.Action("SubMenu", "Home", new { CategoryId = item.value.Id })
+                    </ul>
+                </div>
+            </div>
+        </li>
+    }
+
+
+
+    
+
+}
+
+

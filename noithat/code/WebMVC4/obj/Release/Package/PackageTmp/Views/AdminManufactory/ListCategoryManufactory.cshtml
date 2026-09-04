@@ -1,0 +1,53 @@
+﻿@using BIZ
+@using UTILS
+@using WebMVC4.Helper
+@model WebMVC4.Models.CategoryManufactoryModel
+
+@if (Model != null)
+{
+    <div class="col-md-12 form-group">
+        @foreach (var manu in Model.Manufactory)
+        {
+            <div class="col-md-3 col-sm-6">
+                @if (Model.CategoryManufactory.Any(x => x.ManufactoryId == manu.Id))
+                {
+                    <input type="checkbox" onclick="manudelete('@Model.CategoryManufactory.FirstOrDefault(x => x.ManufactoryId == manu.Id).Id');" checked="checked" class="chkRole" />
+                    @manu.Title
+                }
+                else
+                {
+                    <input type="checkbox" onclick="manuinsert('@ViewBag.CategoryId', '@manu.Id');" class="chkRole" />
+
+                    @manu.Title
+                }
+            </div>
+        }
+    </div>
+
+}
+<script type="text/javascript">
+
+    function manudelete(id) {
+        if (confirm("Bạn có chắc chắn muốn xóa dữ liệu")) {
+            $.post('@Url.Action("DeleteCategoryManufactory", "AdminManufactory")',
+                { "id": id },
+                function (data) {
+                    alert(data);
+                });
+
+        }
+    }
+    function manuinsert(cateid, manuid) {
+       
+            $.post('@Url.Action("InsertCategoryManufactory", "AdminManufactory")',
+                {
+                    "cateid": cateid,
+                    "manuid": manuid,
+                },
+                function (data) {
+                    //alert(data);
+                });
+
+        
+    }
+</script>

@@ -1,0 +1,34 @@
+﻿@using BIZ
+@using UTILS
+@{ var lstcategory = new CategoryBO().GetAllCategoryFullsByPosition(UTILS.Constants.CategoryPosition.MainMenu, 18, false);
+ }
+<div class="header_media">
+    <div class="bg_top">
+        <a href="/"><img class="map" src="/images/home/bg-header-small.png"></a>
+        <div class="phone">
+            <div>
+                <h2>Công Đoàn Ngân Hàng Việt Nam</h2>
+                <p>VIETNAM NATIONAL UNION OF BANK WORKERS</p>
+            </div>
+            <p>
+                <img src="/images/home/logo-header.png">
+            </p>
+        </div>
+
+        <nav class="menu_media">
+            <a href="#" id="menu-icon">
+                <img src="/images/home/ic_m.jpg"></a>
+            <ul>
+                <li><a href="/">Trang chủ</a></li>
+                @foreach (var item in lstcategory.Select((value, i) => new { i, value }))
+                {
+                   
+                    <li id="cate_@item.value.Id"><a  rel="ct@(item.i + 2)" href="@Utils.FormatUrlRewriteByType(item.value.Id, item.value.Name, int.Parse(item.value.Type.ToString()), item.value.Link)">@item.value.Name </a>
+                    </li> 
+                }
+            </ul>
+        </nav>
+    </div>
+    <!--<div class="qu_c"><a href="#"><img src="images/apple.jpg" /></a></div>-->
+</div>
+<!--header_media-->

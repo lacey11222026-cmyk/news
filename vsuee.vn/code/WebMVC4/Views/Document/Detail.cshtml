@@ -1,0 +1,167 @@
+﻿@using BIZ
+@using DATA
+@using UTILS
+@using WebMVC4.Helper
+@model BIZ.Entity.DOCUMENT_FULL
+@{
+    var langpage = WorkContext.GetLanguage();
+}
+
+<div class="vanban-page container pb60 pt40">
+    <div class="row row-50">
+        <div class="col-lg-8 col-md-12">
+            @{Html.RenderAction("Breadcrumb", "News", new { CategoryId = Model.CategoryId });}
+            <div class="mt30">
+                <div class="document-tbl table-responsive mt20">
+                    <table>
+                        <tbody>
+                            <tr class="bgcolor1">
+                                <td width="25%" height="50">
+                                    @Resources.Global.DocName
+                                </td>
+                                <td colspan="3">
+
+                                    @Model.Name
+
+                                </td>
+                            </tr>
+                            <tr class="bgcolor1">
+                                <td width="25%" height="50">
+                                    @Resources.Global.DocViewOnline
+                                </td>
+                                <td colspan="3" class="">
+
+                                    <a href="@Url.Action("ViewFile","Document",new { id=Model.Id})" target="_blank"> @Resources.Global.DocViewOnline</a>
+                                </td>
+
+                            </tr>
+                            <tr class="bgcolor1">
+                                <td width="25%" height="50" class="">
+                                    @Resources.Global.DocDownload
+                                </td>
+                                <td colspan="3" class="titledoc2">
+                                    <a href="@Url.Action("DownloadFile","Document",new { id=Model.Id})"> <img src="/Content/images/icon-pdf.png"> </a>
+
+
+                                </td>
+
+                            </tr>
+                            <tr class="bgcolor1">
+                                <td height="50" class="titledoc">
+                                    @Resources.Global.DocDescription
+                                </td>
+                                <td colspan="3">
+                                    @Model.Description
+                                </td>
+                            </tr>
+                            <tr class="bgcolor1">
+                                <td height="50" class="titledoc">
+                                    @Resources.Global.DocCode
+                                </td>
+                                <td width="28%">
+                                    @Model.Code
+                                </td>
+                                <td width="21%" class="titledoc">
+                                    @Resources.Global.DocEffectiveDate
+                                </td>
+                                <td width="26%" align="center">
+
+                                    @if (!Model.EffectiveDate.HasValue)
+                                    {
+
+                                        <text>&nbsp;</text>
+                                    }
+                                    else
+                                    {
+                                        if (Model.EffectiveDate.Value.Year < 9000)
+                                        {
+                                            @Convert.ToDateTime(Model.EffectiveDate).ToString(@" dd'/'MM'/'yyyy")
+                                        }
+                                        else
+                                        {
+                                            <text>&nbsp;</text>
+                                        }
+
+                                    }
+
+                                </td>
+                            </tr>
+                            <tr class="bgcolor1">
+                                <td height="50" class="titledoc">
+                                    @Resources.Global.DocPublishDate
+                                </td>
+                                <td>
+                                    @Convert.ToDateTime(Model.PublishDate).ToString(@" dd'/'MM'/'yyyy")
+                                </td>
+                                <td class="titledoc">
+                                    @Resources.Global.DocExpiryDate
+                                </td>
+                                <td align="center">
+                                    @if (!Model.ExpiryDate.HasValue)
+                                    {
+
+                                        <text>&nbsp;</text>
+                                    }
+                                    else
+                                    {
+                                        if (Model.ExpiryDate.Value.Year < 9000)
+                                        {
+                                            @Convert.ToDateTime(Model.ExpiryDate).ToString(@" dd'/'MM'/'yyyy")
+                                        }
+                                        else
+                                        {
+                                            <text>&nbsp;</text>
+                                        }
+
+                                    }
+
+
+
+                                </td>
+                            </tr>
+                            <tr class="bgcolor1">
+                                <td height="50" class="titledoc">
+                                    @Resources.Global.DocSignedByDesc
+                                </td>
+                                <td align="center">
+                                    @Model.SignedByDesc
+
+                                </td>
+                                <td class="titledoc">
+                                    @Resources.Global.DocSignedBy
+                                </td>
+                                <td align="center">
+                                    @Model.SignedBy
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+
+        </div>
+        <div class="col-lg-4 col-md-12 sidebar">
+            @Html.Partial("Site_Right2")
+        </div>
+    </div>
+</div><!-- end main content-->
+<h2 class="title-cm"><a href="#">@Resources.Global.BankSupport</a></h2>
+<br />
+<div class="bg-gray pt40 pb40">
+    <div class="container">
+        <ul class="slick02">
+            @{Html.RenderAction("BannerBottom", "Home", new { lang = langpage });}
+        </ul>
+    </div>
+</div>
+
+
+
+
+<
+<style>
+    .titledoc2 a {
+        color: #1f5ecb !important;
+    }
+</style>

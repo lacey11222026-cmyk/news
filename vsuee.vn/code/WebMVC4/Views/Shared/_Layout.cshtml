@@ -1,0 +1,197 @@
+﻿@using WebMVC4.Helper
+@{
+    var langpage = WorkContext.GetLanguage();
+}
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+
+    @Html.Partial("MetaData")
+
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+    <link type="text/css" rel="stylesheet" href="/Content/css/jquery.mmenu.all.css" />
+    @*<link rel="stylesheet" type="text/css" href="/Content/css/common.css?vs=2023">*@
+    <link rel="stylesheet" type="text/css" href="/Content/css/style.css">
+    <link href="/Content/css/chantrang.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="/Content/css/extend.css?vs=18">
+
+
+
+
+    <!----- Javascript----->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js	"></script>
+    <script type="text/javascript" src="/Content/js/jquery.mmenu.min.all.js"></script>
+    <script type="text/javascript" src="/Content/js/jquery.matchHeight.js"></script>
+    <script type="text/javascript" src="/Content/js/jquery.flexisel.js"></script>
+    <script src="https://kit.fontawesome.com/9d8584fa51.js" crossorigin="anonymous"></script>
+
+
+
+</head>
+<body>
+    <div>
+        @Html.Partial("Site_Header")
+        @RenderBody()
+        @Html.Partial("Site_Footer")
+    </div>
+    <script type="text/javascript" src="/Content/js/script.js"></script>
+    <!--/ Slide -->
+    <link href="/Content/css/slick.css" rel="stylesheet">
+    <script src="/Content/js/slick.min.js"></script>
+
+    <script type="text/javascript">
+        $(function () {
+            $('.maxheight').matchHeight();
+            $('.project-content h3').matchHeight();
+            $('.project-content').matchHeight();
+        });
+    </script>
+    <script>
+        $('.slick01').slick({
+            autoplay: true,
+            autoplaySpeed: 5000,
+            fade: true,
+            dots: false,
+            arrows: false,
+            responsive: [
+                {
+                    breakpoint: 768,
+                    settings: {
+                        dots: false,
+                    }
+                }
+            ]
+        });
+
+        $('.slick02').slick({
+            slidesToShow: 4,
+            slidesToScroll: 1,
+            arrows: true,
+            dots: false,
+            speed: 300,
+            infinite: true,
+            autoplaySpeed: 5000,
+            autoplay: true,
+            responsive: [
+                {
+                    breakpoint: 991,
+                    settings: {
+                        slidesToShow: 3,
+                    }
+                },
+                {
+                    breakpoint: 767,
+                    settings: {
+                        slidesToShow: 2,
+                    }
+                }
+
+            ]
+        });
+
+        $('.slick03').slick({
+            autoplay: true,
+            autoplaySpeed: 5000,
+            fade: true,
+            dots: true,
+            arrows: false
+        });
+        $('.slick04').slick({
+            autoplay: true,
+            autoplaySpeed: 5000,
+            fade: true,
+            dots: true,
+            arrows: false
+        });
+
+        $('.slick05').slick({
+            slidesToShow: 3,
+            slidesToScroll: 1,
+            arrows: true,
+            dots: false,
+            speed: 300,
+            infinite: true,
+            autoplaySpeed: 5000,
+            autoplay: true,
+            responsive: [
+                {
+                    breakpoint: 991,
+                    settings: {
+                        slidesToShow: 3,
+                    }
+                },
+                {
+                    breakpoint: 767,
+                    settings: {
+                        slidesToShow: 2,
+                    }
+                }
+
+            ]
+        });
+    </script>
+    <style>
+        .fix-box {
+            bottom: 350px;
+        }
+
+        .fix-box2 {
+            bottom: 150px;
+        }
+
+        .slick-prev {
+            z-index: 100;
+        }
+
+        .nav-footer li a {
+            padding: 5px 15px;
+        }
+    </style>
+
+    <script>
+        var offset = $('#fix-box').offset();
+        $(window)
+            .scroll(function () {
+
+                var scrollTop = $(window).scrollTop();
+                var scrollBottom = (document.body.scrollHeight - $(this).scrollTop()) - $(this).height();
+                //var scrollBottom = (document.body.scrollHeight - $(this).scrollTop()) - $(this).height();
+                if (scrollBottom < 500) {
+
+                    $('#fix-box').addClass('fix-box2');
+
+                } else {
+                    $('#fix-box').removeClass('fix-box2');
+
+                }
+
+
+            });
+
+    </script>
+
+    @RenderSection("scripts", required: false)
+
+    <script src="https://sp.zalo.me/plugins/sdk.js"></script>
+    <script>
+
+        (function (d, s, id) {
+            var js, fjs = d.getElementsByTagName(s)[0];
+            if (d.getElementById(id)) return;
+            js = d.createElement(s); js.id = id;
+            js.src = "//connect.facebook.net/vi_VN/sdk.js#xfbml=1&version=v2.8&appId=682336380374704";
+            fjs.parentNode.insertBefore(js, fjs);
+        }(document, 'script', 'facebook-jssdk'));
+    </script>
+    <script>
+        $("#qnmb").remove();
+    </script>
+</body>
+
+
+
+
+
+</html>

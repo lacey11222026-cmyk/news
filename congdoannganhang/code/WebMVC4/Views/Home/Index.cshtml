@@ -1,0 +1,177 @@
+﻿@using BIZ
+@using UTILS
+@using WebMVC4.Helper
+
+
+<div class="content01 container mt30">
+    <div class="row">
+        <div class="col-lg-8 col-md-12 col-sm-12">
+
+            @{Html.RenderAction("Slide", "Home");}
+            <div class="row mt30 newsbox-list">
+                <div class="col-md-6">
+                    @{Html.RenderAction("LastestNews", "Home", new { CateName = "", CategoryId = 25, MaxLastestNews = 4, cssClass = "maxheight01" });}
+                </div>
+                <div class="col-md-6">
+                    @{Html.RenderAction("LastestNews", "Home", new { CateName = "", CategoryId = 97, MaxLastestNews = 4, cssClass = "maxheight01" });}
+                </div>
+            </div>
+        </div><!--/End content left-->
+        <div class="col-lg-4 col-md-12 sidebar-right">
+            <div class="bg-yellow">
+                @{Html.RenderAction("LastestNews3", "Home", new { CateName = "", CategoryId = 69, MaxLastestNews = 1, cssClass = "maxheight01" });}
+            </div>
+            <div class="bg-yellow mt30">
+                @{Html.RenderAction("HomeVideo", "Home", new { CateName = "", CategoryId = 110 });}
+            </div>
+
+            <div class="mt30 bg-gray">
+                @{Html.RenderAction("TopDocument", "Home");}
+            </div>
+            <div class="mt30 bnr-right">
+                @{Html.RenderAction("BannerRight1", "Home");}
+            </div>
+
+        </div><!--/End content right-->
+    </div><!-- end row-->
+</div>
+
+<div class="mt40 content02 container">
+    <div class="bnrSmall-list bnrSmallSlider">
+        @{Html.RenderAction("BannerCenter1", "Home");}
+    </div>
+</div>
+
+<div class="content03 mt40 container">
+    <div class="lib-box bg-gray">
+        <ul class="nav title-tabs-02" role="tablist">
+            <li class="nav-item">
+                <a class="nav-link active" id="tab03-tab" data-toggle="tab" href="#tab03" role="tab" aria-controls="tab03" aria-selected="false"><span>Thư viện hình ảnh</span> </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="tab04-tab" data-toggle="tab" href="#tab04" role="tab" aria-controls="tab04" aria-selected="true"><span>Audio</span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="tab05-tab" data-toggle="tab" href="#tab05" role="tab" aria-controls="tab05" aria-selected="true"><span>Podcast</span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="tab06-tab" data-toggle="tab" href="#tab06" role="tab" aria-controls="tab06" aria-selected="true"><span>E-Magazine</span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="tab07-tab" data-toggle="tab" href="#tab07" role="tab" aria-controls="tab07" aria-selected="true"><span>E-Learning</span></a>
+            </li>
+        </ul>
+        <div class="tab-content mt30">
+            <div class="tab-pane fade active show" id="tab03" role="tabpanel" aria-labelledby="tab03-tab">
+                @{Html.RenderAction("TopAlbum", "Home", new { CateName = "Thư viện hình ảnh", CategoryId = 71, Top = 4 });}
+            </div>
+            <div class="tab-pane fade" id="tab04" role="tabpanel" aria-labelledby="tab04-tab">
+                @{Html.RenderAction("HomeAudio", "Home", new { CateName = "", CategoryId = 112 });}
+            </div>
+            <div class="tab-pane fade" id="tab05" role="tabpanel" aria-labelledby="tab04-tab">
+                @{Html.RenderAction("Podcast", "Home", new { CateName = "", CategoryId = 175, MaxLastestNews = 4 });}
+            </div>
+            <div class="tab-pane fade" id="tab06" role="tabpanel" aria-labelledby="tab06-tab">
+                @{Html.RenderAction("Emagazine", "Home", new { CateName = "", CategoryId = 176, MaxLastestNews = 4 });}
+            </div>
+            <div class="tab-pane fade" id="tab07" role="tabpanel" aria-labelledby="tab07-tab">
+                @{Html.RenderAction("Elearning", "Home", new { CateName = "", CategoryId = 177, MaxLastestNews = 4 });}
+            </div>
+        </div>
+    </div>
+</div><!-- end content03-->
+
+<div class="content04 container mt40">
+    <div class="row">
+        <div class="col-lg-4 col-md-6 col-sm-12">
+            @{Html.RenderAction("LastestNews", "Home", new { CateName = "Tin tổng liên đoàn lao động việt nam", CategoryId = 8, MaxLastestNews = 4, cssClass = "maxheight01" });}
+        </div>
+        <div class="col-lg-4 col-md-6 col-sm-12">
+            @{Html.RenderAction("LastestNews", "Home", new { CateName = "TIN Tức hoạt động ngân hàng", CategoryId = 108, MaxLastestNews = 4, cssClass = "maxheight01" });}
+        </div>
+        <div class="col-lg-4 col-md-12 col-sm-12 sidebar-right02">
+            <div class="internal">
+                <ul class="link02-list">
+                    <li><a href="http://mail.vnubw.org.vn:2096/" class="ico-cm-02"><span><img src="/Content/img/ico-mail.svg" alt="" width="36"></span>Đăng nhập E-mail</a></li>
+                    <li><a href="http://webnoibo.vnubw.org.vn/" class="ico-cm-02"><span><img src="/Content/img/ico-page.svg" alt="" width="19"></span>TRANG NỘI BỘ</a></li>
+                    <li><a href="/gui-bao-cao.html" class="ico-cm-02"><span><img src="/Content/img/ico-send.svg" alt="" width="28"></span>GỬI TIN BÀI</a></li>
+                </ul>
+            </div>
+            @{Html.RenderAction("Rate", "Home");}
+            <div class="bnr-list">
+                @{Html.RenderAction("BannerRight2", "Home");}
+            </div>
+        </div>
+    </div>
+</div><!--/ End content04-->
+<div class="content05 container mt40">
+    <div class="row">
+        <div class="col-md-4 col-sm-12">
+            @{Html.RenderAction("LastestNews", "Home", new { CateName = "", CategoryId = 28, MaxLastestNews = 4, cssClass = "maxheight01" });}
+        </div>
+        <div class="col-md-4 col-sm-12">
+            @{Html.RenderAction("LastestNews", "Home", new { CateName = "", CategoryId = 31, MaxLastestNews = 4, cssClass = "maxheight01" });}
+        </div>
+        <div class="col-md-4 col-sm-12">
+            @{Html.RenderAction("LastestNews", "Home", new { CateName = "", CategoryId = 15, MaxLastestNews = 4, cssClass = "maxheight01" });}
+        </div>
+    </div>
+</div><!--/ End content05-->
+<div class="bnrCenter container mt40">
+    <div class="bnrSlider">
+        @{Html.RenderAction("BannerCenter2", "Home");}
+    </div>
+</div>
+<div class="content06 container mt40">
+    <div class="row">
+        <div class="col-md-4 col-sm-12">
+            @{Html.RenderAction("LastestNews", "Home", new { CateName = "", CategoryId = 96, MaxLastestNews = 4, cssClass = "maxheight01" });}
+        </div>
+        <div class="col-md-4 col-sm-12">
+            @{Html.RenderAction("LastestNews", "Home", new { CateName = "", CategoryId = 149, MaxLastestNews = 4, cssClass = "maxheight01" });}
+        </div>
+        <div class="col-md-4 col-sm-12">
+            @{Html.RenderAction("LastestNews", "Home", new { CateName = "", CategoryId = 61, MaxLastestNews = 4, cssClass = "maxheight01" });}
+        </div>
+    </div>
+</div><!--/ End content06-->
+
+<div class="content07 mt40 outstanding-box">
+    @{Html.RenderAction("LastestNews2", "Home", new { CateName = "", CategoryId = 114, MaxLastestNews = 3, cssClass = "maxheight04" });}
+</div>
+
+<div class="container content08 mt40">
+
+
+    @{Html.RenderAction("BannerBottom", "Home");}
+
+
+
+</div>
+
+<script src="~/fancybox2.1.5/jquery.fancybox.pack.js"></script>
+<link href="~/fancybox2.1.5/jquery.fancybox.css" rel="stylesheet" />
+<div id="example2" style="display: none;width:100%">
+    <a href="https://hocso.net/" target="_blank">
+        <img src="~/images/cuocthi2025.png?vs=01" style="max-width:100%" />
+    </a>
+    <style>
+        .wrapper {
+            opacity: 0.5;
+        }
+
+        .fancybox-skin {
+            background-color: transparent !important;
+            box-shadow: none !important;
+        }
+    </style>
+</div>
+<script type="text/javascript">
+    $(document).ready(function () {
+
+
+        setTimeout(function () {
+            //$.fancybox("#example2");
+        }, 1000);
+    });
+</script>

@@ -1,0 +1,216 @@
+﻿@using BIZ
+@using DATA
+@using UTILS
+@using WebMVC4.Helper
+@model BIZ.Entity.DOCUMENT_FULL
+@{
+    var langpage = WorkContext.GetLanguage();
+}
+
+
+<div class="document-02-page container mt20">
+    <div class="row">
+        <div class="col-lg-8 col-md-12 pb40">
+            <h2 class="title-cm01"><a href="/thu-tuc-hanh-chinh">Thủ tục hành chính</a></h2>
+            <div class="mt30">
+                <h4 class="mb-3"> @Model.Name </h4>
+                <ul class="document-nav-tab nav nav-tabs mt30" role="tablist">
+                    <li> <a class="nav-link active" href="#thongtin" role="tab" data-toggle="tab"> THÔNG TIN </a> </li>
+                    <li> <a class="nav-link" href="#cacbuoc" role="tab" data-toggle="tab"> CÁC BƯỚC </a> </li>
+                    <li> <a class="nav-link" href="#hoso" role="tab" data-toggle="tab"> HỒ SƠ </a> </li>
+                    <li> <a class="nav-link" href="#yeucau" role="tab" data-toggle="tab"> YÊU CẦU </a> </li>
+                </ul>
+                <div class="tab-content responsive" style="border-width: 0px 1px 1px 1px; border-style: solid; border-color: #dee2e6;">
+                    <div role="tabpanel" class="tab-pane active" id="thongtin">
+                        <div class="form-group-list">
+                            <div class="form-group row">
+                                <label class="col-sm-4 col-form-label font-weight-bold">Cơ quan ban hành</label>
+                                <div class="col-sm-8">
+                                    <label class="form-control-plaintext">@HtmlHelpers.GetTTHCAgent(Model.Agent)</label>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-sm-4 col-form-label font-weight-bold">Lĩnh vực</label>
+                                <div class="col-sm-8">
+                                    <label class="form-control-plaintext">@HtmlHelpers.GetTTHCArea(Model.Area)</label>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-sm-4 col-form-label font-weight-bold">Cách thức thực hiện</label>
+                                <div class="col-sm-8">
+                                    <label class="form-control-plaintext">
+                                        <p>@Model.Extend.Method</p>
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-sm-4 col-form-label font-weight-bold">Thời gian giải quyết</label>
+                                <div class="col-sm-8">
+                                    <label class="form-control-plaintext">@Model.Extend.Time</label>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-sm-4 col-form-label font-weight-bold">Đối tượng thực hiện</label>
+                                <div class="col-sm-8">
+                                    <label class="form-control-plaintext">@Model.Extend.Subject</label>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-sm-4 col-form-label font-weight-bold">Cơ quan trực tiếp thực hiện</label>
+                                <div class="col-sm-8">
+                                    <label class="form-control-plaintext">@Model.Extend.DirectAgency</label>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-sm-4 col-form-label font-weight-bold">Địa chỉ tiếp nhận hồ sơ</label>
+                                <div class="col-sm-8">
+                                    <label class="form-control-plaintext">@Model.Extend.Address</label>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-sm-4 col-form-label font-weight-bold">Kết quả thực hiện</label>
+                                <div class="col-sm-8">
+                                    <label class="form-control-plaintext">
+                                        <p>@Model.Extend.Result</p>
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-sm-4 col-form-label font-weight-bold">Tình trạng hiệu lực</label>
+                                <div class="col-sm-8">
+                                    <label class="form-control-plaintext">@Model.Extend.Status</label>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-sm-4 col-form-label font-weight-bold">Ngày có hiệu lực</label>
+                                <div class="col-sm-8">
+                                    <label class="form-control-plaintext">
+                                        @if (!Model.EffectiveDate.HasValue)
+                                        {
+
+                                            <text>&nbsp;</text>
+                                        }
+                                        else
+                                        {
+                                            if (Model.EffectiveDate.Value.Year < 9000)
+                                            {
+                                                @Convert.ToDateTime(Model.EffectiveDate).ToString(@" dd'/'MM'/'yyyy")
+                                            }
+                                            else
+                                            {
+                                                <text>&nbsp;</text>
+                                            }
+
+                                        }
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-sm-4 col-form-label font-weight-bold">Ngày hết hiệu lực</label>
+                                <div class="col-sm-8">
+                                    <label class="form-control-plaintext">
+                                        @if (!Model.ExpiryDate.HasValue)
+                                        {
+
+                                            <text>&nbsp;</text>
+                                        }
+                                        else
+                                        {
+                                            if (Model.ExpiryDate.Value.Year < 9000)
+                                            {
+                                                @Convert.ToDateTime(Model.ExpiryDate).ToString(@" dd'/'MM'/'yyyy")
+                                            }
+                                            else
+                                            {
+                                                <text>&nbsp;</text>
+                                            }
+
+                                        }
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div role="tabpanel" class="tab-pane" id="cacbuoc">
+                        <div class="form-group-list">
+                            <div class="form-group row">
+                                <label class="col-sm-4 col-form-label font-weight-bold">Trình tự thực hiện</label>
+                                <div class="col-sm-8">
+                                    <label class="form-control-plaintext">
+                                       @Html.Raw(Model.Extend.Step)
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div role="tabpanel" class="tab-pane" id="hoso">
+                        <div class="form-group-list">
+                            <div class="form-group row">
+                                <label class="col-sm-4 col-form-label font-weight-bold">Thành phần hồ sơ</label>
+                                <div class="col-sm-8">
+                                    <label class="form-control-plaintext">
+                                        @Html.Raw(Model.Extend.Profile)
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-sm-4 col-form-label font-weight-bold">Số bộ hồ sơ</label>
+                                <div class="col-sm-8">
+                                    <label class="form-control-plaintext"> @Html.Raw(Model.Extend.Number)</label>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-sm-4 col-form-label font-weight-bold">Mẫu đơn, mẫu tờ khai</label>
+                                <div class="col-sm-8">
+                                    @if (!string.IsNullOrEmpty(Model.Extend.Path1))
+                                    {
+                                        <label class="form-control-plaintext">
+                                            <p><a href="@Model.Extend.Path1" target="_blank">@Model.Extend.Name1</a></p>
+                                        </label>
+                                    }
+                                    @if (!string.IsNullOrEmpty(Model.Extend.Path2))
+                                    {
+                                        <label class="form-control-plaintext">
+                                            <p><a href="@Model.Extend.Path2" target="_blank">@Model.Extend.Name2</a></p>
+                                        </label>
+                                    }
+                                    @if (!string.IsNullOrEmpty(Model.Extend.Path3))
+                                    {
+                                        <label class="form-control-plaintext">
+                                            <p><a href="@Model.Extend.Path3" target="_blank">@Model.Extend.Name3</a></p>
+                                        </label>
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div role="tabpanel" class="tab-pane" id="yeucau">
+                        <div class="container-fluid pt-3"> </div>
+                    </div>
+                </div>
+
+            </div>
+        </div><!-- end content left-->
+        <div class="col-lg-4 col-md-12">
+            <div class="noti-box">
+                @{Html.RenderAction("RightLastestNews2", "News", new { CateName = "", CategoryId = 93, MaxLastestNews = 3, cssClass = "maxheight02" });}
+
+            </div>
+            <ul class="link-list mt20">
+                @{Html.RenderAction("BannerRight", "Home", new { lang = langpage });}
+
+            </ul>
+        </div>
+    </div>
+</div>
+<!-- end content-->
+
+
+
+<script type="text/javascript">
+
+    $('#menu_39').addClass("active");
+
+
+
+</script>

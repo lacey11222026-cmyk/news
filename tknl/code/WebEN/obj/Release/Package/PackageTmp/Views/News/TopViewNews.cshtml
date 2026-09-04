@@ -1,0 +1,39 @@
+﻿@using BIZ
+@using UTILS
+@using WebEN.Helper
+@model List<BIZ.Entity.CONTENT_FULL>
+@if (Model != null)
+{
+    if (Model.Count > 0)
+    {
+
+        <div class="title-cm01">
+            <a href="#">Most Read</a>
+        </div>
+        foreach (var item in Model.Take(1).Select((value, i) => new { i, value }))
+        {
+            <div class="newsbox-cm02 mt20">
+                <a href="@item.value.LinkUrl"><img src="@item.value.MainImage?w=367&h=206&mode=crop"></a>
+                
+                    <a href="@item.value.LinkUrl" class="mt10">@item.value.Title</a>
+                    <span class="newsdate mt10">@item.value.PublishDate.ToString("dd/MM/yyyy")</span>
+               
+            </div>
+        }
+        <ul class="danhgia-list mt20">
+            @foreach (var item in Model.Skip(1).Select((value, i) => new { i, value }))
+            {
+                <li>
+                    <a href="@item.value.LinkUrl">
+                        <img src="@item.value.MainImage?w=367&h=206&mode=crop">
+                        <span>@item.value.Title</span>
+                    </a>
+                </li>
+            }
+        </ul>
+
+
+
+
+    }
+}

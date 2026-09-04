@@ -1,0 +1,284 @@
+﻿@{
+   
+    Layout = "~/Views/Shared/_AdminV2.cshtml";
+    
+}
+
+<script type="text/javascript">
+    var redirectUrl = '@Url.Action("IntroAddEdit", "AdminCategory")';
+
+    $(document).ready(function () {
+        $('#menu_category').click();
+        OnLoad();
+
+
+
+
+
+    });
+
+    function OnLoad() {
+        DestroyJAlert();
+        $.Services({
+            element: $('#categories_tree_cont'),
+            loadingImg: '<tr><td colspan="5">Đang tải dữ liệu ...</td><tr>',
+            serviceName: 'CategoryService.ashx',
+            data: {
+                __m: 'get_all_categories',
+                ctype: 1
+            },
+            success: function (data) {
+                $('#categories_tree_cont').html("");
+                if (data != undefined && data != null && data != '')
+                    BindData(data);
+                else
+                    $('#categories_tree_cont').html("Chưa có chuyên mục nào");
+
+            }
+        });
+    }
+    function Filter() {
+        var ctype = $('#select_filterbytype option:selected').val();
+        $.Services({
+            element: $('#categories_tree_cont'),
+            loadingImg: '<tr><td colspan="5">Đang tải dữ liệu ...</td><tr>',
+            serviceName: 'CategoryService.ashx',
+            data: {
+                __m: 'get_all_categories',
+                ctype: 1
+            },
+            success: function (data) {
+                $('#categories_tree_cont').html("");
+                if (data != undefined && data != null && data != '')
+                    BindData(data);
+                else
+                    $('#categories_tree_cont').html("Chưa có chuyên mục nào");
+
+            }
+        });
+    }
+    function CollapseSubCategories(id) {
+        $('div#cat' + id).hide();
+        $('#offcat' + id).hide();
+        $('#oncat' + id).show();
+    }
+
+    function ExpandSubCategories(id) {
+        $('div#cat' + id).show();
+        $('#offcat' + id).show();
+        $('#oncat' + id).hide();
+    }
+
+    function BindData(data) {
+
+        var html = '<tr><td colspan="5">Chưa có chuyên mục nào</td><tr>';
+
+        if (data != undefined && data != null && data != '') {
+
+            $.each(data, function (index, item) {
+
+                html = '<table width="100%" class="data"  cellspacing="0" cellpadding="0">';
+                html += '<tr>';
+                html += '<td width="3%" style="text-align:left;">';
+                html += '<input type="checkbox" name="chk_item" value="' + item.Id + '" />';
+                html += '</td>';
+                html += '<td width="5%" style="text-align:left;">';
+                html += item.Ordering;
+                html += '</td>';
+                html += '<td width="50%">';
+                if (item.ParentId != 0) {
+
+                    html += '<span style="padding-left:' + (item.NodeLevel * 20) + 'px">';
+                    html += '<a href="' + redirectUrl + '?id=' + item.Id + '" alt="' + item.Name + '" style="text-decoration:none">';
+                    html += item.Name;
+                    html += '</a>';
+                    html += '</span>';
+                }
+                else {
+                    html += '<span style="font-weight:bold;font-size:12px;">';
+                    html += '<img id="offcat' + item.Id + '"src="/Administrator/Images/minus.gif" alt="Mở ra" onclick="CollapseSubCategories(' + item.Id + ')" />';
+                    html += '<img id="oncat' + item.Id + '" src="/Administrator/Images/plus.gif" alt="Thu vào" style="display:none;" onclick="ExpandSubCategories(' + item.Id + ')" />';
+                    html += '<a href="' + redirectUrl + '?id=' + item.Id + '" alt="' + item.Name + '" style="text-decoration:none">';
+                    html += item.Name;
+                    html += '</a>';
+                    html += '</span>';
+                }
+
+
+                html += '</td>';
+                html += '<td align="left" width="15%">';
+                if (item.Type == 0 || item.Type == null || item.Type == undefined)
+                    html += "Sản phẩm";
+                else if (item.Type == 1)
+                    html += "Giới thiệu";
+                else if (item.Type == 2)
+                    html += "Tin tức";
+                else if (item.Type == 4)
+                    html += "Album ảnh";
+                else if (item.Type == 5)
+                    html += "Văn bản";
+                else if (item.Type == 6)
+                    html += "Danh bạ";
+                else
+                    html += "Khác";
+                html += '</td>';
+
+
+                html += '</td>';
+
+                html += '<td align="left" width="15%">';
+                if (item.Language == "en-us")
+                    html += "Tiếng Anh";
+                else
+                    html += "Tiếng Việt";
+                html += '</td>';
+
+
+                html += '<td align="left" width="15%">';
+                if (item.Published == 1)
+                    html += "Hoạt động";
+                else
+                    html += "Khóa";
+                html += '</td>';
+
+
+                html += '</tr>';
+                html += '</table>';
+                html += '<div id="cat' + item.Id + '">';
+                html += '</div>';
+
+                if (item.ParentId != 0) {
+                    $('div#cat' + item.ParentId).append(html);
+                }
+                else
+                    $('#categories_tree_cont').append(html);
+            });
+        }
+
+
+    }
+
+
+
+    function New() {
+        window.location.href = redirectUrl;
+    }
+    function ConfirmDelete() {
+        var confirmFunc = function () {
+            Delete();
+        };
+        OpenConfirmDialog('Bạn có muốn xóa dữ liệu không?', confirmFunc);
+    }
+    function Delete() {
+
+        DestroyJAlert();
+
+        var arr_checked_items = [];
+        $('input[type="checkbox"][name="chk_item"]:checked').each(function (i, e) {
+            arr_checked_items.push($(e).val());
+        });
+
+        if (arr_checked_items.length > 0) {
+
+            $.Services({
+                isCrossDomain: false,
+                url: POST_URL + 'CategoryService.ashx',
+                data: {
+                    __m: "delete",
+                    'id': arr_checked_items
+                },
+                success: function (data) {
+
+                    if (data != undefined && data != null && data != '') {
+
+                        var json_data = eval('(' + data + ')');
+
+                        if (json_data.Success)
+                            OnLoad(1);
+
+                        var jalert_type = "info";
+                        if (!json_data.Success)
+                            jalert_type = "fatal";
+                        else {
+                            OnLoad();
+                        }
+
+                        $('#jalert_notification').jAlert(json_data.Text, jalert_type, "edit", 400);
+                    }
+                }
+            });
+        }
+        else {
+            $('#jalert_notification').jAlert('Bạn phải chọn ít nhất 1 chuyên mục', "warning", "edit", 400);
+        }
+    }
+
+    function BindCategoriesToSelectBox() {
+        $('#selectbox_category').html('<option value="0">- Nhóm gốc -</option>');
+        $.Services({
+            serviceName: 'CategoryService.ashx',
+            data: {
+                __m: 'get_all_categories'
+            },
+            success: function (data) {
+                html = '';
+                if (data != undefined && data != null && data != '') {
+
+                    $.each(data, function (i, item) {
+                        if (item.Id != categoryId) {
+                            html = '<option value="' + item.Id + '">';
+                            if (item.NodeLevel != 0) {
+                                for (var i = 1; i < item.NodeLevel; i++) {
+                                    html += '-+&nbsp;';
+                                }
+                            }
+
+                            html += item.Title;
+                            html += '</option>';
+                            if (item.ParentId != 0)
+                                $('#selectbox_category option[value=' + item.ParentId + ']').after(html);
+                            else
+                                $('#selectbox_category').append(html);
+                        }
+                    });
+                }
+
+            }
+        });
+    }
+
+</script>
+
+<div class="onecolumn">
+    <div class="header">
+        <span>Quản trị nội dung giới thiệu</span>
+    </div>
+    <br class="clear">
+    <div class="content">
+
+       
+        <table class="adminlist data" id="grid_items" cellspacing="0" cellpadding="0" style="margin-left: 1px; width: 100%">
+            <thead>
+                <tr id="rowheader">
+                    <th width="3%" class="title">#
+                    </th>
+                    <th width="5%">STT
+                    </th>
+                    <th width="50%" class="title" style="text-align: left;">Tên chuyên mục
+                    </th>
+                    <th width="15%" class="title">Loại
+                    </th>
+                    <th width="15%" class="title">Ngôn ngữ
+                    </th>
+                    <th width="15%" class="title">Trạng thái
+                    </th>
+                </tr>
+            </thead>
+
+        </table>
+        <div id="categories_tree_cont">
+        </div>
+        <br />
+        <a  class="adminbutton" href='@Url.Action("AddEdit", "AdminCategory")'>Thêm mới</a>
+    </div>
+</div>

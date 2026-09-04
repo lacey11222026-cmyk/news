@@ -1,0 +1,39 @@
+﻿@using BIZ.Entity
+@using UTILS
+@using WebMVC4.Helper
+@model List<CATEGORY_FULL>
+@if (Model != null)
+{
+
+    if (Model.Count > 0)
+    {
+        foreach (var item in Model.Where(x => x.NodeLevel == 2).Select((value, i) => new { i, value }))
+        {
+            <li class="mobile-nav__item mobile-nav__item--active" aria-haspopup="true">
+                <div class="mobile-nav__has-sublist">
+                    <a href="@item.value.Url" class="mobile-nav__link">@item.value.Name</a>
+                    <div class="mobile-nav__toggle">
+                        <button type="button" class="icon-fallback-text mobile-nav__toggle-open">
+                            <i class="fa fa-angle-right"></i>
+                            <span class="fallback-text">See More</span>
+                        </button>
+                        <button type="button" class="icon-fallback-text mobile-nav__toggle-close">
+                            <i class="fa fa-angle-right"></i>
+                            <span class="fallback-text">"Đóng"</span>
+                        </button>
+                    </div>
+                </div>
+                <ul class="mobile-nav__sublist">
+                    @foreach (var sub in Model.Where(x => x.ParentId == item.value.Id).Select((value, i) => new { i, value }))
+                    {
+                    <li class="mobile-nav__item ">
+                        <a href="@sub.value.Url" title="@sub.value.Name" class="mobile-nav__link">@sub.value.Name</a>
+                    </li>
+
+                    }
+
+                </ul>
+            </li>
+        }
+    }
+}

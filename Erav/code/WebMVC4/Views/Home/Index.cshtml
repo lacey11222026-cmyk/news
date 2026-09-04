@@ -1,0 +1,95 @@
+﻿@using BIZ
+@using UTILS
+@using WebMVC4.Helper
+
+
+
+<div class="container content01 mt15">
+    <div class="row">
+        @{Html.RenderAction("Slide", "Home");}
+        <div class="col-lg-3 col-md-12">
+            <div class="content01-right">
+                @{Html.RenderAction("BannerRight", "Home");}
+                @{Html.RenderAction("MenuInfo", "Home");}
+            </div>
+            @{Html.RenderAction("BannerRight2", "Home");}
+        </div>
+    </div>
+</div><!-- end content 01-->
+<div class="container mt30">
+    @{Html.RenderAction("Banner", "Home");}
+</div>
+<div class="container content02 mt40">
+    <div class="row">
+        <div class="col-md-4 col-sm-12">
+            @{Html.RenderAction("LastestNews", "Home", new { CateName = "", CategoryId = 38, MaxLastestNews = 4, cssClass = "maxheight02", lang = "" });}
+        </div>
+        <div class="col-md-4 col-sm-12">
+            @{Html.RenderAction("LastestNews", "Home", new { CateName = "", CategoryId = 63, MaxLastestNews = 4, cssClass = "maxheight02", lang = "" });}
+        </div>
+        <div class="col-md-4 col-sm-12">
+            @{Html.RenderAction("LastestNews", "Home", new { CateName = "", CategoryId = 40, MaxLastestNews = 4, cssClass = "maxheight02", lang = "" });}
+        </div>
+    </div>
+</div><!-- end content 02-->
+<div class="container content03 mt40">
+    <div class="row">
+        <div class="col-lg-8 col-md-12">
+            <div class="video-box">
+                <h2 class="title-cm01"><a href="/trang-chu-video.html">VIDEO</a></h2>
+                @{Html.RenderAction("HomeVideo", "Home", new { CateName = "", CategoryId = 84 });}
+            </div>
+        </div>
+        <div class="col-lg-4 col-md-12">
+            @{Html.RenderAction("Price", "Home");}
+        </div>
+    </div>
+</div>
+
+<div class="container content04 mt40">
+    <div class="row">
+        <div class="col-md-4 col-sm-12">
+            @{Html.RenderAction("LastestNews", "Home", new { CateName = "", CategoryId = 39, MaxLastestNews = 4, cssClass = "maxheight02", lang = "" });}
+        </div>
+        <div class="col-md-4 col-sm-12">
+            @{Html.RenderAction("LastestNews", "Home", new { CateName = "", CategoryId = 42, MaxLastestNews = 4, cssClass = "maxheight02", lang = "" });}
+        </div>
+        <div class="col-md-4 col-sm-12">
+            @{Html.RenderAction("LastestNews", "Home", new { CateName = "", CategoryId = 80, MaxLastestNews = 4, cssClass = "maxheight02", lang = "" });}
+        </div>
+    </div>
+</div><!-- end content 02-->
+<div class="container content05 mt40">
+    <div class="row">
+        <div class="col-md-4 col-sm-12">
+            @{Html.RenderAction("LastestNews", "Home", new { CateName = "", CategoryId = 6, MaxLastestNews = 4, cssClass = "maxheight02", lang = "" });}
+        </div>
+        <div class="col-md-4 col-sm-12">
+            @{Html.RenderAction("LastestNews", "Home", new { CateName = "", CategoryId = 47, MaxLastestNews = 4, cssClass = "maxheight02", lang = "" });}
+        </div>
+        <div class="col-md-4 col-sm-12">
+            @{Html.RenderAction("LastestNews", "Home", new { CateName = "", CategoryId = 79, MaxLastestNews = 4, cssClass = "maxheight02", lang = "" });}
+        </div>
+    </div>
+</div><!-- end content 02-->
+<div class="container content06 mt40">
+    <div class="row">
+        <div class="col-lg-8 col-md-12">
+            @{Html.RenderAction("TopDocument", "Home", new { CategoryId = 69 });}
+        </div>
+        <div class="col-lg-4 col-md-12">
+            @{Html.RenderAction("BannerRight3", "Home");}
+        </div>
+    </div>
+
+</div><!-- end content 06-->
+@*<script>
+    $(document).ready(function () {
+    
+        if (window.location.protocol != "https:") {
+            window.location.href = 'https://www.erav.vn/';
+        }
+
+});
+
+</script>*@

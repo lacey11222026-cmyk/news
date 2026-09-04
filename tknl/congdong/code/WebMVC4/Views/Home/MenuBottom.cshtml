@@ -1,0 +1,28 @@
+﻿@using BIZ
+@using UTILS
+@using WebMVC4.Helper
+@{
+    var langpage = WorkContext.GetLanguage();
+}
+@model List<BIZ.Entity.CATEGORY_FULL>
+<ul>
+    <li><a href="/">TRANG CHỦ</a></li>
+    @foreach (var item in Model.Take(4).Select((value, i) => new { i, value }))
+    {
+        <li>
+            <a href="@Utils.FormatUrlRewriteByType(item.value.Id, item.value.Name, int.Parse(item.value.Type.ToString()), item.value.Link)">@item.value.Name.Replace("Video En", "Video") </a>
+
+        </li>
+    }
+</ul>
+<ul>
+    @foreach (var item in Model.Skip(4).Select((value, i) => new { i, value }))
+    {
+        <li>
+            <a href="@Utils.FormatUrlRewriteByType(item.value.Id, item.value.Name, int.Parse(item.value.Type.ToString()), item.value.Link)">@item.value.Name.Replace("Video En", "Video") </a>
+
+        </li>
+    }
+</ul>
+
+

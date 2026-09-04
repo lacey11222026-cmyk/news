@@ -1,0 +1,66 @@
+﻿<aside id="nav_menu-15" class="widget widget_nav_menu">
+    <h2 class="widget-title">Chọn khoảng giá</h2>
+    <div class="menu-loc-theo-hang-2-container">
+        <ul>
+            <li onclick="selectCard(this)">
+                <input value="1" class="price-filter even-filter" type="checkbox" @(ViewBag.Type == 1 ? "checked" : "")>
+                <span>Dưới 5tr</span>
+            </li>
+            <li onclick="selectCard(this)">
+                <input value="2" class="price-filter even-filter" type="checkbox" @(ViewBag.Type == 2 ? "checked" : "") >
+                <span>Từ 5tr-10tr</span>
+            </li>
+            <li onclick="selectCard(this)">
+                <input value="3" class="price-filter even-filter" type="checkbox" @(ViewBag.Type == 3 ? "checked" : "")>
+                <span>Từ 10tr-20tr</span>
+            </li>
+            <li onclick="selectCard(this)">
+                <input value="4" class="price-filter even-filter" type="checkbox" @(ViewBag.Type == 4 ? "checked" : "")>
+                <span>Từ 20tr-30tr</span>
+            </li>
+            <li onclick="selectCard(this)">
+                <input value="5" class="price-filter even-filter" type="checkbox" @(ViewBag.Type == 5 ? "checked" : "")>
+                <span>Từ 30tr-40tr</span>
+            </li>
+            <li onclick="selectCard(this)">
+                <input value="6" class="price-filter even-filter" type="checkbox" @(ViewBag.Type == 6 ? "checked" : "")>
+                <span>Trên 40tr</span>
+            </li>
+        </ul>
+    </div>
+
+</aside>
+<script>
+    var updateQueryStringParam = function (key, value) {
+        var baseUrl = [location.protocol, '//', location.host, location.pathname].join(''),
+            urlQueryString = document.location.search,
+            newParam = key + '=' + value,
+            params = '?' + newParam;
+
+        // If the "search" string exists, then build params from it
+        if (urlQueryString) {
+            var keyRegex = new RegExp('([\?&])' + key + '[^&]*');
+
+            // If param exists already, update it
+            if (urlQueryString.match(keyRegex) !== null) {
+                params = urlQueryString.replace(keyRegex, "$1" + newParam);
+            } else { // Otherwise, add it to end of query string
+                params = urlQueryString + '&' + newParam;
+            }
+        }
+        window.history.replaceState({}, "", baseUrl + params);
+    };
+    function selectCard(obj) {
+        var o = $(obj).find("input");
+        var value = o.val();
+        //alert(!o.is(":checked"));
+        if (!o.is(":checked")) {
+            value = 0;
+        }
+            
+        updateQueryStringParam('type', value);
+        location.reload();
+
+
+    }
+</script>

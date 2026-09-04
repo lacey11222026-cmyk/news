@@ -1,0 +1,46 @@
+﻿@using BIZ
+@using UTILS
+@using WebMVC4.Helper
+@model List<BIZ.Entity.DOCUMENT_FULL>
+@if (Model != null)
+{
+    if (Model.Count > 0)
+    {
+        <div class="padtop">
+            <div class="bg_anh borbot"><a href="/Document/Index/3">Văn bản</a></div>
+            <ul class="marquee listvb">
+               
+                @foreach (var item in Model.Select((value, i) => new { i, value }))
+                {
+                    <li>
+                        <a href="@Utils.FormatUrlRewrite(item.value.Id, item.value.Name, "DocumentDetail")"
+                           title="@item.value.Name">
+                            @item.value.Name
+                        </a>
+                    </li>
+                }
+
+            </ul>
+        </div>
+        <div class="padtop borbot clear"></div>
+
+
+
+
+    }
+
+}
+<script type="text/javascript">
+    $('.marquee').marquee({
+        //speed in milliseconds of the marquee
+        duration: 10000,
+        //gap in pixels between the tickers
+        gap: 200,
+        //time in milliseconds before the marquee will start animating
+        delayBeforeStart: 5,
+        //'left' or 'right'
+        direction: 'up',
+        //true or false - should the marquee be duplicated to show an effect of continues flow
+        duplicated: false
+    });
+</script>

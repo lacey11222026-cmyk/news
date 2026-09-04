@@ -1,0 +1,126 @@
+﻿@{
+   
+    Layout = "~/Views/Shared/_Admin.cshtml";
+    
+}
+<style type="text/css">
+    .inputbox {
+        width: 150px !important;
+    }
+
+</style>
+<link href="/Administrator/Styles/login.css" rel="stylesheet" type="text/css" />
+
+<div id="element-box" class="login">
+    <div class="t">
+            <div class="t">
+                <div class="t">
+                </div>
+            </div>
+        </div>
+    <div class="m">
+    <h1>Phần đăng nhập</h1>
+    <div id="section-box">
+        <div class="t">
+            <div class="t">
+                <div class="t">
+                </div>
+            </div>
+        </div>
+        <div class="m">
+            @using (Html.BeginForm(null, null, FormMethod.Post, new { onsubmit = "return validateForm();" }))
+            {
+                <div style="clear: both;" id="form-login">
+                    <p id="form-login-username">
+                        <label for="modlgn_username">
+                            Tên đăng nhập</label>
+                        @Html.TextBox("UserName")
+                        
+                    </p>
+                    <div style="display: none">
+                        @Html.TextBox("ReturnUrl")
+                    </div>
+                    <p id="form-login-password">
+                        <label for="modlgn_passwd">
+                            Mật khẩu</label>
+                        @Html.Password("Password")
+                    </p>
+                    <p>
+                        <label>
+                            <input type="checkbox" id="chkRememberMe" name="chkRememberMe"></label>
+                        Nhớ tôi trên máy tính này
+           
+                    </p>
+                    <div class="button_holder">
+                        <div class="button1">
+                            <div class="next">
+                                <a href="javascript:void(0);" onclick="formsubmit();" id="lbtnLogin">Đăng nhập</a>
+                            </div>
+                            <div style="display:none;"><input type="submit" id="submitbuton"/></div>
+                        </div>
+                    </div>
+                    <div class="clr">
+                    </div>
+                </div>
+            }
+
+            <div class="clr">
+            </div>
+        </div>
+        <div class="b">
+            <div class="b">
+                <div class="b">
+                </div>
+            </div>
+        </div>
+    </div>
+    <p>
+        <text>Sử dụng tên đăng nhập và mật khẩu đúng để đăng nhập vào phần quản trị</text>
+    </p>
+    <p>
+        <a href="/">Trở về trang chủ</a>
+    </p>
+    <div id="lock">
+    </div>
+    <div class="clr">
+    </div>
+        </div>
+<div class="b">
+            <div class="b">
+                <div class="b">
+                </div>
+            </div>
+        </div>
+</div>
+
+<script type="text/javascript">
+    function formsubmit() {
+
+
+        if (validateForm()) {
+            $("#submitbuton").click();
+        }
+
+    }
+    function validateForm() {
+        var UserName = $('#UserName').val();
+        var Password = $('#Password').val();
+        if (UserName == "") {
+
+            alert('Tài khoản không được trống');
+            $('#UserName').focus();
+            return false;
+        }
+        if (Password == "") {
+
+            alert('Mật khẩu không được trống');
+            $('#Password').focus();
+            return false;
+        }
+
+        return true;
+
+    }
+
+    $("#ReturnUrl").val('@ViewBag.Url');
+</script>

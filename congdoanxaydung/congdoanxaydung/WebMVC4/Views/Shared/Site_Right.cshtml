@@ -1,0 +1,45 @@
+﻿<div class="border-l-gray" style="margin-left: -15px; padding-left: 15px;">
+    @{Html.RenderAction("HomeVideo", "Home", new { CateName = "Thư viện hình ảnh", CategoryId = 6});}
+    @{Html.RenderAction("TopDocument", "Home");}
+    @{Html.RenderAction("RightLastestNews", "News", new { CateName = "", CategoryId = 41, MaxLastestNews = 4 });}
+    </div>
+
+<div class="bnr-link mt10" id="bannerright">
+    @{Html.RenderAction("BannerRight", "Home");}
+
+</div>
+<style>
+    .fixed {
+        position: fixed;
+        top: 0px !important;
+        margin-top: 0px !important;
+        width: 360px;
+    }
+
+    .fixed-2 {
+        position: absolute;
+        bottom: 0px !important;
+        margin-top: 0px !important;
+        width: 360px;
+    }
+</style>
+<script>
+    var offset = $('#bannerright').offset();
+    $(window).scroll(function () {
+
+        var scrollTop = $(window).scrollTop();
+        var scrollBottom = (document.body.scrollHeight - $(this).scrollTop()) - $(this).height();
+        if (offset.top < scrollTop && (scrollTop > 300 && scrollBottom > 50)) {
+
+            $('#bannerright').addClass('fixed');
+
+        } else {
+            $('#bannerright').removeClass('fixed');
+
+        }
+
+
+
+    });
+
+</script>

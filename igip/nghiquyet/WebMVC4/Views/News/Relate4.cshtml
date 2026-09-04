@@ -1,0 +1,31 @@
+﻿@using BIZ
+@using UTILS
+@using WebMVC4.Helper
+@model List<BIZ.Entity.CONTENT_FULL>
+@if (Model != null)
+{
+    if (Model.Count > 0)
+    {
+       
+        <div class="interest container mt50 pb100">
+            <h3 class="interest-title">Có thể bạn quan tâm:</h3>
+            <ul class="interest-list mt30">
+                @foreach (var item in Model.Take(4).Select((value, i) => new { i, value }))
+                {
+                    <li>
+                        <a href="@item.value.LinkUrl">
+                            <img src="@item.value.MainImage?w=222&h=125&mode=crop" alt="">
+                            <span class="interest-name">@item.value.Title</span>
+                        </a>
+                    </li>
+                }
+                </ul>
+            @*<div class="btn-wrap"><a href="/e-magazine" class="btn-view-more">Xem thêm &gt;</a></div>*@
+        </div>
+
+
+
+    }
+
+
+}

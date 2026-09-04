@@ -1,0 +1,457 @@
+﻿@{
+    Layout = "~/Views/Shared/_AdminV2.cshtml";
+}
+@using BIZ.Entity
+@using UTILS
+@using WebMVC4.Helper
+@model DOCUMENT_FULL
+
+@{
+    List<CATEGORY_FULL> ListCate = ViewBag.CategoryList;
+}
+<div class="well">
+    <span class="label label-danger">
+        Chú ý!
+    </span>
+    <span>
+        Hãy chắc chắn nhập vào đầy đủ thông tin tại các mục bắt buộc đánh dấu (*)
+    </span>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <i class="fa fa-fw fa-user-md"></i><span>@ViewBag.Title </span>
+            </div>
+            <form id="defaultForm" method="post" class="form-horizontal">
+                <div class="panel-group" id="steps">
+                    <div class="messager-body">
+                        <div class="alert alert-success display-hide alert-dismissable">
+                            <button type="button" class="close" data-close="alert" aria-hidden="true">×</button>
+                            <span class="glyphicon glyphicon-ok"></span>
+                            <label>Đã lưu dữ liệu thành công !!!</label>
+                        </div>
+                        <div class="alert alert-danger display-hide alert-dismissable">
+                            <button type="button" class="close" data-close="alert" aria-hidden="true">×</button>
+                            <span class="glyphicon glyphicon-warning-sign"></span>
+                            <label>Có một vài lỗi trong khung nhập liệu dưới đây ! kiểm tra lại</label>
+                        </div>
+                    </div>
+                    <div class="panel panel-info">
+                        <div id="Errordiv" style="margin:20px;color:red;font-size:13pt"><center></center></div><br />
+                        @*<div class="panel-heading">
+                                <h4 class="panel-title"><i class="fa fa-wrench" style="margin-right:7px"></i>Thông Tin Cơ Bản</h4>
+                            </div>*@
+                        <div style="padding: 10px 0 0 0;background-color:#fff !important">
+
+                            <div class="col-md-12">
+                                <div>
+                                    <!-- dành cho UpdateFunction -->
+                                    <div class="form-group">
+                                        <label for="txtTitle" class="control-label col-md-3">Tên văn bản :<span class="required">*</span></label>
+                                        <div class="col-md-9">
+                                            <div class="input-icon right">
+                                                <input type="text" id="txtTitle" name="title" value="@Model.Name" class="form-control" placeholder="Nhập tên văn bản" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="txtMainCate" class="control-label col-md-3">Chuyên Mục :<span class="required">*</span></label>
+                                        <div class="col-md-9">
+                                            <div class="input-icon right">
+                                                <select class="form-control" id="ddlMainCate">
+
+                                                    @if (ListCate != null && ListCate.Count > 0)
+                                                    {
+                                                        foreach (var obj in ListCate)
+                                                        {
+                                                            <option value="@obj.Id" title="@obj.Pathway" @if (obj.Id == Model.CategoryId) { @Html.Raw("selected='selected'") ; }>@obj.Name</option>
+                                                        }
+                                                    }
+                                                </select>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="txtCode" class="control-label col-md-3">Số hiệu :</label>
+                                        <div class="col-md-9">
+                                            <div class="input-icon right">
+                                                <input type="text" id="txtCode" name="code" value="@Model.Code" class="form-control" placeholder="Nhập số hiệu" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="txtSignedByDesc" class="control-label col-md-3">Loại văn bản:<span class="required">*</span></label>
+                                        <div class="col-md-9">
+                                            <div class="input-icon right">
+                                                <select class="form-control" id="ddlType">
+                                                    <option value="1" @if (Model.Type == 1) { @Html.Raw("selected='selected'") ; }>Nghị quyết</option>
+                                                    <option value="7" @if (Model.Type == 7) { @Html.Raw("selected='selected'") ; }>Thông báo</option>
+                                                    <option value="11" @if (Model.Type == 11) { @Html.Raw("selected='selected'") ; }>Quyết định</option>
+
+                                                    <option value="6" @if (Model.Type == 6) { @Html.Raw("selected='selected'") ; }>Nghị định</option>
+
+                                                    <option value="13" @if (Model.Type == 13) { @Html.Raw("selected='selected'") ; }>Thông tư</option>
+
+                                                    <option value="4" @if (Model.Type == 4) { @Html.Raw("selected='selected'") ; }>Báo cáo</option>
+                                                    <option value="5" @if (Model.Type == 5) { @Html.Raw("selected='selected'") ; }>Chỉ thị</option>
+                                                    <option value="8" @if (Model.Type == 8) { @Html.Raw("selected='selected'") ; }>Đề án</option>
+                                                    <option value="9" @if (Model.Type == 9) { @Html.Raw("selected='selected'") ; }>Điều lệ</option>
+                                                    <option value="17" @if (Model.Type == 17) { @Html.Raw("selected='selected'") ; }>Bản ghi nhớ</option>
+                                                    <option value="18" @if (Model.Type == 18) { @Html.Raw("selected='selected'") ; }>Hiệp định</option>
+                                                    <option value="19" @if (Model.Type == 19) { @Html.Raw("selected='selected'") ; }>Nghị định thư</option>
+                                                    <option value="21" @if (Model.Type == 21) { @Html.Raw("selected='selected'") ; }>Kết luận</option>
+                                                    <option value="22" @if (Model.Type == 22) { @Html.Raw("selected='selected'") ; }>Chương trình</option>
+                                                    <option value="23" @if (Model.Type == 23) { @Html.Raw("selected='selected'") ; }>Kế hoạch</option>
+                                                             <option value="30" @(Model.Type == 30 ? "selected" : "")>Hiến pháp</option>
+                                                     <option value="31" @(Model.Type == 31 ? "selected" : "")>Luật</option>
+                                                     <option value="32" @(Model.Type == 32 ? "selected" : "")>Lệnh</option>
+                                                     <option value="33" @(Model.Type == 33 ? "selected" : "")>Sắc lệnh</option>
+                                                     <option value="34" @(Model.Type == 34 ? "selected" : "")>Pháp lệnh</option>
+                                                     <option value="35" @(Model.Type == 35 ? "selected" : "")>Văn kiện</option>
+                                                     <option value="36" @(Model.Type == 36 ? "selected" : "")>Văn bản hợp nhất</option>
+                                                     <option value="37" @(Model.Type == 37 ? "selected" : "")>Thông tư liên tịch</option>
+                                                     <option value="38" @(Model.Type == 38 ? "selected" : "")>Công văn hướng dẫn</option>
+                                                     <option value="39" @(Model.Type == 39 ? "selected" : "")>Quy chế</option>
+                                                     <option value="40" @(Model.Type == 40 ? "selected" : "")>Thông cáo</option>
+                                                     <option value="41" @(Model.Type == 41 ? "selected" : "")>Hướng dẫn</option>
+                                                     <option value="42" @(Model.Type == 42 ? "selected" : "")>Phương án</option>
+                                                     <option value="43" @(Model.Type == 43 ? "selected" : "")>Dự án</option>
+                                                     <option value="44" @(Model.Type == 44 ? "selected" : "")>Biên bản</option>
+                                                     <option value="45" @(Model.Type == 45 ? "selected" : "")>Tờ trình</option>
+                                                     <option value="46" @(Model.Type == 46 ? "selected" : "")>Hợp đồng</option>
+                                                     <option value="47" @(Model.Type == 47 ? "selected" : "")>Biên bản thỏa thuận</option>
+                                                        <option value="48" @(Model.Type == 48 ? "selected" : "")>Quy định, Quy chế</option>
+                                                    <option value="20" @if (Model.Type == 20) { @Html.Raw("selected='selected'") ; }>Khác</option>
+
+
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="txtSignedByDesc" class="control-label col-md-3">Lĩnh vực:<span class="required">*</span></label>
+                                        <div class="col-md-9">
+                                            <div class="input-icon right">
+                                                <select class="form-control" id="ddlArea">
+
+                                                    <option value="1" @if (Model.Area == 1) { @Html.Raw("selected='selected'") ; }>Văn bản chỉ đạo</option>
+
+                                                    <option value="2" @if (Model.Area == 2) { @Html.Raw("selected='selected'") ; }>Văn bản điều hành</option>
+
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="txtSummary" class="control-label col-md-3">Tóm lược :</label>
+                                        <div class="col-md-9">
+                                            <div class="input-icon right">
+                                                <textarea id="txtSummary" style="height: 100px;" cols="20" name="description" class="form-control">@Model.Description</textarea>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="txtImgPath" class="control-label col-md-3">File:<span class="required">*</span></label>
+                                        <div class="col-md-8">
+                                            <input type="text" id="txtFilePath" name="filepath" value="@Model.FilePath" class="form-control" placeholder="Nhập đường dẫn file" />
+                                        </div>
+                                        <div class="col-md-1">
+                                            <a href="javascript:;" onclick="CommonCtrl.PopupManagerImages('txtFilePath');"><i class="fa fa-file"></i></a>
+                                        </div>
+                                    </div>
+
+
+                                    <div class="form-group">
+                                        <label for="txtSignedByDesc" class="control-label col-md-3">Cơ quan ban hành:<span class="required">*</span></label>
+                                        <div class="col-md-9">
+                                            <div class="input-icon right">
+                                                @*<input type="text" id="txtSignedByDesc" name="SignedByDesc" value="@Model.SignedByDesc" class="form-control" />*@
+                                                <select class="form-control" id="ddlAgent">
+
+                                                    <option value="1" @if (Model.Agent == 1) { @Html.Raw("selected='selected'") ; }>Bộ Chính trị</option>
+
+                                                    <option value="11" @if (Model.Agent == 11) { @Html.Raw("selected='selected'") ; }>Quốc hội</option>
+                                                    <option value="8" @if (Model.Agent == 8) { @Html.Raw("selected='selected'") ; }>Chính phủ</option>
+                                                    <option value="3" @if (Model.Agent == 3) { @Html.Raw("selected='selected'") ; }>Văn phòng Chính phủ</option>
+                                                    <option value="4" @if (Model.Agent == 4) { @Html.Raw("selected='selected'") ; }>Văn phòng Trung ương Đảng</option>
+                                                    <option value="2" @if (Model.Agent == 2) { @Html.Raw("selected='selected'") ; }>Bộ Công Thương</option>
+                                                    <option value="6" @if (Model.Agent == 6) { @Html.Raw("selected='selected'") ; }>Bộ Khoa học và Công nghệ</option>
+                                                    <option value="5" @if (Model.Agent == 5) { @Html.Raw("selected='selected'") ; }>Bộ Tài chính</option>
+                                                    <option value="7" @if (Model.Agent == 7) { @Html.Raw("selected='selected'") ; }>Bộ Xây dựng</option>
+                                                    <option value="9" @if (Model.Agent == 9) { @Html.Raw("selected='selected'") ; }>Bộ Giáo dục và Đào tạo</option>
+                                                    <option value="11" @if (Model.Agent == 11) { @Html.Raw("selected='selected'") ; }>Bộ Văn hóa thể thao và Du lịch</option>
+                                                    <option value="12" @if (Model.Agent == 12) { @Html.Raw("selected='selected'") ; }>UBND các địa phương</option>
+                                                    <option value="10" @if (Model.Agent == 10) { @Html.Raw("selected='selected'") ; }>Khác</option>
+
+
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="txtSignedBy" class="control-label col-md-3"> Người ký:</label>
+                                        <div class="col-md-9">
+                                            <div class="input-icon right">
+                                                <input type="text" id="txtSignedBy" name="SignedBy" value="@Model.SignedBy" class="form-control" />
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="txtPublicTime" class="control-label col-md-3">Ngày ban hành :</label>
+                                        <div class="col-md-9">
+                                            <div class="input-icon right">
+                                                <input type="text" id="txtPublicTime" data-date-format="DD/MM/YYYY" name="publictime" value="@HtmlHelpers.GetDateDocument(Model.PublishDate)" class="form-control" />
+
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="txtEffectiveDate" class="control-label col-md-3">Ngày có hiệu lực :</label>
+                                        <div class="col-md-9">
+                                            <div class="input-icon right">
+                                                <input type="text" id="txtEffectiveDate" data-date-format="DD/MM/YYYY" name="EffectiveDate" value="@HtmlHelpers.GetDateDocument(Model.EffectiveDate)" class="form-control" />
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="txtExpiryDate" class="control-label col-md-3"> Ngày hết hiệu lực :</label>
+                                        <div class="col-md-9">
+                                            <div class="input-icon right">
+                                                <input type="text" id="txtExpiryDate" data-date-format="DD/MM/YYYY" name="ExpiryDate" value="@HtmlHelpers.GetDateDocument(Model.ExpiryDate)" class="form-control" />
+
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="control-label col-md-3" for="cbxIsActive">Trạng thái :</label>
+                                        <div class="col-md-4">
+                                            <div class="checkbox">
+                                                @if (Model.Status == 1)
+                                                {<input type="checkbox" id="cbxIsActive" checked="checked" />}
+                                                else
+                                                {<input type="checkbox" id="cbxIsActive" />}
+
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="panel-footer form-horizontal">
+                                        <div class="form-group submit">
+
+
+                                            <button type="submit" class="btn btn-primary" id="btsubmit"><i class="fa fa-save"></i>Lưu lại</button>
+                                            <button type="button" class="btn btn-default" id="btnBack" onclick="GotoListpage();"><i class="fa fa-backward"></i>Quay lại</button>
+                                        </div>
+                                    </div>
+
+
+
+                                </div>
+                            </div>
+                            <div style="clear:both"></div>
+                        </div>
+
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+<script>
+    $('#menu_adddoc').addClass("active");
+
+</script>
+<script>
+    function GotoListpage() {
+        window.location = '@Url.Action("Index")';
+    }
+    $(document).ready(function () {
+
+
+
+        $('#txtExpiryDate').datetimepicker({
+            //pickTime: false
+        });
+        $('#txtEffectiveDate').datetimepicker({
+            //pickTime: false
+        });
+        $('#txtPublicTime').datetimepicker({
+            //pickTime: false
+        });
+        $("button.close").click(function () {
+            $(this).parent().css("display", "none");
+        });
+        $('#defaultForm').bootstrapValidator({
+            message: 'This value is not valid',
+            //live: 'submitted',
+            feedbackIcons: {
+                valid: 'glyphicon glyphicon-ok',
+                invalid: 'glyphicon glyphicon-remove',
+                validating: 'glyphicon glyphicon-refresh'
+            },
+            fields: {
+
+                title: {
+                    message: 'Nhập tên văn bản',
+                    validators: {
+                        notEmpty: {
+                            message: 'tên văn bản không được bỏ trống'
+                        },
+
+                        stringLength: {
+                            min: 10,
+                            max: 1000,
+                            message: 'tên văn bản nhỏ nhất 10 ký tự và nhiều nhất 1000 ký tự'
+                        },
+
+                    }
+                },
+                //code: {
+                //    message: 'Bạn chưa nhập mã văn bản.',
+                //    validators: {
+                //        notEmpty: {
+                //            message: 'Bạn chưa nhập mã văn bản'
+                //        },
+
+                //    }
+                //},
+                //publictime: {
+                //    message: 'Bạn chưa nhập ngày ban hành.',
+                //    validators: {
+                //        notEmpty: {
+                //            message: 'Bạn chưa nhập ngày ban hành'
+                //        },
+
+                //    }
+                //},
+                //description: {
+                //    message: 'Bạn chưa nhập tóm lược.',
+                //    validators: {
+                //        notEmpty: {
+                //            message: 'Bạn chưa nhập tóm lược'
+                //        },
+
+                //    }
+                //},
+                //SignedByDesc: {
+                //    message: 'Bạn chưa nhập cơ quan ban hành.',
+                //    validators: {
+                //        notEmpty: {
+                //            message: 'Bạn chưa nhập cơ quan ban hành'
+                //        },
+
+                //    }
+                //},
+                //SignedBy: {
+                //    message: 'Bạn chưa nhập người ký.',
+                //    validators: {
+                //        notEmpty: {
+                //            message: 'Bạn chưa nhập người ký'
+                //        },
+
+                //    }
+                //},
+                //filepath: {
+                //    validators: {
+                //        notEmpty: {
+                //            message: 'File không được bỏ trống'
+                //        }
+                //    }
+                //}
+
+            }
+        })
+        .on('success.form.bv', function (e) {
+            // Prevent submit form
+            e.preventDefault();
+
+            var $form = $(e.target),
+                validator = $form.data('bootstrapValidator');
+            SaveData();
+            $(".close").click(function () {
+                $(".alert-success").css("display", "none");
+            });
+        })
+        .on('error.form.bv', function (e) {
+            // Active the panel element containing the first invalid element
+            e.preventDefault();
+            var $form = $(e.target),
+            validator = $form.data('bootstrapValidator');
+            $(".alert-danger label").text("Có một vài lỗi trong khung nhập liệu dưới đây ! kiểm tra lại");
+            $(".alert-danger").css("display", "block");
+            $(".close").click(function () {
+                $(".alert-danger").css("display", "none");
+                $(".alert-success").css("display", "none");
+            });
+        });
+
+        $("#btnReset").click(function () {
+            $('#defaultForm').data('bootstrapValidator').resetForm(true);
+            $(".alert-danger").css("display", "none");
+            $(".alert-success").css("display", "none");
+        });
+
+        //Save Data
+        function SaveData() {
+            var param = {
+                'Id': '@Model.Id',
+                'Name': $("#txtTitle").val(),
+                'Description': $("#txtSummary").val(),
+                'FilePath': $("#txtFilePath").val(),
+                'CategoryId': $("#ddlMainCate").val(),
+                'CategoryPathway': $("#ddlMainCate option:selected").attr("title"),
+                'Code': $("#txtCode").val(),
+                //'SignedByDesc': $("#txtSignedByDesc").val(),
+                'SignedBy': $("#txtSignedBy").val(),
+                'SExpiryDate': $('#txtExpiryDate').val(),
+                'SEffectiveDate': $('#txtEffectiveDate').val(),
+                'SPublishDate': $('#txtPublicTime').val(),
+                'Type': $("#ddlType").val(),
+                'Agent': $("#ddlAgent").val(),
+                'Area': $("#ddlArea").val(),
+                'Hits': $("#ddlHits").val(),
+                'Status': $("#cbxIsActive").is(":checked") ? 1 : 0
+
+            }
+            Utils.Loading();
+            $.ajax({
+                type: 'POST',
+                url: "@Url.Action("SaveData")",
+                data: addAntiForgeryToken(param),
+            async: true,
+            success: function (data) {
+                Utils.UnLoading();
+                if (data.ResponseCode >= 0) {
+                    $("html,body").animate({ scrollTop: $('#TemplateContent').offset().top }, 'fast');
+                    $(".alert-success").show("slow");
+                    $(".alert-danger").hide("slow");
+                    setTimeout(function () { $(".alert-success").hide("slow"); GotoListpage(); }, 500);
+
+                }
+                else {
+                    $("html,body").animate({ scrollTop: $('#TemplateContent').offset().top }, 'fast');
+                    $("#ErrorMessage").text(data.Description);
+                    $(".alert-danger").show("slow");
+                    $(".alert-success").hide("slow");
+                    setTimeout(function () { $(".alert-danger").hide("slow"); }, 2000);
+                }
+            }
+        });
+    };
+    });
+</script>
+<style>
+    .input-icon {
+        position: relative;
+        width: 100%;
+    }
+</style>

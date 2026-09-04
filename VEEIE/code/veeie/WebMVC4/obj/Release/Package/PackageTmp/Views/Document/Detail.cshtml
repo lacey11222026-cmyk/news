@@ -1,0 +1,181 @@
+﻿@using BIZ
+@using DATA
+@using UTILS
+@using WebMVC4.Helper
+@model BIZ.Entity.DOCUMENT_FULL
+@{Html.RenderAction("Breadcrumb", "News", new { CategoryId = Model.CategoryId });}
+<div id="document" class="main-content">
+    <div class="list-page">
+        <div class="document-table table-responsive mt20">
+            <table>
+                <tbody>
+                    <tr class="bgcolor1">
+                        <td width="25%" height="50">
+                            @Resources.Global.DocName
+
+                        </td>
+                        <td colspan="3">
+
+                            @Html.Raw(Model.Name)
+
+                        </td>
+                    </tr>
+                    <tr class="bgcolor1">
+                        <td width="25%" height="50">
+                            @Resources.Global.DocViewOnline
+                        </td>
+                        <td colspan="3" class="titledoc2">
+
+                            <a href="@Url.Action("ViewFile","Document",new { id=Model.Id})" target="_blank">@Resources.Global.DocViewOnline</a>
+                        </td>
+
+                    </tr>
+                    <tr class="bgcolor1">
+                        <td width="25%" height="50" class="titledoc">
+                            @Resources.Global.DocDownload
+                        </td>
+                        <td colspan="3" class="titledoc2">
+                            <a href="@Url.Action("DownloadFile","Document",new { id=Model.Id})">@Resources.Global.DocDownload </a>
+
+
+                        </td>
+
+                    </tr>
+                    <tr class="bgcolor1">
+                        <td height="50" class="titledoc">
+                            @Resources.Global.DocDescription
+                        </td>
+                        <td colspan="3">
+                            @Html.Raw(Model.Description)
+                        </td>
+                    </tr>
+                    <tr class="bgcolor1">
+                        <td height="50" class="titledoc">
+                            @Resources.Global.DocCode
+                        </td>
+                        <td width="28%">
+                            @Model.Code
+                        </td>
+                        <td width="21%" class="titledoc">
+                            @Resources.Global.DocEffectiveDate
+                        </td>
+                        <td width="26%" align="center">
+
+                            @if (!Model.EffectiveDate.HasValue)
+                            {
+
+                                <text>&nbsp;</text>
+                            }
+                            else
+                            {
+                                if (Model.EffectiveDate.Value.Year < 9000)
+                                {
+                                    @Convert.ToDateTime(Model.EffectiveDate).ToString(@" dd'/'MM'/'yyyy")
+                                }
+                                else
+                                {
+                                    <text>&nbsp;</text>
+                                }
+
+                            }
+
+                        </td>
+                    </tr>
+                    <tr class="bgcolor1">
+                        <td height="50" class="titledoc">
+                            @Resources.Global.DocPublishDate
+                        </td>
+                        <td>
+                            @Convert.ToDateTime(Model.PublishDate).ToString(@" dd'/'MM'/'yyyy")
+                        </td>
+                        <td class="titledoc">
+                            @Resources.Global.DocExpiryDate
+                        </td>
+                        <td align="center">
+                            @if (!Model.ExpiryDate.HasValue)
+                            {
+
+                                <text>&nbsp;</text>
+                            }
+                            else
+                            {
+                                if (Model.ExpiryDate.Value.Year < 9000)
+                                {
+                                    @Convert.ToDateTime(Model.ExpiryDate).ToString(@" dd'/'MM'/'yyyy")
+                                }
+                                else
+                                {
+                                    <text>&nbsp;</text>
+                                }
+
+                            }
+
+
+
+                        </td>
+                    </tr>
+                    <tr class="bgcolor1">
+                        <td height="50" class="titledoc">
+                            @Resources.Global.DocSignedByDesc
+                        </td>
+                        <td align="center">
+                            @Model.SignedByDesc
+
+                        </td>
+                        <td class="titledoc">
+                            @Resources.Global.DocSignedBy
+                        </td>
+                        <td align="center">
+                            @Model.SignedBy
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</div>
+<div class="clear padtop10"></div>
+@if (ViewBag.lstRef != null)
+{
+    <div class="news-other mt30">
+        @if (Model.CategoryPathway.Contains(",8,"))
+        {
+            <h2 class="title-cm mt0"> @Resources.Global.DocRelate2</h2>
+        }
+        else
+        {<h2 class="title-cm mt0"> @Resources.Global.DocRelate</h2>
+
+    }
+
+        <ul class="news-list">
+
+
+            @foreach (BIZ.Entity.DOCUMENT_FULL item in ViewBag.lstRef)
+            {
+                if (item.Id != Model.Id)
+                {
+                    <li><a title="@item.Name" href="@Utils.FormatUrlRewrite(item.Id, "", "DocumentDetail")">@Html.Raw(item.Name) </a></li>
+                }
+
+            }
+
+
+
+        </ul>
+
+
+    </div>
+
+
+
+
+
+
+
+}
+<style>
+    .titledoc2 a {
+        color: #1f5ecb !important;
+    }
+</style>

@@ -1,0 +1,99 @@
+﻿@using UTILS
+@using CMS
+@model DATA.ContentLog
+
+@if (Model != null)
+{
+    <div class="cot1_c3">
+       @* @{Html.RenderAction("TopViewNews", "News", new { CategoryId = 0, MaxLastestNews = 6 });}*@
+
+    </div>
+    
+    <div class="cot1_c4">
+        <div class="bai_viet">
+            <h1 id="newsTitle">@Model.Title</h1>
+
+
+
+            <div id="introNews" class="intro" style="font-weight: bold; margin-bottom: 5px;">@Model.IntroText</div>
+
+
+            <br />
+
+
+            <div class="nd" id="NewsContent" style="width: 100%; text-align: justify;" itemprop="articleBody">
+                @if (Model.Type == 2)
+                {
+          
+                    <script src="/flash/jwplayer.js" type="text/javascript"></script>
+                    <div id="video_viewer">
+                    </div>
+                    <script type="text/javascript">
+                        var url = '@Model.Url';
+                        var width = $("#NewsContent").width();
+                        var height = width / 2;
+                        jwplayer('video_viewer').setup({
+                            'flashplayer': '/flash/player.flash.swf',
+                            'id': 'playerID',
+                            'width': width,
+                            'height': height,
+                            'file': url,
+
+                            //'plugins': { 'ova-jw': {} },
+                            //'config': configadsvideo,
+                            'abouttext': 'vtkmedia.vn',
+                            'aboutlink': 'http://vtkmedia.vn',
+                            //'skin': '/flash/newsplayerskin.zip',
+                            'autostart': 'false',
+                        });
+                    </script>
+                
+
+                }
+                @Html.Raw(Model.Contents.Replace("../moxiemanager","http://cms.vneec.gov.vn/moxiemanager"))
+
+            </div>
+        </div>
+
+    </div>
+    <script>
+
+        $('#NewsContent span').removeStyle('font-size');
+        $('#NewsContent div').removeStyle('font-size');
+        $('#NewsContent p').removeStyle('font-size');
+
+        $('#NewsContent span').removeStyle('font-family');
+        $('#NewsContent div').removeStyle('font-family');
+        $('#NewsContent p').removeStyle('font-family');
+    </script>
+     <script>
+         $('#NewsContent .image').removeAttr('style');
+
+         $('#NewsContent .image img').removeAttr('style');
+        </script>
+                if (Model.ItemId < 701300)
+                {
+    <link href="@(MvcApplication.StaticSiteUrl)Styles/old.css" rel="stylesheet" type="text/css" />
+    
+                }
+                if (Model.ItemId < 700000)
+                {
+    <style>
+        #introNews {
+            display: none;
+        }
+
+        #NewsContent {
+            margin-top: -5px;
+        }
+    </style>
+			
+                }
+
+            
+    
+    
+
+    <div class="clear">
+    </div>
+}

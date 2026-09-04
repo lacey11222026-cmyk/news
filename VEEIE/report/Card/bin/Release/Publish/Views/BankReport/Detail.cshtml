@@ -1,0 +1,171 @@
+﻿<div class="row">
+    <div class="col-lg-12">
+        <div class="box box-primary">
+            <div class="box-header">
+                <span class="glyphicon glyphicon-user"></span>Tiến độ giải ngân
+                <div class="box-tools pull-right">
+                    <a href="javascript:;" onclick="AddPlanItem()" class="btn btn-success"><i class="fa fa-user-plus"></i> Thêm Mới</a>
+
+                </div>
+            </div>
+            <div class="box-body">
+                <div class="table-responsive">
+                    <div id="dgrid" class="dataTables_wrapper form-inline" role="grid">
+                        <div id="ListPlanItem">
+                            @Html.Action("ListPlanItem", "BankReport", new { planId = ViewBag.Id })
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-lg-12">
+        <div class="box box-primary">
+            <div class="box-header">
+                <span class="glyphicon glyphicon-user"></span>Các vướng mắc
+                <div class="box-tools pull-right">
+                    <a href="javascript:;" onclick="AddPlanStuck()" class="btn btn-success"><i class="fa fa-user-plus"></i> Thêm Mới</a>
+
+                </div>
+            </div>
+            <div class="box-body">
+                <div class="table-responsive">
+                    <div id="dgrid" class="dataTables_wrapper form-inline" role="grid">
+                        <div id="ListPlanStuck">
+                            @Html.Action("ListPlanStuck", "BankReport", new { planId = ViewBag.Id })
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<input id="hdYear" type="hidden" value="@ViewBag.Year">
+<input id="hdType" type="hidden" value="@ViewBag.Type">
+
+<script>
+
+    function AddPlanItem() {
+
+        var pageurl = "/BankReport/AddPlanItem/?planId=" + "@ViewBag.Id";
+        $.ajax({
+            type: 'GET',
+            url: pageurl,
+            data: {},
+            contentType: "application/json; charset=utf-8",
+            dataType: "html",
+            success: function (data) {
+                bootbox.dialog({
+                    title: "Thêm mới dự án",
+                    message: data,
+                    buttons: {
+                        success: {
+                            label: "Đóng",
+                            className: "btn-success",
+                            callback: function () {
+
+                                location.reload();
+                            }
+                        }
+                    }
+                });
+            }
+        });
+
+
+    }
+     function EditPlanItem( Id) {
+
+        var pageurl = "/BankReport/PlanItemDetail/?Id=" + Id;
+        $.ajax({
+            type: 'GET',
+            url: pageurl,
+            data: {},
+            contentType: "application/json; charset=utf-8",
+            dataType: "html",
+            success: function (data) {
+                bootbox.dialog({
+                    title: "Cập nhật dự án",
+                    message: data,
+                    buttons: {
+                        success: {
+                            label: "Đóng",
+                            className: "btn-success",
+                            callback: function () {
+
+                                location.reload();
+                            }
+                        }
+                    }
+                });
+            }
+        });
+
+
+    }
+</script>
+<script>
+    $("#pageTitle").html('@ViewBag.Name');
+    function AddPlanStuck() {
+
+        var pageurl = "/BankReport/AddPlanStuck/?planId=" + "@ViewBag.Id";
+        $.ajax({
+            type: 'GET',
+            url: pageurl,
+            data: {},
+            contentType: "application/json; charset=utf-8",
+            dataType: "html",
+            success: function (data) {
+                bootbox.dialog({
+                    title: "Thêm mới vướng mắc",
+                    message: data,
+                    buttons: {
+                        success: {
+                            label: "Đóng",
+                            className: "btn-success",
+                            callback: function () {
+
+                                location.reload();
+                            }
+                        }
+                    }
+                });
+            }
+        });
+
+
+    }
+     function EditPlanStuck( Id) {
+
+        var pageurl = "/BankReport/PlanStuckDetail/?Id=" + Id;
+        $.ajax({
+            type: 'GET',
+            url: pageurl,
+            data: {},
+            contentType: "application/json; charset=utf-8",
+            dataType: "html",
+            success: function (data) {
+                bootbox.dialog({
+                    title: "Cập nhật vướng mắc",
+                    message: data,
+                    buttons: {
+                        success: {
+                            label: "Đóng",
+                            className: "btn-success",
+                            callback: function () {
+
+                                location.reload();
+                            }
+                        }
+                    }
+                });
+            }
+        });
+
+
+    }
+</script>

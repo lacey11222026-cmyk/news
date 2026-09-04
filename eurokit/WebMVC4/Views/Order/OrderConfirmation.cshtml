@@ -1,0 +1,193 @@
+﻿@using WebMVC4.Models
+@using UTILS
+@model ShoppingCartModel
+<link rel="stylesheet" type="text/css" href="/Content/css/bootstrap.min.css" />
+<div class="content container-fluid">
+    <div id="container">
+        <div id="content" role="main">
+            <nav class="woocommerce-breadcrumb"><a href="/">Trang chủ</a><span class="navigation-pipe">&nbsp;</span>Đặt hàng</nav>
+            <div class="row sidebar-right">
+                <div class="main-content col-xs-12 col-sm-8 col-md-9">
+
+                    <div class="container contact">
+
+                        <div class="shopping-cart col-sm-12" id="divcart">
+
+
+
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <h4 class="upper">@Resources.Order.HeaderOrderInfo</h4>
+                                    <div class="table table-condensed table-striped table-responsive table table-bordered table-responsive">
+                                        <table class="table m-b-0">
+                                            <thead>
+                                                <tr>
+                                                    <th class="cart-product-thumbnail">@Resources.Order.Product</th>
+                                                    <th class="cart-product-price">@Resources.Order.Price</th>
+                                                    <th class="cart-product-quantity">@Resources.Order.Count</th>
+                                                    <th class="cart-product-subtotal">@Resources.Order.Total</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                @foreach (var item in Model.ListProduct)
+                                                {
+                                                    <tr>
+                                                        <td class="cart-product-thumbnail">
+                                                            <div class="cart-product-thumbnail-name" style="padding-left: 0px;">@item.ProductName</div>
+                                                        </td>
+                                                        <td class="cart-product-price">
+                                                            <span class="amount">@Utils.InsertCommaNoStyle(item.Price.ToString())đ</span>
+                                                        </td>
+                                                        <td class="cart-product-price">
+                                                            <span class="amount">@item.Amount</span>
+                                                        </td>
+                                                        <td class="cart-product-subtotal">
+                                                            <span class="amount">@Utils.InsertCommaNoStyle((item.Price * item.Amount).ToString())đ</span>
+                                                        </td>
+                                                    </tr>
+                                                }
+
+                                            </tbody>
+                                        </table>
+
+
+                                    </div>
+                                    <div class="table-responsive">
+                                        <table class="table">
+                                            <tbody>
+                                                <tr>
+                                                    <td class="cart-product-name">
+                                                        <strong>@Resources.Order.HeaderOrderPrice</strong>
+                                                    </td>
+                                                    <td class="cart-product-name text-right">
+                                                        <span class="amount">@Utils.InsertCommaNoStyle(Model.ExtraData.OrderPrice.ToString())đ</span>
+                                                    </td>
+                                                </tr>
+
+                                                <tr>
+                                                    <td class="cart-product-name">
+                                                        <strong>@Resources.Order.Total</strong>
+                                                    </td>
+                                                    <td class="cart-product-name text-right">
+                                                        <span class="amount color lead"><strong>@Utils.InsertCommaNoStyle(Model.ExtraData.OrderBilling.ToString())đ</strong></span>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="table-responsive">
+                                        <h4>@Resources.Order.HeaderCustomInfo</h4>
+                                        <table class="table">
+                                            <tbody>
+                                                <tr>
+                                                    <td class="cart-product-name">
+                                                        <strong>@Resources.Order.FullName</strong>
+                                                    </td>
+                                                    <td class="cart-product-name text-right">
+                                                        <span class="amount">@Model.OderItem.FullName</span>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="cart-product-name">
+                                                        <strong>Email</strong>
+                                                    </td>
+                                                    <td class="cart-product-name  text-right">
+                                                        <span class="amount">@Model.OderItem.Email</span>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="cart-product-name">
+                                                        <strong>@Resources.Order.Mobile</strong>
+                                                    </td>
+                                                    <td class="cart-product-name  text-right">
+                                                        <span class="amount">@Model.OderItem.Mobile</span>
+                                                    </td>
+                                                </tr>
+
+                                                <tr>
+                                                    <td class="cart-product-name">
+                                                        <strong>@Resources.Order.Address</strong>
+                                                    </td>
+                                                    <td class="cart-product-name  text-right">
+                                                        <span class="amount">@Model.OderItem.CustomerAddress</span>
+                                                    </td>
+                                                </tr>
+                                                @if (!string.IsNullOrEmpty(Model.OderItem.CustomerComment))
+                                                {
+                                                    <tr>
+                                                        <td class="cart-product-name">
+                                                            <strong>@Resources.Order.Note</strong>
+                                                        </td>
+                                                        <td class="cart-product-name  text-right">
+                                                            <span class="amount">@Model.OderItem.CustomerComment</span>
+                                                        </td>
+                                                    </tr>
+                                                }
+
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                                @using (Html.BeginForm("OrderConfirmation", "Order", FormMethod.Post, new { id = "formbilling" }))
+                                {
+                                    <div class="col-md-12">
+                                        <input type="hidden" id="hdType" name="type" value="1" />
+                                        <input type="hidden" id="hdSaleCode" name="salecode" value="1" />
+                                        @Html.AntiForgeryToken()
+                                        <a href="@Url.Action("ShoppingCart", "Order")" class="btn btn-primary"><span>@Resources.Order.ButtonEdit</span></a>
+                                        <a href="javascript:;" onclick="PreOrder();" class="btn btn-primary" style="margin-right: 30px;"><span>@Resources.Order.ButonOrder</span></a>
+
+
+
+                                    </div>
+
+                                }
+                            </div>
+                        </div>
+
+                    </div>
+
+
+                </div>
+                @*<div class="col-xs-12 col-sm-4 col-md-3">
+                    @Html.Partial("Site_Right")
+                </div>*@
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<br />
+<br />
+<div class="modal fade" id="modal-2" tabindex="-1" role="modal" aria-labelledby="modal-label-2" aria-hidden="true">
+    <div class="modal-dialog modal-md">
+        <div class="modal-content" id="modal-content">
+        </div>
+    </div>
+</div>
+<style>
+    .modal-footer {
+        text-align: center;
+    }
+
+    .black-light {
+        margin-bottom: 0px;
+    }
+</style>
+
+<script src="~/Content/js/bootbox.min.js"></script>
+<script>
+    $('form').submit(function () {
+        $(this).find(':submit').attr('disabled', 'disabled');
+    });
+    function PreOrder() {
+        $('#hdType').val(2);
+        $('#formbilling').submit();
+        return true;
+    }
+
+
+</script>

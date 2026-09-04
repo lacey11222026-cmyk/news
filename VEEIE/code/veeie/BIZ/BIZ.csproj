@@ -1,0 +1,147 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{2CC3082E-5639-4D4D-88B9-206A9F799CAC}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>BIZ</RootNamespace>
+    <AssemblyName>BIZ</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SccProjectName>
+    </SccProjectName>
+    <SccLocalPath>
+    </SccLocalPath>
+    <SccAuxPath>
+    </SccAuxPath>
+    <SccProvider>
+    </SccProvider>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="HtmlAgilityPack">
+      <HintPath>..\DLL\HtmlAgilityPack.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.10.0.3\lib\net40\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AttributeBO.cs" />
+    <Compile Include="AttributeGroupBO.cs" />
+    <Compile Include="CategoryBO.cs" />
+    <Compile Include="Constants.cs" />
+    <Compile Include="ContentBO.cs" />
+    <Compile Include="AlbumBO.cs" />
+    <Compile Include="BannerBO.cs" />
+    <Compile Include="CommentBO.cs" />
+    <Compile Include="ContactBO.cs" />
+    <Compile Include="ContentLogBO.cs" />
+    <Compile Include="CrawlBO.cs" />
+    <Compile Include="DocumentBO.cs" />
+    <Compile Include="Entity\AccountInfo.cs" />
+    <Compile Include="Entity\AlbumImage.cs" />
+    <Compile Include="Entity\Album_FULL.cs" />
+    <Compile Include="Entity\ArticleParam.cs" />
+    <Compile Include="Entity\ATTRIBUTEGROUP_FULL.cs" />
+    <Compile Include="Entity\ATTRIBUTE_FULL.cs" />
+    <Compile Include="Entity\CategoryParam.cs" />
+    <Compile Include="Entity\CATEGORY_FULL.cs" />
+    <Compile Include="Entity\CateLite.cs" />
+    <Compile Include="Entity\CONTENT_FULL.cs" />
+    <Compile Include="Entity\Contact_FULL.cs" />
+    <Compile Include="Entity\DOCUMENT_FULL.cs" />
+    <Compile Include="Entity\Filter.cs" />
+    <Compile Include="Entity\MANUFACTORY_FULL.cs" />
+    <Compile Include="Entity\MarkExcelInfo.cs" />
+    <Compile Include="Entity\Param.cs" />
+    <Compile Include="Entity\PRODUCTATTRIBUTE_FULL.cs" />
+    <Compile Include="Entity\PRODUCTORDER_FULL.cs" />
+    <Compile Include="Entity\PRODUCT_FULL.cs" />
+    <Compile Include="Entity\PROMOTION_FULL.cs" />
+    <Compile Include="Entity\ResponseMsg.cs" />
+    <Compile Include="Entity\StatisticContainer.cs" />
+    <Compile Include="Entity\SUPPORT_FULL.cs" />
+    <Compile Include="Entity\XYData.cs" />
+    <Compile Include="PlanItemBO.cs" />
+    <Compile Include="PlanRequireBO.cs" />
+    <Compile Include="PlanStuckBO.cs" />
+    <Compile Include="PlanBO.cs" />
+    <Compile Include="FeedbackBO.cs" />
+    <Compile Include="OrganBO.cs" />
+    <Compile Include="ExpertBO.cs" />
+    <Compile Include="GoogleApiService.cs" />
+    <Compile Include="ManufactoryBO.cs" />
+    <Compile Include="MarkLogBO.cs" />
+    <Compile Include="NotifiBO.cs" />
+    <Compile Include="NotiReadBO.cs" />
+    <Compile Include="ProfileBO.cs" />
+    <Compile Include="MembershipBO.cs" />
+    <Compile Include="ProductAttributeBO.cs" />
+    <Compile Include="ProductBO.cs" />
+    <Compile Include="ProductOrderBO.cs" />
+    <Compile Include="PromotionBO.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="PublisherCategoryBO.cs" />
+    <Compile Include="QABO.cs" />
+    <Compile Include="CityBO.cs" />
+    <Compile Include="NoteBO.cs" />
+    <Compile Include="ServerProcess.cs" />
+    <Compile Include="ShopBO.cs" />
+    <Compile Include="SupportBO.cs" />
+    <Compile Include="SystemConfigBO.cs" />
+    <Compile Include="Utilities.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\DATA\DATA.csproj">
+      <Project>{BF2E6496-2BF5-4EC3-BBA0-98EA13622A8A}</Project>
+      <Name>DATA</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\UTILS\UTILS.csproj">
+      <Project>{3C20AE05-6330-4353-A9FA-5D56CEA3CBF2}</Project>
+      <Name>UTILS</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

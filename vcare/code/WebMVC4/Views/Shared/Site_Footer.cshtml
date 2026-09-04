@@ -1,0 +1,246 @@
+﻿@using WebMVC4.Helper
+@using BIZ
+@using UTILS
+
+<footer id="footer">
+    <div class="footer-content">
+        <div class="wrapper">
+            <div class="inner">
+                <div class="grid-uniform mg-left-0">
+                    <div class="grid__item large--one-third medium--one-whole small--one-whole pd-left0">
+                        <div class="ft-contact">
+                            <div class="ft-logo">
+
+                                <a href="/">
+                                    <h2>
+                                        Vcare Car Care
+                                    </h2>
+                                </a>
+
+                            </div>
+                            <div class="ft-contact-desc">
+                                Công ty cổ phần đầu tư và phát triển Vcare cam kết nỗ lực hết
+                                mình nhằm cung cấp sản phẩm và dịch vụ đúng với những giá trị mà khách
+                                hàng mong đợi.
+                            </div>
+                            <div class="ft-contact-address">
+                                <span class="ft-contact-icon"><svg class="svg-inline--fa fa-map-marker-alt fa-w-12" aria-hidden="true" data-prefix="fas" data-icon="map-marker-alt" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512" data-fa-i2svg=""><path fill="currentColor" d="M172.268 501.67C26.97 291.031 0 269.413 0 192 0 85.961 85.961 0 192 0s192 85.961 192 192c0 77.413-26.97 99.031-172.268 309.67-9.535 13.774-29.93 13.773-39.464 0zM192 272c44.183 0 80-35.817 80-80s-35.817-80-80-80-80 35.817-80 80 35.817 80 80 80z"></path></svg><!-- <i class="fas fa-map-marker-alt"></i> --></span>
+                                <div class="ft-contact-detail">
+                                    Địa chỉ: <span>BT8-13 khu đô thị Văn Khê, Hà Đông, Hà Nội</span>
+                                </div>
+                            </div>
+                            <div class="ft-contact-tel">
+                                <span class="ft-contact-icon"><svg class="svg-inline--fa fa-phone fa-w-16" aria-hidden="true" data-prefix="fas" data-icon="phone" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" data-fa-i2svg=""><path fill="currentColor" d="M493.397 24.615l-104-23.997c-11.314-2.611-22.879 3.252-27.456 13.931l-48 111.997a24 24 0 0 0 6.862 28.029l60.617 49.596c-35.973 76.675-98.938 140.508-177.249 177.248l-49.596-60.616a24 24 0 0 0-28.029-6.862l-111.997 48C3.873 366.516-1.994 378.08.618 389.397l23.997 104C27.109 504.204 36.748 512 48 512c256.087 0 464-207.532 464-464 0-11.176-7.714-20.873-18.603-23.385z"></path></svg><!-- <i class="fas fa-phone"></i> --></span>
+                                <div class="ft-contact-detail">
+                                    Số điện thoại: <a href="tel:098.199.5565">098.199.5565</a>
+                                </div>
+                            </div>
+                            <div class="ft-contact-email">
+                                <span class="ft-contact-icon"><svg class="svg-inline--fa fa-envelope fa-w-16" aria-hidden="true" data-prefix="fas" data-icon="envelope" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" data-fa-i2svg=""><path fill="currentColor" d="M502.3 190.8c3.9-3.1 9.7-.2 9.7 4.7V400c0 26.5-21.5 48-48 48H48c-26.5 0-48-21.5-48-48V195.6c0-5 5.7-7.8 9.7-4.7 22.4 17.4 52.1 39.5 154.1 113.6 21.1 15.4 56.7 47.8 92.2 47.6 35.7.3 72-32.8 92.3-47.6 102-74.1 131.6-96.3 154-113.7zM256 320c23.2.4 56.6-29.2 73.4-41.4 132.7-96.3 142.8-104.7 173.4-128.7 5.8-4.5 9.2-11.5 9.2-18.9v-19c0-26.5-21.5-48-48-48H48C21.5 64 0 85.5 0 112v19c0 7.4 3.4 14.3 9.2 18.9 30.6 23.9 40.7 32.4 173.4 128.7 16.8 12.2 50.2 41.8 73.4 41.4z"></path></svg><!-- <i class="fas fa-envelope"></i> --></span>
+                                <div class="ft-contact-detail">
+                                    Email:  <a href="mailto:Vo.hoai.nam.vn@gmail.com">Vo.hoai.nam.vn@gmail.com</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="grid__item large--five-twelfths  medium--three-quarters small--one-half pd-left0">
+                        <div class="ft-nav">
+                            <h3 class="ft-title">
+                                Đăng kí nhận tin tức cùng chúng tôi
+                            </h3>
+                            <p>
+                                Nhập email để đăng kí nhận những tin tức về sản phẩm mới nhất của chúng tôi nhé
+                            </p>
+                            <div class="sub-wrapper">
+
+                                <form  class='contact-form' >
+                                   
+
+
+
+                                    <input type="email" value="" placeholder="Nhập email..." name="contact[email]" id="Email" aria-label="email@example.com">
+                                   
+                                    <button type="button" name="subscribe" id="subscribe" value="GỬI"><i class="fa fa-angle-right"></i></button>
+
+
+
+                                
+                                </form>
+
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="grid__item large--one-quarter medium--one-quarter small--one-half pd-left0">
+                        <div class="ft-nav">
+                            <h3 class="ft-title">
+                                Liên kết nhanh
+                            </h3>
+                            <ul class="no-bullets">
+
+                                <li>
+                                    <a href="/">Trang chủ</a>
+                                </li>
+
+                                <li>
+                                    <a href="/pages/about-us">Giới thiệu</a>
+                                </li>
+
+                                <li>
+                                    <a href="/collections/dich-vu">Dịch vụ</a>
+                                </li>
+
+                                <li>
+                                    <a href="/collections/all">Sản phẩm</a>
+                                </li>
+
+                                <li>
+                                    <a href="/collections/combo-cham-soc-xe-ca-nam">Combo chăm sóc</a>
+                                </li>
+
+                                <li>
+                                    <a href="/blogs/news">Blog</a>
+                                </li>
+
+                            </ul>
+                            <div class="bct">
+                                <a href=""><img src="/Content/20150827110756-dathongbao.webp"></a>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="footer-copyrights">
+        <div class="wrapper">
+            <div class="inner">
+                <div class="grid mg-left-0">
+                    <div class="grid__item large--one-half medium--one-half small--one-whole pd-left0">
+                        <div class="ft-copyrights-content small--text-center">
+                            Copyrights © 2023 by <a target="_blank" href="">V care</a>
+                        </div>
+                    </div>
+                    <div class="grid__item large--one-half large--text-right medium--one-half medium--text-right small--one-whole small--text-center pd-left0">
+                        <div class="ft-social-network">
+
+                            <a href="https://www.facebook.com/Vcarecarcare" class="fb-icon"><svg class="svg-inline--fa fa-facebook fa-w-14" aria-hidden="true" data-prefix="fab" data-icon="facebook" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" data-fa-i2svg=""><path fill="currentColor" d="M448 56.7v398.5c0 13.7-11.1 24.7-24.7 24.7H309.1V306.5h58.2l8.7-67.6h-67v-43.2c0-19.6 5.4-32.9 33.5-32.9h35.8v-60.5c-6.2-.8-27.4-2.7-52.2-2.7-51.6 0-87 31.5-87 89.4v49.9h-58.4v67.6h58.4V480H24.7C11.1 480 0 468.9 0 455.3V56.7C0 43.1 11.1 32 24.7 32h398.5c13.7 0 24.8 11.1 24.8 24.7z"></path></svg><!-- <i class="fab fa-facebook" aria-hidden="true"></i> --></a>
+
+
+
+
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+
+
+<div id="fixed-social-network" class="medium--hide small--hide">
+
+    <a href="https://www.facebook.com/Vcarecarcare" class="fb-icon"><svg class="svg-inline--fa fa-facebook-f fa-w-9" aria-hidden="true" data-prefix="fab" data-icon="facebook-f" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 264 512" data-fa-i2svg=""><path fill="currentColor" d="M76.7 512V283H0v-91h76.7v-71.7C76.7 42.4 124.3 0 193.8 0c33.3 0 61.9 2.5 70.2 3.6V85h-48.2c-37.8 0-45.1 18-45.1 44.3V192H256l-11.7 91h-73.6v229"></path></svg><!-- <i class="fab fa-facebook-f"></i> --> Facebook</a>
+
+
+
+
+
+
+</div>
+
+
+
+
+
+
+<a href="javascript:void(0)" id="back-to-top" class="small--hide" style="bottom: 90px;">
+    <span>
+        <svg class="svg-inline--fa fa-chevron-up fa-w-14" aria-hidden="true" data-prefix="fa" data-icon="chevron-up" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" data-fa-i2svg=""><path fill="currentColor" d="M240.971 130.524l194.343 194.343c9.373 9.373 9.373 24.569 0 33.941l-22.667 22.667c-9.357 9.357-24.522 9.375-33.901.04L224 227.495 69.255 381.516c-9.379 9.335-24.544 9.317-33.901-.04l-22.667-22.667c-9.373-9.373-9.373-24.569 0-33.941L207.03 130.525c9.372-9.373 24.568-9.373 33.941-.001z"></path></svg><!-- <i class="fa fa-chevron-up" aria-hidden="true"></i> -->
+    </span>
+</a>
+
+
+<!--<section id="mobile-bottom-navigation" class="large--hide medium--hide">
+    <div class="grid mg-left-0">
+
+
+
+
+        <div class="grid__item medium--two-tenths small--two-tenths pd-left0">
+            <div class="mobile-nav-item">
+                <a href="/collections/all">
+                    <svg class="svg-inline--fa fa-tag fa-w-16" aria-hidden="true" data-prefix="fas" data-icon="tag" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" data-fa-i2svg=""><path fill="currentColor" d="M0 252.118V48C0 21.49 21.49 0 48 0h204.118a48 48 0 0 1 33.941 14.059l211.882 211.882c18.745 18.745 18.745 49.137 0 67.882L293.823 497.941c-18.745 18.745-49.137 18.745-67.882 0L14.059 286.059A48 48 0 0 1 0 252.118zM112 64c-26.51 0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48-21.49-48-48-48z"></path></svg>-->
+<!-- <i class="fas fa-tag"></i> -->
+<!--<br>Hàng mới
+        </a>
+    </div>
+</div>
+
+
+
+
+<div class="grid__item medium--two-tenths small--two-tenths pd-left0">
+    <div class="mobile-nav-item">
+        <a href="/collections/all">
+            <svg class="svg-inline--fa fa-gift fa-w-16" aria-hidden="true" data-prefix="fas" data-icon="gift" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" data-fa-i2svg=""><path fill="currentColor" d="M488 192h-64.512C438.72 175.003 448 152.566 448 128c0-52.935-43.065-96-96-96-41.997 0-68.742 20.693-95.992 54.15C226.671 50.192 199.613 32 160 32c-52.935 0-96 43.065-96 96 0 24.566 9.28 47.003 24.512 64H24c-13.255 0-24 10.745-24 24v80c0 13.255 10.745 24 24 24h8v112c0 26.51 21.49 48 48 48h352c26.51 0 48-21.49 48-48V320h8c13.255 0 24-10.745 24-24v-80c0-13.255-10.745-24-24-24zm-208-32c24-56 55.324-64 72-64 17.645 0 32 14.355 32 32s-14.355 32-32 32h-72zM160 96c16.676 0 48 8 72 64h-72c-17.645 0-32-14.355-32-32s14.355-32 32-32zm48 128h96v184c0 13.255-10.745 24-24 24h-48c-13.255 0-24-10.745-24-24V224z"></path></svg>-->
+<!-- <i class="fas fa-gift"></i> -->
+<!--<br>Khuyến mãi
+        </a>
+    </div>
+</div>
+
+
+
+
+<div class="grid__item medium--two-tenths small--two-tenths pd-left0">
+    <div class="mobile-nav-item">
+        <a href="/account">
+            <svg class="svg-inline--fa fa-user fa-w-16" aria-hidden="true" data-prefix="fas" data-icon="user" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" data-fa-i2svg=""><path fill="currentColor" d="M256 0c88.366 0 160 71.634 160 160s-71.634 160-160 160S96 248.366 96 160 167.634 0 256 0zm183.283 333.821l-71.313-17.828c-74.923 53.89-165.738 41.864-223.94 0l-71.313 17.828C29.981 344.505 0 382.903 0 426.955V464c0 26.51 21.49 48 48 48h416c26.51 0 48-21.49 48-48v-37.045c0-44.052-29.981-82.45-72.717-93.134z"></path></svg>-->
+<!-- <i class="fas fa-user"></i> -->
+<!--<br>Tài khoản
+        </a>
+    </div>
+</div>
+
+
+
+
+<div class="grid__item medium--two-tenths small--two-tenths pd-left0">
+    <div class="mobile-nav-item">
+        <a href="/pages/lien-he">
+            <svg class="svg-inline--fa fa-phone fa-w-16" aria-hidden="true" data-prefix="fas" data-icon="phone" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" data-fa-i2svg=""><path fill="currentColor" d="M493.397 24.615l-104-23.997c-11.314-2.611-22.879 3.252-27.456 13.931l-48 111.997a24 24 0 0 0 6.862 28.029l60.617 49.596c-35.973 76.675-98.938 140.508-177.249 177.248l-49.596-60.616a24 24 0 0 0-28.029-6.862l-111.997 48C3.873 366.516-1.994 378.08.618 389.397l23.997 104C27.109 504.204 36.748 512 48 512c256.087 0 464-207.532 464-464 0-11.176-7.714-20.873-18.603-23.385z"></path></svg>-->
+<!-- <i class="fas fa-phone"></i> -->
+<!--<br>Liên hệ
+        </a>
+    </div>
+</div>
+
+
+<div class="grid__item medium--two-tenths small--two-tenths pd-left0">
+    <div class="mobile-nav-item">
+        <a href="/cart">
+            <svg class="svg-inline--fa fa-shopping-cart fa-w-18" aria-hidden="true" data-prefix="fas" data-icon="shopping-cart" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512" data-fa-i2svg=""><path fill="currentColor" d="M528.12 301.319l47.273-208C578.806 78.301 567.391 64 551.99 64H159.208l-9.166-44.81C147.758 8.021 137.93 0 126.529 0H24C10.745 0 0 10.745 0 24v16c0 13.255 10.745 24 24 24h69.883l70.248 343.435C147.325 417.1 136 435.222 136 456c0 30.928 25.072 56 56 56s56-25.072 56-56c0-15.674-6.447-29.835-16.824-40h209.647C430.447 426.165 424 440.326 424 456c0 30.928 25.072 56 56 56s56-25.072 56-56c0-22.172-12.888-41.332-31.579-50.405l5.517-24.276c3.413-15.018-8.002-29.319-23.403-29.319H218.117l-6.545-32h293.145c11.206 0 20.92-7.754 23.403-18.681z"></path></svg>-->
+<!-- <i class="fas fa-shopping-cart"></i> -->
+<!--<br>Giỏ hàng
+                    <span class="number">
+                        0
+                    </span>
+                </a>
+            </div>
+        </div>
+    </div>
+</section>-->
+
+
+
+
+
+
+
+<div id="modalAddComplete">
+</div>
+
+<button type="button" id="modalAddCompleteBtn" style="display: none;"></button>

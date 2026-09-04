@@ -1,0 +1,58 @@
+﻿@using BIZ
+@using UTILS
+@using WebMVC4.Helper
+@using WebMVC4.Models
+@model ProductModel
+    @if(Model!=null)
+    { 
+<div class="row wpb_row row-fluid">
+   @if (Model.listcate != null)
+   {
+    <div class="wpb_column column_container col-sm-3">
+        <div class="column-inner ">
+            <div class="wpb_wrapper">
+
+                <div class="wp_custommenu wpb_content_element">
+                    <div class="widget widget_nav_menu">
+                        <h2 class="widgettitle">DANH MỤC</h2>
+                        <div class="menu-danh-muc-bep-container">
+                            <ul id="menu-danh-muc-bep" class="menu">
+                                @foreach (var item in Model.listcate.Select((value, i) => new { i, value }))
+                                {
+                                    <li id="menu-item-@(item.value.Id)" class="menu-item menu-item-type-taxonomy menu-item-object-product_cat menu-item-@(item.value.Id)"><a href="@Utils.FormatUrlRewriteByType(item.value.Id, item.value.Name, int.Parse(item.value.Type.ToString()), item.value.Link)">@item.value.Name</a></li>
+                                }
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+   }
+    @if (Model.listmanu != null)
+    {
+        if(Model.listmanu.Count>0)
+        {
+            <div class="wpb_column column_container col-sm-9">
+                <div class="column-inner ">
+                    <div class="wpb_wrapper">
+                        <div class="wp_custommenu wpb_content_element">
+                            <div class="widget widget_nav_menu">
+                                <h2 class="widgettitle">THƯƠNG HIỆU</h2>
+                                <div class="menu-thuong-hieu-bep-container">
+                                    <ul id="menu-thuong-hieu-bep" class="menu">
+                                        @foreach (var item in Model.listmanu.Select((value, i) => new {i, value}))
+                                        {
+                                            <li id="menu-item-@(item.value.Id)" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-@(item.value.Id)"><a href="@Utils.FormatUrlRewriteByType(Model.Cate.Id, Model.Cate.Name, int.Parse(Model.Cate.Type.ToString()), Model.Cate.Link)?ManuId=@(item.value.ManufactoryId)">@item.value.ManufactoryName</a></li>
+                                        }
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        }
+    }
+</div> }

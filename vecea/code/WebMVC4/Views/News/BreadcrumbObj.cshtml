@@ -1,0 +1,18 @@
+﻿@using BIZ
+@using UTILS
+@using WebMVC4.Helper
+@model BIZ.Entity.CATEGORY_FULL
+
+@if (Model != null)
+{
+    if (Model.Type == 5)
+    {
+        <a href="@Utils.FormatUrlRewriteByType(Model.Id, Model.Name, (int)Model.Type)" class="title-cm">@Model.Name</a>
+    }
+    else
+    {
+        <a href="@Utils.FormatUrlRewriteByType(Model.Id, Model.Name, (int)Model.Type)" class="news-list-title">@Model.Name</a>
+    }
+
+
+}

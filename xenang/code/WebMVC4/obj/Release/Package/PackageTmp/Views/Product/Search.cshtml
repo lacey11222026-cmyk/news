@@ -1,0 +1,103 @@
+﻿@using BIZ
+@using UTILS
+@using WebMVC4.Helper
+@model WebMVC4.Models.ProductModel
+
+@if (Model != null)
+{
+    <div class="shop-page-title category-page-title page-title ">
+        <div class="page-title-inner flex-row medium-flex-wrap container" data-wpmeteor-mouseover="true" data-wpmeteor-mouseout="true">
+            <div class="flex-col flex-grow medium-text-center">
+                <div class="is-small">
+                    <nav class="woocommerce-breadcrumb breadcrumbs"><a href="/">Trang chủ</a> <span class="divider">/</span>Tìm kiếm</nav>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+    <main id="main" class="">
+        <div class="row category-page-row">
+            <div class="large-3 col hide-for-medium ">
+                @Html.Partial("Site_Right")
+            </div><!-- large-3 -->
+            <div class="col large-9">
+                <div class="shop-container">
+                    <h1 class="page-title">
+                        <span>Tìm kiếm từ khóa "@(ViewBag.Keyword)"</span>
+
+                    </h1>
+                    <div class="products row row-small large-columns-4 medium-columns-3 small-columns-2">
+                        @foreach (var item in Model.listdata.Select((value, i) => new { i, value }))
+                        {
+                            <div class="product-small col  type-product product-type-simple">
+                                <div class="col-inner">
+                                    <div class="badge-container absolute left top z-1"></div><div class="product-small box ">
+                                        <div class="box-image">
+                                            <div class="image-none">
+                                                <a href="@UTILS.Utils.FormatUrlRewrite(item.value.Id,item.value.Name,"ProductDetail")">
+                                                    <img  alt="@item.value.Name"   src="@item.value.DescriptImage?w=281&h=254&mode=crop" />
+
+                                                </a>
+                                            </div>
+                                            <div class="image-tools is-small top right show-on-hover"></div>
+                                            <div class="image-tools is-small hide-for-small bottom left show-on-hover"></div>
+                                            <div class="image-tools grid-tools text-center hide-for-small bottom hover-slide-in show-on-hover"></div>
+                                        </div>
+                                        <div class="box-text box-text-products text-center grid-style-2">
+                                            <div class="title-wrapper">
+                                                <p class="name product-title woocommerce-loop-product__title">
+                                                    <a href="@UTILS.Utils.FormatUrlRewrite(item.value.Id,item.value.Name,"ProductDetail")">@item.value.Name</a>
+                                                </p>
+                                            </div>
+                                            <div class="price-wrapper">
+                                                <span class="price">
+                                                    @if (item.value.Price > 0)
+                                                    {
+                                                        <span class="amount">Giá: @Utils.InsertCommaNoStyle(item.value.Price.ToString()) đ</span>
+                                                    }
+                                                    else
+                                                    {
+                                                        <span class="amount">Giá: liên hệ 0943888255</span>
+                                                    }
+
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    </div><!-- row -->
+                    <nav class="navigation pagination" role="navigation">
+
+                        <div class="nav-links">
+                            @{Html.RenderPartial("Pagination", new WebMVC4.Models.PaginationInfo
+                                {
+                                    PageUrl = Url.SetParameter("Page", "!0"),
+                                    CurrentPage = Model.pageIndex,
+                                    PageSize = Model.pageSize,
+                                    TotalItemCount = Model.total,
+                                }); }
+                        </div>
+                    </nav>
+
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        function loadmenu(categoryId, categoryName, manuId) {
+            $.ajax({
+                type: "Get",
+                url: "@Url.Action("TopManu")?CategoryId=" + categoryId + "&CateName=" + categoryName + "&ManuId=" + manuId,
+                success: function (data) {
+                    if (data) {
+                        $("#menu-manu").html(data);
+                    }
+                }
+            });
+        }
+    </script>
+}

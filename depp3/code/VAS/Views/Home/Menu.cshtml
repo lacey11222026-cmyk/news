@@ -1,0 +1,98 @@
+﻿@using BIZ
+@using UTILS
+@using VAS
+@using VAS.Helper
+@model List<BIZ.Entity.CATEGORY_FULL>
+<div class="menu_c">
+
+    <ul class="menu" id="topnav">
+
+        <li><a href="/" rel="ct1">
+    <img src="@(MvcApplication.StaticSiteUrl)images/ic1.png">
+</a></li>
+        
+        @if (Model != null)
+        {
+
+            if (Model.Count > 0)
+            {
+                foreach (var item in Model.Select((value, i) => new { i, value }))
+                {
+                   
+            <li id="cate_@item.value.Id"><a  rel="ct@(item.i + 2)" href="@Utils.FormatUrlRewriteByType(item.value.Id, item.value.Name, int.Parse(item.value.Type.ToString()), item.value.Link)">@item.value.Name </a>
+
+            </li> 
+
+                }
+            }
+        }
+
+
+    </ul>
+    <div class="clear"></div>
+
+</div>
+<div class="clear"></div>
+
+
+<div class="tool_phu">
+    @ViewBag.Date
+
+    <ul>
+
+        @*<li class="ic1">Hotline: 0901345678</li>*@
+        @*<li class="ic2"><a href="#">RSS</a></li>*@
+        <li>
+            <input type="text" id="txtKeyword" name="" onkeydown="javascript: return AnyInput_KeyDown(this, event);"></li>
+        <li style="width: 30px; height: 20px; margin-top: 5px;"><a href="http://tietkiemnangluong.com.vn">
+            <img style="width:100%;" src="@(MvcApplication.StaticSiteUrl)images/vn.gif"></a></li>
+        <li style="width: 30px; height: 20px; margin-top: 5px;"><a href="http://vneec.gov.vn">
+            <img style="width:100%;" src="@(MvcApplication.StaticSiteUrl)images/uktoday.jpg"></a></li>
+    </ul>
+    <div class="clear"></div>
+</div>
+
+
+
+<div class="clear"></div>
+
+
+
+
+<script type="text/javascript">
+    function search() {
+        var searchtext = $("#txtKeyword").val();
+        window.location = "/News/Search?keyword=" + searchtext;
+
+    }
+    function AnyInput_KeyDown(sender, e) {
+        if ((e.which && e.which == 13) || (e.keyCode && e.keyCode == 13)) {
+            search();
+
+            return false;
+        }
+
+        return true;
+    }
+    //$("#btsearch").click(function () {
+    //    search();
+    //});
+    var defaultKeyword = "search ...";
+
+    if ($("#txtKeyword").val() == '') {
+
+        $("#txtKeyword").val(defaultKeyword);
+    }
+
+    $("#txtKeyword").focus(function () {
+        if ($(this).val() == defaultKeyword) {
+            $(this).val('');
+        }
+    });
+
+    $("#txtKeyword").blur(function () {
+        if ($(this).val() == '') {
+            $(this).val(defaultKeyword);
+        }
+    });
+</script>

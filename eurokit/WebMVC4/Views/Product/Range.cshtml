@@ -1,0 +1,81 @@
+﻿<div class="collection-filter-price">
+    <button type="button" class="accordion cs-title col-sb-trigger active"> <span>Khoảng giá</span> </button>
+    <div class="panel sidebar-sort" style="max-height: 216px;">
+        <ul class="no-bullets filter-price clearfix">
+            <li>
+                <label><input type="radio" name="price" value=""> <span>Tất cả</span> </label>
+            </li>
+            <li onclick="selectCard(this)">
+                <label>
+                    <input value="1" class="price-filter even-filter" type="checkbox" @(ViewBag.Type == 1 ? "checked" : "")>
+                    <span>Dưới 5tr</span>
+                </label>
+            </li>
+            <li onclick="selectCard(this)">
+                <label>
+                    <input value="2" class="price-filter even-filter" type="checkbox" @(ViewBag.Type == 2 ? "checked" : "")>
+                    <span>Từ 5tr-10tr</span>
+                </label>
+            </li>
+            <li onclick="selectCard(this)">
+                <label>
+                    <input value="3" class="price-filter even-filter" type="checkbox" @(ViewBag.Type == 3 ? "checked" : "")>
+                    <span>Từ 10tr-20tr</span>
+                </label>
+            </li>
+            <li onclick="selectCard(this)">
+                <label>
+                    <input value="4" class="price-filter even-filter" type="checkbox" @(ViewBag.Type == 4 ? "checked" : "")>
+                    <span>Từ 20tr-30tr</span>
+                </label>
+            </li>
+            <li onclick="selectCard(this)">
+                <label>
+                    <input value="5" class="price-filter even-filter" type="checkbox" @(ViewBag.Type == 5 ? "checked" : "")>
+                    <span>Từ 30tr-40tr</span>
+                </label>
+            </li>
+            <li onclick="selectCard(this)">
+                <label>
+                    <input value="6" class="price-filter even-filter" type="checkbox" @(ViewBag.Type == 6 ? "checked" : "")>
+                    <span>Trên 40tr</span>
+                </label>
+            </li>
+        </ul>
+    </div>
+</div>
+
+<script>
+    var updateQueryStringParam = function (key, value) {
+        var baseUrl = [location.protocol, '//', location.host, location.pathname].join(''),
+            urlQueryString = document.location.search,
+            newParam = key + '=' + value,
+            params = '?' + newParam;
+
+        // If the "search" string exists, then build params from it
+        if (urlQueryString) {
+            var keyRegex = new RegExp('([\?&])' + key + '[^&]*');
+
+            // If param exists already, update it
+            if (urlQueryString.match(keyRegex) !== null) {
+                params = urlQueryString.replace(keyRegex, "$1" + newParam);
+            } else { // Otherwise, add it to end of query string
+                params = urlQueryString + '&' + newParam;
+            }
+        }
+        window.history.replaceState({}, "", baseUrl + params);
+    };
+    function selectCard(obj) {
+        var o = $(obj).find("input");
+        var value = o.val();
+        //alert(!o.is(":checked"));
+        if (!o.is(":checked")) {
+            value = -1;
+        }
+
+        updateQueryStringParam('type', value);
+        location.reload();
+
+
+    }
+</script>

@@ -1,0 +1,138 @@
+﻿@using BIZ
+@using DATA
+@using UTILS
+@using WebMVC4.Helper
+@model BIZ.Entity.DOCUMENT_FULL
+@{
+    var langpage = WorkContext.GetLanguage();
+}
+
+<div class="main-content container mt20">
+    <div class="row">
+        <div class="col-lg-8 col-md-12">
+            @{Html.RenderAction("Breadcrumb", "News", new { CategoryId = Model.CategoryId });}
+            <div class="mt40 manage-detail-page">
+                <table>
+                    <tbody>
+                        <tr>
+                            <th> @Resources.Global.DocName</th>
+                            <td colspan="3"> @Html.Raw(Model.Name)</td>
+                        </tr>
+                        <tr>
+                            <th>@Resources.Global.DocViewOnline</th>
+                            <td colspan="3"><a href="@Url.Action("ViewFile","Document",new { id=Model.Id})" target="_blank">@Resources.Global.DocViewOnline</a></td>
+                        </tr>
+                        <tr>
+                            <th>@Resources.Global.DocDownload</th>
+                            <td colspan="3"><a href="@Url.Action("DownloadFile","Document",new { id=Model.Id})" class="document-view textlink"><img src="/Content/images/ico-pdf02.png" alt=""></a></td>
+                        </tr>
+                        <tr>
+                            <th> @Resources.Global.DocDescription</th>
+                            <td colspan="3">@Html.Raw(Model.Description)</td>
+                        </tr>
+                        <tr>
+                            <th> @Resources.Global.DocCode</th>
+                            <td>@Model.Code</td>
+                            <th> @Resources.Global.DocEffectiveDate</th>
+                            <td>
+                                @if (!Model.EffectiveDate.HasValue)
+                                {
+
+                                    <text>&nbsp;</text>
+                                }
+                                else
+                                {
+                                    if (Model.EffectiveDate.Value.Year < 9000)
+                                    {
+                                        @Convert.ToDateTime(Model.EffectiveDate).ToString(@" dd'/'MM'/'yyyy")
+                                    }
+                                    else
+                                    {
+                                        <text>&nbsp;</text>
+                                    }
+
+                                }
+                            </td>
+                        </tr>
+                        <tr>
+                            <th> @Resources.Global.DocExpiryDate</th>
+                            <td>
+                                @if (!Model.ExpiryDate.HasValue)
+                                {
+
+                                    <text>&nbsp;</text>
+                                }
+                                else
+                                {
+                                    if (Model.ExpiryDate.Value.Year < 9000)
+                                    {
+                                        @Convert.ToDateTime(Model.ExpiryDate).ToString(@" dd'/'MM'/'yyyy")
+                                    }
+                                    else
+                                    {
+                                        <text>&nbsp;</text>
+                                    }
+
+                                }
+                            </td>
+                            <th>@Resources.Global.DocPublishDate</th>
+                            <td>
+                                @if (!Model.PublishDate.HasValue)
+                                {
+
+                                    <text>&nbsp;</text>
+                                }
+                                else
+                                {
+                                    if (Model.PublishDate.Value.Year < 9000)
+                                    {
+                                        @Convert.ToDateTime(Model.PublishDate).ToString(@" dd'/'MM'/'yyyy")
+                                    }
+                                    else
+                                    {
+                                        <text>&nbsp;</text>
+                                    }
+
+                                }
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>
+                                @Resources.Global.DocSignedByDesc
+                            </th>
+                            <td>@HtmlHelpers.GetDocAgent(Model.Agent, langpage)</td>
+                            @*<td>@Model.SignedByDesc</td>*@
+                            <th>
+                                @Resources.Global.DocSignedBy
+                            </th>
+                            <td>
+                                @Model.SignedBy
+                            </td>
+
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+        </div><!-- end content left-->
+
+        <div class="col-lg-4 col-md-12">
+            <div class=" mt20">
+                <div class="gray-box">
+                    @Html.Partial("Site_Right")
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+
+ $('#menu_' + '@ViewBag.CurrentCategoryId').addClass("active");
+
+  $('#menu_' + '@ViewBag.ParentCategoryId').addClass("active");
+
+
+
+</script>

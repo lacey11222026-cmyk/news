@@ -1,0 +1,23 @@
+﻿@model List<DATA.Banner>
+@using WebMVC4.Helper
+@{
+    var langpage = WorkContext.GetLanguage();
+}
+@if (Model != null)
+{
+    foreach (var item in Model.Select((value, i) => new { i, value }))
+    {
+        if (langpage == "vi-vn")
+        {
+            <img src="@item.value.Data" alt="@item.value.Name" class="w-100" />
+        }
+        else
+        {
+            <img src="@item.value.Description" alt="@item.value.Name" class="w-100" />
+        }
+
+
+    }
+}
+
+

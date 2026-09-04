@@ -1,0 +1,96 @@
+﻿@using BIZ
+@using UTILS
+@using WebMVC4.Helper
+@model BIZ.Entity.CATEGORY_FULL
+@{
+    List<BIZ.Entity.CATEGORY_FULL> data = ViewBag.lstrelate;
+}
+@{
+    var langpage = WorkContext.GetLanguage();
+}
+@if (Model != null)
+{
+    <div class="intro-page container mt30">
+        <div class="row">
+            <div class="col-lg-9 col-md-12 pb40">
+
+                @{Html.RenderAction("BreadcrumbObj", "News", new { data = Model });}
+                <div id="NewsContent">
+                    @Html.Raw(Model.Contents.Replace("font-size: small", ""))
+                </div>
+                @if (Model.Id == 2)
+                {
+                    <div class="mt30">
+
+                        <div class="dropdown">
+                            <div class="dropdown__inner">
+                                <h4>CHỨC NĂNG NHIỆM VỤ</h4>
+                                <div class="dropdownSub">
+                                    @{Html.RenderAction("Intro", "Home", new { CategoryId = 75 });}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="dropdown">
+                            <div class="dropdown__inner">
+                                <h4>LÃNH ĐẠO CỤC</h4>
+                                <div class="dropdownSub">
+                                    @{Html.RenderAction("Intro", "Home", new { CategoryId = 82 });}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="dropdown">
+                            <div class="dropdown__inner">
+                                <h4>CƠ CẤU TỔ CHỨC</h4>
+                                <div class="dropdownSub">
+                                    @{Html.RenderAction("Intro", "Home", new { CategoryId = 85 });}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div><!-- end content left-->
+
+            <div class="col-lg-3 col-md-12">
+                <ul class="link-list mt20">
+                    @{Html.RenderAction("BannerRight", "Home", new { lang = langpage });}
+
+
+                </ul>
+
+            </div>
+        </div>
+    </div><!-- end main content-->
+
+    
+    <script type="text/javascript">
+
+        $(function () {
+            $('.dropdown__inner').on('click', function () {
+                $(this).toggleClass('dropdown_toggle').children('.dropdownSub').slideToggle(200);
+            });
+            $('.dropdown__inner li a').on("click", function () {
+                $(".dropdownSub").hide();
+            });
+            $(document).on('click', function (e) {
+                if (!$(e.target).closest('.dropdown__inner').length) {
+                    $('.dropdownSub').hide();
+                }
+            });
+        });
+    </script>
+
+
+
+}
+<script type="text/javascript">
+
+    $('#menu_' + '@Model.Id').addClass("active");
+    $('#menu_' + '@Model.ParentId.GetValueOrDefault()').addClass("active");
+
+</script>
+<style>
+    .dropdownSub div, .dropdownSub p {
+        margin: 1em 0;
+    }
+</style>
+

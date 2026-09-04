@@ -1,0 +1,15 @@
+﻿@using BIZ
+@using UTILS
+@using WebMVC4.Helper
+@model BIZ.Entity.CATEGORY_FULL
+
+@if (Model != null)
+{
+    <div class="article">
+        <div class="bg_blu">
+            <a href="@Utils.FormatUrlRewriteByType(Model.Id, Model.Name, (int)Model.Type)"><font class="fl">@Model.Name</font></a>
+
+        </div>
+    </div>
+    @*<div class="cate"><span class="tittle_t"><a href="@Utils.FormatUrlRewriteByType(Model.Id, Model.Name, (int)Model.Type)"></a></span></div>*@
+}

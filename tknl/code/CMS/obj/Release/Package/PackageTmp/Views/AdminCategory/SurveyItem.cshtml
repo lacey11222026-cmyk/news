@@ -1,0 +1,277 @@
+﻿@{
+   
+    Layout = "~/Views/Shared/_AdminV2.cshtml";
+    
+}
+@using UTILS
+@using CMS.Models
+@using CMS.Helper
+@model List<DATA.SurveyItem>
+
+<div class="onecolumn">
+    <div class="header">
+        <span>@ViewBag.Title</span>
+    </div>
+    <br class="clear">
+    <div class="content">
+
+        @if (Model != null)
+        {
+            
+            <table width="100%" cellspacing="0" cellpadding="0" class="data" id="mytable">
+                <tbody>
+                    <tr id="rowheader">
+                        <th scope="col">Thứ tự
+                        </th>
+
+                        <th scope="col">Câu trả lời
+                        </th>
+                        <th scope="col">Lượt chọn
+                        </th>
+                        <th scope="col">Duyệt
+                        </th>
+                        <th scope="col">Quản trị
+                        </th>
+
+
+
+                    </tr>
+                    @if (Model != null)
+                    {
+                        if (Model.Count > 0)
+                        {
+                            foreach (var item in Model)
+                            {
+                                <tr id="row_@(item.Id)">
+
+                                    <td>
+                                        @item.Order
+                                    </td>
+                                    <td style="width: 333px;">
+
+
+                                        @item.Content
+
+
+                                    </td>
+
+                                    <td>
+                                        @item.Count
+                                    </td>
+
+
+
+                                    <td>
+
+                                        @if (item.Status >= 1)
+                                        {
+                                            <input type="checkbox" onclick="return setUnApprove('@item.Id    ');"  checked="checked"  class="chkApprove" />   
+                                        }
+                                        else
+                                        {
+                                            <input type="checkbox"   onclick="return setApprove('@item.Id    ');" class="chkApprove" />       
+                                        }
+
+
+                                    </td>
+                                    <td>
+                                           <a  class='editLink'  href="javascript:void(0);" onclick="return editBanner('@item.Id','@item.Content','@item.Status','@item.Order');" Title="Sửa">
+                                    <img class="help" alt="edit" src="/Styles/admin/images/icon_edit.png"></a>
+                             
+                                        <a onclick="return deletecomment('@item.Id ');" href="javascript:void(0);">
+                                                  <img class="help" alt="delete" src="/Styles/admin/images/icon_delete.png">
+                                              </a>
+                                    </td>
+                                </tr>
+                            }
+                        }
+                    }
+                </tbody>
+            </table>
+          
+
+        }
+        <br />
+        <a href="javascript:void(0)" class="adminbutton create">Tạo mới</a>
+
+    </div>
+
+</div>
+<div class="dialogueform" id="dialogue">
+    <form id="SurveyItemForm" method="get" action="">
+        <input id="Id" name="Id" type="hidden" />
+        <input id="SurveyId" name="SurveyId" value="@ViewBag.SurveyId" type="hidden" />
+        <div class="login-left">
+            <label >
+                Câu trả lời:</label>
+        </div>
+        <div class="login-right">
+
+            <textarea id="Content" name="Content" rows="3" style="width: 280px;">
+            </textarea>
+
+        </div>
+        <div class="clear">
+        </div>
+        <br />
+        
+        
+       
+        <div class="login-left">
+            <label >
+                Thứ tự :</label>
+        </div>
+        <div class="login-right">
+            <input id="Order" name="Order" type="text" />
+
+
+        </div>
+        <div class="clear">
+        </div>
+        <div class="login-left">
+            <label >
+                Trạng thái:</label>
+        </div>
+        <div class="login-right">
+
+            <input name="Status" type="radio" value="1" checked="checked" />
+            Hoạt động
+                <input name="Status" type="radio" value="0" />
+            Khóa
+
+        </div>
+        <div class="clear">
+        </div>
+        <br />
+        <div id="buttons">
+            <input class="button" type="button" value='Cập nhật' id="btUpdate" />&nbsp;
+        <input type="button" value='Quay lại' id="btnCancel" />
+        </div>
+    </form>
+</div>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        //$('#menu_category').click();
+        if(jQuery.query.get("tab")==1)
+        {
+            $('#left_menu').hide();
+            $('#header').hide();
+            $('#bg_content').css("margin-left", "0px").css("padding-top", "0px");
+            $('.onecolumn').css("margin-top", "0px");
+        }
+    });
+    
+    function openWin(url) {
+        myWindow = window.open(url, '', 'width=868,height=668');
+        myWindow.focus();
+    }
+    function deletecomment(Id) 
+    {
+        if(confirm("Bạn có chắc chắn muốn xóa?"))
+        {
+            $.post('@Url.Action("SurveyItemDelete", "AdminCategory")', { "Id": Id},
+                function (data) {
+                    $('#row_'+Id).hide();
+                });
+        }
+    }
+    function setUnApprove(Id) 
+    {
+        if(confirm("Bạn có chắc chắn muốn bỏ duyệt?"))
+        {
+            $.post('@Url.Action("SurveyItemAppproved", "AdminCategory")', { "Id": Id ,"Status":"0"},
+                function (data) {
+                    
+                });
+        }
+    }
+    function setApprove(Id) 
+    {
+        if(confirm("Bạn có chắc chắn muốn duyệt?"))
+        {
+            $.post('@Url.Action("SurveyItemAppproved", "AdminCategory")', { "Id": Id ,"Status":"1"},
+                function (data) {
+                    
+                });
+        }
+    }
+    
+
+    var dlg;
+    $(document).ready(function () {
+        dlg = $("#dialogue").dialog(
+                {
+                    autoOpen: false,
+                    width: 500
+                });
+        $(".create").click(function () {
+
+            $("#Content").val("");
+            $("#Id").val("0");
+            $("#Order").val("0");
+            dlg.dialog({ title: 'Thêm mới câu trả lời' });
+            dlg.dialog('open');
+        });
+
+        $("#btnCancel").click(function () {
+
+            dlg.dialog('close');
+        });
+        $("#btUpdate").click(function () {
+
+            if (validateForm()) {
+                if ($("#Id").val().length > 0)
+                    updateBanner();
+                else
+                    createBanner();
+            }
+
+        });
+
+
+    });
+    function validateForm() {
+        var Content = $('#Content').val();
+        if (Content == "") {
+
+            alert('Tên không được trống');
+            $('#Content').focus();
+            return false;
+        }
+        return true;
+
+    }
+    function createBanner() {
+
+        $.post('@Url.Action("SurveyItemAddEdit", "AdminCategory")', $("#SurveyItemForm").serialize(), function (data) {
+
+            document.location.reload();
+
+        });
+    }
+    function updateBanner() {
+        $.post('@Url.Action("SurveyItemAddEdit", "AdminCategory")', $("#SurveyItemForm").serialize(), function (data) {
+
+            document.location.reload();
+
+        });
+    }
+    function editBanner(id, Content, Status, Order) {
+        $("#Id").val(id);
+       
+        $("#Content").val(Content);
+       
+        $("#Order").val(Order);
+        $('input[name="Status"]').each(function (i, e) {
+            if ($(e).val() == Status)
+                $(e).prop('checked', true);
+            else
+                $(e).prop('checked', false);
+        });
+        
+        dlg.dialog({ title: 'Cập nhật câu trả lời' });
+        dlg.dialog('open');
+    }
+</script>
+

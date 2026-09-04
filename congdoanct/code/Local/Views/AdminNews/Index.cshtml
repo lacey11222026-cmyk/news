@@ -1,0 +1,350 @@
+﻿@{
+   
+    Layout = "~/Views/Shared/_Admin.cshtml";
+    
+}
+    <script type="text/javascript">
+        var redirectUrl = '@Url.Action("AddEdit","AdminNews")';
+
+        var page_index = 1;
+        var page_size = 10
+        var IsNewsEdit = '@ViewBag.IsNewsEdit';
+        var IsNewsPublish = '@ViewBag.IsNewsPublish';
+        var createdby = '@ViewBag.Createdby';
+
+
+        $(document).ready(function () {
+
+            //if (IsNewsEdit == 'False') {
+            //    $('#toolbar').hide();
+
+            //}
+            BindTypeToSelectBox();
+            BindPageSizeToSelectBox();
+            BindCategoriesToSelectBox();
+
+
+        });
+
+
+
+        function Filter(pi) {
+
+            page_index = pi;
+            var tit = $('#txt_filterbyname').val();
+            var cid = $('#select_filterbycategory option:selected').val();
+            var tid = $('#select_filterbytype option:selected').val();
+
+            $.Services({
+                element: $('#grid_items'),
+                loadingImg: '<tr><td colspan="8">Đang tải dữ liệu ...</td><tr>',
+                serviceName: 'ArticleService.ashx',
+                data: {
+                    __m: 'get_filter_articles',
+                    tit: tit,
+                    cid: cid,
+                    tid: tid,
+                    createdby: createdby,
+                    _pi: page_index,
+                    _ps: page_size
+                },
+                success: function (data) {
+                    var html = '<tr><td colspan="8">Không có bài viết nào</td><tr>';
+                    if (data != undefined && data != null && data != '') {
+                        var items = data.Items;
+                        var total = data.Total;
+                        html = BindData(items);
+                        html = BindData(items);
+                        RenderPaging(pi, page_size, total, Filter);
+                    }
+
+                    $('#grid_items').html(html);
+                }
+
+            });
+        }
+
+        function BindData(data) {
+            var html = '';
+            $.each(data, function (index, item) {
+                html += '<tr id="item' + item.Id + '">';
+                html += '<td align="left">';
+                html += item.Id;
+                html += '</td>';
+                html += '<td align="center">';
+                if (item.Type == 1)
+                    html += "Tin bài";
+                else
+                    html += "Video";
+                html += '</td>';
+                html += '<td>';
+                html += '<a href="' + redirectUrl + '?id=' + item.Id + '" alt="' + item.Title + '">';
+                html += item.Title;
+                html += '</a>';
+                html += '</td>';
+
+                html += '<td>';
+                html += item.CategoryName;
+                html += '</td>';
+                html += '<td>';
+                html += dateFormat(item.CreatedDate, 'dd/mm/yyyy HH:MM');
+                html += '</td>';
+                html += '<td>';
+                html += item.CreatedBy;
+                html += '</td>';
+                html += '<td>';
+
+                html += dateFormat(item.PublishDate, 'dd/mm/yyyy HH:MM');
+                html += '</td>';
+                html += '<td align="center">';
+                if (item.Status == 1)
+                    html += "Đang biên tập";
+                else if (item.Status == 2)
+                    html += "Đợi xuất bản";
+                else if (item.Status == 3)
+                    html += "Biên tập lại";
+                else if (item.Status == 4)
+                    html += "Xuất bản";
+                html += '</td>';
+                html += '</tr>';
+            });
+
+            return html;
+        }
+
+        function RenderPaging(pageindex, pagesize, totalrecord, callback) {
+
+            var html = {
+                container: '<div class="pagination"></div>',
+                wrraper: '<div class="button2-left"><div class="page"></div></div>',
+                firstbtn: '<div class="button2-right"><div class="start"><a>Bắt đầu</a></div></div>',
+                prevbtn: '<div class="button2-right"><div class="prev"><a>Trước</a></div></div>',
+                nextbtn: '<div class="button2-left"><div class="next"><a>Tiếp</a></div></div>',
+                lastbtn: '<div class="button2-left"><div class="end"><a>Cuối cùng</a></div></div>'
+            }
+
+            if (totalrecord > page_size) {
+                $("#paging_container").pager({ pagenumber: pageindex, pagecount: Math.ceil(totalrecord / page_size), buttonClickCallback: callback, html: html });
+            }
+            else {
+                $("#paging_container").html("");
+            }
+
+        }
+
+
+
+        function New() {
+            window.location.href = redirectUrl;
+        }
+
+        function BindTypeToSelectBox() {
+            //select_pagesize
+            var html = '';
+            if (IsNewsPublish == 'True') {
+
+                html += '<option value="2">Đợi xuất bản</option>';
+                html += '<option value="4">Đã xuất bản</option>';
+
+            }
+            if (IsNewsEdit == 'True') {
+
+                html += '<option value="1">Đang biên tập</option>';
+                html += '<option value="3">Biên tập lại</option>';
+
+            }
+
+
+
+            $('#select_filterbytype').html(html);
+        }
+
+        function BindPageSizeToSelectBox() {
+            //select_pagesize
+            var html = '';
+            html += '<option value="10">10</option>';
+            html += '<option value="20">20</option>';
+            html += '<option value="30">30</option>';
+            html += '<option value="40">40</option>';
+            html += '<option value="50">50</option>';
+            html += '<option value="60">60</option>';
+            html += '<option value="70">70</option>';
+            html += '<option value="80">80</option>';
+            html += '<option value="90">90</option>';
+            html += '<option value="100">100</option>';
+
+            $('#select_pagesize').html(html).change(function () {
+                page_size = $('#select_pagesize option:selected').val();
+                Filter(1);
+            });
+        }
+
+        function BindCategoriesToSelectBox() {
+            $('#select_filterbycategory').html('<option value="0">- Tất cả chuyên mục -</option>');
+            $.Services({
+                serviceName: 'CategoryService.ashx',
+                data: {
+                    __m: 'get_all_categories',
+                    ctype: 2
+                },
+                success: function (data) {
+                    html = '';
+                    if (data != undefined && data != null && data != '') {
+                        $.each(data, function (i, item) {
+                            html = '<option value="' + item.Id + '">';
+                            if (item.NodeLevel != 0) {
+
+                                for (var i = 1; i < item.NodeLevel; i++) {
+                                    html += '-+&nbsp;';
+                                }
+                            }
+
+                            html += item.Name;
+                            html += '</option>';
+
+                            if (item.ParentId != 0) {
+                                if ($('#select_filterbycategory option[value=' + item.ParentId + ']').length)
+                                    $('#select_filterbycategory option[value=' + item.ParentId + ']').after(html);
+                                else
+                                    $('#select_filterbycategory').append(html);
+                            }
+                            else
+                                $('#select_filterbycategory').append(html);
+
+
+                        });
+                        Filter(1);
+                    }
+
+                }
+            });
+        }
+        function Reset() {
+            $("#txt_filterbyname").val('');
+            Filter(1);
+        }
+
+    </script>
+    <div id="toolbar-box">
+        <div class="t">
+            <div class="t">
+                <div class="t">
+                </div>
+            </div>
+        </div>
+        <div class="m">
+            <div class="toolbar" id="toolbar">
+                <table class="toolbar">
+                    <tr>
+                       
+                        <td class="button" id="toolbar-new">
+                            <a class="toolbar" onclick="New();" href="javascript:void(0);"><span class="icon-32-new"
+                                title="New"></span>Tạo bài viết</a>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div class="header icon-48-article">
+                Quản lý bài viết
+            </div>
+            <div class="clr">
+            </div>
+        </div>
+        <div class="b">
+            <div class="b">
+                <div class="b">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="clr">
+    </div>
+    <div id="element-box">
+        <div class="t">
+            <div class="t">
+                <div class="t">
+                </div>
+            </div>
+        </div>
+        <div class="m">
+            <div id="jalert_notification">
+                &nbsp;</div>
+            <table width="100%">
+                <tr>
+                    <td>
+                        Tên bài viết:
+                        <input id="txt_filterbyname" type="text" style="width: 250px;" />
+                        <input id="btn_search" type="button" value="Lọc" onclick="Filter(1);" />
+                        <input id="btn_clear" type="button" value="Làm lại" onclick="Reset();" />
+                    </td>
+                    <td nowrap="nowrap">
+                        Chuyên mục:
+                        <select id="select_filterbycategory" onchange="Filter(1);">
+                        </select>&nbsp;&nbsp;&nbsp;&nbsp; Trạng thái
+                        <select id="select_filterbytype" onchange="Filter(1);">
+                            @*<option value="1,2,3,4">--Tất cả--</option>
+                            <option value="1">Đang biên tập</option>
+                            <option value="2">Đợi xuất bản</option>
+                            <option value="3">Biên tập lại</option>
+                            <option value="4">Xuất bản</option>*@
+                        </select>
+                    </td>
+                </tr>
+            </table>
+            <table class="adminlist" cellpadding="1">
+                <thead>
+                    <tr>
+                        <th width="1%" class="title" style="text-align: left">
+                            ID
+                        </th>
+                        <th width="10%" class="title">
+                            Thể loại
+                        </th>
+                        <th width="25%" class="title" style="text-align: left">
+                            Tên bài viết
+                        </th>
+                        <th width="10%" class="title" style="text-align: left">
+                            Chuyên mục
+                        </th>
+                        <th width="5%" class="title" style="text-align: left">
+                            Ngày tạo
+                        </th>
+                        <th width="5%" class="title" style="text-align: left">
+                            Người tạo
+                        </th>
+                        <th width="5%" class="title" style="text-align: left">
+                            Ngày xuất bản
+                        </th>
+                        <th width="5%" class="title">
+                            Trạng thái
+                        </th>
+                    </tr>
+                </thead>
+                <tfoot>
+                    <tr>
+                        <td colspan="8">
+                            <del class="container">
+                                <div class="limit">
+                                    <select id="select_pagesize">
+                                    </select>
+                                </div>
+                                <div id="paging_container">
+                                </div>
+                            </del>
+                        </td>
+                    </tr>
+                </tfoot>
+                <tbody id="grid_items">
+                </tbody>
+            </table>
+            <div class="clr">
+            </div>
+        </div>
+        <div class="b">
+            <div class="b">
+                <div class="b">
+                </div>
+            </div>
+        </div>
+    </div>
+

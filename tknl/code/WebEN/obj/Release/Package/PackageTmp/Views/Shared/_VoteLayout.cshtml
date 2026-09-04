@@ -1,0 +1,37 @@
+﻿@using  WebEN
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+
+    <title>@ViewBag.Title </title>
+    <meta name="description" content="@ViewBag.Description" />
+    <meta name="keywords" content="@ViewBag.Keywords" />
+    <meta name="news_keywords"content="@ViewBag.Keywords" />
+    <meta name="author" content="tiet kiem nang luong" />
+    <meta name="google-site-verification" content="IleRL-MABFp69qXS4jdMN10CAk9_N9aUWWALyfkOsmY" />
+    <meta content="general" name="rating" />
+    <meta content="tiet kiem nang luong" name="copyright" />
+    <meta content="never" name="expires" />
+    <meta content="global" name="distribution" />
+    <meta content="DOCUMENT" name="RESOURCE-TYPE" />
+    <meta content="tietkiemnangluong.com.vn" name="GENERATOR" />
+    <script src="/Scripts/jquery-1.4.1.min.js" type="text/javascript"></script>
+    @*  <link href="@(WebEN.MvcApplication.StaticSiteUrl)Styles/print.css" rel="stylesheet" type="text/css" />*@
+         <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+
+     <link href="@(MvcApplication.StaticSiteUrl)Styles/extend.css" rel="stylesheet" type="text/css" />
+    
+</head>
+<body>
+
+
+    <div id="mainvote">
+       @RenderBody()
+    </div>
+
+    
+  
+</body>
+
+
+</html>

@@ -1,0 +1,102 @@
+﻿@using BIZ
+@using UTILS
+@using WebMVC4.Helper
+@model BIZ.Entity.CATEGORY_FULL
+@{
+    List<BIZ.Entity.CATEGORY_FULL> data = ViewBag.lstrelate;
+}
+@{
+    var langpage = WorkContext.GetLanguage();
+}
+@if (Model != null)
+{
+<div class="intro-page container">
+    <div class="row">
+        <div class="col-lg-9 col-md-12 pb40">
+            @{Html.RenderAction("BreadcrumbObj", "News", new { data = Model });
+            }
+
+            <div class="mt30" id="NewsContent">
+
+                @Html.Raw(Model.Contents)
+                @if (Model.Id == 2)
+                {
+                    <div class="mt30">
+                        <div class="dropdown">
+                            <div class="dropdown__inner">
+                                <h4>Chức năng nhiệm vụ</h4>
+                                <div class="dropdownSub">
+                                    @{Html.RenderAction("Intro", "Home", new { CategoryId = 74 });}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="dropdown">
+                            <div class="dropdown__inner">
+                                <h4>Cơ cấu tổ chức</h4>
+                                <div class="dropdownSub">
+                                    @{Html.RenderAction("Intro", "Home", new { CategoryId = 77 });}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="dropdown">
+                            <div class="dropdown__inner">
+                                <h4>Đơn vị trực thuộc</h4>
+                                <div class="dropdownSub">
+                                    @{Html.RenderAction("Intro", "Home", new { CategoryId = 76 });}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+
+            </div>
+            
+            </div><!-- end content left-->
+
+          <div class="col-lg-3 col-md-12">
+            <div class="content01-right">
+                @{Html.RenderAction("BannerRight", "Home");}
+                @{Html.RenderAction("MenuInfo", "Home");}
+            </div>
+
+            @{Html.RenderAction("BannerRight2", "Home");}
+        </div>
+    </div>
+</div>
+   
+<script type="text/javascript">
+    $(function () {
+        $('.dropdown__inner').on('click', function () {
+            $(this).toggleClass('dropdown_toggle').children('.dropdownSub').slideToggle(200);
+        });
+        $('.dropdown__inner li a').on("click", function () {
+            $(".dropdownSub").hide();
+        });
+        $(document).on('click', function (e) {
+            if (!$(e.target).closest('.dropdown__inner').length) {
+                $('.dropdownSub').hide();
+            }
+        });
+    });
+</script>
+
+}
+@section scripts {
+    <script type="text/javascript">
+
+        $('#menu_' + '@Model.Id').addClass("active");
+        $('#menu_' + '@Model.ParentId.GetValueOrDefault()').addClass("active");
+        $('#menu_0').removeClass("active");
+    </script>
+}
+<style>
+    #NewsContent ul {
+        display: block;
+        list-style-type: disc;
+        margin-block-start: 1em;
+        margin-block-end: 1em;
+        margin-inline-start: 0px;
+        margin-inline-end: 0px;
+        padding-inline-start: 40px;
+    }
+</style>

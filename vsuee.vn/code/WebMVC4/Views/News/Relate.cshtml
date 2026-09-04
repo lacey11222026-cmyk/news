@@ -1,0 +1,28 @@
+﻿@using BIZ
+@using UTILS
+@using WebMVC4.Helper
+@model List<BIZ.Entity.CONTENT_FULL>
+@if (Model != null)
+{
+    if (Model.Count > 0)
+    {
+        @*<ul class="news-list-02 mt20">*@
+            foreach (var item in Model.Select((value, i) => new { i, value }))
+            {
+                <li>
+                    <a href="@item.value.LinkUrl"><img src="@item.value.MainImage?w=271&h=156&mode=crop" alt="@item.value.Title" /></a>
+                    <div>
+                        <a href="@item.value.LinkUrl" class="post-big-name">@item.value.Title</a>
+                        <p class="date mt10">@item.value.PublishDate.ToString("HH:mm") - @item.value.PublishDate.ToString("dd/MM/yyyy")</p>
+                    </div>
+                </li>
+            }
+        @*</ul>*@
+
+
+
+
+    }
+
+
+}

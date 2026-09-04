@@ -1,0 +1,83 @@
+﻿<div class="slide-chantrang">
+    <ul id="flexiselDemo3">
+
+        <li>
+            <a class="opa" href="#" rel="nofollow">
+                <img width="128" src="/Content/images/Banner/1.jpg" alt="" />
+            </a>
+        </li>
+        <li>
+            <a class="opa" href="#" rel="nofollow">
+                <img width="128" src="/Content/images/Banner/2.jpg" alt="" />
+            </a>
+        </li>
+        <li>
+            <a class="opa" href="#" rel="nofollow">
+                <img width="128" src="/Content/images/Banner/3.jpg" alt="" />
+            </a>
+        </li>
+        <li>
+            <a class="opa" href="#" rel="nofollow">
+                <img width="128" src="/Content/images/Banner/4.jpg" alt="" />
+            </a>
+        </li>
+        <li>
+            <a class="opa" href="#" rel="nofollow">
+                <img width="128" src="/Content/images/Banner/5.jpg" alt="" />
+            </a>
+        </li>
+        <li>
+            <a class="opa" href="#" rel="nofollow">
+                <img width="128" src="/Content/images/Banner/6.jpg" alt="" />
+            </a>
+        </li>
+        <li>
+            <a class="opa" href="#" rel="nofollow">
+                <img width="128" src="/Content/images/Banner/7.jpg" alt="" />
+            </a>
+        </li>
+        <li>
+            <a class="opa" href="#" rel="nofollow">
+                <img width="128" src="/Content/images/Banner/8.jpg" alt="" />
+            </a>
+        </li>
+
+    </ul>
+</div>
+<style>
+    #flexiselDemo3 li{
+        float:left;
+         list-style:none;
+    background-image:none;
+    }
+    
+</style>
+<div class="clear"></div>
+<script>
+    $(window).load(function () {
+        $("#flexiselDemo3").flexisel({
+            visibleItems: 6,
+            animationSpeed: 1000,
+            autoPlay: true,
+            autoPlaySpeed: 3000,
+            pauseOnHover: true,
+            enableResponsiveBreakpoints: true,
+            responsiveBreakpoints: {
+                portrait: {
+                    changePoint: 480,
+                    visibleItems: 2
+                },
+                landscape: {
+                    changePoint: 640,
+                    visibleItems: 3
+                },
+                tablet: {
+                    changePoint: 768,
+                    visibleItems: 5
+                }
+            }
+        });
+
+
+    });
+</script>

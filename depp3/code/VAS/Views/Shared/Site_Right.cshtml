@@ -1,0 +1,26 @@
+﻿@using UTILS
+@using VAS
+@{
+    var request = System.Web.HttpContext.Current.Request;
+    var mobileHelper = new MobileDetectHelper(request);
+}
+@{Html.RenderAction("LastestNews", "News", new { MaxLastestNews = 6 });}
+<div class="sidebar-bnr mt20">
+    @if (ViewBag.CurrentCategoryId != null)
+    {
+        { Html.RenderAction("BannerRight1", "Banner", new { currentCategoryId = ViewBag.CurrentCategoryId }); }
+    }
+    else
+    {
+        { Html.RenderAction("BannerRight1", "Banner", new { currentCategoryId = 10001 }); }
+    }
+</div>
+<div class="mt40 readmore">
+    @{Html.RenderAction("TopViewNews", "News", new { MaxLastestNews = 8, CategoryId = -1 });}
+</div>
+
+
+
+
+
+

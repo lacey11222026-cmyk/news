@@ -1,0 +1,337 @@
+﻿@using BIZ
+@using BIZ.Entity
+@using UTILS
+@using WebMVC4
+@using WebMVC4.Helper
+@model BIZ.Entity.CONTENT_FULL
+
+@if (Model != null)
+{
+    <div class="chitiet-content01 container mt10">
+        <div class="row row-40">
+            <div class="col-md-8 col-sm-12">
+                @{ Html.RenderAction("Breadcrumb", "News", new { CategoryId = ViewBag.CurrentCategoryId }); }
+
+
+                <h1 class="newsname-detail">@Model.Title</h1>
+                <span class="detaildate mt30">@Model.PublishDate.ToString("dd/MM/yyyy")</span>
+                @if (ViewBag.lstRef != null)
+                {
+
+                    <ul class="newslist suggest">
+                        @foreach (var item in ViewBag.lstRef)
+                        {
+                            <li><a href="@item.LinkUrl">@item.Title</a></li>
+                        }
+                    </ul>
+                }
+                @if (!string.IsNullOrEmpty(Model.FileParam.AudioFile1))
+                {
+                    <div class="mp3 mt20">
+                        <div class="audio-player">
+                            <audio id="audioFile" src="@Model.FileParam.AudioFile1"></audio>
+                            <button id="playPauseButton" onclick="togglePlayPause()"></button>
+                            <span id="currentTime">0:00</span>
+                            <div class="progress-bar" id="progressBar">
+                                <div class="progress" id="progress"></div>
+                            </div>
+                            <span id="totalTime">0:00</span>
+                            <div class="choose-voice dropdown__inner" style="width:166px">
+                                <p id="paudotitle">Giọng Nam miền Bắc</p>
+                                <ul class="voice-list dropdownSub">
+
+                                    <li><a href="javascript:;" onclick="setaudio1()">Giọng Nam miền Bắc</a></li>
+                                    <li><a href="javascript:;" onclick="setaudio2()">Giọng Nữ miền Bắc</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <script src="https://kit.fontawesome.com/9d8584fa51.js" crossorigin="anonymous"></script>
+                    @Html.AntiForgeryToken()
+                    <script>
+                         function setaudio2() {
+                             $('#paudotitle').html("Giọng Nữ miền Bắc");
+                             $('#audioFile').attr("src","@Model.FileParam.AudioFile2");
+                         }
+                          function setaudio1() {
+                              $('#paudotitle').html("Giọng Nam miền Bắc");
+                              $('#audioFile').attr("src","@Model.FileParam.AudioFile1");
+                        }
+                        function addAntiForgeryToken(data) {
+                            if (!data) {
+                                data = {};
+                            }
+                            var tokenInput = $('input[name=__RequestVerificationToken]');
+                            if (tokenInput.length) {
+                                data.__RequestVerificationToken = tokenInput.val();
+                            }
+                            return data;
+                        };
+                        var audio = document.getElementById('audioFile');
+                        var progressBar = document.getElementById('progressBar');
+                        var progress = document.getElementById('progress');
+                        var playPauseButton = document.getElementById('playPauseButton');
+                        var audioPlayer = document.querySelector('.audio-player');
+                        var currentTimeElem = document.getElementById('currentTime');
+                        var totalTimeElem = document.getElementById('totalTime');
+                         audio.onplay = function () {
+
+                              var postdata = {
+                                  Id:'@Model.Id'
+                              };
+                              $.ajax({
+                              type: 'POST',
+                              url: "@Url.Action("AudioViewAdd")",
+                              data: addAntiForgeryToken(postdata),
+                              async: true,
+                              success: function (data) {
+
+                              }
+                          });
+                         };
+                        // Toggle play/pause functionality and button appearance
+                        function togglePlayPause() {
+                            if (audio.paused || audio.ended) {
+                                audio.play();
+                                audioPlayer.classList.add('audio-playing');
+                            } else {
+                                audio.pause();
+                                audioPlayer.classList.remove('audio-playing');
+                            }
+                        }
+
+                        // Update the progress bar
+                        audio.ontimeupdate = function () {
+                            var percentage = Math.floor((100 / audio.duration) * audio.currentTime);
+                            progress.style.width = percentage + '%';
+                        }
+
+                        // Click on progress bar to change the time
+                        progressBar.addEventListener('click', function (e) {
+                            var offset = this.getBoundingClientRect();
+                            var x = e.pageX - offset.left;
+                            audio.currentTime = (x / progressBar.offsetWidth) * audio.duration;
+                        });
+
+                        // Adjust progress element to grow from left to right
+                        function skipTime(seconds) {
+                            audio.currentTime += seconds;
+                        }
+
+                        // Format time in minutes:seconds
+                        function formatTime(seconds) {
+                            var minutes = Math.floor(seconds / 60);
+                            var seconds = Math.floor(seconds % 60);
+                            return minutes + ':' + (seconds < 10 ? '0' + seconds : seconds);
+                        }
+
+                        // Update the current time display
+                        audio.ontimeupdate = function () {
+                            var percentage = Math.floor((100 / audio.duration) * audio.currentTime);
+                            progress.style.width = percentage + '%';
+                            currentTimeElem.textContent = formatTime(audio.currentTime);
+                        };
+
+                        // Set the total time display
+                        audio.onloadedmetadata = function () {
+                            console.log(audio.duration); // Check if duration is a valid number
+                            totalTimeElem.textContent = formatTime(audio.duration);
+                        };
+
+
+                        $('.dropdown__inner').click(function (event) {
+                            event.preventDefault(); // Prevent default anchor action
+                            $(this).toggleClass('dropdown_toggle');
+                        });
+                    </script>
+
+                }
+                <div class="vneep-icon mt50">
+                    <div class="hidden-xs"><img src="http://media.tietkiemnangluong.com.vn/Content/images/icon-vneep.png"></div>
+                    <div>
+                        <p>@Model.IntroText</p>
+                    </div>
+                </div>
+                <div class="detail-content mt40" id="NewsContent">
+                    @if (Model.Type == 1)
+                    {
+                        <div class="detail-icon-list sticky hidden-xs">
+                            <a href="javascript:void(0);" onclick="openWin('@ViewBag.FacebookShare');"><img src="http://media.tietkiemnangluong.com.vn/Content/images/icon-face02.png"></a>
+                            <a href="@Url.Action("Print", "News", new {Id=Model.Id})" target="_blank"><img src="http://media.tietkiemnangluong.com.vn/Content/images/icon-prt.png"></a>
+                        </div>
+                    }
+
+                    <div class="detail-text">
+                        @if (Model.Type == 2)
+                        {
+                            <script>
+					           window.location='/trang-chu-video.html?VideoId='+'@Model.Id'
+                            </script>
+
+                        }
+                        @if (Model.Type == 4)
+                        {
+                            <script>
+					           window.location='/Podcast/'+'@Model.Id'
+                            </script>
+
+                        }
+                        @Html.Raw(Model.Contents)
+
+                        @if (Model.Type == 3)
+                        {
+                            if (!String.IsNullOrEmpty(Model.Url))
+                            {
+                                <div class="content_document">
+
+                                    <a href="@Model.Url" target="_blank">Download</a> &nbsp;<a href="@Url.Action("ViewPDF", "Document", new { url = Model.Url })" target="_blank">Xem Online</a>
+                                </div>
+                            }
+
+
+                        }
+                    </div>
+                </div>
+                <div class="detail-tags mt50">
+                    @if (Model.Keywords != null)
+                    {
+                        if (!String.IsNullOrEmpty(Model.Keywords.Trim()))
+                        {
+                            <ul class="pull-left">
+                                <li>Tags:</li>
+
+                                @foreach (var item in Model.Keywords.Split(',').Select((value, i) => new { i, value }))
+                                {
+
+                                    if (!String.IsNullOrEmpty(item.value))
+                                    {
+                                        <li>
+                                            <a href="@Url.Action("Tag", new { keyword = item.value.Trim() })">@item.value.Trim()</a>
+                                        </li>
+
+                                    }
+
+                                }
+                            </ul>
+                        }
+                    }
+                    <div class="pull-right">
+                        <div class="fb-like" data-href="@(Model.LinkUrl)" data-layout="button_count" data-action="like" data-show-faces="false" data-share="true"></div>
+                    </div>
+                </div>
+
+
+            </div>
+            <div class="col-md-4 col-sm-12">
+                @{Html.RenderAction("LastestNews", "News", new { MaxLastestNews = 6 });}
+                @{Html.RenderAction("RightNews", "Home", new { CategoryId = 34, MaxLastestNews = 4 });}
+            </div>
+        </div><!-- end row-->
+    </div><!-- end content 01 -->
+
+    if (ViewBag.CurrentCategoryId != null)
+    {
+        { Html.RenderAction("BannerCenter1", "Banner", new { currentCategoryId = ViewBag.CurrentCategoryId }); }
+    }
+    else
+    {
+        { Html.RenderAction("BannerCenter1", "Banner"); }
+    }
+    if (Model.CategoryId != 43)
+    {
+        <div class="border-bottom detail-content02">
+            <div class="mt30 container">
+                <div class="row row-40">
+                    <div class="col-md-8 col-sm-12 text-left">
+                        @{ Html.RenderAction("Relate", "News", new { CategoryId = Model.CategoryId, CateName = ViewBag.CateName, PageNextShow = false, pageNext = 2 }); }
+
+                    </div>
+                    <div class="col-md-4 col-sm-12">
+                        <div class="sidebar-bnr bnr-slider mt20">
+                            <ul class="link-list">
+                                @if (ViewBag.CurrentCategoryId != null)
+                                {
+                                    <li>@{ Html.RenderAction("BannerRight1", "Banner", new { currentCategoryId = ViewBag.CurrentCategoryId }); }</li>
+                                    <li> @{ Html.RenderAction("BannerRight2", "Banner", new { currentCategoryId = ViewBag.CurrentCategoryId }); }</li>
+                                    <li>@{ Html.RenderAction("BannerRight3", "Banner", new { currentCategoryId = ViewBag.CurrentCategoryId }); }</li>
+                                    <li>@{ Html.RenderAction("BannerRight4", "Banner", new { currentCategoryId = ViewBag.CurrentCategoryId }); }</li>
+                                    <li>@{ Html.RenderAction("BannerRight5", "Banner", new { currentCategoryId = ViewBag.CurrentCategoryId }); }</li>
+                                }
+                                else
+                                {
+                                    <li>@{ Html.RenderAction("BannerRight1", "Banner"); }</li>
+                                    <li>@{ Html.RenderAction("BannerRight2", "Banner"); }</li>
+                                    <li>@{ Html.RenderAction("BannerRight3", "Banner"); }</li>
+                                    <li>@{ Html.RenderAction("BannerRight4", "Banner"); }</li>
+                                    <li>@{ Html.RenderAction("BannerRight5", "Banner"); }</li>
+                                }
+
+                            </ul>
+                            <div class="clearfix"></div>
+                        </div>
+
+                        <div class="mt40 readmore">
+                            @{Html.RenderAction("TopViewNews", "News", new { MaxLastestNews = 8, CategoryId = -1 });}
+                        </div>
+                        <div class="clearfix"></div>
+
+                    </div>
+                </div>
+            </div><!-- end content 02-->
+        </div>
+    }
+
+
+
+
+
+    @*<script>
+
+            $('#NewsContent span').removeStyle('font-size');
+            $('#NewsContent div').removeStyle('font-size');
+            $('#NewsContent p').removeStyle('font-size');
+
+            $('#NewsContent span').removeStyle('font-family');
+            $('#NewsContent div').removeStyle('font-family');
+            $('#NewsContent p').removeStyle('font-family');
+
+
+        </script>*@
+
+    if (ViewBag.IsMobile)
+    {
+        <script>
+            $('#NewsContent .news_detail_img').removeAttr('style');
+
+            $('#NewsContent  img').removeAttr('style');
+            $('#NewsContent  img').removeAttr('width');
+            $('#NewsContent  table').removeAttr('style');
+        </script>
+    }
+    <style>
+        .detail-text h2 {
+            font-family: 'merriweather';
+            font-size: 15px;
+            line-height: 23px;
+            font-weight:bold;
+        }
+    </style>
+
+    <script type="text/javascript">
+
+        function openWin(url) {
+            var myWindow = window.open(url, '', 'width=700,height=500');
+            myWindow.focus();
+        }
+    </script>
+    @section scripts {
+        <script type="text/javascript">
+
+    $('#menu_' + '@ViewBag.CurrentCategoryId').addClass("active");
+        $('#foot_' + '@ViewBag.CurrentCategoryId').addClass("active");
+
+    $('#menu_' + '@ViewBag.ParentCategoryId').addClass("active");
+    $('#foot_' + '@ViewBag.ParentCategoryId').addClass("active");
+        </script>
+    }
+}

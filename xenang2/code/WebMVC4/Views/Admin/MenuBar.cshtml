@@ -1,0 +1,106 @@
+﻿<div id="module-menu">
+    <ul id="menu">
+        <li class="node"><a>Quản lý chung</a>
+            <ul>
+                <li><a class="icon-16-cpanel" href="@Url.Action("Index")">Khung
+                    điều khiển</a></li>
+                <li class="separator"></li>
+                <li class="separator"></li>
+                <li><a class="icon-16-article" href="@Url.Action("MultiUpload", "Admin")">Upload nhiều file</a></li>
+                <li><a class="icon-16-article" href="@Url.Action("UserEdit", "Admin")">Thông tin tài khoản</a></li>
+                @* <li>
+                    <asp:LinkButton ID="lbtnMenuBarLogout" CssClass="icon-16-logout" runat="server">Thoát ra</asp:LinkButton>
+                </li>*@
+            </ul>
+        </li>
+        <li class="node "><a>Tin bài</a>
+            <ul>
+                <li><a class="icon-16-article display_news" href="@Url.Action("Index", "AdminNews")">Quản lý tin bài</a></li>
+                <li><a class="icon-16-article display_news" href="@Url.Action("ConfigHotNews", "AdminNews")">Cấu hình tin nổi bật</a></li>
+                <li><a class="icon-16-article display_news" href="@Url.Action("ConfigTopViewNews", "AdminNews")">Cấu hình tin tiêu điểm</a></li>
+                <li><a class="icon-16-article display_news" href="@Url.Action("ConfigHotVideo", "AdminNews")">Cấu hình công trình nổi bật</a></li>
+                <li><a class="icon-16-article display_album" href="@Url.Action("Album", "AdminNews")">Quản lý công trình</a></li>
+                <li><a class="icon-16-article display_competition" href="@Url.Action("Index", "AdminAlbumImage")">Quản lý album cuộc thi ảnh</a></li>
+                @* <li><a class="icon-16-article display_comment" href="@Url.Action("Comment","AdminNews")">
+                    Quản lý bình luận</a></li>*@
+            </ul>
+        </li>
+        <li class="node display_category"><a>Chuyên mục</a>
+            <ul>
+                <li><a class="icon-16-component" href="@Url.Action("Index", "AdminCategory")">Quản lý chuyên mục</a> </li>
+                <li><a class="icon-16-component" href="@Url.Action("Intro", "AdminCategory")">Quản lý nội dung giới thiệu</a> </li>
+                <li><a class="icon-16-component" href="@Url.Action("Banner", "AdminCategory")">Quản lý banner</a> </li>
+               
+            </ul>
+        </li>
+        <li class="node display_document"><a>Văn bản</a>
+            <ul>
+                <li><a class="icon-16-component" href="@Url.Action("Index", "AdminDocument")">Quản lý văn bản</a> </li>
+                
+
+            </ul>
+        </li>
+       
+        @* <li class="node display_sale"><a>Quản lý Sản phẩm</a>
+            <ul>
+                <li><a class="icon-16-component" href="/Administrator/Components/Attribute/Attributes.aspx">
+                    Thuộc tính sản phẩm</a> </li>
+                <li><a class="icon-16-component" href="/Administrator/Components/Manufactory/Manufactories.aspx">
+                    Nhà sản xuất</a> </li>
+                <li><a class="icon-16-component" href="/Administrator/Components/Product/Products.aspx">
+                    Sản phẩm</a> </li>
+            </ul>
+        </li>
+        <li class="node display_contact"><a>Danh bạ</a>
+            <ul>
+                <li><a class="icon-16-help" href="/Administrator/Components/Contact/Contacts.aspx">
+                    Quản lý danh bạ</a></li>
+                
+            </ul>
+        </li>*@
+        @*<li class="node display_report"><a>Thống kê</a>
+            <ul>
+                <li><a class="icon-16-help" href="/Administrator/Components/Report/ReportNews.aspx">
+                    Thống kê tin bài</a></li>
+                <li><a class="icon-16-help" href="/Administrator/Components/Report/ReportSMS.aspx">Thống
+                    kê SMS</a></li>
+            </ul>
+        </li>*@
+        <li class="node display_local"><a>Nội bộ</a>
+            <ul>
+                <li><a class="icon-16-component" href="http://noibo.vnubw.org.vn/admin" target="_blank">Quản trị nội bộ</a> </li>
+
+
+            </ul>
+        </li>
+        @if (UTILS.Utils.GetAppSettingValue("EnableMark")=="1")
+        {
+            <li class="node display_mark"><a>Nhuận bút</a>
+            <ul>
+                <li><a class="icon-16-component" href="@Url.Action("Index", "Mark")" >Chấm nhuận bút</a> </li>
+                <li><a class="icon-16-component" href="@Url.Action("Report", "Mark")" >Thống kê nhuận bút</a> </li>
+
+
+            </ul>
+        </li>
+        }
+         @if (HttpContext.Current.User.IsInRole("Administrator") || HttpContext.Current.User.IsInRole("Rate"))
+         {
+             <li class="node"><a>Hệ thống</a>
+                 <ul>
+                     <li><a class="icon-16-component" href="@Url.Action("Configuration", "System")">Thiết lập</a></li>
+                      @if (HttpContext.Current.User.IsInRole("Administrator") )
+                      {
+                         <li><a class="icon-16-user" href="@Url.Action("Users", "System")">Quản lý
+                                 người dùng</a></li>
+                          
+                      }
+                     @*<li><a class="icon-16-help" href="/Administrator/Components/Users/Roles.aspx">Quản lý
+                    phân quyền</a></li>*@
+                 </ul>
+             </li>
+         }
+    </ul>
+</div>
+<div class="clr">
+</div>

@@ -1,0 +1,29 @@
+﻿@using BIZ
+@using UTILS
+@using WebMVC4.Helper
+@model WebMVC4.Models.LastestNewModel
+@if (Model != null)
+{
+    if (Model.lstdata.Count > 0)
+    {
+
+    <div class="padtop">
+        <div class="title"><a href="@Model.Url">@Model.HeaderTitle</a></div>
+        <ul class="listvb">
+            @foreach (var item in Model.lstdata.Select((value, i) => new { i, value }))
+            {
+                <li><a href="@Utils.FormatUrlRewrite(item.value.Id, item.value.Title, "ArticleDetail")"
+                                                        title="@item.value.Title">@item.value.Title
+                </a></li>
+
+            }
+
+
+        </ul>
+        <div class="clear"></div>
+    </div>
+
+    }
+
+
+}

@@ -1,0 +1,50 @@
+﻿<div class="content container">
+    <div id="container">
+        <div id="content" role="main">
+            <ul class="breadcrumb col-lg-12 col-sm-12 col-xs-12">
+                <li><a href="/">Trang chủ</a></li>
+                <li>Đặt hàng</li>
+            </ul>
+            <div class="row sidebar-right">
+                <div class="main-content col-xs-12">
+                    <h1 class="page-title">
+                        <span>Giỏ hàng</span>
+                    </h1>
+                    <div class=" contact">
+                        @*<div class="page-content row">*@
+                            <div class="shopping-car" id="divcart">
+
+
+                                @Html.Action("_ShoppingCart")
+
+                            </div>
+
+                        @*</div>*@
+                    </div>
+                   
+
+                </div>
+               
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+
+<style>
+    .control-label .required {
+        color: #e02222;
+        font-size: 12px;
+        padding-left: 2px;
+    }
+
+    #billinginfo .form-control {
+        padding: 6px 18px !important;
+    }
+
+    #billinginfo select {
+        padding: 6px 14px !important;
+    }
+</style>

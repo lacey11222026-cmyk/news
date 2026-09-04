@@ -1,0 +1,308 @@
+﻿@using BIZ
+@using UTILS
+@using WebMVC4.Helper
+@model BIZ.Entity.CONTENT_FULL
+@{
+    Layout = "~/Views/Shared/_Home.cshtml";
+}
+
+@if (Model != null)
+{
+
+
+    <div class="content01 container mt10">
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12">
+                <h2 class="title-cm-02"><a href="@ViewBag.CateUrl">@ViewBag.CateName</a> </h2>
+
+                <div class="detail-content mt40">
+                    <div class="detail-icon-list sticky">
+                        <div class="choose-font">
+                            <a href="javascript:;" onclick="addsize();"><img src="/Content/img/icon-plus.png" alt=""></a>
+                            <a href="#"><img src="/Content/img/icon-a.png" alt=""></a>
+                            <a href="javascript:;" onclick="plussize();"><img src="/Content/img/icon-minus.png" alt=""></a>
+                        </div>
+                        <ul class="choose-other mt10">
+                            @*<li><a href="#"><img src="img/icon-01.png" alt=""></a></li>*@
+                            <li><a href="javascript:void(0);" onclick="openWin('@ViewBag.FacebookShare');"><img src="/Content/img/icon-02.png" alt=""></a></li>
+                            <li><a href="@Url.Action("Print", "News", new {Id=Model.Id})" target="_blank"><img src="/Content/img/icon-03.png" alt=""></a></li>
+                        </ul>
+                    </div>
+                    <div class="detail-text">
+                        <div>
+                            <p class="news-name-big" style="text-align:center">@Model.Title</p>
+                            @*<p class="newsdate mt15"> @Model.PublishDate.ToString("dd/MM/yyyy")</p>*@
+                            <ul class="related-posts">
+                                @if (ViewBag.lstRef != null)
+                                {
+                                    foreach (var item in ViewBag.lstRef)
+                                    {
+                                        <li>
+                                            <a href="@Utils.FormatUrlRewrite(item.Id, item.Title, "ArticleDetail")">@item.Title </a>
+                                        </li>
+                                    }
+
+                                }
+                            </ul>
+                            @if (!string.IsNullOrEmpty(Model.FileParam.AudioFile1))
+                            {
+                                <div class="mp3 mt15">
+                                    <div class="audio-player">
+                                        <audio id="audioFile" src="@Model.FileParam.AudioFile1"></audio>
+                                        <button id="playPauseButton" onclick="togglePlayPause()"></button>
+                                        <span id="currentTime">0:00</span>
+                                        <div class="progress-bar" id="progressBar">
+                                            <div class="progress" id="progress"></div>
+                                        </div>
+                                        <span id="totalTime">0:00</span>
+                                        <div class="choose-voice dropdown__inner">
+                                            <p id="paudotitle">Giọng Nam miền Bắc</p>
+                                            <ul class="voice-list dropdownSub">
+
+                                                <li><a href="javascript:;" onclick="setaudio1()">Giọng Nam miền Bắc</a></li>
+                                                <li><a href="javascript:;" onclick="setaudio2()">Giọng Nữ miền Bắc</a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                                @Html.AntiForgeryToken()
+                                <script>
+                function addAntiForgeryToken(data) {
+                    if (!data) {
+                        data = {};
+                    }
+                    var tokenInput = $('input[name=__RequestVerificationToken]');
+                    if (tokenInput.length) {
+                        data.__RequestVerificationToken = tokenInput.val();
+                    }
+                    return data;
+                };
+                function setaudio2() {
+                    $('#paudotitle').html("Giọng Nữ miền Bắc");
+                    $('#audioFile').attr("src","@Model.FileParam.AudioFile2");
+                }
+                 function setaudio1() {
+                     $('#paudotitle').html("Giọng Nam miền Bắc");
+                     $('#audioFile').attr("src","@Model.FileParam.AudioFile1");
+                 }
+                var audio = document.getElementById('audioFile');
+                var progressBar = document.getElementById('progressBar');
+                var progress = document.getElementById('progress');
+                var playPauseButton = document.getElementById('playPauseButton');
+                var audioPlayer = document.querySelector('.audio-player');
+                var currentTimeElem = document.getElementById('currentTime');
+                var totalTimeElem = document.getElementById('totalTime');
+                audio.onplay = function () {
+                    //console.log("The video has started to play");
+                     var postdata = {
+                         Id:'@Model.Id'
+                     };
+                     $.ajax({
+                     type: 'POST',
+                     url: "@Url.Action("AudioViewAdd")",
+                     data: addAntiForgeryToken(postdata),
+                     async: true,
+                     success: function (data) {
+
+                     }
+                 });
+                };
+                // Toggle play/pause functionality and button appearance
+                function togglePlayPause() {
+                    if (audio.paused || audio.ended) {
+                        audio.play();
+                        audioPlayer.classList.add('audio-playing');
+                    } else {
+                        audio.pause();
+                        audioPlayer.classList.remove('audio-playing');
+                    }
+                }
+
+                // Update the progress bar
+                audio.ontimeupdate = function () {
+                    var percentage = Math.floor((100 / audio.duration) * audio.currentTime);
+                    progress.style.width = percentage + '%';
+                }
+
+                // Click on progress bar to change the time
+                progressBar.addEventListener('click', function (e) {
+                    var offset = this.getBoundingClientRect();
+                    var x = e.pageX - offset.left;
+                    audio.currentTime = (x / progressBar.offsetWidth) * audio.duration;
+                });
+
+                // Adjust progress element to grow from left to right
+                function skipTime(seconds) {
+                    audio.currentTime += seconds;
+                }
+
+                // Format time in minutes:seconds
+                function formatTime(seconds) {
+                    var minutes = Math.floor(seconds / 60);
+                    var seconds = Math.floor(seconds % 60);
+                    return minutes + ':' + (seconds < 10 ? '0' + seconds : seconds);
+                }
+
+                // Update the current time display
+                audio.ontimeupdate = function () {
+                    var percentage = Math.floor((100 / audio.duration) * audio.currentTime);
+                    progress.style.width = percentage + '%';
+                    currentTimeElem.textContent = formatTime(audio.currentTime);
+                };
+
+                // Set the total time display
+                audio.onloadedmetadata = function () {
+                    console.log(audio.duration); // Check if duration is a valid number
+                    totalTimeElem.textContent = formatTime(audio.duration);
+                };
+
+                                </script>
+
+                            }
+                            <div id="NewsContent">
+                                @if (Model.Type == 2)
+                                {
+                                    <script>
+           window.location='/trang-chu-video.html?VideoId='+'@Model.Id'
+                                    </script>
+
+                                }
+                                @if (Model.Type == 4)
+                                {
+                                    <script>
+           window.location='/Podcast/'+'@Model.Id'
+                                    </script>
+
+                                }
+                                @Html.Raw(Model.Contents.Replace("<div style=\"text-align: justify;\"><br></div>", "").Replace("<div><br></div>", ""))
+                            </div>
+
+                        </div>
+                        @if (Model.FileParam.Tag != null)
+                        {
+                            if (!String.IsNullOrEmpty(Model.FileParam.Tag.Trim()))
+                            {
+                                <div class="detail-tags mt30">
+                                    <p class="textblue">Tags:</p>
+                                    <ul>
+                                        @foreach (var item in Model.FileParam.Tag.Split(',').Select((value, i) => new
+                                        {
+                                            i,
+                                            value
+                                        }))
+                                        {
+                                            <li>  <a href="@Url.Action("Search", new { q = item.value.Trim() })">@item.value.Trim()</a></li>
+                                        }
+                                    </ul>
+                                </div>
+
+
+                            }
+                        }
+
+                        <div class="text-right mt20">
+                            <div class="fb-like" data-href="@(Request.Url)" data-layout="button_count" data-action="like" data-show-faces="false" data-share="true"></div>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+            <div class="col-lg-8 col-md-12 col-sm-12">
+
+
+                <div class="mt30">
+                    @{Html.RenderAction("Relate", "News", new { CategoryId = Model.CategoryId });}
+
+
+                </div>
+                <div class="mt30">
+                    @{Html.RenderAction("TopViewNews", "News", new { CategoryId = Model.CategoryId, MaxLastestNews = 9 });}
+
+
+                </div>
+
+            </div><!--/End content left-->
+            <div class="col-lg-4 col-md-12">
+                @Html.Partial("Site_Right2")
+            </div><!--/End content right-->
+        </div><!-- end row-->
+    </div>
+
+
+
+
+}
+<script type="text/javascript">
+
+    function openWin(url) {
+        var myWindow = window.open(url, '', 'width=700,height=500');
+        myWindow.focus();
+    }
+</script>
+<script>
+    $('.news_detail_img').removeAttr('style');
+    $('.news_detail_img').attr('style', 'margin:0 auto;text-align:center');
+    $('#NewsContent table').removeAttr('width');
+    $('#NewsContent span img').removeAttr('width');
+    $('#NewsContent img').removeAttr('width');
+    $('#NewsContent img').removeAttr('height');
+    $('#NewsContent img').removeAttr('style');
+
+
+    fsize = 14;
+
+    function addsize() {
+
+        fsize = fsize + 1;
+        $('#NewsContent').attr('style', 'font-size:' + fsize + 'px');
+    }
+    function plussize() {
+        if (fsize > 8) {
+            fsize = fsize - 1;
+        }
+
+        $('#NewsContent').attr('style', 'font-size:' + fsize + 'px');
+    }
+</script>
+
+<style>
+    #NewsContent img {
+        max-width: 1100px;
+        height: auto !important;
+    }
+
+    @@media screen and (max-width: 767px) {
+
+
+        #NewsContent img, #NewsContent table {
+            max-width: 480px;
+        }
+
+        #NewsContent .newscontent_table {
+            max-width: 480px;
+        }
+
+        #NewsContent iframe {
+            width: 480px;
+        }
+
+        .detail-text {
+            padding-left: 0px;
+        }
+    }
+
+    @@media screen and (max-width: 485px) {
+        #NewsContent img, #NewsContent table {
+            max-width: 350px;
+        }
+
+        #NewsContent iframe {
+            width: 350px;
+        }
+
+        #NewsContent .newscontent_table {
+            max-width: 350px;
+        }
+    }
+</style>

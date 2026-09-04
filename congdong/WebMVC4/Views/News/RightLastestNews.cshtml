@@ -1,0 +1,36 @@
+﻿@using BIZ
+@using UTILS
+@using WebMVC4.Helper
+@model WebMVC4.Models.LastestNewModel
+@if (Model != null)
+{
+    if (Model.lstdata.Count > 0)
+    {
+        <div class="news-inner">
+            <div class="mt30">
+                @foreach (var item in Model.lstdata.Take(1).Select((value, i) => new { i, value }))
+                {
+                <a href="@item.value.LinkUrl"><img src="@item.value.MainImage?w=491&h=291&mode=crop" alt="" class="w-100"></a>
+                <a href="@item.value.LinkUrl" class="mt15 post-big-name">@item.value.Title </a>
+                <p class="date mt15">@item.value.PublishDate.ToString("dd/MM/yyyy")</p>
+                }
+            </div>
+            <ul class="news-list-02 mt15">
+                @foreach (var item in Model.lstdata.Skip(1).Select((value, i) => new { i, value }))
+                {
+                    <li>
+                        <a href="@item.value.LinkUrl"><img src="@item.value.MainImage?w=491&h=291&mode=crop" alt=""></a>
+                        <div class="news-list-content">
+                            <a href="@item.value.LinkUrl" class="font-weight-bold text-black mt15">@item.value.Title</a>
+                            <p class="date mt15">@item.value.PublishDate.ToString("dd/MM/yyyy")</p>
+                        </div>
+                    </li>
+                }
+                </ul>
+        </div>
+        
+
+
+
+    }
+}

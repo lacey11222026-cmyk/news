@@ -1,0 +1,35 @@
+﻿@using BIZ
+@using UTILS
+@using WebMVC4.Helper
+@using WebMVC4.Models
+@model ProductModel
+
+@if (Model != null)
+{
+    <h2 class="title-cm"><a href="@Model.Cate.Url">@Model.Cate.Name</a></h2>
+    <div class="product-list">
+        <ul class="row">
+            @foreach (var item in Model.listdata.Select((value, i) => new { i, value }))
+            {
+
+                <li class="col-md-3 col-sm-3 col-xs-6 product-list-item">
+                    <a href="@item.value.Description">
+                        <h3 class="maxheight@(item.value.CategoryId)">@item.value.Name</h3>
+                        <img class="maxheightimg@(item.value.CategoryId)" src="@item.value.DescriptImage" alt="">
+                        <ul class="maker list-inline">
+                            <li><a href="@item.value.Description"><img src="@item.value.ProductParam.Logo?h=25&mode=crop" alt=""> </a> </li>
+                            <li><a href="@item.value.Description"><img src="@item.value.QRImage?h=42&mode=crop" alt=""> </a> </li>
+                        </ul>
+                        <p class="product-content">
+                            Xuất xứ: <span class="text-blue">@item.value.ProductParam.MadeIn</span>@*<br>*@
+                            @*Số chứng nhận: <span class="text-blue">@item.value.ProductParam.Number</span>*@
+                        </p>
+                        <a href="@item.value.Description" class="btn-view">Chi tiết</a>
+                    </a>
+                </li>
+            }
+
+            
+        </ul>
+    </div>
+}

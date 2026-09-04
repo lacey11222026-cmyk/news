@@ -1,0 +1,160 @@
+﻿<footer class="mt40">
+    <div class="nav_top">
+        <div class="container">
+            <div class="nav-inner">
+                <nav class="nav-left">
+                    <ul>
+                        <li class="active"><a href="/"><img src="/Content/img/ico-home.png" alt="Trang chủ" width="22"></a></li>
+                        @{Html.RenderAction("Menu", "Home");}
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </div>
+    <div class="f-content">
+        <div class="mt30 f-content container">
+            <div class="row justify-content-between f-content-inner">
+                <div class="col-md-4 col-sm-12">
+                    <div class="">
+                        <div class="f-content-01">
+                            <div class="maxheight01"><img src="/Content/img/logo.png?vs=02" alt="" width="360"></div>
+                            <p class="mt20">
+                                Trang tin điện tử Công đoàn Nông nghiệp và Môi trường Việt Nam<br>
+                                Địa chỉ: Số 12/20 Nguyễn Công Hoan - Ba Đình - Hà Nội <br>
+                                Điện thoại: <a href="tel:02439713190">024.39713190</a> Fax: 04.39712700
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 col-sm-12">
+                    <div class="f-content-02">
+                        <p class="mt10">
+                            © Bản quyền thuộc Công đoàn Nông nghiệp và Môi trường Việt Nam<br>
+                            Chịu trách nhiệm nội dung: Công đoàn Nông nghiệp và Môi trường Việt Nam<br>
+                            Giấy phép số 327/GP-TTĐT, cấp ngày 27/12/2024<br>
+                            Nơi cấp: Cục PT, TH và TTĐT - Bộ Thông tin và Truyền thông<br>
+                            Phát triển bởi: <img src="/Content/img/vtk.svg" alt="" width="40">
+                        </p>
+                    </div>
+                </div>
+                <div class="col-md-4 col-12">
+                    <p class="mt10">
+                        Ghi rõ nguồn: www.congdoannongnghiep.org.vn<br>
+                        khi sử dụng thông tin từ website này.
+                    </p>
+                    <div class="total mt20">
+                        <p class="font-weight-bold">THỐNG KÊ TRUY CẬP</p>
+                        <p>Tổng số lượt truy cập: <span>@HttpContext.Current.Application["TotalVisited"].ToString()</span></p>
+                        <p>Số người online: <span>@(int.Parse(HttpContext.Current.Application["OnlineUsers"].ToString())+10)</span></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div><!-- end container-->
+</footer>
+<div class="mess">
+    <button class="btn-mess" style=""></button>
+    <div class="mess-inner" style="display: none;">
+        <p class="mess-title"><button class="mess-close">x</button></p>
+        <div>
+            <p >Vui lòng để lại câu hỏi của bạn tại đây! Chúng tôi sẽ liên hệ bạn sớm nhất</p>
+            <br />
+            <div id="comment-result" style="display:none;" class="status alert alert-success">Gửi câu hỏi thành công </div>
+            <div class="col-md-12">
+                <p id="msgBox" style="color: #c82e29; font-weight: bold; font-size: 14px"></p>
+                @Html.AntiForgeryToken()
+            </div>
+            <input type="text" class="form-control mt10" id="familyname" placeholder="Họ và tên">
+            <input type="email" class="form-control mt10" id="email" placeholder="Email">
+            <input type="email" class="form-control mt10" id="question" placeholder="Câu hỏi">
+            <textarea class="form-control mt10" id="content" rows="3"></textarea>
+            <div class="text-center mt10"><button type="button" onclick="return validateData()" class="btn btn-primary">Gửi</button></div>
+        </div>
+    </div>
+</div>
+<p><a href="#top" id="backToTop" class="backTop block"></a></p>
+<script src="~/Content/js/formvalidate.js?vs=02"></script>
+<script type="text/javascript">
+
+  function validateEmail() {
+      if (!ValidateControls("Vui lòng nhập Email", "#email")) {
+          return false;
+      }
+      var mail = $('#email').val();
+      if (!isValidEmailAddress(mail)) {
+
+          $("#msgBox").html("Email sai định dạng").show();
+
+          $('#email').focus();
+          return false;
+      }
+      return true;
+  }
+
+
+  function validateData() {
+      if (!ValidateControls("Vui lòng nhập họ tên", "#familyname")) {
+          return false;
+      }
+      if (!validateEmail()) {
+          return false;
+      }
+      //if (!validateMobile()) {
+      //    return false;
+      //}
+      if (!ValidateControls("Vui lòng nhập câu hỏi", "#question")) {
+           return false;
+       }
+      if (!ValidateControls("Vui lòng nhập nội dung", "#content")) {
+          return false;
+      }
+      var postdata = {
+          Name: $('#familyname').val(),
+          Email: $('#email').val(),
+          Answer: $('#content').val().replace(/\n/g, '<br />'),
+          Question: $('#question').val().replace(/\n/g, '<br />')
+
+      };
+      $.ajax({
+          type: "post",
+          dataType: "html",
+          url: '@Url.Action("Feedback", "Intro")',
+          data: addAntiForgeryToken(postdata),
+          success: function (response) {
+
+              var data = parseInt(response);
+              if (data == 1) {
+
+                  $("#comment-result").show();
+
+                  $('#familyname').val("");
+                  $('#email').val("");
+                  $('#question').val("");
+                  $('#content').val("");
+
+              }
+
+              if (data == -99) {
+                  $("#msgBox").html("Lỗi hệ thống! Vui lòng quay lại trong giây lát").show();
+
+              }
+              if (data == -4) {
+                  $("#msgBox").html("Bạn gửi thông tin quá nhiều lần. Vui lòng chờ giây lát").show();
+
+              }
+
+          }
+      });
+
+      return true;
+  }
+</script>
+<style>
+    .mess {
+        z-index: 100;
+    }
+    .f-content .row > div {
+        padding-left: 6px;
+        padding-right: 6px;
+    }
+</style>

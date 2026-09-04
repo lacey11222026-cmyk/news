@@ -1,0 +1,85 @@
+﻿@using BIZ
+@using UTILS
+@using WebMVC4.Helper
+@model WebMVC4.Models.NewsModel
+
+@{
+    Layout = "~/Views/Shared/_Home.cshtml";
+}
+<h3 class="title-blue">Tổ chức - Sự kiện</h3>
+<div class="row">
+    <div class="col-md-3 col-sm-4 hidden-xs event-catalog">
+        <ul>
+            <li><a href="/tin-tuc/c4/tin-tuc.html">Tin tức</a></li>
+            <li><a href="/tin-tuc/c44/tin-dia-phuong.html">Tin địa phương</a></li>
+            <li><a href="/tin-tuc/c5/tin-hoat-dong.html">Tin hoạt động</a></li>
+            <li><a href="/tin-tuc/c7/dien-hinh.html">Điển hình</a></li>
+            <li class="active">
+                <a href="/tin-tuc/c18/thong-bao.html">Thông báo sự kiện</a>
+            </li>
+        </ul>
+    </div>
+    <div class="block-xs navbar-xs">
+        <div class="navbar-header"><span class="navbar-btn"></span></div>
+        <div id="category-list-mobile">
+            <ul class="category-list">
+                <li><a href="/tin-tuc/c4/tin-tuc.html">Tin tức</a></li>
+                <li><a href="/tin-tuc/c44/tin-dia-phuong.html">Tin địa phương</a></li>
+                <li><a href="/tin-tuc/c5/tin-hoat-dong.html">Tin hoạt động</a></li>
+                <li class="active"><a href="/tin-tuc/c7/dien-hinh.html">Điển hình</a></li>
+                <li>
+                    <a href="/tin-tuc/c18/thong-bao.html">Thông báo sự kiện</a>
+
+                </li>
+            </ul>
+        </div>
+
+
+    </div>
+
+    <div class="col-md-9 col-sm-8">
+        <div class="event-content">
+            <h3 class="textblue">Thông báo - sự kiện</h3>
+            <ul>
+                @if (Model.listdata != null)
+                {
+                    foreach (var item in Model.listdata.Select((value, i) => new { i, value }))
+                    {
+                        <li>
+                            <div class="col-md-4 col-sm-4 col-xs-3 ">
+                                <div class="date02">
+                                    <span>@item.value.PublishDate.Day</span>
+                                    <p>@item.value.PublishDate.ToString("dd.MM.yyyy")</p>
+                                </div>
+                            </div>
+                            <div class="col-md-8 col-sm-8 col-xs-9">
+                                <h4><a href="@item.value.LinkUrl">@item.value.Title</a></h4>
+                                <span class="address02">Địa điểm : Hà Nội</span>
+                            </div>
+                            <div class="clearfix"></div>
+                        </li>
+                    }
+                }
+                </ul>
+
+            </div>
+            <div class="pagination pull-right mt30">
+                <ul>
+                    @{Html.RenderPartial("Pagination", new WebMVC4.Models.PaginationInfo
+                        {
+                            PageUrl = Url.SetParameter("Page", "!0"),
+                            CurrentPage = Model.pageIndex,
+                            PageSize = Model.pageSize,
+                            TotalItemCount = Model.total,
+                        }); }
+                </ul>
+            </div>
+        </div>
+
+
+
+
+    </div>
+<script>
+    $('#pagecontainer').addClass("event-page")
+</script>

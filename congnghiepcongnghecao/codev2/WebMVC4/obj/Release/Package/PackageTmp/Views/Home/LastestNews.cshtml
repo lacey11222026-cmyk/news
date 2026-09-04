@@ -1,0 +1,59 @@
+﻿
+@using BIZ
+@using UTILS
+@using WebMVC4.Helper
+@model WebMVC4.Models.LastestNewModel
+@if (Model.lstdata != null)
+{
+    if (Model.lstdata.Count > 0)
+    {
+        <div class="content02 mt50">
+            <div class="container">
+                <h2 class="title-cm"> <a href="@Model.Url">@Model.HeaderTitle</a></h2>
+
+            </div>
+            <div class="container bg-white mt20">
+                <div class=" mt20 slide-project">
+                    <ul id="flexiselDemo1">
+                        @foreach (var item in Model.lstdata.Select((value, i) => new { i, value }))
+                        {
+                            <li class="col-md-3 col-sm-3 col-xs-6">
+                                <a href="@item.value.LinkUrl"><img src="@item.value.MainImage?w=255&h=183&mode=crop" alt=""></a>
+                                <h3><a href="@item.value.LinkUrl">@item.value.Title</a></h3>
+                            </li>
+                        }
+                    </ul>
+                </div>
+            </div>
+        </div><!-- end content 02-->
+
+
+    }
+}
+<script>
+    // Slide chan trang
+    $(window).load(function () {
+        $("#flexiselDemo1").flexisel({
+            visibleItems: 4,
+            animationSpeed: 1000,
+            autoPlay: true,
+            autoPlaySpeed: 5000,
+            pauseOnHover: true,
+            enableResponsiveBreakpoints: true,
+            responsiveBreakpoints: {
+                portrait: {
+                    changePoint: 480,
+                    visibleItems: 2
+                },
+                landscape: {
+                    changePoint: 640,
+                    visibleItems: 2
+                },
+                tablet: {
+                    changePoint: 768,
+                    visibleItems: 4
+                }
+            }
+        });
+    });
+</script>

@@ -1,0 +1,17 @@
+USE [khoahoccn]
+GO
+
+UPDATE [dbo].[Document]
+   SET 
+      [FilePath] = 'http://media.khcncongthuong.vn'+[FilePath]
+      
+ WHERE FilePath not like '%media.khcncongthuong.vn%'
+GO
+
+
+UPDATE [dbo].[Content]
+   SET 
+      [Contents] =REPLACE([Contents], '../../../Images/Upload/', 'http://media.khcncongthuong.vn/Images/Upload/')
+ WHERE 1=1
+GO
+

@@ -1,0 +1,217 @@
+﻿@{
+    
+    Layout = "~/Views/Shared/_AdminV2.cshtml";
+}
+@model List<BIZ.Entity.FileUserFull>
+
+
+<script type="text/javascript" language="javascript">
+    $(document).ready(function () {
+        $("#txtFromdate").datepicker({ dateFormat: "dd/mm/yy" });
+        $("#txtTodate").datepicker({ dateFormat: "dd/mm/yy" });
+
+        $('#drlAccount').change(function () {
+            window.location = jQuery.query.set("account", this.value);
+        });
+
+        $('#menu_generate').click();
+        if (jQuery.query.get("tab") == 1) {
+            $('#left_menu').hide();
+            $('#header').hide();
+            $('#bg_content').css("margin-left", "0px").css("padding-top", "0px");
+            $('.onecolumn').css("margin-top", "0px");
+        }
+    });
+    function fillter() {
+        var title = $("#Keyword").val();
+        var fromdate = $("#txtFromdate").val();
+        var todate = $("#txtTodate").val();
+        window.location = jQuery.query.set("title", title).set("fromdate", fromdate).set("todate", todate);
+    }
+    function filedelete(fileid) {
+        if (confirm("Bạn có chắc chắn muốn xóa file này không?")) {
+            $.post('@Url.Action("FileDelete", "Admin")', { "fileid": fileid },
+                function (data) {
+                    if (data == "1") {
+                        window.location.reload();
+                    } else {
+                        alert("Bạn không có quyền xóa file này");
+                    }
+
+
+
+                });
+        }
+    }
+
+    function updatefile() {
+
+        var contents = $('#Content').val();
+        var id = $('#Id').val();
+        $.post('@Url.Action("UpdateFile", "Admin")', { "Id": id, "Contents": contents },
+                function (data) {
+                    dlg.dialog('close');
+                    $("#message_" + id).html(contents);
+                });
+
+    }
+
+    var dlg;
+    $(document).ready(function () {
+        dlg = $("#dialogue").dialog(
+                {
+                    autoOpen: false,
+                    width: 500
+                });
+
+
+        $("#btnCancel").click(function () {
+
+            dlg.dialog('close');
+        });
+        $("#btUpdate").click(function () {
+
+
+            updatefile();
+
+        });
+
+
+    });
+
+    function editFile(id) {
+        $("#Id").val(id);
+        var Content = $("#message_" + id).html();
+        $("#Content").val(Content);
+
+
+
+        dlg.dialog({ title: 'Cập nhật thông tin file' });
+        dlg.dialog('open');
+    }
+</script>
+<div class="onecolumn">
+    <div class="header">
+        <span>@ViewBag.Title</span>
+    </div>
+    <br class="clear">
+    <div class="content">
+        <div>
+            <div style="float: left;">
+                <b>Người tải: </b>@Html.DropDownList("drlAccount", new SelectList(ViewBag.AccountList as System.Collections.IEnumerable, "SValue", "Text", ViewBag.Author), new { @class = "drl_Group" }) &nbsp;&nbsp;
+                <b>Từ khóa : </b>
+                <input type="text" id="Keyword" value="@ViewBag.Keyword" style="width: 120px;"/>
+                &nbsp;&nbsp;
+                <b>Từ ngày:</b>&nbsp;
+                <input name="fromdate" id="txtFromdate" value="@ViewBag.fromdate" style="width: 100px;" />&nbsp;&nbsp;
+                <b>Đến ngày</b>:&nbsp;
+                <input name="todate" id="txtTodate" value="@ViewBag.todate" style="width: 100px;"/>&nbsp;&nbsp;
+                <button onclick="fillter();">Tra cứu</button>
+            </div>
+            <br/><br/>
+            <div style="float: right;">
+                <div id="uploadpanel">
+
+                    @{Html.RenderAction("UploadContent", "Admin");}
+
+
+                </div>
+            </div>
+            <div style="clear: both">
+            </div>
+        </div>
+        <br />
+        <div style="width: 100%; height: 538px; overflow-y: scroll; display: block;">
+            <table class="adminlist data" cellspacing="0" cellpadding="0" cellpadding="1">
+                <thead>
+                    <tr>
+                        <th align="center" width="1%"></th>
+                        <th align="center" width="10%">Icon
+                        </th>
+                        <th align="center" width="20%">Name
+                        </th>
+                        <th align="center" width="50%">Link
+                        </th>
+                        <th align="center" width="30%">Mô tả
+                        </th>
+                        @if (ViewBag.IsOwner)
+                        {
+                            <th align="center" width="10%">Action
+                            </th> 
+                        }
+
+                    </tr>
+                </thead>
+
+                @if (Model != null)
+                {
+
+                    foreach (var item in Model)
+                    {
+                    <tr id="tr_@(item.Id)">
+                        <td align="center" width="1%"></td>
+                        <td align="center" width="10%">
+                            <img alt="icon" width="40" height="30" src='@item.Icon' />
+                        </td>
+                        <td width="20%">
+                            @item.FileName
+                        </td>
+                        <td width="50%" valign="middle">
+                            <input style="width: 100%;" type="text" value='@item.FilePath' />
+
+                        </td>
+
+                        <td style="width: 333px;">
+                            <span id="message_@item.Id">@item.Keyword</span>
+
+                        </td>
+                        <td width="20%" align="center">
+                            @if (ViewBag.IsOwner)
+                            {
+                                <a onclick="return filedelete('@item.Id');" href='javascript:void(0);'><img class="help" alt="delete" src="/Styles/admin/images/icon_delete.png"></a>
+                                <text>&nbsp; &nbsp;</text>
+                                
+                                <a onclick="return editFile('@item.Id');" href="javascript:void(0);">
+                                    <img class="help" alt="delete" src="/Styles/admin/images/icon_edit.png">
+                                </a>
+                            }
+
+                        </td>
+                    </tr>
+                                             
+                    }
+
+                }
+
+            </table>
+        </div>
+    </div>
+</div>
+
+<div class="dialogueform" id="dialogue">
+    <form id="FileForm" method="get" action="">
+        <input id="Id" name="Id" type="hidden" />
+
+        <div class="login-left">
+            <label>
+                Nội dung:</label>
+        </div>
+        <div class="login-right">
+
+            <input type="text" id="Content" name="Content" style="width: 320px;">
+            </input>
+
+        </div>
+        <div class="clear">
+        </div>
+        <br />
+
+
+
+        <br />
+        <div id="buttons">
+            <input class="button" type="button" value='Cập nhật' id="btUpdate" />&nbsp;
+        <input type="button" value='Quay lại' id="btnCancel" />
+        </div>
+    </form>
+</div>

@@ -1,0 +1,334 @@
+﻿@using BIZ
+@using BIZ.Entity
+@using UTILS
+@using WebMVC4.Helper
+@model WebMVC4.Models.ProductDetailModel
+@if (Model != null)
+{
+    <div class="page-title shop-page-title product-page-title">
+        <div class="page-title-inner flex-row medium-flex-wrap container">
+            <div class="flex-col flex-grow medium-text-center">
+                <div class="is-small">
+                    @if (Model.Cate.ParentId == 0)
+                    {
+                        <nav class="woocommerce-breadcrumb breadcrumbs">
+                            <a href="/">Trang chủ</a> <span class="divider">/</span>
+                            <a href="@Model.Cate.Url">@Model.Cate.Name</a>
+                        </nav>
+
+                    }
+                    else
+                    {
+                        <nav class="woocommerce-breadcrumb breadcrumbs">
+                            <a href="/">Trang chủ</a> <span class="divider">/</span>
+                            <a href="@Model.CateParrent.Url">@Model.CateParrent.Name</a> <span class="divider">/</span>
+                            <a href="@Model.Cate.Url">@Model.Cate.Name</a>
+                        </nav>
+
+                    }
+                </div>
+            </div><!-- .flex-left -->
+
+            <div class="flex-col medium-text-center">
+            </div><!-- .flex-right -->
+        </div><!-- flex-row -->
+    </div>
+    <main id="main" class="">
+        <div class="row category-page-row">
+            <div class="large-3 col hide-for-medium ">
+                @Html.Partial("Site_Right")
+            </div><!-- large-3 -->
+            <div class="col large-9">
+                <div class="shop-container">
+
+                    <div class="container">
+                        <div class="woocommerce-notices-wrapper"></div>
+                    </div><!-- /.container -->
+                    <div i class="post-@Model.Detail.Id product type-product status-publish has-post-thumbnail product_cat-phu-kien-tu-tren product_cat-gia-bat-nang-ha first instock sale shipping-taxable purchasable product-type-simple">
+                        <div class="product-container">
+                            <div class="product-main">
+                                <div class="row content-row mb-0">
+
+                                    <div class="product-gallery large-6 col painter ">
+                                        <div class="images">
+                                            <a class="main-image" href="@Model.Detail.DescriptImage" data-gallery="#blueimp-gallery">
+                                                <img src="@Model.Detail.DescriptImage" class="img-responsive">
+                                            </a>
+                                            <br>
+
+
+                                            <!-- Het Show mo ta ngan-->
+                                        </div>
+                                        <ul class="image-thumbs">
+                                            @if (!string.IsNullOrEmpty(Model.Detail.ImageParam.Path1))
+                                            {
+                                                <li>
+                                                    <a class="thumb" href="@Model.Detail.ImageParam.Path1" data-gallery="#blueimp-gallery">
+                                                        <img class="img-responsive current"
+                                                             src="@Model.Detail.ImageParam.Path1?w=120&h=120&mode=crop"
+                                                             alt="@Model.Detail.Name"
+                                                             title="@Model.Detail.Name"
+                                                             data-src="@Model.Detail.ImageParam.Path1" />
+                                                    </a>
+                                                </li>
+                                            }
+                                            @if (!string.IsNullOrEmpty(Model.Detail.ImageParam.Path2))
+                                            {
+                                                <li>
+                                                    <a class="thumb" href="@Model.Detail.ImageParam.Path2" data-gallery="#blueimp-gallery">
+                                                        <img class="img-responsive current"
+                                                             src="@Model.Detail.ImageParam.Path2?w=120&h=120&mode=crop"
+                                                             alt="@Model.Detail.Name"
+                                                             title="@Model.Detail.Name"
+                                                             data-src="@Model.Detail.ImageParam.Path2" />
+                                                    </a>
+                                                </li>
+                                            }
+                                            @if (!string.IsNullOrEmpty(Model.Detail.ImageParam.Path3))
+                                            {
+                                                <li>
+                                                    <a class="thumb" href="@Model.Detail.ImageParam.Path3" data-gallery="#blueimp-gallery">
+                                                        <img class="img-responsive current"
+                                                             src="@Model.Detail.ImageParam.Path3?w=120&h=120&mode=crop"
+                                                             alt="@Model.Detail.Name"
+                                                             title="@Model.Detail.Name"
+                                                             data-src="@Model.Detail.ImageParam.Path3" />
+                                                    </a>
+                                                </li>
+                                            }
+                                            @if (!string.IsNullOrEmpty(Model.Detail.ImageParam.Path4))
+                                            {
+                                                <li>
+                                                    <a class="thumb" href="@Model.Detail.ImageParam.Path4" data-gallery="#blueimp-gallery">
+                                                        <img class="img-responsive current"
+                                                             src="@Model.Detail.ImageParam.Path4?w=120&h=120&mode=crop"
+                                                             alt="@Model.Detail.Name"
+                                                             title="@Model.Detail.Name"
+                                                             data-src="@Model.Detail.ImageParam.Path4" />
+                                                    </a>
+                                                </li>
+                                            }
+                                            @if (!string.IsNullOrEmpty(Model.Detail.ImageParam.Path5))
+                                            {
+                                                <li>
+                                                    <a class="thumb" href="@Model.Detail.ImageParam.Path5" data-gallery="#blueimp-gallery">
+                                                        <img class="img-responsive current"
+                                                             src="@Model.Detail.ImageParam.Path5?w=120&h=120&mode=crop"
+                                                             alt="@Model.Detail.Name"
+                                                             title="@Model.Detail.Name"
+                                                             data-src="@Model.Detail.ImageParam.Path5" />
+                                                    </a>
+                                                </li>
+                                            }
+
+                                        </ul>
+                                    </div>
+
+                                    <div class="large-6 col product-info summary col-fit col entry-summary product-summary text-left">
+
+                                        <h1 class=" entry-title">
+                                            @Model.Detail.Name
+                                        </h1>
+                                        @if (Model.Detail.Price > 0)
+                                        {
+                                            <div class="price-wrapper">
+                                                <p class="price product-page-price price-on-sale">
+                                                    <ins><span class="woocommerce-Price-amount amount">Giá: @Utils.InsertCommaNoStyle(Model.Detail.Price.ToString())<span class="woocommerce-Price-currencySymbol">₫</span></span></ins>
+                                                </p>
+                                            </div>
+                                        }
+                                        else
+                                        {
+                                            <div class="price-wrapper">
+                                                <p class="price product-page-price price-on-sale">
+                                                    <ins><span class="woocommerce-Price-amount amount"> Giá: liên hệ 0973766284</span></ins>
+                                                </p>
+                                            </div>
+                                        }
+
+                                        <div class="product-short-description">
+                                            @Html.Raw(Model.Detail.Description)
+                                        </div>
+                                        <div style="width: 100%;">
+                                            <a href="/lien-he?content=Tư vấn báo giá sản phẩm  @(Model.Detail.Name)" class="devvn_buy_now devvn_buy_now_style">
+                                                <strong>Báo giá ngay</strong>
+                                                <span>Nhấn vào đây để yêu cầu tư vấn báo giá ngay!</span>
+                                            </a>
+                                        </div>
+                                        <div class="social-icons share-icons share-row relative icon-style-fill ">
+                                            <a target="_blank" title="Chia sẻ bài viết lên facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://@(Request.Url.Host)@(Utils.FormatUrlRewrite(Model.Detail.Id, Model.Detail.Name, "ProductDetail"))"><i class="fa fa-facebook"></i></a>
+                                            <span class="inline-space"></span>
+                                            <a target="_blank" title="Chia sẻ bài viết lên twitter" href="https://twitter.com/intent/tweet?source=webclient&amp;text=@(Model.Detail.Name) - http://@(Request.Url.Host)@(Utils.FormatUrlRewrite(Model.Detail.Id, Model.Detail.Name, "ProductDetail"))"><i class="fa fa-twitter"></i></a>
+                                            <span class="inline-space"></span>
+                                            <a target="_blank" title="Chia sẻ bài viết lên google plus" href="https://plus.google.com/share?url=http://@(Request.Url.Host)@(Utils.FormatUrlRewrite(Model.Detail.Id, Model.Detail.Name, "ProductDetail"))"><i class="fa fa-google-plus"></i></a>
+                                        </div>
+
+                                        @*<div class="quantity buttons_added">
+            <input type="button" value="-" class="minus button is-form" onclick="downnumber()"><label class="screen-reader-text" for="quantity_5c90641ee2751">Số lượng</label>
+            <input type="number" id="input-quantity" class="input-text qty text" step="1" min="1" max="9999" name="quantity" value="1" title="SL" size="4" pattern="[0-9]*" inputmode="numeric" aria-labelledby="Giá bát nâng hạ EUROKIT UB 700 - Inox 304 - Nan vuông, khay hứng nước bằng Inox số lượng">
+            <input type="button" value="+" class="plus button is-form" onclick="upnumber()">
+        </div>
+
+        <button name="add-to-cart" value="1879" class="single_add_to_cart_button button alt" onclick="addproductdetail()">Thêm vào giỏ</button>*@
+
+
+
+
+
+
+
+
+                                    </div><!-- .summary -->
+                                    <div style="clear:both"></div>
+
+                                </div><!-- .row -->
+                            </div><!-- .product-main -->
+
+                            <div class="product-footer">
+                                <div class="container">
+
+                                    <div class="NewsContent">
+
+                                        @Html.Raw(Model.Detail.Intro)
+
+                                    </div>
+
+
+
+                                    @{Html.RenderAction("RelateProduct", "Product", new { categoryId = Model.Detail.CategoryId, id = Model.Detail.Id, manuid = Model.Manu.Id });}
+
+
+
+
+
+
+                                </div><!-- container -->
+                            </div><!-- product-footer -->
+                        </div><!-- .product-container -->
+                    </div>
+
+
+                </div><!-- shop container -->
+            </div>
+        </div>
+    </main>
+
+
+
+    <link rel="stylesheet" type="text/css" href="/Content/js/blueimp/css/blueimp-gallery.min.css" />
+    <script type="text/javascript" src="/Content/js/blueimp/js/jquery.blueimp-gallery.min.js"></script>
+    <script src="~/Content/js/formvalidate.js?vs=161111"></script>
+    <script>
+          $('#menu_@(Model.Cate.Id)').addClass('active');
+         $('#menu_@(Model.Cate.ParentId)').addClass('active');
+        function upnumber() {
+            var amount = parseInt($("#input-quantity").val());
+            amount = amount + 1;
+            $("#input-quantity").val(amount);
+        }
+        function downnumber() {
+            var amount = parseInt($("#input-quantity").val());
+            amount = amount - 1;
+            if (amount <= 0)
+                amount = 1;
+            $("#input-quantity").val(amount);
+        }
+
+
+        function addproductdetail() {
+            var amount = $("#input-quantity").val();
+            if (!isInteger(amount))
+                amount = 1;
+            var url = '@Url.Action("AddProduct","Order",new { productId=Model.Detail.Id})' + '&amount=' + amount;
+            window.location.href = url;
+        }
+
+    </script>
+
+    <script type="text/javascript">
+        /*<![CDATA[*/
+        jQuery(window).on('load', function () {
+            jQuery(document).on('mouseenter', '.painter .image-thumbs .img-responsive', function () {
+                var el = jQuery(this);
+                var src = el.data('src');
+                var href = el.parent().attr('href');
+                jQuery('.painter .image-thumbs .img-responsive').removeClass('current');
+                el.addClass('current');
+                jQuery('.painter .main-image .img-responsive').attr('src', src);
+                jQuery('.painter .main-image .img-responsive').parent().attr('href', href);
+            });
+
+
+        });
+                                                                /*]]>*/
+    </script>
+    <style>
+        #tab-description img, #NewsContent table {
+            height: auto !important;
+            max-width: 100% !important;
+        }
+
+        #tab-description iframe {
+            max-width: 100% !important;
+        }
+
+        #tab-description p, #NewsContent div {
+            margin: 12px 0 !important;
+        }
+
+        #tab-description {
+            float: left;
+            margin-left: 0px;
+            width: 100%;
+        }
+
+        .product-gallery ul {
+            list-style: none;
+            display: block;
+            overflow: hidden;
+            padding: 0;
+            margin: 0 -1px;
+        }
+
+        .image-thumbs li {
+            display: block;
+            float: left;
+            width: 20%;
+            padding: 2px 1px 0;
+        }
+
+        .social-icons {
+            border-top: 1px dotted #ddd;
+            width: 100%;
+            font-size: 15px;
+        }
+    </style>
+    if (string.IsNullOrEmpty(Model.Detail.ImageParam.Path4))
+    {
+        <style>
+            .image-thumbs li {
+                width: 33% !important;
+            }
+        </style>
+    }
+    else
+    {
+        if (string.IsNullOrEmpty(Model.Detail.ImageParam.Path5))
+        {
+            <style>
+                .image-thumbs li {
+                    width: 25% !important;
+                }
+            </style>
+        }
+    }
+}
+<div id="blueimp-gallery" class="blueimp-gallery blueimp-gallery-controls" style="display: none;">
+    <div class="slides" style="width: 12800px;"></div>
+    <h3 class="title"></h3>
+    <a class="prev">‹</a>
+    <a class="next">›</a>
+    <a class="close">×</a>
+    <a class="play-pause"></a>
+    <ol class="indicator"></ol>
+</div>

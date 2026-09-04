@@ -1,0 +1,84 @@
+﻿@using WebMVC4.Helper
+@{
+    var langpage = WorkContext.GetLanguage();
+}
+<div class="content-05">
+    <div class="container">
+        <div class="row row-50">
+
+            @if (langpage == "vi-vn")
+            {
+                <div class="col-md-6 col-sm-12 link-box">
+                    <div class="form-group">
+                        <select class="form-control" id="exampleFormControlSelect1" onchange="window.open(this.options[this.selectedIndex].value,'_blank');this.options[0].selected=true">
+                            <option>Liên kết website</option>
+                            <option value="https://tietkiemnangluong.com.vn/">VNEEP - Chương trình quốc gia về sử dụng năng lượng tiết kiệm và hiệu quả </option>
+
+                            <option value="https://eav.gov.vn/">Cục Năng lượng  </option>
+
+                            <option value="https://moit.gov.vn/">Cổng thông tin điện tử Bộ Công Thương</option>
+                            <option value="https://vietnam.um.dk/vi">Bộ Ngoại Giao Đan Mạch tại Việt Nam</option>
+                            <option value="https://ens.dk/">Cục Năng lượng Đan Mạch </option>
+                            <option value="https://coe.depp3.vn/">Trung tâm xuất sắc về Hiệu quả năng lượng </option>
+                            <option value="https://tc.depp3.vn/vi/">Cẩm nang công nghệ ngành điện Việt Nam 2026  </option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-6 col-sm-12">
+                    @{Html.RenderAction("LastestNews3", "Home", new { CategoryId = 44, CateName = "Sự kiện", MaxLastestNews = 1, cssClass = "maxheight02", lang = langpage });}
+                </div>
+            }
+            else
+            {
+                <div class="col-md-6 col-sm-12 link-box">
+                    <div class="form-group">
+                        <select class="form-control" id="exampleFormControlSelect1" onchange="window.open(this.options[this.selectedIndex].value,'_blank');this.options[0].selected=true">
+                            <option>Website Links</option>
+                            <option value="https://vneec.gov.vn/">National Energy Efficiency Programme </option>
+
+
+                            <option value="https://eav.gov.vn/en-US">Electricity Authority of Vietnam  </option>
+                            <option value="https://ens.dk/en">Danish Energy Agency  </option>
+                            <option value="https://moit.gov.vn/en">Ministry of Industry and Trade web portal</option>
+                            <option value="https://vietnam.um.dk/eh">Ministry of Foreign Affairs of Denmark</option>
+                            <option value="https://tc.depp3.vn/en/">Vietnam Technology Catalogue 2026 for the Power sector</option>
+                            <option value="https://coe.depp3.vn/">Centre of Excellence for Energy Efficiency</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-6 col-sm-12">
+                    @{Html.RenderAction("LastestNews3", "Home", new { CategoryId = 62, CateName = "Event", MaxLastestNews = 1, cssClass = "maxheight02", lang = langpage });}
+                </div>
+            }
+
+        </div>
+    </div>
+</div>
+@{Html.RenderAction("BannerBottom", "Home", new { lang = langpage });}
+@{Html.RenderAction("MenuBottom", "Home", new { lang = langpage });}
+@if (langpage == "vi-vn")
+{
+    <div class="f-content-02 text-center">
+        <h2>Chương trình Hợp tác Đối tác Năng lượng Việt Nam – Đan Mạch giai đoạn 2020-2025</h2>
+        <p class="add">
+            Văn phòng BQL dự án Chương trình Hợp tác Đối tác Năng lượng Việt Nam – Đan Mạch<br>
+
+            Địa chỉ: Phòng 318, Tầng 3, Nhà B, 54 Hai Bà Trưng, Quận Hoàn Kiếm, Hà Nội<br>
+            Điện thoại: 024. 2220 5528
+        </p>
+        <p>© DEPP 3  |  2026</p>
+    </div>
+}
+else
+{
+    <div class="f-content-02 text-center">
+        <h2>
+            PROJECT MANAGEMENT OFFICE OF THE ENERGY PARTNERSHIP PROGRAM BETWEEN VIET NAM AND DENMARK
+        </h2>
+        <p class="add">
+            Address: Room 318, 3th Floor, B Building, 54 Hai Ba Trung street, Hoan Kiem district, Hanoi<br />
+            Telephone: 024. 2220 5528
+        </p>
+        <p>© DEPP 3  |  2026</p>
+    </div>
+}

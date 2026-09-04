@@ -1,0 +1,79 @@
+﻿@using BIZ
+@using UTILS
+@using WebMVC4.Helper
+@if (WorkContext.GetLanguage() == "vi-vn")
+{
+    <div class="row justify-content-between">
+        <div class="col-md-9 col-12">
+            <div class="f-content-inner">
+                <div class="f-content-01">
+                    <div class="maxheight01"><img src="/content/img/logo.svg" alt="" width="270"></div>
+                    <p class="mt30">
+                        Bản quyền thuộc Văn phòng Sản xuất và tiêu dùng bền vững - Bộ Công Thương<br />
+                        Địa chỉ: Phòng 305, Nhà B, 54 Hai Bà Trưng, quận Hoàn Kiếm, Hà Nội<br />
+                        ĐT: 024 222 053 84<br />
+                        Chịu trách nhiệm nội dung : Vụ Tiết kiệm năng lượng và Phát triển bền vững
+                    </p>
+                </div>
+                <div class="f-content-02">
+                    <div class="maxheight01"><img src="/content/img/img-footer.jpg" alt=""></div>
+                    <p class="mt30">
+                        Giấy phép hoạt động số 43/GP-TTĐT do Cục Phát thanh truyền hình và Thông tin điện tử, Bộ Thông tin và Truyền thông cấp ngày 12 tháng 3 năm 2019<br />
+                        Ghi rõ nguồn: http://www.scp.gov.vn/ khi sử dụng thông tin từ website này<br>
+                        Phát triển bởi: <img src="/content/img/vtk.svg" alt="" width="40">
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3 col-12">
+            <div class="total">
+                <span>@Resources.Global.FooterView</span>
+                <ul>
+                    @foreach (var s in HttpContext.Current.Application["TotalVisited"].ToString().Select(c => c.ToString()).ToList())
+                    {
+                        <li>@s</li>
+                    }
+                </ul>
+            </div>
+        </div>
+    </div>
+
+}
+else
+{
+<div class="row justify-content-between">
+    <div class="col-md-9 col-12">
+        <div class="f-content-inner">
+            <div class="f-content-01">
+                <div class="maxheight01"><img src="/content/img/logo.svg" alt="" width="270"></div>
+                <p class="mt30">
+                    © The copyright belongs to the Sustainable Production and Consumption Office – Ministry of Trade and Industry<br />
+                    Address: room 307, building B, 54 Hai Ba Trung street, Hoan Kiem district, Hanoi.<br />
+                    Tel: 024.22202358<br />
+                    Responsible for content: Department of Energy Efficiency and Sustainable Development
+                </p>
+            </div>
+            <div class="f-content-02">
+                <div class="maxheight01"><img src="/content/img/img-footer.jpg" alt=""></div>
+                <p class="mt30">
+                    License No. 43/GP-TTĐT | Date 12/03/2019<br />
+                    Place of issue: Administration of Radio, Television and Electronic Information - Ministry of Information and Communications<br />
+                    Any reuse of the content and information on this website must give source credit to http://www.scp.gov.vn/  <br />
+                    Design by: <img src="/content/img/vtk.svg" alt="" width="40">
+                </p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3 col-12">
+        <div class="total">
+            <span>@Resources.Global.FooterView</span>
+            <ul>
+                @foreach (var s in HttpContext.Current.Application["TotalVisited"].ToString().Select(c => c.ToString()).ToList())
+                {
+                    <li>@s</li>
+                }
+            </ul>
+        </div>
+    </div>
+</div>
+}

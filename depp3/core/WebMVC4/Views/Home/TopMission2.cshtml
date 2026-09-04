@@ -1,0 +1,41 @@
+﻿@using BIZ
+@using UTILS
+@using WebMVC4.Helper
+@model List<DATA.ContentDB.Mission2>
+
+<div class="mt30">
+   
+    <div class="sliderAboutUs">
+        @foreach (var item in Model.Select((value, i) => new { i, value }))
+        {
+            if (item.i % 2 == 0)
+            {
+                @Html.Raw("<div class='vas-aboutus-list-wrap'>")
+            }
+            if (item.i % 2 == 0)
+            {
+                @Html.Raw("<div class='vas-aboutus-list'>")
+            }
+            <div class="vas-aboutus-item">
+                <div class="vas-aboutus-img"><img src="@item.value.CreatedBy?w=181&h=181&mode=crop"></div>
+                <div class="vas-about-us-content">
+                    <p class="colleague-name">@item.value.Name</p>
+                    <p class="job-name">@item.value.Organ</p>
+                    <p class="mt5 talk-txt">@item.value.Description</p>
+                </div>
+            </div>
+            if (item.i % 2 == 1 || item.i == Model.Count - 1)
+            {
+                @Html.Raw("</div>")
+                @Html.Raw("</div>")
+
+            }
+          
+
+
+
+
+        }
+
+    </div>
+</div>

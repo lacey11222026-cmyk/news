@@ -1,0 +1,28 @@
+﻿@using UTILS
+@{
+    var date = Utils.formatDateofWeek(DateTime.Now.DayOfWeek) + "," + DateTime.Now.ToString(" dd") + "/" + DateTime.Now.ToString("MM") + "/" + DateTime.Now.Year.ToString();
+}
+@using BIZ
+
+@using WebMVC4.Helper
+@model List<BIZ.Entity.CONTENT_FULL>
+<div class="marqueebox container mt10">
+    <div class="date-box">
+        <p>@date</p>
+    </div>
+    <div class="marquee-content">
+        <marquee behavior="" direction="left" scrolldelay="200">
+            @if (Model!=null)
+            {
+
+
+
+                foreach (var item in Model.Select((value, i) => new { i, value }))
+                {
+                    <a href="@item.value.LinkUrl">@item.value.Title </a> <text>|</text>
+                }
+            }
+
+        </marquee>
+    </div>
+</div>

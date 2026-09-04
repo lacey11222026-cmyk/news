@@ -1,0 +1,105 @@
+﻿@using WebMVC4.Helper
+@{
+    var langpage = WorkContext.GetLanguage();
+}
+
+<footer class="pt60 pb60">
+    <div class="container">
+        <div class="row row-50">
+            @if (langpage == "vi-vn")
+            {
+                <div class="col-lg-4 col-md-12 col-sm-12">
+                    <img src="/Content/images/logo-white.png" alt="">
+                    <p class="mt60 text-white">
+                        Bản quyền thuộc Dự án Thúc đẩy tiết kiệm năng lượng trong các ngành Công nghiệp Việt Nam (VSUEE)
+                    </p>
+                </div>
+            }
+            else
+            {
+                <div class="col-lg-4 col-md-12 col-sm-12">
+                    <img src="/Content/images/logo-white.png" alt="">
+                    <p class="mt60 text-white">
+                        Copyright belongs to the Vietnam Scaling up Energy Efficiency for Industrial Enterprises Project (VSUEE)
+                    </p>
+                </div>
+
+            }
+            <div class="col-lg-8 col-md-12 col-sm-12">
+                <ul class="nav-footer hidden-991">
+                    @{Html.RenderAction("MenuBottom", "Home", new { lang = langpage });}
+
+                </ul>
+                @if (langpage == "vi-vn")
+                {
+                    <div class="mt40">
+                        <p class="text-white">Ban Quản lý Dự án Thúc đẩy tiết kiệm năng lượng trong các ngành Công nghiệp Việt Nam</p>
+                        <div class="contact-list mt20">
+                            <span><a href="tel:02422202350" class="dis-flex"><img src="/Content/images/icon-phone.png" alt=""> 02422202350</a></span>
+                            <span><a href="https://vsuee.vn" class="dis-flex"><img src="/Content/images/icon-mail.png" alt="">  Website: vsuee.vn</a></span><br>
+                            <span class="dis-flex"><img src="/Content/images/icon-map.png" alt=""> Phòng 309, Nhà B, 54 Hai Bà Trưng, Hoàn Kiếm, Hà Nội</span>
+                        </div>
+                    </div>
+                    <div class="total-view">
+                        <span>Tổng số lượt truy cập :</span>
+                        <ul>
+                            @foreach (var s in HttpContext.Current.Application["TotalVisited"].ToString().Select(c => c.ToString()).ToList())
+                            {
+                                <li>@s</li>
+                            }
+                        </ul>
+                    </div>
+                }
+                else
+                {
+                    <div class="mt40">
+                        <p class="text-white">Management Board of the Vietnam Scaling Up Energy Efficiency Project</p>
+                        <div class="contact-list mt20">
+                            <span><a href="tel:02422202350" class="dis-flex"><img src="/Content/images/icon-phone.png" alt=""> 02422202350</a></span>
+                            <span><a href="https://vsuee.vn" class="dis-flex"><img src="/Content/images/icon-mail.png" alt="">  Website: vsuee.vn</a></span><br>
+                            <span class="dis-flex"><img src="/Content/images/icon-map.png" alt=""> Room 309, Building B, No.54, Hai Ba Trung street, Hoan Kiem district, Hanoi</span>
+                        </div>
+                    </div>
+
+                    <div class="total-view">
+                        <span>Total number of visit :</span>
+                        <ul>
+                            @foreach (var s in HttpContext.Current.Application["TotalVisited"].ToString().Select(c => c.ToString()).ToList())
+                            {
+                                <li>@s</li>
+                            }
+                        </ul>
+                    </div>
+                }
+
+
+            </div>
+        </div>
+    </div>
+</footer>
+@if (langpage == "vi-vn")
+{
+    <div class="fix-box" id="fix-box">
+        <div>
+            <ul>
+                <li><a href="https://www.facebook.com/vptknl2019/"><img src="/Content/images/icon-face-green.png" alt=""></a></li>
+                <li><a href="https://vsuee.vn/gioi-thieu/c42/lien-he.html"><img src="/Content/images/icon-mail-green.png" alt=""></a></li>
+                <li><a href="https://vsuee.vn/gioi-thieu/c42/lien-he.html"><img src="/Content/images/icon-phone-green.png" alt=""></a></li>
+            </ul>
+        </div>
+    </div>
+}
+else
+{
+    <div class="fix-box" id="fix-box">
+        <div>
+            <ul>
+                <li><a href="https://www.facebook.com/vptknl2019/"><img src="/Content/images/icon-face-green.png" alt=""></a></li>
+                <li><a href="https://vsuee.vn/gioi-thieu/c84/contact.html"><img src="/Content/images/icon-mail-green.png" alt=""></a></li>
+                <li><a href="https://vsuee.vn/gioi-thieu/c84/contact.html"><img src="/Content/images/icon-phone-green.png" alt=""></a></li>
+            </ul>
+        </div>
+    </div>
+}
+
+<div id="top_gototop"><a href="#" class="gototop clearfix"><i class="fa fa-arrow-up" aria-hidden="true"></i></a></div>

@@ -1,0 +1,46 @@
+﻿@using BIZ
+@using UTILS
+@using WebMVC4.Helper
+@model List<BIZ.Entity.CONTENT_FULL>
+@{
+    var langpage = WorkContext.GetLanguage();
+}
+@if (Model != null)
+{
+
+<div class="video-content">
+    <div class="row">
+        <div class="col-md-8 col-12">
+            @foreach (var item in Model.Take(1).Select((value, i) => new { i, value }))
+            {
+                <div class="movie">
+                    <iframe width="100%" height="255" src="@item.value.Url.Replace("watch?v=", "embed/")?rel=0" title="@item.value.Title" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen style="position: absolute; top: 0px; right: 0px; bottom: 0px; left: 0px; width: 100%; height: 99.999%;"></iframe>
+                </div>
+                <h3 class="news-name"><a href="/trang-chu-video.html?VideoId=@(item.value.Id)">@item.value.Title</a></h3>
+                <p class="mt10">@item.value.IntroText</p>
+            }
+        </div>
+        <div class="col-md-4 col-12">
+            <ul class="video-list">
+                @foreach (var item in Model.Skip(1).Select((value, i) => new { i, value }))
+                {
+                    <li>
+                        <a href="/trang-chu-video.html?VideoId=@(item.value.Id)">
+                            <div class="img-wrap">
+                                <img src="@item.value.MainImage?w=203&h=117&mode=crop" alt="">
+                            </div>
+                            <p class="font-weight-bold mt10">@item.value.Title</p>
+                        </a>
+                    </li>
+                }
+                </ul>
+            <a href="/trang-chu-video.html" class="btn-view">Xem thêm</a>
+        </div>
+    </div>
+</div>
+    
+
+
+}
+
+

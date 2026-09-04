@@ -1,0 +1,85 @@
+﻿@using DATA
+@using UTILS
+@using WebMVC4.Helper
+@model DATA.NhaMay
+
+
+<div class="main-content container">
+    <div class="row">
+        <div class="col-lg-9 col-md-12 pb40">
+            <h2 class="title-cm01 title-inline"><a href="#">THÔNG TIN NHÀ MÁY</a></h2>
+            <div class="mt40 manage-detail-page">
+                <table>
+                    <tbody>
+                        <tr>
+                            <th>Tên nhà máy</th>
+                            <td colspan="3">@Model.TenNhaMay</td>
+                        </tr>
+                        <tr>
+                            <th>Loại nhà máy</th>
+                            <td colspan="3">@HtmlHelpers.GetNhaMayLoai(Model.LoaiNhaMay)</td>
+                        </tr>
+                        <tr>
+                            <th>Công ty phát điện</th>
+                            <td colspan="3">@Model.GiamDoc</td>
+                        </tr>
+                        <tr>
+                            <th>Công suất lắp đặt</th>
+                            <td colspan="3">@Model.CongSuat.GetValueOrDefault() (MW)</td>
+                        </tr>
+                        <tr>
+                            <th>Số điện thoại</th>
+                            <td colspan="3">@Model.DienThoai</td>
+                        </tr>
+                        <tr>
+                            <th>Địa chỉ</th>
+                            <td colspan="3">@Html.Raw(Model.DiaChi)</td>
+                        </tr>
+                        <tr>
+                            <th>Ghi chú</th>
+                            <td colspan="3">@Html.Raw(Model.GhiChu)</td>
+                        </tr>
+                        <tr>
+                            <th>Thời gian tham gia</th>
+                            @if (Model.NgayThamGia == null)
+                            {
+                                <td colspan="3"></td>
+                            }
+                            else
+                            {
+                                <td colspan="3">@Model.NgayThamGia.GetValueOrDefault().ToString("dd/MM/yyy")</td>
+                            }
+
+                        </tr>
+                        <tr>
+                            <th>Loại hình tham gia</th>
+                            <td colspan="3">@HtmlHelpers.GetNhaMayThamGia(Model.LoaiThamGia)</td>
+                        </tr>
+                        <tr>
+                            <th>Tình trạng</th>
+                            @if (Model.DangThamGia.GetValueOrDefault())
+                            {
+                                <td colspan="3">Đang tham gia</td>
+                            }
+                            else
+                            {
+                                <td colspan="3">Không tham gia</td>
+                            }
+
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+        </div><!-- end content left-->
+
+        <div class="col-lg-3 col-md-12">
+            <div class="content01-right">
+                @{Html.RenderAction("BannerRight", "Home");}
+                @{Html.RenderAction("MenuInfo", "Home");}
+            </div>
+
+            @{Html.RenderAction("BannerRight2", "Home");}
+        </div>
+    </div>
+</div>

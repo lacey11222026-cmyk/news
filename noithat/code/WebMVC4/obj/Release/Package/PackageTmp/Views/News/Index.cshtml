@@ -1,0 +1,64 @@
+﻿@using BIZ
+@using UTILS
+@using WebMVC4.Helper
+@model List<BIZ.Entity.CONTENT_FULL>
+
+
+@{Html.RenderAction("Breadcrumb", "News", new { CategoryId = ViewBag.CategoryId });}
+    <link href="~/Content/css/flatsome.css" rel="stylesheet" />
+
+    <div class="row align-center">
+        <div class="large-12 col">
+
+
+
+
+
+            <div class="row large-columns-3 medium-columns- small-columns-1">
+                @foreach (var item in Model.Select((value, i) => new { i, value }))
+                {
+                    <div class="col post-item">
+                        <div class="col-inner">
+                            <a href="@item.value.LinkUrl" class="plain">
+                                <div class="box box-text-bottom box-blog-post has-hover">
+                                    <div class="box-image">
+                                        <div class="image-cover" style="padding-top:70%;">
+                                            <img width="2560" height="1706" src="@item.value.MainImage?h=250&w=400&mode=crop">
+                                        </div>
+                                    </div>
+                                    <div class="box-text text-left">
+                                        <div class="box-text-inner blog-post-inner">
+
+
+                                            <p class="cat-label  is-xxsmall op-7 uppercase">
+                                                Dự án
+                                            </p>
+                                            <h5 class="post-title is-large ">@item.value.Title</h5>
+                                            <div class="is-divider"></div>
+                                            <p class="from_the_blog_excerpt "></p>
+
+                                            <button href="@item.value.LinkUrl" class="button primary is-underline is-small mb-0">
+                                                Xem thêm
+                                            </button>
+
+
+                                        </div>
+                                    </div>
+                                   
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                }
+                </div>
+
+        </div>
+
+    </div>
+
+
+   <style>
+       .accordion-title.active, .has-icon-bg .icon .icon-inner, .logo a, .primary.is-underline, .primary.is-link, .badge-outline .badge-inner, .nav-outline > li.active > a, .nav-outline > li.active > a, .cart-icon strong, [data-color='primary'], .is-outline.primary {
+           color: #a36f3f;
+       }
+   </style>

@@ -1,0 +1,64 @@
+﻿@using BIZ
+@using UTILS
+@using WebMVC4.Helper
+@model WebMVC4.Models.LastestNewModel
+@if (Model != null)
+{
+
+    <h2 class="title-cm"><a href="@Model.Url">@Model.HeaderTitle</a></h2>
+    <div class="box-news-big-02">
+        @foreach (var item in Model.lstdata.Take(1).Select((value, i) => new { i, value }))
+        {
+            <div class="news-item-small">
+                <div class="img-wrap"><a href="@item.value.LinkUrl"><img src="@item.value.MainImage2?w=436&h=436&mode=crop" alt=""></a></div>
+                <div class="new-content">
+                    <a href="@item.value.LinkUrl" class="news-name mt15">@item.value.Title</a>
+                    <p class="dategray mt15">@item.value.PublishDate.ToString("dd/MM/yyyy")</p>
+                    <p class="mt15 news-txt">@item.value.IntroText</p>
+                </div>
+            </div>
+        }
+        @foreach (var item in Model.lstdata.Skip(1).Take(1).Select((value, i) => new { i, value }))
+        {
+            <div class="news-item-big">
+                <div class="img-wrap"><a href="@item.value.LinkUrl"><img src="@item.value.MainImage2?w=559&h=337&mode=crop" alt=""></a></div>
+                <div class="new-content">
+                    <a href="@item.value.LinkUrl" class="news-name mt15">@item.value.Title</a>
+                    <p class="dategray mt15">@item.value.PublishDate.ToString("dd/MM/yyyy")</p>
+                    <p class="mt15 news-txt">@item.value.IntroText</p>
+                </div>
+            </div>
+        }
+        @foreach (var item in Model.lstdata.Skip(2).Take(1).Select((value, i) => new { i, value }))
+        {
+            <div class="news-item-small">
+                <div class="img-wrap"><a href="@item.value.LinkUrl"><img src="@item.value.MainImage2?w=436&h=436&mode=crop" alt=""></a></div>
+                <div class="new-content">
+                    <a href="@item.value.LinkUrl" class="news-name mt15">@item.value.Title</a>
+                    <p class="dategray mt15">@item.value.PublishDate.ToString("dd/MM/yyyy")</p>
+                    <p class="mt15 news-txt">@item.value.IntroText</p>
+                </div>
+            </div>
+        }
+    </div>
+
+    <div class="grid-cols-4 new-hots-list mt30">
+        @foreach (var item in Model.lstdata.Skip(3).Select((value, i) => new { i, value }))
+        {
+            <div class="news-item-small">
+                <div class="img-wrap"><a href="@item.value.LinkUrl"><img src="@item.value.MainImage2?w=275&h=169&mode=crop" alt=""></a></div>
+                <div class="new-content">
+                    <a href="@item.value.LinkUrl" class="news-name mt15">@item.value.Title</a>
+                </div>
+            </div>
+        }
+    </div>
+
+
+
+
+
+
+
+
+}

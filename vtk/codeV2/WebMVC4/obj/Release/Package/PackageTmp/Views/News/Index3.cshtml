@@ -1,0 +1,42 @@
+﻿@using BIZ
+@using UTILS
+@using WebMVC4.Helper
+@model WebMVC4.Models.News2Model
+@{
+    var langpage = WorkContext.GetLanguage();
+}
+
+@if (langpage == "vi-vn")
+{
+    <div class="bnr-detail">
+        <img src="@Model.cate.Image" alt="">
+    </div>
+}
+else
+{
+    <div class="bnr-detail">
+        <img src="@(!String.IsNullOrEmpty(Model.cate.Param.ImageEn)?Model.cate.Param.ImageEn:Model.cate.Image)" alt="">
+    </div>
+}
+
+<div class="customer-page pt60 pb60">
+    <div class="container">
+        @if (langpage == "vi-vn")
+        {
+            <h2 class="title-cm">@Html.Raw(Model.cate.Description) <span class="linegreen"></span></h2>
+        }
+        else
+        {
+            <h2 class="title-cm">@Html.Raw(Model.cate.Language) <span class="linegreen"></span></h2>
+        }
+        <ul class="customerpage-list row">
+            @foreach (var item in Model.hotnews.Select((value, i) => new { i, value }))
+            {
+                <li class="col-md-3 col-sm-3 col-xs-6"><a href="@item.value.LinkUrl"><img src="@item.value.MainImage?h=117&mode=crop" alt=""></a></li>
+            }
+        </ul>
+    </div>
+</div>
+
+
+

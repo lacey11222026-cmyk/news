@@ -1,0 +1,108 @@
+﻿@using BIZ
+@using UTILS
+@using WebMVC4.Helper
+@model List<BIZ.Entity.DOCUMENT_FULL>
+@{
+    var langpage = WorkContext.GetLanguage();
+}
+@if (Model != null)
+{
+    if (Model.Count > 0)
+    {
+
+        <h2 class="title-cm01"><a href="/van-ban-phap-luat">Văn bản pháp luật</a></h2>
+        <div class="document-tabs">
+            <ul>
+
+                <li>
+                    <ul>
+                        <li>
+                            <a href="/van-ban-QPPL-nganh-dien">Văn bản QPPL ngành điện </a>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <ul>
+                        <li>
+                            <a href="/van-ban-lien-quan">Văn bản liên quan </a>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <ul>
+                        <li>
+                            <a href="/du-thao-lay-y-kien-gop-y">Dự thảo lấy ý kiến góp ý </a>
+                        </li>
+                    </ul>
+                </li>
+
+
+
+            </ul>
+        </div>
+        <ul class="document-list mt20">
+            @foreach (var item in Model.Select((value, i) => new { i, value }))
+            {
+                <li>
+                    <div>
+                        @*@if (item.value.UpdateDate.GetValueOrDefault().AddDays(20) > DateTime.Now)
+                        {
+                            <p class="document-name new-icon"><a href="@item.value.LinkUrl" style="color: #212529">@HtmlHelpers.GetDocType(item.value.Type.GetValueOrDefault()) @item.value.Code</a></p>
+                        }
+                        else
+                        {
+                            <p class="document-name"><a href="@item.value.LinkUrl" style="color: #212529">@HtmlHelpers.GetDocType(item.value.Type.GetValueOrDefault()) @item.value.Code</a></p>
+                        }*@
+                        @if (item.value.UpdateDate.GetValueOrDefault().AddDays(20) > DateTime.Now)
+                        {
+                            <p class="document-name new-icon"><a href="@item.value.LinkUrl" style="color: #212529"> @item.value.Name</a></p>
+                        }
+                        else
+                        {
+                            <p class="document-name"><a href="@item.value.LinkUrl" style="color: #212529"> @item.value.Name</a></p>
+                        }
+                        @*<p class="document-content"><a href="@item.value.LinkUrl" style="color: #212529" > @item.value.Name </a> </p>*@
+                        <table class="document-table-top w-100">
+                            <tbody>
+                                <tr>
+                                    <td>Ngày ban hành:</td>
+                                    <td>@Convert.ToDateTime(item.value.PublishDate).ToString(@" dd'/'MM'/'yyyy")</td>
+                                </tr>
+                                <tr>
+                                    <td>Ngày có hiệu lực:</td>
+
+                                    <td>
+                                        @if (!item.value.EffectiveDate.HasValue)
+                                        {
+
+                                            <text>&nbsp;</text>
+                                        }
+                                        else
+                                        {
+                                            if (item.value.EffectiveDate.Value.Year < 9000)
+                                            {
+                                                @Convert.ToDateTime(item.value.EffectiveDate).ToString(@" dd'/'MM'/'yyyy")
+                                            }
+                                            else
+                                            {
+                                                <text>&nbsp;</text>
+                                            }
+
+                                        }
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Trạng thái:</td>
+                                    <td>@HtmlHelpers.GetDocHits(item.value.Hits.GetValueOrDefault())</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </li>
+            }
+        </ul>
+
+
+    }
+
+}

@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="SMS" Class="SMSContextDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="AppSettings" ConnectionString="Data Source=URON\SQLEXPRESS;Initial Catalog=SMS;User ID=sa" SettingsObjectName="SMS.Properties.Settings" SettingsPropertyName="SMSConnectionString" Provider="System.Data.SqlClient" />
+  <Table Name="dbo.Outbox" Member="Outboxes">
+    <Type Name="Outbox">
+      <Column Name="SMSID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="PhoneNumber" Type="System.String" DbType="NVarChar(16) NOT NULL" CanBeNull="false" />
+      <Column Name="Content" Type="System.String" DbType="NVarChar(1000) NOT NULL" CanBeNull="false" />
+      <Column Name="Status" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="SendTime" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="PartnerCode" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="CreatedTime" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="" Member="SMS_Statistics">
+    <Type Name="SMS_Statistic" Id="ID1">
+      <Column Member="Month" Type="System.Int32" CanBeNull="false" />
+      <Column Member="Number" Type="System.Int32" CanBeNull="false" />
+      <Column Member="Year" Type="System.Int32" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Function Name="dbo.sp_Outbox_ByReport" Method="sp_Outbox_ByReport">
+    <Parameter Name="PartnerCode" Parameter="partnerCode" Type="System.String" DbType="NVarChar(50)" />
+    <Parameter Name="Year" Parameter="year" Type="System.Int32" DbType="Int" />
+    <ElementType IdRef="ID1" />
+  </Function>
+</Database>

@@ -1,0 +1,24 @@
+﻿@using BIZ
+@using BIZ.Entity
+@using UTILS
+@using WebMVC4.Helper
+@model List<BIZ.Entity.CATEGORY_FULL>
+@if (Model != null)
+{
+    if (Model.Count > 0)
+    {
+
+        <h2 class="title-cm"><a href="#">CÁC BÀI KHÁC</a></h2>
+        <ul class="other-detail mt20">
+            @foreach (var item in Model.Select((value, i) => new { i, value }))
+            {
+                <li><a class="" title="@item.value.Name" href="@Utils.FormatUrlRewrite(item.value.Id, item.value.Name, "Intro")"><span>@item.value.Name</span> </a></li>
+            }
+        </ul>
+
+
+
+    }
+
+
+}

@@ -1,0 +1,181 @@
+﻿@using UTILS;
+@model BIZ.Entity.TestQuestion_Full
+@{
+    Layout = "~/Views/Shared/_Layout2.cshtml";
+}
+<div class="menu">
+    <div class="wrapper">
+        <img src="/Content2/images/name-small.png" alt="cuộc thi nét đẹp văn hóa ngàng ngân hàng" class="name float-left">
+    </div>
+</div>
+<div class="screen3">
+    <div class="wrapper">
+        <div class="row">
+            <div class="col-lg-5 col-md-4">
+                <div class="faq-content">
+                    @Html.Raw(Model.Contents)
+                </div>
+                <div class="num-box">
+                    <ul>
+                        @for (int i = 1; i < 6; i++)
+                        {
+                            <li @(i == ViewBag.Index ? "class=active" : "")>
+                                <p>Câu<span>@i</span></p>
+                            </li>
+                        }
+
+
+                    </ul>
+                </div>
+            </div>
+            <div class="col-lg-7 col-md-7">
+                <ul>
+                    @foreach (var itemA in Model.AnswersInfo.Select((value, i) => new { i, value }))
+                    {
+
+                        if (itemA.value.IsCheck)
+                        {
+                            <li class="btn-faq active wow tada" data-wow-duration="1.5s" data-wow-delay="0.5s">
+                                <div class="btn-faq-info">
+                                    <p>@Utils.IntToLetters(itemA.value.Order)</p>
+                                    <p>@itemA.value.Name</p>
+                                </div>
+                            </li>
+                        }
+                        else
+                        {
+                            <li class="btn-faq">
+                                <div class="btn-faq-info">
+                                    <p>@Utils.IntToLetters(itemA.value.Order)</p>
+                                    <p>@itemA.value.Name</p>
+                                </div>
+                            </li>
+                        }
+
+
+
+                    }
+
+
+                </ul>
+            </div>
+        </div>
+
+
+
+    </div>
+
+</div>
+
+<script>
+    var as1 = localStorage.getItem('as1');
+    var as2 = localStorage.getItem('as2');
+    var as3 = localStorage.getItem('as3');
+    if (as1 == null || as1 == undefined)
+        as1 = '';
+    if (as2 == null || as2 == undefined)
+        as2 = '';
+    if (as3 == null || as3 == undefined)
+        as3 = '';
+
+</script>
+<script>
+
+        $(document).keydown(function (event) {
+            //proper indentiation of keycode and which to be equal to 13.
+            console.log(event.which);
+            switch (event.which) {
+                case 39:
+                    event.preventDefault();
+                    NextQuestion();
+                    break;
+               case 37:
+                    event.preventDefault();
+                    PreQuestion();
+                    break
+                //Q
+                case 81:
+                    event.preventDefault();
+                    as1 += ',1,|';
+                    break;
+                //W
+                case 87:
+                    event.preventDefault();
+                    as1 += ',2,|';
+                    break;
+                //E
+                case 69:
+                    event.preventDefault();
+                    as1 += ',3,|';
+                    break;
+                //R
+                case 82:
+                    event.preventDefault();
+                    as1 += ',4,|';
+                    break;
+
+                //A
+                case 65:
+                    event.preventDefault();
+                    as2 += ',1,|';
+                    break;
+                //S
+                case 82:
+                    event.preventDefault();
+                    as2 += ',2,|';
+                    break;
+                //D
+                case 68:
+                    event.preventDefault();
+                    as2 += ',3,|';
+                    break;
+                //F
+                case 70:
+                    event.preventDefault();
+                    as2 += ',4,|';
+                    break;
+
+                //Z
+                case 90:
+                    event.preventDefault();
+                    as3 += ',1,|';
+                    break;
+                //S
+                case 88:
+                    event.preventDefault();
+                    as3 += ',2,|';
+                    break;
+                //C
+                case 67:
+                    event.preventDefault();
+                    as3 += ',3,|';
+                    break;
+                //V
+                case 86:
+                    event.preventDefault();
+                    as3 += ',4,|';
+                    break;
+                
+
+
+            }
+        });
+    function NextQuestion() {
+        var Index =@(ViewBag.Index);
+        if (Index < 5) {
+            Index++;
+            window.location = "/Event/Question/?Id=" + @(ViewBag.Id)+"&Index=" + Index;
+        }
+        else {
+
+            //save question
+        }
+    }
+    function PreQuestion() {
+        var Index =@(ViewBag.Index);
+        if (Index >1) {
+            Index--;
+            window.location = "/Event/Question/?Id=" + @(ViewBag.Id)+"&Index=" + Index;
+        }
+    }
+</script>

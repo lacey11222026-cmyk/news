@@ -1,0 +1,36 @@
+﻿@using BIZ
+@using UTILS
+@using WebMVC4.Helper
+@model DATA.Note
+@{
+    Layout = "~/Views/Shared/_Home.cshtml";
+}
+<div class="newsdetail-page container">
+    <div class="mt30">
+        <div class="row">
+            <div class="col-lg-8 col-md-12 maxheight">
+                <h3 class="title-detail03 mt10"><a href="#">Thông báo sự kiện</a></h3>
+                <div class="mt30">
+                    <h3 class="textblue f24 font-weight-bold">@Model.Title</h3>
+                    <p class="decs mt20 ">
+                        <span><b>Thời gian</b>: @Model.PublishDate.GetValueOrDefault().ToString("dd/MM/yyyy") &nbsp;|&nbsp; <b>Địa điểm</b>: @Model.Location</span>
+                    </p>
+                    <div class="nd" id="NewsContent">
+                        @Html.Raw(Model.Contents.Replace("<div style=\"text-align: justify;\"><br></div>", ""))
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-12 maxheight sidebar">
+                @if (WorkContext.GetLanguage() == "vi-vn")
+                {
+                    @Html.Partial("Site_Right")
+
+                }
+                else
+                {
+                    @Html.Partial("Site_RightEn")
+                }
+            </div>
+        </div>
+    </div>
+</div>

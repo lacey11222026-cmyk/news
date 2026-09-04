@@ -1,0 +1,505 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{8BF45AAA-35A3-403C-AA7D-9376D700E364}</ProjectGuid>
+    <ProjectTypeGuids>{E3E379DF-F4C6-4180-9B81-6769533ABE47};{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>WebEN</RootNamespace>
+    <AssemblyName>WebEN</AssemblyName>
+    <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
+    <MvcBuildViews>false</MvcBuildViews>
+    <UseIISExpress>true</UseIISExpress>
+    <IISExpressSSLPort />
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+    <Use64BitIISExpress />
+    <UseGlobalApplicationHostFile />
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Antlr3.Runtime">
+      <HintPath>..\packages\WebGrease.1.1.0\lib\Antlr3.Runtime.dll</HintPath>
+    </Reference>
+    <Reference Include="CuteWebUI.AjaxUploader">
+      <HintPath>..\..\..\..\..\goplay\cmsgoplay\_dll\CuteWebUI.AjaxUploader.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.ApplicationServer.Caching.Core">
+      <HintPath>..\DLL\Microsoft.ApplicationServer.Caching.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.Practices.Unity.Configuration">
+      <HintPath>..\DLL\Microsoft.Practices.Unity.Configuration.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.WindowsFabric.Common">
+      <HintPath>..\DLL\Microsoft.WindowsFabric.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=11.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.11.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Net.Http.Formatting, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.4.0.20710.0\lib\net40\System.Net.Http.Formatting.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web.Http, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Core.4.0.20710.0\lib\net40\System.Web.Http.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Http.WebHost, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.WebHost.4.0.20710.0\lib\net40\System.Web.Http.WebHost.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Optimization">
+      <HintPath>..\packages\Microsoft.AspNet.Web.Optimization.1.0.0\lib\net40\System.Web.Optimization.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Abstractions" />
+    <Reference Include="System.Web.Routing" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.EnterpriseServices" />
+    <Reference Include="System.Net.Http">
+    </Reference>
+    <Reference Include="System.Net.Http.WebRequest">
+    </Reference>
+    <Reference Include="System.Web.Helpers, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.2.0.20710.0\lib\net40\System.Web.Helpers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Mvc, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.Mvc.4.0.20710.0\lib\net40\System.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Razor, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.Razor.2.0.20710.0\lib\net40\System.Web.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.2.0.20710.0\lib\net40\System.Web.WebPages.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Deployment, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.2.0.20710.0\lib\net40\System.Web.WebPages.Deployment.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Razor, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.2.0.20710.0\lib\net40\System.Web.WebPages.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="WebGrease">
+      <HintPath>..\packages\WebGrease.1.1.0\lib\WebGrease.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="App_Start\BundleConfig.cs" />
+    <Compile Include="App_Start\FilterConfig.cs" />
+    <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\AlbumController.cs" />
+    <Compile Include="Controllers\BannerController.cs" />
+    <Compile Include="Controllers\BaseController.cs" />
+    <Compile Include="Controllers\ChannelController.cs" />
+    <Compile Include="Controllers\DocumentController.cs" />
+    <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\IntroController.cs" />
+    <Compile Include="Controllers\NewsController.cs" />
+    <Compile Include="Controllers\StaticPageController.cs" />
+    <Compile Include="Controllers\VideoController.cs" />
+    <Compile Include="Controllers\VoteController.cs" />
+    <Compile Include="Get\ArticleService.ashx.cs">
+      <DependentUpon>ArticleService.ashx</DependentUpon>
+    </Compile>
+    <Compile Include="Get\CommentService.ashx.cs">
+      <DependentUpon>CommentService.ashx</DependentUpon>
+    </Compile>
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Helper\CultureHelper.cs" />
+    <Compile Include="Helper\EnumerableExtensions.cs" />
+    <Compile Include="Helper\ExpressionExtensions.cs" />
+    <Compile Include="Helper\ExpressionVisitorV.cs" />
+    <Compile Include="Helper\HtmlHelperExtensions.cs" />
+    <Compile Include="Helper\HtmlHelpers.cs" />
+    <Compile Include="Helper\KeyValuePairExtensions.cs" />
+    <Compile Include="Helper\ObjectExtensions.cs" />
+    <Compile Include="Helper\StringExtensions.cs" />
+    <Compile Include="Helper\UrlHelperExtensions.cs" />
+    <Compile Include="Helper\UrlHelperFacetExtensions.cs" />
+    <Compile Include="Helper\UrlHelperRouteExtensions.cs" />
+    <Compile Include="Models\AlbumModel.cs" />
+    <Compile Include="Models\BusInfoModel.cs" />
+    <Compile Include="Models\ChannelModel.cs" />
+    <Compile Include="Models\ClassDetailModel.cs" />
+    <Compile Include="Models\CommentModel.cs" />
+    <Compile Include="Models\DocumentModel.cs" />
+    <Compile Include="Models\GoNewsModel.cs" />
+    <Compile Include="Models\LastestNewModel.cs" />
+    <Compile Include="Models\News2Model.cs" />
+    <Compile Include="Models\NewsModel.cs" />
+    <Compile Include="Models\PaginationInfo.cs" />
+    <Compile Include="Models\SlideModel.cs" />
+    <Compile Include="Models\SurveyItemModel.cs" />
+    <Compile Include="Models\SurveyModel.cs" />
+    <Compile Include="Models\UserModel.cs" />
+    <Compile Include="Models\ViewUserDetail.cs" />
+    <Compile Include="Post\CommentService.ashx.cs">
+      <DependentUpon>CommentService.ashx</DependentUpon>
+    </Compile>
+    <Compile Include="Post\TrafficManual.ashx.cs">
+      <DependentUpon>TrafficManual.ashx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="flash\dewplayer-bubble.swf" />
+    <Content Include="flash\flvplayer.swf" />
+    <Content Include="flash\jwplayer.flash.swf" />
+    <Content Include="flash\jwplayer.html5.js" />
+    <Content Include="flash\jwplayer.js" />
+    <Content Include="flash\player.swf" />
+    <Content Include="flash\playerimg.jpg" />
+    <Content Include="Global.asax" />
+    <Content Include="js\bootstrap-datepicker.js" />
+    <Content Include="js\bootstrap.min.js" />
+    <Content Include="js\jquery.flexisel.js" />
+    <Content Include="js\jquery.matchHeight.js" />
+    <Content Include="js\jquery.min.js" />
+    <Content Include="js\jquery.mmenu.min.all.js" />
+    <Content Include="js\jquery.mmenu.min.js" />
+    <Content Include="js\script.js" />
+    <Content Include="js\wow.js" />
+    <Content Include="Scripts\ajaxupload.3.6.js" />
+    <Content Include="Scripts\anylinkcssmenu.js" />
+    <Content Include="Scripts\anylinkcssmenu.min.js" />
+    <Content Include="Scripts\ddsmoothmenu.js" />
+    <Content Include="Scripts\ddtabmenu.js" />
+    <Content Include="Scripts\FrameManager.js" />
+    <Content Include="Scripts\iframeResizer.min.js" />
+    <Content Include="Scripts\index.js" />
+    <Content Include="Scripts\jalert\images\msg-close-sprite.gif" />
+    <Content Include="Scripts\jalert\images\msg-icon-sprite.png" />
+    <Content Include="Scripts\jalert\jalert.css" />
+    <Content Include="Scripts\jalert\jquery.jalert.js" />
+    <Content Include="Scripts\jalert\jquery.jalert.packed.js" />
+    <Content Include="Scripts\jcarousellite_1.0.1.min.js" />
+    <None Include="Properties\PublishProfiles\tknl_en.pubxml" />
+    <None Include="Scripts\jquery-1.4.1-vsdoc.js" />
+    <Content Include="Scripts\jquery-1.4.1.js" />
+    <Content Include="Scripts\jquery-1.4.1.min.js" />
+    <Content Include="Scripts\jquery-1.9.1.min.js" />
+    <Content Include="Scripts\jQuery-jCache.js" />
+    <Content Include="Scripts\jquery-jtemplates.js" />
+    <Content Include="Scripts\jquery-lightbox-0.5\css\jquery.lightbox-0.5.css" />
+    <Content Include="Scripts\jquery-lightbox-0.5\css\jquery.lightbox-0.5.min.css" />
+    <Content Include="Scripts\jquery-lightbox-0.5\images\lightbox-blank.gif" />
+    <Content Include="Scripts\jquery-lightbox-0.5\images\lightbox-btn-close.gif" />
+    <Content Include="Scripts\jquery-lightbox-0.5\images\lightbox-btn-next.gif" />
+    <Content Include="Scripts\jquery-lightbox-0.5\images\lightbox-btn-prev.gif" />
+    <Content Include="Scripts\jquery-lightbox-0.5\images\lightbox-ico-loading.gif" />
+    <Content Include="Scripts\jquery-lightbox-0.5\js\jquery.js" />
+    <Content Include="Scripts\jquery-lightbox-0.5\js\jquery.lightbox-0.5.js" />
+    <Content Include="Scripts\jquery-lightbox-0.5\js\jquery.lightbox-0.5.min.js" />
+    <Content Include="Scripts\jquery-lightbox-0.5\js\jquery.lightbox-0.5.pack.js" />
+    <Content Include="Scripts\jquery-lightbox-0.5\js\jquery.lightbox-0.5_2.js" />
+    <Content Include="Scripts\jquery-paging.js" />
+    <Content Include="Scripts\jquery-services-110405.js" />
+    <Content Include="Scripts\jquery-services-110405.min.js" />
+    <Content Include="Scripts\jquery-ui-1.8.15.custom\css\smoothness\images\ui-bg_flat_0_aaaaaa_40x100.png" />
+    <Content Include="Scripts\jquery-ui-1.8.15.custom\css\smoothness\images\ui-bg_flat_75_ffffff_40x100.png" />
+    <Content Include="Scripts\jquery-ui-1.8.15.custom\css\smoothness\images\ui-bg_glass_55_fbf9ee_1x400.png" />
+    <Content Include="Scripts\jquery-ui-1.8.15.custom\css\smoothness\images\ui-bg_glass_65_ffffff_1x400.png" />
+    <Content Include="Scripts\jquery-ui-1.8.15.custom\css\smoothness\images\ui-bg_glass_75_dadada_1x400.png" />
+    <Content Include="Scripts\jquery-ui-1.8.15.custom\css\smoothness\images\ui-bg_glass_75_e6e6e6_1x400.png" />
+    <Content Include="Scripts\jquery-ui-1.8.15.custom\css\smoothness\images\ui-bg_glass_95_fef1ec_1x400.png" />
+    <Content Include="Scripts\jquery-ui-1.8.15.custom\css\smoothness\images\ui-bg_highlight-soft_75_cccccc_1x100.png" />
+    <Content Include="Scripts\jquery-ui-1.8.15.custom\css\smoothness\images\ui-icons_222222_256x240.png" />
+    <Content Include="Scripts\jquery-ui-1.8.15.custom\css\smoothness\images\ui-icons_2e83ff_256x240.png" />
+    <Content Include="Scripts\jquery-ui-1.8.15.custom\css\smoothness\images\ui-icons_454545_256x240.png" />
+    <Content Include="Scripts\jquery-ui-1.8.15.custom\css\smoothness\images\ui-icons_888888_256x240.png" />
+    <Content Include="Scripts\jquery-ui-1.8.15.custom\css\smoothness\images\ui-icons_cd0a0a_256x240.png" />
+    <Content Include="Scripts\jquery-ui-1.8.15.custom\css\smoothness\jquery-ui-1.8.15.custom.css" />
+    <Content Include="Scripts\jquery-ui-1.8.15.custom\js\jquery-ui-1.8.15.custom.min.js" />
+    <Content Include="Scripts\jquery-ui-1.8.15.custom\ui\jquery.ui.core.min.js" />
+    <Content Include="Scripts\jquery-ui-1.8.15.custom\ui\jquery.ui.dialog.min.js" />
+    <Content Include="Scripts\jquery-ui-1.8.15.custom\ui\jquery.ui.draggable.min.js" />
+    <Content Include="Scripts\jquery-ui-1.8.15.custom\ui\jquery.ui.droppable.min.js" />
+    <Content Include="Scripts\jquery-ui-1.8.15.custom\ui\jquery.ui.mouse.min.js" />
+    <Content Include="Scripts\jquery-ui-1.8.15.custom\ui\jquery.ui.position.min.js" />
+    <Content Include="Scripts\jquery-ui-1.8.15.custom\ui\jquery.ui.resizable.min.js" />
+    <Content Include="Scripts\jquery-ui-1.8.15.custom\ui\jquery.ui.widget.min.js" />
+    <Content Include="Scripts\jquery-ui-1.8.16.custom.min.js" />
+    <Content Include="Scripts\jquery-ui-timepicker-addon.js" />
+    <Content Include="Scripts\jquery-ui.1.10.min.js" />
+    <Content Include="Scripts\jquery.fancybox-1.3.4\ajax.txt" />
+    <Content Include="Scripts\jquery.fancybox-1.3.4\example\10_b.jpg" />
+    <Content Include="Scripts\jquery.fancybox-1.3.4\example\10_s.jpg" />
+    <Content Include="Scripts\jquery.fancybox-1.3.4\example\11_b.jpg" />
+    <Content Include="Scripts\jquery.fancybox-1.3.4\example\11_s.jpg" />
+    <Content Include="Scripts\jquery.fancybox-1.3.4\example\12_b.jpg" />
+    <Content Include="Scripts\jquery.fancybox-1.3.4\example\12_s.jpg" />
+    <Content Include="Scripts\jquery.fancybox-1.3.4\example\1_b.jpg" />
+    <Content Include="Scripts\jquery.fancybox-1.3.4\example\1_s.jpg" />
+    <Content Include="Scripts\jquery.fancybox-1.3.4\example\2_b.jpg" />
+    <Content Include="Scripts\jquery.fancybox-1.3.4\example\2_s.jpg" />
+    <Content Include="Scripts\jquery.fancybox-1.3.4\example\3_b.jpg" />
+    <Content Include="Scripts\jquery.fancybox-1.3.4\example\3_s.jpg" />
+    <Content Include="Scripts\jquery.fancybox-1.3.4\example\4_b.jpg" />
+    <Content Include="Scripts\jquery.fancybox-1.3.4\example\4_s.jpg" />
+    <Content Include="Scripts\jquery.fancybox-1.3.4\example\5_b.jpg" />
+    <Content Include="Scripts\jquery.fancybox-1.3.4\example\5_s.jpg" />
+    <Content Include="Scripts\jquery.fancybox-1.3.4\example\6_b.jpg" />
+    <Content Include="Scripts\jquery.fancybox-1.3.4\example\6_s.jpg" />
+    <Content Include="Scripts\jquery.fancybox-1.3.4\example\7_b.jpg" />
+    <Content Include="Scripts\jquery.fancybox-1.3.4\example\7_s.jpg" />
+    <Content Include="Scripts\jquery.fancybox-1.3.4\example\8_b.jpg" />
+    <Content Include="Scripts\jquery.fancybox-1.3.4\example\8_s.jpg" />
+    <Content Include="Scripts\jquery.fancybox-1.3.4\example\9_b.jpg" />
+    <Content Include="Scripts\jquery.fancybox-1.3.4\example\9_s.jpg" />
+    <Content Include="Scripts\jquery.fancybox-1.3.4\fancybox\blank.gif" />
+    <Content Include="Scripts\jquery.fancybox-1.3.4\fancybox\fancybox-x.png" />
+    <Content Include="Scripts\jquery.fancybox-1.3.4\fancybox\fancybox-y.png" />
+    <Content Include="Scripts\jquery.fancybox-1.3.4\fancybox\fancybox.png" />
+    <Content Include="Scripts\jquery.fancybox-1.3.4\fancybox\fancy_close.png" />
+    <Content Include="Scripts\jquery.fancybox-1.3.4\fancybox\fancy_loading.png" />
+    <Content Include="Scripts\jquery.fancybox-1.3.4\fancybox\fancy_nav_left.png" />
+    <Content Include="Scripts\jquery.fancybox-1.3.4\fancybox\fancy_nav_right.png" />
+    <Content Include="Scripts\jquery.fancybox-1.3.4\fancybox\fancy_shadow_e.png" />
+    <Content Include="Scripts\jquery.fancybox-1.3.4\fancybox\fancy_shadow_n.png" />
+    <Content Include="Scripts\jquery.fancybox-1.3.4\fancybox\fancy_shadow_ne.png" />
+    <Content Include="Scripts\jquery.fancybox-1.3.4\fancybox\fancy_shadow_nw.png" />
+    <Content Include="Scripts\jquery.fancybox-1.3.4\fancybox\fancy_shadow_s.png" />
+    <Content Include="Scripts\jquery.fancybox-1.3.4\fancybox\fancy_shadow_se.png" />
+    <Content Include="Scripts\jquery.fancybox-1.3.4\fancybox\fancy_shadow_sw.png" />
+    <Content Include="Scripts\jquery.fancybox-1.3.4\fancybox\fancy_shadow_w.png" />
+    <Content Include="Scripts\jquery.fancybox-1.3.4\fancybox\fancy_title_left.png" />
+    <Content Include="Scripts\jquery.fancybox-1.3.4\fancybox\fancy_title_main.png" />
+    <Content Include="Scripts\jquery.fancybox-1.3.4\fancybox\fancy_title_over.png" />
+    <Content Include="Scripts\jquery.fancybox-1.3.4\fancybox\fancy_title_right.png" />
+    <Content Include="Scripts\jquery.fancybox-1.3.4\fancybox\jquery.easing-1.3.pack.js" />
+    <Content Include="Scripts\jquery.fancybox-1.3.4\fancybox\jquery.fancybox-1.3.4.css" />
+    <Content Include="Scripts\jquery.fancybox-1.3.4\fancybox\jquery.fancybox-1.3.4.js" />
+    <Content Include="Scripts\jquery.fancybox-1.3.4\fancybox\jquery.fancybox-1.3.4.pack.js" />
+    <Content Include="Scripts\jquery.fancybox-1.3.4\fancybox\jquery.mousewheel-3.0.4.pack.js" />
+    <Content Include="Scripts\jquery.fancybox-1.3.4\index.html" />
+    <Content Include="Scripts\jquery.fancybox-1.3.4\jquery-1.4.3.min.js" />
+    <Content Include="Scripts\jquery.fancybox-1.3.4\style.css" />
+    <Content Include="Scripts\jquery.jcarousel.min.js" />
+    <Content Include="Scripts\jquery.lightbox-0.5.js" />
+    <Content Include="Scripts\jquery.query.js" />
+    <Content Include="Scripts\jquery.tabify.js" />
+    <Content Include="Scripts\jquery.tipsy.js" />
+    <Content Include="Scripts\menu.js" />
+    <Content Include="Scripts\pngfix.js" />
+    <Content Include="Scripts\Popup\popup.css" />
+    <Content Include="Scripts\Popup\popup.js" />
+    <Content Include="Scripts\share.js" />
+    <Content Include="Scripts\simpletreemenu.js" />
+    <Content Include="Scripts\site.constant.js" />
+    <Content Include="Scripts\site.constant.min.js" />
+    <Content Include="Scripts\site.lib.encode.js" />
+    <Content Include="Scripts\site.lib.encode.min.js" />
+    <Content Include="Scripts\site.lib.string.js" />
+    <Content Include="Scripts\site.lib.string.min.js" />
+    <Content Include="Scripts\site.utils.js" />
+    <Content Include="Scripts\site.utils.min.js" />
+    <Content Include="Scripts\slides.min.jquery.js" />
+    <Content Include="Scripts\stringvalidate.js" />
+    <Content Include="Scripts\weather.js" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Views\Home\Intro.cshtml" />
+    <Content Include="Views\Banner\BannerCenter3.cshtml" />
+    <Content Include="Views\News\Index3.cshtml" />
+    <Content Include="Views\News\Index4.cshtml" />
+    <Content Include="Views\Shared\PaginationVideo.cshtml" />
+    <Content Include="Views\Shared\_AdminSmall.cshtml" />
+    <Content Include="Views\Banner\BannerRight3.cshtml" />
+    <Content Include="Views\Banner\BannerRight4.cshtml" />
+    <Content Include="Views\Banner\BannerRight5.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="flash\newsplayerskin.zip" />
+    <Content Include="Get\ArticleService.ashx" />
+    <Content Include="Get\CommentService.ashx" />
+    <Content Include="Post\CommentService.ashx" />
+    <Content Include="Post\TrafficManual.ashx" />
+    <Content Include="Views\Account\ChangePassword.cshtml" />
+    <Content Include="Views\Account\LogOn.cshtml" />
+    <Content Include="Views\Album\Breadcrumb.cshtml" />
+    <Content Include="Views\Album\Class.cshtml" />
+    <Content Include="Views\Album\ClassDetail.cshtml" />
+    <Content Include="Views\Album\Detail.cshtml" />
+    <Content Include="Views\Album\Index.cshtml" />
+    <Content Include="Views\Album\LastestNews.cshtml" />
+    <Content Include="Views\Banner\BannerCenter1.cshtml" />
+    <Content Include="Views\Banner\BannerCenter2.cshtml" />
+    <Content Include="Views\Banner\BannerRight1.cshtml" />
+    <Content Include="Views\Banner\BannerRight2.cshtml" />
+    <Content Include="Views\Banner\BannerTop.cshtml" />
+    <Content Include="Views\Banner\Index.cshtml" />
+    <Content Include="Views\Channel\BreadcrumbObj.cshtml" />
+    <Content Include="Views\Channel\Index.cshtml" />
+    <Content Include="Views\Channel\TopChannel.cshtml" />
+    <Content Include="Views\Channel\TopChannelMobile.cshtml" />
+    <Content Include="Views\Document\Detail.cshtml" />
+    <Content Include="Views\Document\Index.cshtml" />
+    <Content Include="Views\Document\TopDocument.cshtml" />
+    <Content Include="Views\Document\ViewPDF.cshtml" />
+    <Content Include="Views\Home\Error.cshtml" />
+    <Content Include="Views\Home\HomeVideo.cshtml" />
+    <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Home\LastestNews.cshtml" />
+    <Content Include="Views\Home\LastestNews2.cshtml" />
+    <Content Include="Views\Home\LastestNews3.cshtml" />
+    <Content Include="Views\Home\Menu.cshtml" />
+    <Content Include="Views\Home\RightNews.cshtml" />
+    <Content Include="Views\Home\RightNews2.cshtml" />
+    <Content Include="Views\Home\Search.cshtml" />
+    <Content Include="Views\Home\Slide.cshtml" />
+    <Content Include="Views\Home\TopVideo.cshtml" />
+    <Content Include="Views\Intro\Index.cshtml" />
+    <Content Include="Views\Intro\Relate.cshtml" />
+    <Content Include="Views\News\BreadcrumbObj.cshtml" />
+    <Content Include="Views\News\Comment.cshtml" />
+    <Content Include="Views\News\Detail.cshtml" />
+    <Content Include="Views\News\DetailReview.cshtml" />
+    <Content Include="Views\News\HotNews.cshtml" />
+    <Content Include="Views\News\Index.cshtml" />
+    <Content Include="Views\News\Index2.cshtml" />
+    <Content Include="Views\News\LastestNews.cshtml" />
+    <Content Include="Views\News\Pagging.cshtml" />
+    <Content Include="Views\News\Print.cshtml" />
+    <Content Include="Views\News\Relate.cshtml" />
+    <Content Include="Views\News\RelateDocument.cshtml" />
+    <Content Include="Views\News\RightLastestNews.cshtml" />
+    <Content Include="Views\News\Search.cshtml" />
+    <Content Include="Views\News\SearchByDay.cshtml" />
+    <Content Include="Views\News\Share.cshtml" />
+    <Content Include="Views\News\Tag.cshtml" />
+    <Content Include="Views\News\TopViewNews.cshtml" />
+    <Content Include="Views\News\TopViewNews2.cshtml" />
+    <Content Include="Views\News\VideoReview.cshtml" />
+    <Content Include="Views\Shared\Error.cshtml" />
+    <Content Include="Views\Shared\Pagination.cshtml" />
+    <Content Include="Views\Shared\Site_Footer.cshtml" />
+    <Content Include="Views\Shared\Site_Header.cshtml" />
+    <Content Include="Views\Shared\Site_Right.cshtml" />
+    <Content Include="Views\Shared\Site_Share.cshtml" />
+    <Content Include="Views\Shared\Site_Weather.cshtml" />
+    <Content Include="Views\Shared\_Admin.cshtml" />
+    <Content Include="Views\Shared\_AdminV2.cshtml" />
+    <Content Include="Views\Shared\_Layout.cshtml" />
+    <Content Include="Views\Shared\_Layout2.cshtml" />
+    <Content Include="Views\Shared\_Layout3.cshtml" />
+    <Content Include="Views\Shared\_PrintLayout.cshtml" />
+    <Content Include="Views\Shared\_VoteLayout.cshtml" />
+    <Content Include="Views\StaticPage\Bus.cshtml" />
+    <Content Include="Views\StaticPage\Contact.cshtml" />
+    <Content Include="Views\StaticPage\ContactADV.cshtml" />
+    <Content Include="Views\StaticPage\OnlineDiscussion.cshtml" />
+    <Content Include="Views\StaticPage\Rescue.cshtml" />
+    <Content Include="Views\StaticPage\Train.cshtml" />
+    <Content Include="Views\Video\Index.cshtml" />
+    <Content Include="Views\Vote\HomeVote.cshtml" />
+    <Content Include="Views\Vote\HomeVoteMobile.cshtml" />
+    <Content Include="Views\Vote\View.cshtml" />
+    <Content Include="Views\Web.config" />
+    <Content Include="Views\_ViewStart.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\BIZ\BIZ.csproj">
+      <Project>{2cc3082e-5639-4d4d-88b9-206a9f799cac}</Project>
+      <Name>BIZ</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DATA\DATA.csproj">
+      <Project>{bf2e6496-2bf5-4ec3-bba0-98ea13622a8a}</Project>
+      <Name>DATA</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\UTILS\UTILS.csproj">
+      <Project>{3c20ae05-6330-4353-a9fa-5d56cea3cbf2}</Project>
+      <Name>UTILS</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup />
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <Target Name="MvcBuildViews" AfterTargets="AfterBuild" Condition="'$(MvcBuildViews)'=='true'">
+    <AspNetCompiler VirtualPath="temp" PhysicalPath="$(WebProjectOutputDir)" />
+  </Target>
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>True</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>4464</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>http://localhost:64690/</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target> -->
+</Project>

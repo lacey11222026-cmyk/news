@@ -1,0 +1,104 @@
+﻿@using BIZ
+@using UTILS
+@using WebMVC4.Helper
+
+@{
+    var langpage = WorkContext.GetLanguage();
+}
+@{Html.RenderAction("Banner", "Home");}
+@if (langpage == "vi-vn")
+{
+    <div class="content01 mt20">
+        @{Html.RenderAction("LastestNews", "Home", new { CateName = "Tin Công nghiệp sinh học ngành công thương", CategoryId = 36, MaxLastestNews = 6, cssClass = "maxheight02", lang = langpage });}
+    </div>
+    if (ViewBag.IsMobile)
+    {
+
+        <div class="content02 mt20">
+            @{Html.RenderAction("LastestNews", "Home", new { CateName = "", CategoryId = 37, MaxLastestNews = 4, cssClass = "maxheight02", lang = langpage });}
+        </div>
+        <div class="content03 mt20">
+            @{Html.RenderAction("LastestNews", "Home", new { CateName = "", CategoryId = 43, MaxLastestNews = 4, cssClass = "maxheight02", lang = langpage });}
+        </div>
+        <div class="content04 mt20">
+            @{Html.RenderAction("LastestNews", "Home", new { CateName = "", CategoryId = 19, MaxLastestNews = 4, cssClass = "maxheight02", lang = langpage });}
+        </div>
+    }
+    else
+    {
+        <div class="content02 mt20">
+            @{Html.RenderAction("LastestNews", "Home", new { CateName = "", CategoryId = 37, MaxLastestNews = 3, cssClass = "maxheight02", lang = langpage });}
+        </div>
+        <div class="content03 mt20">
+            @{Html.RenderAction("LastestNews", "Home", new { CateName = "", CategoryId = 43, MaxLastestNews = 3, cssClass = "maxheight02", lang = langpage });}
+        </div>
+        <div class="content04 mt20">
+            @{Html.RenderAction("LastestNews", "Home", new { CateName = "", CategoryId = 19, MaxLastestNews = 3, cssClass = "maxheight02", lang = langpage });}
+        </div>
+    }
+
+    <div class="content05 mt20">
+        @{Html.RenderAction("TopProject", "Project");}
+    </div>
+    <div class="content06 row-10">
+        <div class="col-md-6 col-sm-6 col-xs-12">
+            @{Html.RenderAction("LastestNews2", "Home", new { CateName = "", CategoryId = 44, MaxLastestNews = 5, cssClass = "maxheight02", lang = langpage });}
+        </div>
+        <div class="col-md-6 col-sm-6 col-xs-12">
+            <h2 class="title-cm"><a href="/chuyen-gia-CNSH-CNTP.html">CHUYÊN GIA CNSH-CNTP</a></h2>
+            <ul class="list-cm04 list-expert">
+                @{Html.RenderAction("LastestNewsAuthor", "Home", new { CategoryId = 42, MaxLastestNews = 3, lang = langpage });}
+            </ul>
+        </div>
+
+    </div>
+}
+else
+{
+    <div class="content01 mt20">
+        @{Html.RenderAction("LastestNews", "Home", new { CateName = "Biology news in industry and trade sector", CategoryId = 51, MaxLastestNews = 6, cssClass = "maxheight02", lang = langpage });}
+    </div>
+    if (ViewBag.IsMobile)
+    {
+
+        <div class="content02 mt20">
+            @{Html.RenderAction("LastestNews", "Home", new { CateName = "", CategoryId = 49, MaxLastestNews = 4, cssClass = "maxheight02", lang = langpage });}
+        </div>
+        <div class="content03 mt20">
+            @{Html.RenderAction("LastestNews", "Home", new { CateName = "", CategoryId = 54, MaxLastestNews = 4, cssClass = "maxheight02", lang = langpage });}
+        </div>
+        <div class="content04 mt20">
+            @{Html.RenderAction("LastestNews", "Home", new { CateName = "", CategoryId = 55, MaxLastestNews = 4, cssClass = "maxheight02", lang = langpage });}
+        </div>
+    }
+    else
+    {
+        <div class="content02 mt20">
+            @{Html.RenderAction("LastestNews", "Home", new { CateName = "", CategoryId = 49, MaxLastestNews = 3, cssClass = "maxheight02", lang = langpage });}
+        </div>
+        <div class="content03 mt20">
+            @{Html.RenderAction("LastestNews", "Home", new { CateName = "", CategoryId = 54, MaxLastestNews = 3, cssClass = "maxheight02", lang = langpage });}
+        </div>
+        <div class="content04 mt20">
+            @{Html.RenderAction("LastestNews", "Home", new { CateName = "", CategoryId = 55, MaxLastestNews = 3, cssClass = "maxheight02", lang = langpage });}
+        </div>
+    }
+
+    <div class="content05 mt20">
+        @{Html.RenderAction("TopProject", "Project");}
+    </div>
+    <div class="content06 row-10">
+        <div class="col-md-6 col-sm-6 col-xs-12">
+            @{Html.RenderAction("LastestNews2", "Home", new { CateName = "", CategoryId = 52, MaxLastestNews = 5, cssClass = "maxheight02", lang = langpage });}
+        </div>
+        <div class="col-md-6 col-sm-6 col-xs-12">
+            <h2 class="title-cm"><a href="/chuyen-gia-CNSH-CNTP.html">Biotechnology/Food technology experts</a></h2>
+            <ul class="list-cm04 list-expert">
+                @{Html.RenderAction("LastestNewsAuthor", "Home", new { CategoryId = 61, MaxLastestNews = 3, lang = langpage });}
+            </ul>
+        </div>
+
+    </div>
+}
+
+

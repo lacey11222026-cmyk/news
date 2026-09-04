@@ -1,0 +1,42 @@
+﻿@using BIZ
+@using UTILS
+@using WebMVC4.Helper
+@model List<BIZ.Entity.MISSION_FULL>
+@{
+    var langpage = WorkContext.GetLanguage();
+}
+@if(Model!=null)
+            {
+
+           
+foreach (var item in Model.Select((value, i) => new { i, value }))
+{
+    <div class="event-item">
+        <div class="row">
+            <div class="col-md-7 col-sm-12">
+                <img src="@item.value.CreatedBy">
+            </div>
+            <div class="col-md-5 col-sm-12">
+                <h3 class="event-name">@item.value.Name</h3>
+                <div class="mt40">
+                    <table class="event-tbl">
+                        <tr>
+                            <td style="font-weight:bold">@Resources.Global.Time:</td>
+                            <td class="font-weight-bold">@item.value.Code</td>
+                        </tr>
+                        <tr>
+                            <td style="font-weight:bold">@Resources.Global.Location:</td>
+                            <td class="font-weight-bold">@item.value.Organ</td>
+                        </tr>
+                    </table>
+                    <div class="text-left mt40 event-btn">
+                        <a href="@item.value.LinkUrl" class="btn-green">@Resources.Global.More</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+   
+}
+}

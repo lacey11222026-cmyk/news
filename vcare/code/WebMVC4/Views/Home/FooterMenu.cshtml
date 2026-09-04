@@ -1,0 +1,62 @@
+﻿@using BIZ.Entity
+@using UTILS
+@using WebMVC4.Helper
+@using WebMVC4.Models
+@model MenuModel
+
+<div class="container">
+    <div class="row">
+        <div class="col-lg-3 col-md-3 col-sm-6 col-12" id="aq-pn">
+            <h3><a href="javascript:;">Sản Phẩm Ắc quy</a></h3>
+            <ul class="product-list">
+                @foreach (var item in Model.ListManu.Where(x => x.CategoryId == 2))
+                {
+                    <li><a href="/@item.Website">Ắc quy @item.Title </a></li>
+                }
+                @foreach (var item in Model.ListCate.Where(x => x.ParentId == 2))
+                {
+                    <li><a href="/@item.Link">@item.Name </a></li>
+                }
+            </ul>
+        </div>
+        <div class="col-lg-3 col-md-3 col-sm-6 col-12">
+            <h3><a href="javascript:;">Sản Phẩm Lốp Ô tô</a></h3>
+            <ul class="product-list">
+                @foreach (var item in Model.ListManu.Where(x => x.CategoryId == 8 && x.ParentId == 0))
+                {
+                    <li><a href="/@item.Website">@item.Title </a></li>
+
+                }
+
+            </ul>
+        </div>
+        <div class="col-lg-3 col-md-3 col-sm-6 col-12">
+            <h3><a href="javascript:;">Sản Phẩm Dầu Nhớt</a></h3>
+            <ul class="product-list">
+                @foreach (var item in Model.ListManu.Where(x => x.CategoryId == 5))
+                {
+                    <li><a href="/@item.Website">Dầu @item.Title </a></li>
+                }
+
+            </ul>
+        </div>
+
+
+        <div class="col-lg-3 col-md-3 col-sm-6 col-12">
+            <h3><a href="javascript:;">Chính Sách</a></h3>
+            <ul class="product-list">
+                @foreach (var item in Model.ListCate.Where(x => x.ParentId == 11))
+                {
+                    <li><a href="/@item.Link">@item.Name </a></li>
+                }
+
+            </ul>
+        </div>
+    </div>
+    <div class="text-right f-link">
+        <ul class="list-inline">
+            <li><a href="https://www.facebook.com/dongkhanhcarservice" target="_blank"><img src="/Content/images/icon-face.png" alt=""></a></li>
+            <li><a href="mailto:dongkhanhcarservice@gmail.com"><img src="/Content/images/icon-mail02.png" alt=""></a></li>
+        </ul>
+    </div>
+</div>

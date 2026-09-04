@@ -1,0 +1,35 @@
+﻿@using BIZ
+@using UTILS
+@using WebMVC4.Helper
+@model List<BIZ.Entity.CATEGORY_FULL>
+
+@{
+    var langpage = WorkContext.GetLanguage();
+}
+<nav class="nav_top">
+    <ul class="container">
+        <li class="active"><a href="/"><img src="/Content2/images/icon-home.png" alt="Trang chủ"></a></li>
+        @foreach (var item in Model.Select((value, i) => new { i, value }))
+        {
+            <li>
+                <a href="@Utils.FormatUrlRewriteByType(item.value.Id, item.value.Name, int.Parse(item.value.Type.ToString()), item.value.Link)" @(item.value.Type.GetValueOrDefault() == 11 ? " target='_blank'" : "")>@item.value.Name </a>
+                @Html.Raw(HtmlHelpers.BindChildCategories(Convert.ToInt32(item.value.Id), int.Parse(item.value.Type.ToString())))
+            </li>
+        }
+        @if (langpage == "vi-vn")
+        {
+            <li style="float:right">
+                <a href="/Home/Language?lang=en-us"><img src="/Content2/images/ico-en.png" alt="" width="30px"></a>
+            </li>
+        }
+        else
+        {
+            <li style="float:right">
+                <a href="/Home/Language?lang=vi-vn"><img src="/Content2/images/ico-vn.png" alt="" width="30px"></a>
+            </li>
+        }
+
+    </ul>
+</nav>
+
+

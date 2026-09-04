@@ -1,0 +1,115 @@
+﻿@using BIZ
+@using UTILS
+@using WebMVC4.Helper
+@model WebMVC4.Models.News2Model
+
+@{
+    var langpage = WorkContext.GetLanguage();
+}
+@{
+    var Type = 3;
+    if (ViewBag.CategoryId == 72 || ViewBag.CategoryId == 39)
+    {
+        Type = 7;
+    }
+}
+<div class="bnr-detail">
+    @*<img src="/Content/img/bnr-news.jpg?vs=02" alt="" class="hidden-767">
+        <img src="/Content/img/bnr-news-mb.jpg" alt="" class="block-767">*@
+    @{Html.RenderAction("BannerTop", "Home", new { Type = Type });}
+    <div class="bnr-detail-inner">
+        <div class="container">
+            <h2>@ViewBag.CateName</h2>
+        </div>
+    </div>
+</div>
+<div class="bg-gray pt60 pb100">
+    <div class="container detail-content">
+        <div class="breadcrumbs">
+            <ul>
+                <li><a href="/">@Resources.Global.Home</a></li>
+                <li><span>@ViewBag.CateName</span></li>
+            </ul>
+        </div>
+        <p class="date mt10">@DateTime.Now.ToString("HH:mm")   |   @DateTime.Now.ToString("dd/MM/yyyy")</p>
+        <div class="row mt20">
+            <div class="col-lg-8 col-md-12">
+                @if (Model.hotnews != null)
+                {
+                    foreach (var item in Model.hotnews.Take(1).Select((value, i) => new { i, value }))
+                    {
+                        <div class="big-news">
+                            <div class="row">
+                                <div class="col-md-7 col-sm-12">
+                                    <a href="@item.value.LinkUrl"><img src="@item.value.MainImage?h=500&mode=crop" alt="" class="w-100"></a>
+                                </div>
+                                <div class="col-md-5 col-sm-12">
+                                    <a href="@item.value.LinkUrl" class="news-name-big">@item.value.Title</a>
+                                    <p class="date-green mt15">@item.value.PublishDate.ToString("HH:mm")   |  @item.value.PublishDate.ToString("dd/MM/yyyy")</p>
+                                    <p class="mt15">@item.value.IntroText</p>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                    <div class="mt40 news-list">
+                        @foreach (var item in Model.hotnews.Skip(1).Select((value, i) => new { i, value }))
+                        {
+                            <div class="news-item">
+                                <a href="@item.value.LinkUrl">
+                                    <img src="@item.value.MainImage?w=425&h=239&mode=crop" alt="@item.value.Title" />
+                                    <p class="news-name">@item.value.Title</p>
+                                </a>
+                            </div>
+                        }
+
+                    </div>
+                }
+
+                @if (Model.articles != null)
+                {
+                    if (Model.articles.Count > 0)
+                    {
+                        <div class="newslist-04 mt40">
+                            @foreach (var item in Model.articles.Select((value, i) => new { i, value }))
+                            {
+                                <div>
+                                    <a href="@item.value.LinkUrl" class="newslist-04-item">
+                                        <img src="@item.value.MainImage?w=425&h=239&mode=crop" alt="@item.value.Title" />
+                                        <div>
+                                            <p class="news-name">@item.value.Title</p>
+                                            <p class="mt10 date-green">@item.value.PublishDate.ToString("HH:mm") - @item.value.PublishDate.ToString("dd/MM/yyyy")</p>
+                                        </div>
+                                    </a>
+                                </div>
+                            }
+
+                        </div>
+                    }
+                }
+                <div class="paging mt50">
+                    <ul>
+                        @{Html.RenderPartial("Pagination", new WebMVC4.Models.PaginationInfo
+                            {
+                                PageUrl = Url.SetParameter("Page", "!0"),
+                                CurrentPage = ViewBag.Page,
+                                PageSize = ViewBag.PageSize,
+                                TotalItemCount = ViewBag.Total,
+                            }); }
+                    </ul>
+                </div>
+            </div><!-- end content left-->
+            @Html.Partial("Site_Right2")
+        </div><!-- end content-->
+    </div>
+</div>
+
+
+<script type="text/javascript">
+
+ $('#menu_' + '@ViewBag.CurrentCategoryId').addClass("active");
+ 
+  $('#menu_' + '@ViewBag.ParentCategoryId').addClass("active");
+  
+
+
+</script>

@@ -1,0 +1,14 @@
+﻿@model List<DATA.Banner>
+@if (Model != null)
+{
+     <div class="bg_grey">
+       @foreach (var item in Model.Select((value, i) => new { i, value }))
+        {
+            <a href="@item.value.Url" rel="nofollow">
+                <img width="278" src="@item.value.Data" alt="@item.value.Name" /></a>
+        }
+    </div>
+    <div class="padtop10 clear"></div>
+     
+    
+}

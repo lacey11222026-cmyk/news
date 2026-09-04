@@ -1,0 +1,58 @@
+﻿@using BIZ
+@using UTILS
+@using WebMVC4.Helper
+@model List<BIZ.Entity.CATEGORY_FULL>
+
+<div class="header-conent01">
+    <img src="/Content/img/bnr-top.png" alt="" class="pull-right bnr-img">
+    <div class="bnr-content">
+        <div class="container">
+            <a href="/"><img src="/Content/img/logo.svg" alt="Sản xuất và tiêu dùng bền vững" class="logo-top" width="405"></a>
+        </div>
+    </div>
+</div>
+<div class="nav_top">
+    <div class="container">
+        <div class="nav-inner">
+            <nav class="nav-left">
+                <ul>
+                    <li class="active"><a href="/"><img src="/Content/img/icon-home-white.png" alt="Trang chủ" width="22"></a></li>
+                    @foreach (var item in Model.Select((value, i) => new { i, value }))
+                    {
+
+                        <li>
+                            <a href="@Utils.FormatUrlRewriteByType(item.value.Id, item.value.Name, int.Parse(item.value.Type.ToString()), item.value.Link)">@item.value.Name.Replace("Video En", "Video") </a>
+                            @Html.Raw(HtmlHelpers.BindChildCategories(Convert.ToInt32(item.value.Id), int.Parse(item.value.Type.ToString())))
+                        </li>
+                    }
+
+                </ul>
+            </nav>
+            <div class="nav-right">
+                <ul>
+                    <li>
+                        <div class="search-box">
+                            <button class="search-icon" onclick="search()"></button>
+                            <input type="text" class="form-control" id="txtKeyword" onkeydown="javascript: return AnyInput_KeyDown(this, event);">
+                        </div>
+                    </li>
+                    @if (ViewBag.lang == "vi-vn")
+                    {
+
+
+                        <li><a href="/Home/Language?lang=en-us"><img src="/Content/img/icon-en.png"></a></li>
+                    }
+                    else
+                    {
+                        <li><a href="/Home/Language?lang=vi-vn" class="icon-language"><img src="/Content/img/icon-vn.png"></a></li>
+                    }
+
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+

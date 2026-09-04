@@ -1,0 +1,45 @@
+﻿@using BIZ
+@using UTILS
+@using WebMVC4.Helper
+@model WebMVC4.Models.QAModel
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+@{ Html.RenderAction("Breadcrumb", "News", new { CategoryId = ViewBag.CategoryId }); }
+
+<div class="qaa">
+    <div class="panel-group" id="accordion2" role="tablist" aria-multiselectable="true">
+        @foreach (var item in Model.listdata.Select((value, i) => new { i, value }))
+        {
+            <div class="panel panel-default">
+                <a class="item-question collapsed" id="item-question-@item.value.Id" role="button" data-toggle="collapse" data-parent="#accordion2" href="#collapse@(item.i+1)a" aria-expanded="false" aria-controls="collapse1a">
+                    @item.value.Question
+                </a>
+                <div id="collapse@(item.i+1)a" class="panel-collapse collapse" role="tabpanel">
+                    <div class="panel-body">
+                        @Html.Raw(item.value.Answer)
+                    </div>
+                </div>
+            </div>
+
+        }
+    </div>
+
+</div><!-- end qaa page-->
+
+<div class="pagination pull-right mt30">
+    <ul>
+        @{Html.RenderPartial("Pagination", new WebMVC4.Models.PaginationInfo
+            {
+                PageUrl = Url.SetParameter("Page", "!0"),
+                CurrentPage = Model.pageIndex,
+                PageSize = Model.pageSize,
+                TotalItemCount = Model.total,
+            }); }
+    </ul>
+</div>
+<div class="clearfix"></div>
+@if(ViewBag.Id>0)
+{
+    <script>
+        $("#item-question-@ViewBag.Id").click();
+    </script>
+}

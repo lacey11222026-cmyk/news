@@ -1,0 +1,214 @@
+﻿
+@using BIZ.Entity
+@using UTILS
+@using DATA
+@using WebMVC4.Helper
+@model PlanStuck
+<div class="row" id="ContentPopUp">
+    <div class="col-lg-12">
+        <div class="box box-primary">
+
+            <form id="defaultForm" method="post" class="form-horizontal">
+                <div class="form-horizontal">
+                    <div class="messager-body">
+                        <div class="alert alert-success display-hide alert-dismissable">
+                            <button type="button" class="close" data-close="alert" aria-hidden="true">×</button>
+                            <span class="glyphicon glyphicon-ok"></span>
+                            <label>Đã lưu dữ liệu thành công !!!</label>
+                        </div>
+                        <div class="alert alert-danger display-hide alert-dismissable">
+                            <button type="button" class="close" data-close="alert" aria-hidden="true">×</button>
+                            <span class="glyphicon glyphicon-warning-sign"></span>
+                            <label id="ErrorMessage">Có một vài lỗi trong khung nhập liệu dưới đây ! kiểm tra lại</label>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="txtName" class="control-label col-md-3">Loại vướng mắc  :</label>
+                        <div class="col-md-9">
+                            <div class="input-icon right">
+                                <input type="text" id="txtName" maxlength="500" name="name" value="@Model.Name" class="form-control"  />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="txtName" class="control-label col-md-3">Mô tả vướng mắc  :</label>
+                        <div class="col-md-9">
+                            <div class="input-icon right">
+                                <textarea id="txtDescription" style="height: 100px;" cols="20" name="description" class="form-control">@Model.Description</textarea>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="txtName" class="control-label col-md-3">Cơ quan giải quyết :</label>
+                        <div class="col-md-9">
+                            <div class="input-icon right">
+                                <input type="text" id="txtOrgan" maxlength="500" name="Organ" value="@Model.Organ" class="form-control"  />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="txtName" class="control-label col-md-3">Thời hạn giải quyết :</label>
+                        <div class="col-md-9">
+                            <div class="input-icon right">
+                                <input type="text" id="txtFinishDate" maxlength="500" name="Organ" value="@Model.FinishDate" class="form-control"  />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="txtName" class="control-label col-md-3">Đã giải quyết ngày :</label>
+                        <div class="col-md-9">
+                            <div class="input-icon right">
+                                <input type="text" id="txtResult1" maxlength="500" name="Organ" value="@Model.Result1" class="form-control"  />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="txtName" class="control-label col-md-3">Chưa giải quyết(thời hạn) :</label>
+                        <div class="col-md-9">
+                            <div class="input-icon right">
+                                <input type="text" id="txtResult2" maxlength="500" name="Organ" value="@Model.Result2" class="form-control"  />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-md-3" for="cbxIsActive">Trạng thái :</label>
+                        <div class="col-md-4">
+                            <div class="checkbox">
+                                @if (Model.Status == 1)
+                                {<input type="checkbox" id="cbxIsActive" checked="checked" />}
+                                else
+                                {<input type="checkbox" id="cbxIsActive" />}
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="panel-footer form-horizontal">
+                    <div class="form-group submit">
+                        <button type="submit" class="btn btn-primary" id="btnSave"><i class="fa fa-save"></i> Cập nhập</button>
+
+                        <button type="button" class="btn btn-default" id="btnBack" data-dismiss="modal"><i class="fa fa-backward"></i> Hủy</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+   
+
+    $(document).ready(function () {
+
+
+            $("button.close").click(function () {
+                $(this).parent().css("display", "none");
+            });
+            $('#defaultForm').bootstrapValidator({
+                message: 'This value is not valid',
+                //live: 'submitted',
+                feedbackIcons: {
+                    valid: 'glyphicon glyphicon-ok',
+                    invalid: 'glyphicon glyphicon-remove',
+                    validating: 'glyphicon glyphicon-refresh'
+                },
+                fields: {
+
+
+
+                }
+            })
+            .on('success.form.bv', function (e) {
+                // Prevent submit form
+                e.preventDefault();
+
+                var $form = $(e.target),
+                    validator = $form.data('bootstrapValidator');
+                SaveData();
+                $(".close").click(function () {
+                    $(".alert-success").css("display", "none");
+                });
+            })
+            .on('error.form.bv', function (e) {
+                // Active the panel element containing the first invalid element
+                e.preventDefault();
+                var $form = $(e.target),
+                validator = $form.data('bootstrapValidator');
+                $(".alert-danger label").text("Có một vài lỗi trong khung nhập liệu dưới đây ! kiểm tra lại");
+                $(".alert-danger").css("display", "block");
+                $(".close").click(function () {
+                    $(".alert-danger").css("display", "none");
+                    $(".alert-success").css("display", "none");
+                });
+            });
+
+            $("#btnReset").click(function () {
+                $('#defaultForm').data('bootstrapValidator').resetForm(true);
+                $(".alert-danger").css("display", "none");
+                $(".alert-success").css("display", "none");
+            });
+            //Save Data
+            function SaveData() {
+                var param = {
+                    'Id': '@Model.Id',
+                    'PlanId': '@Model.PlanId',
+                    'Name': $("#txtName").val(),
+                    'Description': $("#txtDescription").val(),
+                    'Organ': $("#txtOrgan").val(),
+                    'FinishDate': $("#txtFinishDate").val(),
+                    'Result1': $("#txtResult1").val(),
+                    'Result2': $("#txtResult2").val(),
+                    'Status': $("#cbxIsActive").is(":checked") ? 1 : 0,
+                }
+
+                Utils.Loading();
+                $.ajax({
+                    type: 'POST',
+                    url: "@Url.Action("PlanStuckSaveData")",
+                    data: addAntiForgeryToken(param),
+                    async: true,
+                    success: function (data) {
+                        Utils.UnLoading();
+                        if (data.ResponseCode >= 0) {
+
+                            $(".alert-success").show("slow");
+                            $(".alert-danger").hide("slow");
+
+                            $('.modal ').modal('hide');
+                            location.reload();
+                        }
+                        else {
+
+                            $("#ErrorMessage").text(data.Description);
+                            $(".alert-danger").show("slow");
+                            $(".alert-success").hide("slow");
+                            setTimeout(function () { $(".alert-danger").hide("slow"); }, 5000);
+                        }
+                    }
+                });
+            };
+        });
+
+
+
+</script>
+<style type="text/css">
+    .modal-dialog {
+        width: 60% !important;
+        height: 60% !important;
+    }
+
+    .modal-footer {
+        display: none;
+    }
+
+    @@media (max-width: 768px) {
+
+        .modal-dialog {
+            width: 90% !important;
+            height: 90% !important;
+        }
+    }
+</style>

@@ -1,0 +1,167 @@
+﻿@{
+    Layout = "~/Views/Shared/_Login.cshtml";
+}
+@using BIZ.Entity
+@using UTILS
+@using WebMVC4.Helper
+<section class="section-login-1" style="background-image: url('/Content/images/bg-dangnhap.jpg');">
+    <div class="container-fulid" style="height: inherit;">
+        <div class="content">
+            <div class="col-left">
+                <div class="header-login">
+                    <div class="logo">
+                        <a href="/">
+                            <img src="/Content/images/logo2025.png?vs=01" alt="images">
+                        </a>
+                    </div>
+                    <div class="lang">
+                        <button class="bnt-lang">
+                            <img src="/Content/images/gb.png" alt="images">
+                            <span>English</span>
+                            <i class="fas fa-caret-down"></i>
+                        </button>
+                        <ul class="list-lang">
+
+                            <li><a href="/Home/Language?lang=vi-vn"><img src="/Content/images/vn.png" alt="images"><span>VietNamese</span></a></li>
+                            <li><a href="/Home/Language?lang=en-us"><img src="/Content/images/gb.png" alt="images"><span>English</span></a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="col-right">
+                <div class="right-form" style="width:100%">
+                    <div class="title">
+                        <h2>Login</h2>
+                        <p>Welcome to  <br><strong>the Just Energy Transition Partnership (JETP)</strong><br /> Login page. Log in to participate.</p>
+                    </div>
+                    <div id="form-login">
+
+                        <div class="f-col">
+                            <label for="">Username</label>
+                            <input type="text" name="username" autocomplete="off" id="username" placeholder="Enter your username" class="input-cm">
+                        </div>
+                        <div class="f-col">
+                            <label for="">Password</label>
+                            <input type="password" name="password" autocomplete="new-password" id="password" placeholder="Enter your password" class="input-cm">
+                        </div>
+                        <a href="@Url.Action("ResetPassword")" class="repass">Forgot password?</a>
+                        @*<div class="note">
+                                <p>Bằng việc đăng nhập, tôi đồng ý với JETP Việt Nam <a href="#">Điều khoản sử dụng</a> Và <a href="#">Chính sách bảo mật</a></p>
+                            </div>*@
+                        <button class="btn-cm btn-blue w-100" onclick="validateData()"><span>Login</span></button>
+                        <div class="bnt-more mt10">
+                            <p>Don't have an account yet?  <a href="/User/Register" class="textblue">Create an account</a></p>
+                        </div>
+                        <div class="form-box mt20">
+                            <p style="color: red;text-align: left;font-weight:bold" id="msgBox"></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<div class="modal fade" id="save" tabindex="-1" role="dialog" aria-labelledby="" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            <h4>To log in to your account, you first need to verify your account.</h4>
+            <div class="text-center mt30 list-inline btn-list-03">
+
+                <button type="button" class="btn-blue btn-cm confirmSend" onclick="send2()">Verify</button>
+            </div>
+
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="save2" tabindex="-1" role="dialog" aria-labelledby="" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+
+            <p class="text-center mt20"> An account confirmation email has been sent to your email address.<br> Please check your email to verify your account.</p>
+            <div class="text-center mt30 list-inline btn-list-03">
+
+                <div class="text-center mt30"><button type="button" class="btn-blue btn-cm" data-dismiss="modal">Close</button> </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<style>
+
+    .section-login-1 .content .col-right .right-form #form-login .note {
+        width: 100%;
+        max-width: 17.75rem;
+        margin: 0 auto 1.69rem;
+        display: block;
+        text-align: center;
+    }
+</style>
+<script src="~/Content/js/formvalidate.js?vs=02"></script>
+
+<script>
+    function send2() {
+        $('#save').modal('hide');
+         var param2 = {
+           
+
+             };
+             $.ajax({
+                 type: 'POST',
+                 url: "@Url.Action("Verify")",
+                 data: addAntiForgeryToken(param2),
+                 async: true,
+                 success: function (data) {
+                    
+                     $('#save2').modal('show');
+                 }
+             });
+    }
+    function validateData() {
+        if (!ValidateControls("Please enter your username!", "#username")) {
+            return false;
+        }
+        if (!ValidateControls("Please enter your password!", "#password")) {
+            return false;
+        }
+     var param2 = {
+         Password: $("#password").val(),
+         Username: $("#username").val()
+
+         };
+         $.ajax({
+             type: 'POST',
+             url: "@Url.Action("Login")",
+             data: addAntiForgeryToken(param2),
+             async: true,
+             success: function (data) {
+
+                 if (data.success === true) {
+
+                     location.href = "@Url.Action("Index")";
+                 } else {
+                     if (data.statusCode == -2) {
+                         $('#save').modal('show');
+                         return;
+                     }
+                     else {
+                         $("#msgBox").text(data.msg).show();
+                         return;
+                     }
+                    
+                 }
+             }
+         });
+
+
+
+    }
+    //bootbox.alert("Đăng ký thành công");
+</script>
+

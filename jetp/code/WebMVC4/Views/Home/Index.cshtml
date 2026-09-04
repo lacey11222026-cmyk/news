@@ -1,0 +1,161 @@
+﻿@using BIZ
+@using UTILS
+@using WebMVC4.Helper
+
+@{
+    var langpage = WorkContext.GetLanguage();
+    Layout = "~/Views/Shared/_Home.cshtml";
+}
+
+@if (langpage == "vi-vn")
+{
+
+    <section class="section-home-2 pt70">
+        <div class="container">
+            @{Html.RenderAction("LastestNews", "Home", new { CateName = "", CategoryId = 5, MaxLastestNews = 5, cssClass = "maxheight02", lang = langpage });}
+        </div>
+    </section>
+    <section class="section-home-3 pt70">
+        <div class="container">
+            <div class="content">
+                <div class="title ">
+                    <h2>DỰ ÁN PHÙ HỢP JETP</h2>
+                </div>
+                <div class="advand-search">
+                    <div class="search">
+                        <form>
+                            <div class="item">
+                                <select name="priority" id="ddlType">
+                                    <option value="1">Dự án đầu tư có cấu phần xây dựng</option>
+                                    <option value="2">
+                                        Dự án hỗ trợ kỹ thuật
+                                    </option>
+                                    @*<option value="3">Phát triển ngành năng lượng tái tạo</option>
+                                        <option value="4">Truyền tải điện và lưu trữ năng lượng</option>
+                                        <option value="5">Sử dụng năng lượng hiệu quả</option>
+                                        <option value="6">Chuyển đổi năng lượng trong lĩnh vực giao thông vận tải</option>
+                                        <option value="7">Đổi mới, phát triển và chuyển giao công nghệ</option>*@
+                                    @*<option value="8">Đảm bảo quá trình chuyển đổi công bằng</option>*@
+                                </select>
+                            </div>
+                            @*<div class="item">
+                                    <select name="status" id="ddlStatus">
+                                        <option value="1">Đang triển khai</option>
+                                        <option value="3">Hoàn thành</option>
+                                        <option value="2">Đang chờ duyệt</option>
+                                    </select>
+                                </div>*@
+                            <div class="item">
+                                <input type="text" name="project_name" id="txtName" placeholder="Tìm dự án theo tên">
+                            </div>
+                            <button type="button" class="btn-cm btn-blue" onclick="return searchproject();">
+                                <i class="icon-search"></i>
+                                <span>Tìm kiếm</span>
+                            </button>
+                        </form>
+                    </div>
+                    <div>
+                        <div class="row row-20">
+
+                            @{Html.RenderAction("TopProject", "Home", new { top = 3, lang = langpage });}
+                        </div>
+                        <div class="mt20 text-center"><a href="/du-an/" class="btn-gradient">Xem thêm</a></div>
+                    </div>
+                </div>
+            </div>
+            <div class="pt70 pb70 section-home-3-2">
+                @{Html.RenderAction("Intro", "Home", new { CategoryId = 99 });}
+            </div>
+        </div>
+    </section>
+    <section class="section-home-4">
+        @{Html.RenderAction("Intro", "Home", new { CategoryId = 100 });}
+    </section>
+    <section class="section-home-5 pt70 pb70">
+        @{Html.RenderAction("LastestNews2", "Home", new { CateName = "", CategoryId = 69, MaxLastestNews = 3, cssClass = "maxheight02", lang = langpage });}
+    </section>
+}
+else
+{
+
+    <section class="section-home-2 pt70">
+        <div class="container">
+            @{Html.RenderAction("LastestNews", "Home", new { CateName = "", CategoryId = 83, MaxLastestNews = 5, cssClass = "maxheight02", lang = langpage });}
+        </div>
+    </section>
+    <section class="section-home-3 pt70">
+        <div class="container">
+            <div class="content">
+                <div class="title ">
+                    <h2>JETP-ALIGNED PROJECTS</h2>
+                </div>
+                <div class="advand-search">
+                    <div class="search">
+                        <form>
+                            <div class="item">
+                                <select name="priority" id="ddlType">
+                                    <option value="1">Asset investment project</option>
+                                    <option value="2">Technical assistance project</option>
+                                    @*<option value="3">Renewable energy industry development</option>
+                                        <option value="4">Power transmission and energy storage</option>
+                                        <option value="5">Energy efficiency use </option>
+                                        <option value="6">Energy transition in the transportation sector</option>
+                                        <option value="7">Innovation, development and technology transfer</option>
+                                        <option value="8">Ensuring a just transition</option>*@
+                                </select>
+                            </div>
+                            @*<div class="item">
+                                    <select name="status" id="ddlStatus">
+                                        <option value="1">In Progress</option>
+                                        <option value="3">Completed</option>
+                                        <option value="2">Pending approval </option>
+                                    </select>
+                                </div>*@
+                            <div class="item">
+                                <input type="text" name="project_name" id="txtName" placeholder="Search project by name ">
+                            </div>
+                            <button type="button" class="btn-cm btn-blue" onclick="return searchproject();">
+                                <i class="icon-search"></i>
+                                <span>Search</span>
+                            </button>
+                        </form>
+                    </div>
+                    <div>
+                        <div class="row row-20">
+
+                            @{Html.RenderAction("TopProject", "Home", new { top = 3, lang = langpage });}
+
+                        </div>
+                        <div class="mt20 text-center"><a href="/du-an/" class="btn-gradient">More</a></div>
+                    </div>
+                </div>
+            </div>
+            <div class="pt70 pb70 section-home-3-2">
+                @{Html.RenderAction("Intro", "Home", new { CategoryId = 101 });}
+            </div>
+        </div>
+    </section>
+    <section class="section-home-4">
+        @{Html.RenderAction("Intro", "Home", new { CategoryId = 102 });}
+    </section>
+    <section class="section-home-5 pt70 pb70">
+        @{Html.RenderAction("LastestNews2", "Home", new { CateName = "", CategoryId = 63, MaxLastestNews = 3, cssClass = "maxheight02", lang = langpage });}
+    </section>
+}
+<script>
+    function searchproject() {
+        var status = $('#ddlStatus').val();
+        var type = $('#ddlType').val()
+        var keyword = $('#txtName').val();
+        window.location = '/du-an/?keyword=' + keyword + '&systemtype=' + type;
+    }
+</script>
+<style>
+    @@media (min-width: 991px) {
+
+
+        .banner .swiper .swiper-wrapper .swiper-slide .item h2 {
+            font-size: 2.5rem;
+        }
+    }
+</style>

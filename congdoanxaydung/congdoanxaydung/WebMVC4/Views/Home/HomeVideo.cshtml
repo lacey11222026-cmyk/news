@@ -1,0 +1,39 @@
+﻿@using BIZ
+@using UTILS
+@using WebMVC4.Helper
+@model List<BIZ.Entity.CONTENT_FULL>
+@if (Model != null)
+{
+<div class="box-cm library">
+    <h2 class="title-cm03"><a href="/trang-chu-video.html">Video</a> / <a href="/thu-vien-anh/c42/thu-vien-hinh-anh.html">Hình ảnh</a></h2>
+    @foreach (var item in Model.Take(1).Select((value, i) => new { i, value }))
+    {
+       
+        if (item.value.Url.Contains("youtube.com"))
+        {
+            <iframe id="hifvideo" width="360" height="210" frameborder="0" allowfullscreen
+                    src="@(item.value.Url.Replace("watch?v=", "embed/"))?rel=0"></iframe>
+
+        }
+        else
+        {
+            @Html.Raw(HtmlHelpers.EmbedVideo(item.value.Url, item.value.MainImage, "311", "205"))
+        }
+    }
+
+    <ul class="list-cm mt10">
+        @foreach (var item in Model.Skip(1).Select((value, i) => new { i, value }))
+        {
+            <li><a href="/trang-chu-video.html?VideoId=@(item.value.Id)">@item.value.Title</a></li>
+        }
+
+
+    </ul>
+</div>
+   
+}
+
+
+
+
+

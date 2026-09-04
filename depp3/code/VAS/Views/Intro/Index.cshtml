@@ -1,0 +1,40 @@
+﻿@using BIZ
+@using UTILS
+@using VAS.Helper
+@model BIZ.Entity.CATEGORY_FULL
+
+@if (Model != null)
+{
+    
+    <div class="introduction-page pt60 pb-4">
+        <div class="container">
+            <div>
+                <h2 class="title-cm text-center">@Model.Name</h2>
+                <div class="detail-content mt40" id="NewsContent">
+                    @Html.Raw(Model.Contents)
+                </div>
+            </div>
+            
+        </div>
+    </div>
+    
+    
+    <style>
+        #NewsContent div {
+            margin: 1em 0;
+        }
+        #NewsContent strong {
+            font-weight: bold;
+        }
+        #NewsContent img {
+            height: auto !important;
+        }
+    </style>
+
+    <script>
+        $('#NewsContent .image').removeAttr('style');
+
+        $('#NewsContent .image img').removeAttr('style');
+    </script>
+
+}

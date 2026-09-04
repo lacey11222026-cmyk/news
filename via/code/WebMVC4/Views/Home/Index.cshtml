@@ -1,0 +1,146 @@
+﻿@using BIZ
+@using UTILS
+@using WebMVC4.Helper
+
+@{
+    var langpage = WorkContext.GetLanguage();
+}
+
+<div class="content01 container mt30">
+    @{Html.RenderAction("Slide", "Home", new { lang = langpage });}
+</div><!-- end content 01 -->
+
+
+
+<div class="bnrCenter container mt40">
+    <div class="bnrSlider">
+        @{Html.RenderAction("Banner", "Home", new { lang = langpage });}
+
+
+    </div>
+</div>
+<div class="content03 mt40 container">
+    <div class="bg-gray">
+        <div class="row">
+            <div class="col-lg-9 col-md-12">
+                @{Html.RenderAction("LastestNews", "Home", new { CateName = "", CategoryId = 38, MaxLastestNews = 5, cssClass = "maxheight02" });}
+
+            </div>
+            <div class="col-lg-3 col-md-12">
+                <ul class="link-list">
+                    @{Html.RenderAction("BannerRight", "Home", new { lang = langpage });}
+
+
+
+
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="content04 mt40 container">
+    <div class="row newsbox-list">
+        <div class="col-md-4 col-sm-12 newsbox-cm">
+            @{Html.RenderAction("LastestNews2", "Home", new { CateName = "", CategoryId = 86, MaxLastestNews = 3, cssClass = "maxheight02" });}
+
+
+        </div>
+        <div class="col-md-4 col-sm-12 newsbox-cm">
+
+            @{Html.RenderAction("LastestNews2", "Home", new { CateName = "", CategoryId = 40, MaxLastestNews = 3, cssClass = "maxheight02" });}
+        </div>
+        <div class="col-md-4 col-sm-12 newsbox-cm">
+            @{Html.RenderAction("LastestNews2", "Home", new { CateName = "", CategoryId = 80, MaxLastestNews = 3, cssClass = "maxheight02" });}
+
+        </div>
+    </div>
+</div>
+
+<div class="content05 mt40 container">
+    <div class="bg-gray">
+        <ul class="video-title nav nav-tabs title-cm01">
+            <li><a href="#video" class="nav-link active" id="video-tab" data-toggle="tab" data-target="#video">Video</a></li>
+            <li><a href="#img" class="nav-link" id="img-tab" data-toggle="tab" data-target="#img">Hình ảnh</a></li>
+        </ul>
+        <div class="tab-content videotabs-content mt20">
+            <div class="video-content tab-pane active" id="video">
+                @{Html.RenderAction("HomeVideo", "Home", new { CateName = "", CategoryId = 6 });}
+
+            </div>
+            <div class="multimedia-content tab-pane" id="img">
+                @{Html.RenderAction("TopAlbum", "Home", new { CateName = "", CategoryId = 47, Top = 5 });}
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="content03 mt40 container">
+    <div class="row newsbox-list">
+        <div class="col-md-4 col-sm-12 newsbox-cm">
+            @{Html.RenderAction("LastestNews2", "Home", new { CateName = "", CategoryId = 95, MaxLastestNews = 3, cssClass = "maxheight02" });}
+
+        </div>
+        <div class="col-md-4 col-sm-12 newsbox-cm">
+            @{Html.RenderAction("LastestNews2", "Home", new { CateName = "", CategoryId = 99, MaxLastestNews = 3, cssClass = "maxheight02" });}
+
+        </div>
+        <div class="col-md-4 col-sm-12 newsbox-cm">
+            @{Html.RenderAction("LastestNews2", "Home", new { CateName = "", CategoryId = 98, MaxLastestNews = 3, cssClass = "maxheight02" });}
+
+        </div>
+    </div>
+</div>
+<div class="content03 mt40 container">
+    <div class="row newsbox-list">
+        <div class="col-md-4 col-sm-12 newsbox-cm">
+            @{Html.RenderAction("LastestNews2", "Home", new { CateName = "", CategoryId = 81, MaxLastestNews = 3, cssClass = "maxheight02" });}
+
+        </div>
+        <div class="col-md-4 col-sm-12 newsbox-cm">
+            @{Html.RenderAction("LastestNews2", "Home", new { CateName = "", CategoryId = 93, MaxLastestNews = 3, cssClass = "maxheight02" });}
+
+        </div>
+        <div class="col-md-4 col-sm-12 hidden-767" ">
+            <ul class="link-list">
+                @{Html.RenderAction("BannerRight2", "Home", new { lang = langpage });}
+
+
+            </ul>
+
+        </div>
+    </div>
+</div>
+
+<div class="mt40 content06 container">
+    <div class="row">
+        <div class="col-lg-12 col-md-12">
+            <div class="title-cm01">
+                <a href="#">Văn bản</a>
+            </div>
+            <div class="document-tabs mt20">
+                <ul>
+                    <li>
+                        <a href="/Document/Index/67">VĂN BẢN PHÁP QUY</a>
+                    </li>
+                    <li>
+                        <a href="/Document/Index/68">VĂN BẢN điều hành</a>
+                    </li>
+                    <li>
+                        <a href="/Document/Index/37">VĂN BẢN hợp nhất</a>
+                    </li>
+                </ul>
+            </div>
+            <ul class="document-list document-new-list mt10">
+                @{Html.RenderAction("TopDocument", "Home", new { CategoryId = 3, MaxLastestNews = 2 });}
+
+            </ul>
+        </div>
+        @*<div class="col-lg-4 col-md-12 col-12 hidden-767">
+                <ul class="link-list">
+                    @{Html.RenderAction("BannerRight2", "Home", new { lang = langpage });}
+
+
+                </ul>
+            </div>*@
+    </div><!-- end row-->
+</div><!-- end content 02-->

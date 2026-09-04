@@ -1,0 +1,206 @@
+﻿@model List<DATA.Banner>
+@if (Model != null)
+{
+<div class="list-banner mt20">
+    @if (Model.Where(x => x.Type == 1).Count() >= 1)
+    {
+        <div class="bnr-list2">
+            <div id="myCarousel01" class="carousel slide" data-ride="carousel">
+                <ol class="carousel-indicators">
+                    @foreach (var item in Model.Where(x => x.Type == 1).Select((value, i) => new { i, value }))
+                    {
+                        <li data-target="#myCarousel01" data-slide-to="@item.i" class="@(item.i==0?" active":"")"></li>
+                    }
+                </ol>
+                <!-- Wrapper for slides -->
+                <div class="carousel-inner">
+                    @foreach (var item in Model.Where(x => x.Type == 1).Select((value, i) => new { i, value }))
+                    {
+                        <div class="@(item.i==0?"carousel-item  active":"carousel-item ")">
+                            <a href="@item.value.Url" rel="nofollow" target="_blank">
+                                <img src="@item.value.Data" alt="@item.value.Name" />
+                            </a>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    }
+
+
+
+    @if (Model.Where(x => x.Type == 2).Count() >= 1)
+    {
+        <div class="bnr-list2">
+            <div id="myCarousel02" class="carousel slide" data-ride="carousel">
+                <ol class="carousel-indicators">
+                    @foreach (var item in Model.Where(x => x.Type == 2).Select((value, i) => new { i, value }))
+                    {
+                        <li data-target="#myCarousel02" data-slide-to="@item.i" class="@(item.i==0?" active":"")"></li>
+                    }
+                </ol>
+                <!-- Wrapper for slides -->
+                <div class="carousel-inner">
+                    @foreach (var item in Model.Where(x => x.Type == 2).Select((value, i) => new { i, value }))
+                    {
+                        <div class="@(item.i==0?"carousel-item  active":"carousel-item ")">
+                            <a href="@item.value.Url" rel="nofollow" target="_blank">
+                                <img src="@item.value.Data" alt="@item.value.Name" />
+                            </a>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    }
+    @if (Model.Where(x => x.Type == 3).Count() >= 1)
+    {
+        <div class="bnr-list2">
+            <div id="myCarousel03" class="carousel slide" data-ride="carousel">
+                <ol class="carousel-indicators">
+                    @foreach (var item in Model.Where(x => x.Type == 3).Select((value, i) => new { i, value }))
+                    {
+                        <li data-target="#myCarousel03" data-slide-to="@item.i" class="@(item.i==0?" active":"")"></li>
+                    }
+                </ol>
+                <!-- Wrapper for slides -->
+                <div class="carousel-inner">
+                    @foreach (var item in Model.Where(x => x.Type == 3).Select((value, i) => new { i, value }))
+                    {
+                        <div class="@(item.i==0?"carousel-item  active":"carousel-item ")">
+                            <a href="@item.value.Url" rel="nofollow" target="_blank">
+                                <img src="@item.value.Data" alt="@item.value.Name" />
+                            </a>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    }
+
+
+    @if (Model.Where(x => x.Type == 4).Count() >= 1)
+    {
+        <div class="bnr-list2">
+            <div id="myCarousel04" class="carousel slide" data-ride="carousel">
+                <ol class="carousel-indicators">
+                    @foreach (var item in Model.Where(x => x.Type == 4).Select((value, i) => new { i, value }))
+                    {
+                        <li data-target="#myCarousel04" data-slide-to="@item.i" class="@(item.i==0?" active":"")"></li>
+                    }
+                </ol>
+                <!-- Wrapper for slides -->
+                <div class="carousel-inner">
+                    @foreach (var item in Model.Where(x => x.Type == 4).Select((value, i) => new { i, value }))
+                    {
+                        <div class="@(item.i==0?"carousel-item  active":"carousel-item ")">
+                            <a href="@item.value.Url" rel="nofollow" target="_blank">
+                                <img src="@item.value.Data" alt="@item.value.Name" />
+                            </a>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    }
+
+    @if (Model.Where(x => x.Type == 5).Count() >= 1)
+    {
+        <div class="bnr-list2">
+            <div id="myCarousel05" class="carousel slide" data-ride="carousel">
+                <ol class="carousel-indicators">
+                    @foreach (var item in Model.Where(x => x.Type == 5).Select((value, i) => new { i, value }))
+                    {
+                        <li data-target="#myCarousel05" data-slide-to="@item.i" class="@(item.i==0?" active":"")"></li>
+                    }
+                </ol>
+                <!-- Wrapper for slides -->
+                <div class="carousel-inner">
+                    @foreach (var item in Model.Where(x => x.Type == 5).Select((value, i) => new { i, value }))
+                    {
+                        <div class="@(item.i==0?"carousel-item  active":"carousel-item ")">
+                            <a href="@item.value.Url" rel="nofollow" target="_blank">
+                                <img src="@item.value.Data" alt="@item.value.Name" />
+                            </a>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    }
+
+    @if (Model.Where(x => x.Type == 6).Count() >= 1)
+    {
+        <div class="bnr-list2">
+            <div id="myCarousel06" class="carousel slide" data-ride="carousel">
+                <ol class="carousel-indicators">
+                    @foreach (var item in Model.Where(x => x.Type == 6).Select((value, i) => new { i, value }))
+                    {
+                        <li data-target="#myCarousel06" data-slide-to="@item.i" class="@(item.i==0?" active":"")"></li>
+                    }
+                </ol>
+                <!-- Wrapper for slides -->
+                <div class="carousel-inner">
+                    @foreach (var item in Model.Where(x => x.Type == 6).Select((value, i) => new { i, value }))
+                    {
+                        <div class="@(item.i==0?"carousel-item  active":"carousel-item ")">
+                            <a href="@item.value.Url" rel="nofollow" target="_blank">
+                                <img src="@item.value.Data" alt="@item.value.Name" />
+                            </a>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    }
+
+    @if (Model.Where(x => x.Type == 7).Count() >= 1)
+    {
+        <div class="bnr-list2">
+            <div id="myCarousel07" class="carousel slide" data-ride="carousel">
+                <ol class="carousel-indicators">
+                    @foreach (var item in Model.Where(x => x.Type == 7).Select((value, i) => new { i, value }))
+                    {
+                        <li data-target="#myCarousel07" data-slide-to="@item.i" class="@(item.i==0?" active":"")"></li>
+                    }
+                </ol>
+                <!-- Wrapper for slides -->
+                <div class="carousel-inner">
+                    @foreach (var item in Model.Where(x => x.Type == 7).Select((value, i) => new { i, value }))
+                    {
+                        <div class="@(item.i==0?"carousel-item  active":"carousel-item ")">
+                            <a href="@item.value.Url" rel="nofollow" target="_blank">
+                                <img src="@item.value.Data" alt="@item.value.Name" />
+                            </a>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    }
+
+    <style>
+        .bnr-list2 .carousel-indicators {
+            bottom: -10px;
+        }
+
+            .bnr-list2 .carousel-indicators li {
+                width: 10px;
+                height: 10px;
+                border-radius: 10px;
+            }
+
+            .bnr-list2 .carousel-indicators li {
+                background-color: #009966;
+            }
+
+            .bnr-list2 .carousel-indicators .active {
+                background-color: #ffde8c;
+            }
+        .bnr-list2 {
+            margin-bottom: 20px;
+        }
+    </style>
+</div>
+    
+}

@@ -1,0 +1,20 @@
+﻿
+
+
+<div class="total-view">
+    <div class="container">
+        <div class="pull-left">
+            @Resources.Global.FooterDev <a href="vtkmedia.vn"><img src="/Content/images/vtk-logo03.png" alt="VtkMedia"></a>
+        </div>
+        <div class="pull-right">
+            <span> @Resources.Global.FooterView :</span>
+            <ul>
+                @foreach (var s in HttpContext.Current.Application["TotalVisited"].ToString().Select(c => c.ToString()).ToList())
+        {
+            <li>@s</li>
+}
+            </ul>
+        </div>
+    </div>
+</div>
+<div id="top_gototop"><a href="#" class="gototop clearfix">↑</a></div>

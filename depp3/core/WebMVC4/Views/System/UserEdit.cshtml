@@ -1,0 +1,341 @@
+﻿@{
+
+    Layout = "~/Views/Shared/_AdminV2.cshtml";
+
+}
+@using BIZ
+@using UTILS
+@using WebMVC4.Helper
+@model WebMVC4.Models.ViewUserDetail
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <i class="fa fa-fw fa-user-plus"></i><span>@ViewBag.Title </span>
+            </div>
+            <form id="defaultForm" method="post" class="form-horizontal">
+                <div class="panel-group" id="steps">
+
+                    <div class="panel panel-info">
+                        <div id="Errordiv" style="margin:20px;color:red;font-size:13pt"><center></center></div><br />
+
+                        <div style="padding: 10px 0 0 0;background-color:#fff !important">
+                            <ul class="nav nav-tabs">
+                                <li class="active"><a href="#tabs-info" data-toggle="tab"><strong>Thông tin</strong></a></li>
+                                @if (HttpContext.Current.User.Identity.Name != "thanhdt")
+                                {
+                                    <li><a href="#tabs-role" data-toggle="tab"><strong>Vai trò</strong></a></li>
+                                    <li><a href="#tabs-cate" data-toggle="tab"><strong>Chuyên mục</strong></a></li>
+                                }
+                            </ul>
+                            <div class="tab-content" style="margin-top: 30px;">
+                                <div class="col-md-12 tab-pane active" id="tabs-info">
+                                    <div class="col-md-12">
+
+                                        <!-- dành cho UpdateFunction -->
+                                        <div class="form-group">
+                                            <label for="UserName" class="control-label col-md-2">Tên người dùng :<span class="required">*</span></label>
+                                            <div class="col-md-6">
+                                                <div class="input-icon2 right">
+                                                    <label class="control-label">@Model.user.UserName</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        @if (HttpContext.Current.User.Identity.Name != "thanhdt")
+                                        {
+                                            <div class="form-group">
+                                                <label for="NewPassword" class="control-label col-md-2">Mật khẩu :<span class="required">*</span></label>
+                                                <div class="col-md-6">
+                                                    <div class="input-icon2 right">
+                                                        <input type="password" id="NewPassword" name="NewPassword" class="form-control" placeholder="" />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="ConfirmPassword" class="control-label col-md-2">Xác nhận mật khẩu :<span class="required">*</span></label>
+                                                <div class="col-md-6">
+                                                    <div class="input-icon2 right">
+                                                        <input type="password" id="ConfirmPassword" name="ConfirmPassword" class="form-control" placeholder="" />
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        }
+                                        <div class="form-group">
+                                            <label for="Email" class="control-label col-md-2">Email :<span class="required">*</span></label>
+                                            <div class="col-md-6">
+                                                <div class="input-icon2 right">
+                                                    <input type="text" id="Email" name="Email" value="@Model.user.Email" class="form-control" placeholder="" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group" style="display:none">
+                                            <label for="FullName" class="control-label col-md-2">Họ Tên :</label>
+                                            <div class="col-md-6">
+                                                <div class="input-icon2 right">
+                                                    <input type="text" id="FullName" name="FullName" value="@Model.AuthorProfile.FullName" class="form-control" placeholder="" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group" style="display:none">
+                                            <label for="Avatar" class="control-label col-md-2">Ảnh đại diện (600x600) :</label>
+                                            <div class="col-md-5">
+                                                <div class="input-icon2 right">
+                                                    <input type="text" id="Avatar" name="Avatar" value="@Model.AuthorProfile.Avatar" class="form-control" placeholder="" />
+                                                </div>
+                                            </div>
+                                            <div class="col-md-1">
+                                                <a href="javascript:;" onclick="CommonCtrl.PopupManagerImages('Avatar');"><i class="fa fa-file"></i></a>
+                                            </div>
+                                        </div>
+                                        <div class="form-group" style="display:none">
+                                            <label for="Title" class="control-label col-md-2">Chức danh :</label>
+                                            <div class="col-md-6">
+                                                <div class="input-icon2 right">
+                                                    <input type="text" id="Title" name="Title" value="@Model.AuthorProfile.Title" class="form-control" placeholder="" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group" style="display:none">
+                                            <label for="Description" class="control-label col-md-2">Mô tả :</label>
+                                            <div class="col-md-6">
+                                                <div class="input-icon2 right">
+                                                    <textarea id="Description" style="height: 75px;" cols="20" name="description" class="form-control">@Model.AuthorProfile.Description</textarea>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group" style="display:none">
+                                            <label for="Content" class="control-label col-md-2">Chi tiết :</label>
+                                            <div class="col-md-6">
+                                                <div class="input-icon2 right">
+                                                    <textarea id="Content" style="height: 75px;" cols="20" name="description" class="form-control">@Model.AuthorProfile.Content</textarea>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group" style="display:none">
+                                            <label for="Order" class="control-label col-md-2">Thứ tự :</label>
+                                            <div class="col-md-6">
+                                                <div class="input-icon2 right">
+                                                    <input type="text" id="Order" name="Order" value="@Model.AuthorProfile.Order.GetValueOrDefault()" class="form-control" placeholder="" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="panel-footer form-horizontal">
+                                        <div class="form-group submit">
+                                            @if (HttpContext.Current.User.Identity.Name != "thanhdt")
+                                            {
+                                                <button type="button" class="btn btn-primary" id="btsubmit2" onclick="changepass('@Model.user.UserName');"><i class="fa fa-save"></i>Đổi mật khẩu</button>
+                                            }
+                                            <button type="button" class="btn btn-primary" id="btsubmit3" onclick="changemail('@Model.user.UserName');"><i class="fa fa-save"></i>Cập nhật</button>
+                                            <button type="button" class="btn btn-default" id="btnBack2" onclick="Close();"><i class="fa fa-backward"></i>Quay lại</button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-12 tab-pane" id="tabs-role">
+                                    <div class="col-md-12">
+
+                                        @foreach (string role in Model.rolenames)
+                                        {
+                                            if (role != "Report" && role != "Album" && role != "Comment" && role != "Sale" && role != "Document" && role != "Contact")
+                                            {
+                                                
+                                                <div class="col-md-4 data" style="padding-left:0px;">
+                                                    @if (Model.user_roles.Contains(role))
+                                                    {
+                                                        <input type="checkbox" onclick="setRole('@Model.user.UserName','@role','@HtmlHelpers.GetRoleName(role)');" checked="checked" class="chkRole" /> @HtmlHelpers.GetRoleName(role)
+                                                    }
+                                                    else
+                                                    {
+                                                        <input type="checkbox" value="@role" onclick="setRole('@Model.user.UserName','@role','@HtmlHelpers.GetRoleName(role)');" class="chkRole" /> @HtmlHelpers.GetRoleName(role)
+                                                    }
+                                                </div>
+                                            }
+
+
+                                        }
+                                    </div>
+
+
+
+                                </div>
+                                <div class="col-md-12 tab-pane" id="tabs-cate">
+                                    <div class="col-md-12">
+                                        @foreach (var cate in Model.lstcate)
+                                        {
+                                            <div class="col-md-4 data" style="padding-left:0px;">
+                                                @if (Model.userCategoryPath.Contains("," + cate.Id + ","))
+                                                {
+                                                    <input type="checkbox" name="chkcategory" value="@cate.Id" checked="checked" class="chkcate" /> @cate.Name
+                                                }
+                                                else
+                                                {
+                                                    <input type="checkbox" name="chkcategory" value="@cate.Id" class="chkcate" /> @cate.Name
+                                                }
+                                            </div>
+
+                                        }
+                                    </div>
+                                    <div class="panel-footer form-horizontal">
+                                        <div class="form-group submit">
+                                            <button type="button" class="btn btn-primary" id="btsubmit" onclick="SaveData('@Model.user.UserName');"><i class="fa fa-save"></i>Lưu lại</button>
+                                            <button type="button" class="btn btn-default" id="btnBack" onclick="Close();"><i class="fa fa-backward"></i>Quay lại</button>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div style="clear:both"></div>
+                        </div>
+
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+
+<script>
+    $('#menu_adduser').addClass("active");
+    $(document).ready(function () {
+
+        var editor = CKEDITOR.instances['Content'];
+        if (editor) {
+            CKEDITOR.remove(editor);
+        }
+        CKEDITOR.replace('Content', {
+            filebrowserBrowseUrl: "/AdminImages/ManageImage",
+            filebrowserWindowWidth: '1200',
+            filebrowserWindowHeight: '300',
+            uiColor: '#FAFAFA',
+            allowedContent: true,
+            extraAllowedContent: '*(*)',
+            // ALLOW <i></i>
+
+            //extraAllowedContent: 'p(*)[*]{*};div(*)[*]{*};li(*)[*]{*};ul(*)[*]{*}',
+            extraPlugins: 'youtube,tableresize',
+            toolbar: [
+                { name: 'document', items: ['Source', '-', 'NewPage', 'Preview', '-'] },
+                ['Cut', 'Copy', 'Paste', 'PasteText', 'PasteFromWord', '-', 'Undo', 'Redo'],
+                { name: 'styles', items: ['Font', 'FontSize'] },
+                { name: 'basicstyles', items: ['Bold', 'Italic', 'Underline', 'Strike', 'Subscript', 'Superscript', '-', 'RemoveFormat'] },
+
+                '/',
+                { name: 'colors', items: ['TextColor', 'BGColor'] }, { name: 'paragraph', items: ['NumberedList', 'BulletedList', '-', 'Outdent', 'Indent', '-', 'Blockquote', '-', 'JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock'] },
+                { name: 'insert', items: ['Image', 'Youtube', 'Flash', 'Table', 'HorizontalRule', 'Smiley', 'SpecialChar', 'PageBreak', 'Iframe'] },
+                { name: 'links', items: ['Link', 'Unlink', 'Maximize'] }
+            ],
+            height: 300
+        });
+    });
+</script>
+
+
+
+
+<script type="text/javascript">
+    function Close() {
+        window.location.href = "@Url.Action("Users","System")";
+    }
+    function changemail(username) {
+        bootbox.confirm("Bạn có chắc chắn muốn cập nhật thông tin ??? ", function (result) {
+            if (result == true) {
+
+                var email = $('#Email').val();
+                 var Title = $('#Title').val();
+                var Description = $('#Description').val();
+                 var Avatar = $('#Avatar').val();
+                var FullName = $('#FullName').val();
+                 var Order = $('#Order').val();
+                var Content = CKEDITOR.instances['Content'].getSnapshot();
+                $.post('@Url.Action("UserChangeEmail", "System")',
+                    {
+                    "username": username,
+                    "email": email,
+                         "Avatar": Avatar,
+                    "FullName": FullName,
+                        "Title": Title,
+                     "Order": Order,
+                    "Description": Description,
+                        "Content": Content
+                    },
+                    function (data) {
+                        Close();
+                    });
+            }
+        });
+
+    }
+    function changepass(username) {
+        bootbox.confirm("Bạn có chắc chắn muốn đổi mật khẩu ??? ", function (result) {
+            if (result == true) {
+
+                var NewPassword = $('#NewPassword').val();
+                validateForm();
+                $.post('@Url.Action("UserChangPass", "System")',
+                    { "username": username, "newPassword": NewPassword },
+                    function (data) {
+                        Close();
+                    });
+            }
+        });
+
+    }
+    function setRole(username, rolename, roledesc) {
+        bootbox.confirm("Bạn có chắc chắn muốn thêm/xóa quyền ??? ", function (result) {
+            if (result == true) {
+                $.post('@Url.Action("UserSetRole", "System")',
+                               { "username": username, "rolename": rolename, "roledesc": roledesc },
+                               function (data) {
+                                   bootbox.alert(data);
+                               });
+            }
+        });
+
+    }
+    function SaveData(username) {
+        var categorypath = ",";
+        $('.chkcate').each(function () {
+            if ($(this).is(":checked"))
+            {
+                categorypath+=$(this).val() + ",";
+            }
+
+
+        });
+
+        $.post('@Url.Action("SaveUserCategory", "System")',
+                              { "svalue": categorypath, "username": username },
+                              function (data) {
+                                  bootbox.alert("Phân quyền thành công");
+                              });
+    }
+    function validateForm() {
+        var NewPassword = $('#NewPassword').val();
+        var ConfirmPassword = $('#ConfirmPassword').val();
+
+        if (NewPassword == "") {
+            alert('Mật khẩu không được trống');
+            $('#NewPassword').focus();
+            return false;
+        }
+        if (NewPassword.length < 6) {
+            alert('Mật khẩu phải trên 6 kí tự');
+            $('#NewPassword').focus();
+            return false;
+        }
+        if (NewPassword != ConfirmPassword) {
+            alert('Mật khẩu không hợp lệ');
+            $('#ConfirmPassword').focus();
+            return false;
+        }
+
+        return true;
+
+    }
+</script>

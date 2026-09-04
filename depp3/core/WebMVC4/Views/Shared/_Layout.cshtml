@@ -1,0 +1,180 @@
+﻿@using WebMVC4.Helper
+@{
+    var langpage = WorkContext.GetLanguage();
+}
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+
+    @Html.Partial("MetaData")
+
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Saira:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="/Content/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/Content/css/common.css?vs=05">
+    <link rel="stylesheet" href="/Content/css/style.css?vs=10">
+    <link type="text/css" rel="stylesheet" href="/Content/css/jquery.mmenu.all.css" />
+    <link href="/Content/css/slick.min.css" type="text/css" rel="stylesheet" />
+    <link href="/Content/css/slick-theme.css" type="text/css" rel="stylesheet" />
+    <link href="/Content/css/animate.css" type="text/css" rel="stylesheet" media="screen,projection" />
+    <link href="/Content/css/slider-top.css" type="text/css" rel="stylesheet" media="screen,projection" />
+
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/Content/css/extend.css?vs=30">
+
+
+
+
+
+
+
+</head>
+<body>
+    <!-- nav mobile --->
+    <script src="/Content/js/jquery.min.js"></script>
+    <script src="/Content/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="/Content/js/jquery.mmenu.min.all.js"></script>
+    <script type="text/javascript" src="/Content/js/jquery.flexisel.js"></script>
+    <script src="/Content/js/slick.min.js"></script>
+    <script src="/Content/js/jquery.matchHeight.js"></script>
+
+    @Html.Partial("Site_Header")
+
+    @RenderBody()
+
+    @Html.Partial("Site_Footer")
+    <div class="mess">
+        <button class="btn-mess"></button>
+        <div class="mess-inner">
+            <p class="mess-title"><button class="mess-close">x</button></p>
+            <div>
+                <p style="margin-bottom:20px;">@Resources.Global.FeedBackMessage</p>
+                <div id="comment-result" style="display:none;" class="status alert alert-success">@Resources.Global.FeedBackMessage2</div>
+                <div class="col-md-12">
+                    <p id="msgBox" style="color: #c82e29; font-weight: bold; font-size: 14px"></p>
+                    @Html.AntiForgeryToken()
+                </div>
+                <input type="text" class="form-control mt10" id="familyname" placeholder="@Resources.Global.FullName">
+                <input type="email" class="form-control mt10" id="email" placeholder="Email">
+                <input type="text" class="form-control mt10" id="question" placeholder="@Resources.Global.Question">
+                <textarea class="form-control mt10" id="content" rows="3" placeholder="@Resources.Global.Content2"></textarea>
+                <div class="text-center mt10"><button type="button" onclick="return validateData()" class="btn btn-primary">@Resources.Global.SendQuestion</button></div>
+            </div>
+        </div>
+    </div>
+    <p><a href="#top" id="backToTop" class="backTop block"></a></p>
+
+    <div id="fb-root"></div>
+    <div class="clearfix">
+    </div>
+    <script src="/Content/js/script.js?vs=05" type="text/javascript"></script>
+    <script src="~/Content/js/formvalidate.js?vs=02"></script>
+    <script type="text/javascript">
+
+     function validateEmail() {
+         if (!ValidateControls("@Resources.Global.EmailValidateEmpty", "#email")) {
+             return false;
+         }
+         var mail = $('#email').val();
+         if (!isValidEmailAddress(mail)) {
+
+             $("#msgBox").html("@Resources.Global.EmailValidateFormat").show();
+
+             $('#email').focus();
+             return false;
+         }
+         return true;
+     }
+
+
+     function validateData() {
+         if (!ValidateControls("@Resources.Global.FullNameEmpty", "#familyname")) {
+             return false;
+         }
+         if (!validateEmail()) {
+             return false;
+         }
+         //if (!validateMobile()) {
+         //    return false;
+         //}
+         if (!ValidateControls("@Resources.Global.QuestionValidateEmpty", "#question")) {
+              return false;
+          }
+         if (!ValidateControls("@Resources.Global.ContentEmpty", "#content")) {
+             return false;
+         }
+         var postdata = {
+             Name: $('#familyname').val(),
+             Email: $('#email').val(),
+             Answer: $('#content').val().replace(/\n/g, '<br />'),
+             Question: $('#question').val().replace(/\n/g, '<br />')
+
+         };
+         $.ajax({
+             type: "post",
+             dataType: "html",
+             url: '@Url.Action("Feedback", "Intro")',
+             data: addAntiForgeryToken(postdata),
+             success: function (response) {
+
+                 var data = parseInt(response);
+                 if (data == 1) {
+
+                     $("#comment-result").show();
+                     $('#familyname').val("");
+                     $('#email').val("");
+                     $('#question').val("");
+                     $('#content').val("");
+
+                 }
+
+                 if (data == -99) {
+                     $("#msgBox").html("@Resources.Global.MessageError").show();
+
+                 }
+                 if (data == -4) {
+                     $("#msgBox").html("@Resources.Global.MessageSoMuch").show();
+
+                 }
+
+             }
+         });
+
+         return true;
+     }
+    </script>
+    <style>
+        .mess {
+            z-index: 100;
+        }
+    </style>
+    <script>
+
+        (function (d, s, id) {
+            var js, fjs = d.getElementsByTagName(s)[0];
+            if (d.getElementById(id)) return;
+            js = d.createElement(s); js.id = id;
+            js.src = "//connect.facebook.net/vi_VN/sdk.js#xfbml=1&version=v2.8&appId=275786053207358";
+            fjs.parentNode.insertBefore(js, fjs);
+        }(document, 'script', 'facebook-jssdk'));
+    </script>
+
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-YT4KL3ZM5E"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'G-YT4KL3ZM5E');
+    </script>
+</body>
+
+
+
+
+
+</html>

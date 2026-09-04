@@ -1,0 +1,67 @@
+﻿@using BIZ
+@using UTILS
+@using WebMVC4.Helper
+@model DATA.Album
+@if (Model != null)
+{
+    <link href="/fancybox2.1.5/jquery.fancybox.css" rel="stylesheet" />
+    <script src="/fancybox2.1.5/jquery.fancybox.js"></script>
+
+
+    <div class="container mt40 lib-page">
+        @{Html.RenderAction("Breadcrumb", "News", new
+            {
+                CategoryId = Model.CategoryId
+            });}
+        <div class="detail-content mt30">
+            <p class="news-name-big">@Model.Title</p>
+            <div class="mt30">
+                @Html.Raw(Model.Description)
+
+            </div>
+            @if (ViewBag.ImgList != null)
+            {
+
+                <div class="mt30 libImg-wrap" id="PnlLightBox">
+                    <ul class="newshot row" id="lstlightbox">
+                        @foreach (BIZ.Entity.AlbumImage item in ViewBag.ImgList)
+                        {
+                            <li class="col-lg-3 col-md-4 col-sm-12">
+                                <a href="@(item.Name)?w=0&h=@(ViewBag.Height)&mode=crop" class="chum_anh2" title="@item.Text" rel="group">
+                                    <img src="@(item.Name)?w=360&h=256&mode=crop" width="236"
+                                         alt="" />
+                                </a>
+                            </li>
+                        }
+
+                    </ul>
+                 
+                    <script type='text/javascript'>
+
+                        $(document).ready(function () {
+                            $("#lstlightbox a").fancybox({
+
+                            });
+                        });
+                    </script>
+                </div>
+            }
+
+
+
+        </div>
+
+
+
+
+
+    </div>
+
+}
+<style>
+    @@media (max-width: 675px) {
+        .newshot li {
+            margin-bottom: 20px;
+        }
+    }
+</style>

@@ -1,0 +1,329 @@
+﻿@using BIZ
+@using UTILS
+@using WebMVC4.Helper
+@model WebMVC4.Models.ProjectModel
+
+@{
+    var langpage = WorkContext.GetLanguage();
+}
+<div class="project-page">
+    <section class="section-intro-1" style="background-image: url('@ViewBag.CateImg');">
+        <div class="container">
+            <div class="content">
+                <div class="title">
+                    <h1>@ViewBag.CateName</h1>
+                    <div class="breadcrumbs-02">
+                        <ul>
+                            <li><a href="/">@Resources.Global.Home</a></li>
+                            <li><span>@ViewBag.CateName</span></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <div class="container mt50 pb100">
+        <div class="list-filter">
+            <div class="advand-filter">
+                @if (langpage == "vi-vn")
+                {
+                    <div class="title">
+                        <i class="fa fa-filter" aria-hidden="true"></i>
+                        <h2>Lọc dự án</h2>
+                    </div>
+                    <div class="advand-option">
+                        <div class="search-form">
+                            <div class="filter-item">
+                                <div class="search">
+                                    <input type="text" id="txtName" onkeydown="javascript: return PAnyInput_KeyDown(this, event);" name="search_name" placeholder="Tìm dự án theo tên" value="@ViewBag.keyword" class="input-cm">
+                                    <button class="btn-cm btn-blue" onclick="searchproject();">
+                                        <i class="icon-search"></i>
+                                        <span>Tìm kiếm</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+                else
+                {
+                    <div class="title">
+                        <i class="fa fa-filter" aria-hidden="true"></i>
+                        <h2>Project filter</h2>
+                    </div>
+                    <div class="advand-option">
+
+                        <div class="filter-item">
+                            <div class="search">
+                                <input type="text" id="txtName" onkeydown="javascript: return PAnyInput_KeyDown(this, event);" name="search_name" placeholder="Search project by name" value="@ViewBag.keyword" class="input-cm">
+                                <button class="btn-cm btn-blue" onclick="searchproject();">
+                                    <i class="icon-search"></i>
+                                    <span>Search</span>
+                                </button>
+                            </div>
+                        </div>
+
+                    </div>
+                }
+
+            </div>
+            <div class="result-filter">
+                <div class="row row-10">
+                    <div class="col-lg-4 p-10 col-left">
+                        @if (langpage == "vi-vn")
+                        {
+                            <div class="op-item" s>
+                                <h3>Loại dự án</h3>
+                                <ul>
+                                    <li onclick="selectCard(this)">
+                                        <input type="checkbox" value="1" class="filter-checkbox" @(ViewBag.status == 1 ? "checked" : "") name="status[]" id="dang-trien-khai">
+                                        <label for="dang-trien-khai">Dự án đầu tư có cấu phần xây dựng</label>
+                                    </li>
+                                    <li onclick="selectCard(this)">
+                                        <input type="checkbox" value="2" class="filter-checkbox" @(ViewBag.status == 2 ? "checked" : "") name="status[]" id="hoan-thanh">
+                                        <label for="hoan-thanh">Dự án hỗ trợ kỹ thuật</label>
+                                    </li>
+
+                                </ul>
+                            </div>
+                            <div class="list-option">
+                                <div class="op-item">
+                                    <h3>Hạng mục dự án</h3>
+                                    <ul>
+                                        @if (ViewBag.status == 1)
+                                        {
+                                            <li onclick="selectType(this)">
+                                                <input type="checkbox" class="filter-checkbox" name="priority[]" @(ViewBag.type == 1 ? "checked" : "") value="1" id="cai-thien-khung-phap-ly-trong-chuyen-doi-nang-luong">
+                                                <label for="cai-thien-khung-phap-ly-trong-chuyen-doi-nang-luong">Các dự án về thúc đẩy chuyển đổi điện than sang năng lượng sạch</label>
+                                            </li>
+                                            <li onclick="selectType(this)">
+                                                <input type="checkbox" class="filter-checkbox" name="priority[]" @(ViewBag.type == 2 ? "checked" : "") value="2" id="chuyen-doi-nha-may-dien-than">
+                                                <label for="chuyen-doi-nha-may-dien-than">Các dự án về phát triển ngành công nghiệp năng lượng tái tạo</label>
+                                            </li>
+                                            <li onclick="selectType(this)">
+                                                <input type="checkbox" class="filter-checkbox" name="priority[]" @(ViewBag.type == 3 ? "checked" : "") value="3" id="phat-trien-nganh-nang-luong-tai-tao">
+                                                <label for="phat-trien-nganh-nang-luong-tai-tao">Sản xuất năng lượng tái tạo (gió, mặt trời, khác)</label>
+                                            </li>
+                                            <li onclick="selectType(this)">
+                                                <input type="checkbox" class="filter-checkbox" name="priority[]" @(ViewBag.type == 4 ? "checked" : "") value="4" id="truyen-tai-dien-va-luu-tru-nang-luong">
+                                                <label for="truyen-tai-dien-va-luu-tru-nang-luong">Sản xuất và sử dụng hydro xanh và các chất dẫn xuất</label>
+                                            </li>
+                                            <li onclick="selectType(this)">
+                                                <input type="checkbox" class="filter-checkbox" name="priority[]" @(ViewBag.type == 5 ? "checked" : "") value="5" id="su-dung-nang-luong-hieu-qua">
+                                                <label for="su-dung-nang-luong-hieu-qua">Các dự án về truyền tải điện và lưu trữ năng lượng</label>
+                                            </li>
+                                            <li onclick="selectType(this)">
+                                                <input type="checkbox" class="filter-checkbox" name="priority[]" @(ViewBag.type == 6 ? "checked" : "") value="6" id="chuyen-doi-nang-luong-trong-linh-vuc-giao-thong-van-tai">
+                                                <label for="chuyen-doi-nang-luong-trong-linh-vuc-giao-thong-van-tai">Các dự án về sử dụng năng lượng tiết kiệm và hiệu quả</label>
+                                            </li>
+                                            <li onclick="selectType(this)">
+                                                <input type="checkbox" class="filter-checkbox" name="priority[]" @(ViewBag.type == 7 ? "checked" : "") value="7" id="doi-moi-phat-trien-va-chuyen-giao-cong-nghe">
+                                                <label for="doi-moi-phat-trien-va-chuyen-giao-cong-nghe">Các dự án về chuyển đổi năng lượng xanh, giảm phát thải khí nhà kính của ngành giao thông vận tải</label>
+                                            </li>
+                                        }
+                                        @if (ViewBag.status == 2)
+                                        {
+                                            <li onclick="selectType(this)">
+                                                <input type="checkbox" class="filter-checkbox" name="priority[]" @(ViewBag.type == 1 ? "checked" : "") value="1" id="cai-thien-khung-phap-ly-trong-chuyen-doi-nang-luong">
+                                                <label for="cai-thien-khung-phap-ly-trong-chuyen-doi-nang-luong"> Các dự án hỗ trợ hoàn thiện thể chế, chính sách thúc đẩy chuyển đổi năng lượng, bao gồm nâng cao năng lực</label>
+                                            </li>
+                                            <li onclick="selectType(this)">
+                                                <input type="checkbox" class="filter-checkbox" name="priority[]" @(ViewBag.type == 2 ? "checked" : "") value="2" id="chuyen-doi-nha-may-dien-than">
+                                                <label for="chuyen-doi-nha-may-dien-than">Các dự án đổi mới sáng tạo, phát triển và chuyển giao công nghệ, hỗ trợ xây dựng dự án đầu tư</label>
+                                            </li>
+                                            <li onclick="selectType(this)">
+                                                <input type="checkbox" class="filter-checkbox" name="priority[]" @(ViewBag.type == 3 ? "checked" : "") value="3" id="phat-trien-nganh-nang-luong-tai-tao">
+                                                <label for="phat-trien-nganh-nang-luong-tai-tao">Các dự án thúc đẩy công bằng trong chuyển đổi năng lượng</label>
+                                            </li>
+                                        }
+
+
+
+                                    </ul>
+                                </div>
+
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="list-option">
+                                <div class="op-item">
+                                    <h3>Project Type </h3>
+                                    <ul>
+                                        <li onclick="selectCard(this)">
+                                            <input type="checkbox" value="1" class="filter-checkbox" @(ViewBag.status == 1 ? "checked" : "") name="status[]" id="dang-trien-khai">
+                                            <label for="dang-trien-khai">Asset investment project</label>
+                                        </li>
+
+                                        <li onclick="selectCard(this)">
+                                            <input type="checkbox" value="2" class="filter-checkbox" @(ViewBag.status == 2 ? "checked" : "") name="status[]" id="dang-cho-duyet">
+                                            <label for="dang-cho-duyet">Technical assistance project</label>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="op-item" >
+                                    <h3>Project Category </h3>
+                                    <ul>
+                                        @if (ViewBag.status == 1)
+                                        {
+                                            <li onclick="selectType(this)">
+                                                <input type="checkbox" class="filter-checkbox" name="priority[]" @(ViewBag.type == 1 ? "checked" : "") value="1" id="cai-thien-khung-phap-ly-trong-chuyen-doi-nang-luong">
+                                                <label for="cai-thien-khung-phap-ly-trong-chuyen-doi-nang-luong">Project accelerating the transition from coal power to clean energy</label>
+                                            </li>
+                                            <li onclick="selectType(this)">
+                                                <input type="checkbox" class="filter-checkbox" name="priority[]" @(ViewBag.type == 2 ? "checked" : "") value="2" id="chuyen-doi-nha-may-dien-than">
+                                                <label for="chuyen-doi-nha-may-dien-than">Project supporting the development of the renewable energy industry</label>
+                                            </li>
+                                            <li onclick="selectType(this)">
+                                                <input type="checkbox" class="filter-checkbox" name="priority[]" @(ViewBag.type == 3 ? "checked" : "") value="3" id="phat-trien-nganh-nang-luong-tai-tao">
+                                                <label for="phat-trien-nganh-nang-luong-tai-tao">Renewable energy generation (wind, solar, others) projects</label>
+                                            </li>
+                                            <li onclick="selectType(this)">
+                                                <input type="checkbox" class="filter-checkbox" name="priority[]" @(ViewBag.type == 4 ? "checked" : "") value="4" id="truyen-tai-dien-va-luu-tru-nang-luong">
+                                                <label for="truyen-tai-dien-va-luu-tru-nang-luong">Projects on production and utilization of green hydrogen and its derivatives</label>
+                                            </li>
+                                            <li onclick="selectType(this)">
+                                                <input type="checkbox" class="filter-checkbox" name="priority[]" @(ViewBag.type == 5 ? "checked" : "") value="5" id="su-dung-nang-luong-hieu-qua">
+                                                <label for="su-dung-nang-luong-hieu-qua">Projects on power transmission and energy storage</label>
+                                            </li>
+                                            <li onclick="selectType(this)">
+                                                <input type="checkbox" class="filter-checkbox" name="priority[]" @(ViewBag.type == 6 ? "checked" : "") value="6" id="chuyen-doi-nang-luong-trong-linh-vuc-giao-thong-van-tai">
+                                                <label for="chuyen-doi-nang-luong-trong-linh-vuc-giao-thong-van-tai">Projects promoting energy efficiency and conservation</label>
+                                            </li>
+                                            <li onclick="selectType(this)">
+                                                <input type="checkbox" class="filter-checkbox" name="priority[]" @(ViewBag.type == 7 ? "checked" : "") value="7" id="doi-moi-phat-trien-va-chuyen-giao-cong-nghe">
+                                                <label for="doi-moi-phat-trien-va-chuyen-giao-cong-nghe">Projects on green energy transition and GHG emissions reduction in the transport sector</label>
+                                            </li>
+                                        }
+                                        @if (ViewBag.status == 2)
+                                        {
+                                            <li onclick="selectType(this)">
+                                                <input type="checkbox" class="filter-checkbox" name="priority[]" @(ViewBag.type == 1 ? "checked" : "") value="1" id="cai-thien-khung-phap-ly-trong-chuyen-doi-nang-luong">
+                                                <label for="cai-thien-khung-phap-ly-trong-chuyen-doi-nang-luong"> Project supporting institutional and policy development for energy transition, including capacity building</label>
+                                            </li>
+                                            <li onclick="selectType(this)">
+                                                <input type="checkbox" class="filter-checkbox" name="priority[]" @(ViewBag.type == 2 ? "checked" : "") value="2" id="chuyen-doi-nha-may-dien-than">
+                                                <label for="chuyen-doi-nha-may-dien-than">Project on innovation, technology development and transfer, and investment project preparation support</label>
+                                            </li>
+                                            <li onclick="selectType(this)">
+                                                <input type="checkbox" class="filter-checkbox" name="priority[]" @(ViewBag.type == 3 ? "checked" : "") value="3" id="phat-trien-nganh-nang-luong-tai-tao">
+                                                <label for="phat-trien-nganh-nang-luong-tai-tao">Projects promoting a just energy transition</label>
+                                            </li>
+                                        }
+
+                                    </ul>
+                                </div>
+
+                            </div>
+                        }
+                    </div>
+                    <div class="col-lg-8 p-10 col-right">
+                        <div class="list-project">
+                            @foreach (var item in Model.listdata.Select((value, i) => new { i, value }))
+                            {
+                                <div class="news-item">
+                                    <a href="/chi-tiet-du-an/?id=@item.value.Id" class="picture"><img src="@item.value.UnitIInfo?w=373&h=247&mode=crop"></a>
+                                    <div class="desc">
+                                        @*<div class="status">
+                                                <span class="v@(item.value.Status)">@HtmlHelpers.ProjectStatus(item.value.Status, langpage)</span>
+                                                <span>@Resources.Global.Start: @item.value.StartTime</span>
+                                            </div>*@
+                                        <h3><a href="/chi-tiet-du-an/?id=@item.value.Id">@item.value.Name</a></h3>
+                                        @*<p>@Html.Raw(item.value.Description)</p>*@
+                                    </div>
+                                </div>
+                            }
+                        </div>
+                        <nav data-aos="fade-up" aria-label="navigation" class="navigation-nav aos-init mt50">
+                            <ul class="pagination page-numbers">
+                                @{Html.RenderPartial("Pagination", new WebMVC4.Models.PaginationInfo
+                                    {
+                                        PageUrl = Url.SetParameter("Page", "!0"),
+                                        CurrentPage = Model.pageIndex,
+                                        PageSize = Model.pageSize,
+                                        TotalItemCount = Model.total,
+                                    }); }
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+
+
+<script>
+
+    var updateQueryStringParam = function (key, value) {
+        var baseUrl = [location.protocol, '//', location.host, location.pathname].join(''),
+            urlQueryString = document.location.search,
+            newParam = key + '=' + value,
+            params = '?' + newParam;
+
+        // If the "search" string exists, then build params from it
+        if (urlQueryString) {
+            var keyRegex = new RegExp('([\?&])' + key + '[^&]*');
+
+            // If param exists already, update it
+            if (urlQueryString.match(keyRegex) !== null) {
+                params = urlQueryString.replace(keyRegex, "$1" + newParam);
+            } else { // Otherwise, add it to end of query string
+                params = urlQueryString + '&' + newParam;
+            }
+        }
+        window.history.replaceState({}, "", baseUrl + params);
+    };
+    function selectCard(obj) {
+        var o = $(obj).find("input");
+        var value = o.val();
+        //alert(!o.is(":checked"));
+        if (!o.is(":checked")) {
+            value = -1;
+        }
+
+        updateQueryStringParam('systemtype', value);
+        updateQueryStringParam('type', -1);
+        location.reload();
+
+
+    }
+    function selectType(obj) {
+        var o = $(obj).find("input");
+        var value = o.val();
+        //alert(!o.is(":checked"));
+        if (!o.is(":checked")) {
+            value = -1;
+        }
+
+        updateQueryStringParam('type', value);
+        location.reload();
+
+
+    }
+    function searchproject() {
+        updateQueryStringParam('keyword', $('#txtName').val());
+        location.reload();
+    }
+    function PAnyInput_KeyDown(sender, e) {
+        if ((e.which && e.which === 13) || (e.keyCode && e.keyCode === 13)) {
+            searchproject();
+
+            return false;
+        }
+
+        return true;
+    }
+
+</script>
+
+<style>
+
+    .list-project .news-item > a,
+    .list-project .news-item > div {
+        margin: 0;
+    }
+</style>

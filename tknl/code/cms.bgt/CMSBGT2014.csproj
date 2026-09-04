@@ -1,0 +1,583 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{3D8802B3-87EB-4569-930B-30E83A7A6E99}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>CMS2012</RootNamespace>
+    <AssemblyName>CMS2012</AssemblyName>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <UseIISExpress>true</UseIISExpress>
+    <IISExpressSSLPort />
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Solr, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\DLL\Solr.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web.Mobile" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.EnterpriseServices" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="Telerik.Web.UI, Version=2009.1.311.35, Culture=neutral, PublicKeyToken=121fae78165ba3d4, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\Telerik.Web.UI.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="clearcache.aspx" />
+    <Content Include="common\documentmanager.aspx" />
+    <Content Include="common\flashmanager.aspx" />
+    <Content Include="common\imagemanager.aspx" />
+    <Content Include="common\mediamanager.aspx" />
+    <Content Include="controls\boxloinoi.ascx" />
+    <Content Include="controls\clearhtml.ascx" />
+    <Content Include="controls\data_menu.ascx" />
+    <Content Include="controls\discuss_menu.ascx" />
+    <Content Include="controls\documentmanager.ascx" />
+    <Content Include="controls\flashmanager.ascx" />
+    <Content Include="controls\imagemanager.ascx" />
+    <Content Include="controls\image_article.ascx" />
+    <Content Include="controls\insertgroupbox.ascx" />
+    <Content Include="controls\interface_menu.ascx" />
+    <Content Include="controls\mediamanager.ascx" />
+    <Content Include="controls\mp3manager.ascx" />
+    <Content Include="controls\Service_menu.ascx" />
+    <Content Include="controls\system_menu.ascx" />
+    <Content Include="controls\workflow_menu.ascx" />
+    <Content Include="css\common.css" />
+    <Content Include="css\css.css" />
+    <Content Include="css\darkBlue_GRAD.jpg" />
+    <Content Include="css\deselectedTab_1x1.gif" />
+    <Content Include="css\gradient_onBlue.gif" />
+    <Content Include="css\gradient_onWhite.gif" />
+    <Content Include="css\headerGRADIENT_Tall.gif" />
+    <Content Include="css\layout.css" />
+    <Content Include="css\login.css" />
+    <Content Include="css\paper.css" />
+    <Content Include="css\report_header.jpg" />
+    <Content Include="css\selectedTab_1x1.gif" />
+    <Content Include="css\selectedTab_leftCorner.gif" />
+    <Content Include="css\selectedTab_rightCorner.gif" />
+    <Content Include="css\style_repeater.css" />
+    <Content Include="css\style_report.css" />
+    <Content Include="css\topGradRepeat.jpg" />
+    <Content Include="css\unSelectedTab_leftCorner.gif" />
+    <Content Include="css\unSelectedTab_rightCorner.gif" />
+    <Content Include="css\video-js.css" />
+    <Content Include="Default.aspx" />
+    <Content Include="discuss.aspx" />
+    <Content Include="discuss_add.aspx" />
+    <Content Include="discuss_edit.aspx" />
+    <Content Include="discuss_passed.aspx" />
+    <Content Include="discuss_pending.aspx" />
+    <Content Include="discuss_user_add.aspx" />
+    <Content Include="frontend_css\vtc_news.css" />
+    <Content Include="Global.asax" />
+    <Content Include="icons\back.gif" />
+    <Content Include="icons\BackColor.gif" />
+    <Content Include="icons\current.gif" />
+    <Content Include="icons\delete.gif" />
+    <Content Include="icons\desktop.gif" />
+    <Content Include="icons\DocumentManager.gif" />
+    <Content Include="icons\down.gif" />
+    <Content Include="icons\edit.gif" />
+    <Content Include="icons\editAnyway.gif" />
+    <Content Include="icons\find.gif" />
+    <Content Include="icons\FlashManager.gif" />
+    <Content Include="icons\folder.gif" />
+    <Content Include="icons\folderOpen.gif" />
+    <Content Include="icons\gif.gif" />
+    <Content Include="icons\go.gif" />
+    <Content Include="icons\history.gif" />
+    <Content Include="icons\home.gif" />
+    <Content Include="icons\ImageManager.gif" />
+    <Content Include="icons\InsertGroupbox.gif" />
+    <Content Include="icons\Layout1.jpg" />
+    <Content Include="icons\Layout2.jpg" />
+    <Content Include="icons\Layout3.jpg" />
+    <Content Include="icons\Layout4.jpg" />
+    <Content Include="icons\MediaManager.gif" />
+    <Content Include="icons\movedown.gif" />
+    <Content Include="icons\moveup.gif" />
+    <Content Include="icons\mp3.JPG" />
+    <Content Include="icons\music.gif" />
+    <Content Include="icons\newFile.gif" />
+    <Content Include="icons\newFolder.gif" />
+    <Content Include="icons\offline.gif" />
+    <Content Include="icons\online.gif" />
+    <Content Include="icons\polls.gif" />
+    <Content Include="icons\refresh.gif" />
+    <Content Include="icons\Related.gif" />
+    <Content Include="icons\remove_icon.png" />
+    <Content Include="icons\rename.gif" />
+    <Content Include="icons\SlideshowManager.gif" />
+    <Content Include="icons\textFile.gif" />
+    <Content Include="icons\thumbs.gif" />
+    <Content Include="icons\trangcuoi.gif" />
+    <Content Include="icons\trangdau.gif" />
+    <Content Include="icons\trangsau.gif" />
+    <Content Include="icons\trangtruoc.gif" />
+    <Content Include="icons\unknown.gif" />
+    <Content Include="icons\up.gif" />
+    <Content Include="icons\upload.gif" />
+    <Content Include="images\blank.gif" />
+    <Content Include="images\bn1.gif" />
+    <Content Include="images\bottom1.gif" />
+    <Content Include="images\bottom2.gif" />
+    <Content Include="images\bottom3.gif" />
+    <Content Include="images\calendar\close.gif" />
+    <Content Include="images\calendar\drop1.gif" />
+    <Content Include="images\calendar\drop2.gif" />
+    <Content Include="images\calendar\left1.gif" />
+    <Content Include="images\calendar\left2.gif" />
+    <Content Include="images\calendar\right1.gif" />
+    <Content Include="images\calendar\right2.gif" />
+    <Content Include="images\canhtren.gif" />
+    <Content Include="images\close.gif" />
+    <Content Include="images\dot.gif" />
+    <Content Include="images\folder.gif" />
+    <Content Include="images\formSELECT.gif" />
+    <Content Include="images\goc.gif" />
+    <Content Include="images\goc1.gif" />
+    <Content Include="images\goc2.GIF" />
+    <Content Include="images\goc3.GIF" />
+    <Content Include="images\khoa.gif" />
+    <Content Include="images\loading.gif" />
+    <Content Include="images\login_07.gif" />
+    <Content Include="images\login_09.gif" />
+    <Content Include="images\login_10.gif" />
+    <Content Include="images\login_11.gif" />
+    <Content Include="images\login_12.gif" />
+    <Content Include="images\Logo-Thoi-Viet.png" />
+    <Content Include="images\logo.gif" />
+    <Content Include="images\minus.gif" />
+    <Content Include="images\plus.gif" />
+    <Content Include="images\showCalander.gif" />
+    <Content Include="images\SpellCheck.gif" />
+    <Content Include="images\TAB01.gif" />
+    <Content Include="images\top1.gif" />
+    <Content Include="images\top11.gif" />
+    <Content Include="images\top12.gif" />
+    <Content Include="images\top13.gif" />
+    <Content Include="images\top2.gif" />
+    <Content Include="images\top3.gif" />
+    <Content Include="images\tron1.gif" />
+    <Content Include="js\common.js" />
+    <Content Include="js\md5.js" />
+    <Content Include="js\popcalendar.js" />
+    <Content Include="js\swfobject.js" />
+    <Content Include="js\tooltip.js" />
+    <Content Include="js\video.js" />
+    <Content Include="keepalive.aspx" />
+    <Content Include="load.aspx" />
+    <Content Include="login.aspx" />
+    <Content Include="Pages\System\system_user_pwdmatrix.aspx" />
+    <Content Include="RadControls\Editor\BasicTools.xml" />
+    <Content Include="RadControls\Editor\CustomTools.xml" />
+    <Content Include="RadControls\Editor\FullSetOfTools.xml" />
+    <Content Include="root.png" />
+    <None Include="Properties\PublishProfiles\a.pubxml" />
+    <None Include="Scripts\jquery-1.4.1-vsdoc.js" />
+    <Content Include="Scripts\jquery-1.4.1.js" />
+    <Content Include="Scripts\jquery-1.4.1.min.js" />
+    <Content Include="service_discuss_add.aspx" />
+    <Content Include="service_discuss_edit.aspx" />
+    <Content Include="service_discuss_manager.aspx" />
+    <Content Include="service_discuss_reader.aspx" />
+    <Content Include="system_changepwd.aspx" />
+    <Content Include="system_user.aspx" />
+    <Content Include="system_user_add.aspx" />
+    <Content Include="system_user_changepwd.aspx" />
+    <Content Include="system_user_edit.aspx" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="xmls\vn.xml" />
+    <Content Include="xmls\vn1.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="clearcache.aspx.cs">
+      <DependentUpon>clearcache.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="clearcache.aspx.designer.cs">
+      <DependentUpon>clearcache.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="common\documentmanager.aspx.cs">
+      <DependentUpon>documentmanager.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="common\documentmanager.aspx.designer.cs">
+      <DependentUpon>documentmanager.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="common\flashmanager.aspx.cs">
+      <DependentUpon>flashmanager.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="common\flashmanager.aspx.designer.cs">
+      <DependentUpon>flashmanager.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="common\imagemanager.aspx.cs">
+      <DependentUpon>imagemanager.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="common\imagemanager.aspx.designer.cs">
+      <DependentUpon>imagemanager.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="common\mediamanager.aspx.cs">
+      <DependentUpon>mediamanager.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="common\mediamanager.aspx.designer.cs">
+      <DependentUpon>mediamanager.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="controls\boxloinoi.ascx.cs">
+      <DependentUpon>boxloinoi.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="controls\boxloinoi.ascx.designer.cs">
+      <DependentUpon>boxloinoi.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="controls\clearhtml.ascx.cs">
+      <DependentUpon>clearhtml.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="controls\clearhtml.ascx.designer.cs">
+      <DependentUpon>clearhtml.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="controls\data_menu.ascx.cs">
+      <DependentUpon>data_menu.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="controls\data_menu.ascx.designer.cs">
+      <DependentUpon>data_menu.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="controls\discuss_menu.ascx.cs">
+      <DependentUpon>discuss_menu.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="controls\discuss_menu.ascx.designer.cs">
+      <DependentUpon>discuss_menu.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="controls\documentmanager.ascx.cs">
+      <DependentUpon>documentmanager.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="controls\documentmanager.ascx.designer.cs">
+      <DependentUpon>documentmanager.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="controls\flashmanager.ascx.cs">
+      <DependentUpon>flashmanager.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="controls\flashmanager.ascx.designer.cs">
+      <DependentUpon>flashmanager.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="controls\imagemanager.ascx.cs">
+      <DependentUpon>imagemanager.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="controls\imagemanager.ascx.designer.cs">
+      <DependentUpon>imagemanager.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="controls\image_article.ascx.cs">
+      <DependentUpon>image_article.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="controls\image_article.ascx.designer.cs">
+      <DependentUpon>image_article.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="controls\insertgroupbox.ascx.cs">
+      <DependentUpon>insertgroupbox.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="controls\insertgroupbox.ascx.designer.cs">
+      <DependentUpon>insertgroupbox.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="controls\interface_menu.ascx.cs">
+      <DependentUpon>interface_menu.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="controls\interface_menu.ascx.designer.cs">
+      <DependentUpon>interface_menu.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="controls\mediamanager.ascx.cs">
+      <DependentUpon>mediamanager.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="controls\mediamanager.ascx.designer.cs">
+      <DependentUpon>mediamanager.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="controls\mp3manager.ascx.cs">
+      <DependentUpon>mp3manager.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="controls\mp3manager.ascx.designer.cs">
+      <DependentUpon>mp3manager.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="controls\Service_menu.ascx.cs">
+      <DependentUpon>Service_menu.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="controls\Service_menu.ascx.designer.cs">
+      <DependentUpon>Service_menu.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="controls\system_menu.ascx.cs">
+      <DependentUpon>system_menu.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="controls\system_menu.ascx.designer.cs">
+      <DependentUpon>system_menu.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="controls\workflow_menu.ascx.cs">
+      <DependentUpon>workflow_menu.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="controls\workflow_menu.ascx.designer.cs">
+      <DependentUpon>workflow_menu.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Default.aspx.cs">
+      <DependentUpon>Default.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Default.aspx.designer.cs">
+      <DependentUpon>Default.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="default.master.cs">
+      <DependentUpon>default.master</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="default.master.designer.cs">
+      <DependentUpon>default.master</DependentUpon>
+    </Compile>
+    <Compile Include="discuss.aspx.cs">
+      <DependentUpon>discuss.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="discuss.aspx.designer.cs">
+      <DependentUpon>discuss.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="discuss_add.aspx.cs">
+      <DependentUpon>discuss_add.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="discuss_add.aspx.designer.cs">
+      <DependentUpon>discuss_add.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="discuss_edit.aspx.cs">
+      <DependentUpon>discuss_edit.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="discuss_edit.aspx.designer.cs">
+      <DependentUpon>discuss_edit.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="discuss_passed.aspx.cs">
+      <DependentUpon>discuss_passed.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="discuss_passed.aspx.designer.cs">
+      <DependentUpon>discuss_passed.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="discuss_pending.aspx.cs">
+      <DependentUpon>discuss_pending.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="discuss_pending.aspx.designer.cs">
+      <DependentUpon>discuss_pending.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="discuss_user_add.aspx.cs">
+      <DependentUpon>discuss_user_add.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="discuss_user_add.aspx.designer.cs">
+      <DependentUpon>discuss_user_add.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="keepalive.aspx.cs">
+      <DependentUpon>keepalive.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="keepalive.aspx.designer.cs">
+      <DependentUpon>keepalive.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="load.aspx.cs">
+      <DependentUpon>load.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="load.aspx.designer.cs">
+      <DependentUpon>load.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="login.aspx.cs">
+      <DependentUpon>login.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="login.aspx.designer.cs">
+      <DependentUpon>login.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Old_App_Code\DBCommon.cs" />
+    <Compile Include="Old_App_Code\ExtendedHtmlUtility.cs" />
+    <Compile Include="Old_App_Code\UrlUtils.cs" />
+    <Compile Include="Pages\System\system_user_pwdmatrix.aspx.cs">
+      <DependentUpon>system_user_pwdmatrix.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Pages\System\system_user_pwdmatrix.aspx.designer.cs">
+      <DependentUpon>system_user_pwdmatrix.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="service_discuss_add.aspx.cs">
+      <DependentUpon>service_discuss_add.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="service_discuss_add.aspx.designer.cs">
+      <DependentUpon>service_discuss_add.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="service_discuss_edit.aspx.cs">
+      <DependentUpon>service_discuss_edit.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="service_discuss_edit.aspx.designer.cs">
+      <DependentUpon>service_discuss_edit.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="service_discuss_manager.aspx.cs">
+      <DependentUpon>service_discuss_manager.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="service_discuss_manager.aspx.designer.cs">
+      <DependentUpon>service_discuss_manager.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="service_discuss_reader.aspx.cs">
+      <DependentUpon>service_discuss_reader.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="service_discuss_reader.aspx.designer.cs">
+      <DependentUpon>service_discuss_reader.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="system_changepwd.aspx.cs">
+      <DependentUpon>system_changepwd.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="system_changepwd.aspx.designer.cs">
+      <DependentUpon>system_changepwd.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="system_user.aspx.cs">
+      <DependentUpon>system_user.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="system_user.aspx.designer.cs">
+      <DependentUpon>system_user.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="system_user_add.aspx.cs">
+      <DependentUpon>system_user_add.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="system_user_add.aspx.designer.cs">
+      <DependentUpon>system_user_add.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="system_user_changepwd.aspx.cs">
+      <DependentUpon>system_user_changepwd.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="system_user_changepwd.aspx.designer.cs">
+      <DependentUpon>system_user_changepwd.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="system_user_edit.aspx.cs">
+      <DependentUpon>system_user_edit.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="system_user_edit.aspx.designer.cs">
+      <DependentUpon>system_user_edit.aspx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="default.master" />
+    <Content Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\cmsbtg.libs\cmsbtg.libs.csproj">
+      <Project>{37da2c87-5f10-40e5-a265-18b2f97c0141}</Project>
+      <Name>cmsbtg.libs</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Old_App_WebReferences\" />
+    <Folder Include="Pages\Comment\" />
+  </ItemGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>False</UseIIS>
+          <AutoAssignPort>False</AutoAssignPort>
+          <DevelopmentServerPort>46666</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>http://localhost:39188/</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

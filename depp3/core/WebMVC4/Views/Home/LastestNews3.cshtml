@@ -1,0 +1,23 @@
+﻿@using BIZ
+@using UTILS
+@using WebMVC4.Helper
+@model WebMVC4.Models.LastestNewModel
+@if (Model != null)
+{
+    if (Model.lstdata.Count > 0)
+    {
+
+       foreach (var item in Model.lstdata.Select((value, i) => new { i, value }))
+        {
+          
+            <div>
+                <a href="@item.value.LinkUrl" class="maxheight">
+                    <img src="@item.value.MainImage?w=246&h=344&mode=crop" alt="">
+                    <span class="book-title">@item.value.Title</span>
+                </a>
+            </div>
+        }
+
+
+    }
+}

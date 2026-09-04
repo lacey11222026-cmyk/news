@@ -1,0 +1,45 @@
+﻿@using BIZ
+@using UTILS
+@using WebMVC4
+@using WebMVC4.Helper
+@model List<BIZ.Entity.DOCUMENT_FULL>
+@if (Model != null)
+{
+    if (Model.Count > 0)
+    {
+    <div class="document mt10">
+        <ul class="document-title">
+            <li class="active"><a href="#document03" data-toggle="tab">Văn bản</a></li>
+            <li><a href="#document04" data-toggle="tab">Tài liệu</a></li>
+        </ul>
+        <div class="tab-content">
+            <div class="tab-pane active" id="document03">
+                <ul class="document-list">
+                    @foreach (var item in Model.Select((value, i) => new { i, value }))
+                    {
+                        <li>
+                            <a href="@Utils.FormatUrlRewrite(item.value.Id, item.value.Name, "DocumentDetail")"
+                               title="@item.value.Name">
+                                @item.value.Name
+                            </a>
+                        </li>
+                    }
+                </ul>
+                <a href="/van-ban.html" class="btn-viewmore">Xem thêm <span>+</span></a>
+            </div>
+            <div class="tab-pane" id="document04">
+                <ul class="document-list02">
+                    <li><a href="/tin-tuc/c35/an-pham-truyen-thong.html">ấn phẩm truyền thông</a></li>
+                    <li><a href="/tin-tuc/c36/tai-lieu-dao-tao.html">Tài liệu đào tạo</a></li>
+                    <li><a href="/tin-tuc/c37/san-pham-khac.html">sản phẩm khác</a></li>
+                    <li><a href="/tin-tuc/c40/so-tay.html">Số tay</a></li>
+                </ul>
+                <a href="/tin-tuc/c12/tai-lieu.html" class="btn-viewmore mt20">Xem thêm <span>+</span></a>
+            </div>
+        </div>
+    </div>
+
+    
+    }
+
+}

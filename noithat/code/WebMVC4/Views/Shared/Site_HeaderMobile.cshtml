@@ -1,0 +1,39 @@
+﻿@using WebMVC4.Helper
+
+
+
+<div class="mobile-nav slide-from-left">
+    <div class="woodmart-search-form">
+        <form role="search" method="get" class="searchform  woodmart-ajax-search" action="/Product/Search"  data-post_type="product" data-count="20" data-sku="0" data-symbols_count="3">
+            <input type="text" class="q" placeholder="Tìm kiếm sản phẩm" name="s" autocomplete="off">
+           
+            <button type="submit" class="searchsubmit">
+                Search
+            </button>
+        </form>
+        <div class="search-results-wrapper"><div class="woodmart-scroll has-scrollbar"><div class="woodmart-search-results woodmart-scroll-content" tabindex="0" style="margin-right: -17px;"><div class="autocomplete-suggestions" style="position: absolute; display: none; max-height: 300px; z-index: 9999;"></div></div><div class="woodmart-scroll-pane" style="display: none;"><div class="woodmart-scroll-slider" style="height: 20px; transform: translate(0px);"></div></div></div><div class="woodmart-search-loader wd-fill"></div></div>
+    </div>
+    <div class="mobile-nav-tabs">
+        <ul>
+            <li class="mobile-tab-title mobile-pages-title active" data-menu="pages"><span>Menu</span></li>
+            <li class="mobile-tab-title mobile-categories-title" data-menu="categories"><span>Sản phẩm</span></li>
+        </ul>
+    </div>
+    <div class="mobile-menu-tab mobile-categories-menu">
+        <div class="menu-danhmucsp-container">
+            <ul id="menu-danhmucsp-1" class="site-mobile-menu">
+
+                @Html.Action("MenuProductMobile", "Home")
+
+            </ul>
+        </div>
+    </div>
+    <div class="mobile-menu-tab mobile-pages-menu active">
+        <div class="menu-mainmenu2-container">
+            <ul id="menu-mainmenu2-1" class="site-mobile-menu">
+
+                @Html.Action("MenuMobile", "Home")
+            </ul>
+        </div>
+    </div>
+</div><!--END MOBILE-NAV-->

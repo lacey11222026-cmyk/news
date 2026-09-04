@@ -1,0 +1,9 @@
+﻿@using System.Configuration
+@model BIZ.Entity.CONTENT_FULL
+@{
+    var domain = ConfigurationManager.AppSettings["Domain"];
+}
+@if (Model != null)
+{
+    @Html.Raw(Model.IntroText)
+}

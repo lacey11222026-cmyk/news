@@ -1,0 +1,48 @@
+﻿@model List<DATA.Banner>
+@if (Model != null)
+{
+
+   <!-- slide-->
+    <div class="slide-chantrang">
+        <ul id="flexiselDemo3">
+
+            @foreach (var item in Model.Select((value, i) => new { i, value }))
+            {
+                <li>
+                    <a class="opa" href="@item.value.Url" rel="nofollow">
+                        <img width="128" height="84" src="@item.value.Data" alt="@item.value.Name" />
+                    </a>
+                </li>
+
+            }
+        </ul>
+    </div>
+    <div class="clear"></div>
+    <script>
+    $(window).load(function () {
+        $("#flexiselDemo3").flexisel({
+            visibleItems: 6,
+            animationSpeed: 1000,
+            autoPlay: true,
+            autoPlaySpeed: 3000,
+            pauseOnHover: true,
+            enableResponsiveBreakpoints: true,
+            responsiveBreakpoints: {
+                portrait: {
+                    changePoint: 480,
+                    visibleItems: 2
+                },
+                landscape: {
+                    changePoint: 640,
+                    visibleItems: 3
+                },
+                tablet: {
+                    changePoint: 768,
+                    visibleItems: 5
+                }
+            }
+        });
+    });
+
+    </script>
+}

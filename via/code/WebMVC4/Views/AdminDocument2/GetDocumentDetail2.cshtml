@@ -1,0 +1,593 @@
+﻿@{
+    Layout = "~/Views/Shared/_AdminV2.cshtml";
+}
+@using BIZ.Entity
+@using UTILS
+@using WebMVC4.Helper
+@model DOCUMENT_FULL
+@{
+    List<CATEGORY_FULL> ListCate = ViewBag.CategoryList;
+}
+<div class="well">
+    <span class="label label-danger">
+        Chú ý!
+    </span>
+    <span>
+        Hãy chắc chắn nhập vào đầy đủ thông tin tại các mục bắt buộc đánh dấu (*)
+    </span>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <i class="fa fa-fw fa-user-md"></i><span>@ViewBag.Title </span>
+            </div>
+            <form id="defaultForm" method="post" class="form-horizontal">
+                <div class="panel-group" id="steps">
+                    <div class="messager-body">
+                        <div class="alert alert-success display-hide alert-dismissable">
+                            <button type="button" class="close" data-close="alert" aria-hidden="true">×</button>
+                            <span class="glyphicon glyphicon-ok"></span>
+                            <label>Đã lưu dữ liệu thành công !!!</label>
+                        </div>
+                        <div class="alert alert-danger display-hide alert-dismissable">
+                            <button type="button" class="close" data-close="alert" aria-hidden="true">×</button>
+                            <span class="glyphicon glyphicon-warning-sign"></span>
+                            <label>Có một vài lỗi trong khung nhập liệu dưới đây ! kiểm tra lại</label>
+                        </div>
+                    </div>
+                    <div class="panel panel-info">
+                        <div id="Errordiv" style="margin:20px;color:red;font-size:13pt"><center></center></div><br />
+                        @*<div class="panel-heading">
+                                <h4 class="panel-title"><i class="fa fa-wrench" style="margin-right:7px"></i>Thông Tin Cơ Bản</h4>
+                            </div>*@
+                        <div style="padding: 10px 0 0 0;background-color:#fff !important">
+                            <ul class="nav nav-tabs">
+                                <li class="active"><a href="#tabs-info" data-toggle="tab"><strong>Thông tin chính</strong></a></li>
+                                <li><a href="#tabs-step" data-toggle="tab"><strong>Các bước</strong></a></li>
+                                <li><a href="#tabs-profile" data-toggle="tab"><strong>Hồ sơ</strong></a></li>
+                                <li><a href="#tabs-request" data-toggle="tab"><strong>Yêu cầu</strong></a></li>
+                            </ul>
+                            <div class="tab-content" style="margin-top: 30px;">
+                                <div class="tab-pane active" id="tabs-info">
+                                    <div class="col-md-12">
+                                        <div>
+                                            <!-- dành cho UpdateFunction -->
+                                            <div class="form-group">
+                                                <label for="txtTitle" class="control-label col-md-3">Tên thủ tục hc :<span class="required">*</span></label>
+                                                <div class="col-md-9">
+                                                    <div class="input-icon right">
+                                                        <input type="text" id="txtTitle" name="title" value="@Model.Name" class="form-control" placeholder="Nhập tên thủ tục hc" />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group" style="display:none">
+                                                <label for="txtSignedByDesc" class="control-label col-md-3">Loại văn bản:<span class="required">*</span></label>
+                                                <div class="col-md-9">
+                                                    <div class="input-icon right">
+                                                        <select class="form-control" id="ddlType">
+                                                            <option value="21" @if (Model.Type == 21) { @Html.Raw("selected='selected'") ; }>Thủ tục hành chính</option>
+
+
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="txtSignedByDesc" class="control-label col-md-3">Lĩnh vực:<span class="required">*</span></label>
+                                                <div class="col-md-9">
+                                                    <div class="input-icon right">
+                                                        <select class="form-control" id="ddlArea">
+
+                                                            <option value="1" @if (Model.Area == 1) { @Html.Raw("selected='selected'") ; }>Công nghiệp nặng</option>
+                                                            <option value="2" @if (Model.Area == 2) { @Html.Raw("selected='selected'") ; }>Công nghiệp thực phẩm</option>
+                                                            <option value="3" @if (Model.Area == 3) { @Html.Raw("selected='selected'") ; }>Công nghiệp chế biến, chế tạo</option>
+                                                            <option value="4" @if (Model.Area == 4) { @Html.Raw("selected='selected'") ; }>Công nghiệp hỗ trợ</option>
+
+
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group" style="display:none">
+                                                <label for="txtCode" class="control-label col-md-3">Mã văn bản :<span class="required">*</span></label>
+                                                <div class="col-md-9">
+                                                    <div class="input-icon right">
+                                                        <input type="text" id="txtCode" name="code" value="@Model.Code" class="form-control" placeholder="Nhập mã văn bản" />
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group" style="display:none">
+                                                <label for="txtImgPath" class="control-label col-md-3">File:<span class="required">*</span></label>
+                                                <div class="col-md-8">
+                                                    <input type="text" id="txtFilePath" name="filepath" value="@Model.FilePath" class="form-control" placeholder="Nhập đường dẫn file" />
+                                                </div>
+                                                <div class="col-md-1">
+                                                    <a href="javascript:;" onclick="CommonCtrl.PopupManagerImages('txtFilePath');"><i class="fa fa-file"></i></a>
+                                                </div>
+                                            </div>
+
+
+
+                                            <div class="form-group">
+                                                <label for="txtSignedByDesc" class="control-label col-md-3">Cơ quan ban hành:<span class="required">*</span></label>
+                                                <div class="col-md-9">
+                                                    <div class="input-icon right">
+                                                        <select class="form-control" id="ddlAgent">
+
+
+                                                            <option value="2" @if (Model.Agent == 2) { @Html.Raw("selected='selected'") ; }>Bộ Công Thương</option>
+                                                            <option value="1" @if (Model.Agent == 1) { @Html.Raw("selected='selected'") ; }>Bộ Công nghiệp</option>
+                                                            <option value="11" @if (Model.Agent == 11) { @Html.Raw("selected='selected'") ; }>Thủ tướng Chính phủ</option>
+                                                            <option value="5" @if (Model.Agent == 5) { @Html.Raw("selected='selected'") ; }>Bộ Tài chính</option>
+                                                            <option value="15" @if (Model.Agent == 15) { @Html.Raw("selected='selected'") ; }>Cục Công nghiệp</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group" style="display:none">
+                                                <label for="txtSignedBy" class="control-label col-md-3"> Người ký:<span class="required">*</span></label>
+                                                <div class="col-md-9">
+                                                    <div class="input-icon right">
+                                                        <input type="text" id="txtSignedBy" name="SignedBy" value="@Model.SignedBy" class="form-control" />
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group" style="display:none">
+                                                <label for="txtPublicTime" class="control-label col-md-3">Ngày ban hành :<span class="required">*</span></label>
+                                                <div class="col-md-9">
+                                                    <div class="input-icon right">
+                                                        <input type="text" id="txtPublicTime" data-date-format="DD/MM/YYYY" name="publictime" value="@HtmlHelpers.GetDateDocument(Model.PublishDate)" class="form-control" />
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="txtMethod" class="control-label col-md-3"> Cách thức thực hiện:<span class="required">*</span></label>
+                                                <div class="col-md-9">
+                                                    <div class="input-icon right">
+                                                        <input type="text" id="txtMethod" name="Method" value="@Model.Extend.Method" class="form-control" />
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="txtTime" class="control-label col-md-3"> Thời gian giải quyết:<span class="required">*</span></label>
+                                                <div class="col-md-9">
+                                                    <div class="input-icon right">
+                                                        <input type="text" id="txtTime" name="Time" value="@Model.Extend.Time" class="form-control" />
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="txtSubject" class="control-label col-md-3"> Đối tượng thực hiện:<span class="required">*</span></label>
+                                                <div class="col-md-9">
+                                                    <div class="input-icon right">
+                                                        <input type="text" id="txtSubject" name="Subject" value="@Model.Extend.Subject" class="form-control" />
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="txtDirectAgency" class="control-label col-md-3"> Cơ quan trực tiếp thực hiện:<span class="required">*</span></label>
+                                                <div class="col-md-9">
+                                                    <div class="input-icon right">
+                                                        <input type="text" id="txtDirectAgency" name="DirectAgency" value="@Model.Extend.DirectAgency" class="form-control" />
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="txtResult" class="control-label col-md-3"> Kết quả thực hiện:<span class="required">*</span></label>
+                                                <div class="col-md-9">
+                                                    <div class="input-icon right">
+                                                        <input type="text" id="txtResult" name="Result" value="@Model.Extend.Result" class="form-control" />
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="txtAddress" class="control-label col-md-3"> Địa chỉ tiếp nhận hồ sơ:<span class="required">*</span></label>
+                                                <div class="col-md-9">
+                                                    <div class="input-icon right">
+                                                        <input type="text" id="txtAddress" name="Address" value="@Model.Extend.Address" class="form-control" />
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="txtStatus" class="control-label col-md-3"> Tình trạng hiệu lực:<span class="required">*</span></label>
+                                                <div class="col-md-9">
+                                                    <div class="input-icon right">
+                                                        <input type="text" id="txtStatus" name="Statuss" value="@Model.Extend.Status" class="form-control" />
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="txtEffectiveDate" class="control-label col-md-3">Ngày có hiệu lực :</label>
+                                                <div class="col-md-9">
+                                                    <div class="input-icon right">
+                                                        <input type="text" id="txtEffectiveDate" data-date-format="DD/MM/YYYY" name="EffectiveDate" value="@HtmlHelpers.GetDateDocument(Model.EffectiveDate)" class="form-control" />
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="txtExpiryDate" class="control-label col-md-3"> Ngày hết hiệu lực :</label>
+                                                <div class="col-md-9">
+                                                    <div class="input-icon right">
+                                                        <input type="text" id="txtExpiryDate" data-date-format="DD/MM/YYYY" name="ExpiryDate" value="@HtmlHelpers.GetDateDocument(Model.ExpiryDate)" class="form-control" />
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group" style="display:none">
+                                                <label for="txtSignedByDesc" class="control-label col-md-3">Tình trạng hiệu lực:<span class="required">*</span></label>
+                                                <div class="col-md-9">
+                                                    <div class="input-icon right">
+                                                        <select class="form-control" id="ddlHits">
+
+                                                            <option value="1" @if (Model.Hits == 1) { @Html.Raw("selected='selected'") ; }>Còn hiệu lực</option>
+                                                            <option value="0" @if (Model.Hits == 0) { @Html.Raw("selected='selected'") ; }>Hết liệu lục</option>
+                                                            <option value="2" @if (Model.Hits == 2) { @Html.Raw("selected='selected'") ; }>Chưa có hiệu lực</option>
+
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="control-label col-md-3" for="cbxIsActive">Trạng thái :</label>
+                                                <div class="col-md-4">
+                                                    <div class="checkbox">
+                                                        @if (Model.Status == 1)
+                                                        {<input type="checkbox" id="cbxIsActive" checked="checked" />}
+                                                        else
+                                                        {<input type="checkbox" id="cbxIsActive" />}
+
+                                                    </div>
+                                                </div>
+                                            </div>
+
+
+
+
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="tab-pane " id="tabs-step">
+                                  
+                                    <div>
+                                        <textarea id="txtStep" name="Step">@Html.Raw(Model.Extend.Step)</textarea>
+                                    </div>
+                                    <script>
+                                        $(document).ready(function () {
+
+                                            var editor2 = CKEDITOR.instances['txtStep'];
+                                            if (editor2) {
+                                                CKEDITOR.remove(editor2);
+                                            }
+                                            CKEDITOR.replace('txtStep', {
+                                                filebrowserBrowseUrl: "/Admin/Content/images/ManageImage",
+                                                filebrowserWindowWidth: '1200',
+                                                filebrowserWindowHeight: '800',
+                                                uiColor: '#FAFAFA',
+                                                allowedContent: true,
+
+                                                height: 300
+                                            });
+                                        });
+                                    </script>
+                                </div>
+                                <div class="tab-pane " id="tabs-profile">
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label for="txtProfile" class="control-label col-md-3">Thành phần hồ sơ :<span class="required">*</span></label>
+                                            <div class="col-md-9">
+                                                <div class="input-icon right">
+                                                    <textarea id="txtProfile" style="height: 100px;" cols="20" name="Profile" class="form-control">@Model.Extend.Profile</textarea>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="txtNumber" class="control-label col-md-3"> Số bộ hồ sơ:<span class="required">*</span></label>
+                                            <div class="col-md-9">
+                                                <div class="input-icon right">
+                                                    <input type="text" id="txtNumber" name="Number" value="@Model.Extend.Number" class="form-control" />
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div id="dvfile">
+                                            <div class="form-group">
+                                                <div class="col-md-5">
+                                                    <input type="text" id="txtFileParamName1" value="@Model.Extend.Name1" class="form-control" placeholder="Nhập tên tài liệu" />
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <input type="text" id="txtFileParamPath1" value="@Model.Extend.Path1" class="form-control" placeholder="Nhập đường dẫn" />
+                                                </div>
+                                                <div class="col-md-1">
+                                                    <a href="javascript:;" onclick="CommonCtrl.PopupManagerImages('txtFileParamPath1');"><i class="fa fa-file"></i></a>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <div class="col-md-5">
+                                                    <input type="text" id="txtFileParamName2" value="@Model.Extend.Name2" class="form-control" placeholder="Nhập tên tài liệu" />
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <input type="text" id="txtFileParamPath2" value="@Model.Extend.Path2" class="form-control" placeholder="Nhập đường dẫn" />
+                                                </div>
+                                                <div class="col-md-1">
+                                                    <a href="javascript:;" onclick="CommonCtrl.PopupManagerImages('txtFileParamPath2');"><i class="fa fa-file"></i></a>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <div class="col-md-5">
+                                                    <input type="text" id="txtFileParamName3" value="@Model.Extend.Name3" class="form-control" placeholder="Nhập tên tài liệu" />
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <input type="text" id="txtFileParamPath3" value="@Model.Extend.Path3" class="form-control" placeholder="Nhập đường dẫn" />
+                                                </div>
+                                                <div class="col-md-1">
+                                                    <a href="javascript:;" onclick="CommonCtrl.PopupManagerImages('txtFileParamPath3');"><i class="fa fa-file"></i></a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <script>
+                                            $(document).ready(function () {
+
+                                                var editor3 = CKEDITOR.instances['txtProfile'];
+                                                if (editor3) {
+                                                    CKEDITOR.remove(editor3);
+                                                }
+                                                CKEDITOR.replace('txtProfile', {
+                                                    filebrowserBrowseUrl: "/Admin/Content/images/ManageImage",
+                                                    filebrowserWindowWidth: '1200',
+                                                    filebrowserWindowHeight: '800',
+                                                    uiColor: '#FAFAFA',
+                                                    allowedContent: true,
+                                                    height: 300
+                                                });
+                                            });
+                                        </script>
+                                    </div>
+                                </div>
+                                <div class="tab-pane " id="tabs-request">
+                                    <div>
+                                        <textarea id="txtRequest" name="Request">@Html.Raw(Model.Extend.Request)</textarea>
+                                    </div>
+                                    <script>
+                                        $(document).ready(function () {
+
+                                            var editor = CKEDITOR.instances['txtRequest'];
+                                            if (editor) {
+                                                CKEDITOR.remove(editor);
+                                            }
+                                            CKEDITOR.replace('txtRequest', {
+                                                filebrowserBrowseUrl: "/Admin/Content/images/ManageImage",
+                                                filebrowserWindowWidth: '1200',
+                                                filebrowserWindowHeight: '800',
+                                                uiColor: '#FAFAFA',
+                                                allowedContent: true,
+                                              
+                                                height: 300
+                                            });
+                                        });
+                                    </script>
+                                </div>
+                            </div>
+                            <div class="panel-footer form-horizontal">
+                                <div class="form-group submit">
+
+
+                                    <button type="submit" class="btn btn-primary" id="btsubmit"><i class="fa fa-save"></i>Lưu lại</button>
+                                    <button type="button" class="btn btn-default" id="btnBack" onclick="GotoListpage();"><i class="fa fa-backward"></i>Quay lại</button>
+                                </div>
+                            </div>
+                            <div style="clear:both"></div>
+                        </div>
+
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+<script>
+    $('#menu_managedoc').addClass("active");
+
+</script>
+<script>
+    function GotoListpage() {
+        window.location = '@Url.Action("Index2")';
+    }
+    $(document).ready(function () {
+
+
+
+        $('#txtExpiryDate').datetimepicker({
+            //pickTime: false
+        });
+        $('#txtEffectiveDate').datetimepicker({
+            //pickTime: false
+        });
+        $('#txtPublicTime').datetimepicker({
+            //pickTime: false
+        });
+        $("button.close").click(function () {
+            $(this).parent().css("display", "none");
+        });
+        $('#defaultForm').bootstrapValidator({
+            message: 'This value is not valid',
+            //live: 'submitted',
+            feedbackIcons: {
+                valid: 'glyphicon glyphicon-ok',
+                invalid: 'glyphicon glyphicon-remove',
+                validating: 'glyphicon glyphicon-refresh'
+            },
+            fields: {
+
+                title: {
+                    message: 'Nhập tên ',
+                    validators: {
+                        notEmpty: {
+                            message: 'tên  không được bỏ trống'
+                        },
+
+                        stringLength: {
+                            min: 10,
+                            max: 250,
+                            message: 'tên  nhỏ nhất 10 ký tự và nhiều nhất 250 ký tự'
+                        },
+
+                    }
+                },
+               
+               
+                //description: {
+                //    message: 'Bạn chưa nhập tóm lược.',
+                //    validators: {
+                //        notEmpty: {
+                //            message: 'Bạn chưa nhập tóm lược'
+                //        },
+
+                //    }
+                //},
+                //SignedByDesc: {
+                //    message: 'Bạn chưa nhập cơ quan ban hành.',
+                //    validators: {
+                //        notEmpty: {
+                //            message: 'Bạn chưa nhập cơ quan ban hành'
+                //        },
+
+                //    }
+                //},
+                //SignedBy: {
+                //    message: 'Bạn chưa nhập người ký.',
+                //    validators: {
+                //        notEmpty: {
+                //            message: 'Bạn chưa nhập người ký'
+                //        },
+
+                //    }
+                //},
+                //filepath: {
+                //    validators: {
+                //        notEmpty: {
+                //            message: 'File không được bỏ trống'
+                //        }
+                //    }
+                //}
+
+            }
+        })
+        .on('success.form.bv', function (e) {
+            // Prevent submit form
+            e.preventDefault();
+
+            var $form = $(e.target),
+                validator = $form.data('bootstrapValidator');
+            SaveData();
+            $(".close").click(function () {
+                $(".alert-success").css("display", "none");
+            });
+        })
+        .on('error.form.bv', function (e) {
+            // Active the panel element containing the first invalid element
+            e.preventDefault();
+            var $form = $(e.target),
+            validator = $form.data('bootstrapValidator');
+            $(".alert-danger label").text("Có một vài lỗi trong khung nhập liệu dưới đây ! kiểm tra lại");
+            $(".alert-danger").css("display", "block");
+            $(".close").click(function () {
+                $(".alert-danger").css("display", "none");
+                $(".alert-success").css("display", "none");
+            });
+        });
+
+        $("#btnReset").click(function () {
+            $('#defaultForm').data('bootstrapValidator').resetForm(true);
+            $(".alert-danger").css("display", "none");
+            $(".alert-success").css("display", "none");
+        });
+
+        //Save Data
+        function SaveData() {
+            var param = {
+                'Id': '@Model.Id',
+                'Name': $("#txtTitle").val(),
+                'Description': $("#txtSummary").val(),
+                'FilePath': $("#txtFilePath").val(),
+                'CategoryId': $("#ddlMainCate").val(),
+                'Type': $("#ddlType").val(),
+                'Agent': $("#ddlAgent").val(),
+                'Area': $("#ddlArea").val(),
+                'Hits': $("#ddlHits").val(),
+                'CategoryPathway': $("#ddlMainCate option:selected").attr("title"),
+                'Code': $("#txtCode").val(),
+                'SignedByDesc': '',
+                'SignedBy': $("#txtSignedBy").val(),
+                'SExpiryDate': $('#txtExpiryDate').val(),
+                'SEffectiveDate': $('#txtEffectiveDate').val(),
+                'SPublishDate': $('#txtPublicTime').val(),
+                'Status': $("#cbxIsActive").is(":checked") ? 1 : 0,
+
+                'Extend.Method': $("#txtMethod").val(),
+                'Extend.Time': $("#txtTime").val(),
+                'Extend.Subject': $("#txtSubject").val(),
+                'Extend.DirectAgency': $("#txtDirectAgency").val(),
+                'Extend.Address': $("#txtAddress").val(),
+                'Extend.Result': $("#txtResult").val(),
+                'Extend.Status': $("#txtStatus").val(),
+                'Extend.Number': $("#txtNumber").val(),
+                'Extend.Name1': $("#txtFileParamName1").val(),
+                'Extend.Path1': $("#txtFileParamPath1").val(),
+                'Extend.Name2': $("#txtFileParamName2").val(),
+                'Extend.Path2': $("#txtFileParamPath2").val(),
+                'Extend.Name3': $("#txtFileParamName3").val(),
+                'Extend.Path3': $("#txtFileParamPath3").val(),
+                'Extend.Step': CKEDITOR.instances['txtStep'].getSnapshot(),
+                'Extend.Profile': CKEDITOR.instances['txtProfile'].getSnapshot(),
+                'Extend.Request': CKEDITOR.instances['txtRequest'].getSnapshot(),
+            }
+            Utils.Loading();
+            $.ajax({
+                type: 'POST',
+                url: "@Url.Action("SaveData2")",
+                data: addAntiForgeryToken(param),
+            async: true,
+            success: function (data) {
+                Utils.UnLoading();
+                if (data.ResponseCode >= 0) {
+                    $("html,body").animate({ scrollTop: $('#TemplateContent').offset().top }, 'fast');
+                    $(".alert-success").show("slow");
+                    $(".alert-danger").hide("slow");
+                    setTimeout(function () { $(".alert-success").hide("slow"); GotoListpage(); }, 500);
+
+                }
+                else {
+                    $("html,body").animate({ scrollTop: $('#TemplateContent').offset().top }, 'fast');
+                    $("#ErrorMessage").text(data.Description);
+                    $(".alert-danger").show("slow");
+                    $(".alert-success").hide("slow");
+                    setTimeout(function () { $(".alert-danger").hide("slow"); }, 2000);
+                }
+            }
+        });
+    };
+    });
+</script>
+<style>
+    .input-icon {
+        position: relative;
+        width: 100%;
+    }
+</style>

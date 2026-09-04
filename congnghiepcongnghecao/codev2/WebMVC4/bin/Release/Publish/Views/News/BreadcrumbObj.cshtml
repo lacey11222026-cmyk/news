@@ -1,0 +1,32 @@
+﻿@using BIZ
+@using UTILS
+@using WebMVC4.Helper
+@model BIZ.Entity.CATEGORY_FULL
+@using BIZ.Entity
+@{
+
+   
+
+
+}
+@if (Model != null)
+{
+    if (Model.ParentId > 0)
+    {
+         var parrent = new CategoryBO().GetCategoryFull(Model.ParentId.GetValueOrDefault());
+        <ul class="sub list-inline">
+            <li><a href="@Utils.FormatUrlRewriteByType(parrent.Id, parrent.Name, (int) parrent.Type)">@parrent.Name</a>&gt;&gt;</li>
+            <li><a href="@Utils.FormatUrlRewriteByType(Model.Id, Model.Name, (int) Model.Type)">@Model.Name</a></li>
+        </ul>
+    }
+    else
+    {
+        <ul class="sub list-inline">
+            <li><a href="/">Trang chủ</a>&gt;&gt;</li>
+            <li><a href="@Utils.FormatUrlRewriteByType(Model.Id, Model.Name, (int) Model.Type)">@Model.Name</a></li>
+        </ul>
+    }
+
+
+
+}

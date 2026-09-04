@@ -1,0 +1,51 @@
+﻿@model List<DATA.Banner>
+@if (Model != null)
+{
+    <div class="padtop" id="bannerright">
+        <div class="qc">
+            @foreach (var item in Model.Select((value, i) => new {i, value}))
+            {
+                <a href="@item.value.Url" rel="nofollow">
+                    <img width="270" src="@item.value.Data" alt="@item.value.Name"/></a>
+            }
+
+        </div>
+    </div>
+    <script>
+        var offset = $('#bannerright').offset();
+        $(window)
+            .scroll(function() {
+
+                var scrollTop = $(window).scrollTop();
+                var scrollBottom = (document.body.scrollHeight - $(this).scrollTop()) - $(this).height();
+                if (offset.top < scrollTop && (scrollTop > 300 && scrollBottom > 0)) {
+
+                    $('#bannerright').addClass('fixed');
+
+                } else {
+                    $('#bannerright').removeClass('fixed');
+
+                }
+
+
+            });
+
+    </script>
+    <style>
+        .fixed {
+            position: fixed;
+            top: 0px !important;
+            margin-top: 0px !important;
+            width: 270px;
+        }
+
+        .fixed-2 {
+            position: absolute;
+            bottom: 0px !important;
+            margin-top: 0px !important;
+            width: 270px;
+        }
+
+        
+    </style>
+}

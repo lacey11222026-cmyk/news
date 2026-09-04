@@ -1,0 +1,98 @@
+﻿@model List<DATA.Banner>
+
+
+@if (Model != null)
+{
+
+    if (Model.Count == 1)
+    {
+        foreach (var item in Model.Take(1).Select((value, i) => new { i, value }))
+        {
+            <a href="@item.value.Url" rel="nofollow" target="_blank"><img src="@item.value.Data" alt="@item.value.Name"></a>
+        }
+    }
+    else
+    {
+        <div id="myCarousel05" class="carousel slide" data-ride="carousel">
+            <ol class="carousel-indicators">
+                @foreach (var item in Model.Select((value, i) => new { i, value }))
+                {
+                    <li data-target="#myCarousel05" data-slide-to="@item.i" class="@(item.i==0?" active":"")"></li>
+                }
+            </ol>
+            <!-- Wrapper for slides -->
+            <div class="carousel-inner">
+                @foreach (var item in Model.Select((value, i) => new { i, value }))
+                {
+                    <div class="@(item.i==0?"item active":"item")">
+                        <a href="@item.value.Url" rel="nofollow" target="_blank">
+                            <img src="@item.value.Data" alt="@item.value.Name" />
+                        </a>
+                    </div>
+                }
+            </div>
+        </div>
+    }
+
+
+
+}
+
+<div class="aboutus-list-wrap">
+    <div class="aboutus-list">
+        <div class="aboutus-item">
+            <div class="aboutus-img"><img src="https://media.depp3.vn/Images/User/quantri/2024/8/anh_chien.JPG?w=181&h=181&mode=crop"></div>
+            <div class="about-us-content">
+                <p class="colleague-name">&#212;ng Vũ Văn Chiến</p>
+                <p class="job-name">Tổng Gi&#225;m đốc C&#244;ng ty CP S&#244;ng Đ&#224; Cao Cường</p>
+                <p class="mt5 talk-txt">&quot;Chương tr&#236;nh thỏa thuận tự nguyện về tiết kiệm năng lượng do Bộ C&#244;ng Thương chủ tr&#236; phối hợp với chuy&#234;n gia Đan Mạch th&#236; doanh nghiệp ch&#250;ng t&#244;i đ&#225;nh gi&#225; l&#224; chương tr&#236;nh ấy rất tốt cho c&#225;c đơn vị sản xuất n&#243;i chung v&#224; đối với doanh nghiệp sản xuất vật liệu x&#226;y dựng như C&#244;ng ty CP S&#244;ng Đ&#224; Cao Cường n&#243;i ri&#234;ng.&quot;</p>
+            </div>
+        </div>
+        <div class="aboutus-item">
+            <div class="aboutus-img"><img src="https://media.depp3.vn/Images/User/quantri/2024/8/anh_giang.JPG?w=181&h=181&mode=crop"></div>
+            <div class="about-us-content">
+                <p class="colleague-name">&#212;ng L&#234; Khắc Giang</p>
+                <p class="job-name">Ph&#243; Trưởng ph&#242;ng Sản xuất, ph&#243; Ban Quản l&#253; năng lượng, C&#244;ng ty TNHH NatSteelVina</p>
+                <p class="mt5 talk-txt">&quot;Trước đ&#226;y, c&#244;ng ty cũng đ&#227; mời một số đơn vị tư vấn để t&#236;m phương &#225;n n&#226;ng cấp hệ thống điều khiển l&#242; nung nhưng kh&#244;ng đạt kết quả. Sau khi tiếp cận b&#225;o c&#225;o tiền khả thi của Dự &#225;n đ&#227; cho ph&#233;p c&#244;ng ty nhận diện được những tiềm năng v&#224; phương ph&#225;p &#225;p dụng c&#244;ng nghệ v&#224;o để cải tiến hiệu suất l&#242; nung.&quot;</p>
+            </div>
+        </div>
+    </div>
+    <div class="aboutus-list">
+        <div class="aboutus-item">
+            <div class="aboutus-img"><img src="https://media.depp3.vn/Images/User/duonght/2024/9/gom-su-cth.png?w=181&h=181&mode=crop"></div>
+            <div class="about-us-content">
+                <p class="colleague-name">&#212;ng Trần Trung Th&#224;nh </p>
+                <p class="job-name">Ph&#243; Gi&#225;m đốc C&#244;ng ty Cổ phần Gốm sứ CTH</p>
+                <p class="mt5 talk-txt">&quot;Qua qu&#225; tr&#236;nh l&#224;m việc với Chương tr&#236;nh, đội ngũ CTH đ&#227; biết c&#225;ch thu thập số liệu chi tiết tại từng c&#244;ng đoạn sản xuất, tiếp cận Sơ đồ năng lượng mới v&#224; thảo luận c&#225;c giải ph&#225;p tiết kiệm với chuy&#234;n gia. Ch&#250;ng t&#244;i tin tưởng sự hợp t&#225;c n&#224;y sẽ gi&#250;p giảm chi ph&#237; năng lượng, n&#226;ng cao hiệu quả sản xuất, giảm t&#225;c động m&#244;i trường v&#224; tăng cường vị thế cạnh tranh của CTH.&quot;</p>
+            </div>
+        </div>
+        <div class="aboutus-item">
+            <div class="aboutus-img"><img src="https://media.depp3.vn/Images/User/duonght/2024/9/nha-may-giay-xuong-giang.png?w=181&h=181&mode=crop"></div>
+            <div class="about-us-content">
+                <p class="colleague-name">&#212;ng Ph&#249;ng Xu&#226;n Quang</p>
+                <p class="job-name">Ph&#243; Gi&#225;m đốc Nh&#224; m&#225;y Giấy Xương Giang</p>
+                <p class="mt5 talk-txt">&quot;Ch&#250;ng t&#244;i rất quan t&#226;m đến việc sử dụng năng lượng tiết kiệm v&#224; hiệu quả trong nh&#224; m&#225;y. Nhờ sự gi&#250;p đỡ của c&#225;c chuy&#234;n gia Dự &#225;n DEPP3, nh&#224; m&#225;y đ&#227; ph&#225;t hiện một số tiềm năng tiết kiệm năng lượng c&#243; t&#237;nh khả thi cao. Ch&#250;ng t&#244;i mong sớm nhận được kết quả b&#225;o c&#225;o để triển khai c&#225;c phương &#225;n cải tạo cụ thể, ph&#249; hợp với điều kiện v&#224; định hướng ph&#225;t triển của nh&#224; m&#225;y.&quot;</p>
+            </div>
+        </div>
+    </div>
+    <div class="aboutus-list-wrap">
+        <div class="aboutus-list">
+            <div class="aboutus-item">
+                <div class="aboutus-img"><img src="https://media.depp3.vn/Images/User/duonght/2024/10/thuy_san_(1).jpg?w=181&h=181&mode=crop"></div>
+                <div class="about-us-content">
+                    <p class="colleague-name">&#212;ng Phạm Bảo Quốc</p>
+                    <p class="job-name">Ph&#243; Gi&#225;m đốc C&#244;ng ty Cổ Phần Thủy Sản NTSF</p>
+                    <p class="mt5 talk-txt">&quot;Được sự hỗ trợ của Chương tr&#236;nh VAS, ch&#250;ng t&#244;i đ&#227; nhận thấy một số bất cập hiện hữu trong qu&#225; tr&#236;nh điều h&#224;nh sản xuất, cũng như trong hệ thống ti&#234;u thụ năng lượng tại c&#244;ng ty. Qua đ&#243; nh&#236;n nhận v&#224; định hướng được phương hướng cải tạo những bất cập tr&#234;n trong điều kiện c&#243; thể của doanh nghiệp hoặc tiếp tục được sự trợ gi&#250;p từ Chương tr&#236;nh VAS.&quot;</p>
+                </div>
+            </div>
+            <div class="aboutus-item">
+                <div class="aboutus-img"><img src="https://media.depp3.vn/Images/User/duonght/2024/10/ttdd.jpg?w=181&h=181&mode=crop"></div>
+                <div class="about-us-content">
+                    <p class="colleague-name">&#212;ng Đ&#224;o Duy Tuấn H&#249;ng</p>
+                    <p class="job-name">Ph&#243; Tổng Gi&#225;m Đốc C&#244;ng ty TNHH Th&#233;p T&#226;y Đ&#244;</p>
+                    <p class="mt5 talk-txt">&quot;Th&#244;ng qua Chương tr&#236;nh VAS, C&#244;ng ty đ&#227; quản l&#253; v&#224; sử dụng năng lượng một c&#225;ch b&#224;i bản v&#224; hiệu quả hơn. Qua qu&#225; tr&#236;nh kiểm to&#225;n năng lượng, C&#244;ng ty c&#243; thể nhận diện c&#225;c cơ hội cải tiến r&#245; rệt để tiết kiệm năng lượng, từ đ&#243; n&#226;ng cao năng lực cạnh tranh. Ngo&#224;i ra, ch&#250;ng t&#244;i mong rằng Chương tr&#236;nh sẽ gi&#250;p C&#244;ng ty kết nối với c&#225;c tổ chức t&#224;i ch&#237;nh để nhận hỗ trợ nguồn vốn, từ đ&#243; triển khai nhanh ch&#243;ng c&#225;c giải ph&#225;p tiết kiệm năng lượng với hiệu quả cao.&quot;</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

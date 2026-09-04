@@ -1,0 +1,33 @@
+﻿@using BIZ
+@using UTILS
+@using WebMVC4.Helper
+@model List<BIZ.Entity.CATEGORY_FULL>
+@{
+    var langpage = WorkContext.GetLanguage();
+}
+<div class="col-md-6 col-sm-6 col-12">
+    @if (langpage == "vi-vn")
+    {
+        <p class="f-title">Về JETP</p>
+    }
+    else
+    {
+        <p class="f-title">About JETP</p>
+    }
+
+    <ul class="f-link">
+        @foreach (var item in Model.Take(4).Select((value, i) => new { i, value }))
+        {
+            <li><a href="@item.value.Url">@item.value.Name</a></li>
+        }
+
+    </ul>
+</div>
+<div class="col-md-6 col-sm-6 col-12">
+    <ul class="f-link">
+        @foreach (var item in Model.Skip(4).Select((value, i) => new { i, value }))
+        {
+           <li><a href="@item.value.Url">@item.value.Name</a></li>
+        }
+    </ul>
+</div>

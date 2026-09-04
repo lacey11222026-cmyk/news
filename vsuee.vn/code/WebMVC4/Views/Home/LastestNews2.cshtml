@@ -1,0 +1,31 @@
+﻿@using BIZ
+@using UTILS
+@using WebMVC4.Helper
+@model WebMVC4.Models.LastestNewModel
+@if (Model != null)
+{
+    if (Model.lstdata!=null)
+    {
+
+<ul class="ducoment-list">
+    @foreach (var item in Model.lstdata.Select((value, i) => new { i, value }))
+    {
+        <li>
+            <div style="min-height:42px">
+                <a href="@item.value.LinkUrl" class="document-name">@item.value.Title</a>
+                <ul class="ducoment-btn">
+                    <li><a href="#"><i class="icon-download"></i><span>@item.value.IsHot</span></a></li>
+                    <li><a href="#"><i class="icon-view"></i><span>@item.value.Hits</span></a></li>
+                </ul>
+            </div>
+        </li>
+    }
+    </ul>
+        <div class="text-center mt20">
+            <a href="@Model.Url" class="btn-green">@Resources.Global.More</a>
+        </div>
+        
+
+
+    }
+}

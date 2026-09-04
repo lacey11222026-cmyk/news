@@ -1,0 +1,902 @@
+﻿@using UTILS
+@using WebMVC4.Helper
+@model List<DATA.ContentDB.TestLocation>
+
+<div class="map-inner">
+    <img src="/Content/images/map/map.png" alt="" width="450" usemap="#Map">
+    <map name="Map">
+        <area shape="circle" coords="142,103,10" href="#" class="hanoi">
+        <area shape="poly" coords="92,556,102,552,112,550,115,540,121,546,129,554,134,560,123,568,127,577,134,582,128,591,124,598,123,602,112,596,107,598,110,586,113,576,106,574,102,567,94,570,90,559" href="#" class="angiang">
+        <area shape="circle" coords="182,87,11" href="#" class="bacninh">
+        <area shape="poly" coords="105,603,108,631,117,636,132,621,144,609,146,603,135,603,133,598,122,604,106,603" href="#" class="camau">
+        <area shape="poly" coords="133,567,147,582,164,594,163,604,155,608,143,602,134,594,136,583,127,570,131,567" href="#" class="cantho">
+        <area shape="poly" coords="127,16,140,13,146,20,158,18,165,23,175,21,183,28,176,40,171,45,161,39,156,43,155,37,149,37,144,28,135,28,126,21,128,17" href="#" class="caobang">
+        <area shape="poly" coords="233,312,228,314,221,319,209,327,221,343,238,354,242,364,248,351,265,341,249,324,237,309,234,312" href="#" class="danang">
+        <area shape="poly" coords="290,420,277,423,276,433,267,447,253,435,229,432,220,444,226,456,235,460,242,482,258,476,267,474,268,467,274,467,276,462,294,455,289,423,289,420" href="#" class="daklak">
+        <area shape="poly" coords="9,41,18,55,21,52,29,61,45,53,58,68,49,85,50,97,42,106,28,94,33,76,26,67,23,71,16,62,4,45,8,40" href="#" class="dienbien">
+        <area shape="poly" coords="171,503,175,495,190,491,203,483,214,496,209,505,219,521,213,532,222,539,209,544,195,551,194,536,198,522,191,522,174,506" href="#" class="dongnai">
+        <area shape="poly" coords="122,539,134,540,154,557,167,557,150,570,143,569,139,560,122,541" href="#" class="dongthap">
+        <area shape="poly" coords="219,406,280,376,291,410,271,423,274,432,270,444,250,431,225,430,220,407" href="#" class="gialai">
+        <area shape="poly" coords="121,206,137,208,142,204,171,230,163,235,155,229,142,230,132,224,127,224,119,214,122,207" href="#" class="hatinh">
+        <area shape="circle" coords="173,110,9" href="#" class="haiphong">
+        <area shape="poly" coords="196,550,215,546,221,553,207,561,199,557,194,551" href="#" class="hochiminh">
+        <area shape="poly" coords="202,300,211,290,233,306,218,315,203,313,200,303,201,300" href="#" class="hue">
+        <area shape="circle" coords="170,125,7" href="#" class="hungyen">
+        <area shape="poly" coords="290,459,270,473,268,507,277,520,289,505,290,457" href="#" class="khanhhoa">
+        <area shape="poly" coords="10,37,18,31,31,40,47,27,55,34,62,47,69,66,51,53,33,58,11,39" href="#" class="laichau">
+        <area shape="poly" coords="207,480,216,478,222,458,240,485,267,480,273,518,231,548,218,533,225,515,210,483" href="#" class="lamdong">
+        <area shape="poly" coords="171,45,164,48,153,63,164,78,184,73,196,84,202,73,178,45,173,46" href="#" class="langson">
+        <area shape="poly" coords="63,28,74,38,84,27,94,41,117,72,107,87,91,85,87,74,71,73,60,35,63,28" href="#" class="laocai">
+        <area shape="poly" coords="113,148,127,168,141,174,139,190,144,205,123,206,70,179,77,165,95,168,112,148" href="#" class="nghean">
+        <area shape="circle" coords="156,132,11" href="#" class="ninhbinh">
+        <area shape="poly" coords="119,75,107,94,113,109,124,123,141,132,144,126,122,104,123,91,136,95,142,89,135,79,122,76" href="#" class="phutho">
+        <area shape="poly" coords="267,345,248,360,236,363,227,350,214,396,217,405,240,394,255,382,274,374,282,374,275,364,274,345,269,344" href="#" class="quangngai">
+        <area shape="poly" coords="210,76,232,76,211,89,214,99,200,106,188,105,174,97,193,96,196,88,211,80" href="#" class="quangninh">
+        <area shape="poly" coords="148,234,171,236,208,285,196,300,183,296,166,263,140,236,147,233" href="#" class="quangtri">
+        <area shape="poly" coords="45,109,67,113,78,105,99,117,113,111,105,91,83,79,65,72,56,72,54,97,44,107" href="#" class="sonla">
+        <area shape="poly" coords="170,507,151,508,149,524,162,533,157,545,143,536,134,537,163,558,181,557,167,543,168,527,170,509" href="#" class="tayninh">
+        <area shape="poly" coords="142,38,130,50,136,65,136,79,150,84,159,75,153,61,160,50,144,38" href="#" class="thainguyen">
+        <area shape="poly" coords="102,118,152,145,144,173,122,155,115,144,98,135,98,118" href="#" class="thanhhoa">
+        <area shape="poly" coords="95,29,106,20,109,8,130,6,136,14,122,21,140,33,131,55,136,67,136,76,125,73,93,31" href="#" class="tuyenquang">
+        <area shape="circle" coords="168,578,16" href="#" class="vinhlong">
+    </map>
+
+    <div class="area-list" style="display:none">
+        <div class="hanoi-content map-item">
+            <p class="name-add-mb">Tỉnh: Hà Nội</p>
+            <img src="/Content/images/map/hanoi.png" alt="" width="450" usemap="#Map" class="hanoi-img map-img">
+            <div class="area-content">
+                <div>
+                    <div class="name-add"><p>Hà Nội</p></div>
+                    <div class="area-content-inner">
+                        <table>
+                            <tr>
+                                <td><p class="icon-check">Số kiểm toán viên năng lượng:</p></td>
+                                <td><p class="num">@Model.FirstOrDefault(x => x.Name == "Hà Nội").Number1.ToString("N0", new System.Globalization.CultureInfo("vi-VN"))</p></td>
+                            </tr>
+                            <tr>
+                                <td><p class="icon-check">Số người quản lý năng lượng:</p></td>
+                                <td><p class="num">@Model.FirstOrDefault(x => x.Name == "Hà Nội").Number2.ToString("N0", new System.Globalization.CultureInfo("vi-VN"))</p></td>
+                            </tr>
+                            <tr>
+                                <td><p class="icon-check">Số đơn vị cung cấp dịch vụ, đơn vị tư vấn:</p></td>
+                                <td><p class="num">@Model.FirstOrDefault(x => x.Name == "Hà Nội").Number3.ToString("N0", new System.Globalization.CultureInfo("vi-VN"))</p></td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="angiang-content map-item">
+            <p class="name-add-mb">Tỉnh: An Giang</p>
+            <img src="/Content/images/map/angiang.png" alt="" width="450" usemap="#Map" class="angiang-img map-img">
+            <div class="area-content">
+                <div>
+                    <div class="name-add"><p>An Giang</p></div>
+                    <div class="area-content-inner">
+                        <table>
+                            <tr>
+                                <td><p class="icon-check">Số kiểm toán viên năng lượng:</p></td>
+                                <td><p class="num">@Model.FirstOrDefault(x => x.Name == "An Giang").Number1.ToString("N0", new System.Globalization.CultureInfo("vi-VN"))</p></td>
+                            </tr>
+                            <tr>
+                                <td><p class="icon-check">Số người quản lý năng lượng:</p></td>
+                                <td><p class="num">@Model.FirstOrDefault(x => x.Name == "An Giang").Number2.ToString("N0", new System.Globalization.CultureInfo("vi-VN"))</p></td>
+                            </tr>
+                            <tr>
+                                <td><p class="icon-check">Số đơn vị cung cấp dịch vụ, đơn vị tư vấn:</p></td>
+                                <td><p class="num">@Model.FirstOrDefault(x => x.Name == "An Giang").Number1.ToString("N0", new System.Globalization.CultureInfo("vi-VN"))</p></td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="bacninh-content map-item">
+            <p class="name-add-mb">Tỉnh: Bắc Ninh</p>
+            <img src="/Content/images/map/bacninh.png" alt="" width="450" usemap="#Map" class="bacninh-img map-img">
+            <div class="area-content">
+                <div>
+                    <div class="name-add"><p>Bắc Ninh</p></div>
+                    <div class="area-content-inner">
+                        <table>
+                            <tr>
+                                <td><p class="icon-check">Số kiểm toán viên năng lượng:</p></td>
+                                <td><p class="num">@Model.FirstOrDefault(x => x.Name == "Bắc Ninh").Number1.ToString("N0", new System.Globalization.CultureInfo("vi-VN"))</p></td>
+                            </tr>
+                            <tr>
+                                <td><p class="icon-check">Số người quản lý năng lượng:</p></td>
+                                <td><p class="num">@Model.FirstOrDefault(x => x.Name == "Bắc Ninh").Number2.ToString("N0", new System.Globalization.CultureInfo("vi-VN"))</p></td>
+                            </tr>
+                            <tr>
+                                <td><p class="num">@Model.FirstOrDefault(x => x.Name == "Bắc Ninh").Number3.ToString("N0", new System.Globalization.CultureInfo("vi-VN"))</p></td>
+                                <td><p class="num">35</p></td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="camau-content map-item">
+            <p class="name-add-mb">Tỉnh: Cà Mau</p>
+            <img src="/Content/images/map/camau.png" alt="" width="450" usemap="#Map" class="camau-img map-img">
+            <div class="area-content">
+                <div>
+                    <div class="name-add"><p>Cà Mau</p></div>
+                    <div class="area-content-inner">
+                        <table>
+                            <tr>
+                                <td><p class="icon-check">Số kiểm toán viên năng lượng:</p></td>
+                                <td><p class="num">@Model.FirstOrDefault(x => x.Name == "Cà Mau").Number1.ToString("N0", new System.Globalization.CultureInfo("vi-VN"))</p></td>
+                            </tr>
+                            <tr>
+                                <td><p class="icon-check">Số người quản lý năng lượng:</p></td>
+                                <td><p class="num">@Model.FirstOrDefault(x => x.Name == "Cà Mau").Number2.ToString("N0", new System.Globalization.CultureInfo("vi-VN"))</p></td>
+                            </tr>
+                            <tr>
+                                <td><p class="icon-check">Số đơn vị cung cấp dịch vụ, đơn vị tư vấn:</p></td>
+                                <td><p class="num">@Model.FirstOrDefault(x => x.Name == "Cà Mau").Number3.ToString("N0", new System.Globalization.CultureInfo("vi-VN"))</p></td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="cantho-content map-item">
+            <p class="name-add-mb">Tỉnh: Cần Thơ</p>
+            <img src="/Content/images/map/cantho.png" alt="" width="450" usemap="#Map" class="cantho-img map-img">
+            <div class="area-content">
+                <div>
+                    <div class="name-add"><p>Cần Thơ</p></div>
+                    <div class="area-content-inner">
+                        <table>
+                            <tr>
+                                <td><p class="icon-check">Số kiểm toán viên năng lượng:</p></td>
+                                <td><p class="num">@Model.FirstOrDefault(x => x.Name == "Cần Thơ").Number1.ToString("N0", new System.Globalization.CultureInfo("vi-VN"))</p></td>
+                            </tr>
+                            <tr>
+                                <td><p class="icon-check">Số người quản lý năng lượng:</p></td>
+                                <td><p class="num">@Model.FirstOrDefault(x => x.Name == "Cần Thơ").Number2.ToString("N0", new System.Globalization.CultureInfo("vi-VN"))</p></td>
+                            </tr>
+                            <tr>
+                                <td><p class="icon-check">Số đơn vị cung cấp dịch vụ, đơn vị tư vấn:</p></td>
+                                <td><p class="num">@Model.FirstOrDefault(x => x.Name == "Cần Thơ").Number3.ToString("N0", new System.Globalization.CultureInfo("vi-VN"))</p></td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="caobang-content map-item">
+            <p class="name-add-mb">Tỉnh: Cao Bằng</p>
+            <img src="/Content/images/map/caobang.png" alt="" width="450" usemap="#Map" class="caobang-img map-img">
+            <div class="area-content">
+                <div>
+                    <div class="name-add"><p>Cao Bằng</p></div>
+                    <div class="area-content-inner">
+                        <table>
+                            <tr>
+                                <td><p class="icon-check">Số kiểm toán viên năng lượng:</p></td>
+                                <td><p class="num">@Model.FirstOrDefault(x => x.Name == "Cao Bằng").Number1.ToString("N0", new System.Globalization.CultureInfo("vi-VN"))</p></td>
+                            </tr>
+                            <tr>
+                                <td><p class="icon-check">Số người quản lý năng lượng:</p></td>
+                                <td><p class="num">@Model.FirstOrDefault(x => x.Name == "Cao Bằng").Number2.ToString("N0", new System.Globalization.CultureInfo("vi-VN"))</p></td>
+                            </tr>
+                            <tr>
+                                <td><p class="icon-check">Số đơn vị cung cấp dịch vụ, đơn vị tư vấn:</p></td>
+                                <td><p class="num">@Model.FirstOrDefault(x => x.Name == "Cao Bằng").Number3.ToString("N0", new System.Globalization.CultureInfo("vi-VN"))</p></td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="danang-content map-item">
+            <p class="name-add-mb">Tỉnh: Đà Nẵng</p>
+            <img src="/Content/images/map/danang.png" alt="" width="450" usemap="#Map" class="danang-img map-img">
+            <div class="area-content">
+                <div>
+                    <div class="name-add"><p>Đà Nẵng</p></div>
+                    <div class="area-content-inner">
+                        <table>
+                            <tr>
+                                <td><p class="icon-check">Số kiểm toán viên năng lượng:</p></td>
+                                <td><p class="num">@Model.FirstOrDefault(x => x.Name == "Đà Nẵng").Number1.ToString("N0", new System.Globalization.CultureInfo("vi-VN"))</p></td>
+                            </tr>
+                            <tr>
+                                <td><p class="icon-check">Số người quản lý năng lượng:</p></td>
+                                <td><p class="num">@Model.FirstOrDefault(x => x.Name == "Đà Nẵng").Number2.ToString("N0", new System.Globalization.CultureInfo("vi-VN"))</p></td>
+                            </tr>
+                            <tr>
+                                <td><p class="icon-check">Số đơn vị cung cấp dịch vụ, đơn vị tư vấn:</p></td>
+                                <td><p class="num">@Model.FirstOrDefault(x => x.Name == "Đà Nẵng").Number3.ToString("N0", new System.Globalization.CultureInfo("vi-VN"))</p></td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="daklak-content map-item">
+            <p class="name-add-mb">Tỉnh: Đắk Lắk</p>
+            <img src="/Content/images/map/daklak.png" alt="" width="450" usemap="#Map" class="daklak-img map-img">
+            <div class="area-content">
+                <div>
+                    <div class="name-add"><p>Đắk Lắk</p></div>
+                    <div class="area-content-inner">
+                        <table>
+                            <tr>
+                                <td><p class="icon-check">Số kiểm toán viên năng lượng:</p></td>
+                                <td><p class="num">@Model.FirstOrDefault(x => x.Name == "Đắk Lắk").Number1.ToString("N0", new System.Globalization.CultureInfo("vi-VN"))</p></td>
+                            </tr>
+                            <tr>
+                                <td><p class="icon-check">Số người quản lý năng lượng:</p></td>
+                                <td><p class="num">@Model.FirstOrDefault(x => x.Name == "Đắk Lắk").Number2.ToString("N0", new System.Globalization.CultureInfo("vi-VN"))</p></td>
+                            </tr>
+                            <tr>
+                                <td><p class="icon-check">Số đơn vị cung cấp dịch vụ, đơn vị tư vấn:</p></td>
+                                <td><p class="num">@Model.FirstOrDefault(x => x.Name == "Đắk Lắk").Number3.ToString("N0", new System.Globalization.CultureInfo("vi-VN"))</p></td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="dienbien-content map-item">
+            <p class="name-add-mb">Tỉnh: Điện Biên</p>
+            <img src="/Content/images/map/dienbien.png" alt="" width="450" usemap="#Map" class="dienbien-img map-img">
+            <div class="area-content">
+                <div>
+                    <div class="name-add"><p>Điện Biên</p></div>
+                    <div class="area-content-inner">
+                        <table>
+                            <tr>
+                                <td><p class="icon-check">Số kiểm toán viên năng lượng:</p></td>
+                                <td><p class="num">@Model.FirstOrDefault(x => x.Name == "Điện Biên").Number1.ToString("N0", new System.Globalization.CultureInfo("vi-VN"))</p></td>
+                            </tr>
+                            <tr>
+                                <td><p class="icon-check">Số người quản lý năng lượng:</p></td>
+                                <td><p class="num">@Model.FirstOrDefault(x => x.Name == "Điện Biên").Number2.ToString("N0", new System.Globalization.CultureInfo("vi-VN"))</p></td>
+                            </tr>
+                            <tr>
+                                <td><p class="icon-check">Số đơn vị cung cấp dịch vụ, đơn vị tư vấn:</p></td>
+                                <td><p class="num">@Model.FirstOrDefault(x => x.Name == "Điện Biên").Number3.ToString("N0", new System.Globalization.CultureInfo("vi-VN"))</p></td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="dongnai-content map-item">
+            <p class="name-add-mb">Tỉnh: Đồng Nai</p>
+            <img src="/Content/images/map/dongnai.png" alt="" width="450" usemap="#Map" class="dongnai-img map-img">
+            <div class="area-content">
+                <div>
+                    <div class="name-add"><p>Đồng Nai</p></div>
+                    <div class="area-content-inner">
+                        <table>
+                            <tr>
+                                <td><p class="icon-check">Số kiểm toán viên năng lượng:</p></td>
+                                <td><p class="num">@Model.FirstOrDefault(x => x.Name == "Đồng Nai").Number1.ToString("N0", new System.Globalization.CultureInfo("vi-VN"))</p></td>
+                            </tr>
+                            <tr>
+                                <td><p class="icon-check">Số người quản lý năng lượng:</p></td>
+                                <td><p class="num">@Model.FirstOrDefault(x => x.Name == "Đồng Nai").Number2.ToString("N0", new System.Globalization.CultureInfo("vi-VN"))</p></td>
+                            </tr>
+                            <tr>
+                                <td><p class="icon-check">Số đơn vị cung cấp dịch vụ, đơn vị tư vấn:</p></td>
+                                <td><p class="num">@Model.FirstOrDefault(x => x.Name == "Đồng Nai").Number3.ToString("N0", new System.Globalization.CultureInfo("vi-VN"))</p></td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="dongthap-content map-item">
+            <p class="name-add-mb">Tỉnh: Đồng Tháp</p>
+            <img src="/Content/images/map/dongthap.png" alt="" width="450" usemap="#Map" class="dongthap-img map-img">
+            <div class="area-content">
+                <div>
+                    <div class="name-add"><p>Đồng Tháp</p></div>
+                    <div class="area-content-inner">
+                        <table>
+                            <tr>
+                                <td><p class="icon-check">Số kiểm toán viên năng lượng:</p></td>
+                                <td><p class="num">@Model.FirstOrDefault(x => x.Name == "Đồng Tháp").Number1.ToString("N0", new System.Globalization.CultureInfo("vi-VN"))</p></td>
+                            </tr>
+                            <tr>
+                                <td><p class="icon-check">Số người quản lý năng lượng:</p></td>
+                                <td><p class="num">@Model.FirstOrDefault(x => x.Name == "Đồng Tháp").Number2.ToString("N0", new System.Globalization.CultureInfo("vi-VN"))</p></td>
+                            </tr>
+                            <tr>
+                                <td><p class="icon-check">Số đơn vị cung cấp dịch vụ, đơn vị tư vấn:</p></td>
+                                <td><p class="num">@Model.FirstOrDefault(x => x.Name == "Đồng Tháp").Number3.ToString("N0", new System.Globalization.CultureInfo("vi-VN"))</p></td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="gialai-content map-item">
+            <p class="name-add-mb">Tỉnh: Gia Lai</p>
+            <img src="/Content/images/map/gialai.png" alt="" width="450" usemap="#Map" class="gialai-img map-img">
+            <div class="area-content">
+                <div>
+                    <div class="name-add"><p>Gia Lai</p></div>
+                    <div class="area-content-inner">
+                        <table>
+                            <tr>
+                                <td><p class="icon-check">Số kiểm toán viên năng lượng:</p></td>
+                                <td><p class="num">@Model.FirstOrDefault(x => x.Name == "Gia Lai").Number1.ToString("N0", new System.Globalization.CultureInfo("vi-VN"))</p></td>
+                            </tr>
+                            <tr>
+                                <td><p class="icon-check">Số người quản lý năng lượng:</p></td>
+                                <td><p class="num">@Model.FirstOrDefault(x => x.Name == "Gia Lai").Number2.ToString("N0", new System.Globalization.CultureInfo("vi-VN"))</p></td>
+                            </tr>
+                            <tr>
+                                <td><p class="icon-check">Số đơn vị cung cấp dịch vụ, đơn vị tư vấn:</p></td>
+                                <td><p class="num">@Model.FirstOrDefault(x => x.Name == "Gia Lai").Number3.ToString("N0", new System.Globalization.CultureInfo("vi-VN"))</p></td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="hatinh-content map-item">
+            <p class="name-add-mb">Tỉnh: Hà Tĩnh</p>
+            <img src="/Content/images/map/hatinh.png" alt="" width="450" usemap="#Map" class="hatinh-img map-img">
+            <div class="area-content">
+                <div>
+                    <div class="name-add"><p>Hà Tĩnh</p></div>
+                    <div class="area-content-inner">
+                        <table>
+                            <tr>
+                                <td><p class="icon-check">Số kiểm toán viên năng lượng:</p></td>
+                                <td><p class="num">@Model.FirstOrDefault(x => x.Name == "Hà Tĩnh").Number1.ToString("N0", new System.Globalization.CultureInfo("vi-VN"))</p></td>
+                            </tr>
+                            <tr>
+                                <td><p class="icon-check">Số người quản lý năng lượng:</p></td>
+                                <td><p class="num">@Model.FirstOrDefault(x => x.Name == "Hà Tĩnh").Number2.ToString("N0", new System.Globalization.CultureInfo("vi-VN"))</p></td>
+                            </tr>
+                            <tr>
+                                <td><p class="icon-check">Số đơn vị cung cấp dịch vụ, đơn vị tư vấn:</p></td>
+                                <td><p class="num">@Model.FirstOrDefault(x => x.Name == "Hà Tĩnh").Number3.ToString("N0", new System.Globalization.CultureInfo("vi-VN"))</p></td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="haiphong-content map-item">
+            <p class="name-add-mb">Tỉnh: Hải Phòng</p>
+            <img src="/Content/images/map/haiphong.png" alt="" width="450" usemap="#Map" class="haiphong-img map-img">
+            <div class="area-content">
+                <div>
+                    <div class="name-add"><p>Hải Phòng</p></div>
+                    <div class="area-content-inner">
+                        <table>
+                            <tr>
+                                <td><p class="icon-check">Số kiểm toán viên năng lượng:</p></td>
+                                <td><p class="num">@Model.FirstOrDefault(x => x.Name == "Hải Phòng").Number1.ToString("N0", new System.Globalization.CultureInfo("vi-VN"))</p></td>
+                            </tr>
+                            <tr>
+                                <td><p class="icon-check">Số người quản lý năng lượng:</p></td>
+                                <td><p class="num">@Model.FirstOrDefault(x => x.Name == "Hải Phòng").Number2.ToString("N0", new System.Globalization.CultureInfo("vi-VN"))</p></td>
+                            </tr>
+                            <tr>
+                                <td><p class="icon-check">Số đơn vị cung cấp dịch vụ, đơn vị tư vấn:</p></td>
+                                <td><p class="num">@Model.FirstOrDefault(x => x.Name == "Hải Phòng").Number3.ToString("N0", new System.Globalization.CultureInfo("vi-VN"))</p></td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="hochiminh-content map-item">
+            <p class="name-add-mb">Tỉnh: Hồ Chí Minh</p>
+            <img src="/Content/images/map/hochiminh.png" alt="" width="450" usemap="#Map" class="hochiminh-img map-img">
+            <div class="area-content">
+                <div>
+                    <div class="name-add"><p>Hồ Chí Minh</p></div>
+                    <div class="area-content-inner">
+                        <table>
+                            <tr>
+                                <td><p class="icon-check">Số kiểm toán viên năng lượng:</p></td>
+                                <td><p class="num">@Model.FirstOrDefault(x => x.Name == "Hồ Chí Minh").Number1.ToString("N0", new System.Globalization.CultureInfo("vi-VN"))</p></td>
+                            </tr>
+                            <tr>
+                                <td><p class="icon-check">Số người quản lý năng lượng:</p></td>
+                                <td><p class="num">@Model.FirstOrDefault(x => x.Name == "Hồ Chí Minh").Number2.ToString("N0", new System.Globalization.CultureInfo("vi-VN"))</p></td>
+                            </tr>
+                            <tr>
+                                <td><p class="icon-check">Số đơn vị cung cấp dịch vụ, đơn vị tư vấn:</p></td>
+                                <td><p class="num">@Model.FirstOrDefault(x => x.Name == "Hồ Chí Minh").Number3.ToString("N0", new System.Globalization.CultureInfo("vi-VN"))</p></td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="hue-content map-item">
+            <p class="name-add-mb">Tỉnh: Huế</p>
+            <img src="/Content/images/map/hue.png" alt="" width="450" usemap="#Map" class="hue-img map-img">
+            <div class="area-content">
+                <div>
+                    <div class="name-add"><p>Huế</p></div>
+                    <div class="area-content-inner">
+                        <table>
+                            <tr>
+                                <td><p class="icon-check">Số kiểm toán viên năng lượng:</p></td>
+                                <td><p class="num">@Model.FirstOrDefault(x => x.Name == "Huế").Number1.ToString("N0", new System.Globalization.CultureInfo("vi-VN"))</p></td>
+                            </tr>
+                            <tr>
+                                <td><p class="icon-check">Số người quản lý năng lượng:</p></td>
+                                <td><p class="num">@Model.FirstOrDefault(x => x.Name == "Huế").Number2.ToString("N0", new System.Globalization.CultureInfo("vi-VN"))</p></td>
+                            </tr>
+                            <tr>
+                                <td><p class="icon-check">Số đơn vị cung cấp dịch vụ, đơn vị tư vấn:</p></td>
+                                <td><p class="num">@Model.FirstOrDefault(x => x.Name == "Huế").Number3.ToString("N0", new System.Globalization.CultureInfo("vi-VN"))</p></td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="hungyen-content map-item">
+            <p class="name-add-mb">Tỉnh: Hưng Yên</p>
+            <img src="/Content/images/map/hungyen.png" alt="" width="450" usemap="#Map" class="hungyen-img map-img">
+            <div class="area-content">
+                <div>
+                    <div class="name-add"><p>Hưng Yên</p></div>
+                    <div class="area-content-inner">
+                        <table>
+                            <tr>
+                                <td><p class="icon-check">Số kiểm toán viên năng lượng:</p></td>
+                                <td><p class="num">@Model.FirstOrDefault(x => x.Name == "Hưng Yên").Number1.ToString("N0", new System.Globalization.CultureInfo("vi-VN"))</p></td>
+                            </tr>
+                            <tr>
+                                <td><p class="icon-check">Số người quản lý năng lượng:</p></td>
+                                <td><p class="num">@Model.FirstOrDefault(x => x.Name == "Hưng Yên").Number2.ToString("N0", new System.Globalization.CultureInfo("vi-VN"))</p></td>
+                            </tr>
+                            <tr>
+                                <td><p class="icon-check">Số đơn vị cung cấp dịch vụ, đơn vị tư vấn:</p></td>
+                                <td><p class="num">@Model.FirstOrDefault(x => x.Name == "Hưng Yên").Number3.ToString("N0", new System.Globalization.CultureInfo("vi-VN"))</p></td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="khanhhoa-content map-item">
+            <p class="name-add-mb">Tỉnh: Khánh Hòa</p>
+            <img src="/Content/images/map/khanhhoa.png" alt="" width="450" usemap="#Map" class="khanhhoa-img map-img">
+            <div class="area-content">
+                <div>
+                    <div class="name-add"><p>Khánh Hòa</p></div>
+                    <div class="area-content-inner">
+                        <table>
+                            <tr>
+                                <td><p class="icon-check">Số kiểm toán viên năng lượng:</p></td>
+                                <td><p class="num">@Model.FirstOrDefault(x => x.Name == "Khánh Hòa").Number1.ToString("N0", new System.Globalization.CultureInfo("vi-VN"))</p></td>
+                            </tr>
+                            <tr>
+                                <td><p class="icon-check">Số người quản lý năng lượng:</p></td>
+                                <td><p class="num">@Model.FirstOrDefault(x => x.Name == "Khánh Hòa").Number2.ToString("N0", new System.Globalization.CultureInfo("vi-VN"))</p></td>
+                            </tr>
+                            <tr>
+                                <td><p class="icon-check">Số đơn vị cung cấp dịch vụ, đơn vị tư vấn:</p></td>
+                                <td><p class="num">@Model.FirstOrDefault(x => x.Name == "Khánh Hòa").Number3.ToString("N0", new System.Globalization.CultureInfo("vi-VN"))</p></td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="laichau-content map-item">
+            <p class="name-add-mb">Tỉnh: Lai Châu</p>
+            <img src="/Content/images/map/laichau.png" alt="" width="450" usemap="#Map" class="laichau-img map-img">
+            <div class="area-content">
+                <div>
+                    <div class="name-add"><p>Lai Châu</p></div>
+                    <div class="area-content-inner">
+                        <table>
+                            <tr>
+                                <td><p class="icon-check">Số kiểm toán viên năng lượng:</p></td>
+                                <td><p class="num">@Model.FirstOrDefault(x => x.Name == "Lai Châu").Number1.ToString("N0", new System.Globalization.CultureInfo("vi-VN"))</p></td>
+                            </tr>
+                            <tr>
+                                <td><p class="icon-check">Số người quản lý năng lượng:</p></td>
+                                <td><p class="num">@Model.FirstOrDefault(x => x.Name == "Lai Châu").Number2.ToString("N0", new System.Globalization.CultureInfo("vi-VN"))</p></td>
+                            </tr>
+                            <tr>
+                                <td><p class="icon-check">Số đơn vị cung cấp dịch vụ, đơn vị tư vấn:</p></td>
+                                <td><p class="num">@Model.FirstOrDefault(x => x.Name == "Lai Châu").Number3.ToString("N0", new System.Globalization.CultureInfo("vi-VN"))</p></td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="lamdong-content map-item">
+            <p class="name-add-mb">Tỉnh: Lâm Đồng</p>
+            <img src="/Content/images/map/lamdong.png" alt="" width="450" usemap="#Map" class="lamdong-img map-img">
+            <div class="area-content">
+                <div>
+                    <div class="name-add"><p>Lâm Đồng</p></div>
+                    <div class="area-content-inner">
+                        <table>
+                            <tr>
+                                <td><p class="icon-check">Số kiểm toán viên năng lượng:</p></td>
+                                <td><p class="num">@Model.FirstOrDefault(x => x.Name == "Lâm Đồng").Number1.ToString("N0", new System.Globalization.CultureInfo("vi-VN"))</p></td>
+                            </tr>
+                            <tr>
+                                <td><p class="icon-check">Số người quản lý năng lượng:</p></td>
+                                <td><p class="num">@Model.FirstOrDefault(x => x.Name == "Lâm Đồng").Number2.ToString("N0", new System.Globalization.CultureInfo("vi-VN"))</p></td>
+                            </tr>
+                            <tr>
+                                <td><p class="icon-check">Số đơn vị cung cấp dịch vụ, đơn vị tư vấn:</p></td>
+                                <td><p class="num">@Model.FirstOrDefault(x => x.Name == "Lâm Đồng").Number3.ToString("N0", new System.Globalization.CultureInfo("vi-VN"))</p></td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="langson-content map-item">
+            <p class="name-add-mb">Tỉnh: Lạng Sơn</p>
+            <img src="/Content/images/map/langson.png" alt="" width="450" usemap="#Map" class="langson-img map-img">
+            <div class="area-content">
+                <div>
+                    <div class="name-add"><p>Lạng Sơn</p></div>
+                    <div class="area-content-inner">
+                        <table>
+                            <tr>
+                                <td><p class="icon-check">Số kiểm toán viên năng lượng:</p></td>
+                                <td><p class="num">@Model.FirstOrDefault(x => x.Name == "Lạng Sơn").Number1.ToString("N0", new System.Globalization.CultureInfo("vi-VN"))</p></td>
+                            </tr>
+                            <tr>
+                                <td><p class="icon-check">Số người quản lý năng lượng:</p></td>
+                                <td><p class="num">@Model.FirstOrDefault(x => x.Name == "Lạng Sơn").Number2.ToString("N0", new System.Globalization.CultureInfo("vi-VN"))</p></td>
+                            </tr>
+                            <tr>
+                                <td><p class="icon-check">Số đơn vị cung cấp dịch vụ, đơn vị tư vấn:</p></td>
+                                <td><p class="num">@Model.FirstOrDefault(x => x.Name == "Lạng Sơn").Number3.ToString("N0", new System.Globalization.CultureInfo("vi-VN"))</p></td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="laocai-content map-item">
+            <p class="name-add-mb">Tỉnh: Lào Cai</p>
+            <img src="/Content/images/map/laocai.png" alt="" width="450" usemap="#Map" class="laocai-img map-img">
+            <div class="area-content">
+                <div>
+                    <div class="name-add"><p>Lào Cai</p></div>
+                    <div class="area-content-inner">
+                        <table>
+                            <tr>
+                                <td><p class="icon-check">Số kiểm toán viên năng lượng:</p></td>
+                                <td><p class="num">@Model.FirstOrDefault(x => x.Name == "Lào Cai").Number1.ToString("N0", new System.Globalization.CultureInfo("vi-VN"))</p></td>
+                            </tr>
+                            <tr>
+                                <td><p class="icon-check">Số người quản lý năng lượng:</p></td>
+                                <td><p class="num">@Model.FirstOrDefault(x => x.Name == "Lào Cai").Number2.ToString("N0", new System.Globalization.CultureInfo("vi-VN"))</p></td>
+                            </tr>
+                            <tr>
+                                <td><p class="icon-check">Số đơn vị cung cấp dịch vụ, đơn vị tư vấn:</p></td>
+                                <td><p class="num">@Model.FirstOrDefault(x => x.Name == "Lào Cai").Number3.ToString("N0", new System.Globalization.CultureInfo("vi-VN"))</p></td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="nghean-content map-item">
+            <p class="name-add-mb">Tỉnh: Nghệ An</p>
+            <img src="/Content/images/map/nghean.png" alt="" width="450" usemap="#Map" class="nghean-img map-img">
+            <div class="area-content">
+                <div>
+                    <div class="name-add"><p>Nghệ An</p></div>
+                    <div class="area-content-inner">
+                        <table>
+                            <tr>
+                                <td><p class="icon-check">Số kiểm toán viên năng lượng:</p></td>
+                                <td><p class="num">@Model.FirstOrDefault(x => x.Name == "Nghệ An").Number1.ToString("N0", new System.Globalization.CultureInfo("vi-VN"))</p></td>
+                            </tr>
+                            <tr>
+                                <td><p class="icon-check">Số người quản lý năng lượng:</p></td>
+                                <td><p class="num">@Model.FirstOrDefault(x => x.Name == "Nghệ An").Number2.ToString("N0", new System.Globalization.CultureInfo("vi-VN"))</p></td>
+                            </tr>
+                            <tr>
+                                <td><p class="icon-check">Số đơn vị cung cấp dịch vụ, đơn vị tư vấn:</p></td>
+                                <td><p class="num">@Model.FirstOrDefault(x => x.Name == "Nghệ An").Number3.ToString("N0", new System.Globalization.CultureInfo("vi-VN"))</p></td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="ninhbinh-content map-item">
+            <p class="name-add-mb">Tỉnh: Ninh Bình</p>
+            <img src="/Content/images/map/ninhbinh.png" alt="" width="450" usemap="#Map" class="ninhbinh-img map-img">
+            <div class="area-content">
+                <div>
+                    <div class="name-add"><p>Ninh Bình</p></div>
+                    <div class="area-content-inner">
+                        <table>
+                            <tr>
+                                <td><p class="icon-check">Số kiểm toán viên năng lượng:</p></td>
+                                <td><p class="num">@Model.FirstOrDefault(x => x.Name == "Ninh Bình").Number1.ToString("N0", new System.Globalization.CultureInfo("vi-VN"))</p></td>
+                            </tr>
+                            <tr>
+                                <td><p class="icon-check">Số người quản lý năng lượng:</p></td>
+                                <td><p class="num">@Model.FirstOrDefault(x => x.Name == "Ninh Bình").Number2.ToString("N0", new System.Globalization.CultureInfo("vi-VN"))</p></td>
+                            </tr>
+                            <tr>
+                                <td><p class="icon-check">Số đơn vị cung cấp dịch vụ, đơn vị tư vấn:</p></td>
+                                <td><p class="num">@Model.FirstOrDefault(x => x.Name == "Ninh Bình").Number3.ToString("N0", new System.Globalization.CultureInfo("vi-VN"))</p></td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="phutho-content map-item">
+            <p class="name-add-mb">Tỉnh: Phú Thọ</p>
+            <img src="/Content/images/map/phutho.png" alt="" width="450" usemap="#Map" class="phutho-img map-img">
+            <div class="area-content">
+                <div>
+                    <div class="name-add"><p>Phú Thọ</p></div>
+                    <div class="area-content-inner">
+                        <table>
+                            <tr>
+                                <td><p class="icon-check">Số kiểm toán viên năng lượng:</p></td>
+                                <td><p class="num">@Model.FirstOrDefault(x => x.Name == "Phú Thọ").Number1.ToString("N0", new System.Globalization.CultureInfo("vi-VN"))</p></td>
+                            </tr>
+                            <tr>
+                                <td><p class="icon-check">Số người quản lý năng lượng:</p></td>
+                                <td><p class="num">@Model.FirstOrDefault(x => x.Name == "Phú Thọ").Number2.ToString("N0", new System.Globalization.CultureInfo("vi-VN"))</p></td>
+                            </tr>
+                            <tr>
+                                <td><p class="icon-check">Số đơn vị cung cấp dịch vụ, đơn vị tư vấn:</p></td>
+                                <td><p class="num">@Model.FirstOrDefault(x => x.Name == "Phú Thọ").Number3.ToString("N0", new System.Globalization.CultureInfo("vi-VN"))</p></td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="quangngai-content map-item">
+            <p class="name-add-mb">Tỉnh: Quảng Ngãi</p>
+            <img src="/Content/images/map/quangngai.png" alt="" width="450" usemap="#Map" class="quangngai-img map-img">
+            <div class="area-content">
+                <div>
+                    <div class="name-add"><p>Quảng Ngãi</p></div>
+                    <div class="area-content-inner">
+                        <table>
+                            <tr>
+                                <td><p class="icon-check">Số kiểm toán viên năng lượng:</p></td>
+                                <td><p class="num">@Model.FirstOrDefault(x => x.Name == "Quảng Ngãi").Number1.ToString("N0", new System.Globalization.CultureInfo("vi-VN"))</p></td>
+                            </tr>
+                            <tr>
+                                <td><p class="icon-check">Số người quản lý năng lượng:</p></td>
+                                <td><p class="num">@Model.FirstOrDefault(x => x.Name == "Quảng Ngãi").Number2.ToString("N0", new System.Globalization.CultureInfo("vi-VN"))</p></td>
+                            </tr>
+                            <tr>
+                                <td><p class="icon-check">Số đơn vị cung cấp dịch vụ, đơn vị tư vấn:</p></td>
+                                <td><p class="num">@Model.FirstOrDefault(x => x.Name == "Quảng Ngãi").Number3.ToString("N0", new System.Globalization.CultureInfo("vi-VN"))</p></td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="quangninh-content map-item">
+            <p class="name-add-mb">Tỉnh: Quảng Ninh</p>
+            <img src="/Content/images/map/quangninh.png" alt="" width="450" usemap="#Map" class="quangninh-img map-img">
+            <div class="area-content">
+                <div>
+                    <div class="name-add"><p>Quảng Ninh</p></div>
+                    <div class="area-content-inner">
+                        <table>
+                            <tr>
+                                <td><p class="icon-check">Số kiểm toán viên năng lượng:</p></td>
+                                <td><p class="num">@Model.FirstOrDefault(x => x.Name == "Quảng Ninh").Number1.ToString("N0", new System.Globalization.CultureInfo("vi-VN"))</p></td>
+                            </tr>
+                            <tr>
+                                <td><p class="icon-check">Số người quản lý năng lượng:</p></td>
+                                <td><p class="num">@Model.FirstOrDefault(x => x.Name == "Quảng Ninh").Number2.ToString("N0", new System.Globalization.CultureInfo("vi-VN"))</p></td>
+                            </tr>
+                            <tr>
+                                <td><p class="icon-check">Số đơn vị cung cấp dịch vụ, đơn vị tư vấn:</p></td>
+                                <td><p class="num">@Model.FirstOrDefault(x => x.Name == "Quảng Ninh").Number3.ToString("N0", new System.Globalization.CultureInfo("vi-VN"))</p></td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="quangtri-content map-item">
+            <p class="name-add-mb">Tỉnh: Quảng Trị</p>
+            <img src="/Content/images/map/quangtri.png" alt="" width="450" usemap="#Map" class="quangtri-img map-img">
+            <div class="area-content">
+                <div>
+                    <div class="name-add"><p>Quảng Trị</p></div>
+                    <div class="area-content-inner">
+                        <table>
+                            <tr>
+                                <td><p class="icon-check">Số kiểm toán viên năng lượng:</p></td>
+                                <td><p class="num">@Model.FirstOrDefault(x => x.Name == "Quảng Trị").Number1.ToString("N0", new System.Globalization.CultureInfo("vi-VN"))</p></td>
+                            </tr>
+                            <tr>
+                                <td><p class="icon-check">Số người quản lý năng lượng:</p></td>
+                                <td><p class="num">@Model.FirstOrDefault(x => x.Name == "Quảng Trị").Number2.ToString("N0", new System.Globalization.CultureInfo("vi-VN"))</p></td>
+                            </tr>
+                            <tr>
+                                <td><p class="icon-check">Số đơn vị cung cấp dịch vụ, đơn vị tư vấn:</p></td>
+                                <td><p class="num">@Model.FirstOrDefault(x => x.Name == "Quảng Trị").Number3.ToString("N0", new System.Globalization.CultureInfo("vi-VN"))</p></td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="sonla-content map-item">
+            <p class="name-add-mb">Tỉnh: Sơn La</p>
+            <img src="/Content/images/map/sonla.png" alt="" width="450" usemap="#Map" class="sonla-img map-img">
+            <div class="area-content">
+                <div>
+                    <div class="name-add"><p>Sơn La</p></div>
+                    <div class="area-content-inner">
+                        <table>
+                            <tr>
+                                <td><p class="icon-check">Số kiểm toán viên năng lượng:</p></td>
+                                <td><p class="num">@Model.FirstOrDefault(x => x.Name == "Sơn La").Number1.ToString("N0", new System.Globalization.CultureInfo("vi-VN"))</p></td>
+                            </tr>
+                            <tr>
+                                <td><p class="icon-check">Số người quản lý năng lượng:</p></td>
+                                <td><p class="num">@Model.FirstOrDefault(x => x.Name == "Sơn La").Number2.ToString("N0", new System.Globalization.CultureInfo("vi-VN"))</p></td>
+                            </tr>
+                            <tr>
+                                <td><p class="icon-check">Số đơn vị cung cấp dịch vụ, đơn vị tư vấn:</p></td>
+                                <td><p class="num">@Model.FirstOrDefault(x => x.Name == "Sơn La").Number3.ToString("N0", new System.Globalization.CultureInfo("vi-VN"))</p></td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="tayninh-content map-item">
+            <p class="name-add-mb">Tỉnh: Tây Ninh</p>
+            <img src="/Content/images/map/tayninh.png" alt="" width="450" usemap="#Map" class="tayninh-img map-img">
+            <div class="area-content">
+                <div>
+                    <div class="name-add"><p>Tây Ninh</p></div>
+                    <div class="area-content-inner">
+                        <table>
+                            <tr>
+                                <td><p class="icon-check">Số kiểm toán viên năng lượng:</p></td>
+                                <td><p class="num">@Model.FirstOrDefault(x => x.Name == "Tây Ninh").Number1.ToString("N0", new System.Globalization.CultureInfo("vi-VN"))</p></td>
+                            </tr>
+                            <tr>
+                                <td><p class="icon-check">Số người quản lý năng lượng:</p></td>
+                                <td><p class="num">@Model.FirstOrDefault(x => x.Name == "Tây Ninh").Number2.ToString("N0", new System.Globalization.CultureInfo("vi-VN"))</p></td>
+                            </tr>
+                            <tr>
+                                <td><p class="icon-check">Số đơn vị cung cấp dịch vụ, đơn vị tư vấn:</p></td>
+                                <td><p class="num">@Model.FirstOrDefault(x => x.Name == "Tây Ninh").Number3.ToString("N0", new System.Globalization.CultureInfo("vi-VN"))</p></td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="thainguyen-content map-item">
+            <p class="name-add-mb">Tỉnh: Thái Nguyên</p>
+            <img src="/Content/images/map/thainguyen.png" alt="" width="450" usemap="#Map" class="thainguyen-img map-img">
+            <div class="area-content">
+                <div>
+                    <div class="name-add"><p>Thái Nguyên</p></div>
+                    <div class="area-content-inner">
+                        <table>
+                            <tr>
+                                <td><p class="icon-check">Số kiểm toán viên năng lượng:</p></td>
+                                <td><p class="num">@Model.FirstOrDefault(x => x.Name == "Thái Nguyên").Number1.ToString("N0", new System.Globalization.CultureInfo("vi-VN"))</p></td>
+                            </tr>
+                            <tr>
+                                <td><p class="icon-check">Số người quản lý năng lượng:</p></td>
+                                <td><p class="num">@Model.FirstOrDefault(x => x.Name == "Thái Nguyên").Number2.ToString("N0", new System.Globalization.CultureInfo("vi-VN"))</p></td>
+                            </tr>
+                            <tr>
+                                <td><p class="icon-check">Số đơn vị cung cấp dịch vụ, đơn vị tư vấn:</p></td>
+                                <td><p class="num">@Model.FirstOrDefault(x => x.Name == "Thái Nguyên").Number3.ToString("N0", new System.Globalization.CultureInfo("vi-VN"))</p></td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="thanhhoa-content map-item">
+            <p class="name-add-mb">Tỉnh: Thanh Hóa</p>
+            <img src="/Content/images/map/thanhhoa.png" alt="" width="450" usemap="#Map" class="thanhhoa-img map-img">
+            <div class="area-content">
+                <div>
+                    <div class="name-add"><p>Thanh Hóa</p></div>
+                    <div class="area-content-inner">
+                        <table>
+                            <tr>
+                                <td><p class="icon-check">Số kiểm toán viên năng lượng:</p></td>
+                                <td><p class="num">@Model.FirstOrDefault(x => x.Name == "Thanh Hóa").Number1.ToString("N0", new System.Globalization.CultureInfo("vi-VN"))</p></td>
+                            </tr>
+                            <tr>
+                                <td><p class="icon-check">Số người quản lý năng lượng:</p></td>
+                                <td><p class="num">@Model.FirstOrDefault(x => x.Name == "Thanh Hóa").Number2.ToString("N0", new System.Globalization.CultureInfo("vi-VN"))</p></td>
+                            </tr>
+                            <tr>
+                                <td><p class="icon-check">Số đơn vị cung cấp dịch vụ, đơn vị tư vấn:</p></td>
+                                <td><p class="num">@Model.FirstOrDefault(x => x.Name == "Thanh Hóa").Number3.ToString("N0", new System.Globalization.CultureInfo("vi-VN"))</p></td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="tuyenquang-content map-item">
+            <p class="name-add-mb">Tỉnh: Tuyên Quang</p>
+            <img src="/Content/images/map/tuyenquang.png" alt="" width="450" usemap="#Map" class="tuyenquang-img map-img">
+            <div class="area-content">
+                <div>
+                    <div class="name-add"><p>Tuyên Quang</p></div>
+                    <div class="area-content-inner">
+                        <table>
+                            <tr>
+                                <td><p class="icon-check">Số kiểm toán viên năng lượng:</p></td>
+                                <td><p class="num">@Model.FirstOrDefault(x => x.Name == "Tuyên Quang").Number1.ToString("N0", new System.Globalization.CultureInfo("vi-VN"))</p></td>
+                            </tr>
+                            <tr>
+                                <td><p class="icon-check">Số người quản lý năng lượng:</p></td>
+                                <td><p class="num">@Model.FirstOrDefault(x => x.Name == "Tuyên Quang").Number2.ToString("N0", new System.Globalization.CultureInfo("vi-VN"))</p></td>
+                            </tr>
+                            <tr>
+                                <td><p class="icon-check">Số đơn vị cung cấp dịch vụ, đơn vị tư vấn:</p></td>
+                                <td><p class="num">@Model.FirstOrDefault(x => x.Name == "Tuyên Quang").Number3.ToString("N0", new System.Globalization.CultureInfo("vi-VN"))</p></td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="vinhlong-content map-item">
+            <p class="name-add-mb">Tỉnh: Vĩnh Long</p>
+            <img src="/Content/images/map/vinhlong.png" alt="" width="450" usemap="#Map" class="vinhlong-img map-img">
+            <div class="area-content">
+                <div>
+                    <div class="name-add"><p>Vĩnh Long</p></div>
+                    <div class="area-content-inner">
+                        <table>
+                            <tr>
+                                <td><p class="icon-check">Số kiểm toán viên năng lượng:</p></td>
+                                <td><p class="num">@Model.FirstOrDefault(x => x.Name == "Vĩnh Long").Number1.ToString("N0", new System.Globalization.CultureInfo("vi-VN"))</p></td>
+                            </tr>
+                            <tr>
+                                <td><p class="icon-check">Số người quản lý năng lượng:</p></td>
+                                <td><p class="num">@Model.FirstOrDefault(x => x.Name == "Vĩnh Long").Number2.ToString("N0", new System.Globalization.CultureInfo("vi-VN"))</p></td>
+                            </tr>
+                            <tr>
+                                <td><p class="icon-check">Số đơn vị cung cấp dịch vụ, đơn vị tư vấn:</p></td>
+                                <td><p class="num">@Model.FirstOrDefault(x => x.Name == "Vĩnh Long").Number3.ToString("N0", new System.Globalization.CultureInfo("vi-VN"))</p></td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+<style>
+    .area-list {
+        visibility: visible !important;
+    }
+</style>

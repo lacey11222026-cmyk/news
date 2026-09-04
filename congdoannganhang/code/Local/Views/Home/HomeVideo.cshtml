@@ -1,0 +1,36 @@
+﻿@using BIZ
+@using UTILS
+@using Local.Helper
+@model List<BIZ.Entity.CONTENT_FULL>
+@if (Model != null)
+{
+  
+    
+    <div class="box_right">
+        <div class="box_tittle">
+            <div class="tittle_t"><a href="@ViewBag.Url">video clip</a></div>
+            <div class="more">
+                <a href="@ViewBag.Url" class="opa">
+                    <img src="/images/more.gif" /></a>
+
+            </div>
+            <div class="clear"></div>
+        </div>
+        <div class="clip">
+            @foreach (var item in Model.Select((value, i) => new { i, value }))
+            {
+                if (item.i == 0)
+                {
+                @Html.Raw(HtmlHelpers.EmbedVideo(item.value.Url, item.value.MainImage, "250", "207"))
+                }
+            }
+
+        </div>
+        <div class="clear"></div>
+    </div>
+}
+
+
+
+
+

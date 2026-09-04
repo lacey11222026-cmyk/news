@@ -1,0 +1,40 @@
+﻿@using BIZ
+@using UTILS
+@using WebMVC4.Helper
+@model List<BIZ.Entity.CATEGORY_FULL>
+@{
+    var langpage = WorkContext.GetLanguage();
+}
+<div class="f-content-01 hidden-mobile">
+    <div class="container">
+        <nav class="float-left nav-footer">
+            <ul>
+                <li><a href="/"><img src="/Content/images/icon-home.png" alt="Trang chủ"></a></li>
+
+                @foreach (var item in Model.Select((value, i) => new { i, value }))
+                {
+                    <li><a href="@item.value.Url">@item.value.Name</a></li>
+                }
+
+            </ul>
+        </nav>
+        <div class="float-right f-contact">
+            <ul class="list-inline">
+                @if (langpage == "vi-vn")
+                {
+                    <li><a href="#"><img src="/Content/images/icon-flag-vn.png"  alt="vn"></a></li>
+                }
+                else
+                {
+                    <li><a href="#"><img src="/Content/images/icon-flag-en.png" width="22" alt="en"></a></li>
+                }
+
+                <li>
+                    <span style="margin: 0 10px 0 30px;">@Resources.Global.Contact: </span>
+                    <a href="#"><img src="/Content/images/icon-face-gray.png" alt=""></a>
+                    <a href="#"><img src="/Content/images/icon-youtube-gray.png" alt=""></a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>

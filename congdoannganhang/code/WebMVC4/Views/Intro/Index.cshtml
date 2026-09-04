@@ -1,0 +1,150 @@
+﻿@using BIZ
+@using UTILS
+@using WebMVC4.Helper
+@model BIZ.Entity.CATEGORY_FULL
+@{
+    List<BIZ.Entity.CATEGORY_FULL> data = ViewBag.lstrelate;
+}
+@if (Model != null)
+{
+    <div class="container detail-page mt20">
+        <div class="row">
+            <div class="col-lg-8 col-md-12 col-sm-12">
+                <h2 class="title-cm"><a href="@Utils.FormatUrlRewriteByType(Model.Id, Model.Name, (int) Model.Type)">@Model.Name</a></h2>
+
+                @if (Model.Id != 22 && Model.Id != 68)
+                {
+                    <div class="mt30" id="NewsContent">
+
+                        @Html.Raw(Model.Contents.Replace("font-family:arial,helvetica,sans-serif;", "").Replace("font-family: arial, helvetica, sans-serif;", "").Replace("font-size: small; line-height: 130%","").Replace("font-size: small", ""))
+
+                    </div>
+                }
+                else
+                {
+                    if (Model.Id == 22)
+                    {
+                        <div class="intro" id="NewsContent">
+                            <link href="/Styles/hethongtochuc.css" rel="stylesheet" type="text/css" />
+                            <script>
+                                $(document)
+                                    .ready(function () {
+                                        $(".click")
+                                            .click(function () {
+                                                $(".click").hide();
+                                                $(".tool_phu .date").hide();
+                                                $(".submit_m").fadeIn();
+                                                $(".text_m").fadeIn("slow");
+
+                                            });
+                                    });
+                            </script>
+                            <script>
+                                $(document)
+                                    .ready(function () {
+                                        $("#congdoan-9")
+                                            .click(function () {
+                                                $(".congdoan").show(1000);
+                                                $(".congdoan-86").hide(500);
+                                                $(".daidien").hide(500);
+                                            });
+                                        $("#daidien-63")
+                                            .click(function () {
+                                                $(".congdoan").hide(500);
+                                                $(".congdoan-86").hide(500);
+                                                $(".daidien").show(1000);
+                                            });
+                                        $("#congdoan-86")
+                                            .click(function () {
+                                                $(".congdoan").hide(500);
+                                                $(".congdoan-86").show(1000);
+                                                $(".daidien").hide(500);
+                                            });
+                                    });
+                            </script>
+                            @{ Html.RenderAction("SystemPage", "Intro"); }
+                        </div>
+                    }
+                    if (Model.Id == 68)
+                    {
+                        <link href="/Styles/coquan.css" rel="stylesheet" type="text/css" />
+                        <div class="noidung">
+
+                            <script>
+                                $(document)
+                                    .ready(function () {
+                                        $(".click")
+                                            .click(function () {
+                                                $(".click").hide();
+                                                $(".tool_phu .date").hide();
+                                                $(".submit_m").fadeIn();
+                                                $(".text_m").fadeIn("slow");
+
+                                            });
+                                    });
+                            </script>
+                            @{ Html.RenderAction("OrganPage", "Intro"); }
+                        </div>
+                    }
+                }
+                <div class="mt50">
+                    @if (data != null)
+                    {
+                        if (data.Count > 0)
+                        {
+                            { Html.RenderAction("Relate", "Intro", new { data = data }); }
+                        }
+                    }
+
+                </div>
+            </div><!-- end col-lg-8-->
+            <div class="col-lg-4 col-md-12 col-sm-12 sidebar-right">
+
+                @Html.Partial("Site_Right")
+            </div><!-- end col-lg-4-->
+        </div>
+
+
+
+    </div>
+
+
+
+
+    <div class="clearfix"></div>
+
+    <script type="text/javascript">
+
+        function openWin(url) {
+            var myWindow = window.open(url, '', 'width=700,height=500');
+            myWindow.focus();
+        }
+        (function ($) {
+            $.fn.removeStyle = function (style) {
+                var search = new RegExp(style + '[^;]+;?', 'g');
+
+                return this.each(function () {
+                    $(this).attr('style', function (i, style) {
+                        return style.replace(search, '');
+                    });
+                });
+            };
+        }(jQuery));
+
+
+        $('.news_detail_img').removeAttr('style');
+        $('.news_detail_img').attr('style', 'margin:0 auto;text-align:center');
+
+        $('#NewsContent table').removeAttr('width');
+        $('#NewsContent span img').removeAttr('width');
+        $('#NewsContent img').removeAttr('width');
+        $('#NewsContent img').removeAttr('height');
+        $('#NewsContent img').removeAttr('style');
+
+        $('#NewsContent span').removeStyle('font-size');
+        $('#NewsContent div').removeStyle('font-size');
+        $('#NewsContent p').removeStyle('font-size');
+    </script>
+
+    
+}

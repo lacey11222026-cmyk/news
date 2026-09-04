@@ -1,0 +1,97 @@
+﻿@using BIZ
+@using UTILS
+@using WebMVC4.Helper
+@model WebMVC4.Models.ProductModel
+
+@if (Model != null)
+{
+    <div class="content container-fluid container">
+
+
+
+        <div id="container">
+            <div id="content" role="main">
+                <nav class="woocommerce-breadcrumb"><a href="/">Trang chủ</a><span class="navigation-pipe">&nbsp;</span>Tìm kiếm</nav>
+
+                <div class="row sidebar-right">
+                    <div class="view-product-list main-content col-xs-12 col-sm-12 col-md-12">
+
+
+                        <h1 class="page-title">
+                            <span>Tìm kiếm từ khóa "@(ViewBag.Keyword)"</span>
+
+                        </h1>
+
+                        <div class="list-product-row">
+
+
+                            @foreach (var item in Model.listdata.Select((value, i) => new { i, value }))
+                            {
+
+
+                                <div class="product-grid-item product product-no-swatches woodmart-hover-base  col-md-4 col-6 first  post-1437 type-product status-publish has-post-thumbnail product_cat-sofa first instock shipping-taxable purchasable product-type-simple" data-loop="1" data-id="1437">
+
+
+                                    <div class="product-wrapper">
+                                        <div class="content-product-imagin"></div>
+                                        <div class="product-element-top">
+                                            <a href="@UTILS.Utils.FormatUrlRewrite(item.value.Id,item.value.Name,"ProductDetail")" class="product-image-link">
+                                                <img width="300" height="300" src="@item.value.DescriptImage?h=300&w=300&mode=crop" class="attachment-woocommerce_thumbnail" alt="" />
+                                            </a>
+
+                                        </div>
+
+                                        <div class="product-information">
+                                            <h3 class="product-title"><a href="@UTILS.Utils.FormatUrlRewrite(item.value.Id,item.value.Name,"ProductDetail")">@item.value.Name</a></h3>
+                                            <div class="product-rating-price">
+                                                <div class="wrapp-product-price">
+
+                                                    <span class="price"><span class="woocommerce-Price-amount amount">@Utils.InsertCommaNoStyle(item.value.Price.ToString())</span></span>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+
+                                </div>
+
+
+                            }
+
+
+                        </div>
+
+                        <nav class="navigation pagination" role="navigation">
+
+                            <div class="nav-links">
+                                @{Html.RenderPartial("Pagination", new WebMVC4.Models.PaginationInfo
+                                    {
+                                        PageUrl = Url.SetParameter("Page", "!0"),
+                                        CurrentPage = Model.pageIndex,
+                                        PageSize = Model.pageSize,
+                                        TotalItemCount = Model.total,
+                                    }); }
+                            </div>
+                        </nav>
+
+                    </div>
+                    
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <script>
+        function loadmenu(categoryId, categoryName, manuId) {
+            $.ajax({
+                type: "Get",
+                url: "@Url.Action("TopManu")?CategoryId=" + categoryId + "&CateName=" + categoryName + "&ManuId=" + manuId,
+                success: function (data) {
+                    if (data) {
+                        $("#menu-manu").html(data);
+                    }
+                }
+            });
+        }
+    </script>
+                                    }

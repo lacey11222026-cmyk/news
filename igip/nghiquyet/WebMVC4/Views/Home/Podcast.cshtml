@@ -1,0 +1,24 @@
+﻿@using BIZ
+@using UTILS
+@using WebMVC4.Helper
+@model WebMVC4.Models.LastestNewModel
+@if (Model != null)
+{
+
+    <div class="row row-30">
+        @foreach (var item in Model.lstdata.Select((value, i) => new { i, value }))
+        {
+            <div class="col-md-3 col-sm-12">
+                <a href="/Podcast/@(item.value.Id)">
+                    <img src="@item.value.MainImage?w=275&h=383&mode=crop" alt="" class="w100">
+                    <span class="mt10 disblock">@item.value.Title</span>
+                </a>
+            </div>
+        }
+    </div>
+    <a href="/tin-tuc/c6/podcast" class="btn-viewmore-red mt30">Xem thêm</a>
+
+
+  
+
+}

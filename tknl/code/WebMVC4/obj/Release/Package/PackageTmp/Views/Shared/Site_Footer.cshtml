@@ -1,0 +1,106 @@
+﻿@using WebMVC4
+@{
+
+    var lstMenu = new BIZ.CategoryBO().GetAllCategoryFullsByPosition(UTILS.Constants.CategoryPosition.Footer, 18, false, "vi-vn");
+}
+@{var StaticSiteUrl = MvcApplication.StaticSiteUrl;}
+@*@{Html.RenderAction("BannerTop", "Banner");}*@
+<footer class="mt20">
+    <div class="">
+        <nav>
+            <ul class="container">
+                <li id="foot_home" class="home"><a href="/"><img src="@(StaticSiteUrl)/Content/images/icon-home-white.png"></a></li>
+                @foreach (var item in lstMenu.Select((value, i) => new { i, value }))
+                {
+                    <li id="foot_@item.value.Id"><a href="@UTILS.Utils.FormatUrlRewriteByType(item.value.Id, item.value.Name, int.Parse(item.value.Type.ToString()), item.value.Link)">@item.value.Name</a></li>
+                }
+            </ul>
+        </nav>
+        <div class="mt20 f-content container">
+            <div class="row">
+                <div class="col-md-8 col-xs-12">
+                    <div class="f-content01">
+                        <div><img src="@(StaticSiteUrl)/Content/images/logo-bottom.png"></div>
+                        <div class="f-add">
+                            <h2>
+                                Bản quyền thuộc Cục Đổi mới sáng tạo, Chuyển đổi
+
+                                xanh và Khuyến công, Bộ Công Thương
+                            </h2>
+                            <p>
+                                Chịu trách nhiệm nội dung: Cục Đổi mới sáng tạo, Chuyển đổi xanh và Khuyến công, Bộ Công Thương<br />
+                                Giấy phép số 148/GP-TTĐT do Cục Quản lý Phát thanh, Truyền hình và Thông tin điện tử, Bộ thông tin và  Truyền thông cấp ngày 3/8/2019<br />
+                                Ghi rõ nguồn: <a href="https://tietkiemnangluong.com.vn/">tietkiemnangluong.com.vn</a> | <a href="http://vneec.gov.vn/">vneec.gov.vn</a> khi sử dụng thông tin từ website này. <br>
+
+
+
+                                @*Phát triển bởi <a href="https://vtkmedia.vn/"><img src="@(StaticSiteUrl)/Content/images/logo-vtk.png"></a>*@
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 col-xs-12">
+                    <ul class="f-link-list">
+                        @*<li><a href="http://tietkiemnangluong.com.vn/"><img src="@(StaticSiteUrl)/Content/images/icon-vn.png"></a></li>*@
+                        <li><a href="http://vneec.gov.vn/"><img src="@(StaticSiteUrl)/Content/images/icon-en.png"></a></li>
+                        <li><a href="https://www.youtube.com/channel/UCFfXHgMRa5zwPhGltIv89LQ"><img src="@(StaticSiteUrl)/Content/images/icon-you.png" style="width:24px !important" /></a></li>
+                        <li><a href="https://www.facebook.com/vptknl2019/"><img src="@(StaticSiteUrl)/Content/images/icon-face02.png?vs=2021"></a></li>
+                    </ul>
+                    <div class="total mt20">
+                        <span>Tổng số lượt truy cập </span>
+                        <ul>
+                            @foreach (var s in HttpContext.Current.Application["TotalVisited"].ToString().Select(c => c.ToString()).ToList())
+                            {
+                                <li>@s</li>
+                            }
+                        </ul>
+                        <div style="margin-top:10px">
+                            <img src="https://scp.gov.vn/content/img/img-footer.jpg" alt="">
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div><!-- end container-->
+</footer>
+<div class="fix-bottom">
+    <a href="https://m.me/vptknl2019"><img src="/img/icon_mess.svg" alt=""></a>
+</div>
+<div id="fb-root"></div>
+<div class="clearfix">
+</div>
+<script type="application/ld+json">
+    {
+      "@@context": "https://schema.org",
+      "@@type": "GovernmentOrganization",
+      "name": "Chương trình quốc gia về sử dụng năng lượng tiết kiệm và hiệu quả",
+      "alternateName": "Chương trình VNEEP",
+      "url": "https://tietkiemnangluong.com.vn/",
+      "logo": "https://media.tietkiemnangluong.com.vn//Content/images/logo-top.png?vs=2023",
+      "sameAs": "https://www.facebook.com/vptknl2019"
+    }
+</script>
+
+<script>
+
+    (function (d, s, id) {
+        var js, fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) return;
+        js = d.createElement(s); js.id = id;
+        js.src = "//connect.facebook.net/vi_VN/sdk.js#xfbml=1&version=v2.8&appId=275786053207358";
+        fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));
+</script>
+<script>
+    (function (i, s, o, g, r, a, m) {
+        i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () {
+            (i[r].q = i[r].q || []).push(arguments)
+        }, i[r].l = 1 * new Date(); a = s.createElement(o),
+            m = s.getElementsByTagName(o)[0]; a.async = 1; a.src = g; m.parentNode.insertBefore(a, m)
+    })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+
+    ga('create', 'UA-36352862-1', 'auto');
+    ga('send', 'pageview');
+
+</script>

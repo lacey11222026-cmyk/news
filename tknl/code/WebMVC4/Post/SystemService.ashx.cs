@@ -1,0 +1,128 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using BIZ;
+using BIZ.Entity;
+using DATA;
+using UTILS;
+
+namespace WebMVC4.Post
+{
+    /// <summary>
+    /// Summary description for SystemService
+    /// </summary>
+    public class SystemService : IHttpHandler
+    {
+
+        public void ProcessRequest(HttpContext context)
+        {
+            context.Response.ContentType = "text/plain";
+            ResponseMsg responseMsg = new ResponseMsg();
+            try
+            {
+                //if (!HttpContext.Current.User.IsInRole("Administrator"))
+                //{
+                //    responseMsg.Success = false;
+                //    responseMsg.Text = "Không có quyền";
+                //    context.Response.Write(responseMsg.ToJsonString());
+                //    return;
+                //}
+                string method = context.Request["__m"];
+
+                switch (method.ToLower())
+                {
+                    case "flush":
+                        RedisCaching.Flush();
+                        //LocalCaching.Flush();
+                        return;
+                    case "category":
+                        //LocalCaching.Flush ();
+                        new CategoryBO().FlushAllCategoryCache(string.Empty);
+                        return;
+                    case "product":
+                        // LocalCaching.Flush ();
+                        //new ProductBO().FlushAllProductCache(string.Empty);
+                        return;
+                    case "article":
+                        //LocalCaching.Flush ();
+                        new ContentBO().FlushAllContentCache(string.Empty);
+                        return;
+                    case "album":
+                        //LocalCaching.Flush ();
+                        new AlbumBO().FlushAllAlbumCache(string.Empty);
+                        return;
+                    case "comment":
+                        //LocalCaching.Flush ();
+                        new CommentBO().FlushAllCommentCache(string.Empty);
+                        return;
+                    case "save_appsettings":
+
+                        var data = context.Request.Form.GetValues("data[]");
+                        foreach (var i in data)
+                        {
+                            if (!string.IsNullOrEmpty(i))
+                            {
+                                var key = i.Split('|')[0];
+                                var value = i.Split('|')[1];
+
+                                new SystemConfigBO().SetByKey(key, value);
+                                new ContentBO().FlushAllContentCache(BIZ.Constants.CACHE_GROUPKEY_CONTENT);
+                                //UTILS.Utils.SetAppSettingValue(key, value, context.Request.ApplicationPath);
+                            }
+                        }
+
+                        return;
+                    case "save_appsetting":
+
+                        string s = context.Request["data"];
+
+                        if (!string.IsNullOrEmpty(s))
+                        {
+                            var key = s.Split('|')[0];
+                            var value = s.Split('|')[1];
+                            if (key == "HotNews_0")
+                                key = "HotNews";
+                            if (key == "HotNews")
+                            {
+                                var lognewsobj = new ContentLog
+                                {
+                                    UserName = HttpContext.Current.User.Identity.Name,
+                                    ItemtType = (int)UTILS.Constants.CategoryType.News,
+                                    ItemId = 0,
+                                    ItemName = "Tin bổi bật",
+                                    Note = "Cấu hình tin nổi bật:  " + value,
+                                    Type = 1
+
+                                };
+                                //Ghi log
+                                Action<ContentLog> send = InsertContentLog;
+                                var asynSend = send.BeginInvoke(lognewsobj, null, null);
+                            }
+                            new SystemConfigBO().SetByKey(key, value);
+                            new ContentBO().FlushAllContentCache(BIZ.Constants.CACHE_GROUPKEY_CONTENT);
+                        }
+
+
+                        return;
+                }
+            }
+            catch (Exception ex)
+            {
+                context.Response.Write(ex);
+                return;
+            }
+        }
+        private void InsertContentLog(ContentLog lognewsobj)
+        {
+            new ContentLogBO().CreateUpdateContentLog(lognewsobj);
+        }
+        public bool IsReusable
+        {
+            get
+            {
+                return false;
+            }
+        }
+    }
+}

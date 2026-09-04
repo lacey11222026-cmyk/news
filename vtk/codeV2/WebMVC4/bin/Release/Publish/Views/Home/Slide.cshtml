@@ -1,0 +1,49 @@
+﻿@using BIZ
+@using BIZ.Entity
+@using UTILS
+@model WebMVC4.Models.SlideModel
+@using WebMVC4.Helper
+@{
+    var langpage = WorkContext.GetLanguage();
+}
+@if (langpage == "vi-vn")
+{
+    <ul class="row mt90 project-list">
+        @foreach (var item in Model.LstHotNews.Select((value, i) => new { i, value }))
+        {
+            <li class="col-md-4 col-sm-4 col-xs-6 project-item wow slideInRight" data-wow-delay="@HtmlHelpers.GetDelay(item.i+1)">
+                <a href="@item.value.Url">
+                    <img src="@item.value.Image?w=518&h=314&mode=crop" alt="">
+                    <div class="pr-content">
+                        <p>@item.value.Title</p>
+                    </div>
+                </a>
+            </li>
+
+        }
+
+
+    </ul>
+}
+else
+{
+    <ul class="row mt90 project-list">
+        @foreach (var item in Model.LstHotNews.Select((value, i) => new { i, value }))
+        {
+            <li class="col-md-4 col-sm-4 col-xs-6 project-item wow slideInRight" data-wow-delay="@HtmlHelpers.GetDelay(item.i+1)">
+                <a href="@item.value.Url">
+                    <img src="@item.value.Image?w=518&h=314&mode=crop" alt="">
+                    <div class="pr-content">
+                        <p>@item.value.Description</p>
+                    </div>
+                </a>
+            </li>
+
+        }
+
+
+    </ul>
+}
+
+
+

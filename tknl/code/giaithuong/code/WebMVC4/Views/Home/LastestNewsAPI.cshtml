@@ -1,0 +1,25 @@
+﻿
+@using BIZ
+@using UTILS
+@using WebMVC4.Helper
+@model WebMVC4.Models.LastestNewsApiModel
+@if (Model != null)
+{
+    if (Model.lstdata.Count > 0)
+    {
+        <ul class="row experience-list">
+            @foreach (var item in Model.lstdata.Select((value, i) => new { i, value }))
+            {
+                <li class="col-md-3 col-sm-3 col-xs-12 ">
+                    <a href="@item.value.LinkUrl" target="_blank">
+                        <img alt="@item.value.Title" src="@item.value.MainImage?w=260&h=160&mode=crop" />
+                        <h3 class="maxheight05">@item.value.Title</h3>
+                        <p class="maxheight06">@item.value.IntroText</p>
+                    </a>
+                </li>
+
+            }
+        </ul>
+
+    }
+}

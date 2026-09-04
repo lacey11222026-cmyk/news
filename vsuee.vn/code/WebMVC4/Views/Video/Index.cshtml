@@ -1,0 +1,63 @@
+﻿@using BIZ
+@using UTILS
+@using WebMVC4.Helper
+@model BIZ.Entity.CONTENT_FULL
+@{
+    var langpage = WorkContext.GetLanguage();
+}
+
+<div class="video-page pb60 pt40">
+    <div class="container">
+        <h2 class="title-cm-02"><a href="/trang-chu-video.html">Video</a></h2>
+    </div>
+    <div class="video-big mt30">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-7 col-sm-12">
+                    <div class="movie">
+                        <iframe src="@(Model.Url.Replace("watch?v=", "embed/"))" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen style="position: absolute; top: 0px; right: 0px; bottom: 0px; left: 0px; width: 100%; height: 100%;"></iframe>
+                    </div>
+                </div>
+                <div class="col-md-5 col-sm-12">
+                    <h3 class="big-name text-white">@Model.Title</h3>
+                    <p class="date02 mt15 text-white">@Model.PublishDate.ToString("dd/MM/yyyy")</p>
+                    <p class="mt15 text-white">
+                        @Model.IntroText
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="mt30 container container-video" id="lstVideo">
+        @Html.Action("LoadVideo", "Video", new { VideoId = Model.Id, page = 1, CategoryId = ViewBag.CategoryId })
+
+    </div>
+</div><!-- end main content-->
+<h2 class="title-cm"><a href="#">@Resources.Global.BankSupport</a></h2>
+<br />
+<div class="bg-gray pt40 pb40">
+    <div class="container">
+        <ul class="slick02">
+            @{Html.RenderAction("BannerBottom", "Home", new { lang = langpage });}
+        </ul>
+    </div>
+</div>
+
+
+
+<style>
+    .header-pc {
+        position: inherit;
+    }
+</style>
+
+
+
+@section scripts {
+    <script type="text/javascript">
+
+
+        $('#menu_66').addClass("active");
+        $('#topbanner').hide();
+    </script>
+}

@@ -1,0 +1,84 @@
+﻿@using BIZ
+@using UTILS
+@using WebMVC4.Helper
+@model DATA.Album
+@{
+    var langpage = WorkContext.GetLanguage();
+}
+<link href="/fancybox2.1.5/jquery.fancybox.css" rel="stylesheet" />
+<script src="/fancybox2.1.5/jquery.fancybox.js"></script>
+
+
+@if (Model != null)
+{
+
+
+    <div class="image-page container pb60 pt40">
+        <div class="row row-50">
+            <div class="col-lg-8 col-md-12">
+                @{Html.RenderAction("Breadcrumb", "News", new { CategoryId = Model.CategoryId });}
+                <div class="mt30 detail-content">
+                    <p class="big-name">@Model.Title</p>
+                    <div class="mt30">
+                        @if (ViewBag.ImgList != null)
+                        {
+                        <div id="PnlLightBox">
+                            <ul class="row video-list-02" id="lstlightbox" >
+                                @foreach (BIZ.Entity.AlbumImage item in ViewBag.ImgList)
+                                {
+
+                                <li class="col-md-3 col-6">
+                                    <a href="@(item.Name)?w=0&h=@(ViewBag.Height)&mode=crop"  title="@item.Text" rel="group">
+                                        <img src="@(item.Name)?w=338&h=200&mode=crop" alt="" class="w-100"
+                                              />
+                                    </a>
+                                </li>
+                                }
+
+
+                            </ul>
+                           
+                            <div class="clear">
+                            </div>
+
+                            <script type='text/javascript'>
+
+                                $(document).ready(function () {
+                                    $("#lstlightbox a").fancybox({
+
+                                    });
+                                });
+                            </script>
+                        </div>
+                        }
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-12 sidebar">
+                @Html.Partial("Site_Right2")
+            </div>
+        </div>
+    </div><!-- end main content-->
+    <h2 class="title-cm"><a href="#">@Resources.Global.BankSupport</a></h2>
+    <br />
+    <div class="bg-gray pt40 pb40">
+        <div class="container">
+            <ul class="slick02">
+                @{Html.RenderAction("BannerBottom", "Home", new { lang = langpage });}
+            </ul>
+        </div>
+    </div>
+
+
+
+
+
+}
+@section scripts {
+    <script type="text/javascript">
+
+
+        $('#menu_66').addClass("active");
+
+    </script>
+}

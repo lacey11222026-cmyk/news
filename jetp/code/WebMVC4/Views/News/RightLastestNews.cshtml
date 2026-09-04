@@ -1,0 +1,29 @@
+﻿@using BIZ
+@using UTILS
+@using WebMVC4.Helper
+@model WebMVC4.Models.LastestNewModel
+@if (Model != null)
+{
+    if (Model.lstdata.Count > 0)
+    {
+        <div class="recent">
+            <h3 class="aos-init">@Resources.Global.LastestNews</h3>
+            <div class="list-recent mt20">
+                @foreach (var item in Model.lstdata.Select((value, i) => new { i, value }))
+                {
+                    <div class="news-item">
+                        <a href="@item.value.LinkUrl" class="picture"><img src="@item.value.MainImage?w=400&h=266&mode=crop"></a>
+                        <div class="desc">
+                            <h4><a href="@item.value.LinkUrl">@item.value.Title</a></h4>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+
+
+
+
+
+    }
+}

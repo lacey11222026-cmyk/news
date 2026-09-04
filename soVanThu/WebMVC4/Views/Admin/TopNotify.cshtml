@@ -1,0 +1,60 @@
+﻿@model List<DATA.Notifi>
+<a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" onclick="readnoti()">
+    <i class="fa fa-bell-o"></i>
+    @if (ViewBag.TotalNoti > 0)
+    {
+        <span class="label label label-danger">@ViewBag.TotalNoti</span>
+    }
+   
+</a>
+<span id="lstnotUnRead" style="display:none">@ViewBag.lstnotUnRead</span>
+@if (Model.Any())
+{
+    <ul class="dropdown-menu">
+
+        <li>
+            <!-- inner menu: contains the actual data -->
+            <ul class="menu">
+                @foreach (var item in Model.Take(10).Select((value, i) => new { i, value }))
+                {
+                    <li>
+                        <a href="@item.value.Link">
+                            <i class="fa fa-users text-aqua"></i> @Html.Raw(item.value.Title)
+                            &nbsp;
+                            <small><i class="fa fa-clock-o"></i> @item.value.CreatedTime.GetValueOrDefault().ToString("dd/MM/yyyy hh:mm")</small>
+                        </a>
+                        
+                    </li>
+                }
+
+
+
+            </ul>
+        </li>
+        <li class="footer"><a href="@Url.Action("Notify")">Xem tất cả</a></li>
+    </ul>
+}
+
+<script>
+    function readnoti() {
+        var noti = $('#lstnotUnRead').html();
+        if (noti != '')
+        {
+            var postdata = {
+                'noti': noti,
+            
+            };
+
+            $.ajax({
+                type: 'POST',
+                url:"@Url.Action("ReadMoti")",
+                data: addAntiForgeryToken(postdata),
+            success: function (data) {
+          
+            }
+            });
+        }
+        
+
+    }
+</script>

@@ -1,0 +1,46 @@
+﻿@using BIZ
+@using UTILS
+@using WebMVC4.Helper
+@model BIZ.Entity.CONTENT_FULL
+
+@{
+    Layout = "~/Views/Shared/_Home.cshtml";
+}
+<div class="row">
+    <div class="col-md-8 col-sm-12 col-xs-12" id="VideoContent">
+        <h2 class="title-blue"><a href="/trang-chu-video.html">Video</a></h2>
+        <div>
+            @if (Model.Url.Contains("youtube.com"))
+            {
+                <iframe id="ifvideo" width="376" height="250" frameborder="0" allowfullscreen
+                        src="@(Model.Url.Replace("watch?v=", "embed/"))?autoplay=1&rel=0"></iframe>
+            }
+            else
+            {
+                <video controls autoplay preload="auto" poster="@Model.MainImage" name="myvideo" id="myvideo" style="width: 100%">
+
+
+                    <source src="@Model.Url" type="video/mp4" />
+
+                </video>
+            }
+        </div>
+    </div><!-- end video -->
+    <div class="col-md-4 col-sm-12 col-xs-12 video-text">
+        <h3>@Model.Title</h3>
+        <p>@Model.IntroText</p>
+    </div><!-- end typo-->
+</div><!-- end row-->
+<div class="clearfix"></div>
+
+<div id="lstVideo">
+    @Html.Action("LoadVideo", "Video", new { VideoId = Model.Id, page = 1 })
+</div>
+   
+<script type="text/javascript">
+        var width = $("#VideoContent").width();
+        var height = width / 1.502040816326531;
+
+        $("#ifvideo").width(width);
+        $("#ifvideo").height(height);
+</script>

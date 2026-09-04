@@ -1,0 +1,37 @@
+﻿@using BIZ
+@using UTILS
+@using WebMVC4.Helper
+@model WebMVC4.Models.AlbumModel
+@if (Model.listdata != null)
+{
+    <div class="cate">
+        @{Html.RenderAction("Breadcrumb", "News", new { CategoryId = Model.CategoryId });}
+        @foreach (var item in Model.listdata.Select((value, i) => new { i, value }))
+        {
+            <div class="tin_list_anh" style='height: 150px;'>
+                <a title="@item.value.Title" href="@Utils.FormatUrlRewrite(item.value.Id, item.value.Title, "AlbumDetail")">
+                    <img src="@item.value.MainImage.135.100.jpg" width="135px" alt="@item.value.Title" />
+
+                <p>
+
+                    @item.value.Title
+                </p>
+                </a>
+
+            </div>
+        }
+        <div class="ctpaging">
+
+            <ul class="paging">
+                @{Html.RenderPartial("Pagination", new WebMVC4.Models.PaginationInfo
+                  {
+                      PageUrl = Url.SetParameter("Page", "!0"),
+                      CurrentPage = Model.pageIndex,
+                      PageSize = Model.pageSize,
+                      TotalItemCount = Model.total,
+                  }); }
+            </ul>
+
+        </div>
+    </div>
+}

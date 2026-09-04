@@ -1,0 +1,107 @@
+﻿@{
+   
+    Layout = "~/Views/Shared/_Admin.cshtml";
+    
+}
+    <div id="toolbar-box">
+        <div class="t">
+            <div class="t">
+                <div class="t">
+                </div>
+            </div>
+        </div>
+        <div class="m">
+            <div class="toolbar" id="toolbar">
+            </div>
+            <div class="header icon-48-frontpage">
+                Khung điều khiển
+            </div>
+            <div class="clr">
+            </div>
+        </div>
+        <div class="b">
+            <div class="b">
+                <div class="b">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="clr">
+    </div>
+    <div id="element-box">
+        <div class="t">
+            <div class="t">
+                <div class="t">
+                </div>
+            </div>
+        </div>
+        <div class="m">
+            <table class="adminform">
+                <tr>
+                    <td width="55%" valign="top">
+                        <div id="cpanel">
+                            @*<div style="float: left;" >
+                                <div class="icon">
+                                    <a href="@Url.Action("Users","System")">
+                                        <img src="/Administrator/Images/header/icon-48-user.png" alt="Quản lý người dùng" />
+                                        <span>Quản lý người dùng</span> </a>
+                                </div>
+                            </div>*@
+                       @*   <div style="float: left;">
+                                <div class="icon">
+                                   <a href="/Administrator/Components/Article/ArticleEdit.aspx">
+                                        <img src="/Administrator/Images/header/icon-48-article-add.png" alt="Tạo tin tức mới" />
+                                        <span>Tạo tin tức mới</span></a>
+                                </div>
+                            </div>*@
+                            <div style="float: left;" class="display_news">
+                                <div class="icon">
+                                    <a href="@Url.Action("Index","AdminNews")">
+                                        <img src="/Administrator/Images/header/icon-48-article.png" alt="Quản lý tin tức" />
+                                        <span>Quản lý tin tức</span></a>
+                                </div>
+                            </div>
+                            <div style="float: left;" class="display_category">
+                                <div class="icon">
+                                    <a href="@Url.Action("Index","AdminCategory")">
+                                        <img src="/Administrator/Images/header/icon-48-media.png" alt="Quản lý chuyên mục" />
+                                        <span>Quản lý chuyên mục</span></a>
+                                </div>
+                            </div>
+                            <div style="float: left;" class="display_document">
+                                <div class="icon">
+                                    <a href="@Url.Action("Index", "AdminDocument")">
+                                        <img src="/Administrator/Images/header/icon-48-media.png" alt="Quản lý văn bản" />
+                                        <span>Quản lý văn bản</span></a>
+                                </div>
+                            </div>
+                            @* <div style="float: left;" class="display_album">
+                                <div class="icon">
+                                    <a href="@Url.Action("Album","AdminNews")">
+                                        <img src="/Administrator/Images/header/icon-48-media.png" alt="Quản lý album" />
+                                        <span>Quản lý album ảnh</span></a>
+                                </div>
+                            </div>*@
+                          @*  <div style="float: left;" class="display">
+                                <div class="icon">
+                                     <a href="http://noibo.vuit.org.vn/admin" target="_blank">
+                                        <img src="/Administrator/Images/header/icon-48-media.png" alt="Quản trị nội bộ" />
+                                        <span>Quản trị nội bộ</span></a>
+                                </div>
+                            </div>*@
+                           
+                        </div>
+                    </td>
+                </tr>
+            </table>
+            <div class="clr">
+            </div>
+        </div>
+        <div class="b">
+            <div class="b">
+                <div class="b">
+                </div>
+            </div>
+        </div>
+    </div>
+

@@ -1,0 +1,49 @@
+﻿@using BIZ
+@using UTILS
+@using WebMVC4.Helper
+@model WebMVC4.Models.News2Model
+
+@{
+    var langpage = WorkContext.GetLanguage();
+}
+<div class="news-page pt70 pb70 container">
+    @{Html.RenderAction("Breadcrumb", "News", new { CategoryId = ViewBag.CategoryId });}
+    <div class="mt50 news-list grid-3">
+        @if (Model.articles != null)
+        {
+            foreach (var item in Model.articles.Select((value, i) => new { i, value }))
+            {
+                <div class="news-item">
+                    <a href="@item.value.LinkUrl" class="img-wrap"><img src="@item.value.MainImage?w=398&h=224&mode=crop" alt=""></a>
+                    <a href="@item.value.LinkUrl" class="news-txt-small">@item.value.Title</a>
+                </div>
+            }
+        }
+    </div>
+    <div class="paging mt50 text-center">
+        <ul>
+            @{Html.RenderPartial("Pagination", new WebMVC4.Models.PaginationInfo
+                {
+                    PageUrl = Url.SetParameter("Page", "!0"),
+                    CurrentPage = ViewBag.Page,
+                    PageSize = ViewBag.PageSize,
+                    TotalItemCount = ViewBag.Total,
+                }); }
+        </ul>
+    </div>
+
+
+</div>
+
+
+
+
+<script type="text/javascript">
+
+ $('#menu_' + '@ViewBag.CurrentCategoryId').addClass("active");
+
+  $('#menu_' + '@ViewBag.ParentCategoryId').addClass("active");
+
+
+
+</script>

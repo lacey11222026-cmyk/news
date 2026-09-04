@@ -1,0 +1,272 @@
+﻿@using Car.Data
+@using Car.CMS.Models
+@model ProjectReportFull
+@using Car.Utility
+@using Car.CMS.Helper
+@{ ViewBag.Title = "Chi tiết Báo cáo";}
+<div class="row">
+    <div class="col-md-12">
+        <div class="box box-primary">
+            <div class="box-header">
+                <span>@ViewBag.Title @HtmlHelpers.GetReportType(Model.Type.GetValueOrDefault())  @Model.Year </span>
+            </div>
+            <div class="box-body">
+
+                <div class="table-responsive">
+                    <div id="dgrid" class="dataTables_wrapper form-inline" role="grid">
+                        <table class="table  table-bordered  dataTable no-footer" id="dataTables">
+                            <tr>
+                                <td class="tdbold">I</td>
+                                <td class="tdbold">Thông tin cơ bản</td>
+                                <td></td>
+
+                            </tr>
+                            <tr>
+                                <td>1.1</td>
+                                <td>Tên dự án</td>
+                                <td class="tdData">@Model.Name</td>
+
+                            </tr>
+                            <tr>
+                                <td>1.2</td>
+                                <td>Chủ đầu tư</td>
+                                <td class="tdData">@Model.Data.Investor</td>
+
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td>Địa chỉ</td>
+                                <td class="tdData">@Model.Data.Address</td>
+
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td>Người liên hệ</td>
+                                <td class="tdData">@Model.Data.Contact</td>
+
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td>Chức danh</td>
+                                <td class="tdData">@Model.Data.Organ</td>
+
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td>Phòng/Ban</td>
+                                <td class="tdData">@Model.Data.GroupName</td>
+
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td>Số điện thoại</td>
+                                <td class="tdData">@Model.Data.Tel</td>
+
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td>Email</td>
+                                <td class="tdData">@Model.Data.Email</td>
+
+                            </tr>
+                            <tr>
+                                <td>1.3</td>
+                                <td>Tổng vốn đầu tư (VND)</td>
+                                <td class="tdData">@StringUtils.InsertCommaNoStyle(Model.Data.Total.ToString())</td>
+                            </tr>
+                            <tr>
+                                <td>1.4</td>
+                                <td>Tổng vốn vay (VND)</td>
+                                <td class="tdData">@StringUtils.InsertCommaNoStyle(Model.Data.Total1.ToString())</td>
+                            </tr>
+                            <tr>
+                                <td>1.5</td>
+                                <td>Vốn vay WB (VND)</td>
+                                <td class="tdData">@StringUtils.InsertCommaNoStyle(Model.Data.Total2.ToString())</td>
+                            </tr>
+                            <tr>
+                                <td>1.6</td>
+                                <td>Thời gian thực hiện dự án</td>
+                                <td>@Model.Data.TimeExpire</td>
+                            </tr>
+                            <tr>
+                                <td>1.7</td>
+                                <td>Ngày bắt đầu vận hành</td>
+                                <td>@Model.Time.GetValueOrDefault().ToString("dd/MM/yyyy")</td>
+                            </tr>
+                            <tr>
+                                <td class="tdbold">II</td>
+                                <td class="tdbold">Tiến độ thực hiện dự án</td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td>2.1</td>
+                                <td>Các công việc triển khai:</td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td>&nbsp;&nbsp; a) Về xây dựng, lắp đặt, vận hành các giải pháp TKNL</td>
+                                <td class="tdData">@Html.Raw(Model.Job1)</td>
+                            </tr>
+                            @*<tr>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>*@
+                            <tr>
+                                <td></td>
+                                <td>&nbsp;&nbsp; b) Về giải ngân</td>
+                                <td class="tdData">@Html.Raw(Model.Job2)</td>
+                            </tr>
+                            @*<tr>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>*@
+                            <tr>
+                                <td></td>
+                                <td>&nbsp;&nbsp; c) Về thực hiện các chính sách an toàn</td>
+                                <td class="tdData">@Html.Raw(Model.Job3)</td>
+                            </tr>
+                            @*<tr>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>*@
+                            <tr>
+                                <td>2.2</td>
+                                <td>Dự kiến kết quả</td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td>&nbsp;&nbsp; a) Mức TKNL đạt được (MWh/năm)</td>
+                                <td class="tdData">@Model.Result1</td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td>&nbsp;&nbsp; b) Giảm phát thải KNK (Tấn CO2/năm) </td>
+                                <td class="tdData">@Model.Result2</td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td>&nbsp;&nbsp; c) Số lượng người hưởng lợi trực tiếp</td>
+                                <td class="tdData">@Model.NumberPeople</td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td>&nbsp;&nbsp; d) Tỷ lệ người hưởng lợi là phụ nữ (%)</td>
+                                <td class="tdData">@Model.WomanRate</td>
+                            </tr>
+                            <tr>
+                                <td>2.3</td>
+                                <td>Vướng mắc, khuyến nghị</td>
+                                <td class="tdData">@Html.Raw(Model.Stuck)</td>
+                            </tr>
+
+                        </table>
+                    </div>
+                    @if (!string.IsNullOrEmpty(Model.FileParam.Name1))
+                    {
+                        <div class="document-attach">
+                            <div class="bg_org"><span class="icon-attach"></span> Tài liệu đính kèm <div class="clear"></div></div>
+                            <ul class="list">
+
+                                <li><a title="@Model.FileParam.Name1" href="@Model.FileParam.Path1" target="_blank">@Model.FileParam.Name1 </a></li>
+                                @if (!string.IsNullOrEmpty(Model.FileParam.Name2))
+                                {
+                                    <li><a title="@Model.FileParam.Name2" href="@Model.FileParam.Path2" target="_blank">@Model.FileParam.Name2 </a></li>
+                                }
+                                @if (!string.IsNullOrEmpty(Model.FileParam.Name3))
+                                {
+                                    <li><a title="@Model.FileParam.Name3" href="@Model.FileParam.Path3" target="_blank">@Model.FileParam.Name3 </a></li>
+                                }
+
+
+                                @if (!string.IsNullOrEmpty(Model.FileParam.Name4))
+                                {
+                                    <li><a title="@Model.FileParam.Name4" href="@Model.FileParam.Path4" target="_blank">@Model.FileParam.Name4 </a></li>
+                                }
+                                @if (!string.IsNullOrEmpty(Model.FileParam.Name5))
+                                {
+                                    <li><a title="@Model.FileParam.Name5" href="@Model.FileParam.Path5" target="_blank">@Model.FileParam.Name5 </a></li>
+                                }
+                                @if (!string.IsNullOrEmpty(Model.FileParam.Name6))
+                                {
+                                    <li><a title="@Model.FileParam.Name6" href="@Model.FileParam.Path6" target="_blank">@Model.FileParam.Name6 </a></li>
+                                }
+                                @if (!string.IsNullOrEmpty(Model.FileParam.Name7))
+                                {
+                                    <li><a title="@Model.FileParam.Name7" href="@Model.FileParam.Path7" target="_blank">@Model.FileParam.Name7 </a></li>
+                                }
+                                @if (!string.IsNullOrEmpty(Model.FileParam.Name8))
+                                {
+                                    <li><a title="@Model.FileParam.Name8" href="@Model.FileParam.Path8" target="_blank">@Model.FileParam.Name8 </a></li>
+                                }
+                            </ul>
+                            <div class="clear"></div>
+                        </div>
+                    }
+                </div>
+                <div class="panel-footer form-horizontal">
+                    <div class="form-group submit">
+
+
+                        <button type="button" class="btn btn-default" id="btnBack" onclick="GotoListpage()"><i class="fa fa-backward"></i>Quay lại</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<style>
+    .tdbold {
+        font-weight: bold;
+    }
+
+    .tdData {
+        background-color: #F3F5EE;
+    }
+
+    .document-attach {
+        margin-bottom: 20px;
+    }
+
+        .document-attach ul.list li {
+           
+            padding: 3px 0 4px 25px;
+        }
+
+            .document-attach ul.list li a {
+                font-size: 12px;
+            }
+
+        .document-attach ul.list {
+            width: 100%;
+            padding: 8px 0 5px 17px;
+        }
+
+    .icon-attach {
+        width: 30px;
+        height: 30px;
+        /* border:1px solid red; */
+        display: block;
+        float: left;
+        border-radius: 50%;
+       
+        margin: -1px 10px 4px 5px;
+    }
+
+    .document-attach .bg_org {
+        background: #026db4;
+        color: #fff;
+        line-height: 32px;
+        height: 34px;
+    }
+</style>
+<script>
+    function GotoListpage() {
+        window.location = "/Report/Index";
+    }
+</script>

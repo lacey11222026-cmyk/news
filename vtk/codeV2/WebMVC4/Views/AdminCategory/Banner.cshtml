@@ -1,0 +1,302 @@
+﻿@{
+   
+    Layout = "~/Views/Shared/_AdminV2.cshtml";
+}
+
+
+
+    <script type="text/javascript">
+        var redirectUrl = '@Url.Action("BannerAddEdit","AdminCategory")';
+        var page_index = 1;
+        var page_size = 10
+        
+        $(document).ready(function () {
+
+
+
+            OnLoad();
+        });
+
+        function OnLoad() {
+
+            Filter()
+        }
+
+        function Filter(pi) {
+
+
+            var region = $('#select_filterbyregion option:selected').val();
+            var status = $('#select_filterbystatus option:selected').val();
+
+            $.Services({
+                element: $('#grid_items'),
+                loadingImg: '<tr><td colspan="8">Đang tải dữ liệu ...</td><tr>',
+                serviceName: 'BannerService.ashx',
+                data: {
+                    __m: 'get_top_Banners',
+                    top: '0',
+                    status: status,
+                    region: region
+                },
+                success: function (data) {
+                    var html = '<tr><td colspan="8">Không có Banner nào</td><tr>';
+                    if (data != undefined && data != null && data != '') {
+
+                        html = BindData(data);
+
+                    }
+
+                    $('#grid_items').html(html);
+                }
+            });
+        }
+
+        function BindData(data) {
+            var html = '';
+            $.each(data, function (index, item) {
+                var thumnail = '';
+                if (item.Images != null && item.Images != undefined && item.Images != '') {
+                    var images = item.Images;
+                    var arr_images = images.split(',');
+                    thumnail = GetThumbnailUrl(item.Id) + arr_images[0];
+                }
+                else {
+                    thumnail = '/Images/nophoto.jpg';
+                }
+
+                html += '<tr id="item' + item.Id + '">';
+                html += '<td align="center">';
+                html += '<input type="checkbox" name="chk_item" value="' + item.Id + '" />';
+                html += '</td>';
+
+                html += '<td>';
+                html += '<a href="' + redirectUrl + '?id=' + item.Id + '" alt="' + item.Name + '">';
+                html += item.Name;
+                html += '</a>';
+                html += '</td>';
+
+                html += '<td>';
+                if (item.Region == 1) {
+                    html += "Trên";
+                }
+                else if (item.Region == 2) {
+                    html += "Phải";
+                }
+                else if (item.Region == 4) {
+                    html += "Mobile";
+                }
+                else if (item.Region == 5) {
+                    html += "dưới trái";
+                }     
+               
+                else {
+                    html += "dưới phải";
+                }
+                html += '</td>';
+
+
+                html += '<td>';
+                if (item.Type == 1)
+                    html += "Ảnh";
+                else
+                    html += "Flash";
+
+                html += '</td>';
+                html += '<td>';
+                html += item.Url;
+                html += '</td>';
+                html += '<td>';
+                html += '<img src="' + item.Data + '" width="100" height="50" />';
+              
+                html += '</td>';
+
+                html += '<td align="center">';
+                if (item.Status == 1)
+                    html += "Hoạt động";
+                else
+                    html += "Khóa";
+                html += '</td>';
+                html += '</tr>';
+            });
+
+            return html;
+        }
+
+
+
+
+
+        function New() {
+            window.location.href = redirectUrl;
+        }
+
+        function Delete() {
+
+            DestroyJAlert();
+            var arr_checked_items = [];
+            $('input[type="checkbox"][name="chk_item"]:checked').each(function (i, e) {
+                arr_checked_items.push($(e).val());
+            });
+
+            if (arr_checked_items.length > 0) {
+                var confirmFunc = function () {
+                    $.Services({
+                        isCrossDomain: false,
+                        url: POST_URL + 'BannerService.ashx',
+                        data: {
+                            __m: "delete",
+                            'id': arr_checked_items
+                        },
+                        success: function (data) {
+                            if (data != undefined && data != null && data != '') {
+                                var json_data = eval('(' + data + ')');
+
+                                if (json_data.Success) {
+                                    //$.jCache.setItem("LIST_ITEMS_PAGING_" + page_index + page_size, null);
+                                    OnLoad(page_index);
+                                }
+
+                                var jalert_type = "info";
+                                if (!json_data.Success)
+                                    jalert_type = "fatal";
+                                else {
+                                    $.each(arr_checked_items, function (index, item) {
+                                        $("grid_items").find('tr#item' + item).hide();
+                                    });
+
+                                }
+
+                                $('#jalert_notification').jAlert(json_data.Text, jalert_type, "edit", 400);
+                            }
+                        }
+                    });
+                };
+
+                OpenConfirmDialog('Bạn có muốn xóa Banner này không ?', confirmFunc);
+            }
+            else {
+                $('#jalert_notification').jAlert('Bạn phải chọn ít nhất 1 Banner', "warning", "edit", 400);
+            }
+        }
+
+       
+
+       
+    </script>
+    <div id="toolbar-box">
+        <div class="t">
+            <div class="t">
+                <div class="t">
+                </div>
+            </div>
+        </div>
+        <div class="m">
+            <div class="toolbar" id="toolbar">
+                <table class="toolbar">
+                    <tr>
+                        <td class="button" id="toolbar-delete">
+                            <a class="toolbar" onclick="Delete();" href="javascript:void(0);"><span class="icon-32-delete"
+                                title="Delete"></span>Xóa</a>
+                        </td>
+                        <td class="button" id="toolbar-new">
+                            <a class="toolbar" onclick="New();" href="javascript:void(0);"><span class="icon-32-new"
+                                title="New"></span>Tạo mới</a>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div class="header icon-48-article">
+                Quản lý Banner
+            </div>
+            <div class="clr">
+            </div>
+        </div>
+        <div class="b">
+            <div class="b">
+                <div class="b">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="clr">
+    </div>
+    <div id="element-box">
+        <div class="t">
+            <div class="t">
+                <div class="t">
+                </div>
+            </div>
+        </div>
+        <div class="m">
+            <div id="jalert_notification">
+                &nbsp;</div>
+            <table>
+                <tr>
+                    
+                    <td nowrap="nowrap">
+                        Vùng:
+                        <select id="select_filterbyregion" onchange="Filter();">
+                             <option value="1">Trên</option>
+                                        <option value="2">Phải</option>
+                            <option value="3">Dưới</option>
+                         
+                            <option value="5">dưới phải</option>
+                            <option value="6">dưới trái</option>
+                             <option value="4">Mobile</option>
+                                       
+                        </select>
+                       
+                    </td>
+                    <td nowrap="nowrap">
+                        Trạng thái:
+                        <select id="select_filterbystatus" onchange="Filter();">
+                            <option value="-1">--Tất cả--</option>
+                            <option value="1">Hoạt động</option>
+                            <option value="0">Khóa</option>
+                        </select>
+                    </td>
+                </tr>
+            </table>
+            <table class="adminlist" cellpadding="1">
+                <thead>
+                    <tr>
+                        <th width="1%" class="title">
+                            #
+                        </th>
+                        <th width="20%" class="title" style="text-align: left">
+                            Tên Banner
+                        </th>
+                        <th width="15%" class="title" style="text-align: left">
+                            Vùng
+                        </th>
+                        <th width="10%" class="title" style="text-align: left">
+                           Loại
+                        </th>
+                        <th width="10%" class="title" style="text-align: left">
+                            Liên kết
+                        </th>
+                        <th width="10%" class="title" style="text-align: left">
+                           Dữ liệu
+                        </th>
+                        <th width="5%" class="title">
+                            Trạng thái
+                        </th>
+                    </tr>
+                </thead>
+                <tfoot>
+                   
+                </tfoot>
+                <tbody id="grid_items">
+                </tbody>
+            </table>
+            <div class="clr">
+            </div>
+        </div>
+        <div class="b">
+            <div class="b">
+                <div class="b">
+                </div>
+            </div>
+        </div>
+    </div>
+

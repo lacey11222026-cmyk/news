@@ -1,0 +1,204 @@
+﻿@using BIZ
+@using UTILS
+@using VAS
+@using VAS.Helper
+@{
+    var langpage = WorkContext.GetLanguage();
+}
+@if (langpage == "vi-vn")
+{
+    <div class="header">
+        <div class="container">
+            <div class="top-logo logo-pc">
+                <a href="/"><img src="/Content/img/bocongthuong-logo.png" alt="Bộ Công Thương Việt Nam" width="80"></a>
+                <a href="/"><img src="/Content/img/logo DM-Hanoi.svg" alt="Bộ Ngoại Giao Đan Mạch" width="158"></a>
+                <a href="/"><img src="/Content/img/logo-danishEnergyAgency-pc.svg" alt="Danish Energy Agency" width="124"></a>
+            </div>
+            <div class="top-logo logo-mb">
+                <a href="/"><img src="/Content/img/bocongthuong-logo-mb.svg" alt="Bộ Công Thương Việt Nam" width="50"></a>
+                <a href="/"><img src="/Content/img/bongoaigiaodanmach-logo-mb.svg" alt="Bộ Ngoại Giao Đan Mạch" width="50"></a>
+                <a href="/"><img src="/Content/img/danishEnergyAgency-mb.svg" alt="Danish Energy Agency" width="50"></a>
+            </div>
+            <div class="nav-wrap">
+                <div class="vas-logo">
+                    <!-- <img src="img/vas-txt.png" alt="Chương trình thỏa thuận tự nguyện thúc đẩy sử dụng năng lượng tiết kiệm và hiệu quả trong các ngành công nghiệp tiêu thụ nhiều năng lượng"> -->
+                    <h1 class="vas-txt">Chương trình thỏa thuận tự nguyện thúc đẩy sử dụng năng lượng tiết kiệm và hiệu quả <br>trong các ngành công nghiệp tiêu thụ nhiều năng lượng</h1>
+                </div>
+                <div class="nav-box">
+                    <div class="nav_top">
+                        <div class="nav-inner">
+                            <nav class="nav-left">
+                                <ul>
+                                    <li class="active"><a href="/"><img src="/Content/img/icon-home.png" alt="Trang chủ" width="22"></a></li>
+                                    <li>
+                                        <a href="/gioi-thieu" target="_blank">Giới thiệu</a>
+
+                                    </li>
+                                    <li>
+                                        <a href="/#tech" target="_blank">hỗ trợ kỹ thuật</a>
+
+                                    </li>
+                                    <li>
+                                        <a href="/don-vi-tu-van" target="_blank">đơn vị tư vấn</a>
+
+                                    </li>
+                                    @*<li>
+                                            <a href="/cac-nguon-tai-chinh">Các nguồn tài chính</a>
+
+                                        </li>*@
+                                    <li>
+                                        <a href="https://coe.depp3.vn/" target="_blank">TRUNG TÂM XUẤT SẮC (COE)</a>
+
+                                    </li>
+                                    <li><a href="/lien-he" target="_blank">Liên hệ</a></li>
+                                </ul>
+                            </nav>
+                            <div class="nav-right">
+
+                                <div class="flag">
+                                    <a href="/Home/Language?lang=en-us"><img src="/Content/img/en.png" alt=""></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="nav-mobile">
+                        <div class="header-m">
+                            <a href="#menu">
+                                <img src="/Content/img/icon-menu.svg" width="30" class="ico-menu pull-right">
+                            </a>
+                        </div>
+                        <div id="menu">
+                            <ul>
+                                <li ><a href="/"><img src="/Content/img/icon-home.png" alt="Trang chủ" width="22"></a></li>
+                                <li>
+                                    <a href="/gioi-thieu" target="_blank">Giới thiệu</a>
+
+                                </li>
+                                <li>
+                                    <a href="/#tech" target="_blank">hỗ trợ kỹ thuật</a>
+
+                                </li>
+                                <li>
+                                    <a href="/don-vi-tu-van" target="_blank">đơn vị tư vấn</a>
+
+                                </li>
+                                @*<li>
+                                        <a href="/cac-nguon-tai-chinh">Các nguồn tài chính</a>
+
+                                    </li>*@
+                                <li>
+                                    <a href="https://coe.depp3.vn/" target="_blank">TRUNG TÂM XUẤT SẮC (COE)</a>
+
+                                </li>
+                                <li><a href="/lien-he" target="_blank">Liên hệ</a></li>
+                                <li><a href="/Home/Language?lang=en-us">Ngôn ngữ : <img src="/Content/img/en.png" alt="" width="22" style="margin-left: 10px; vertical-align: middle;"></a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+
+    </div><!-- end header-->
+
+}
+else
+{
+    <div class="header">
+        <div class="container">
+            <div class="top-logo logo-pc">
+                <a href="/"><img src="/Content/img/Logo MOIT-ENG.png?vs=01" alt="Bộ Công Thương Việt Nam" width="120"></a>
+                <a href="/"><img src="/Content/img/logo DM-Hanoi.svg" alt="Bộ Ngoại Giao Đan Mạch" width="158"></a>
+                <a href="/"><img src="/Content/img/logo-danishEnergyAgency-pc.svg" alt="Danish Energy Agency" width="124"></a>
+            </div>
+            <div class="top-logo logo-mb">
+                <a href="/"><img src="/Content/img/bocongthuong-logo-mb.svg" alt="Bộ Công Thương Việt Nam" width="50"></a>
+                <a href="/"><img src="/Content/img/bongoaigiaodanmach-logo-mb.svg" alt="Bộ Ngoại Giao Đan Mạch" width="50"></a>
+                <a href="/"><img src="/Content/img/danishEnergyAgency-mb.svg" alt="Danish Energy Agency" width="50"></a>
+            </div>
+            <div class="nav-wrap">
+                <div class="vas-logo">
+                    <!-- <img src="img/vas-txt.png" alt="Chương trình thỏa thuận tự nguyện thúc đẩy sử dụng năng lượng tiết kiệm và hiệu quả trong các ngành công nghiệp tiêu thụ nhiều năng lượng"> -->
+                    <h1 class="vas-txt">VOLUNTARY AGREEMENT SCHEME ON ENERGY EFFICIENCY<br /> IN ENERGY INTENSIVE INDUSTRIES</h1>
+                </div>
+                <div class="nav-box">
+                    <div class="nav_top">
+                        <div class="nav-inner">
+                            <nav class="nav-left">
+                                <ul>
+                                    <li class="active"><a href="/"><img src="/Content/img/icon-home.png" alt="Trang chủ" width="22"></a></li>
+                                    <li>
+                                        <a href="/introduction" target="_blank">Introduction</a>
+
+                                    </li>
+                                    <li>
+                                        <a href="/#tech" target="_blank">TECHNICAL SUPPORT</a>
+
+                                    </li>
+                                    <li>
+                                        <a href="/consulting-unit" target="_blank">Consulting Unit</a>
+
+                                    </li>
+                                    <li>
+                                        <a href="https://coe.depp3.vn/" target="_blank">CENTER OF EXCELLENCE (COE)</a>
+
+                                    </li>
+                                    <li><a href="/contact" target="_blank">Contact</a></li>
+                                </ul>
+                            </nav>
+                            <div class="nav-right">
+
+                                <div class="flag">
+                                    <a href="/Home/Language?lang=vi-vn"><img src="~/Content/img/vn.png" alt=""></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="nav-mobile">
+                        <div class="header-m">
+                            <a href="#menu">
+                                <img src="/Content/img/icon-menu.svg" width="30" class="ico-menu pull-right">
+                            </a>
+                        </div>
+                        <div id="menu">
+                            <ul>
+                                <li><a href="/"><img src="/Content/img/icon-home.png" alt="Trang chủ" width="22"></a></li>
+                                <li>
+                                    <a href="/introduction" target="_blank">Introduction</a>
+
+                                </li>
+                                <li>
+                                    <a href="/#tech" target="_blank">TECHNICAL SUPPORT</a>
+
+                                </li>
+                                <li>
+                                    <a href="/consulting-unit" target="_blank">Consulting Unit</a>
+
+                                </li>
+                                <li>
+                                    <a href="https://coe.depp3.vn/" target="_blank">CENTER OF EXCELLENCE (COE)</a>
+
+                                </li>
+                                <li><a href="/contact" target="_blank">Contact</a></li>
+                                <li><a href="/Home/Language?lang=vi-vn">Language : <img src="~/Content/img/vn.png" alt="" width="22" style="margin-left: 10px; vertical-align: middle;"></a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+
+    </div><!-- end header-->
+
+
+}
+
+<div class="bnrCenter w-100">
+    <div class="bnrSlider">
+        @{Html.RenderAction("BannerTop", "Banner", new { lang = langpage });}
+    </div>
+</div>

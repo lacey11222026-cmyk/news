@@ -1,0 +1,61 @@
+﻿@using BIZ
+@using UTILS
+@using WebMVC4.Helper
+@model DATA.Note
+@{
+    Layout = "~/Views/Shared/_Home.cshtml";
+}
+<h3 class="title-blue">Thông báo - sự kiện</h3>
+
+
+<div class="row">
+    <div class="col-md-3 col-sm-4 hidden-xs event-catalog">
+        <ul>
+            <li><a href="/tin-tuc/c4/tin-tuc.html">Sản xuất sạch hơn</a></li>
+            <li><a href="/tin-tuc/c44/tieu-dung-ben-vung.html">Tiêu dùng bền vững</a></li>
+            <li><a href="/tin-tuc/c5/tin-hoat-dong.html">Tin hoạt động</a></li>
+            <li><a href="/tin-tuc/c7/dien-hinh.html">Điển hình</a></li>
+            <li class="active">
+                <a href="/thong-bao/c18/thong-bao.html">Thông báo sự kiện</a>
+            </li>
+        </ul>
+    </div>
+    <div class="block-xs navbar-xs">
+        <div class="navbar-header"><span class="navbar-btn"></span></div>
+        <div id="category-list-mobile">
+            <ul class="category-list">
+                <li><a href="/tin-tuc/c4/tin-tuc.html">Sản xuất sạch hơn</a></li>
+                <li><a href="/tin-tuc/c44/tieu-dung-ben-vung.html">Tiêu dùng bền vững</a></li>
+                <li><a href="/tin-tuc/c5/tin-hoat-dong.html">Tin hoạt động</a></li>
+                <li class="active"><a href="/tin-tuc/c7/dien-hinh.html">Điển hình</a></li>
+                <li  class="active">
+                    <a href="/tin-tuc/c18/thong-bao.html">Thông báo sự kiện</a>
+
+                </li>
+            </ul>
+        </div>
+
+
+    </div>
+
+    <div class="col-md-9 col-sm-8">
+        <div class="detail-content">
+          
+            <h3>@Model.Title</h3>
+            <span><b>Thời gian</b>: @Model.PublishDate.GetValueOrDefault().ToString("dd/MM/yyyy") &nbsp;|&nbsp; <b>Địa điểm</b>: @Model.Location</span>
+            <div class="nd" id="NewsContent">
+                @Html.Raw(Model.Contents.Replace("<div style=\"text-align: justify;\"><br></div>", ""))
+            </div>
+            <div class="clearfix"></div>
+
+        </div>
+        
+    </div>
+
+
+
+
+</div>
+<script>
+        $('#pagecontainer').addClass("event-page")
+</script>

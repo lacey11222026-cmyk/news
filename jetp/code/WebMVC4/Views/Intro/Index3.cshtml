@@ -1,0 +1,45 @@
+﻿@using BIZ
+@using UTILS
+@using WebMVC4.Helper
+@model BIZ.Entity.CATEGORY_FULL
+@{
+    List<BIZ.Entity.CATEGORY_FULL> data = ViewBag.lstrelate;
+}
+@{
+    var langpage = WorkContext.GetLanguage();
+}
+<link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+@if (Model != null)
+{
+    <div class="intro-page">
+        <section class="section-intro-1" style="background-image: url('@Model.Param.Image');">
+            <div class="container">
+                <div class="content">
+                    <div class="title">
+                        <h1>@Model.Name</h1>
+                        <div class="breadcrumbs-02">
+                            <ul>
+                                <li><a href="/">@Resources.Global.Home</a></li>
+                                <li><span>@Model.Name</span></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        @Html.Raw(Model.Contents)
+
+
+    </div>
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+
+    <script>
+        AOS.init(); // Khởi động AOS
+    </script>
+
+}
+<style>
+    .intro-page strong {
+        color: inherit !important;
+    }
+</style>

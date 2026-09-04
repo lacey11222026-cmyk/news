@@ -1,0 +1,23 @@
+﻿@using BIZ
+@using UTILS
+@using WebMVC4.Helper
+@model List<BIZ.Entity.DOCUMENT_FULL>
+@{
+    var langpage = WorkContext.GetLanguage();
+}
+@if (Model != null)
+{
+    foreach (var item in Model.Select((value, i) => new { i, value }))
+    {
+        <li>
+            <div>
+                <a href="@Url.Action("Detail","Document",new { id=item.value.Id})" class="document-name">@item.value.Name</a>
+                <ul class="ducoment-btn">
+                    <li><a href="#"><i class="icon-download"></i><span>@item.value.SiteId</span></a></li>
+                    <li><a href="#"><i class="icon-view"></i><span>@item.value.Hits</span></a></li>
+                </ul>
+            </div>
+        </li>
+    }
+}
+

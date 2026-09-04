@@ -1,0 +1,94 @@
+﻿@using BIZ
+@using UTILS
+@using WebMVC4.Helper
+@{
+    var langpage = WorkContext.GetLanguage();
+}
+@if (langpage == "vi-vn")
+{
+    <footer class="mt40">
+        <div class="">
+            <nav>
+                <ul class="container">
+                    <li><a href="/"><img src="/Content/images/icon-home.svg" width="12"></a></li>
+                    @{Html.RenderAction("MenuBottom", "Home", new { lang = langpage });}
+                </ul>
+            </nav>
+            <div class="f-content container">
+                <div class="f-content01">
+                    <div><img src="/Content/images//logo-footer-092025.png" width="225"></div>
+                    <div class="f-add">
+                        <h2>© Bản quyền thuộc <strong>Cục Đổi mới sáng tạo, Chuyển đổi xanh và Khuyến công</strong></h2>
+                        <p class="mt20">
+                            Địa chỉ: 54 Hai Bà trưng, Phường Cửa Nam, Hà Nội, Việt Nam<br>
+                            Chịu trách nhiệm nội dung: Cục trưởng Nguyễn Thị Lâm Giang<br />
+                            Điện thoại: 024. 22218282<br />
+                            Thư điện tử: igip@moit.gov.vn
+                        </p>
+                    </div>
+                    <div>
+                        <p>
+                            Giấy phép số 75/GP-TTĐT do Cục Phát thanh, Truyền hình và Thông tin điện tử, Bộ Văn hoá, thể thao và Du lịch cấp ngày 14/5/2025<br />
+                            Ghi rõ nguồn: <a href="https://igip.gov.vn">igip.gov.vn</a> khi sử dụng thông tin từ website này
+                        </p>
+                        <div class="total mt20">
+                            <span>Tổng số lượt truy cập </span>
+                            <ul>
+                                @foreach (var s in HttpContext.Current.Application["TotalVisited"].ToString().Select(c => c.ToString()).ToList())
+                                {
+                                    <li>@s</li>
+                                }
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div><!-- end container-->
+    </footer>
+}
+else
+{
+
+    <footer class="mt40">
+        <div class="">
+            <nav>
+                <ul class="container">
+                    <li><a href="#"><img src="/Content/images/icon-home.svg" width="12"></a></li>
+                    @{Html.RenderAction("MenuBottom", "Home", new { lang = langpage });}
+                </ul>
+            </nav>
+            <div class="f-content container">
+                <div class="f-content01">
+                    <div><img src="/Content/images/LOGO_BOTTOM-ENG.gif" width="225"></div>
+                    <div class="f-add">
+                        <h2><strong>© Copyrights of Agency for Innovation, Green Transition and Industry Promotion - Ministry of Industry and Trade</strong></h2>
+                        <p class="mt20">
+                            Address: 54 Hai Ba Trung street, Cua Nam ward, Hanoi, Vietnam <br />
+                            Responsible for content: Director General Nguyen Thi Lam Giang<br />
+
+                            Tel:  024. 22218282<br />
+                            Email: igip@moit.gov.vn
+                        </p>
+                    </div>
+                    <div>
+                        <p>
+                            License No. 75/GP-TTĐT dated May 14, 2025 by the Authority of Broadcasting and Electronic Information, Ministry of Culture, Sports and Tourism.<br />
+                            Any reuse of the content and information on this website must give source credit to <a href="https://igip.gov.vn">igip.gov.vn</a>
+                        </p>
+                        <div class="total mt20">
+                            <span>Total visits </span>
+                            <ul>
+                                @foreach (var s in HttpContext.Current.Application["TotalVisited"].ToString().Select(c => c.ToString()).ToList())
+                                {
+                                    <li>@s</li>
+                                }
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div><!-- end container-->
+    </footer>
+
+}
+<p><a href="#top" id="backToTop" class="backTop block" style="bottom: 65px;"></a></p>

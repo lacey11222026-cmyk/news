@@ -1,0 +1,51 @@
+﻿@using BIZ
+@using UTILS
+@using WebMVC4.Helper
+@model BIZ.Entity.CATEGORY_FULL
+
+@if (Model != null)
+{
+    <div id="PageContainer" class="is-moved-by-drawer">
+        <main class="main-content" role="main">
+            <section id="page-wrapper">
+                <div class="wrapper">
+                    <div class="inner">
+                        <div class="grid">
+
+                            <div class="grid__item large--one-whole">
+                                <div class="page-head">
+                                    <h1>@Model.Description</h1>
+                                </div>
+                                <div id="NewsContent" class="rte">
+                                    @Html.Raw(Model.Contents)
+                                </div>
+
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+        </main>
+    </div>
+   
+
+
+    if (ViewBag.IsMobile)
+    {
+        <script>
+            $('#NewsContent table').removeAttr('width');
+
+            $('#NewsContent  img').removeAttr('width');
+        </script>
+    }
+
+    <script>
+    $("#menu_@Model.Id").addClass("active");
+
+    </script>
+}
+
+
+

@@ -1,0 +1,21 @@
+﻿<div class="row">
+    <div class="col-md-12 col-sm-12 col-xs-12 banklist banklist-detail">
+        @{Html.RenderAction("ReportEn", "Home", new { param = "" });}
+        <ul class="bnrlogo mt15">
+            @{Html.RenderAction("BannerRight1", "Home", new { param = "" });}
+        </ul>
+    </div>
+    <div class="col-md-12 col-sm-6 col-xs-6 maxheight04" style="">
+        @{Html.RenderAction("TopQuestion", "Home", new { CateName = "", CategoryId = 22, MaxLastestNews = 5 });}
+    </div>
+    <div class="col-md-12 col-sm-6 col-xs-6 mt20 maxheight04" style="">
+        <div class="maxheight02 mt30" style=""><h2 class="title-cm"><a href="/Document/Index/19">MATERIALS</a></h2></div>
+        <ul class="document-list">
+            <li><a href="/Document/Index/24">PROJECT DOCUMENTS</a></li>
+            <li><a href="/Document/Index/25">ENERGY EFFICIENCY HANDBOOK</a></li>
+            <li><a href="/hoi-dap/c23/consulting-firms.html">CONSULTING FIRMS</a></li>
+            <li><a href="/hoi-dap/c21/application-form.html">APPLICATION FORM</a></li>
+            <li><a href="/Document/Index/39">OTHER MATERIALS</a></li>
+        </ul>
+    </div>
+</div>

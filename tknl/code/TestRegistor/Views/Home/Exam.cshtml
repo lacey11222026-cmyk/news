@@ -1,0 +1,366 @@
+﻿@using UTILS;
+@model List<BIZ.Entity.TestQuestionArchive>
+@{
+    Layout = "~/Views/Shared/_Layout2.cshtml";
+}
+
+<div class="maincontent screen03-content mt20 screen-full">
+    <div class="bg-gradient">
+        <div class="container">
+            <div class="question-title">
+                <p class="name-question">Cuộc thi trực tuyến Tìm hiểu kiến thức về sử dụng năng lượng tiết kiệm và hiệu quả năm 2026</p>
+            </div>
+        </div>
+    </div>
+    <div class="container mt20 b4-content">
+        @if (Model != null)
+        {
+            <div class="question-info">
+                <div class="time-content">
+                    <span class="time-ico"></span>
+                    <p>Thời gian còn lại <br><span class="text-bold" id="time"></span></p>
+                </div>
+            </div>
+
+            <div id="DivQuestion">
+                <div class="b2-wrap wow fadeInDown" data-wow-offset="200">
+
+                    <div >
+                        <div id="DivQuestion">
+                            @foreach (var item in Model.Select((value, i) => new { i, value }))
+                            {
+                                if (item.i == 0)
+                                {
+                                    <div class="dvquestion" id="questionitem-@(item.i+1)">
+                                        <h3 class="textblue font-weight-bold question-num mt30">Câu số @(item.i + 1) </h3>
+                                        <div class="textblue font-weight-bold" style="font-size:115%">@Html.Raw(item.value.Contents)</div>
+                                        <div class="lb_question answer mt30">
+                                            <form action="">
+                                                @if (item.value.Type == 1)
+                                                {
+                                                    foreach (var itemA in item.value.AnswerArchiveInfo.Select((value, i) => new { i, value }))
+                                                    {
+                                                        <label class="textblue"><input type="radio" name="anwswer_@(item.i)" value="@itemA.value.Order"> <span onclick="return selectCard(this);">@itemA.value.Name</span></label><br>
+                                                    }
+                                                }
+                                                else
+                                                {
+                                                    foreach (var itemA in item.value.AnswerArchiveInfo.Select((value, i) => new { i, value }))
+                                                    {
+                                                        <label class="textblue"><input type="checkbox" name="anwswer_@(item.i)" value="@itemA.value.Order"> <span onclick="return selectCard(this);">@itemA.value.Name</span></label><br>
+                                                    }
+                                                }
+                                            </form>
+                                            @if (item.i < Model.Count - 1)
+                                            {
+
+                                                <a href="javascript:;" onclick="gotoQuestion(@(item.i+1),@(item.i+2));" class="btn mt30"><span class="btn-icon-next">TIẾP THEO <span class="icon-next"></span></span></a>
+                                            }
+                                            else
+                                            {
+                                                <a href="javascript:;" onclick="saveGame();" class="btn btn-blue ">KẾT THÚC </a>
+                                            }
+
+                                        </div>
+                                    </div>
+
+
+                                }
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        }
+    </div>
+</div>
+
+<footer class="bg-gradient">
+    <p class="container">Bản quyền thuộc <strong>Chương trình quốc gia về sử dụng năng lượng tiết kiệm và hiệu quả</strong></p>
+</footer>
+
+
+
+
+
+<script language="JavaScript">
+    $(window).bind('beforeunload', function () {
+        return 'Are you sure you want to leave?';
+    });
+    $('#body').addClass('bg-green-02');
+    //$(document).on({
+    //    "contextmenu": function (e) {
+    //        console.log("ctx menu button:", e.which);
+
+    //        // Stop the context menu
+    //        e.preventDefault();
+    //    },
+    //    "mousedown": function (e) {
+    //        console.log("normal mouse down:", e.which);
+    //        // Stop the context menu
+    //        e.preventDefault();
+    //    },
+    //    "mouseup": function (e) {
+    //        console.log("normal mouse up:", e.which);
+    //        // Stop the context menu
+    //        e.preventDefault();
+    //    }
+    //});
+
+
+    // Chặn tấn công CSRF (XSRF)
+    function addAntiForgeryToken(data) {
+        if (!data) {
+            data = {};
+        }
+        var tokenInput = $('input[name=__RequestVerificationToken]');
+        if (tokenInput.length) {
+            data.__RequestVerificationToken = tokenInput.val();
+        }
+        return data;
+    };
+</script>
+<script>
+
+
+    //$('#questionitem-1').show("slow");
+    function gotoQuestion(current,qnumber) {
+
+        $.each($('.lb_question'), function (i, question) {
+            var inputa = $(question).find("input");
+            ans = ',';
+            $.each($(inputa), function (ix, answer) {
+                if ($(answer).is(":checked")) {
+
+                    ans += $(answer).val() + ',';
+                }
+
+            });
+            localStorage.setItem('as' + current, ans);
+
+        });
+        $('#hdIndex').val(qnumber);
+        $.ajax({
+            type: 'GET',
+            url: "/Home/LoadExam/?index="+qnumber,
+
+            success: function (data) {
+                $("#DivQuestion").html(data);
+                $('#numberquestiontitle').html(qnumber + '/' + '@ViewBag.NumberQuestion' + '');
+            },
+            error: function () {
+
+            }
+        });
+
+    }
+
+
+</script>
+<script>
+    function saveGame2() {
+        ShowProgress();
+        var archive = '';
+        var ans = '';
+
+        for (var id = 1; id <=@(ViewBag.NumberQuestion); id++)
+        {
+
+            if (parseInt($('#hdIndex').val()) == id) {
+                $.each($('.lb_question'), function (i, question) {
+                    var inputa = $(question).find("input");
+                    ans = ',';
+                    $.each($(inputa), function (ix, answer) {
+                        if ($(answer).is(":checked")) {
+                            //alert($(answer).val());
+                            ans += $(answer).val() + ',';
+                        }
+
+                    });
+
+                    archive += ans + '|';
+                });
+            }
+            else {
+                var as = localStorage.getItem('as' + id, ans);
+                if (as == null || as == undefined) {
+                    archive += '|';
+                }
+                else {
+                    archive += as + '|';
+                }
+            }
+
+        }
+
+
+
+
+        var postdata = {
+            'result': archive
+
+        };
+        $.ajax({
+            type: 'POST',
+            url: "/Home/End",
+            data: addAntiForgeryToken(postdata),
+            success: function (data) {
+                HideProgress();
+                $(window).unbind('beforeunload');
+                if (data.ResponseCode >= 0) {
+                    window.location.href = "/Home/Result";
+
+                    return;
+                }
+                else {
+                    if (data.ResponseCode === -101) {
+                        window.location.href = "/";
+                        return;
+                    }
+                    //Kết quả
+                    if (data.ResponseCode === -102) {
+                        window.location.href = "/Home/Result";
+                        return;
+                    }
+                    bootbox.alert(data.Description);
+                    return;
+                }
+            }
+        });
+
+
+
+    }
+    function saveGame() {
+        bootbox.confirm("Bạn muốn kết thúc bài thi?", function (result) {
+            if (result === true) {
+                ShowProgress();
+                var archive = '';
+
+                for (var  i = 1; i <@(ViewBag.NumberQuestion); i++)
+                {
+                    archive += localStorage.getItem('as' + i, ans) + '|';
+                }
+                var ans = '';
+
+                $.each($('.lb_question'), function (i, question) {
+                    var inputa = $(question).find("input");
+                    ans = ',';
+                    $.each($(inputa), function (ix, answer) {
+                        if ($(answer).is(":checked")) {
+                            //alert($(answer).val());
+                            ans += $(answer).val() + ',';
+                        }
+
+                    });
+
+                    archive += ans + '|';
+                });
+
+
+                var postdata = {
+                    'result': archive
+
+                };
+                $.ajax({
+                    type: 'POST',
+                    url: "/Home/End",
+                    data: addAntiForgeryToken(postdata),
+                    success: function (data) {
+                        HideProgress();
+                        $(window).unbind('beforeunload');
+                        if (data.ResponseCode >= 0) {
+                            window.location.href = "/Home/Result";
+
+                            return;
+                        }
+                        else {
+                            if (data.ResponseCode === -101) {
+                                window.location.href = '/';
+                                return;
+                            }
+                            //Kết quả
+                            if (data.ResponseCode === -102) {
+                                window.location.href = "/Home/Result";
+                                return;
+                            }
+                            bootbox.alert(data.Description);
+                            return;
+                        }
+                    }
+                });
+            }
+        });
+
+
+    }
+    function selectCard(obj) {
+
+        var o = $(obj).parent().find("input");
+        if (o.prop('checked')) {
+            o.prop('checked', false);
+        }
+        else {
+            o.prop('checked', true);
+        }
+
+
+    }
+</script>
+@*<script>
+        function saveGame2() { ShowProgress(); var i = "", t = ""; $.each($(".lb_question"), function (o, e) { var n = $(e).find("input"); t = ",", $.each($(n), function (o, e) { $(e).is(":checked") && (t += $(e).val() + ",") }), i += t + "|" }); var o = { result: i }; $.ajax({ type: "POST", url: "/Home/End", data: addAntiForgeryToken(o), success: function (o) { return HideProgress(), $(window).unbind("beforeunload"), 0 <= o.ResponseCode ? void (window.location.href = "/Home/Result") : -101 === o.ResponseCode ? void (window.location.href = "/") : -102 === o.ResponseCode ? void (window.location.href = "/Home/Result") : void bootbox.alert(o.Description) } }) } function saveGame() { bootbox.confirm("Bạn muốn kết thúc bài thi?", function (o) { if (!0 === o) { ShowProgress(); var i = "", t = ""; $.each($(".lb_question"), function (o, e) { var n = $(e).find("input"); t = ",", $.each($(n), function (o, e) { $(e).is(":checked") && (t += $(e).val() + ",") }), i += t + "|" }); var e = { result: i }; $.ajax({ type: "POST", url: "/Home/End", data: addAntiForgeryToken(e), success: function (o) { return HideProgress(), $(window).unbind("beforeunload"), 0 <= o.ResponseCode ? void (window.location.href = "/Home/Result") : -101 === o.ResponseCode ? void (window.location.href = "/") : -102 === o.ResponseCode ? void (window.location.href = "/Home/Result") : void bootbox.alert(o.Description) } }) } }) } function selectCard(o) { var e = $(o).parent().find("input"); e.prop("checked") ? e.prop("checked", !1) : e.prop("checked", !0) }
+    </script>*@
+<script>
+    // Set the date we're counting down to
+    var countDownDate = new Date("@ViewBag.Time").getTime();
+    var dateNow = new Date("@DateTime.Now").getTime();
+    var index = 0;
+    // Update the count down every 1 second
+    var x = setInterval(function () {
+
+        // Get todays date and time
+        //var now = new Date().getTime();
+        var now =dateNow+index;
+        index+=1000;
+        // Find the distance between now and the count down date
+        var distance = countDownDate - now;
+
+        // Time calculations for days, hours, minutes and seconds
+        //var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+        //var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+        var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+        if (minutes != -1) {
+            if (minutes <= 9) minutes = '0' + minutes;
+            if (seconds <= 9) seconds = '0' + seconds;
+            //dispTime = minutes + ':' + seconds;
+        }
+        var clocklocation = document.getElementById('time');
+        clocklocation.innerHTML = minutes + ':' + seconds;
+        //clearInterval(x);
+        // Display the result in the element with id="demo"
+
+        // If the count down is finished, write some text
+
+        if (Math.floor(distance / 1000) < 0) {
+            clocklocation.innerHTML = '00:00';
+            clearInterval(x);
+            saveGame2();
+            return;
+        }
+    }, 1000);
+
+    function ShowProgress() {
+        $('#TB_overlay').show();
+    }
+    function HideProgress() {
+        $('#TB_overlay').hide();
+    }
+</script>
+<style>
+    .btn-default {
+        color: #333 !important;
+    }
+</style>

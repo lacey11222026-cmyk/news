@@ -1,0 +1,379 @@
+﻿@{
+   
+    Layout = "~/Views/Shared/_Admin.cshtml";
+}
+
+
+    <script type="text/javascript">
+        OpenAlertDialog('Đang xử lý ...');
+    </script>
+    <div id="toolbar-box">
+        <div class="t">
+            <div class="t">
+                <div class="t">
+                </div>
+            </div>
+        </div>
+        <div class="m">
+            <div class="toolbar" id="toolbar">
+                <table class="toolbar">
+                    <tr>
+                        <td class="button" id="toolbar-save">
+                            <a id="lnkSave" class="toolbar" href="javascript:void(0);" onclick="Save('close');">
+                                <span class="icon-32-save" title="Save"></span>Lưu lại</a>
+                        </td>
+                        <td class="button" id="toolbar-apply">
+                            <a id="lnkApply" class="toolbar" href="javascript:void(0);" onclick="Save();"><span
+                                class="icon-32-apply" title="Apply"></span>Áp dụng</a>
+                        </td>
+                        <td class="button" id="toolbar-cancel">
+                            <a id="lnkClose" class="toolbar" href="javascript:void(0);" onclick="Close();"><span
+                                class="icon-32-cancel" title="Close"></span>Đóng</a>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div class="header icon-48-addedit">
+                Cấu hình tin nổi bật: <small><span id="spDetailTitle"></span></small>
+            </div>
+            <div class="clr">
+            </div>
+        </div>
+        <div class="b">
+            <div class="b">
+                <div class="b">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="clr">
+    </div>
+    <div id="element-box">
+        <div class="t">
+            <div class="t">
+                <div class="t">
+                </div>
+            </div>
+        </div>
+        <div class="m" id="all_item_info_container">
+            <div id="jalert_notification">
+                &nbsp;</div>
+            <div class="col width-30">
+                <fieldset>
+                    <legend>Cấu hình tin nổi bật</legend>
+                    <table class="admintable" id="configuration_container">
+                        <tr>
+                            <td colspan="3">
+                                Tên bài viết:
+                                <input id="txt_filterbyname" type="text" style="width: 200px;" />
+                                <input id="btn_search" type="button" value="Lọc" onclick="Filter();" />
+                                &nbsp; &nbsp;Chuyên mục:
+                                <select id="select_filterbycategory" onchange="Filter();">
+                                </select>
+                                <br />
+                                <br />
+                            </td>
+                            <td width="40%">
+                                &nbsp;
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div>
+                                    Danh sách chọn
+                                     <select id="AvailableNews" style="height:400px;width:500px;" multiple="multiple" name="AvailableNews" size="4">
+                                    </select>
+                                </div>
+                            </td>
+                            <td>
+                                <div>
+                                    <img src="/Administrator/images/dualist/select.gif" alt="top" height="16px" width="16px"
+                                        title="chọn" style="cursor: pointer;" onclick="add();" /><br />
+                                    <img src="/Administrator/images/dualist/selectall.gif" alt="top" height="16px" width="16px"
+                                        title="chọn tất cả" style="cursor: pointer;" onclick="addall();" /><br />
+                                    <img src="/Administrator/images/dualist/remove.gif" alt="top" height="16px" width="16px"
+                                        title="loại bỏ" style="cursor: pointer;" onclick="fremove();" /><br />
+                                    <img src="/Administrator/images/dualist/removeall.gif" alt="top" height="16px" width="16px"
+                                        title="bỏ tất cả" style="cursor: pointer;" onclick="removeall();" /><br />
+                                </div>
+                            </td>
+                            <td>
+                                <div>
+                                    Danh sách đã chọn
+                                    <select id="SelectedNews" style="height:400px;width:500px;" multiple="multiple" name="SelectedNews" size="4">
+                                    </select>
+                                    <div style="clear: both;">
+                                    </div>
+                                </div>
+                            </td>
+                            <td>
+                                <div>
+                                    <img src="/Administrator/images/dualist/top.gif" alt="top" height="16px" width="16px"
+                                        title="lên trên cùng" style="cursor: pointer;" onclick="moveTopItem();" /><br />
+                                    <img src="/Administrator/images/dualist/up.gif" alt="up" height="16px" width="16px"
+                                        title="lên trên" style="cursor: pointer;" onclick="moveUpItem();" /><br />
+                                    <img src="/Administrator/images/dualist/down.gif" alt="down" height="16px" width="16px"
+                                        title="xuống dưới" style="cursor: pointer;" onclick="moveDownItem();" /><br />
+                                    <img src="/Administrator/images/dualist/bottom.gif" alt="bottom" height="16px" width="16px"
+                                        title="xuống dưới cùng" style="cursor: pointer;" onclick="moveBottomItem();" /><br />
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+                </fieldset>
+            </div>
+            <div class="clr">
+            </div>
+        </div>
+        <div class="b">
+            <div class="b">
+                <div class="b">
+                </div>
+            </div>
+        </div>
+    </div>
+    <script language="javascript" type="text/javascript">
+        var redirectUrl = '@Url.Action("Index","AdminNews")';
+        $(document).ready(function () {
+           
+            var lstid = '@UTILS.Utils.GetAppSettingValue("HotNews")';
+            BinDataSelectedNews(lstid);
+            BindCategoriesToSelectBox();
+            DestroyDialog();
+
+
+        });
+
+        function Save(type, func) {
+
+            DestroyJAlert();
+
+            
+
+            OpenAlertDialog('Đang xử lý ...');
+            var value = "";
+            $("#SelectedNews option").each(function () {
+                value = value + $(this).val() + ",";
+
+            });
+
+            var data = 'HotNews' + '|' + value;
+            $.Services({
+
+                isCrossDomain: false,
+
+                url: POST_URL + 'SystemService.ashx',
+
+                data: {
+                    __m: 'save_appsetting',
+                    'data': data
+                },
+
+                success: function (data) {
+
+
+                    var json_data = $.parseJSON(data.substring(data.indexOf("{"), data.lastIndexOf("}") + 1));
+
+                    if (type != undefined && type != null && type != '' && type == 'close')
+                        Close();
+                    else
+                        window.location.reload();
+
+                    DestroyDialog();
+
+                    var jalert_type = "info";
+                    if (data != undefined && data != null && data != '') {
+                        var json_data = $.parseJSON(data.substring(data.indexOf("{"), data.lastIndexOf("}") + 1));
+                        if (!json_data.Success)
+                            jalert_type = "fatal";
+
+                        $('#jalert_notification').jAlert(json_data.Text, jalert_type, "edit", 400);
+                    }
+
+
+                }
+            });
+        }
+
+        function Close() {
+            window.location.href = redirectUrl;
+        }
+  
+        function BinDataSelectedNews(lstid) {
+
+
+            $.Services({
+                element: $('#AvailableNews'),
+                loadingImg: '',
+                serviceName: 'ArticleService.ashx',
+                data: {
+                    __m: 'get_article_byids',
+                    _lstid: lstid
+                },
+                success: function (data) {
+
+                    if (data != undefined && data != null && data != '') {
+                        var html = '';
+                        $.each(data, function (index, item) {
+                            html += '<option value="' + item.Id + '">' + item.Title + '</option>';
+                        });
+                        $("#SelectedNews ").html(html);
+
+                    }
+
+
+                }
+
+            });
+        }
+        function BindCategoriesToSelectBox() {
+
+            $('#select_filterbycategory').html('<option value="0">- Tất cả các chuyên mục -</option>');
+
+            $.Services({
+
+                serviceName: 'CategoryService.ashx',
+                data: {
+                    __m: 'get_all_categories',
+                    ctype: 2
+                },
+                success: function (data) {
+
+                    html = '';
+
+                    if (data != undefined && data != null && data != '') {
+
+                        $.each(data, function (i, item) {
+                            html = '<option value="' + item.Id + '" title="' + item.Pathway + '">';
+                            if (item.NodeLevel != 0) {
+                                for (var i = 1; i < item.NodeLevel; i++) {
+                                    html += '-+&nbsp;';
+                                }
+                            }
+
+                            html += item.Name;
+                            html += '</option>';
+
+                            if (item.ParentId != 0) {
+                                if ($('#select_filterbycategory option[value=' + item.ParentId + ']').length)
+                                    $('#select_filterbycategory option[value=' + item.ParentId + ']').after(html);
+                                else
+                                    $('#select_filterbycategory').append(html);
+                            }
+                            else
+                                $('#select_filterbycategory').append(html);
+
+
+                          
+
+                        });
+
+                        Filter();
+                    }
+
+                }
+            });
+
+        }
+        function Filter() {
+
+
+            var tit = $('#txt_filterbyname').val();
+            var cid = $('#select_filterbycategory option:selected').val();
+
+
+            $.Services({
+                element: $('#AvailableNews'),
+                loadingImg: '',
+                serviceName: 'ArticleService.ashx',
+                data: {
+                    __m: 'get_filter_articles',
+                    tit: tit,
+                    cid: cid,
+                    tid: 4,
+                    createdby: '',
+                    _pi: 1,
+                    _ps: 25
+                },
+                success: function (data) {
+                    var html = '';
+                    if (data != undefined && data != null && data != '') {
+                        var items = data.Items;
+                        var total = data.Total;
+
+                        html = BinDataAvailableNews(items);
+
+                    }
+
+                    $("#AvailableNews ").html(html)
+                }
+
+            });
+        }
+        function BinDataAvailableNews(data) {
+            var html = '';
+            $.each(data, function (index, item) {
+                html += '<option value="' + item.Id + '">' + item.Title + '</option>';
+            });
+
+            return html;
+        }
+        function add() {
+            $("#AvailableNews option:selected").appendTo("#SelectedNews");
+
+        }
+        function addall() {
+            $("#AvailableNews option").appendTo("#SelectedNews");
+
+        }
+
+        function fremove() {
+            $("#SelectedNews option:selected").appendTo("#AvailableNews");
+        }
+
+        function removeall() {
+            $("#SelectedNews option").appendTo("#AvailableNews");
+        }
+
+
+        function moveTopItem() {
+
+
+            //            if ($('#SelectedNews option:selected').attr('index') > $('#SelectedNews option:first').attr('index')) {
+
+            $('#SelectedNews option:selected').insertBefore($('#SelectedNews option:first'));
+
+            //            }
+            return false;
+
+        }
+
+        function moveUpItem() {
+            $('#SelectedNews option:selected').each(function () {
+
+                $(this).insertBefore($(this).prev());
+            });
+        }
+
+        function moveDownItem() {
+
+            $('#SelectedNews option:selected').each(function () {
+                $(this).insertAfter($(this).next());
+            });
+
+        }
+        function moveBottomItem() {
+
+            //            if ($('#SelectedNews option:selected').attr('index') < $('#SelectedNews option:last').attr('index')) {
+
+            $('#SelectedNews option:selected').insertAfter($('#SelectedNews option:last'));
+
+            //            }
+            return false;
+
+        }
+
+   
+
+
+    </script>

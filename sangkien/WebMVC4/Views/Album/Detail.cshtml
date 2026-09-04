@@ -1,0 +1,71 @@
+﻿@using BIZ
+@using UTILS
+@using WebMVC4.Helper
+@model DATA.Album
+@{
+    var langpage = WorkContext.GetLanguage();
+}
+<link href="/fancybox2.1.5/jquery.fancybox.css" rel="stylesheet" />
+<script src="/fancybox2.1.5/jquery.fancybox.js"></script>
+
+
+@if (Model != null)
+{
+
+    <div class="image-page container mt20">
+        <div class="row">
+            <div class="col-lg-8 col-md-12 pb40">
+                @{Html.RenderAction("Breadcrumb", "News", new
+                    {
+                        CategoryId = Model.CategoryId
+                    });}
+                <ul class="row video-list mt20" id="lstlightbox">
+
+                    @foreach (BIZ.Entity.AlbumImage item in ViewBag.ImgList)
+                    {
+
+
+                        <li class="col-md-4 col-6">
+                            <a href="@(item.Name)?w=0&h=@(ViewBag.Height)&mode=crop" title="@item.Text" rel="group">
+                                <img src="@(item.Name)?w=338&h=200&mode=crop" alt="" class="w-100" />
+                            </a>
+                        </li>
+                    }
+                </ul>
+                <script type='text/javascript'>
+
+                    $(document).ready(function () {
+                        $("#lstlightbox a").fancybox({
+
+                        });
+                    });
+                </script>
+            </div><!-- end content left-->
+
+            <div class="col-lg-4 col-md-12">
+                <div class="noti-box">
+                    @{Html.RenderAction("RightLastestNews2", "News", new { CateName = "", CategoryId = 93, MaxLastestNews = 3, cssClass = "maxheight02" });}
+
+                </div>
+                <ul class="link-list mt20">
+                    @{Html.RenderAction("BannerRight", "Home", new { lang = langpage });}
+
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!-- end content-->
+    
+
+
+
+
+
+}
+
+<script type="text/javascript">
+
+
+    $('#menu_66').addClass("active");
+
+</script>

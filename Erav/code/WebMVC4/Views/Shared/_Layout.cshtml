@@ -1,0 +1,78 @@
+﻿@using WebMVC4.Helper
+@{
+    var langpage = WorkContext.GetLanguage();
+}
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+
+    @Html.Partial("MetaData")
+
+    <link rel="stylesheet" type="text/css" href="/Content/css/common.css?vs=3">
+    <link rel="stylesheet" type="text/css" href="/Content/css/style.css?vs=20">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+
+    <link type="text/css" rel="stylesheet" href="/Content/css/jquery.mmenu.all.css?vs=3" />
+    <link href="/Content/css/chantrang.css?vs=3" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="/Content/css/extend.css?vs=20">
+
+
+
+
+
+    <!----- Javascript----->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js	"></script>
+
+
+</head>
+<body>
+    <div>
+        @Html.Partial("Site_Header")
+
+        @RenderBody()
+
+        @Html.Partial("Site_Footer")
+        <div id="top_gototop"><a href="#" class="gototop clearfix"></a></div>
+    </div>
+
+    <script type="text/javascript" src="/Content/js/jquery.mmenu.min.all.js"></script>
+    <script type="text/javascript" src="/Content/js/jquery.matchHeight.js"></script>
+    <script type="text/javascript" src="/Content/js/jquery.flexisel.js"></script>
+    <script type="text/javascript" src="/Content/js/script.js"></script>
+    <script type="text/javascript">
+        $(function () {
+            $('.maxheight').matchHeight();
+            $('.maxheight01').matchHeight();
+            $('.maxheight02').matchHeight();
+            $('.maxheight03').matchHeight();
+            $('.maxheight04').matchHeight();
+            $('.white-box').matchHeight();
+        });
+
+
+    </script>
+
+    @RenderSection("scripts", required: false)
+    <div id="fb-root"></div>
+    <div style="clear:both">
+    </div>
+    <script>
+        $("#qnmb").remove();
+    </script>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-QMKGWCQMS2"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'G-QMKGWCQMS2');
+    </script>
+</body>
+
+
+
+
+
+</html>

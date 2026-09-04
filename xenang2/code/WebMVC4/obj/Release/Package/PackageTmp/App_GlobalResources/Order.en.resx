@@ -1,0 +1,280 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Address" xml:space="preserve">
+    <value>Địa chỉ</value>
+    <comment>Address</comment>
+  </data>
+  <data name="AddressEmpty" xml:space="preserve">
+    <value>Vui lòng nhập địa chỉ</value>
+    <comment>Please Enter Address</comment>
+  </data>
+  <data name="ButonOrder" xml:space="preserve">
+    <value>Đặt hàng</value>
+    <comment>Order</comment>
+  </data>
+  <data name="ButtonEdit" xml:space="preserve">
+    <value>Sửa đơn hàng</value>
+    <comment>Edit</comment>
+  </data>
+  <data name="Comment" xml:space="preserve">
+    <value>Bình luận</value>
+    <comment>Comment</comment>
+  </data>
+  <data name="ConfirmOrder" xml:space="preserve">
+    <value>Xác nhận đơn hàng</value>
+    <comment>Confirm</comment>
+  </data>
+  <data name="Count" xml:space="preserve">
+    <value>Số lượng</value>
+    <comment>Number</comment>
+  </data>
+  <data name="Description" xml:space="preserve">
+    <value>Mô tả</value>
+    <comment>Description</comment>
+  </data>
+  <data name="EmailValidateEmpty" xml:space="preserve">
+    <value>Vui lòng nhập Email</value>
+    <comment>Please Enter Email</comment>
+  </data>
+  <data name="EmailValidateFormat" xml:space="preserve">
+    <value>Email sai định dạng</value>
+    <comment>Email Not Format</comment>
+  </data>
+  <data name="First" xml:space="preserve">
+    <value>Đầu</value>
+    <comment>First</comment>
+  </data>
+  <data name="FullName" xml:space="preserve">
+    <value>Tên khách hàng</value>
+    <comment>FullName</comment>
+  </data>
+  <data name="FullNameEmpty" xml:space="preserve">
+    <value>Vui lòng nhập họ tên</value>
+    <comment>Please Enter FullName</comment>
+  </data>
+  <data name="HeaderAddress" xml:space="preserve">
+    <value>Địa chỉ nhận hàng</value>
+    <comment>Address</comment>
+  </data>
+  <data name="HeaderCartInfo" xml:space="preserve">
+    <value>Thông tin giỏ hàng</value>
+    <comment>Cart Info</comment>
+  </data>
+  <data name="HeaderCustomInfo" xml:space="preserve">
+    <value>Thông tin nhận hàng</value>
+    <comment>Thông tin nhận hàng</comment>
+  </data>
+  <data name="HeaderOrderInfo" xml:space="preserve">
+    <value>Thông tin đơn hàng</value>
+    <comment>Order Info</comment>
+  </data>
+  <data name="HeaderOrderPrice" xml:space="preserve">
+    <value>Giá trị đơn hàng</value>
+    <comment>Giá trị đơn hàng</comment>
+  </data>
+  <data name="MessageError" xml:space="preserve">
+    <value>Lỗi hệ thống! Vui lòng quay lại trong giây lát</value>
+    <comment>System Error</comment>
+  </data>
+  <data name="MessageFail" xml:space="preserve">
+    <value>Đặt hàng thất bại</value>
+    <comment>Fail Order</comment>
+  </data>
+  <data name="MessageOrderInfo" xml:space="preserve">
+    <value>Mã đơn hàng của bạn là {0}</value>
+    <comment>Your OrderNo Is  {0}</comment>
+  </data>
+  <data name="MessageReturnHome" xml:space="preserve">
+    <value>Quay lại trang chủ</value>
+    <comment>Return HomePage</comment>
+  </data>
+  <data name="MessageSoMuch" xml:space="preserve">
+    <value>Bạn gửi thông tin quá nhiều lần. Vui lòng chờ giây lát</value>
+    <comment>You send too many times. Please wait a moment</comment>
+  </data>
+  <data name="MessageSucces" xml:space="preserve">
+    <value>Đặt hàng thành công</value>
+    <comment>Succes Order</comment>
+  </data>
+  <data name="Mobile" xml:space="preserve">
+    <value>Số điện thoại</value>
+    <comment>Mobile</comment>
+  </data>
+  <data name="MobileValidateEmpty" xml:space="preserve">
+    <value>Vui lòng nhập số điện thoại</value>
+    <comment>Please Enter Mobile</comment>
+  </data>
+  <data name="MobileValidateFormat" xml:space="preserve">
+    <value>Số điện thoại sai định dạng</value>
+    <comment>Mobile Not Format</comment>
+  </data>
+  <data name="MobileValidateLenght" xml:space="preserve">
+    <value>Số điện thoại phải có từ 10-11 ký tự</value>
+    <comment>Mobile must be between 10-11 characters</comment>
+  </data>
+  <data name="MobileValidateType" xml:space="preserve">
+    <value>Số điện thoại phải là số</value>
+    <comment>Mobile Is Number</comment>
+  </data>
+  <data name="Next" xml:space="preserve">
+    <value>Sau</value>
+    <comment>Next</comment>
+  </data>
+  <data name="Note" xml:space="preserve">
+    <value>Ghi chú</value>
+    <comment>Note</comment>
+  </data>
+  <data name="OrderPrice" xml:space="preserve">
+    <value>Giá trị đơn hàng</value>
+    <comment>Price Order</comment>
+  </data>
+  <data name="OrderTransfer" xml:space="preserve">
+    <value>Phí vận chuyển</value>
+    <comment>OrderTransfer</comment>
+  </data>
+  <data name="Previous" xml:space="preserve">
+    <value>Trước</value>
+    <comment>Previous</comment>
+  </data>
+  <data name="Price" xml:space="preserve">
+    <value>Giá bán</value>
+    <comment>Price</comment>
+  </data>
+  <data name="Product" xml:space="preserve">
+    <value>Sản phẩm</value>
+    <comment>Product</comment>
+  </data>
+  <data name="Question" xml:space="preserve">
+    <value>Nội dung</value>
+    <comment>Content</comment>
+  </data>
+  <data name="QuestionValidateEmpty" xml:space="preserve">
+    <value>Vui lòng nhập nội dung</value>
+    <comment>Please Enter Question</comment>
+  </data>
+  <data name="SendQuestion" xml:space="preserve">
+    <value>Gửi câu hỏi</value>
+    <comment>Send Question</comment>
+  </data>
+  <data name="Total" xml:space="preserve">
+    <value>Tổng cộng</value>
+    <comment>Total</comment>
+  </data>
+</root>

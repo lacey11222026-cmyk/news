@@ -1,0 +1,96 @@
+﻿@{
+    Layout = "~/Views/Shared/_Home.cshtml";
+}
+@using BIZ
+@using UTILS
+@using WebMVC4.Helper
+@model DATA.Expert
+
+<div class="contact-detail">
+    <h3 class="title-blue">@Model.Name</h3>
+
+    <div class="panel with-nav-tabs panel-default">
+        <div class="panel-heading">
+            <ul class="nav nav-tabs">
+                <li class="active"><a href="#tab1default" data-toggle="tab">Thông tin chung</a></li>
+                <li><a href="#tab2default" data-toggle="tab">Chuyên môn</a></li>
+                <li><a href="#tab3default" data-toggle="tab">Hoạt động</a></li>
+                <li><a href="#tab3default" data-toggle="tab">Kinh nghiệm</a></li>
+            </ul>
+        </div>
+        <div class="panel-body">
+            <div class="tab-content">
+                <div class="tab-pane fade in active" id="tab1default">
+                    <table>
+                        <tr>
+                            <th><img src="@Model.Image"></th>
+                            <td>@Model.Description</td>
+                        </tr>
+                        <tr>
+                            <th>Tên:</th>
+                            <td>@Model.Name</td>
+                        </tr>
+                        
+                        <tr>
+                            <th>Năm:</th>
+                            <td>@Model.Year</td>
+                        </tr>
+                        <tr>
+                            <th>Vị trí:</th>
+                            <td>@Model.Role</td>
+                        </tr>
+                        <tr>
+                            <th>Công ty:</th>
+                            <td>@Model.Company</td>
+                        </tr>
+                        <tr>
+                            <th>Địa chỉ:</th>
+                            <td>@Model.Address</td>
+                        </tr>
+                        <tr>
+                            <th>Tỉnh/ thành:</th>
+                            <td>@Model.CitiName</td>
+                        </tr>
+                        <tr>
+                            <th>Điện thoại:</th>
+                            <td>@Model.Phone</td>
+                        </tr>
+                        <tr>
+                            <th>Di động:</th>
+                            <td>@Model.Mobile</td>
+                        </tr>
+                        <tr>
+                            <th>Email:</th>
+                            <td>@Model.Email</td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="tab-pane fade" id="tab2default">
+                    @Html.Raw(Model.Tech)
+                </div><!-- end tab 2-->
+                <div class="tab-pane fade" id="tab3default">
+                    @Html.Raw(Model.Learning)
+
+                </div><!-- end tab3-->
+                <div class="tab-pane fade" id="tab4default">
+                    @Html.Raw(Model.Exp)
+
+                </div><!-- end tab3-->
+            </div>
+        </div>
+    </div><!-- end tabs-->
+
+
+
+</div><!-- end main content-->
+<style>
+    @@media (max-width: 485px) {
+
+
+    .tab-pane img, .tab-pane table {
+        width: 100% !important;
+        max-width: max-content !important;
+        text-align: center;
+    }
+}
+</style>

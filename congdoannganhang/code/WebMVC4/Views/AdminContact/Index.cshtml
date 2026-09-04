@@ -1,0 +1,136 @@
+﻿@{
+    Layout = "~/Views/Shared/_AdminV2.cshtml";
+}
+@{
+    ViewBag.Title = "Danh sách danh bạ";
+}
+<div class="row">
+    <div class="col-lg-12">
+        <div class="panel panel-primary">
+            <div class="panel-heading"><span class="glyphicon glyphicon-user"></span>@ViewBag.Title</div>
+            <div class="panel-body">
+                <div class="row" id="form">
+                    <div class="form-group col-md-3 col-xs-12 col-sm-6">
+                        @Html.DropDownList("ddlCate", new SelectList(ViewBag.CategoryList as System.Collections.IEnumerable, "ID", "Name", -1), new { @class = "form-control", })
+                    </div>
+
+                    <div class="form-group col-md-3 col-xs-12 col-sm-6">
+                        <select class="form-control" id="ddlStatus">
+                            <option value="-1">Trạng Thái</option>
+                            <option value="1">Hoạt động</option>
+                            <option value="0">Khóa</option>
+                        </select>
+                    </div>
+                    <div class="form-group col-md-3 col-xs-12 col-sm-6">
+                        <input type="text" id="txtTitle" class="form-control" placeholder="Nhập từ khóa">
+                    </div>
+
+
+                    <div class="form-group submit col-md-3 col-xs-12 col-sm-6">
+                        <button type="button" id="btnSearch" class="btn btn-info"><i class="fa fa-search"></i>Tìm Kiếm</button>
+                        <a id="btnCreate" href="@Url.Action("GetContactDetail",new {id=0 })" class="btn btn-success"><i class="fa fa-user-plus"></i>Thêm Mới</a>
+                    </div>
+
+
+                </div>
+            </div>
+            <div class="table-responsive">
+                <div id="dgrid" class="dataTables_wrapper form-inline" role="grid">
+                    <div id="ListContact">
+                        @Html.Action("ListContact")
+                    </div>
+
+                    <div class="dataTables_paginate" id="pager">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $('#menu_managedoc').addClass("active");
+
+</script>
+<script type="text/javascript">
+    function SendSMS() {
+        var arr_checked_items = [];
+        $('input[type="checkbox"][name="chk_item"]:checked').each(function (i, e) {
+            arr_checked_items.push($(e).val());
+        });
+        var content = $('#txtContent').val();
+        if (arr_checked_items.length > 0) {
+        bootbox.confirm("Bạn có muốn chọn số điện thoại để gửi tin nhắn", function (result) {
+            if (result == true) {
+                Utils.Loading();
+                var postdata = {
+                    'content': content,
+                    'contact': arr_checked_items,
+                };
+                $.ajax({
+                    type: 'POST',
+                    url:"@Url.Action("SetSMSLog")",
+                    data: addAntiForgeryToken(postdata),
+                   
+                success: function (data) {
+                    Utils.UnLoading();
+                    if (data.ResponseCode >= 0) {
+                       
+                    }
+                    else {
+                        bootbox.alert(data.Description);
+                        return;
+                    }
+                }
+            });
+        }
+        });
+           
+        }
+    }
+    $(document).ready(function () {
+
+        var parameters = {
+        };
+        $("#form").keypress(function (event) {
+            if (event.which == 13) {
+                $("#btnSearch").click();
+            }
+        });
+        $("#btnSearch").click(function () {
+            GetList(1);
+        });
+        $("#ddlStatus").change(function () {
+            GetList(1);
+        });
+        $("#ddlCate").change(function () {
+            GetList(1);
+        });
+        function GetList(currentPage) {
+            parameters = {
+                title: $("#txtKeyword").val(),
+                status: $('#ddlStatus :selected').val(),
+                cateId: $('#ddlCate :selected').val(),
+                currentPage: currentPage,
+            };
+            btnSearch(currentPage);
+        };
+        function btnSearch(currentPage) {
+            Utils.Loading();
+            var urlRequestAns = "@Url.Action("ListContact")";
+            $.ajax({
+                type: 'GET',
+                url: urlRequestAns,
+                data: parameters,
+                success: function (data) {
+                    $("#ListContact").html(data);
+                    Utils.UnLoading();
+                },
+                error: function () {
+                    Utils.UnLoading();
+                }
+            });
+        }
+
+    });
+
+</script>

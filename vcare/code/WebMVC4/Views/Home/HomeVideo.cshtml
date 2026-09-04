@@ -1,0 +1,56 @@
+﻿@using BIZ
+@using UTILS
+@using WebMVC4.Helper
+@model List<BIZ.Entity.CONTENT_FULL>
+@if (Model != null)
+{
+
+    <div class="video">
+        <div class="container">
+            <h2 class="title-cm textwhite">Video</h2>
+            <div class="row">
+                @foreach (var item in Model.Select((value, i) => new { i, value }))
+                {
+                    if (item.i == 0)
+                    {
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                            <div class="video-wrap">
+                                <iframe width="100%" height="315" src="https://www.youtube.com/embed/@(item.value.Url)" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                                <div class="video-text"><p>@item.value.Title</p></div>
+                            </div>
+                        </div>
+                    }
+
+                }
+                <div class="col-md-6 col-sm-6 col-xs-12 videosmall-list">
+                    <ul class="row">
+                        @foreach (var item in Model.Select((value, i) => new { i, value }))
+                        {
+                            if (item.i > 0)
+                            {
+                                <li class="col-md-6 col-sm-6 col-xs-6">
+                                    <div class="video-wrap">
+                                        <a class="fancybox-video" href="http://www.youtube.com/v/@(item.value.Url)?autoplay=1">
+                                            <img src="@item.value.MainImage?w=263&h=147&mode=crop" alt="">
+                                        </a>
+                                        <div class="video-text maxheight02"><a class="fancybox-video" href="http://www.youtube.com/v/@(item.value.Url)?autoplay=1">@item.value.Title</a></div>
+                                    </div>
+                                </li>
+                            }
+
+
+                        }
+
+
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div><!-- end video-->
+
+}
+
+
+
+
+

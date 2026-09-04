@@ -1,0 +1,134 @@
+﻿@using BIZ
+@using UTILS
+@using WebEN.Helper
+@model WebEN.Models.NewsModel
+@if (Model != null)
+{
+    <div class="danhgia-content01 container mt10">
+        <div class="date-icon hidden-xs">
+            <label>Search by day </label>
+            <div id="datepicker" class="input-group date" data-date-format="dd-mm-yyyy">
+                <input class="form-control" readonly="" type="text">
+                <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+            </div>
+        </div>
+        @{ Html.RenderAction("Breadcrumb", "News", new { CategoryId = ViewBag.CurrentCategoryId }); }
+
+
+    </div><!-- end content 01 -->
+    if (Model.listdata != null)
+    {
+        <div class="border-bottom">
+            <div class="mt30 cap1-content02 container">
+                <div class="row row-40">
+                    <div class="col-md-3 col-sm-12 hidden-xs data-list" >
+                        <ul>
+                            <li id="menu_12"><a href="/tin-tuc/c12/tai-lieu.html">Tài liệu</a></li>
+                            <li id="menu_35"><a href="/tin-tuc/c35/an-pham-truyen-thong.html">Ấn phẩm truyền thông</a></li>
+                            <li id="menu_36"><a href="/tin-tuc/c36/tai-lieu-dao-tao.html">Tài liệu đào tạo</a></li>
+                            <li id="menu_37"><a href="/tin-tuc/c37/san-pham-khac.html">Sản phẩm khác</a></li>
+                            <li id="menu_40"><a href="/tin-tuc/c40/so-tay.html">Sổ tay</a></li>
+                        </ul>
+                    </div>
+                    <div class="col-md-9 col-sm-12 text-left">
+                        <ul class="video-list row">
+                            @foreach (var item in Model.listdata.Select((value, i) => new { i, value }))
+                            {
+                                <li class="col-md-3 col-sm-4 col-xs-6">
+                                    <a href="@item.value.LinkUrl" class="videonews-img">
+                                        <img src="@item.value.MainImage?w=268&h=168&mode=crop">
+
+                                    </a>
+                                    <a href="@item.value.LinkUrl" class="mt15">@item.value.Title</a>
+
+                                </li>
+                            }
+                        </ul>
+
+
+                        <div class="paging mt50 text-center">
+                            @{Html.RenderPartial("Pagination", new WebEN.Models.PaginationInfo
+                                {
+                                    PageUrl = Url.SetParameter("Page", "!0"),
+                                    CurrentPage = Model.pageIndex,
+                                    PageSize = Model.pageSize,
+                                    TotalItemCount = Model.total,
+                                }); }
+                        </div>
+
+
+                    </div>
+
+                </div>
+            </div><!-- end content 02-->
+        </div>
+
+
+    }
+}
+<script>
+        $('#menu_' +@(Model.CategoryId)).addClass("active");
+</script>
+<script src="/js/bootstrap-datepicker.js"></script>
+<script type="text/javascript">
+    var categoryid = '@ViewBag.CategoryId';
+    function getFormattedDate(date) {
+        var year = date.getFullYear();
+
+        var month = (1 + date.getMonth()).toString();
+        month = month.length > 1 ? month : '0' + month;
+
+        var day = date.getDate().toString();
+        day = day.length > 1 ? day : '0' + day;
+
+        return day + '/' +  month+ '/' + year;
+    }
+    $(function () {
+        $("#datepicker").datepicker({
+
+            duration: 'fast',
+            showOn: "button",
+            dateFormat: "dd/mm/yy",
+            todayHighlight: true
+        }).datepicker('update', new Date())
+            .change(function (e) {
+
+                var date =getFormattedDate( $('#datepicker').data().datepicker.viewDate);
+                window.location.href = '@Url.Action("SearchByDay", "News")' + '?fromdate=' + date + '&todate=' + date + '&categoryId=' + categoryid;
+
+        });
+    });
+</script>
+<style>
+    .data-list ul li a {
+        color: #999999;
+        text-transform: uppercase;
+        display: block;
+        width: 100%;
+        padding: 10px;
+        background-color: #fff;
+    }
+
+    .data-list ul li.active a {
+        background-color: #33cc99;
+        color: #fff;
+    }
+
+    .data-list ul li {
+        display: block;
+        width: 100%;
+        padding: 1px;
+        border-bottom: 1px solid #ccc;
+    }
+
+        .data-list ul li:first-child {
+            border-top: 1px solid #ccc;
+        }
+</style>
+<script type="text/javascript">
+
+    $('#menu_' + '@ViewBag.CurrentCategoryId').addClass("active");
+    $('#foot_' + '@ViewBag.CurrentCategoryId').addClass("active");
+     $('#menu_' + '@ViewBag.ParentCategoryId').addClass("active");
+    $('#foot_' + '@ViewBag.ParentCategoryId').addClass("active");
+</script>

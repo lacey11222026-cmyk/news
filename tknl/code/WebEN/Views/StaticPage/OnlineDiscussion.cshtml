@@ -1,0 +1,13 @@
+﻿@{
+    ViewBag.Title = "Giao lưu trực tuyến | Báo Giao thông điện tử";
+}
+<script src="~/Scripts/iframeResizer.min.js"></script>
+<iframe id="ifrContent" style="width:100%; border:none; outline:none;" src="http://giaoluu.tietkiemnangluong.com.vn" width="100%" scrolling="no"></iframe>
+<script type="text/javascript">
+    $(function () {
+        $("#ifrContent").height($(".cot2").height());
+        $('#ifrContent').iFrameResize({ log: true });
+    });
+
+
+</script>

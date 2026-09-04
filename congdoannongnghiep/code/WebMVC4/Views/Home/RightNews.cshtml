@@ -1,0 +1,30 @@
+﻿@using BIZ
+@using UTILS
+@using WebMVC4.Helper
+@model WebMVC4.Models.LastestNewModel
+@if (Model != null)
+{
+    <h2 class="title-cm"><a href="/tieu-diem"><img src="/Content/img/ico-voice.svg" alt="" width="30">Tiêu điểm</a></h2>
+    <div class="newsbig mt20">
+        @foreach (var item in Model.lstdata.Take(1).Select((value, i) => new { i, value }))
+        {
+            <a href="@item.value.LinkUrl"><img src="@item.value.MainImage?w=414&h=250&mode=crop" alt=""></a>
+        }
+        <div class="newsbig-content">
+            @foreach (var item in Model.lstdata.Take(1).Select((value, i) => new { i, value }))
+            {
+                <a href="@item.value.LinkUrl" class="news-name mt15">@item.value.Title</a>
+                <p class="newsdate mt10">@item.value.PublishDate.ToString("dd/MM/yyyy")</p>
+            }
+            <ul class="newslist-border mt20">
+                @foreach (var item in Model.lstdata.Skip(1).Select((value, i) => new { i, value }))
+                {
+                    <li><a href="@item.value.LinkUrl">@item.value.Title</a></li>
+                }
+
+            </ul>
+        </div>
+    </div>
+
+
+}

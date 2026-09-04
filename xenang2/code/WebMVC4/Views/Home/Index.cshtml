@@ -1,0 +1,88 @@
+﻿@using BIZ
+@using UTILS
+@using WebMVC4.Helper
+@{
+
+    Layout = "~/Views/Shared/_Home.cshtml";
+    ViewBag.SiteTitle = "Chuyên cung cấp các loại xe nâng cũ Nhật Bãi tại Việt Nam, hàng nhập khẩu nguyên chiếc, có đủ giấy tờ, VAT, nguồn gốc xuất sứ sản phẩm";
+}
+@ViewBag.data
+@ViewBag.IsMobile2
+@ViewBag.Android
+<div class="slider-wrapper relative">
+    @Html.Action("Slide", "Home")
+</div>
+
+<section class="section danh-muc">
+
+    <div class="bg section-bg fill bg-fill bg-loaded bg-loaded" data-wpmeteor-mouseover="true" data-wpmeteor-mouseout="true"></div>
+    <div class="section-content relative">
+        <div class="row">
+            <div class="col small-12 large-12">
+                <div class="shome">
+
+                    <h1>
+                        @{ Html.RenderAction("Intro", "Home", new { CategoryId=2 }); }
+                    </h1>
+
+                </div>
+                <div class="col-inner">
+                    @{ Html.RenderAction("TopProduct", "Product", new { top = 12, categoryId = 18, manufactoryId = -1, ishot = true }); }
+                </div>
+            </div>
+        </div>
+    </div>
+
+</section>
+
+
+
+<section class="section danh-muc">
+    <div class="bg section-bg fill bg-fill bg-loaded bg-loaded"></div>
+    <div class="section-content relative">
+        <div class="row">
+            <div class="col small-12 large-12">
+                <div class="col-inner">
+                    <div class="container section-title-container"><h3 class="section-title section-title-center"><b></b><span class="section-title-main" style="font-size:110%;color:rgb(198, 0, 0);"><i class="icon-star-o"></i>Dịch vụ</span><b></b></h3></div><div class="row large-columns-4 medium-columns-1 small-columns-1">
+                        @{ Html.RenderAction("LastestNews", "Home", new { MaxLastestNews = 4, CategoryId = 91, IsMobile = ViewBag.IsMobile }); }
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</section>
+@*<section class="section danh-muc">
+    <div class="bg section-bg fill bg-fill bg-loaded bg-loaded"></div>
+    <div class="section-content relative">
+        <div class="row">
+            <div class="col small-12 large-12">
+                <div class="col-inner">
+                    <div class="container section-title-container"><h3 class="section-title section-title-center"><b></b><span class="section-title-main" style="font-size:110%;color:rgb(198, 0, 0);"><i class="icon-star-o"></i>Đối tác</span><b></b></h3></div>
+
+                    <div class="row large-columns-6 medium-columns-3 small-columns-1 slider row-slider slider-nav-reveal" data-flickity-options='{"imagesLoaded": true, "groupCells": "100%", "dragThreshold" : 5, "cellAlign": "left","wrapAround": true,"prevNextButtons": true,"percentPosition": true,"pageDots": false, "rightToLeft": false, "autoPlay" : false}'>
+                        @Html.Action("BannerBottom", "Home")
+                    </div>
+                    <div class="gap-element clearfix" style="display:block; height:auto;">
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+</section>*@
+<style>
+    .danh-muc .category-title h3 a {
+        color: #fff !important;
+    }
+
+    .product-type-simple {
+        border: none !important
+    }
+</style>
+

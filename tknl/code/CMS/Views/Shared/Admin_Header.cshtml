@@ -1,0 +1,43 @@
+﻿@{
+    
+    var UploadUrl = " ";
+    var CurTime = " ";
+    var UploadCurentUrl = " ";
+
+    var LastTime = "";
+    
+}
+<div id="header">
+    <div id="logo">
+    </div>
+
+    <div id="account_info">
+        @if (Request.IsAuthenticated)
+        {
+            <div id="module-status">
+                Xin chào, @Context.User.Identity.Name  | <a href="@Url.Action("LogOff", "Account")" id="lbtnMenuLogout">Đăng xuất</a>
+
+
+            </div>
+            { 
+                UploadUrl = "User/" + HttpContext.Current.User.Identity.Name;
+                UploadCurentUrl = "User/" + HttpContext.Current.User.Identity.Name + "/" + DateTime.Now.Year.ToString() + "/" + DateTime.Now.Month.ToString() + "/" + DateTime.Now.Day.ToString();
+                CurTime = DateTime.Now.Day.ToString() + "/" + DateTime.Now.Month.ToString() + "/" + DateTime.Now.Year.ToString();
+
+                LastTime = DateTime.Now.AddDays(-3).ToString("dd/MM/yyyyy");
+
+            }
+            
+            <script type="text/javascript">
+                var EditorUploadUrl = '@UploadUrl';
+                var EditorCurentUploadUrl = '@UploadCurentUrl';
+                var EditorCurUser = '@HttpContext.Current.User.Identity.Name';
+                var CurTime = '@CurTime';
+                var LastTime = '@LastTime';
+                var IMAGE_UPLOAD_URL = '@(CMS.MvcApplication.StaticSiteUrl)Images/Upload/';
+            </script>
+           
+        }
+    </div>
+</div>
+

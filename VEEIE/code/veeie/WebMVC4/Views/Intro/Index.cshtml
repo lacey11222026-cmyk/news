@@ -1,0 +1,20 @@
+﻿@using BIZ
+@using UTILS
+@using WebMVC4.Helper
+@model BIZ.Entity.CATEGORY_FULL
+
+@if (Model != null)
+{
+
+    Html.RenderAction("BreadcrumbObj", "News", new { data = Model });
+
+    <div class="intro" id="NewsContent">
+        @Html.Raw(Model.Contents)
+    </div>
+    <div class="clearfix"></div>
+
+
+    
+
+}
+

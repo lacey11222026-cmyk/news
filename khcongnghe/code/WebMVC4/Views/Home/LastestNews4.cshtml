@@ -1,0 +1,31 @@
+﻿@using BIZ
+@using UTILS
+@using WebMVC4.Helper
+@model List<BIZ.Entity.CONTENT_FULL>
+@if (Model != null)
+{
+    if (Model.Count > 0)
+    {
+        
+   
+
+    <div class="bg_grey">
+        <div class="bg_blu">
+            <a href="@ViewBag.Url">@ViewBag.CateName</a></div>
+        <div class="box_anh">
+          @foreach (var item in Model.Select((value, i) => new { i, value }))
+        {
+            <a href="@item.value.LinkUrl"><img width="98" height="63" src="@item.value.MainImage.98.63.jpg"></a> 
+            
+            }
+            <div class="clear">
+            </div>
+        </div>
+    </div>
+    <div class="best clear">
+    </div>
+       
+    
+        
+    }
+}

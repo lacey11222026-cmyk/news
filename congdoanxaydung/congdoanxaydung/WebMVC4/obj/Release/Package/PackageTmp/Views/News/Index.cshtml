@@ -1,0 +1,79 @@
+﻿@using BIZ
+@using UTILS
+@using WebMVC4.Helper
+@model WebMVC4.Models.News2Model
+@{Html.RenderAction("Breadcrumb", "News", new { CategoryId = ViewBag.CategoryId });}
+<div class="row cap1-bignew">
+    @foreach (var item in Model.hotnews.Take(1).Select((value, i) => new { i, value }))
+    {
+        <div class="col-md-8 col-sm-7 col-xs-12">
+            <a href="@item.value.LinkUrl">
+                @*<img src="/Content2/images/newbig.jpg" alt="" />*@
+                <img src="@item.value.MainImage?w=490&h=285&mode=crop" />
+            </a>
+        </div>
+        <div class="col-md-4 col-sm-5 col-xs-12">
+            <h2>
+                <a href="@item.value.LinkUrl">@item.value.Title</a>
+            </h2>
+            <p class="mt20">@item.value.IntroText </p>
+        </div>
+        <div class="clearfix"></div>
+
+    }
+
+    <div class="col-md-12 col-sm-12 mt20">
+        <ul class="row-8px box-news mt20">
+            @foreach (var item in Model.hotnews.Skip(1).Select((value, i) => new { i, value }))
+            {
+                <li class="col-md-3 col-sm-3 col-xs-12">
+                    <a href="@item.value.LinkUrl">
+                        @*<img src="/Content2/images/newbig01.jpg" />*@
+                        <img src="@item.value.MainImage?w=176&h=117&mode=crop" />
+                        <span class="mt10">@item.value.Title</span>
+                    </a>
+                </li>
+            }
+
+        </ul>
+    </div>
+</div><!-- end big news-->
+<div class="clearfix"></div>
+<ul class="cap1-news-list mt30">
+	@if(Model.articles!=null)
+	{
+	 foreach (var item in Model.articles.Select((value, i) => new {i, value}))
+		{
+			<li>
+				<a href="@item.value.LinkUrl">
+					@*<img src="/Content2/images/new-list.jpg" alt="">*@
+					<img src="@item.value.MainImage?w=239&h=160&mode=crop"/>
+				</a>
+				<div class="cap1-content">
+					<h3><a href="@item.value.LinkUrl">@item.value.Title </a>
+					</h3>
+					<span>Cập nhật: @item.value.PublishDate.ToString("dd/MM/yyyy")</span>
+					<p>
+						@item.value.IntroText
+					</p>
+				</div>
+				<div class="clearfix"></div>
+			</li>
+		}
+	}
+   
+
+</ul>
+<div class="pagination pull-right mt30">
+    <ul>
+        @{Html.RenderPartial("Pagination", new WebMVC4.Models.PaginationInfo
+            {
+                PageUrl = Url.SetParameter("Page", "!0"),
+                CurrentPage = ViewBag.Page,
+                PageSize = ViewBag.PageSize,
+                TotalItemCount = ViewBag.Total,
+            }); }
+    </ul>
+</div>
+
+

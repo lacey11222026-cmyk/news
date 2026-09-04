@@ -1,0 +1,62 @@
+﻿@using BIZ
+@using UTILS
+@using WebMVC4.Helper
+@model List<BIZ.Entity.Album_FULL>
+@if (Model != null)
+{
+    if (Model.Count > 0)
+    {
+        
+    <div class="padbot">
+        <div class="bg_blu">
+            <font class="fl">@ViewBag.CateName</font>
+            <div class="xemtiep"><a href="@ViewBag.Url">xem tiếp</a></div>
+        </div>
+        @foreach (var item in Model.Select((value, i) => new { i, value }))
+        {
+
+            if (item.i == 0)
+            {
+            <div class="listtin w360">
+            <img width="104" alt="@item.value.Title" src="@item.value.MainImage.104.104.jpg">
+            <p><a href="@Utils.FormatUrlRewrite(item.value.Id, item.value.Title, "AlbumDetail")">@item.value.Title</a></p>
+            <span>@UTILS.Utils.SubString(item.value.Description, 150)</span>
+        </div>
+           
+           
+
+            }
+             else
+            {
+                if (item.i == 1)
+                {
+            @Html.Raw("<div class=\"padtop20\"><ul class=\"listvb\">")
+   
+                }
+            <li><a href="@Utils.FormatUrlRewrite(item.value.Id, item.value.Title, "AlbumDetail")"
+                                                        title="@item.value.Title">@item.value.Title
+            </a></li>
+                if (item.i == Model.Count - 1)
+                {
+            @Html.Raw("</ul></div>")
+                }
+            }
+
+        }
+       
+        
+        <div class="clear"></div>
+
+    </div>
+    <div class="clear"></div>
+    
+
+   
+    
+    
+         
+       
+    
+        
+    }
+}

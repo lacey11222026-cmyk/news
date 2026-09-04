@@ -1,0 +1,300 @@
+﻿@using BIZ
+@using BIZ.Entity
+@using UTILS
+@using WebMVC4.Helper
+@model WebMVC4.Models.ProductDetailModel
+@if (Model != null)
+{
+    <script src="@(Config.Domain)/Content/js/jssor.slider-28.0.0.min.js" type="text/javascript"></script>
+    <script type="text/javascript">
+        window.jssor_1_slider_init = function () {
+
+            var jssor_1_SlideshowTransitions = [
+                { $Duration: 800, x: 0.3, $During: { $Left: [0.3, 0.7] }, $Easing: { $Left: $Jease$.$InCubic, $Opacity: $Jease$.$Linear }, $Opacity: 2 },
+                { $Duration: 800, x: -0.3, $SlideOut: true, $Easing: { $Left: $Jease$.$InCubic, $Opacity: $Jease$.$Linear }, $Opacity: 2 },
+                { $Duration: 800, x: -0.3, $During: { $Left: [0.3, 0.7] }, $Easing: { $Left: $Jease$.$InCubic, $Opacity: $Jease$.$Linear }, $Opacity: 2 },
+                { $Duration: 800, x: 0.3, $SlideOut: true, $Easing: { $Left: $Jease$.$InCubic, $Opacity: $Jease$.$Linear }, $Opacity: 2 },
+                { $Duration: 800, y: 0.3, $During: { $Top: [0.3, 0.7] }, $Easing: { $Top: $Jease$.$InCubic, $Opacity: $Jease$.$Linear }, $Opacity: 2 },
+                { $Duration: 800, y: -0.3, $SlideOut: true, $Easing: { $Top: $Jease$.$InCubic, $Opacity: $Jease$.$Linear }, $Opacity: 2 },
+                { $Duration: 800, y: -0.3, $During: { $Top: [0.3, 0.7] }, $Easing: { $Top: $Jease$.$InCubic, $Opacity: $Jease$.$Linear }, $Opacity: 2 },
+                { $Duration: 800, y: 0.3, $SlideOut: true, $Easing: { $Top: $Jease$.$InCubic, $Opacity: $Jease$.$Linear }, $Opacity: 2 },
+                { $Duration: 800, x: 0.3, $Cols: 2, $During: { $Left: [0.3, 0.7] }, $ChessMode: { $Column: 3 }, $Easing: { $Left: $Jease$.$InCubic, $Opacity: $Jease$.$Linear }, $Opacity: 2 },
+                { $Duration: 800, x: 0.3, $Cols: 2, $SlideOut: true, $ChessMode: { $Column: 3 }, $Easing: { $Left: $Jease$.$InCubic, $Opacity: $Jease$.$Linear }, $Opacity: 2 },
+                { $Duration: 800, y: 0.3, $Rows: 2, $During: { $Top: [0.3, 0.7] }, $ChessMode: { $Row: 12 }, $Easing: { $Top: $Jease$.$InCubic, $Opacity: $Jease$.$Linear }, $Opacity: 2 },
+                { $Duration: 800, y: 0.3, $Rows: 2, $SlideOut: true, $ChessMode: { $Row: 12 }, $Easing: { $Top: $Jease$.$InCubic, $Opacity: $Jease$.$Linear }, $Opacity: 2 },
+                { $Duration: 800, y: 0.3, $Cols: 2, $During: { $Top: [0.3, 0.7] }, $ChessMode: { $Column: 12 }, $Easing: { $Top: $Jease$.$InCubic, $Opacity: $Jease$.$Linear }, $Opacity: 2 },
+                { $Duration: 800, y: -0.3, $Cols: 2, $SlideOut: true, $ChessMode: { $Column: 12 }, $Easing: { $Top: $Jease$.$InCubic, $Opacity: $Jease$.$Linear }, $Opacity: 2 },
+                { $Duration: 800, x: 0.3, $Rows: 2, $During: { $Left: [0.3, 0.7] }, $ChessMode: { $Row: 3 }, $Easing: { $Left: $Jease$.$InCubic, $Opacity: $Jease$.$Linear }, $Opacity: 2 },
+                { $Duration: 800, x: -0.3, $Rows: 2, $SlideOut: true, $ChessMode: { $Row: 3 }, $Easing: { $Left: $Jease$.$InCubic, $Opacity: $Jease$.$Linear }, $Opacity: 2 },
+                { $Duration: 800, x: 0.3, y: 0.3, $Cols: 2, $Rows: 2, $During: { $Left: [0.3, 0.7], $Top: [0.3, 0.7] }, $ChessMode: { $Column: 3, $Row: 12 }, $Easing: { $Left: $Jease$.$InCubic, $Top: $Jease$.$InCubic, $Opacity: $Jease$.$Linear }, $Opacity: 2 },
+                { $Duration: 800, x: 0.3, y: 0.3, $Cols: 2, $Rows: 2, $During: { $Left: [0.3, 0.7], $Top: [0.3, 0.7] }, $SlideOut: true, $ChessMode: { $Column: 3, $Row: 12 }, $Easing: { $Left: $Jease$.$InCubic, $Top: $Jease$.$InCubic, $Opacity: $Jease$.$Linear }, $Opacity: 2 },
+                { $Duration: 800, $Delay: 20, $Clip: 3, $Assembly: 260, $Easing: { $Clip: $Jease$.$InCubic, $Opacity: $Jease$.$Linear }, $Opacity: 2 },
+                { $Duration: 800, $Delay: 20, $Clip: 3, $SlideOut: true, $Assembly: 260, $Easing: { $Clip: $Jease$.$OutCubic, $Opacity: $Jease$.$Linear }, $Opacity: 2 },
+                { $Duration: 800, $Delay: 20, $Clip: 12, $Assembly: 260, $Easing: { $Clip: $Jease$.$InCubic, $Opacity: $Jease$.$Linear }, $Opacity: 2 },
+                { $Duration: 800, $Delay: 20, $Clip: 12, $SlideOut: true, $Assembly: 260, $Easing: { $Clip: $Jease$.$OutCubic, $Opacity: $Jease$.$Linear }, $Opacity: 2 }
+            ];
+
+            var jssor_1_options = {
+                $AutoPlay: 1,
+                $SlideshowOptions: {
+                    $Class: $JssorSlideshowRunner$,
+                    $Transitions: jssor_1_SlideshowTransitions,
+                    $TransitionsOrder: 1
+                },
+                $ArrowNavigatorOptions: {
+                    $Class: $JssorArrowNavigator$
+                },
+                $ThumbnailNavigatorOptions: {
+                    $Class: $JssorThumbnailNavigator$,
+                    $SpacingX: 5,
+                    $SpacingY: 5
+                }
+            };
+
+            var jssor_1_slider = new $JssorSlider$("jssor_1", jssor_1_options);
+
+            /*#region responsive code begin*/
+
+            var MAX_WIDTH = 980;
+
+            function ScaleSlider() {
+                var containerElement = jssor_1_slider.$Elmt.parentNode;
+                var containerWidth = containerElement.clientWidth;
+
+                if (containerWidth) {
+
+                    var expectedWidth = Math.min(MAX_WIDTH || containerWidth, containerWidth);
+
+                    jssor_1_slider.$ScaleWidth(expectedWidth);
+                }
+                else {
+                    window.setTimeout(ScaleSlider, 30);
+                }
+            }
+
+            ScaleSlider();
+
+            $Jssor$.$AddEvent(window, "load", ScaleSlider);
+            $Jssor$.$AddEvent(window, "resize", ScaleSlider);
+            $Jssor$.$AddEvent(window, "orientationchange", ScaleSlider);
+            /*#endregion responsive code end*/
+        };
+    </script>
+    <div class="container main-content-page">
+        <div class="pt90 border-top-orange">
+            <div class="row">
+                <div class="col-md-5 col-sm-12 col-xs-12">
+                    <div class="slider-detail">
+                        <div id="jssor_1" style="position:relative;margin:0 auto;top:0px;left:0px;width:980px;height:715px;overflow:hidden;visibility:hidden;">
+                            <!-- Loading Screen -->
+                            <div data-u="loading" class="jssorl-009-spin" style="position:absolute;top:0px;left:0px;width:100%;height:100%;text-align:center;background-color:rgba(0,0,0,0.7);">
+                                <img style="margin-top:-19px;position:relative;top:50%;width:38px;height:38px;" src="/Content/images/gallery/spin.svg" />
+                            </div>
+                            <div data-u="slides" style="cursor:default;position:relative;top:0px;left:0px;width:980px;height:589px;overflow:hidden;">
+                                @foreach (var img in Model.Detail.ImageParam)
+                                {
+                                    if (!string.IsNullOrEmpty(img.Path))
+                                    {
+                                        <div>
+                                            <img data-u="image" src="@img.Path?w=655&h=394&mode=crop" />
+                                            <img data-u="thumb" src="@img.Path?w=190&h=114&mode=crop" />
+                                        </div>
+                                    }
+                                }
+
+
+                            </div>
+                            <!-- Thumbnail Navigator -->
+                            <div data-u="thumbnavigator" class="jssort101" style="position:absolute;left:0px;bottom:0px;width:980px;height:115px;" data-autocenter="1" data-scale-bottom="0.75">
+                                <div data-u="slides">
+                                    <div data-u="prototype" class="p" style="width:190px;height:115px;">
+                                        <div data-u="thumbnailtemplate" class="t"></div>
+                                        <svg viewbox="0 0 16000 16000" class="cv">
+                                            <circle class="a" cx="8000" cy="8000" r="3238.1"></circle>
+                                            <line class="a" x1="6190.5" y1="8000" x2="9809.5" y2="8000"></line>
+                                            <line class="a" x1="8000" y1="9809.5" x2="8000" y2="6190.5"></line>
+                                        </svg>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Arrow Navigator -->
+                            <div data-u="arrowleft" class="jssora106" style="width:55px;height:55px;top:162px;left:30px;" data-scale="0.75">
+                                <svg viewbox="0 0 16000 16000" style="position:absolute;top:0;left:0;width:100%;height:100%;">
+                                    <circle class="c" cx="8000" cy="8000" r="6260.9"></circle>
+                                    <polyline class="a" points="7930.4,5495.7 5426.1,8000 7930.4,10504.3 "></polyline>
+                                    <line class="a" x1="10573.9" y1="8000" x2="5426.1" y2="8000"></line>
+                                </svg>
+                            </div>
+                            <div data-u="arrowright" class="jssora106" style="width:55px;height:55px;top:162px;right:30px;" data-scale="0.75">
+                                <svg viewbox="0 0 16000 16000" style="position:absolute;top:0;left:0;width:100%;height:100%;">
+                                    <circle class="c" cx="8000" cy="8000" r="6260.9"></circle>
+                                    <polyline class="a" points="8069.6,5495.7 10573.9,8000 8069.6,10504.3 "></polyline>
+                                    <line class="a" x1="5426.1" y1="8000" x2="10573.9" y2="8000"></line>
+                                </svg>
+                            </div>
+                        </div>
+                        <script type="text/javascript">jssor_1_slider_init();</script>
+                    </div>
+                </div>
+                <div class="col-md-4 col-sm-6 col-xs-12">
+                    <p class="product-info">Thông tin sản phẩm</p>
+                    <strong class="text-green product-name">@Model.Detail.Name</strong>
+                    <table class="table-detail">
+                        <tr>
+                            <td>Model:</td>
+                            <td>@Model.Detail.ProductParam.Model</td>
+                        </tr>
+                        @*<tr>
+            <td>Số chứng nhận Bộ Công Thương</td>
+            <td>@Model.Detail.ProductParam.Number</td>
+        </tr>*@
+                        <tr>
+                            <td>Nhãn hiệu:</td>
+                            <td>@Model.Detail.ProductParam.Manuface</td>
+                        </tr>
+                        <tr>
+                            <td>Xuất xứ:</td>
+                            <td>@Model.Detail.ProductParam.MadeIn</td>
+                        </tr>
+                        <tr>
+                            <td>Công suất danh định:</td>
+                            <td>@Model.Detail.ProductParam.Wattage</td>
+                        </tr>
+                        <tr>
+                            <td>Hiệu suất năng lượng:</td>
+                            <td>@Model.Detail.ProductParam.Efficiency</td>
+                        </tr>
+                        <tr>
+                            <td>Đơn vị đăng ký chứng nhận:</td>
+                            <td>@Model.Detail.ProductParam.GroupCert</td>
+                        </tr>
+                        <tr>
+                            <td>Tiêu chuẩn áp dụng:</td>
+                            <td>@Model.Detail.ProductParam.Rule </td>
+                        </tr>
+                        <tr>
+                            <td>Đơn vị thử nghiệm:</td>
+                            <td>@Model.Detail.ProductParam.GroupExp</td>
+                        </tr>
+                        <tr>
+                            <td>Năm đạt giải:</td>
+                            <td>@Model.Detail.ProductParam.Year</td>
+                        </tr>
+                    </table>
+                    <ul class="list-inline mt20 link-detail">
+                        <li>
+                            <img src="@Model.Detail.QRImage?h=165&mode=crop" alt="">
+                            <a class="btn-download" href="javascript:;" onclick="forceDownload('@Model.Detail.QRImage','@Model.Detail.ProductParam.Model')">Tải về</a>
+                        </li>
+                        <li class="mt20">
+                            <ul class="detail-link clearfix  brbottom">
+                                <li>  <div class="fb-like" data-href="@(Model.Detail.Description)" data-layout="button_count" data-action="like" data-show-faces="false" data-share="true"></div></li>
+                                <li>
+                                    <div style="position:relative;top:2px">
+                                        <div class="zalo-share-button" data-href="@(Model.Detail.Description)" data-oaid="579745863508352884" data-layout="2" data-color="blue" data-customize=false></div>
+                                    </div>
+
+                                </li>
+                                <li><a href="javascript:void(0);" onclick="openWin('@ViewBag.MailShare');"><img src="@(Config.Domain)/Content/images/ico-mail.png"></a></li>
+
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+                <div class="col-md-3 col-sm-6 col-xs-12">
+                    <div class="menu-product-detail">
+                        <div class="menuproduct-name"><p>Danh mục sản phẩm</p></div>
+                        <table class="menuproduct-list">
+                            <tr>
+                                <td><img src="@(Config.Domain)/Content/images/icon01-02.png" alt=""></td>
+                                <td><a href="@(Config.Domain)/dieu-hoa-khong-khi">Điều hòa không khí</a></td>
+                            </tr>
+                            <tr>
+                                <td><img src="@(Config.Domain)/Content/images/icon03-02.png" alt=""></td>
+                                <td><a href="@(Config.Domain)/binh-nuoc-nong">BÌnh nước nóng</a></td>
+                            </tr>
+                            <tr>
+                                <td><img src="@(Config.Domain)/Content/images/icon_MayGiat.png" alt=""></td>
+                                <td><a href="@(Config.Domain)/may-giat">Máy giặt</a></td>
+                            </tr>
+                            <tr>
+                                <td><img src="@(Config.Domain)/Content/images/icon04-02.png" alt=""></td>
+                                <td><a href="@(Config.Domain)/den-led">Đèn LED</a></td>
+                            </tr>
+                            <tr>
+                                <td><img src="@(Config.Domain)/Content/images/icon05-02.png" alt=""></td>
+                                <td><a href="@(Config.Domain)/san-pham-khac">Sản phẩm khác</a></td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div><!-- end main content-->
+            <div class="mt30 pb60">
+                <p id="btnView" class="product-info-title" style="cursor:pointer">Thông tin chi tiết</p>
+                <div id="NewsContent" >
+                    @Html.Raw(Model.Detail.Intro)
+                </div>
+            </div>
+        </div>
+    </div><!-- end main content-->
+    <div class="clearfix"></div>
+
+    <div class="container">
+        <div class="product-item mt30">
+            <h2 class="title-cm"><a href="#">Sản phẩm khác</a></h2>
+            <div class="product-list">
+                <ul class="row">
+                    @{Html.RenderAction("RelateProduct", "Product", new { categoryId = Model.Detail.CategoryId, id = Model.Detail.Id });}
+
+
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="experience container mt90">
+        <h2 class="title-cm02"><a href="https://tietkiemnangluong.com.vn/tin-tuc/c10/meo-tknl.html" target="_blank">Kinh nghiệm hay</a></h2>
+        @{ Html.RenderAction("LastestNewsAPI", "Home", new { MaxLastestNews = 4, CategoryId = 10 }); }
+    </div>
+    if (!string.IsNullOrEmpty(Model.Detail.ProductParam.Tracking))
+    {
+        <text> @Html.Raw(Model.Detail.ProductParam.Tracking) </text>
+    }
+}
+<style>
+    .detail-link {
+        text-align: right;
+    }
+
+        .detail-link li {
+            display: inline-block;
+        }
+</style>
+<script type="text/javascript">
+
+    $("#btnView").click(function () {
+        $("#NewsContent").toggle();
+    });
+    function openWin(url) {
+        var myWindow = window.open(url, '', 'width=700,height=500');
+        myWindow.focus();
+    }
+</script>
+<script>
+    function forceDownload(url, fileName) {
+        var xhr = new XMLHttpRequest();
+        xhr.open("GET", url, true);
+        xhr.responseType = "blob";
+        xhr.onload = function () {
+            var urlCreator = window.URL || window.webkitURL;
+            var imageUrl = urlCreator.createObjectURL(this.response);
+            var tag = document.createElement('a');
+            tag.href = imageUrl;
+            tag.download = fileName;
+            document.body.appendChild(tag);
+            tag.click();
+            document.body.removeChild(tag);
+        }
+        xhr.send();
+    }
+
+</script>

@@ -1,0 +1,227 @@
+﻿@{
+   
+    Layout = "~/Views/Shared/_Admin.cshtml";
+    
+}
+@using BIZ
+@using UTILS
+@using Local.Helper
+@model Local.Models.ViewUserDetail
+
+
+<div id="toolbar-box">
+    <div class="t">
+        <div class="t">
+            <div class="t">
+            </div>
+        </div>
+    </div>
+    <div class="m">
+        <div class="toolbar" id="toolbar">
+            <table class="toolbar">
+                <tr>
+                  
+                    <td class="button" id="toolbar-cancel">
+                        <a href="javascript:void(0);" id="lbtnClose" onclick="Close();"><span title="Close" class="icon-32-cancel"></span>Đóng</a>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div class="header icon-48-user">
+            Người dùng: <small><small>[Sửa]</small></small>
+        </div>
+        <div class="clr">
+        </div>
+    </div>
+    <div class="b">
+        <div class="b">
+            <div class="b">
+            </div>
+        </div>
+    </div>
+</div>
+<div class="clr">
+</div>
+<div id="element-box">
+    <div class="t">
+        <div class="t">
+            <div class="t">
+            </div>
+        </div>
+    </div>
+    <div class="m">
+        <div class="col width-45">
+
+            <div class="clr">
+            </div>
+            <fieldset class="adminform">
+                <legend>Thông tin chi tiết người dùng</legend>
+                <table class="admintable" cellspacing="1">
+                    <tr>
+                        <td width="150" class="key">
+                            <label for="username">
+                                Tên đăng nhập
+                            </label>
+                        </td>
+                        <td>
+
+                            @Html.Label("UserName",Model.user.UserName)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="key">
+                            <label for="password">
+                                Mật khẩu
+                            </label>
+                        </td>
+                        <td>
+                            @Html.Password("NewPassword")
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="key">
+                            <label for="password2">
+                                Xác nhận mật khẩu
+                            </label>
+                        </td>
+                        <td>
+                            @Html.Password("ConfirmPassword")
+                            <input type="submit" class="button" id="btnCheckEmailExist" value="Đổi mật khẩu" onclick="changepass('@Model.user.UserName');" name="btnCheckEmailExist">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td width="150" class="key">
+                            <label for="email">
+                                E-mail
+                            </label>
+                        </td>
+                        <td>
+                            @Html.TextBox("Email", Model.user.Email)
+
+                        </td>
+                    </tr>
+
+                    <tr id="trCreationDate" runat="server" visible="false">
+                        <td class="key">Ngày tạo
+                        </td>
+                        <td>
+                            @Model.user.CreationDate
+                        </td>
+                    </tr>
+                    <tr id="trLastVisisted" runat="server" visible="false">
+                        <td class="key">Lần đăng nhập trước
+                        </td>
+                        <td>
+                            @Model.user.LastLoginDate
+                        </td>
+                    </tr>
+                    <tr id="trChangePassword" runat="server" visible="false">
+                        <td class="key">
+                            
+                           Lần đăng thay mật khẩu trước
+                        </td>
+                        <td>
+                            @Model.user.LastPasswordChangedDate
+                        </td>
+                    </tr>
+                </table>
+            </fieldset>
+        </div>
+        <div class="col width-55">
+            <fieldset class="adminform" style="width: 180px !important;">
+                <legend>Vai trò</legend>
+                <table class="admintable">
+                    <tr>
+                        <td>
+                            <span class="note">
+                                <table id="ctl00_ContentPlaceHolder1_chklUserRoles" border="0">
+
+                                    @foreach (string role in Model.rolenames)
+                                    {
+                                         <tr>
+                                             <td>
+                                            @if (Model.user_roles.Contains(role))
+                                            {
+                                                <input type="checkbox" onclick="setRole('@Model.user.UserName','@role');" checked="checked" class="chkRole" /> @role
+                                            }
+                                            else
+                                            {
+                                                <input type="checkbox"  value="@role" onclick="setRole('@Model.user.UserName','@role');" class="chkRole" />  @role
+                                            }
+                                                 </td>
+                                        </tr>
+                                    }
+                                </table>
+                            </span>
+                        </td>
+                    </tr>
+                </table>
+            </fieldset>
+        </div>
+        <div class="clr">
+        </div>
+    </div>
+    <div class="b">
+        <div class="b">
+            <div class="b">
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<script type="text/javascript">
+    function Close() {
+        window.location.href = "@Url.Action("Users","System")";
+    }
+    
+    function changepass(username) {
+        if(confirm("Bạn có chắc chắn muốn đổi mật khẩu"))
+        {
+            var NewPassword = $('#NewPassword').val();
+            validateForm();
+            $.post('@Url.Action("UserChangPass", "System")',
+                { "username": username, "newPassword": NewPassword },
+                function (data) {
+                    Close();
+                });
+
+        }
+    }
+    function setRole(username, rolename) {
+        if(confirm("Bạn có chắc chắn muốn thêm/xóa quyền"))
+        {
+            $.post('@Url.Action("UserSetRole", "System")',
+                { "username": username, "rolename": rolename },
+                function (data) {
+                    alert(data);
+                });
+
+        }
+    }
+    function validateForm() {
+        var NewPassword = $('#NewPassword').val();
+        var ConfirmPassword = $('#ConfirmPassword').val();
+
+        if (NewPassword == "") {
+            alert('Mật khẩu không được trống');
+            $('#NewPassword').focus();
+            return false;
+        }
+        if (NewPassword.length < 6) {
+            alert('Mật khẩu phải trên 6 kí tự');
+            $('#NewPassword').focus();
+            return false;
+        }
+        if (NewPassword != ConfirmPassword) {
+            alert('Mật khẩu không hợp lệ');
+            $('#ConfirmPassword').focus();
+            return false;
+        }
+
+        return true;
+
+    }
+</script>

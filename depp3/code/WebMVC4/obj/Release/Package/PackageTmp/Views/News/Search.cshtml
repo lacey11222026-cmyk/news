@@ -1,0 +1,97 @@
+﻿@using BIZ
+@using BIZ
+@using UTILS
+@using WebMVC4.Helper
+@model WebMVC4.Models.NewsModel
+@{
+    var langpage = WorkContext.GetLanguage();
+}
+@if (Model != null)
+{
+    <div class="document-page container pb80">
+        <div class="row mt30">
+            <div class="col-md-12 col-lg-8 pb-5">
+                <h2 class="title-cm02">@Resources.Global.MenuSearch</h2>
+                <div class="list-page">
+                    <div class="text-center search">
+                        <form class="form-inline">
+                            <div class="form-group">
+                                <label class="">@Resources.Global.Keyword</label>
+                                <input id="txtkeyword" class="form-control" type="text" value="@ViewBag.keyword" width="190">
+                            </div>
+
+                            <div class="form-group">
+                                <label>@Resources.Global.FromDate</label>
+                                <input id="txtfromdate" placeholder="dd/MM/yyyy" value="@ViewBag.fromdate" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label>@Resources.Global.ToDate</label>
+                                <input id="txttodate" placeholder="dd/MM/yyyy" value="@ViewBag.todate" class="form-control">
+                            </div>
+                            <div class="form-group" style="display: none">
+                                <label class="">Chuyên mục</label>
+                                @Html.DropDownList("drlCategory", new SelectList(ViewBag.CategoryList as System.Collections.IEnumerable, "Id", "Name", ViewBag.CategoryId), new { @class = "form-control" })
+                            </div>
+                            <button type="button" onclick="searchnews();" class="btn-search">@Resources.Global.MenuSearch</button>
+                        </form>
+                    </div>
+                    @if (Model.listdata != null)
+                    {
+                        <ul class="news-list-02 mt20">
+                            @foreach (var item in Model.listdata.Select((value, i) => new { i, value }))
+                            {
+                            <li>
+                                <a href="@item.value.LinkUrl"><img src="@item.value.MainImage?w=271&h=156&mode=crop" alt="@item.value.Title" /></a>
+                                <div>
+                                    <a href="@item.value.LinkUrl">@item.value.Title</a>
+                                    <p class="date mt10">@item.value.PublishDate.ToString("HH:mm") - @item.value.PublishDate.ToString("dd/MM/yyyy")</p>
+                                </div>
+                            </li>
+                            }
+
+                        </ul>
+                    }
+                    else
+                    {
+                        <div class="cap1-news-list mt30">
+                            @*<h4>Không có kết quả phù hợp</h4>*@
+                        </div>
+                    }
+
+                    <div class="paging ">
+                        <ul>
+                            @{Html.RenderPartial("Pagination", new WebMVC4.Models.PaginationInfo
+                                {
+                                    PageUrl = Url.SetParameter("Page", "!0"),
+                                    CurrentPage = Model.pageIndex,
+                                    PageSize = Model.pageSize,
+                                    TotalItemCount = Model.total,
+                                }); }
+                        </ul>
+                    </div>
+                </div>
+
+            </div>
+            <div class="col-md-12 col-lg-4">
+                @{Html.RenderAction("LastestNews", "News", new { MaxLastestNews = 8, lang = langpage });}
+
+            </div>
+        </div>
+    </div>
+    
+   
+  
+
+    <script src="~/Scripts/jquery.query.js"></script>
+    <script type="text/javascript">
+
+
+        function searchnews() {
+            var keyword = $("#txtkeyword").val();
+            var fromdate = $("#txtfromdate").val();
+            var todate = $("#txttodate").val();
+            var cateid = $('#drlCategory option:selected').val();
+            window.location = jQuery.query.set("q", keyword).set("fromdate", fromdate).set("todate", todate).set("categoryid", cateid).set("Page", "1");
+        }
+    </script>
+}

@@ -1,0 +1,13 @@
+﻿
+@{Html.RenderAction("RightLastestNews", "News", new { CateName = "", CategoryId = 10, MaxLastestNews = 4 });}
+<div class="bg-blue mt30">
+    @{Html.RenderAction("RightVideo", "Home", new { CateName = "", CategoryId = 36 });}
+</div>
+<div class="mt30 bg-gray">
+    @{Html.RenderAction("TopDocument", "Home");}
+</div>
+<div class="bnr-list mt30">
+    @{Html.RenderAction("BannerRight", "Home");}
+</div>
+
+

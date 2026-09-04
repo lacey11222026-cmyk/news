@@ -1,0 +1,48 @@
+﻿
+@using BIZ
+@using UTILS
+@using WebMVC4.Helper
+@model WebMVC4.Models.LastestNewModel
+@if (Model != null)
+{
+    if (Model.lstdata.Count > 0)
+    {
+        <h2 class="title-cm-green"> <a href="@Model.Url">@Model.HeaderTitle</a></h2>
+        <div class="row mt40">
+            <div class="col-md-6 col-sm-12">
+                <ul class="viewmore-list">
+                    @foreach (var item in Model.lstdata.Take(3).Select((value, i) => new { i, value }))
+                    {
+                        <li>
+                            <a href="@item.value.LinkUrl"><img src="@item.value.MainImage?w=290&h=160&mode=crop"></a>
+                            <div>
+                                <a href="@item.value.LinkUrl">@item.value.Title</a>
+                                <span class="newsdate-green mt10">@item.value.PublishDate.ToString("dd/MM/yyyy")</span>
+                            </div>
+                        </li>
+                    }
+                </ul>
+            </div>
+            <div class="col-md-6 col-sm-12">
+                <ul class="viewmore-list">
+                    @foreach (var item in Model.lstdata.Skip(3).Select((value, i) => new { i, value }))
+                    {
+                        <li>
+                            <a href="@item.value.LinkUrl"><img src="@item.value.MainImage?w=290&h=160&mode=crop"></a>
+                            <div>
+                                <a href="@item.value.LinkUrl">@item.value.Title</a>
+                                <span class="newsdate-green mt10">@item.value.PublishDate.ToString("dd/MM/yyyy")</span>
+                            </div>
+                        </li>
+                    }
+
+                </ul>
+            </div>
+        </div>
+        <a href="@Model.Url" class="btn-viewmore-red">Xem thêm</a>
+
+       
+
+
+    }
+}

@@ -1,0 +1,534 @@
+
+
+/****** Object:  StoredProcedure [dbo].[sp_ContentLog_SelectPagedDynamic]    Script Date: 02/15/2017 17:01:15 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+
+
+--region [dbo].[sp_ContentLog_SelectPagedDynamic]
+
+------------------------------------------------------------------------------------------------------------------------
+-- Created By:   vanthanh
+-- Date: 28-08-2011 02:21
+-- Todo:
+------------------------------------------------------------------------------------------------------------------------
+
+Create PROCEDURE [dbo].[sp_ContentLog_SelectPagedDynamic]
+	 @SelectQuery NVARCHAR(MAX) ,
+    @WhereCondition NVARCHAR(MAX) ,
+    @OrderByExpression NVARCHAR(250) ,
+    @PageIndex INT ,
+    @PageSize INT ,
+    @TotalRecord INT OUTPUT
+AS
+
+SET NOCOUNT ON
+SET TRANSACTION ISOLATION LEVEL READ COMMITTED
+
+	 DECLARE @SQL NVARCHAR(3250)
+        SET @SQL = ' SELECT @TotalRecordOUT = COUNT(*) FROM [dbo].[ContentLog]' ;
+        IF @WhereCondition IS NOT NULL
+            AND LEN(@WhereCondition) > 0 
+            BEGIN
+                SET @SQL = @SQL + ' WHERE ' + @WhereCondition ;
+            END              
+        EXEC sp_executesql @SQL, N'@TotalRecordOUT int OUTPUT',
+            @TotalRecordOUT = @TotalRecord OUTPUT ;   
+        --SELECT  @TotalRecord ;     
+
+        SET @SQL = ' SELECT * FROM ( ' ;
+        SET @SQL = @SQL + ' SELECT row_number() OVER ( ' ; 
+        IF @OrderByExpression IS NOT NULL
+            AND LEN(@OrderByExpression) > 0 
+            BEGIN
+                SET @SQL = @SQL + ' ORDER BY ' + @OrderByExpression ;
+            END
+        ELSE 
+            BEGIN 
+                SET @SQL = @SQL + ' ORDER BY Id DESC ' ;
+            END 
+        SET @SQL = @SQL + ' ) AS RowIndex , ' ; 
+        IF @SelectQuery IS NOT NULL
+            AND LEN(@SelectQuery) > 0 
+            BEGIN
+                SET @SQL = @SQL + @SelectQuery ;
+            END
+        ELSE 
+            BEGIN
+                SET @SQL = @SQL + ' * ' ;
+            END
+        SET @SQL = @SQL + ' FROM [dbo].[ContentLog] ' ;
+        IF @WhereCondition IS NOT NULL
+            AND LEN(@WhereCondition) > 0 
+            BEGIN
+                SET @SQL = @SQL + ' WHERE ' + @WhereCondition ;
+            END           
+        SET @SQL = @SQL + ' ) AS _Temp
+        WHERE RowIndex BETWEEN ' + CONVERT(NVARCHAR(50), @PageSize
+            * ( @PageIndex - 1 ) + 1) + ' AND '
+            + CONVERT(NVARCHAR(50), @PageSize * @PageIndex) 
+
+        PRINT @SQL ;
+        EXEC sp_executesql @SQL ;       
+      SELECT * FROM [dbo].[ContentLog]   
+						
+--endregion
+
+U
+/****** Object:  StoredProcedure [dbo].[sp_PublisherCategory_SelectDynamic]    Script Date: 02/15/2017 10:56:17 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+--region [dbo].[sp_PublisherCategory_SelectDynamic]
+
+------------------------------------------------------------------------------------------------------------------------
+-- Created By:   vanthanh
+-- Date: 07-10-2011 11:05
+-- Todo:
+------------------------------------------------------------------------------------------------------------------------
+
+CREATE PROCEDURE [dbo].[sp_PublisherCategory_SelectDynamic]
+	@SelectQuery NVARCHAR(MAX) ,
+	@WhereCondition nvarchar(MAX),
+	@OrderByExpression nvarchar(250) = NULL
+AS
+
+SET NOCOUNT ON
+SET TRANSACTION ISOLATION LEVEL READ COMMITTED
+
+DECLARE @SQL nvarchar(3250)
+
+   SET @SQL = ' SELECT ';
+	
+	IF @SelectQuery IS NOT NULL
+        AND LEN(@SelectQuery) > 0 
+        BEGIN
+            SET @SQL = @SQL + @SelectQuery ;
+        END
+	ELSE
+		BEGIN
+			SET @SQL = @SQL + ' * ' ;
+		END
+
+	SET @SQL = @SQL + ' FROM [dbo].[PublisherCategory] '
+
+	IF @WhereCondition IS NOT NULL
+        AND LEN(@WhereCondition) > 0 
+        BEGIN
+            SET @SQL = @SQL + ' WHERE ' + @WhereCondition ;
+        END
+
+IF @OrderByExpression IS NOT NULL AND LEN(@OrderByExpression) > 0
+BEGIN
+	SET @SQL = @SQL + '
+ORDER BY
+	' + @OrderByExpression
+END
+
+EXEC sp_executesql @SQL
+ SELECT * FROM [dbo].[PublisherCategory]
+--endregion
+GO
+/****** Object:  StoredProcedure [dbo].[sp_PublisherCategory_InsertUpdate]    Script Date: 02/15/2017 10:56:17 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+--region [dbo].[sp_PublisherCategory_InsertUpdate]
+
+------------------------------------------------------------------------------------------------------------------------
+-- Created By:   vanthanh
+-- Date: 07-10-2011 11:05
+-- Todo:
+------------------------------------------------------------------------------------------------------------------------
+
+CREATE PROCEDURE [dbo].[sp_PublisherCategory_InsertUpdate]
+	@Id int,
+	
+	@UserName nvarchar(50),
+	@CategoryPath nvarchar(Max)
+
+AS
+
+SET NOCOUNT ON
+
+IF EXISTS(SELECT [Id] FROM [dbo].[PublisherCategory] WHERE [UserName] = @UserName)
+BEGIN
+	UPDATE [dbo].[PublisherCategory] SET
+	
+		
+		[CategoryPath] = @CategoryPath
+	WHERE
+		[UserName] = @UserName
+		
+	RETURN @@ERROR;
+END
+ELSE
+BEGIN
+	INSERT INTO [dbo].[PublisherCategory] (
+		
+		
+		[UserName],
+		[CategoryPath]
+	) VALUES (
+		
+		@UserName,
+		
+		@CategoryPath
+	)
+	
+	RETURN @@IDENTITY;
+END
+
+--endregion
+GO
+
+
+/****** Object:  StoredProcedure [dbo].[sp_PublisherCategory_SelectDynamic]    Script Date: 02/15/2017 10:56:17 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+--region [dbo].[sp_PublisherCategory_SelectDynamic]
+
+------------------------------------------------------------------------------------------------------------------------
+-- Created By:   vanthanh
+-- Date: 07-10-2011 11:05
+-- Todo:
+------------------------------------------------------------------------------------------------------------------------
+
+CREATE PROCEDURE [dbo].[sp_PublisherCategory_SelectDynamic]
+	@SelectQuery NVARCHAR(MAX) ,
+	@WhereCondition nvarchar(MAX),
+	@OrderByExpression nvarchar(250) = NULL
+AS
+
+SET NOCOUNT ON
+SET TRANSACTION ISOLATION LEVEL READ COMMITTED
+
+DECLARE @SQL nvarchar(3250)
+
+   SET @SQL = ' SELECT ';
+	
+	IF @SelectQuery IS NOT NULL
+        AND LEN(@SelectQuery) > 0 
+        BEGIN
+            SET @SQL = @SQL + @SelectQuery ;
+        END
+	ELSE
+		BEGIN
+			SET @SQL = @SQL + ' * ' ;
+		END
+
+	SET @SQL = @SQL + ' FROM [dbo].[PublisherCategory] '
+
+	IF @WhereCondition IS NOT NULL
+        AND LEN(@WhereCondition) > 0 
+        BEGIN
+            SET @SQL = @SQL + ' WHERE ' + @WhereCondition ;
+        END
+
+IF @OrderByExpression IS NOT NULL AND LEN(@OrderByExpression) > 0
+BEGIN
+	SET @SQL = @SQL + '
+ORDER BY
+	' + @OrderByExpression
+END
+
+EXEC sp_executesql @SQL
+ SELECT * FROM [dbo].[PublisherCategory]
+--endregion
+GO
+/****** Object:  StoredProcedure [dbo].[sp_PublisherCategory_InsertUpdate]    Script Date: 02/15/2017 10:56:17 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+--region [dbo].[sp_PublisherCategory_InsertUpdate]
+
+------------------------------------------------------------------------------------------------------------------------
+-- Created By:   vanthanh
+-- Date: 07-10-2011 11:05
+-- Todo:
+------------------------------------------------------------------------------------------------------------------------
+
+CREATE PROCEDURE [dbo].[sp_PublisherCategory_InsertUpdate]
+	@Id int,
+	
+	@UserName nvarchar(50),
+	@CategoryPath nvarchar(Max)
+
+AS
+
+SET NOCOUNT ON
+
+IF EXISTS(SELECT [Id] FROM [dbo].[PublisherCategory] WHERE [UserName] = @UserName)
+BEGIN
+	UPDATE [dbo].[PublisherCategory] SET
+	
+		
+		[CategoryPath] = @CategoryPath
+	WHERE
+		[UserName] = @UserName
+		
+	RETURN @@ERROR;
+END
+ELSE
+BEGIN
+	INSERT INTO [dbo].[PublisherCategory] (
+		
+		
+		[UserName],
+		[CategoryPath]
+	) VALUES (
+		
+		@UserName,
+		
+		@CategoryPath
+	)
+	
+	RETURN @@IDENTITY;
+END
+
+--endregion
+GO
+
+
+
+/****** Object:  StoredProcedure [dbo].[sp_NotiRead_SelectDynamic]    Script Date: 03/13/2017 15:57:53 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+--region [dbo].[sp_NotiRead_SelectDynamic]
+
+------------------------------------------------------------------------------------------------------------------------
+-- NotiReadd By:   vanthanh
+-- Date: 28-08-2011 02:21
+-- Todo:
+------------------------------------------------------------------------------------------------------------------------
+
+CREATE PROCEDURE [dbo].[sp_NotiRead_SelectDynamic]
+	@SelectQuery NVARCHAR(MAX) ,
+	@WhereCondition nvarchar(MAX),
+	@OrderByExpression nvarchar(250) = NULL
+AS
+
+SET NOCOUNT ON
+SET TRANSACTION ISOLATION LEVEL READ COMMITTED
+
+DECLARE @SQL nvarchar(3250)
+
+   SET @SQL = ' SELECT ';
+	
+	IF @SelectQuery IS NOT NULL
+        AND LEN(@SelectQuery) > 0 
+        BEGIN
+            SET @SQL = @SQL + @SelectQuery ;
+        END
+	ELSE
+		BEGIN
+			SET @SQL = @SQL + ' * ' ;
+		END
+
+	SET @SQL = @SQL + ' FROM [dbo].[NotiRead] '
+
+	IF @WhereCondition IS NOT NULL
+        AND LEN(@WhereCondition) > 0 
+        BEGIN
+            SET @SQL = @SQL + ' WHERE ' + @WhereCondition ;
+        END
+
+IF @OrderByExpression IS NOT NULL AND LEN(@OrderByExpression) > 0
+BEGIN
+	SET @SQL = @SQL + '
+ORDER BY
+	' + @OrderByExpression
+END
+
+EXEC sp_executesql @SQL
+ SELECT * FROM [dbo].[NotiRead]
+--endregion
+GO
+/****** Object:  StoredProcedure [dbo].[sp_NotiRead_InsertMulti]    Script Date: 03/13/2017 15:57:53 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+--region [dbo].[sp_Banner_InsertUpdate]
+
+------------------------------------------------------------------------------------------------------------------------
+-- Created By:   vanthanh
+-- Date: 28-08-2011 02:21
+-- Todo:
+------------------------------------------------------------------------------------------------------------------------
+
+
+CREATE PROCEDURE [dbo].[sp_NotiRead_InsertMulti]
+	
+	@UserName nvarchar(50),
+	@ExpireDate int,
+	@NotiIds nvarchar(max)
+AS
+
+SET NOCOUNT ON
+
+INSERT INTO [dbo].[NotiRead]
+           ([UserName]
+           ,[NotiId]
+		   ,[ExpireDate]
+           ,[CreatedTime]) SELECT
+						   @UserName
+						   ,CONVERT(BIGINT,[Value])
+						   ,@ExpireDate int
+						   ,GETDATE()
+					FROM [FN_Parameters_Split] (@NotiIds,';')
+					WHERE [Value] IS NOT NULL AND [Value]>0
+		
+	
+	RETURN @@IDENTITY;
+
+--endregion
+GO
+/****** Object:  StoredProcedure [dbo].[sp_NotiRead_Insert]    Script Date: 03/13/2017 15:57:53 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+--region [dbo].[sp_Banner_InsertUpdate]
+
+------------------------------------------------------------------------------------------------------------------------
+-- Created By:   vanthanh
+-- Date: 28-08-2011 02:21
+-- Todo:
+------------------------------------------------------------------------------------------------------------------------
+
+
+CREATE PROCEDURE [dbo].[sp_NotiRead_Insert]
+	
+	@UserName nvarchar(50),
+	@ExpireDate int,
+	@NotiId bigint
+AS
+
+SET NOCOUNT ON
+
+INSERT INTO [dbo].[NotiRead]
+           ([UserName]
+           ,[NotiId]
+		   ,[ExpireDate]
+           ,[CreatedTime]) VALUES (
+	
+			@UserName,
+			@NotiId,
+			@ExpireDate,
+			GetDate()
+		)
+	
+	RETURN @@IDENTITY;
+
+--endregion
+GO
+/****** Object:  StoredProcedure [dbo].[sp_NotifiInsert]    Script Date: 03/13/2017 15:57:53 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+--region [dbo].[sp_Banner_InsertUpdate]
+
+------------------------------------------------------------------------------------------------------------------------
+-- Created By:   vanthanh
+-- Date: 28-08-2011 02:21
+-- Todo:
+------------------------------------------------------------------------------------------------------------------------
+
+
+CREATE PROCEDURE [dbo].[sp_NotifiInsert]
+	
+	@CreateUser nvarchar(50),
+	@ExpireDate int,
+	@Title nvarchar(1024),
+	@Link nvarchar(50),
+	@Role nvarchar(Max)
+AS
+
+SET NOCOUNT ON
+
+INSERT INTO [dbo].[Notifi]
+           ([Title]
+           ,[Role]
+           ,[CreateUser]
+           ,[CreatedTime]
+           ,[Link]
+           ,[ExpireDate])
+     VALUES
+     (
+           @Title
+           ,@Role
+           ,@CreateUser
+           ,GetDate()
+           ,@Link
+           ,@ExpireDate
+           )
+	RETURN @@IDENTITY;
+
+--endregion
+GO
+/****** Object:  StoredProcedure [dbo].[sp_Notifi_SelectDynamic]    Script Date: 03/13/2017 15:57:53 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+--region [dbo].[sp_Notifi_SelectDynamic]
+
+------------------------------------------------------------------------------------------------------------------------
+-- Created By:   vanthanh
+-- Date: 28-08-2011 02:21
+-- Todo:
+------------------------------------------------------------------------------------------------------------------------
+
+Create PROCEDURE [dbo].[sp_Notifi_SelectDynamic]
+	@SelectQuery NVARCHAR(MAX) ,
+	@WhereCondition nvarchar(MAX),
+	@OrderByExpression nvarchar(250) = NULL
+AS
+
+SET NOCOUNT ON
+SET TRANSACTION ISOLATION LEVEL READ COMMITTED
+
+DECLARE @SQL nvarchar(3250)
+
+   SET @SQL = ' SELECT ';
+	
+	IF @SelectQuery IS NOT NULL
+        AND LEN(@SelectQuery) > 0 
+        BEGIN
+            SET @SQL = @SQL + @SelectQuery ;
+        END
+	ELSE
+		BEGIN
+			SET @SQL = @SQL + ' * ' ;
+		END
+
+	SET @SQL = @SQL + ' FROM [dbo].[Notifi] '
+
+	IF @WhereCondition IS NOT NULL
+        AND LEN(@WhereCondition) > 0 
+        BEGIN
+            SET @SQL = @SQL + ' WHERE ' + @WhereCondition ;
+        END
+
+IF @OrderByExpression IS NOT NULL AND LEN(@OrderByExpression) > 0
+BEGIN
+	SET @SQL = @SQL + '
+ORDER BY
+	' + @OrderByExpression
+END
+
+EXEC sp_executesql @SQL
+SELECT * FROM [dbo].[Notifi]
+--endregion
+GO

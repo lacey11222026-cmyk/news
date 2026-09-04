@@ -1,0 +1,73 @@
+﻿@{
+    ViewBag.Title = "Lịch sử tin";
+    Layout = "~/Views/Shared/_AdminV2.cshtml";
+}
+@using CMS.Helper
+@model List<DATA.ContentLog>
+
+<div class="onecolumn">
+    <div class="header">
+        <span>Lịch sử tin : @ViewBag.NewsTitle</span>
+    </div>
+    <br class="clear">
+    <div class="content">
+        <div style="width: 100%; height: 608px; overflow-y: scroll; display: block;">
+            @if (Model != null)
+            {
+                <table width="100%" cellspacing="0" cellpadding="0" class="data" id="mytable">
+                    <tbody>
+                        <tr id="rowheader">
+                            @*<th abbr="Id" scope="col">
+                                    ID Tin
+                                </th>*@
+                            <th abbr="Order" scope="col">
+                                Account
+                            </th>
+                            <th abbr="Name" scope="col">
+                                Hành động
+                            </th>
+                            <th abbr="Name" scope="col">
+                                Ghi chú
+                            </th>
+                            <th abbr="Name" scope="col">
+                                Thời gian
+                            </th>
+                            <th>Xem tin</th>
+                        </tr>
+                        @foreach (var item in Model)
+                        {
+                            <tr id="row_@(item.Id)">
+                                @*<td>
+                                        @item.ItemId
+                                    </td>*@
+
+
+                                <td>
+                                    @item.UserName
+                                </td>
+                                <td>
+                                    @* @HtmlHelpers.GetActionType(item.ItemtType.Value)*@
+                                    @item.Description
+                                </td>
+                                <td>
+                                    @item.Note
+                                </td>
+                                <td>
+                                    @item.CreateTime.GetValueOrDefault().ToString("dd/MM/yy HH:mm")
+                                </td>
+                                <td><a target="_blank" href="@Url.Action("Review2","AdminNews2",new {id=item.Id})">Xem tin</a></td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            }
+            <br />
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    $('#left_menu').hide();
+    $('#header').hide();
+    $('#bg_content').css("margin-left", "0px").css("padding-top", "0px");
+    $('.onecolumn').css("margin-top", "0px");
+</script>

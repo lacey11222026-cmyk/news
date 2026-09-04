@@ -1,0 +1,104 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout2.cshtml";
+}
+@using BIZ.Entity
+@using UTILS
+@using WebMVC4.Helper
+@using UTILS;
+@model UserSession
+<div class="manage-body">
+    <div class="manage-bnr">
+        <img src="/Content2/images/manage-bnr.jpg" alt="">
+        <div class="manage-title">
+            <ul>
+                <li class="active">
+                    Information management
+                </li>
+                <li><a href="/User/ChangePassword">Change password</a></li>
+            </ul>
+        </div>
+    </div>
+    <div class="manage-content">
+        <div class="mw-01 manage-sidebar">
+            @Html.Partial("User_MenuEn")
+        </div>
+        <div class="mw-02 manage-main">
+            <div class="manage-wrap mt50">
+                <div class="m-form">
+                    <div class="m-form-item w-50">
+                        <label>
+                            First Name
+                            <span class="textred">*</span>
+                        </label>
+                        <input type="text" id="firstName" value="@Model.FirstName">
+                    </div>
+                    <div class="m-form-item w-50">
+                        <label>
+                            Last Name
+                            <span class="textred">*</span>
+                        </label>
+                        <input type="text" value="@Model.LastName" id="lastName">
+                    </div>
+                    <div class="m-form-item">
+                        <label>E-mail  <span class="textred" ></span></label>
+                        <input type="text" readonly value="@Model.Email">
+                    </div>
+                   
+                    <div class="m-form-item">
+                        <label>
+                            Organization
+                        </label>
+                        <input type="text" id="organization" value="@Model.Organ">
+                    </div>
+                </div>
+                <div class="text-center mt20 w-100">
+                    <a href="javascript:;" onclick="validateData()" class="btn-blue btn-cm">Update</a>
+                </div>
+                <div class="form-box mt20">
+                    <p style="color: red;text-align: left;font-weight:bold" id="msgBox"></p>
+                </div>
+            </div>
+        </div>
+        <div class="m-log-out">
+            <img src="/Content2/images/manage-img.png" alt="">
+            <a href="@Url.Action("Login","User",new { act="out"})" class="btn-log-out"><img src="/Content2/images/icon-log-out.png" alt=""> Log out</a>
+        </div>
+    </div>
+</div>
+<script src="~/Content/js/formvalidate.js?vs=02"></script>
+<script>
+    $("#menu_1").addClass("active");
+    function validateData() {
+        if (!ValidateControls("Please enter First Name !", "#firstName")) {
+            return false;
+        }
+        if (!ValidateControls("Please enter Last Name !", "#lastName")) {
+            return false;
+        }
+
+         var param2 = {
+    
+            FistName: $("#firstName").val(),
+            LastName: $("#lastName").val(),
+            Organ: $("#organization").val(),
+            };
+            $.ajax({
+                type: 'POST',
+                url: "@Url.Action("Update")",
+                data: addAntiForgeryToken(param2),
+                async: true,
+                success: function (data) {
+
+                    if (data.success === true) {
+                        bootbox.alert("Update successful");
+                        
+                    } else {
+
+                        $("#msgBox").text(data.msg).show();
+                        return;
+                    }
+                }
+            });
+
+    }
+</script>

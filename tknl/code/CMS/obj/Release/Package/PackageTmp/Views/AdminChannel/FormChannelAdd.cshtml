@@ -1,0 +1,70 @@
+﻿@model DATA.Channel
+
+<script type="text/javascript">
+   
+
+    function validateForm() {
+        var name = $('#Name').val();
+        if (name == "") {
+
+            alert('Tên không được trống');
+            $('#Name').focus();
+            return false;
+        }
+        var description = $('#Description').val();
+        if (description == "") {
+
+            alert('Mô tả không được trống');
+            $('#Description').focus();
+            return false;
+        }
+        
+        return true;
+
+    }
+
+</script>
+
+
+
+<div class="login" id="tabs-info">
+
+    <div class="login-left">
+        @Html.Label("Tên kênh tin:")
+    </div>
+    <div class="login-right">
+        @Html.TextBoxFor(m => m.Name, new { @class = "textbox" ,maxlength = 50})
+       
+    </div>
+    <div class="clear">
+    </div>
+
+    <div class="clear">
+    </div>
+    <div class="login-left">
+        @Html.Label("Mô tả:")
+    </div>
+    <div class="login-right">
+        @Html.TextAreaFor(m => m.Description, new { @class = "textbox", style = "height:200px;",maxlength = 1000 })
+    </div>
+
+
+    <div class="clear">
+    </div>
+   
+     <div class="login-left">
+        @Html.Label("Trạng thái:")
+    </div>
+    <div class="login-right">
+
+
+        @Html.RadioButtonFor(model => model.Published, 1)
+        Hoạt động &nbsp;
+                     @Html.RadioButtonFor(model => model.Published,0)
+
+        Khóa &nbsp;
+    </div>
+    <div class="clear">
+    </div>
+
+</div>

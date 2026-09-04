@@ -1,0 +1,37 @@
+﻿@using BIZ
+@using UTILS
+@using WebMVC4.Helper
+@model WebMVC4.Models.LastestNewModel
+@if (Model != null)
+{
+    <h2 class="title-cm maxheight02"><a href="@Model.Url">@Model.HeaderTitle</a></h2>
+    if (Model.lstdata!=null)
+    {
+        <div class="newsbox-cm">
+            @foreach (var item in Model.lstdata.Take(1).Select((value, i) => new { i, value }))
+            {
+                <div class="newsbig mt20 maxheight01">
+                    <a href="@item.value.LinkUrl"><img src="@item.value.MainImage2?w=371&h=246&mode=crop" alt=""></a>
+                    <a href="@item.value.LinkUrl" class="news-name mt15">@item.value.Title</a>
+                    <p class="newsdate mt10">@item.value.PublishDate.ToString("dd/MM/yyyy")</p>
+                    <p class="news-content mt15">@item.value.IntroText</p>
+                </div>
+            }
+            <div class="newslist-02 mt20">
+                @foreach (var item in Model.lstdata.Skip(1).Select((value, i) => new { i, value }))
+                {
+                    <div class="news-item">
+                        <a href="@item.value.LinkUrl">
+                            <img src="@item.value.MainImage2?w=163&h=108&mode=crop" alt="">
+                            <span>@item.value.Title</span>
+                        </a>
+                    </div>
+                }
+            </div>
+        </div>
+
+
+    }
+
+
+}

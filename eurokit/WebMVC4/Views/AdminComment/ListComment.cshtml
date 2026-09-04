@@ -1,0 +1,156 @@
+﻿@using BIZ.Entity
+@using UTILS
+@using DATA
+@model List<Comment>
+@using WebMVC4.Helper
+
+<table class="table table-striped table-bordered table-hover dataTable no-footer" id="dataTables">
+    <thead>
+        <tr class="rowsao">
+            <th>ID</th>
+
+            <th>Tên đối tượng</th>
+            <th> Người viết</th>
+            <th>Ngày viết</th>
+            <th>
+               Nội dung
+            </th>
+
+            <th>Trạng Thái</th>
+            <th>Thao Tác</th>
+        </tr>
+    </thead>
+    @if (Model != null && Model.Count > 0)
+    {
+        for (int i = 0; i < Model.Count; i++)
+        {
+            var obj = Model[i];
+            <tr>
+                <td>@obj.Id</td>
+                <td style="text-align: left;">
+                    <a href="@Utils.FormatUrlRewrite(obj.ItemId, obj.ItemName, "ArticleDetail")" target="_blank" title="Edit">@obj.ItemName</a>
+                </td>
+                <td>@obj.UserName</td>
+                <td>@obj.CreatedTime.GetValueOrDefault().ToString("dd/MM/yyyy HH:mm")</td>
+                <td><a href="@Url.Action("GetCommentDetail",new {id=obj.Id })" title="Edit">@obj.Message </a></td>
+                <td>
+                    @if (obj.Published == 1)
+                    {
+                        <a href="javascript:;" title="Kích hoạt trạng thái không hoạt động" onclick="UpdateStatus('@Utils.Base64Encode(obj.Id)', 1,'@obj.ItemName');"><i class="fa fa-check"></i></a>
+
+                    }
+                    else
+                    {
+                        <a href="javascript:;" title="Kích hoạt trạng thái hoạt động" onclick="UpdateStatus('@Utils.Base64Encode(obj.Id)',0,'@obj.ItemName');"><i class="fa fa-ban"></i></a>
+
+                    }
+                </td>
+                <td style="text-align: center">
+                    <a href="javascript:;" title="Delete" onclick="DeleteData('@Utils.Base64Encode(obj.Id)','@obj.UserName')"><i class="fa fa-trash-o"></i></a>
+
+                </td>
+
+            </tr>
+        }
+    }
+</table>
+<script type="text/javascript">
+    var PageOnSize = '@ViewBag.PageSize';
+    var CurrentPage = '@ViewBag.CurrentPage';
+    function BindDataRequest(currentPage) {
+        var params = {
+            status: $('#ddlStatus :selected').val(),
+            title: $("#txtKeyword").val(),
+            currentPage: currentPage,
+            pageSize: PageOnSize
+        };
+        var urlRequestAns = '@Url.Action("ListComment")';
+        Utils.Loading();
+        $.ajax({
+            type: 'GET',
+            url: urlRequestAns,
+            data: params,
+            success: function (data) {
+                $("#ListComment").html(data);
+                Utils.UnLoading();
+            },
+            error: function () {
+                Utils.UnLoading();
+            }
+        });
+    };
+    $(document).ready(function () {
+
+
+        $("#pager").pager({
+            pagenumber: CurrentPage,
+            pagecount: Math.ceil('@ViewBag.TotalRecord' / PageOnSize),
+            buttonClickCallback: function (page) { BindDataRequest(page); }
+        });
+
+
+    });
+
+    function DeleteData(id,title) {
+
+        bootbox.confirm("Bạn chắc chắn muốn xóa bình luận này ??? ", function (result) {
+            if (result == true) {
+                var postdata= {
+                    '_id': id,
+                    'Title': title,
+                };
+                Utils.Loading();
+                $.ajax({
+                    type: 'POST',
+                    url:"@Url.Action("Delete")",
+                    data: addAntiForgeryToken(postdata),
+                    success: function (data) {
+                        Utils.UnLoading();
+                        if (data.ResponseCode >= 0) {
+                            bootbox.alert(data.Description);
+                            BindDataRequest(CurrentPage);
+                        }
+                        else {
+                            bootbox.alert(data.Description);
+                            return;
+                        }
+                    }
+                });
+            }
+        });
+
+    }
+    function UpdateStatus(id, status,title) {
+        var type = "Khóa";
+        if (status == 0) {
+            type = "Kích hoạt";
+        }
+        bootbox.confirm("Bạn muốn " + type + " bình luận này ?", function (result) {
+            if (result == true) {
+                Utils.Loading();
+                var postdata = {
+                    '_id': id,
+                    'Title': title,
+                };
+                $.ajax({
+                    type: 'POST',
+                    url:"@Url.Action("UpdateStatus")",
+                    data: addAntiForgeryToken(postdata),
+
+                    success: function (data) {
+                        Utils.UnLoading();
+                        if (data.ResponseCode >= 0) {
+                            bootbox.alert(data.Description);
+                            BindDataRequest(CurrentPage);
+                        }
+                        else {
+                            bootbox.alert(data.Description);
+                            return;
+                        }
+                    }
+                });
+            }
+        });
+
+    }
+</script>

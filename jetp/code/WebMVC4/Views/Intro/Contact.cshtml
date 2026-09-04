@@ -1,0 +1,294 @@
+﻿@using BIZ
+@using UTILS
+@using WebMVC4.Helper
+@model BIZ.Entity.CATEGORY_FULL
+@{
+    List<BIZ.Entity.CATEGORY_FULL> data = ViewBag.lstrelate;
+}
+@{
+    var langpage = WorkContext.GetLanguage();
+}
+@if (Model != null)
+{
+    <div class="contact-page">
+        <div class="breadcrumbs-03 mt30">
+            <div class="container">
+                <ul>
+                    <li><a href="/">@Resources.Global.Home</a></li>
+                    <li><span>@ViewBag.CateName</span></li>
+                </ul>
+            </div>
+        </div>
+        @if (langpage == "vi-vn")
+        {
+            <section class="section-contact-1 contact-content mt50 pb100">
+                <div class="container">
+                    <div class="content">
+                        <div class="col-right">
+                            <div class="title">
+                                <h2>Vui lòng gửi câu hỏi của bạn tại đây</h2>
+                            </div>
+                            <div id="comment-result" style="display:none;" class="status alert alert-success">Cảm ơn bạn đã gửi câu hỏi đến Cơ quan thường trực Ban Thư ký thực hiện JETP. Chúng tôi sẽ phản hồi bạn trong thời gian sớm nhất!</div>
+                            <div id="comment-form">
+
+                                <div style="margin-bottom:10px">
+                                    <p id="msgBox" style="color: #c82e29; font-weight: bold; font-size: 22px"></p>
+                                    @Html.AntiForgeryToken()
+                                </div>
+                                <div class="f-col">
+                                    <div class="f-item">
+                                        <label for="">Tên <span>*</span></label>
+                                        <input placeholder="Nhập tên của bạn" value="@ViewBag.FirstName" id="txtname"  type="text" name="first-name" class="input-cm">
+                                    </div>
+                                    <div class="f-item">
+                                        <label for="">Họ <span>*</span></label>
+                                        <input placeholder="Nhập họ của bạn" value="@ViewBag.LastName" id="txtuser" type="text" name="first-name" class="input-cm">
+                                    </div>
+                                </div>
+                                <div class="f-col f-w100">
+                                    <div class="f-item">
+                                        <label for="">Địa chỉ email <span>*</span></label>
+                                        <input placeholder="Nhập email của bạn" id="txtemail" value="@ViewBag.Email" type="email" name="email" class="input-cm">
+                                    </div>
+                                </div>
+                                <div class="f-col f-w100">
+                                    <div class="f-item">
+                                        <label for="">Hãy cho chúng tôi biết thêm <span>*</span></label>
+                                        <textarea rows="4" id="txtcontent" placeholder="Lưu ý nhu cầu cụ thể của bạn ở đây" name="tell-us-more" class="input-cm"></textarea>
+                                    </div>
+                                </div>
+                                <div class=""><button class="btn-cm btn-blue" onclick="return validateData();">Gửi</button></div>
+
+                            </div>
+                            <div class="contact-information mt50">
+                                @Html.Raw(Model.Contents)
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <script src="~/Content/js/formvalidate.js?vs=02"></script>
+            <script type="text/javascript">
+
+                function validateEmail() {
+                    if (!ValidateControls("Vui lòng nhập email", "#txtemail")) {
+                        return false;
+                    }
+                    var mail = $('#txtemail').val();
+                    if (!isValidEmailAddress(mail)) {
+
+                        $("#msgBox").html("email không đúng định dạng").show();
+
+                        $('#txtemail').focus();
+                        return false;
+                    }
+                    return true;
+                }
+                function validateMobile() {
+                    if (!ValidateControls("Vui lòng nhập số điện thoại", "#txtMobile")) {
+                        return false;
+                    }
+                    var mail = $('#txtMobile').val();
+
+                    return true;
+                }
+
+                function validateData() {
+                    if (!ValidateControls("Vui lòng nhập tên", "#txtname")) {
+                        return false;
+                    }
+                    if (!ValidateControls("Vui lòng nhập họ", "#txtuser")) {
+                        return false;
+                    }
+                    if (!validateEmail()) {
+                        return false;
+                    }
+                    //if (!validateMobile()) {
+                    //    return false;
+                    //}
+                    if (!ValidateControls("Vui lòng nhập nội dung", "#txtcontent")) {
+                        return false;
+                    }
+                    var postdata = {
+                        Name: $('#txtname').val(),
+                        Email: $('#txtemail').val(),
+                        ResponedUser: $('#txtuser').val(),
+                        Mobile: '',
+                        Question: $('#txtcontent').val().replace(/\n/g, '<br />')
+
+                    };
+                    $.ajax({
+                        type: "post",
+                        dataType: "html",
+                        url: '@Url.Action("Feedback", "Intro")',
+                        data: addAntiForgeryToken(postdata),
+                        success: function (response) {
+
+                            var data = parseInt(response);
+                            if (data == 1)
+                            {
+                                $("#comment-form").hide();
+                                $("#comment-result").show();
+                                $('#txtname').val("");
+                                $('#txtemail').val("");
+                                $('#txtuser').val("");
+                                $('#txtcontent').val("");
+
+                            }
+
+                            if (data == -99) {
+                                $("#msgBox").html("@Resources.Global.MessageError").show();
+
+                            }
+                            if (data == -4) {
+                                $("#msgBox").html("@Resources.Global.MessageSoMuch").show();
+
+                            }
+
+                        }
+                    });
+
+                    return true;
+                }
+            </script>
+
+        }
+        else
+        {
+            <section class="section-contact-1 contact-content mt50 pb100">
+                <div class="container">
+                    <div class="content">
+                        <div class="col-right">
+                            <div class="title">
+                                <h2>Please submit your questions here</h2>
+                            </div>
+                            <div id="comment-result" style="display:none;" class="status alert alert-success">Thank you for your question. We will reply you as soon as possible!</div>
+                            <div id="comment-form">
+
+                                <div style="margin-bottom:10px">
+                                    <p id="msgBox" style="color: #c82e29; font-weight: bold; font-size: 22px"></p>
+                                    @Html.AntiForgeryToken()
+                                </div>
+                                <div class="f-col">
+                                    <div class="f-item">
+                                        <label for="">First Name <span>*</span></label>
+                                        <input placeholder="Enter your first name" value="" id="txtname" type="text" name="first-name" class="input-cm">
+                                    </div>
+                                    <div class="f-item">
+                                        <label for="">Last Name <span>*</span></label>
+                                        <input placeholder="Enter your last name" value="" id="txtuser" type="text" name="first-name" class="input-cm">
+                                    </div>
+                                </div>
+                                <div class="f-col f-w100">
+                                    <div class="f-item">
+                                        <label for="">Email <span>*</span></label>
+                                        <input placeholder="Enter your email" id="txtemail" value="" type="email" name="email" class="input-cm">
+                                    </div>
+                                </div>
+                                <div class="f-col f-w100">
+                                    <div class="f-item">
+                                        <label for="">Tell us more <span>*</span></label>
+                                        <textarea rows="4" id="txtcontent" placeholder="Note your specific needs here" name="tell-us-more" class="input-cm"></textarea>
+                                    </div>
+                                </div>
+                                <div class=""><button class="btn-cm btn-blue" onclick="return validateData();">Send</button></div>
+
+                            </div>
+                            <div class="contact-information mt50">
+                                @Html.Raw(Model.Contents)
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <script src="~/Content/js/formvalidate.js?vs=02"></script>
+            <script type="text/javascript">
+
+     function validateEmail() {
+         if (!ValidateControls("Please enter email", "#txtemail")) {
+             return false;
+         }
+         var mail = $('#txtemail').val();
+         if (!isValidEmailAddress(mail)) {
+
+             $("#msgBox").html("Email is not in correct format.").show();
+
+             $('#txtemail').focus();
+             return false;
+         }
+         return true;
+     }
+     function validateMobile() {
+         if (!ValidateControls("Vui lòng nhập số điện thoại", "#txtMobile")) {
+             return false;
+         }
+         var mail = $('#txtMobile').val();
+
+         return true;
+     }
+
+     function validateData() {
+         if (!ValidateControls("Please enter your first name", "#txtname")) {
+             return false;
+         }
+         if (!ValidateControls("Please enter your last name", "#txtuser")) {
+             return false;
+         }
+         if (!validateEmail()) {
+             return false;
+         }
+         //if (!validateMobile()) {
+         //    return false;
+         //}
+         if (!ValidateControls("Please enter content", "#txtcontent")) {
+             return false;
+         }
+         var postdata = {
+             Name: $('#txtname').val(),
+             Email: $('#txtemail').val(),
+             ResponedUser: $('#txtuser').val(),
+             Mobile: '',
+             Question: $('#txtcontent').val().replace(/\n/g, '<br />')
+
+         };
+         $.ajax({
+             type: "post",
+             dataType: "html",
+             url: '@Url.Action("Feedback", "Intro")',
+             data: addAntiForgeryToken(postdata),
+             success: function (response) {
+
+                 var data = parseInt(response);
+                 if (data == 1)
+                 {
+                     $("#comment-form").hide();
+                     $("#comment-result").show();
+                     $('#txtname').val("");
+                     $('#txtemail').val("");
+                     $('#txtuser').val("");
+                     $('#txtcontent').val("");
+
+                 }
+
+                 if (data == -99) {
+                     $("#msgBox").html("@Resources.Global.MessageError").show();
+
+                 }
+                 if (data == -4) {
+                     $("#msgBox").html("@Resources.Global.MessageSoMuch").show();
+
+                 }
+
+             }
+         });
+
+         return true;
+     }
+            </script>
+        }
+
+
+
+    </div>
+
+}

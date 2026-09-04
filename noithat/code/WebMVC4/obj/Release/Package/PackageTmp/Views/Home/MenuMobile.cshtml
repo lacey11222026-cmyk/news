@@ -1,0 +1,32 @@
+﻿@using BIZ.Entity
+@using UTILS
+@using WebMVC4.Helper
+@model List<CATEGORY_FULL>
+<li class="menu-item menu-item-type-custom menu-item-object-custom current-menu-item current_page_item menu-item-home menu-item-2737 item-level-0"><a href="/" class="woodmart-nav-link"><span class="nav-link-text">Trang chủ</span></a></li>
+@foreach (var item in Model.Select((value, i) => new { i, value }))
+{
+    if (item.value.Param.IsFooter == 0)
+    {
+        <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-@item.value.Id item-level-0"><a href="@item.value.Url" class="woodmart-nav-link"><span class="nav-link-text">@item.value.Name</span></a></li>
+    }
+    else
+    {
+        <li class="menu-item menu-item-type-custom menu-item-object-custom current-menu-item current_page_item menu-item-home menu-item-has-children menu-item-@item.value.Id item-level-0">
+            <a href="@item.value.Url" class="woodmart-nav-link"><span class="nav-link-text">@item.value.Name</span></a>
+            <div class="sub-menu-dropdown color-scheme-dark">
+
+                <div class="container">
+
+                    <ul class="sub-menu color-scheme-dark">
+                        @Html.Action("SubMenu", "Home", new { CategoryId = item.value.Id })
+                    </ul>
+                </div>
+            </div>
+            <span class="icon-sub-menu"></span>
+        </li>
+    }
+
+
+}
+
+

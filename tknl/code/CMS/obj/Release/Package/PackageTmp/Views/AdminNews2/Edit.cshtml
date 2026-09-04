@@ -1,0 +1,451 @@
+﻿@{
+   
+    Layout = "~/Views/Shared/_AdminV2.cshtml";
+
+}
+@using System.Configuration
+@using UTILS
+@model BIZ.Entity.CONTENT_FULL
+<link href="/Styles/admin/css/blue/tab.css" rel="stylesheet" type="text/css" />
+<div class="onecolumn" id="product-tabs">
+    <div class="header">
+        <span>@ViewBag.Title</span>
+        <div class="menuitem">
+            <ul>
+                <li><a href="#tabs-info">Thông tin cơ bản</a></li>
+
+                @*<li><a href="#tabs-image">Ảnh đại diện</a></li>
+                <li><a href="#tabs-content">Nội dung</a></li>*@
+
+                <li><a href="#tabs-reference">Tin liên quan</a></li>
+                <li><a href="#tabs-note">Ghi chú</a></li>
+               
+
+            </ul>
+        </div>
+    </div>
+    <br class="clear">
+    <div class="content">
+
+        <form id="NewsEditForm" method="get" action="">
+             @Html.HiddenFor(m => m.Image)
+        @Html.HiddenFor(m => m.Params)
+			@* <div id="tabs-reveview">
+                @{Html.RenderAction("Review", "AdminNews2", new { Id = Model.Id });}
+
+            </div>*@
+
+            <div>@{Html.RenderAction("FormEdit", "AdminNews2", new { obj = Model });}</div>
+            <br />
+
+
+
+
+            <div class="button_login">
+                <div>
+                    @*truong hop amdin*@
+                    @if (ViewBag.isAdmin && Model.Status != (int)Constants.NewsStatus.Disable)
+                    {
+                        if (Model.Status != (int)Constants.NewsStatus.Publish)
+                        {
+                        <input type="button" id="btnPublish" onclick="fPublish();" value="Xuất bản" /><text>&nbsp;</text>
+                       
+                        }
+                       
+                         //tin bi tra lai khong co nut tra lai nua
+                        if (Model.Status != (int)Constants.NewsStatus.Draft && Model.Status != (int)Constants.NewsStatus.Reject && Model.Status != (int)Constants.NewsStatus.EditReject)
+                        {
+                            if (Model.CreatedRole != "XB" )
+                            {
+                        <input type="button" id="btnReject" onclick="fRejectBT();" value="Trả lại biên tập" /><text>&nbsp;</text>
+                            }
+                            if (Model.CreatedRole != "XB" && Model.CreatedRole != "BT")
+                            {
+                        <input type="button" id="btnReject1" onclick="fReject();" value="Trả lại phóng viên" /><text>&nbsp;</text>
+                            }
+
+                        }
+
+                        
+                    }
+                    @if (Model.Status != (int)Constants.NewsStatus.Disable)
+                    {
+                         <input type="button" id="btnSave1" value="Lưu lại" onclick="fSave();" /><text>&nbsp;</text>
+                    }
+                    @switch (Model.Status)
+                    {
+                        case (int)Constants.NewsStatus.Draft:
+                        case (int)Constants.NewsStatus.Reject:
+
+                            if (ViewBag.isReporter && !ViewBag.isEditer)
+                            {
+                          
+                        <input type="button" id="btnSendEdit" value="Gửi biên tập" onclick="fSendEdit();" /><text>&nbsp;</text>
+                        
+                            }
+                            if (ViewBag.isEditer && !ViewBag.isAdmin)
+                            {
+                          
+                        <input type="button" id="btnSendPublish" onclick="fSendPublish();" value="Gửi xuất bản" /><text>&nbsp;</text>
+                        
+                            }
+                            break;
+                        case (int)Constants.NewsStatus.EditWait:
+                            
+                          
+                        <input type="button" id="btnGetback" value="Lấy lại bài" onclick="fGetBack();" /><text>&nbsp;</text>
+ 
+                             
+                            break;
+                        case (int)Constants.NewsStatus.EditReject:
+                        case (int)Constants.NewsStatus.Editting:
+                            if (ViewBag.isEditer && !ViewBag.isAdmin)
+                            {
+                              
+                        <input type="button" id="btnSendPublish" onclick="fSendPublish();" value="Gửi xuất bản" /><text>&nbsp;</text>
+                                if (Model.CreatedBy != "Spider" && Model.CreatedRole != "XB" && Model.CreatedRole != "BT")
+                                {
+                        <input type="button" id="btnReject2" onclick="fReject();" value="Trả lại phóng viên" /><text>&nbsp;</text>
+                                }
+
+
+                            }
+                            break;
+                        case (int)Constants.NewsStatus.PublishWait:
+                            if (ViewBag.isAdmin)
+                            {
+
+                            }
+
+                            break;
+
+                        case (int)Constants.NewsStatus.Publish:
+                        <input type="button" id="btDown" onclick="fDown();" value="Gỡ bài" /><text>&nbsp;</text>       
+                            break;
+
+                    }
+                    @if (Model.Status == (int)Constants.NewsStatus.Disable)
+                    {
+                        <input type="button" id="btResotre" onclick="fRestore();" value="Hoàn tác" /><text>&nbsp;</text>       
+                        
+                    }
+                    else
+                    {
+                        <input type="button" id="btnDisable" value="Xóa bài" /><text>&nbsp;</text>  
+                    }
+                    <input type="button" value="Quay lại" onclick="fReturn();" />
+                    &nbsp;
+                    <input type="button" value="Xem trước" onclick="fReview('@Model.Id    ');" />
+
+                </div>
+            </div>
+            <div class="clear">
+            </div>
+
+
+        </form>
+        <script type="text/javascript">
+            function fReview(url) {
+
+                url = "@(ConfigurationManager.AppSettings["SiteUrl"])/News/DetailReview/"+url;
+                window.open(url, '_blank');
+            }
+            function fReturn() {
+
+                if (confirm("Bạn có chắc chắn muốn thực hiện thao tác này")) {
+                       
+                    window.location.href = "@Html.Raw(ViewBag.ReturnUrl)";
+                        
+            }
+        }
+        function fRestore() {
+
+            if (confirm("Bạn có chắc chắn muốn thực hiện thao tác này")) {
+                if (validateForm()) {
+
+
+                    $.post('@Url.Action("Edit", "AdminNews2")', $("#NewsEditForm").serialize() + "&actionType=" + NewsAction.Restore + "&note=" + $('#Note').val(), function (data) {
+                        window.location.href = "@Html.Raw(ViewBag.ReturnUrl)";
+                    });
+
+                }
+            }
+        }
+        function fGetBack() {
+
+            if (confirm("Bạn có chắc chắn muốn thực hiện thao tác này")) {
+                if (validateForm()) {
+
+
+                    $.post('@Url.Action("Edit", "AdminNews2")', $("#NewsEditForm").serialize() + "&actionType=" + NewsAction.GetBack + "&note=" + $('#Note').val(), function (data) {
+                        window.location.href = "@Html.Raw(ViewBag.ReturnUrl)";
+                    });
+
+                }
+            }
+        }
+            
+        function fDown() {
+
+            if (confirm("Bạn có chắc chắn muốn thực hiện thao tác này")) {
+                if (validateForm()) {
+                    $.post('@Url.Action("Edit", "AdminNews2")', $("#NewsEditForm").serialize() + "&actionType=" + NewsAction.Down + "&note=" + $('#Note').val(), function (data) {
+                        window.location.href = "@Html.Raw(ViewBag.ReturnUrl)";
+                    });
+
+                }
+            }
+        }
+        function fPublish() {
+
+            if (confirm("Bạn có chắc chắn muốn thực hiện thao tác này")) {
+                if (validateForm()) {
+                    $.post('@Url.Action("Edit", "AdminNews2")', $("#NewsEditForm").serialize() + "&actionType=" + NewsAction.Publish + "&note=" + $('#Note').val(), function (data) {
+                            window.location.href = "@Html.Raw(ViewBag.ReturnUrl)";
+                        });
+
+                    }
+                }
+            }
+            function fSendPublish() {
+
+                if (confirm("Bạn có chắc chắn muốn thực hiện thao tác này")) {
+                    if (validateForm()) {
+                        $.post('@Url.Action("Edit", "AdminNews2")', $("#NewsEditForm").serialize() + "&actionType=" + NewsAction.SendPublish + "&note=" + $('#Note').val(), function (data) {
+                            window.location.href = "@Html.Raw(ViewBag.ReturnUrl)";
+                        });
+
+                    }
+                }
+            }
+            function fSendEdit() {
+
+                if (confirm("Bạn có chắc chắn muốn thực hiện thao tác này")) {
+                    if (validateForm()) {
+                        $.post('@Url.Action("Edit", "AdminNews2")', $("#NewsEditForm").serialize() + "&actionType=" + NewsAction.SendEdit + "&note=" + $('#Note').val(), function (data) {
+                            window.location.href = "@Html.Raw(ViewBag.ReturnUrl)";
+                        });
+
+                    }
+                }
+            }
+            function fSave() {
+
+                if (confirm("Bạn có chắc chắn muốn thực hiện thao tác này")) {
+                    if (validateForm()) {
+                        $.post('@Url.Action("Edit", "AdminNews2")', $("#NewsEditForm").serialize() + "&actionType=" + NewsAction.Save + "&note=" + $('#Note').val(), function (data) {
+                            
+							
+                            setTimeout(function() { window.location.href = "/AdminNews2/Edit?Id=" + '@Model.Id';},300);
+                        });
+
+                    }
+                }
+            }
+            function fRejectBT() {
+
+                if (confirm("Bạn có chắc chắn muốn thực hiện thao tác này")) {
+                    //var note = $('#Note').val();
+                    //if (note == "") {
+
+                    //    alert('Ghi chú không được trống');
+                    //    $('#Note').focus();
+                    //    return false;
+                    //}
+                    if (validateForm()) {
+
+                        $.post('@Url.Action("Edit", "AdminNews2")', $("#NewsEditForm").serialize() + "&actionType=" + NewsAction.RejectBT + "&note=" + $('#Note').val(), function (data) {
+                            window.location.href = "@Html.Raw(ViewBag.ReturnUrl)";
+                        });
+                    }
+                }
+            }
+            function fReject() {
+
+                if (confirm("Bạn có chắc chắn muốn thực hiện thao tác này")) {
+                    //var note = $('#Note').val();
+                    //if (note == "") {
+
+                    //    alert('Ghi chú không được trống');
+                    //    $('#Note').focus();
+                    //    return false;
+                    //}
+                    if (validateForm()) {
+
+                        $.post('@Url.Action("Edit", "AdminNews2")', $("#NewsEditForm").serialize() + "&actionType=" + NewsAction.Reject + "&note=" + $('#Note').val(), function (data) {
+                            window.location.href = "@Html.Raw(ViewBag.ReturnUrl)";
+                        });
+                    }
+                }
+            }
+            $("#btnDisable").click(function () {
+
+                if (confirm("Bạn có chắc chắn muốn thực hiện thao tác này")) {
+                    //var note = $('#Note').val();
+                    //if (note == "") {
+
+                    //    alert('Ghi chú không được trống');
+                    //    $('#Note').focus();
+                    //    return false;
+                    //}
+                    if (validateForm()) {
+
+                        $('#NextStatus').val(NewsStatus.Disable);
+                        $.post('@Url.Action("Edit", "AdminNews2")', $("#NewsEditForm").serialize() + "&actionType=" + NewsAction.Delete + "&note=" + $('#Note').val(), function (data) {
+                            window.location.href = "@Html.Raw(ViewBag.ReturnUrl)";
+                        });
+
+                    }
+                }
+            });
+
+        </script>
+
+        <script type="text/javascript">
+            var newsId = '@Model.Id';
+            var imageUrl = '@ViewBag.imageUrl';
+            var img = '@Model.MainImage';
+            $(document).ready(function () {
+                $('#menu_news').click();
+                $('#product-tabs').tabs();
+                //RenderAjaxUpload('btnImagesUpload');
+                if (newsId >= 20000) {
+                    
+                    setTimeout(function(){LoadImages()}, 100);
+                } else {
+                    LoadImages2(img);
+
+                }
+
+                LoadRichTextEditor('Contents', 600, 600, null, null, "ajaxupload,youtubeIframe");
+            });
+
+
+            function RenderAjaxUpload(eid) {
+
+                if (newsId > 0) {
+
+                    new AjaxUpload(eid, {
+                        action: POST_URL + 'ImageService.ashx',
+                        data: {
+                            __m: 'upl',
+                            _id: newsId,
+                            _en: 'article',
+                            ext: ''
+                        },
+                        autoSubmit: false,
+                        onChange: function (file, ext) {
+                            DestroyJAlert();
+                            var ajaxupload = this;
+                            ajaxupload._settings.data.ext = ext;
+                            ajaxupload.submit();
+                        },
+                        onSubmit: function (file, ext) {
+                            //DestroyJAlert();
+                            if (!(ext && /^(jpg|png|jpeg|gif|bmp)$/.test(ext))) {
+                                OpenAlertDialog('File ảnh chỉ cho phép định dạng có đuôi mở rộng là: .jpg, .png, .jpeg, .gif, .bmp');
+                                return false;
+                            }
+
+                            this.disable();
+                        },
+                        onComplete: function (file, response) {
+                            // DestroyJAlert();
+                            var responseJson = $.parseJSON(response.substring(response.indexOf("{"), response.lastIndexOf("}") + 1));
+
+                            if (responseJson.Success) {
+                                //$('#images_container').text('');
+                                var html = '<img src="' + imageUrl + responseJson.Value + '"   height="100" />';
+                                // html += '<input type="radio" checked="true" value="' + responseJson.Value + '" name="main_image"  />';
+
+                                html += '&nbsp;<a title="Xóa"  onclick="DeleteImage(\'' + responseJson.Value + '\',this)" href="javascript:void(0)"> <img class="help" alt="edit" src="/Styles/admin/images/icon_delete2.png" > </a>';
+                                $('#images_container').append(html);
+                                $('#Image').val(responseJson.Value);
+                                $('#btnImagesUpload').hide();
+                            }
+                            else
+                                alert(responseJson.Text);
+                            this.enable();
+                        }
+                    });
+                }
+
+            }
+            function LoadImages2(img) {
+                $('#btnImagesUpload').hide();
+                var html = '<img src="' + img + '?t=' + Math.random() + '"  height="100" />';
+                $('#images_container').append(html);
+            }
+
+            function LoadImages() {
+
+                $.Services({
+                    serviceName: 'ImageService.ashx',
+                    data: {
+                        __m: 'article',
+                        _id: newsId
+                    },
+                    success: function (data) {
+                        if (data != undefined && data != null && data != '') {
+                            $('#btnImagesUpload').hide();
+                            $.each(data, function (i, item) {
+                                var html = '<img src="' + imageUrl + item + '?t=' + Math.random() + '"  height="100" />';
+
+                                html += '&nbsp;<a title="Xóa"  onclick="DeleteImage(\'' + item + '\',this)" href="javascript:void(0)"> <img class="help" alt="edit" src="/Styles/admin/images/icon_delete2.png" > </a>';
+
+                                $('#images_container').append(html);
+
+                            });
+                        }
+                        else {
+                            RenderAjaxUpload('btnImagesUpload');
+                            $('#btnImagesUpload').show();
+
+                        }
+
+                    },
+                    jCacheKey: 'LIST_IMAGES'
+
+                });
+            }
+
+            function DeleteImage(image, elm) {
+                if (confirm("Bạn có muốn xóa ảnh này không")) {
+                    $.post('/Post/ImageService.ashx', {
+                        __m: 'del',
+                        _id: Base64.encode(newsId.toString()),
+                        _en: 'article',
+                        fna: image
+                    },
+                        function (data) {
+                            if (data != undefined && data != null && data != '') {
+                                var json_data = $.parseJSON(data.substring(data.indexOf("{"), data.lastIndexOf("}") + 1));
+
+                                if (json_data.Success) {
+
+                                    $(elm).prev().remove();
+                                    $(elm).remove();
+
+
+                                    $('#btnImagesUpload').show();
+                                    RenderAjaxUpload('btnImagesUpload');
+                                    $('#Image').val("");
+
+                                }
+                                else {
+                                    alert(json_data.Text);
+                                }
+
+                            }
+                        });
+
+                }
+
+
+
+            }
+
+        </script>
+    </div>
+</div>
+

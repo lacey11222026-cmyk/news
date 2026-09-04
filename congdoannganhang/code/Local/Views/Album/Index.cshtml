@@ -1,0 +1,64 @@
+﻿@using BIZ
+@using UTILS
+@using Local.Helper
+@model Local.Models.AlbumModel
+@if (Model.listdata != null)
+{
+    /*active menu*/
+    if (ViewBag.ParentCategoryId > 0)
+    {
+    <script type="text/javascript">
+        var index = $('#ddtabs1 li').index($('#cate_' + '@ViewBag.ParentCategoryId'));
+        ddtabmenu.definemenu("ddtabs1", index);
+       
+        setTimeout(function () {
+            $("#ddtabs1 .current").parent().addClass("select");
+
+        }, 1000);
+    </script>
+       
+    }
+    else
+    {
+    <script type="text/javascript">
+        var index = $('#ddtabs1 li').index($('#cate_' + '@ViewBag.CurrentCategoryId'));
+       
+        ddtabmenu.definemenu("ddtabs1", index);
+        setTimeout(function () {
+            $("#ddtabs1 .current").parent().addClass("select");
+
+        }, 1000);
+    </script>
+       
+    }
+    <div class="cate">
+        @{Html.RenderAction("Breadcrumb", "News", new { CategoryId = Model.CategoryId });}
+        @foreach (var item in Model.listdata.Select((value, i) => new { i, value }))
+        {
+           
+            <div style="height: 150px;" class="tin_list_anh">
+                <a title="@item.value.Title" href="@Utils.FormatUrlRewrite(item.value.Id, item.value.Title, "AlbumDetail")">
+                    <img src=" @item.value.MainImage.135.100.jpg" width="135px" alt="@item.value.Title" />
+
+                <p>
+                    @item.value.Title
+                </p>
+                </a>
+
+            </div>
+        }
+        <div class="ctpaging">
+
+            <ul class="paging">
+                @{Html.RenderPartial("Pagination", new Local.Models.PaginationInfo
+                  {
+                      PageUrl = Url.SetParameter("Page", "!0"),
+                      CurrentPage = Model.pageIndex,
+                      PageSize = Model.pageSize,
+                      TotalItemCount = Model.total,
+                  }); }
+            </ul>
+
+        </div>
+    </div>
+}

@@ -1,0 +1,105 @@
+﻿
+@{
+    var IsCategory = false;
+    var IsAlbum = false;
+    var IsBanner = false;
+    var IsLocal = false;
+    var IsDocument = false;
+    var IsNews = false;
+    var IsAdmin = false;
+    var IsReport = false;
+    var IsComment = false;
+    var IsMark = false;
+    var IsCompetition = false;
+    var IsRate = false;
+    var IsCustomer = false;
+    if (HttpContext.Current.User.IsInRole("Administrator") || HttpContext.Current.User.IsInRole("Customer"))
+    {
+        IsCustomer = true;
+    }
+    if (HttpContext.Current.User.IsInRole("Administrator") || HttpContext.Current.User.IsInRole("Category"))
+    {
+        IsCategory = true;
+    }
+    if (HttpContext.Current.User.IsInRole("Administrator") || HttpContext.Current.User.IsInRole("Album"))
+    {
+        IsAlbum = true;
+    }
+    if (HttpContext.Current.User.IsInRole("Administrator") || HttpContext.Current.User.IsInRole("Banner"))
+    {
+        IsBanner = true;
+    }
+
+    if (HttpContext.Current.User.IsInRole("Administrator") || HttpContext.Current.User.IsInRole("Comment"))
+    {
+        IsComment = true;
+    }
+    if (HttpContext.Current.User.IsInRole("Local"))
+    {
+        IsLocal = true;
+    }
+    if (HttpContext.Current.User.IsInRole("Administrator") || HttpContext.Current.User.IsInRole("Report"))
+    {
+        IsReport = true;
+    }
+
+    if (HttpContext.Current.User.IsInRole("Administrator") || HttpContext.Current.User.IsInRole("Document"))
+    {
+        IsDocument = true;
+    }
+    if (HttpContext.Current.User.IsInRole("Administrator") || HttpContext.Current.User.IsInRole("Competition") || HttpContext.Current.User.IsInRole("CompetitionCreate"))
+    {
+        IsCompetition = true;
+    }
+    if (HttpContext.Current.User.IsInRole("Administrator"))
+    {
+        IsAdmin = true;
+    }
+    if (HttpContext.Current.User.IsInRole("Mark"))
+    {
+        IsMark = true;
+    }
+    if (HttpContext.Current.User.IsInRole("Rate"))
+    {
+        IsRate = true;
+    }
+    if (HttpContext.Current.User.IsInRole("Administrator") || HttpContext.Current.User.IsInRole("NewsEdit") || HttpContext.Current.User.IsInRole("NewsPublish") || HttpContext.Current.User.IsInRole("Guest"))
+    {
+        IsNews = true;
+    }
+    int countf = 0;
+    var lstdata = DATA.ContentDB.FeedbackDAL.GetSearch(0, "", 1, 1000, ref countf);
+}
+
+<aside class="main-sidebar">
+    <!-- sidebar: style can be found in sidebar.less -->
+    <section class="sidebar">
+        <ul class="sidebar-menu">
+            
+           
+            @if (IsDocument)
+            {
+                <li class="treeview active" id="menu_4">
+
+                    <a href="#">
+                        <i class="fa fa-book"></i> <span>Sáng kiến</span> <i class="fa fa-angle-left pull-right"></i>
+                    </a>
+                    <ul class="treeview-menu">
+
+                        <li id="menu_managedoc">
+                            <a href="@Url.Action("Index", "AdminDocument2")">
+                                Quản lý sáng kiến
+
+                            </a>
+                        </li>
+                       
+
+
+                    </ul>
+                </li>
+            }
+           
+        </ul>
+    </section>
+    <!-- /.sidebar -->
+</aside>

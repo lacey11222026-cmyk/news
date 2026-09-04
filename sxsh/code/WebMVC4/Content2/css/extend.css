@@ -1,0 +1,240 @@
+﻿#NewsContent {
+    font-size: 15px;
+}
+.block-xs {
+    display: none;
+}
+
+#NewsContent img, #NewsContent table {
+    max-width: 750px;
+    height: auto !important;
+    font-size: 15px;
+}
+
+    #NewsContent div, #NewsContent p {
+        margin: 1em 0;
+        font-size: 15px;
+    }
+.brbottom {
+    border-bottom: 1px solid #069;
+}
+@media screen and (max-width: 767px) {
+    .chum_anhlist {
+        margin-left: 10px;
+    }
+    .hidden-xs {
+        display: none !important;
+    }
+    #document table, th, td {
+        padding: 0px;
+        font-size: 86%;
+    }
+
+    #NewsContent img {
+        height: auto !important;
+    }
+
+    #NewsContent img, #NewsContent table {
+        max-width: 360px !important;
+        text-align: center;
+    }
+
+    .library-img h4, .detail-content > h3 {
+        font-size: 20px;
+    }
+}
+
+@media (max-width: 485px) {
+    .block-xs {
+        display: block;
+    }
+    .brbottom {
+        border-bottom: none;
+    }
+    .title-blue02 {
+        font-size: 16px;
+    }
+
+    #document table, th, td {
+        padding: 5px;
+        font-size: 86%;
+    }
+
+    .video-text h3 {
+        margin: 10px 0 10px 0;
+    }
+
+    .box-news li.col-xs-12 a span {
+        line-height: 23px;
+        font-size: 86%;
+    }
+
+    #NewsContent img, #NewsContent table {
+        width: 100% !important;
+        max-width: 360px !important;
+        text-align: center;
+    }
+}
+
+
+
+.target ul li {
+    padding: 0;
+}
+/*tin lien quan*/
+.related-posts {
+    margin-bottom: 10px;
+    margin-top: 10px;
+}
+
+    .related-posts li {
+        display: block;
+        padding: 0 0 10px;
+        line-height: 17px;
+        position: relative;
+    }
+
+        .related-posts li:before {
+            content: " ";
+            position: absolute;
+            width: 6px;
+            height: 6px;
+            background: red;
+            top: 5px;
+            border-radius: 999px;
+        }
+
+    .related-posts a {
+        display: block;
+        color: #909090;
+        font-weight: bold;
+        padding-left: 15px;
+        font-size: 14px;
+    }
+.event-page .title-blue {
+    position: relative;
+    z-index: 2;
+}
+
+.event-catalog > ul > li a {
+    display: block;
+    padding: 7px 0;
+    font-weight: bold;
+    color: #87888a;
+}
+
+.event-catalog > ul > li {
+    border-bottom: 1px solid #01649d;
+}
+
+.event-catalog .active a {
+    color: #01649d;
+}
+
+.event-catalog li li {
+    padding-left: 30px;
+}
+
+    .event-catalog li li a {
+        font-size: 13px;
+        font-weight: normal;
+        border-bottom: 1px solid #01649d;
+    }
+
+    .event-catalog li li:last-child a {
+        border-bottom: none;
+    }
+
+.event-content {
+    background-color: #e6eff6;
+    padding: 50px 0 15px 0;
+    margin-top: -50px;
+}
+
+    .event-content h3 {
+        font-size: 18px;
+        font-weight: bold;
+        text-transform: uppercase;
+        color: #006699;
+        margin-top: 10px;
+        padding-bottom: 5px;
+        padding-left: 30px;
+    }
+
+    .event-content li {
+        padding-top: 25px;
+        padding-bottom: 30px;
+        border-bottom: 1px solid #93989e;
+    }
+
+        .event-content li:last-child {
+            border-bottom: none;
+        }
+
+.date02 {
+    background: url("../images/ico-date02.png") no-repeat center top;
+    background-size: 100% 100%;
+    padding: 60px 12px 6px 12px;
+    display: inline-block;
+    text-align: center;
+}
+
+    .date02 p {
+        color: #fff;
+        font-weight: bold;
+        font-size: 20px;
+        margin-bottom: 0;
+    }
+
+    .date02 span {
+        font-size: 60px;
+        font-weight: bold;
+        color: #f5701a;
+    }
+
+.event-content h4 a {
+    color: #000;
+}
+
+.event-content h4 {
+    font-weight: bold;
+    font-size: 20px;
+    margin-top: 15px;
+    margin-bottom: 20px;
+}
+
+.event-content .address02 {
+    font-size: 13px;
+    font-style: normal;
+}
+
+.event-content > ul li .col-md-4 {
+    text-align: center;
+}
+.navbar-xs {
+    position: relative;
+}
+
+.navbar-btn {
+    margin-top: -45px;
+    margin-bottom: 8px;
+    background: url(../images/toggle.png) top center no-repeat;
+    display: block;
+    width: 35px;
+    height: 23px;
+    float: right;
+    margin-right: 16px;
+    border: none;
+    z-index: 10;
+    position: relative;
+}
+.address02 {
+    font-size: 10px;
+    font-weight: bold;
+    font-style: italic;
+    color: #069;
+    background: url(../images/ico-map.png) no-repeat left center;
+    padding: 5px 0 0 16px;
+    margin-top:15px;
+    
+}

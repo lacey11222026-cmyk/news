@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--Cấu hình Menu Header và các menu cấp 1-->
+<Resources language="Tiếng việt" code="vn" priority="0">
+  <page name="HEADER">
+    <Resource tag="HEADER_TITLE">Hệ thống Quản trị nội dung</Resource>
+  </page>
+
+  <page name="MENU_ADMIN_HEADER">
+    <Resource url="system/user/index.htm" caption="Quản lý hệ thống" priority="1" key ="system" />
+    
+    <Resource url="discuss/1/add/index.htm" caption="Giao lưu trực tuyến" priority="2" key ="discuss" />
+    <!--<Resource url="data/reportnhuanbut/index.htm" caption="Thống kê" priority="5" key ="data" />-->
+   
+    <!--<Resource url="consultants.aspx" caption="Tư vấn" priority="7" key ="consultants" />-->
+    <!--<Resource url="plaza/pendding/index.htm" caption="VnPlaza" priority="8" key ="plaza" />-->
+  </page>
+
+  <page name="ADMIN_SERVICE_DISCUSS_PAGES">
+    <Resource url="discuss/add.htm" caption="Thêm mới giao lưu" priority="1" key ="discuss" />
+    <Resource url="discuss/index.htm" caption="Thông tin giao lưu trực tuyến" priority="2" key ="discuss" />
+  </page>
+
+  <page name="ADMIN_SYSTEM_PAGES">
+    <!--<Resource caption="Quản lý quy trình biên tập" priority="1" key ="workflow" FuncID="1" />-->
+    <Resource caption="Quản lý người dùng" priority="1" key ="user" FuncID="1" />
+  </page>
+  
+  <page name="ADMIN_SYSTEM_USER_PAGES">
+    <Resource url="system/user/index.htm" caption="Quản lý nguời dùng" priority="1" key ="user" />
+    <Resource url="system/user/add.htm" caption="Thêm mới người dùng" priority="2" key ="user" />
+  </page>
+
+
+  <page name="FOOTER">
+    <Resource tag="FOOTER_TEXT">©2014 - Thoiviet</Resource>
+  </page>
+
+</Resources>

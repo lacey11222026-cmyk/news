@@ -1,0 +1,33 @@
+﻿@using BIZ
+@using UTILS
+@using WebMVC4.Helper
+@model List<BIZ.Entity.DOCUMENT_FULL>
+@if (Model != null)
+{
+    if (Model.Count > 0)
+    {
+        <h2 class="title-cm"><a href="/Document/Index/34">Văn bản</a></h2>
+        <div class="mt20">
+            <ul class="document-02-list mt20">
+                @foreach (var item in Model.Select((value, i) => new { i, value }))
+                {
+                    <li>
+                        <a href="@Url.Action("Detail","Document",new { id=item.value.Id})"
+                           title="@item.value.Name">
+                            @item.value.Name
+                        </a>
+                    </li>
+                }
+            </ul>
+            <div class="text-right mt20">
+                <a href="/Document/Index/34" class="btn-blue">Xem thêm</a>
+            </div>
+        </div>
+        
+
+
+
+
+    }
+
+}

@@ -1,0 +1,51 @@
+﻿@using UTILS;
+@model List<BIZ.Entity.TestQuestionArchive>
+
+
+<div class="maincontent">
+    <div class="container pt60 b4-content">
+        <h3 class="font-weight-bold text-center title-ketthuc">CHÚC MỪNG BẠN ĐÃ HOÀN THÀNH CUỘC THI</h3>
+        <p class="text-center mt-4" style="font-size: 20px;">
+            Kết quả: <strong class="textblue">@ViewBag.Mark/@ViewBag.TotalMark</strong> câu trả lời đúng. Thời gian thi: <strong class="textblue">@ViewBag.Time giây</strong><br>
+            Kết quả sẽ được công bố trên website: <a href="http://vnubw.org.vn/" class="textblue font-weight-bold" style="text-decoration: underline; display: inline-block;">http://vnubw.org.vn/</a>
+        </p>
+        <div class="text-center mt-4 ">
+            <img src="/Content/images/QR-02.png" alt="" style="width: 200px;">
+        </div>
+
+    </div>
+</div>
+
+<footer class="bg-gradient-03">
+    <p class="container">Bản quyền thuộc <strong>Công đoàn Ngân hàng Việt Nam</strong></p>
+</footer>
+<script language="JavaScript">
+<!--
+    //Chống chọn văn bản
+    window.onload = function () {
+        document.onselectstart = function () { return false; } // ie
+        document.onmousedown = function () { return false; } // mozilla
+    }
+    //Chống click chuột phải
+    var message = "Sorry, that function is disabled.\nThis Page Copyrighted and\nImages and Text protected!\nALL RIGHTS RESERVED";
+    function click(e) {
+        if (document.all) {
+            if (event.button == 2) {
+                alert(message);
+                return false;
+            }
+        }
+        if (document.layers) {
+            if (e.which == 3) {
+                alert(message);
+                return false;
+            }
+        }
+    }
+    if (document.layers) {
+        document.captureEvents(Event.MOUSEDOWN);
+    }
+    document.onmousedown = click;
+// -->
+
+</script>

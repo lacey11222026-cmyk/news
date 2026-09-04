@@ -1,0 +1,39 @@
+﻿
+
+#NewsContent img, #NewsContent table {
+    max-width: 799px;
+    height: auto !important;
+   
+}
+
+#NewsContent div, #NewsContent p {
+    margin: 1em 0;
+    
+}
+
+
+@media screen and (max-width: 767px) {
+   
+
+    #NewsContent img {
+        height: auto !important;
+    }
+
+    #NewsContent img, #NewsContent table {
+        max-width: 360px !important;
+        text-align: center;
+    }
+
+   
+}
+
+@media (max-width: 485px) {
+   
+
+    #NewsContent img, #NewsContent table {
+        width: 100% !important;
+        max-width: 360px !important;
+        text-align: center;
+    }
+}
+

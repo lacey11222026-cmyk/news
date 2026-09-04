@@ -1,0 +1,106 @@
+﻿@using BIZ
+@using BIZ
+@using UTILS
+@using WebMVC4.Helper
+@model WebMVC4.Models.NewsModel
+
+@if (Model != null)
+{
+
+    <div class="best">
+
+        <div class="bg_blu"><span>Tìm kiếm</span></div>
+
+        <div class="content_news">
+            <div class="list-page" >
+                <div class="itemsearch">
+                    <label>
+                        Từ khóa:
+                    </label>
+                    <input id="txtkeyword" value="@ViewBag.keyword" style="width: 222px;" />&nbsp;&nbsp;
+                </div>
+                <div class="itemsearch">
+                    <label>Chuyên mục:</label> @Html.DropDownList("drlCategory", new SelectList(ViewBag.CategoryList as System.Collections.IEnumerable, "Id", "Name", ViewBag.CategoryId), new { @style = "width:160px" })
+                </div>
+                <div style="clear:both"></div>
+                <div class="itemsearch">
+                    <label>Từ ngày:</label>
+                    <input id="txtfromdate" class="searchtext" value="@ViewBag.fromdate" style="width: 68px;" />
+                    <label>Đến ngày:</label>
+                    <input id="txttodate" class="searchtext" value="@ViewBag.todate" style="width: 68px;" />
+                </div>
+                <div class="itemsearch">
+                    <button onclick="searchnews();">Tìm kiếm</button><br />
+                </div>
+
+                <div style="clear:both"></div>
+            </div>
+            <div style="font-weight: bold;padding:20px">Tổng số : @Model.total bài viết</div>
+            <div>
+                @foreach (var item in Model.listdata.Select((value, i) => new { i, value }))
+                {
+
+                    <div class="listtin">
+                        <a href="@item.value.LinkUrl" title="@item.value.Title">
+                            <img width="140" alt="@item.value.Title" src="@item.value.MainImage?w=140&mode=crop " />
+                        </a>
+                        <p><a href="@item.value.LinkUrl" title="@item.value.Title">@item.value.Title</a></p>
+                        @*<p class="date">@item.value.PublishDate.ToString("hh:mm") ngày @item.value.PublishDate.ToString("dd/MM/yyyy")</p>*@
+                        <span>@item.value.IntroText &nbsp;</span>
+                        <div class="clear"></div>
+                    </div>
+                }
+            </div>
+
+            <div class="ctpaging">
+
+                <ul class="paging" style="border:none">
+                    @{Html.RenderPartial("Pagination", new WebMVC4.Models.PaginationInfo
+                {
+                    PageUrl = Url.SetParameter("Page", "!0"),
+                    CurrentPage = Model.pageIndex,
+                    PageSize = Model.pageSize,
+                    TotalItemCount = Model.total,
+                }); }
+                </ul>
+
+            </div>
+            <div class="clear padtop10"></div>
+        </div>
+    </div>
+
+    <div class="clear padtop10"></div>
+    <link href="~/Scripts/jquery-ui-1.8.15.custom/css/smoothness/jquery-ui-1.8.15.custom.css" rel="stylesheet" />
+    <script src="~/Scripts/jquery-ui-1.8.15.custom/js/jquery-ui-1.8.15.custom.min.js"></script>
+    <script src="~/Scripts/jquery.query.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+
+            $("#txtfromdate").datepicker({
+                changeYear: true,
+                changeMonth: true,
+                dateFormat: "dd/mm/yy",
+                duration: 'fast',
+            });
+            $("#txttodate").datepicker({
+                changeYear: true,
+                changeMonth: true,
+                dateFormat: "dd/mm/yy",
+                duration: 'fast',
+            });
+        });
+
+        function searchnews() {
+            var keyword = $("#txtkeyword").val();
+            var fromdate = $("#txtfromdate").val();
+            var todate = $("#txttodate").val();
+            var cateid = $('#drlCategory option:selected').val();
+            window.location = jQuery.query.set("q", keyword).set("fromdate", fromdate).set("todate", todate).set("categoryid", cateid).set("Page", "1");
+        }
+    </script>
+    <style>
+        .ui-datepicker table {
+            font-size: 11px !important;
+        }
+    </style>
+                        }

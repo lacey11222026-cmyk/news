@@ -1,0 +1,60 @@
+﻿@using UTILS;
+@model List<BIZ.Entity.TestQuestionArchive>
+
+@if (Model != null)
+{
+
+    foreach (var item in Model.Select((value, i) => new { i, value }))
+    {
+        if (item.i + 1 == ViewBag.Index)
+        {
+            <div class="question-content" id="questionitem-@(item.i+1)">
+                <input type="hidden" id="hdIndex" value="1" />
+                <h3 class="textgreen question-num mt30 wow bounceInLeft" data-wow-offset="100">Câu số <strong>@(item.i + 1)/@ViewBag.NumberQuestion</strong> </h3>
+                <div class="textblue font-weight-bold mt10 wow bounceInLeft" data-wow-offset="100">
+                    @Html.Raw(item.value.Contents)
+                </div>
+                <div class="answer mt30">
+                    <form action="" class="lb_question">
+                        @if (item.value.Type == 1)
+                        {
+                            foreach (var itemA in item.value.AnswerArchiveInfo.Select((value, i) => new { i, value }))
+                            {
+                                <label  class="textblue "><input type="radio" name="anwswer_@(item.i)" value="@itemA.value.Order"> <span onclick="return selectCard(this);">@itemA.value.Name</span></label><br>
+                            }
+                        }
+                        else
+                        {
+                            foreach (var itemA in item.value.AnswerArchiveInfo.Select((value, i) => new { i, value }))
+                            {
+                                <label  class="textblue "><input type="checkbox" name="anwswer_@(item.i)" value="@itemA.value.Order"> <span onclick="return selectCard(this);">@itemA.value.Name</span></label><br>
+                            }
+                        }
+
+                    </form>
+                    @if (item.i < Model.Count - 1)
+                    {
+                        <a  href="javascript:;" onclick="gotoQuestion(@(item.i+1),@(item.i+2));" class="btn btn-blue mt30 ">TIẾP THEO</a>
+
+                    }
+                    else
+                    {
+                        <a  href="javascript:;" onclick="saveGame();" class="btn btn-blue mt30 ">KẾT THÚC</a>
+                    }
+
+                </div>
+            </div>
+            
+        }
+
+
+
+    }
+}
+else
+{
+    <script>
+        window.location.href = '/';
+
+    </script>
+}

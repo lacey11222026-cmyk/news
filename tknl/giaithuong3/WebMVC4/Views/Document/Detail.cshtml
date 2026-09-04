@@ -1,0 +1,43 @@
+﻿@using BIZ
+@using DATA
+@using UTILS
+@using WebMVC4.Helper
+@model BIZ.Entity.DOCUMENT_FULL
+@{
+    var langpage = "vi-vn";
+}
+<div class="pt70 pb70 container">
+    @{Html.RenderAction("Breadcrumb", "News", new { CategoryId = Model.CategoryId });}
+    <div class="mt40 document-table document-table-detail">
+        <table>
+            <tbody>
+                <tr>
+                    <th style="width: 175px">Tên văn bản:</th>
+                    <td colspan="3">@Html.Raw(Model.Name)</td>
+                </tr>
+                <tr>
+                    <th style="width: 175px">Mô tả:</th>
+                    <td colspan="3">@Html.Raw(Model.Description)</td>
+                </tr>
+                <tr>
+                    <th style="width:175px">Số hiệu văn bản:</th>
+                    <td>@Model.Code</td>
+                    <th>Ngày ban hành:</th>
+                    <td> @Convert.ToDateTime(Model.PublishDate).ToString(@" dd'/'MM'/'yyyy")</td>
+                </tr>
+                <tr>
+                    <th style="width:145px">Cơ quan ban hành:</th>
+                    <td style="width:500px" >@Model.SignedByDesc</td>
+                    <th>Người ký:</th>
+                    <td>@Model.SignedBy</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="mt40 document-btn-list">
+        <ul class="tbl-btn">
+            <li><a href="@Url.Action("ViewFile","Document",new { id=Model.Id})"><span class="view-icon"></span>View Online</a></li>
+            <li><a href="@Url.Action("DownloadFile","Document",new { id=Model.Id})"><span class="download-icon"></span>Download</a></li>
+        </ul>
+    </div>
+</div>

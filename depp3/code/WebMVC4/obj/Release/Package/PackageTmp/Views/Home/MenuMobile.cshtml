@@ -1,0 +1,88 @@
+﻿@using BIZ
+@using UTILS
+@using WebMVC4.Helper
+@model List<BIZ.Entity.CATEGORY_FULL>
+@{
+    var langpage = WorkContext.GetLanguage();
+}
+<div class="nav-mobile">
+    <div class="header-m">
+        <a href="#menu">
+            <img src="/Content2/images/ico-menu.png" class="ico-menu pull-right">
+        </a>
+    </div>
+    <div id="menu">
+        <ul>
+            @if (langpage == "vi-vn")
+            {
+
+                <li><a href="/gioi-thieu/c2/gioi-thieu.html">Giới thiệu</a></li>
+                <li><a href="/danh-muc-khcongnghe.html">Công nghiệp sinh học</a></li>
+
+            }
+            else
+            {
+
+                <li><a href="/gioi-thieu/c48/gioi-thieu.html">Introduction</a></li>
+                <li><a href="/danh-muc-khcongnghe.html">Biological Industries</a></li>
+
+            }
+
+            @foreach (var item in Model.Select((value, i) => new { i, value }))
+            {
+                <li>
+                    <a href="@Utils.FormatUrlRewriteByType(item.value.Id, item.value.Name, int.Parse(item.value.Type.ToString()), item.value.Link)" @(item.value.Type.GetValueOrDefault() == 11 ? " target='_blank'" : "")>@item.value.Name </a>
+                    @Html.Raw(HtmlHelpers.BindChildCategories(Convert.ToInt32(item.value.Id), int.Parse(item.value.Type.ToString())))
+                </li>
+            }
+            @if (langpage == "vi-vn")
+            {
+                <li>
+                    <a href="/Home/Language?lang=en-us" class="language-mb"><img src="/Content2/images/ico-en.png" alt="EN" width="30"></a>
+                    <a href="#" class="btn-login">Đăng nhập</a>
+                </li>
+                <li class="info-mobile">
+                    <p>
+                        <strong>Vụ Khoa học và Công nghệ - Bộ Công Thương</strong><br>
+                        <strong>Địa chỉ:</strong> 54 Hai Bà Trưng, Hoàn Kiếm, Hà Nội, Việt Nam<br>
+                        <strong>Điện thoại:</strong> 84-24-2.2202.412<br>
+                        <strong>Fax:</strong> 84-24-2.2202.412<br>
+                        <strong>Cơ quan chủ quản:</strong> Bộ Công Thương<br>
+                        <strong>Người chịu trách nhiệm:</strong> Ông Trần Việt Hòa – Vụ trưởng Vụ Khoa học và Công nghệ
+                    </p>
+
+                    <p>
+                        <strong>Giấy phép hoạt động</strong> số 294/GP-TTĐT của Bộ Thông tin và Truyền thông cấp ngày 23 tháng 11 năm 2018 <br>
+                        <strong>Ghi rõ nguồn </strong>http://congnghesinhhoc.com.vn khi sử dụng thông tin từ website này<br>
+                        <strong>Phát triển bởi :</strong> <span><img src="/Content2/images/vtk.png" alt="vtk" style="margin-top: 5px;"></span>
+                    </p>
+                </li>
+            }
+            else
+            {
+                <li>
+                    <a href="/Home/Language?lang=vi-vn" class="language-mb"><img src="~/Content2/images/ico-vn.png" alt="EN" width="30"></a>
+                    <a href="#" class="btn-login">Login</a>
+                </li>
+                <li class="info-mobile">
+                    <p>
+                        <strong>Department of Science and Technology – Ministry of Industry and Trade</strong><br>
+                        <strong>Address:</strong> 54 Hai Ba Trung street, Hoan Kiem district, Hanoi, Vietnam<br>
+                        <strong>Tel:</strong> 84-24-2.2202.412<br>
+                        <strong>Fax:</strong> 84-24-2.2202.412<br>
+                        <strong>Lead agency:</strong> Ministry of Industry and Trade<br>
+                        <strong> Person in charge:</strong> Mr. Tran Viet Hoa – Director general of Department of Science and Technology
+                    </p>
+
+                    <p>
+                        License No. 294 / GP-TTĐT of the Ministry of Information and Communications issued on November 23, 2018<br />
+                        In case of use of any information on this website, please cite the website http://congnghesinhhoc.com.vn/<br />
+                        <strong>Developed by :</strong> <span><img src="/Content2/images/vtk.png" alt="vtk" style="margin-top: 5px;"></span>
+                    </p>
+                </li>
+            }
+
+
+        </ul>
+    </div>
+</div>

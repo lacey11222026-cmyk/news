@@ -1,0 +1,690 @@
+﻿@using Car.Data
+@model Plan
+@using Car.Utility
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="box box-primary">
+            <div class="box-header">
+                <i class="fa fa-fw fa-user-md"></i><span>@ViewBag.Title </span>
+            </div>
+            <form id="defaultForm" method="post" class="form-horizontal">
+                <div class="panel-group" id="steps">
+                    <div class="messager-body">
+                        <div class="alert alert-success display-hide alert-dismissable">
+                            <button type="button" class="close" data-close="alert" aria-hidden="true">×</button>
+                            <span class="glyphicon glyphicon-ok"></span>
+                            <label>Đã lưu dữ liệu thành công !!!</label>
+                        </div>
+                        <div class="alert alert-danger display-hide alert-dismissable">
+                            <button type="button" class="close" data-close="alert" aria-hidden="true">×</button>
+                            <span class="glyphicon glyphicon-warning-sign"></span>
+                            <label id="ErrorMessage">Có một vài lỗi trong khung nhập liệu dưới đây ! kiểm tra lại</label>
+                        </div>
+                    </div>
+                    <div class="panel">
+
+                        <div >
+                            <!-- dành cho UpdateFunction -->
+                            <div style="padding: 10px 0 0 0;background-color:#fff !important" >
+
+                                <ul class="nav nav-tabs">
+                                    <li class="active"><a href="#tabs-info" data-toggle="tab"><strong>Thông tin chung</strong></a></li>
+                                    <li><a href="#tabs-item" data-toggle="tab"><strong>Tiến độ giải ngân</strong></a></li>
+                                    <li>
+                                        <a href="#tabs-stuck" data-toggle="tab"><strong>Vướng mắc</strong></a>
+                                    </li>
+                                    <li>
+                                        <a href="#tabs-news" data-toggle="tab"><strong>Dự án tiềm năng</strong></a>
+                                    </li>
+                                </ul>
+                                <div class="tab-content" style="margin-top: 30px;">
+                                    <div class="tab-pane" id="tabs-item">
+                                        <div class="box-tools pull-right">
+                                            <a href="javascript:;" onclick="AddPlanItem()" class="btn"><i class="fa fa-plus"></i> Chọn dự án</a>
+
+                                        </div>
+                                        <div class="table-responsive">
+                                            <div id="dgrid" class="dataTables_wrapper form-inline" role="grid">
+                                                <div id="ListPlanItem">
+                                                    @Html.Action("ListPlanItem", "BankReport", new { planId = Model.Id })
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                       
+
+                                    </div>
+                                    <div class="tab-pane" id="tabs-stuck">
+                                        <div class="box-tools pull-right">
+                                            @*<a href="javascript:;" onclick="AddPlanStuck()" class="btn"><i class="fa fa-plus"></i> Thêm Mới</a>*@
+
+                                        </div>
+                                        <div class="table-responsive">
+                                            <div id="dgrid" class="dataTables_wrapper form-inline" role="grid">
+                                                <div id="ListPlanStuck">
+                                                    @Html.Action("ListPlanStuck", "BankReport", new { planId = Model.Id })
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                        
+                                    </div>
+                                    <div class="tab-pane" id="tabs-news">
+                                        <div class="box-tools pull-right">
+                                            <a href="javascript:;" onclick="AddPlanRequire()" class="btn"><i class="fa fa-plus"></i> Thêm Mới</a>
+
+                                        </div>
+                                        <div class="table-responsive">
+                                            <div id="dgrid" class="dataTables_wrapper form-inline" role="grid">
+                                                <div id="ListPlanRequire">
+                                                    @Html.Action("ListPlanRequire", "BankReport", new { planId = Model.Id })
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                        
+                                    </div>
+                                    <div class="tab-pane active" id="tabs-info" style="background-color:#fff !important" >
+                                        <div class="col-md-9">
+                                            <div class="form-group" style="display:none">
+                                                <label for="txtName" class="control-label col-md-4">Tên báo cáo  :<span class="required">*</span></label>
+                                                <div class="col-md-6">
+                                                    <div class="input-icon right">
+                                                        <input type="text" id="txtName" maxlength="500" name="name" value="@Model.Name" class="form-control" placeholder="Tên báo cáo " />
+                                                    </div>
+                                                </div>
+                                            </div>
+
+
+                                            <div class="form-group">
+                                                <label for="ddlYear" class="control-label col-md-4">Năm :<span class="required">*</span></label>
+                                                <div class="col-md-6">
+                                                    <div class="input-icon right">
+                                                        <select class="form-control" id="ddlYear">
+                                                            @for (var i = DateTime.Now.Year + 1; i >= 2017; i--)
+                                                            {
+
+                                                                if (i == Model.Year.GetValueOrDefault())
+                                                                {
+                                                                    <option value="@i" selected="selected">Năm @(i)</option>
+                                                                }
+                                                                else
+                                                                {
+                                                                    <option value="@i">Năm @(i)</option>
+                                                                }
+                                                            }
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="ddlType" class="control-label col-md-4">Loại báo cáo :<span class="required">*</span></label>
+                                                <div class="col-md-6">
+                                                    <div class="input-icon right">
+                                                        <select class="form-control" id="ddlType">
+                                                            <option value="5" @(Model.Type == 5 ? "selected='selected'" : "")>Năm</option>
+
+                                                            <option value="1" @(Model.Type == 1 ? "selected='selected'" : "")>Quý I</option>
+                                                            <option value="2" @(Model.Type == 2 ? "selected='selected'" : "")>Quý II</option>
+                                                            <option value="3" @(Model.Type == 3 ? "selected='selected'" : "")>Quý III</option>
+                                                            <option value="4" @(Model.Type == 4 ? "selected='selected'" : "")>Quý IV</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+
+                                                <label for="txtWorkPlan" class="control-label col-md-4">
+                                                    Kế hoạch công việc trong Quý/Năm tiếp theo
+                                                </label>
+                                                <div class="col-md-6">
+
+                                                    <div class="input-icon right">
+                                                        <textarea id="txtWorkPlan" class="form-control" rows="3" name="WorkPlan">@Html.Raw(Model.WorkPlan.Replace("<br />","\n"))</textarea>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                            <div class="form-group">
+
+                                                <label for="txtProblem" class="control-label col-md-4">
+                                                    Các vấn đề khác
+                                                </label>
+                                                <div class="col-md-6">
+
+                                                    <div class="input-icon right">
+                                                        <textarea id="txtProblem" maxlength="500" class="form-control" rows="3" name="Problem">@Html.Raw(Model.Problem.Replace("<br />","\n"))</textarea>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                            <h4 class="box-title" style="border-bottom:1px solid #f4f4f4;padding-bottom:10px">Tóm lược kết quả đạt được</h4>
+                                            <div class="form-group">
+
+                                                <label for="txtResult" class="control-label col-md-4">
+                                                    Quản lý tài chính
+                                                </label>
+                                                <div class="col-md-6">
+
+                                                    <div class="input-icon right">
+                                                        <textarea id="txtResult" maxlength="500" class="form-control" rows="3" name="Result">@Html.Raw(Model.Result.Replace("<br />","\n"))</textarea>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                            <div class="form-group">
+
+                                                <label for="txtResult" class="control-label col-md-4">
+                                                    Quản lý đấu thầu
+                                                </label>
+                                                <div class="col-md-6">
+
+                                                    <div class="input-icon right">
+                                                        <textarea id="txtResult2" maxlength="500" class="form-control" rows="3" name="Result2">@Html.Raw(Model.Result2.Replace("<br />","\n"))</textarea>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                            <div class="form-group">
+
+                                                <label for="txtResult" class="control-label col-md-4">
+                                                    Các vấn đề về an toàn môi trường, xã hội
+                                                </label>
+                                                <div class="col-md-6">
+
+                                                    <div class="input-icon right">
+                                                        <textarea id="txtResult3" maxlength="500" class="form-control" rows="3" name="Result3">@Html.Raw(Model.Result3.Replace("<br />","\n"))</textarea>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                            <div class="form-group">
+
+                                                <label for="txtResult" class="control-label col-md-4">
+                                                    Các vấn đề khác
+                                                </label>
+                                                <div class="col-md-6">
+
+                                                    <div class="input-icon right">
+                                                        <textarea id="txtResult4" class="form-control" rows="3" name="Result4">@Html.Raw(Model.Result4.Replace("<br />","\n"))</textarea>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="txtCode" class="control-label col-md-4">Báo cáo tài chính giữa kỳ (IFR) </label>
+                                                <div class="col-md-5">
+                                                    <div class="input-icon right">
+                                                        <input id="txtCode" maxlength="20" value="@Model.Code" class="form-control" />
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-1">
+                                                    <a href="javascript:;" onclick="PopupManagerImages('txtCode');"><i class="fa fa-file"></i></a>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="txtTotalTotal1" class="control-label col-md-4">Mức TKNL đạt được (MWh/năm) </label>
+                                                <div class="col-md-6">
+                                                    <div class="input-icon right">
+                                                        <input id="txtTotalTotal1" maxlength="20" disabled class="form-control" />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="txtTotalTotal2" class="control-label col-md-4">Giảm phát thải KNK (Tấn CO2/năm)  </label>
+                                                <div class="col-md-6">
+                                                    <div class="input-icon right">
+                                                        <input id="txtTotalTotal2" maxlength="20" disabled class="form-control" />
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label for="txtTotalNumberPeople" class="control-label col-md-4">Số lượng người hưởng lợi trực tiếp </label>
+                                                <div class="col-md-6">
+                                                    <div class="input-icon right">
+                                                        <input id="txtTotalNumberPeople" maxlength="20" disabled class="form-control" />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="txtTotalWomanRate" class="control-label col-md-4">Tỷ lệ người hưởng lợi là phụ nữ (%) </label>
+                                                <div class="col-md-6">
+                                                    <div class="input-icon right">
+                                                        <input id="txtTotalWomanRate" maxlength="20" disabled class="form-control" />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group" style="display:none">
+                                                <label class="control-label col-md-4" for="cbxIsActive">Gửi báo cáo :</label>
+                                                <div class="col-md-4">
+                                                    <div class="checkbox">
+                                                        @if (Model.Status == 1)
+                                                        {<input type="checkbox" id="cbxIsActive" checked="checked" />}
+                                                        else
+                                                        {<input type="checkbox" id="cbxIsActive" />}
+                                                        <input id="hdStatus" />
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="panel-footer form-horizontal">
+                                                <div class="form-group submit">
+                                                    <button type="submit" class="btn btn-primary" id="btsubmit" style="display:none"><i class="fa fa-save"></i>Lưu lại</button>
+                                                    <button type="button" class="btn btn-primary" id="btnSaveOnly" onclick="NewsSave('0');"><i class="fa fa-save"></i>Lưu lại</button>
+                                                    <button type="button" class="btn btn-success" id="btnSend" onclick="NewsSave('1');"><i class="fa fa-arrow-right"></i>Gửi báo cáo</button>
+
+                                                    <button type="button" class="btn btn-default" id="btnBack" onclick="GotoListpage()"><i class="fa fa-backward"></i>Back</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div style="clear:both"></div>
+                                    </div>
+                                </div>
+
+
+                            </div>
+                            <div class="clear"></div>
+                        </div>
+
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<style>
+    .input-icon {
+        position: relative;
+        width: 100%;
+    }
+
+    .form-group {
+        margin-bottom: 7px;
+    }
+</style>
+<script type="text/javascript">
+    function PopupManagerImages (imageChoose) {
+        $.ajax({
+            type: 'GET',
+            url: "/Home/PopupManagerImages",
+            data: {},
+            contentType: "application/json; charset=utf-8",
+            dataType: "html",
+            success: function (data) {
+                bootbox.dialog({
+                    message: data,
+                    buttons: {
+                        success: {
+                            label: "Lưu Lại",
+                            className: "btn-success",
+                            callback: function () {
+                                var txtImageUrl = $('#txtImageUrl').val();
+                                if (txtImageUrl != null && txtImageUrl != '') {
+                                    $("#" + imageChoose).val(txtImageUrl);
+                                    if ($("#" + imageChoose.replace('txt', '')).length)
+                                    {
+                                        $("#" + imageChoose.replace('txt', '')).attr('src', txtImageUrl);
+                                    }
+
+                                }
+                            }
+                        }
+                    }
+                });
+            }
+        });
+    }
+    function GotoListpage() {
+        window.location = "/BankReport/Index";
+    }
+     function NewsSave(actionType) {
+         $("#hdStatus").val(actionType);
+        $("#btsubmit").click();
+    }
+    $(document).ready(function () {
+
+
+
+        $("button.close").click(function () {
+            $(this).parent().css("display", "none");
+        });
+        $('#defaultForm').bootstrapValidator({
+            message: 'This value is not valid',
+            //live: 'submitted',
+            feedbackIcons: {
+                valid: 'glyphicon glyphicon-ok',
+                invalid: 'glyphicon glyphicon-remove',
+                validating: 'glyphicon glyphicon-refresh'
+            },
+            fields: {
+
+
+
+            }
+        })
+        .on('success.form.bv', function (e) {
+            // Prevent submit form
+            e.preventDefault();
+
+            var $form = $(e.target),
+                validator = $form.data('bootstrapValidator');
+            SaveData();
+            $(".close").click(function () {
+                $(".alert-success").css("display", "none");
+            });
+        })
+        .on('error.form.bv', function (e) {
+            // Active the panel element containing the first invalid element
+            e.preventDefault();
+            var $form = $(e.target),
+            validator = $form.data('bootstrapValidator');
+            $(".alert-danger label").text("Có một vài lỗi trong khung nhập liệu dưới đây ! kiểm tra lại");
+            $(".alert-danger").css("display", "block");
+            $(".close").click(function () {
+                $(".alert-danger").css("display", "none");
+                $(".alert-success").css("display", "none");
+            });
+        });
+
+        $("#btnReset").click(function () {
+            $('#defaultForm').data('bootstrapValidator').resetForm(true);
+            $(".alert-danger").css("display", "none");
+            $(".alert-success").css("display", "none");
+        });
+        //Save Data
+        function SaveData() {
+            var param = {
+                'Id': '@Model.Id',
+                'Name': 'Báo cáo '+$('#ddlType option:selected').text()+'-'+$('#ddlYear option:selected').text(),
+                'Result': $("#txtResult").val().replace(/\n/g, '<br />'),
+                'Result2': $("#txtResult2").val().replace(/\n/g, '<br />'),
+                'Result3': $("#txtResult3").val().replace(/\n/g, '<br />'),
+                'Result4': $("#txtResult4").val().replace(/\n/g, '<br />'),
+                'Problem': $("#txtProblem").val().replace(/\n/g, '<br />'),
+                'WorkPlan': $("#txtWorkPlan").val().replace(/\n/g, '<br />'),
+                'Code': $("#txtCode").val(),
+                'Year': $("#ddlYear").val(),
+                'Type': $("#ddlType").val(),
+                  'Status': $("#hdStatus").val(),
+
+            };
+            Utils.Loading();
+            $.ajax({
+                type: 'POST',
+                url: "/BankReport/SaveData",
+                data: param,
+                async: true,
+                success: function (data) {
+                    Utils.UnLoading();
+                    if (data.ResponseCode >= 0) {
+                        $(".alert-success").show("slow");
+                        $(".alert-danger").hide("slow");
+                        if ($("#hdStatus").val() == '1') {
+                            setTimeout(function () { $(".alert-success").hide("slow"); GotoListpage(); }, 2000);
+                        }
+                        else {
+                            setTimeout(function () { $(".alert-success").hide("slow"); window.location.reload(); }, 2000);
+                        }
+                    }
+                    else {
+
+                        $("#ErrorMessage").text(data.Description);
+                        $("#defaultForm .alert-danger").show("slow");
+                        $("#defaultForm .alert-success").hide("slow");
+                        setTimeout(function () { $("#defaultForm .alert-danger").hide("slow"); }, 5000);
+                    }
+                }
+            });
+        };
+    });
+</script>
+@*<input id="hdYear" type="hidden" value="@ViewBag.Year">
+<input id="hdType" type="hidden" value="@ViewBag.Type">*@
+
+<script>
+    function loadPlanItem()
+    {
+        var params = {
+            planId: '@Model.Id',
+           
+        };
+        var urlRequestAns = "/BankReport/ListPlanItem";
+        Utils.Loading();
+        $.ajax({
+            type: 'GET',
+            url: urlRequestAns,
+            data: params,
+            success: function (data) {
+                $("#ListPlanItem").html(data);
+                Utils.UnLoading();
+            },
+            error: function () {
+                Utils.UnLoading();
+            }
+        });
+    }
+    function loadPlanStuck()
+    {
+        var params = {
+            planId: '@Model.Id',
+           
+        };
+        var urlRequestAns = "/BankReport/ListPlanStuck";
+        Utils.Loading();
+        $.ajax({
+            type: 'GET',
+            url: urlRequestAns,
+            data: params,
+            success: function (data) {
+                $("#ListPlanStuck").html(data);
+                Utils.UnLoading();
+            },
+            error: function () {
+                Utils.UnLoading();
+            }
+        });
+    }
+    function loadPlanRequire()
+    {
+        var params = {
+            planId: '@Model.Id',
+           
+        };
+        var urlRequestAns = "/BankReport/ListPlanRequire";
+        Utils.Loading();
+        $.ajax({
+            type: 'GET',
+            url: urlRequestAns,
+            data: params,
+            success: function (data) {
+                $("#ListPlanRequire").html(data);
+                Utils.UnLoading();
+            },
+            error: function () {
+                Utils.UnLoading();
+            }
+        });
+    }
+    function AddPlanItem() {
+
+        var pageurl = "/BankReport/AddPlanItem/?planId=" + "@Model.Id";
+        $.ajax({
+            type: 'GET',
+            url: pageurl,
+            data: {},
+            contentType: "application/json; charset=utf-8",
+            dataType: "html",
+            success: function (data) {
+                bootbox.dialog({
+                    title: "Thêm mới dự án",
+                    message: data,
+                    buttons: {
+                        success: {
+                            label: "Đóng",
+                            className: "btn-success",
+                            callback: function () {
+
+                                 loadPlanItem()
+                            }
+                        }
+                    }
+                });
+            }
+        });
+
+
+    }
+     function EditPlanItem( Id) {
+
+        var pageurl = "/BankReport/PlanItemDetail/?Id=" + Id;
+        $.ajax({
+            type: 'GET',
+            url: pageurl,
+            data: {},
+            contentType: "application/json; charset=utf-8",
+            dataType: "html",
+            success: function (data) {
+                bootbox.dialog({
+                    title: "Cập nhật dự án",
+                    message: data,
+                    buttons: {
+                        success: {
+                            label: "Đóng",
+                            className: "btn-success",
+                            callback: function () {
+
+                                 loadPlanItem()
+                            }
+                        }
+                    }
+                });
+            }
+        });
+
+
+    }
+</script>
+<script>
+   
+    function AddPlanStuck() {
+
+        var pageurl = "/BankReport/AddPlanStuck/?planId=" + "@Model.Id";
+        $.ajax({
+            type: 'GET',
+            url: pageurl,
+            data: {},
+            contentType: "application/json; charset=utf-8",
+            dataType: "html",
+            success: function (data) {
+                bootbox.dialog({
+                    title: "Thêm mới vướng mắc",
+                    message: data,
+                    buttons: {
+                        success: {
+                            label: "Đóng",
+                            className: "btn-success",
+                            callback: function () {
+
+                                loadPlanStuck()
+                            }
+                        }
+                    }
+                });
+            }
+        });
+
+
+    }
+     function EditPlanStuck( Id) {
+
+        var pageurl = "/BankReport/PlanStuckDetail/?Id=" + Id;
+        $.ajax({
+            type: 'GET',
+            url: pageurl,
+            data: {},
+            contentType: "application/json; charset=utf-8",
+            dataType: "html",
+            success: function (data) {
+                bootbox.dialog({
+                    title: "Cập nhật vướng mắc",
+                    message: data,
+                    buttons: {
+                        success: {
+                            label: "Đóng",
+                            className: "btn-success",
+                            callback: function () {
+
+                                loadPlanStuck()
+                            }
+                        }
+                    }
+                });
+            }
+        });
+
+
+    }
+</script>
+<script>
+
+    function AddPlanRequire() {
+
+        var pageurl = "/BankReport/AddPlanRequire/?planId=" + "@Model.Id";
+        $.ajax({
+            type: 'GET',
+            url: pageurl,
+            data: {},
+            contentType: "application/json; charset=utf-8",
+            dataType: "html",
+            success: function (data) {
+                bootbox.dialog({
+                    title: "Thêm mới dự án tiềm năng",
+                    message: data,
+                    buttons: {
+                        success: {
+                            label: "Đóng",
+                            className: "btn-success",
+                            callback: function () {
+
+                                loadPlanRequire()
+                            }
+                        }
+                    }
+                });
+            }
+        });
+
+
+    }
+     function EditPlanRequire( Id) {
+
+        var pageurl = "/BankReport/PlanRequireDetail/?Id=" + Id;
+        $.ajax({
+            type: 'GET',
+            url: pageurl,
+            data: {},
+            contentType: "application/json; charset=utf-8",
+            dataType: "html",
+            success: function (data) {
+                bootbox.dialog({
+                    title: "Cập nhật dự án tiềm năng",
+                    message: data,
+                    buttons: {
+                        success: {
+                            label: "Đóng",
+                            className: "btn-success",
+                            callback: function () {
+
+                                loadPlanRequire()
+                            }
+                        }
+                    }
+                });
+            }
+        });
+
+
+    }
+</script>

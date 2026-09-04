@@ -1,0 +1,123 @@
+﻿@{
+    Layout = "~/Views/Shared/_AdminV2.cshtml";
+}
+@{
+    ViewBag.Title = "Danh sách banner";
+}
+<div class="row">
+    <div class="col-lg-12">
+        <div class="panel panel-primary">
+            <div class="panel-heading"><span class="glyphicon glyphicon-user"></span>@ViewBag.Title</div>
+            <div class="panel-body">
+                <div class="row" id="form">
+                    <div class="form-group col-md-3 col-xs-12 col-sm-6" style="display:none">
+                        @Html.DropDownList("ddlCate", new SelectList(ViewBag.CategoryList as System.Collections.IEnumerable, "ID", "Name", -1), new { @class = "form-control", })
+                    </div>
+
+                    <div class="form-group col-md-3 col-xs-12 col-sm-6">
+                        <select class="form-control" id="ddlStatus">
+                            <option value="-1">Trạng Thái</option>
+                            <option value="1">Hoạt động</option>
+                            <option value="0">Khóa</option>
+                        </select>
+                    </div>
+                    <div class="form-group col-md-3 col-xs-12 col-sm-6">
+                        <select class="form-control" id="ddlRegion">
+                            <option value="-1">Vùng</option>
+
+                            <option value="1">Trên</option>
+                            <option value="3">Dưới</option>
+                            <option value="2">Phải</option>
+
+                            <option value="5">Giữa</option>
+                            <option value="11">Top</option>
+                            <option value="13">Botom</option>
+                            <option value="12">Right</option>
+
+                            <option value="15">Center</option>
+
+                            <option value="101" >VAS Trên</option>
+                            <option value="102" >VAS Giữa</option>
+                            <option value="103">VAS Dưới</option>
+                            <option value="104">VAS Top</option>
+                            <option value="105">VAS Center</option>
+                            <option value="106">VAS Botom</option>
+
+                        </select>
+                    </div>
+                    <div class="form-group submit col-md-3 col-xs-12 col-sm-6">
+
+                        <a id="btnCreate" href="@Url.Action("GetBannerDetail",new {id=0 })" class="btn btn-success"><i class="fa fa-user-plus"></i>Thêm Mới</a>
+                    </div>
+
+
+                </div>
+            </div>
+            <div class="table-responsive">
+                <div id="dgrid" class="dataTables_wrapper form-inline" role="grid">
+                    <div id="ListBanner">
+                        @Html.Action("ListBanner")
+                    </div>
+
+                    <div class="dataTables_paginate" id="pager">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+   $('#menu_managebanner').addClass("active");
+          
+</script>
+<script type="text/javascript">
+        $(document).ready(function () {
+           
+            var parameters = {
+            };
+            $("#form").keypress(function (event) {
+                if (event.which == 13) {
+                    $("#btnSearch").click();
+                }
+            });
+            $("#btnSearch").click(function () {
+                GetList(1);
+            });
+            $("#ddlStatus").change(function () {
+                GetList(1);
+            });
+            $("#ddlRegion").change(function () {
+                GetList(1);
+            });
+            $("#ddlCate").change(function () {
+                GetList(1);
+            });
+            function GetList(currentPage) {
+                parameters = {
+                    type: $('#ddlCate :selected').val(),
+                    status: $('#ddlStatus :selected').val(),
+                    regionId: $('#ddlRegion :selected').val(),
+                    currentPage: currentPage,
+                };
+                btnSearch(currentPage);
+            };
+            function btnSearch(currentPage) {
+                Utils.Loading();
+                var urlRequestAns = "@Url.Action("ListBanner")";
+                $.ajax({
+                    type: 'GET',
+                    url: urlRequestAns,
+                    data: parameters,
+                    success: function (data) {
+                        $("#ListBanner").html(data);
+                        Utils.UnLoading();
+                    },
+                    error: function () {
+                        Utils.UnLoading();
+                    }
+                });
+            }
+
+        });
+
+</script>

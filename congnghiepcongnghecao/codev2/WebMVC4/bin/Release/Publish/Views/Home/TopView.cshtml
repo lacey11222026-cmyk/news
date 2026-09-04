@@ -1,0 +1,18 @@
+﻿@using BIZ.Entity
+@using UTILS
+@model List<CONTENT_FULL>
+@using WebMVC4.Helper
+
+    <div class="border-blue">
+        <h2 class="title-cm02"><a href="javascript:;">Tin đọc nhiều</a></h2>
+        <ul class="news-list">
+            @foreach (var item in Model.Select((value, i) => new { i, value }))
+            {
+                <li>
+                    <a href="@item.value.LinkUrl">@item.value.Title</a>
+                    <span class="date mt10">@item.value.PublishDate.ToString("dd/MM/yyyy - HH:mm")</span>
+                </li>
+            }
+
+        </ul>
+    </div>

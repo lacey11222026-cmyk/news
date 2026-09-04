@@ -1,0 +1,332 @@
+﻿@{
+   
+    Layout = "~/Views/Shared/_AdminV2.cshtml";
+}
+
+@using System.Configuration
+@using CMS.Helper
+@model List<DATA.Banner>
+
+<div class="onecolumn">
+    <div class="header">
+        <span>@ViewBag.Title</span>
+    </div>
+    <br class="clear">
+    <div class="content">
+        <b>Vị trí: </b>@Html.DropDownList("drlRegion", new SelectList(ViewBag.RegionList, "Value", "Text", ViewBag.Region), new { @class = "drl_Group" }) &nbsp;&nbsp;
+       @* <b>Trang: </b>@Html.DropDownList("drlSite", new SelectList(ViewBag.SiteList, "Value", "Text", ViewBag.site), new { @class = "drl_Group" }) &nbsp;&nbsp;*@
+        <b>Chuyên mục: </b>@Html.DropDownList("drlCategory", new SelectList(ViewBag.CateList as System.Collections.IEnumerable, "Id", "Name", ViewBag.CategoryId), new { @class = "drl_Group",@style="width:180px"  }) &nbsp;&nbsp;
+        <b>Trạng thái: </b>@Html.DropDownList("drlStatus", new SelectList(ViewBag.StatusList, "Value", "Text", ViewBag.Status), new { @class = "drl_Group" }) &nbsp;&nbsp;
+        <br />
+        <br />
+        @if (Model != null)
+        { 
+            <table width="100%" cellspacing="0" cellpadding="0" id="mytable" class="data">
+                <tbody>
+                    <tr>
+                        <th scope="col">ID
+                        </th>
+                        <th scope="col">Tên 
+                        </th>
+                        <th scope="col">Vùng
+                        </th>
+                        <th scope="col">Loại
+                        </th>
+                        <th scope="col">Liên kết
+                        </th>
+                        <th scope="col">Dữ liệu
+                        </th>
+                        <th scope="col">Trạng thái
+                        </th>
+                        <th scope="col">Quản trị
+                        </th>
+                    </tr>
+                    @foreach (var item in Model)
+                    {
+                        <tr id="tr_@(item.Id)">
+                            <td>
+                                @item.Id
+                            </td>
+                            <td>
+                                @item.Name
+                            </td>
+                            <td>@HtmlHelpers.GetBanerRegion(item.Region.Value)</td>
+                            <td>@HtmlHelpers.GetBanerType(item.Type.Value)</td>
+                            <td><div style="width:500px;overflow:hidden">@item.Url</div></td>
+                            <td>
+                                <img width="100" height="50" alt="" src="@item.Data"/></td>
+
+                            <td>@if (item.Status == 1)
+                                {
+                                <text>Hoạt động</text>
+                                }
+                                else
+                                {
+                                <text>Khóa</text>
+                                }
+                            </td>
+                            <td>
+                                <a  class='editLink'  href="javascript:void(0);" onclick="return editBanner('@item.Id','@item.Name','@item.Description','@item.Region','@item.Data','@item.Url','@item.Type','@item.Status','@item.Order');" Title="Sửa">
+                                    <img class="help" alt="edit" src="/Styles/admin/images/icon_edit.png"></a>
+                                <a onclick="return confirmdelete('@item.Id');" href="javascript:void(0)" Title="Xóa">
+                                    <img class="help" alt="delete" src="/Styles/admin/images/icon_delete.png"></a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+            <div class="chart_wrapper" id="chart_wrapper">
+            </div>
+        }
+        <br />
+        <a href="javascript:void(0)" class="adminbutton create">Tạo mới</a> &nbsp;&nbsp; 
+        @if (ViewBag.site==0)
+        {
+            <a href="@(ConfigurationManager.AppSettings["SiteUrl"])Banner/Index/@ViewBag.CategoryId" target="_blank" class="adminbutton">Xem trước</a>
+        }
+        else
+        {
+            <a href="@(ConfigurationManager.AppSettings["ATGT_SiteUrl"])Banner/Index/@ViewBag.CategoryId" target="_blank" class="adminbutton">Xem trước</a>
+        }
+        
+    </div>
+</div>
+<div class="dialogueform" id="dialogue">
+    <form id="BannerForm" method="get" action="">
+        <div class="login-left">
+            <label for="Name">
+                Tên :</label>
+        </div>
+        <div class="login-right">
+            <input id="Name" name="Name" type="text" />
+
+            <input id="Id" name="Id" type="hidden" />
+            <input id="Site" name="Site" value="@ViewBag.site" type="hidden" />
+            <input id="CategoryId" name="CategoryId" value="@ViewBag.CategoryId" type="hidden" />
+        </div>
+        <div class="clear">
+        </div>
+        <div class="login-left">
+            <label for="Name">
+                Liên kết :</label>
+        </div>
+        <div class="login-right">
+            <input id="Url" name="Url" type="text" />
+
+
+        </div>
+        <div class="clear">
+        </div>
+        <div class="login-left">
+            <label for="Description">
+                Mô tả:</label>
+        </div>
+        <div class="login-right">
+
+            <textarea id="Description" name="Description" rows="3" style="width: 280px;">
+            </textarea>
+
+        </div>
+        <div class="clear">
+        </div>
+        <br />
+        <div class="login-left">
+            <label for="Description">
+                Dữ liệu:</label>
+        </div>
+        <div class="login-right">
+
+            <input id="Data" name="Data" type="text" style="width: 280px;" />&nbsp;   <a href="javascript:void(0)" onclick="openWin()"><b>Upload
+                                                                                                                     file</b></a>
+
+        </div>
+        <div class="clear">
+        </div>
+        <div class="login-left">
+            <label for="Name">
+                Vị trí :</label>
+        </div>
+        <div class="login-right">
+            <select id="selec_Region" name="Region">
+
+                @*<option value="2">Phải 1</option>*@
+                <option value="3">Phải</option>
+                <option value="4">Giữa 1</option>
+                <option value="5">Giữa 2</option>
+                <option value="6">Giữa 3</option>
+                <option value="1">Cuối</option>
+            </select>
+
+
+        </div>
+        <div class="clear">
+        </div>
+        <div class="login-left">
+            <label for="Name">
+                Loại :</label>
+        </div>
+        <div class="login-right">
+            <select id="select_type" name="Type">
+                <option value="1">Ảnh</option>
+                <option value="2">Flash</option>
+            </select>
+
+
+        </div>
+        <div class="clear">
+        </div>
+        <div class="login-left">
+            <label for="Name">
+                Thứ tự :</label>
+        </div>
+        <div class="login-right">
+            <input id="Order" name="Order" type="text" />
+
+
+        </div>
+        <div class="clear">
+        </div>
+        <div class="login-left">
+            <label for="Description">
+                Trạng thái:</label>
+        </div>
+        <div class="login-right">
+
+            <input name="Status" type="radio" value="1" checked="checked" />
+            Hoạt động
+                <input name="Status" type="radio" value="0" />
+            Khóa
+
+        </div>
+        <div class="clear">
+        </div>
+        <br />
+        <div id="buttons">
+            <input class="button" type="button" value='Cập nhật' id="btUpdate" />&nbsp;
+        <input type="button" value='Quay lại' id="btnCancel" />
+        </div>
+    </form>
+</div>
+
+
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+
+        $('#menu_category').click();
+
+    });
+    function confirmdelete(id) {
+        if (confirm("Bạn có chắc chắn muốn xóa?")) {
+            $.post('@Url.Action("BannerDelete", "AdminCategory")', { "id": id },
+                function (data) {
+                    if (data == "1") {
+                        $("#tr_" + id).hide();
+                    }
+                    else {
+
+                    }
+                });
+        }
+    }
+    function openWin() {
+        var myWindow = window.open('@Url.Action("MultiUpload", "Admin")?tab=1', '', 'width=900,height=668');
+        myWindow.focus();
+    }
+    $('#drlRegion').change(function () {
+        window.location = jQuery.query.set("Region", this.value);
+    });
+    $('#drlSite').change(function () {
+        window.location = jQuery.query.set("site", this.value).set("categoryId", 0);
+    });
+    $('#drlStatus').change(function () {
+        window.location = jQuery.query.set("Status", this.value);
+    });
+    $('#drlCategory').change(function () {
+        window.location = jQuery.query.set("categoryId", this.value);
+    });
+
+    var dlg;
+    $(document).ready(function () {
+        dlg = $("#dialogue").dialog(
+                {
+                    autoOpen: false,
+                    width: 700
+                });
+        $(".create").click(function () {
+
+            $("#Name").val("");
+            $("#Description").val("");
+            $("#Url").val("");
+            $("#Data").val("");
+            $("#Id").val("0");
+            $("#Order").val("0");
+            dlg.dialog({ title: 'Thêm mới banner' });
+            dlg.dialog('open');
+        });
+
+        $("#btnCancel").click(function () {
+
+            dlg.dialog('close');
+        });
+        $("#btUpdate").click(function () {
+
+            if (validateForm()) {
+                if ($("#Id").val().length > 0)
+                    updateBanner();
+                else
+                    createBanner();
+            }
+
+        });
+
+
+    });
+    function validateForm() {
+        var Code = $('#Name').val();
+        if (Code == "") {
+
+            alert('Tên không được trống');
+            $('#Name').focus();
+            return false;
+        }
+        return true;
+
+    }
+    function createBanner() {
+
+        $.post('@Url.Action("BannerAddEdit", "AdminCategory")', $("#BannerForm").serialize(), function (data) {
+
+            document.location.reload();
+
+        });
+    }
+    function updateBanner() {
+        $.post('@Url.Action("BannerAddEdit", "AdminCategory")', $("#BannerForm").serialize(), function (data) {
+
+            document.location.reload();
+
+        });
+    }
+    function editBanner(id, Name, Description, Region, Data, Url, Type, Status, Order) {
+        $("#Id").val(id);
+        $("#Name").val(Name);
+        $("#Description").val(Description);
+        $("#Url").val(Url);
+        $("#Data").val(Data);
+        $("#Order").val(Order);
+        $('input[name="Status"]').each(function (i, e) {
+            if ($(e).val() == Status)
+                $(e).prop('checked', true);
+            else
+                $(e).prop('checked', false);
+        });
+        $('#select_type option[value=' + Type + ']').attr('selected', 'selected');
+        $('#selec_Region option[value=' + Region + ']').attr('selected', 'selected');
+        dlg.dialog({ title: 'Cập nhật Banner' });
+        dlg.dialog('open');
+    }
+
+</script>
+

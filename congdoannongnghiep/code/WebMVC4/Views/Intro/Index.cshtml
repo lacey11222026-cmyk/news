@@ -1,0 +1,70 @@
+﻿@using BIZ
+@using UTILS
+@using WebMVC4.Helper
+@model BIZ.Entity.CATEGORY_FULL
+@{
+    List<BIZ.Entity.CATEGORY_FULL> data = ViewBag.lstrelate;
+}
+@if (Model != null)
+{
+    <div class="container newspage-c2 mt40">
+        <h2 class="title-detail text-center"><a href="@Utils.FormatUrlRewriteByType(Model.Id, Model.Name, (int) Model.Type)">@Model.Name</a></h2>
+        <div class="row mt30">
+            <div class="col-lg-8 col-md-12 col-sm-12">
+               
+                <div class="" id="NewsContent">
+
+                    @Html.Raw(Model.Contents)
+
+                </div>
+            </div><!-- end col-lg-8-->
+            <div class="col-lg-4 col-md-12 col-sm-12 sidebar-right">
+
+                @Html.Partial("Site_Right")
+            </div><!-- end col-lg-4-->
+        </div>
+
+
+
+    </div>
+
+
+
+
+    <div class="clearfix"></div>
+
+    <script type="text/javascript">
+
+        function openWin(url) {
+            var myWindow = window.open(url, '', 'width=700,height=500');
+            myWindow.focus();
+        }
+        (function ($) {
+            $.fn.removeStyle = function (style) {
+                var search = new RegExp(style + '[^;]+;?', 'g');
+
+                return this.each(function () {
+                    $(this).attr('style', function (i, style) {
+                        return style.replace(search, '');
+                    });
+                });
+            };
+        }(jQuery));
+
+
+        $('.news_detail_img').removeAttr('style');
+        $('.news_detail_img').attr('style', 'margin:0 auto;text-align:center');
+
+        $('#NewsContent table').removeAttr('width');
+        $('#NewsContent span img').removeAttr('width');
+        $('#NewsContent img').removeAttr('width');
+        $('#NewsContent img').removeAttr('height');
+        $('#NewsContent img').removeAttr('style');
+
+        $('#NewsContent span').removeStyle('font-size');
+        $('#NewsContent div').removeStyle('font-size');
+        $('#NewsContent p').removeStyle('font-size');
+    </script>
+
+    
+}

@@ -1,0 +1,49 @@
+﻿@using BIZ
+@using UTILS
+@using WebMVC4.Helper
+@model BIZ.Entity.MISSION_FULL
+@{
+    var langpage = WorkContext.GetLanguage();
+}
+<div class="post-new-detail-page container pb60 pt40">
+    <div class="row row-50">
+        <div class="col-lg-8 col-md-12">
+            <div class="post-detail">
+
+                @if (langpage == "vi-vn")
+                {
+                    <h2 class="title-cm-02"><a href="/su-kien.html">Sự kiện </a></h2>
+                }
+                else
+                {
+                    <h2 class="title-cm-02"><a href="/su-kien.html">Events </a></h2>
+                }
+
+                <div class="mt30 detail-content">
+                    <p class="big-name">@Model.Name</p>
+
+
+
+                    <div class="detail-content mt50" id="NewsContent">
+
+                        @Html.Raw(Model.Description)
+                    </div>
+
+
+                </div>
+            </div>
+
+        </div>
+        <div class="col-lg-4 col-md-12 sidebar">
+            @Html.Partial("Site_Right2")
+        </div>
+    </div>
+</div><!-- end main content-->
+<div class="bg-gray pt40 pb40">
+    <div class="container">
+        <ul class="slick02">
+            @{Html.RenderAction("BannerBottom", "Home", new { lang = langpage });}
+        </ul>
+    </div>
+</div>
+

@@ -1,0 +1,36 @@
+﻿@using BIZ
+@using UTILS
+@using WebMVC4.Helper
+@model List<BIZ.Entity.CONTENT_FULL>
+@{
+    var langpage = WorkContext.GetLanguage();
+}
+@if (Model != null)
+{
+    if (langpage == "vi-vn")
+    {
+        <h2 class="title-cm">
+            <a href="/trang-chu-video.html" class="active">Video</a> | <a href="/thu-vien-anh/c47/thu-vien-hinh-anh.html">Hình ảnh</a>
+        </h2>
+    }
+    else
+    {
+        <h2 class="title-cm">
+            <a href="/trang-chu-video.html" class="active">Video</a> | <a href="/thu-vien-anh/c50/images.html">Images</a>
+        </h2>
+    }
+    <div class="mt30">
+        @foreach (var item in Model.Take(1).Select((value, i) => new { i, value }))
+        {
+            <div class="movie">
+                <iframe width="100%" height="315" src="@item.value.Url.Replace("watch?v=", "embed/")?rel=0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen style="position: absolute; top: 0px; right: 0px; bottom: 0px; left: 0px; width: 100%; height: 99.999%;"></iframe>
+            </div>
+            <h3>@item.value.Title</h3>
+        }
+    </div>
+    <div class="text-right mt30"><a href="/trang-chu-video.html" class="btn-viewmore">@Resources.Global.More</a></div>
+
+
+}
+
+

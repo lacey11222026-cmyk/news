@@ -1,0 +1,82 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout2.cshtml";
+}
+@using BIZ.Entity
+@using UTILS
+@using WebMVC4.Helper
+@using UTILS;
+@model UserSession
+<div class="manage-body">
+    <div class="manage-bnr">
+        <img src="/Content2/images/manage-bnr.jpg" alt="">
+        <div class="manage-title">
+            <ul>
+                <li class="active">
+                    List of proposals
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="manage-content">
+        <div class="mw-01 manage-sidebar">
+            @Html.Partial("User_MenuEn")
+        </div>
+        <div class="mw-02 manage-main">
+            <div class="manage-wrap mt50">
+                <div class="manage-pr-form">
+                    <select id="status">
+                        <option value="-1">
+                            Status
+                        </option>
+                        <option value="0">
+                            Editing
+                        </option>
+                        <option value="1">
+                            Submitted
+                        </option>
+                    </select>
+                    <input type="text" id="keyword" placeholder="Enter keyword">
+                    <div><a href="javascript:;" onclick="GetList()" class="btn-cm btn-blue btn-search">Search <img src="/Content2/images/icon-search.svg" alt="" width="17"></a></div>
+                </div>
+            </div>
+            <div class="mt50 container-fluid manage-pr-wrap">
+                <div class="manage-pr-tbl-wrap" id="ListProject">
+                    @Html.Action("ListProjectEn", "User")
+                </div>
+            </div>
+        </div>
+        <div class="m-log-out">
+            <img src="/Content2/images/manage-img.png" alt="">
+            <a href="@Url.Action("Login","User",new { act="out"})" class="btn-log-out"><img src="/Content2/images/icon-log-out.png" alt=""> Log Out</a>
+        </div>
+    </div>
+</div>
+<script src="~/Content/js/formvalidate.js?vs=02"></script>
+<script>
+     $("#menu_3").addClass("active");
+    function GetList() {
+         
+         parameters = {
+             status: $('#status :selected').val(),
+             keyword: $('#keyword').val(),
+             
+         };
+         btnSearch();
+     };
+     function btnSearch() {
+         
+         var urlRequestAns = "/User/ListProject";
+         $.ajax({
+             type: 'GET',
+             url: urlRequestAns,
+             data: parameters,
+             success: function (data) {
+                 $("#ListProject").html(data);
+                 
+             },
+             error: function () {
+                 
+             }
+         });
+     }
+</script>

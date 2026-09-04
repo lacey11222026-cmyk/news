@@ -1,0 +1,98 @@
+﻿@{
+    Layout = "~/Views/Shared/_AdminV2.cshtml";
+}
+@using BIZ.Entity
+@using UTILS
+@using WebMVC4.Helper
+
+
+<div class="row">
+    <div class="col-lg-12">
+        <div class="panel panel-primary">
+            <div class="panel-heading"><span class="glyphicon glyphicon-user"></span>@ViewBag.Title</div>
+            <div class="panel-body">
+                <div class="row" id="form">
+                    <div class="col-md-12">
+
+
+
+                        <div class="form-group col-md-4 col-xs-12 col-sm-6">
+                            <label class="control-label"><i class="fa fa-flag"></i>Trạng thái</label>
+                            <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
+
+                                <select class="form-control" id="ddlActive">
+                                    <option value="-1">Lấy tất cả</option>
+                                    <option value="1">Hoạt Động</option>
+                                    <option value="0">Không Hoạt Động</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group submit" style="text-align:center">
+                            <a href="@Url.Action("Info",new {id=0 })" class="btn btn-success"><i class="fa fa-user-plus"></i>Thêm Mới</a>
+
+                        </div>
+
+                    </div>
+
+                </div>
+                <div class="table-responsive">
+                    <div id="dgrid" class="dataTables_wrapper form-inline" role="grid">
+                        <div id="ListShop">
+                            @Html.Action("ListShop", "AdminShop")
+                        </div>
+                        <div class="dataTables_paginate" id="pager">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    $(document).ready(function () {
+        var parameters = {
+        };
+        $("#form").keypress(function (event) {
+            if (event.which == 13) {
+                $("#btnSearch").click();
+            }
+        });
+        $("#btnSearch").click(function () {
+            GetList(1);
+        });
+        $("#ddlActive").change(function () {
+            GetList(1);
+        });
+
+        function GetList(currentPage) {
+            parameters = {
+                status: $('#ddlActive :selected').val(),
+
+                currentPage: currentPage
+            };
+            btnSearch(currentPage);
+        };
+        function btnSearch(currentPage) {
+            Utils.Loading();
+            var urlRequestAns = "/AdminShop/ListShop";
+            $.ajax({
+                type: 'GET',
+                url: urlRequestAns,
+                data: parameters,
+                success: function (data) {
+                    $("#ListShop").html(data);
+                    Utils.UnLoading();
+                },
+                error: function () {
+                    Utils.UnLoading();
+                }
+            });
+        }
+
+    });
+
+</script>
+<script>
+    $('#menu_manageshop').addClass("active");
+</script>
+

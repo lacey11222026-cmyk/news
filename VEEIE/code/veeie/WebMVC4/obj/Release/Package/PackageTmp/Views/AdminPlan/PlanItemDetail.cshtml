@@ -1,0 +1,400 @@
+﻿
+@using BIZ.Entity
+@using UTILS
+@using DATA
+@using WebMVC4.Helper
+@using WebMVC4.Models
+@model PlanItemModel
+<div class="row" id="ContentPopUp">
+    <div class="col-lg-12">
+        <div class="box box-primary">
+
+            <form id="defaultForm" method="post" class="form-horizontal">
+                <div class="form-horizontal">
+                    <div class="messager-body">
+                        <div class="alert alert-success display-hide alert-dismissable">
+                            <button type="button" class="close" data-close="alert" aria-hidden="true">×</button>
+                            <span class="glyphicon glyphicon-ok"></span>
+                            <label>Đã lưu dữ liệu thành công !!!</label>
+                        </div>
+                        <div class="alert alert-danger display-hide alert-dismissable">
+                            <button type="button" class="close" data-close="alert" aria-hidden="true">×</button>
+                            <span class="glyphicon glyphicon-warning-sign"></span>
+                            <label id="ErrorMessage">Có một vài lỗi trong khung nhập liệu dưới đây ! kiểm tra lại</label>
+                        </div>
+                    </div>
+
+
+                    <div class="nav-tabs-custom">
+                        <ul class="nav nav-tabs">
+                            <li class="active"><a href="#tab_1" data-toggle="tab" aria-expanded="false">Vốn vay WB</a></li>
+                            <li class="">
+                                <a href="#tab_2" data-toggle="tab" aria-expanded="true">
+                                    Vốn đối ứng của  ngân hàng
+
+                                </a>
+                            </li>
+                            <li class="">
+                                <a href="#tab_3" data-toggle="tab" aria-expanded="true">
+                                    Vốn đối ứng của
+                                    doanh nghiệp vay
+                                    vốn
+
+                                </a>
+                            </li>
+
+                        </ul>
+                        <br />
+                        <div class="tab-content">
+                            <div class="tab-pane active" id="tab_1">
+                                <div class="form-group">
+                                    <label for="txtCurrency1" class="control-label col-md-5">Đơn vị tiền tệ :</label>
+                                    <div class="col-md-7">
+                                        <div class="input-icon right">
+                                            <input type="text" id="txtCurrency1" maxlength="500" name="name" value="@Model.Item1.Currency" class="form-control" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="txtCurrencyRate1" class="control-label col-md-5">Tỷ giá :</label>
+                                    <div class="col-md-7">
+                                        <div class="input-icon right">
+                                            <input type="text" id="txtCurrencyRate1" maxlength="9" name="name" value="@Model.Item1.CurrencyRate" class="form-control" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="txtPlanYear1" class="control-label col-md-5">Kế hoạch giải ngân năm :</label>
+                                    <div class="col-md-7">
+                                        <div class="input-icon right">
+                                            <input type="text" id="txtPlanYear1" maxlength="9" name="name" value="@Model.Item1.PlanYear" class="form-control" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="txtPlanCurrent1" class="control-label col-md-5">Kế hoạch đến thời điểm báo cáo :</label>
+                                    <div class="col-md-7">
+                                        <div class="input-icon right">
+                                            <input type="text" id="txtPlanCurrent1" maxlength="9" name="name" value="@Model.Item1.PlanCurrent" class="form-control" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="txtPlanQ1" class="control-label col-md-5">Giải ngân trong quý :</label>
+                                    <div class="col-md-7">
+                                        <div class="input-icon right">
+                                            <input type="text" id="txtPlanQ1" maxlength="9" name="name" value="@Model.Item1.PlanQ" class="form-control" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="txtBalanceYear1" class="control-label col-md-5">Lũy kế từ đầu năm :</label>
+                                    <div class="col-md-7">
+                                        <div class="input-icon right">
+                                            <input type="text" id="txtBalanceYear1" maxlength="9" name="name" value="@Model.Item1.BalanceYear" class="form-control" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="txBalance1" class="control-label col-md-5">Lũy kế giải ngân :</label>
+                                    <div class="col-md-7">
+                                        <div class="input-icon right">
+                                            <input type="text" id="txtBalance1" maxlength="9" name="name" value="@Model.Item1.Balance" class="form-control" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- /.tab-pane -->
+                            <div class="tab-pane" id="tab_2">
+                                <div class="form-group">
+                                    <label for="txtCurrency2" class="control-label col-md-5">Đơn vị tiền tệ :</label>
+                                    <div class="col-md-7">
+                                        <div class="input-icon right">
+                                            <input type="text" id="txtCurrency2" maxlength="500" name="name" value="@Model.Item2.Currency" class="form-control" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="txtCurrencyRate2" class="control-label col-md-5">Tỷ giá :</label>
+                                    <div class="col-md-7">
+                                        <div class="input-icon right">
+                                            <input type="text" id="txtCurrencyRate2" maxlength="9" name="name" value="@Model.Item2.CurrencyRate" class="form-control" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="txtPlanYear2" class="control-label col-md-5">Kế hoạch giải ngân năm :</label>
+                                    <div class="col-md-7">
+                                        <div class="input-icon right">
+                                            <input type="text" id="txtPlanYear2" maxlength="9" name="name" value="@Model.Item2.PlanYear" class="form-control" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="txtPlanCurrent2" class="control-label col-md-5">Kế hoạch đến thời điểm báo cáo :</label>
+                                    <div class="col-md-7">
+                                        <div class="input-icon right">
+                                            <input type="text" id="txtPlanCurrent2" maxlength="9" name="name" value="@Model.Item2.PlanCurrent" class="form-control" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="txtPlanQ2" class="control-label col-md-5">Giải ngân trong quý :</label>
+                                    <div class="col-md-7">
+                                        <div class="input-icon right">
+                                            <input type="text" id="txtPlanQ2" maxlength="9" name="name" value="@Model.Item2.PlanQ" class="form-control" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="txtBalanceYear2" class="control-label col-md-5">Lũy kế từ đầu năm :</label>
+                                    <div class="col-md-7">
+                                        <div class="input-icon right">
+                                            <input type="text" id="txtBalanceYear2" maxlength="9" name="name" value="@Model.Item2.BalanceYear" class="form-control" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="txBalance2" class="control-label col-md-5">Lũy kế giải ngân :</label>
+                                    <div class="col-md-7">
+                                        <div class="input-icon right">
+                                            <input type="text" id="txtBalance2" maxlength="9" name="name" value="@Model.Item2.Balance" class="form-control" />
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="tab-pane" id="tab_3">
+
+                                <div class="form-group">
+                                    <label for="txtCurrency3" class="control-label col-md-5">Đơn vị tiền tệ :</label>
+                                    <div class="col-md-7">
+                                        <div class="input-icon right">
+                                            <input type="text" id="txtCurrency3" maxlength="500" name="name" value="@Model.Item3.Currency" class="form-control" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="txtCurrencyRate3" class="control-label col-md-5">Tỷ giá :</label>
+                                    <div class="col-md-7">
+                                        <div class="input-icon right">
+                                            <input type="text" id="txtCurrencyRate3" maxlength="9" name="name" value="@Model.Item3.CurrencyRate" class="form-control" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="txtPlanYear3" class="control-label col-md-5">Kế hoạch giải ngân năm :</label>
+                                    <div class="col-md-7">
+                                        <div class="input-icon right">
+                                            <input type="text" id="txtPlanYear3" maxlength="9" name="name" value="@Model.Item3.PlanYear" class="form-control" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="txtPlanCurrent3" class="control-label col-md-5">Kế hoạch đến thời điểm báo cáo :</label>
+                                    <div class="col-md-7">
+                                        <div class="input-icon right">
+                                            <input type="text" id="txtPlanCurrent3" maxlength="9" name="name" value="@Model.Item3.PlanCurrent" class="form-control" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="txtPlanQ3" class="control-label col-md-5">Giải ngân trong quý :</label>
+                                    <div class="col-md-7">
+                                        <div class="input-icon right">
+                                            <input type="text" id="txtPlanQ3" maxlength="9" name="name" value="@Model.Item3.PlanQ" class="form-control" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="txtBalanceYear3" class="control-label col-md-5">Lũy kế từ đầu năm :</label>
+                                    <div class="col-md-7">
+                                        <div class="input-icon right">
+                                            <input type="text" id="txtBalanceYear3" maxlength="9" name="name" value="@Model.Item3.BalanceYear" class="form-control" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="txBalance3" class="control-label col-md-5">Lũy kế giải ngân :</label>
+                                    <div class="col-md-7">
+                                        <div class="input-icon right">
+                                            <input type="text" id="txtBalance3" maxlength="9" name="name" value="@Model.Item3.Balance" class="form-control" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- /.tab-pane -->
+                            <!-- /.tab-pane -->
+                        </div>
+                    </div>
+                    
+                </div>
+
+                <div class="panel-footer form-horizontal">
+                    <div class="form-group">
+                        <label for="txtName" class="control-label col-md-5">Tiểu dự án  :</label>
+                        <div class="col-md-7">
+                            <div class="input-icon right">
+                                <input type="text" id="txtName" maxlength="500" name="name" value="@Model.Name" class="form-control" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-md-5" for="cbxIsActive">Trạng thái :</label>
+                        <div class="col-md-4">
+                            <div class="checkbox">
+                                @if (Model.Status == 1)
+                                {<input type="checkbox" id="cbxIsActive" checked="checked" />}
+                                else
+                                {<input type="checkbox" id="cbxIsActive" />}
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group submit">
+                        <button type="submit" class="btn btn-primary" id="btnSave"><i class="fa fa-save"></i> Cập nhập</button>
+
+                        <button type="button" class="btn btn-default" id="btnBack" data-dismiss="modal"><i class="fa fa-backward"></i> Hủy</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+
+
+    $(document).ready(function () {
+
+
+            $("button.close").click(function () {
+                $(this).parent().css("display", "none");
+            });
+            $('#defaultForm').bootstrapValidator({
+                message: 'This value is not valid',
+                //live: 'submitted',
+                feedbackIcons: {
+                    valid: 'glyphicon glyphicon-ok',
+                    invalid: 'glyphicon glyphicon-remove',
+                    validating: 'glyphicon glyphicon-refresh'
+                },
+                fields: {
+
+
+
+                }
+            })
+            .on('success.form.bv', function (e) {
+                // Prevent submit form
+                e.preventDefault();
+
+                var $form = $(e.target),
+                    validator = $form.data('bootstrapValidator');
+                SaveData();
+                $(".close").click(function () {
+                    $(".alert-success").css("display", "none");
+                });
+            })
+            .on('error.form.bv', function (e) {
+                // Active the panel element containing the first invalid element
+                e.preventDefault();
+                var $form = $(e.target),
+                validator = $form.data('bootstrapValidator');
+                $(".alert-danger label").text("Có một vài lỗi trong khung nhập liệu dưới đây ! kiểm tra lại");
+                $(".alert-danger").css("display", "block");
+                $(".close").click(function () {
+                    $(".alert-danger").css("display", "none");
+                    $(".alert-success").css("display", "none");
+                });
+            });
+
+            $("#btnReset").click(function () {
+                $('#defaultForm').data('bootstrapValidator').resetForm(true);
+                $(".alert-danger").css("display", "none");
+                $(".alert-success").css("display", "none");
+            });
+            //Save Data
+            function SaveData() {
+                var param = {
+                    'Id': '@Model.Id',
+                    'PlanId': '@Model.PlanId',
+                    'Name': $("#txtName").val(),
+                    'Status': $("#cbxIsActive").is(":checked") ? 1 : 0,
+
+                    'Currency1': $("#txtCurrency1").val(),
+                    'CurrencyRate1': $("#txtCurrencyRate1").val(),
+                    'PlanYear1': $("#txtPlanYear1").val(),
+                    'PlanCurrent1': $("#txtPlanCurrent1").val(),
+                    'PlanQ1': $("#txtPlanQ1").val(),
+                    'BalanceYear1': $("#txtBalanceYear1").val(),
+                    'Balance1': $("#txtBalance1").val(),
+
+                    
+                    'Currency2': $("#txtCurrency2").val(),
+                    'CurrencyRate2': $("#txtCurrencyRate2").val(),
+                    'PlanYear2': $("#txtPlanYear2").val(),
+                    'PlanCurrent2': $("#txtPlanCurrent2").val(),
+                    'PlanQ2': $("#txtPlanQ2").val(),
+                    'BalanceYear2': $("#txtBalanceYear2").val(),
+                    'Balance2': $("#txtBalance2").val(),
+
+                    
+                    'Currency3': $("#txtCurrency3").val(),
+                    'CurrencyRate3': $("#txtCurrencyRate3").val(),
+                    'PlanYear3': $("#txtPlanYear3").val(),
+                    'PlanCurrent3': $("#txtPlanCurrent3").val(),
+                    'PlanQ3': $("#txtPlanQ3").val(),
+                    'BalanceYear3': $("#txtBalanceYear3").val(),
+                    'Balance3': $("#txtBalance3").val(),
+
+                }
+
+                Utils.Loading();
+                $.ajax({
+                    type: 'POST',
+                    url: "@Url.Action("PlanItemSaveData")",
+                    data: addAntiForgeryToken(param),
+                    async: true,
+                    success: function (data) {
+                        Utils.UnLoading();
+                        if (data.ResponseCode >= 0) {
+
+                            $(".alert-success").show("slow");
+                            $(".alert-danger").hide("slow");
+
+                            $('.modal ').modal('hide');
+                            location.reload();
+                        }
+                        else {
+
+                            $("#ErrorMessage").text(data.Description);
+                            $(".alert-danger").show("slow");
+                            $(".alert-success").hide("slow");
+                            setTimeout(function () { $(".alert-danger").hide("slow"); }, 5000);
+                        }
+                    }
+                });
+            };
+        });
+
+
+
+</script>
+<style type="text/css">
+    .modal-dialog {
+        width: 60% !important;
+        height: 60% !important;
+    }
+
+    .modal-footer {
+        display: none;
+    }
+
+    @@media (max-width: 768px) {
+
+        .modal-dialog {
+            width: 90% !important;
+            height: 90% !important;
+        }
+    }
+</style>

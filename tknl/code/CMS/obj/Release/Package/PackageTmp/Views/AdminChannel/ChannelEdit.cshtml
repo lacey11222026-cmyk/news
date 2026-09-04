@@ -1,0 +1,185 @@
+﻿@{
+   
+    Layout = "~/Views/Shared/_AdminV2.cshtml";
+
+}
+@using UTILS
+@model DATA.Channel
+<link href="/Styles/admin/css/blue/tab.css" rel="stylesheet" type="text/css" />
+<div class="onecolumn" id="product-tabs">
+    <div class="header">
+        <span>@ViewBag.Title</span>
+        <div class="menuitem">
+            <ul>
+                <li><a href="#tabs-info">Thông tin cơ bản</a></li>
+
+                <li><a href="#tabs-image">Ảnh đại diện</a></li>
+            </ul>
+        </div>
+    </div>
+    <br class="clear">
+    <div class="content">
+
+       @using (Html.BeginForm(null, null, FormMethod.Post, new { onsubmit = "return validateForm();" }))
+        {
+
+
+
+            <div class="login" id="tabs-image">
+                <input id="btnImagesUpload" type="button" value="Tải ảnh từ máy tính" style="width: 150px" />
+                <div id="images_container"></div>
+                @Html.HiddenFor(m => m.Image)
+                @Html.HiddenFor(m => m.Id)
+            </div>
+
+            <div>@{Html.RenderAction("FormChannelAdd", "AdminChannel", new { obj = Model });}</div>
+            <br />
+            <div class="button_login">
+                <div>
+
+
+                    <input type="submit" value="Cập nhật" />
+                    &nbsp;<input type="button" value="Quay lại" onclick="javascript: history.go(-1);" />
+                </div>
+            </div>
+            <div class="clear">
+            </div>
+
+
+        }
+
+
+        <script type="text/javascript">
+            var newsId = '@Model.Id';
+            var imageUrl = '@ViewBag.imageUrl';
+            $(document).ready(function () {
+                $('#menu_channel').click();
+                $('#product-tabs').tabs();
+                // RenderAjaxUpload('btnImagesUpload');
+                LoadImages();
+
+            });
+
+
+            function RenderAjaxUpload(eid) {
+
+                if (newsId > 0) {
+
+                    new AjaxUpload(eid, {
+                        action: POST_URL + 'ImageService.ashx',
+                        data: {
+                            __m: 'upl',
+                            _id: newsId,
+                            _en: 'channel',
+                            ext: ''
+                        },
+                        autoSubmit: false,
+                        onChange: function (file, ext) {
+                            DestroyJAlert();
+                            var ajaxupload = this;
+                            ajaxupload._settings.data.ext = ext;
+                            ajaxupload.submit();
+                        },
+                        onSubmit: function (file, ext) {
+                            DestroyJAlert();
+                            if (!(ext && /^(jpg|png|jpeg|gif|bmp)$/.test(ext))) {
+                                OpenAlertDialog('File ảnh chỉ cho phép định dạng có đuôi mở rộng là: .jpg, .png, .jpeg, .gif, .bmp');
+                                return false;
+                            }
+
+                            this.disable();
+                        },
+                        onComplete: function (file, response) {
+
+                            var responseJson = $.parseJSON(response.substring(response.indexOf("{"), response.lastIndexOf("}") + 1));
+
+                            if (responseJson.Success) {
+                                //$('#images_container').text('');
+                                var html = '<img src="' + imageUrl + responseJson.Value + '"  height="100" />';
+                                // html += '<input type="radio" checked="true" value="' + responseJson.Value + '" name="main_image"  />';
+                      
+                                html += '&nbsp;<a title="Xóa"  onclick="DeleteImage(\'' + responseJson.Value + '\',this)" href="javascript:void(0)"> <img class="help" alt="edit" src="/Styles/admin/images/icon_delete2.png" > </a>';
+                                $('#images_container').append(html);
+                                $('#btnImagesUpload').hide();
+                                $('#Image').val(responseJson.Value);
+                            }
+                            else
+                                alert(responseJson.Text);
+                            this.enable();
+                        }
+                    });
+                }
+
+            }
+            function LoadImages() {
+
+                $.Services({
+                    serviceName: 'ImageService.ashx',
+                    data: {
+                        __m: 'channel',
+                        _id: newsId
+                    },
+                    success: function (data) {
+                        if (data != undefined && data != null && data != '') {
+                            $('#btnImagesUpload').hide();
+                            $.each(data, function (i, item) {
+                                var html = '<img src="' + imageUrl + item + '?t=' + Math.random() + '"  height="100" />';
+
+                                html += '&nbsp;<a title="Xóa"  onclick="DeleteImage(\'' + item + '\',this)" href="javascript:void(0)"> <img class="help" alt="edit" src="/Styles/admin/images/icon_delete2.png" > </a>';
+
+                                $('#images_container').append(html);
+
+                            });
+                        }
+                        else {
+
+                            $('#btnImagesUpload').show();
+                            RenderAjaxUpload('btnImagesUpload');
+                        }
+
+                    },
+                    jCacheKey: 'LIST_IMAGES'
+
+                });
+            }
+
+            function DeleteImage(image, elm) {
+
+
+                if (confirm("Bạn có muốn xóa ảnh này không")) {
+                    $.post('/Post/ImageService.ashx', {
+                        __m: 'del',
+                        _id: Base64.encode(newsId.toString()),
+                        _en: 'channel',
+                        fna: image
+                    },
+                 function (data) {
+                     if (data != undefined && data != null && data != '') {
+                         var json_data = $.parseJSON(data.substring(data.indexOf("{"), data.lastIndexOf("}") + 1));
+
+                         if (json_data.Success) {
+
+                             $(elm).prev().remove();
+                             $(elm).remove();
+
+
+                             $('#btnImagesUpload').show();
+                             RenderAjaxUpload('btnImagesUpload');
+                             $('#Image').val("");
+                             
+                         }
+                         else {
+                             alert(json_data.Text);
+                         }
+
+                     }
+                 });
+
+                }
+
+
+            }
+
+        </script>
+    </div>
+</div>

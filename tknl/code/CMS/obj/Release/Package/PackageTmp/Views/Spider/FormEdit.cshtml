@@ -1,0 +1,153 @@
+﻿@model DATA.GoNew
+
+<script type="text/javascript">
+    $(document).ready(function () {
+
+
+        $('#SPublishedTime').datetimepicker({
+            timeFormat: "HH:mm"
+        });
+    });
+
+    function validateForm() {
+        var title = $('#News_Title').val();
+        if (title == "") {
+
+            alert('Tên không được trống');
+            $('#News_Title').focus();
+            return false;
+        }
+        var wordstitle = title.trim().split(' ');
+        if (wordstitle.length > 40) {
+            alert('Tiêu đề tối đa 40 chữ');
+            $('#News_Title').focus();
+            return false;
+        }
+
+        var description = $('#News_Description').val();
+        if (description == "") {
+
+            alert('Mô tả không được trống');
+            $('#News_Description').focus();
+            return false;
+        }
+        var wordsdes = description.trim().split(' ');
+        if (wordsdes.length >= 120) {
+            alert('Mô tả tối đa 120 chữ');
+            $('#News_Description').focus();
+            return false;
+        }
+        tinyMCE.triggerSave();
+        var params = "";
+        $("#SelectedNews option").each(function () {
+            params = params + $(this).val() + ",";
+
+        });
+        $('#Params').val(params);
+        ShowProgress();
+        return true;
+
+    }
+
+</script>
+@{Html.RenderAction("FormReference", "Spider");}
+<div class="login" id="tabs-content">
+    
+
+</div>
+
+<div class="login" id="tabs-info">
+
+    <div class="login-left">
+        @Html.Label("Tiêu đề:")
+    </div>
+    <div class="login-right">
+        @Html.TextBoxFor(m => m.News_Title, new { @class = "textbox" })
+        
+        @Html.HiddenFor(m => m.Id)
+    </div>
+    <div class="clear">
+    </div>
+
+    <div class="clear">
+    </div>
+    <div class="login-left">
+        @Html.Label("Mô tả:")
+    </div>
+    <div class="login-right">
+        @Html.TextAreaFor(m => m.News_Description, new { @class = "textbox", style = "height:200px;" })
+    </div>
+
+    <div class="clear">
+    </div>
+    <div class="login-left">
+        @Html.Label("Chuyên mục:")
+    </div>
+    <div class="login-right">
+        @Html.DropDownList("News_CategoryId", new SelectList(ViewBag.CategoryList as System.Collections.IEnumerable, "Id", "Name", Model.News_CategoryId), new { @class = "drl_Publisher" })
+    </div>
+
+
+    <div class="clear">
+    </div>
+    <div class="login-left">
+        @Html.Label("Tác giả:")
+    </div>
+    <div class="login-right">
+        @Html.DropDownList("Album", new SelectList(ViewBag.AccountList as System.Collections.IEnumerable, "SValue", "Text", ViewBag.Author), new { @class = "drl_Publisher" })
+    </div>
+    <div class="clear">
+    </div>
+    @if (ViewBag.isAdmin)
+    {
+        <div class="login-left">
+            @Html.Label("Thời gian xuất bản:")
+        </div>
+        <div class="login-right">
+            @Html.TextBox("SPublishedTime", Model.Crawl_CreatedDate.ToString("dd/MM/yyyy HH:mm"), new { @class = "textbox" })
+
+        </div>
+        <div class="clear">
+        </div>
+    }
+    else
+    {
+        @Html.Hidden("SPublishedTime", Model.Crawl_CreatedDate.ToString("dd/MM/yyyy HH:mm"))
+    }
+    <div class="login-left">
+        @Html.Label("Từ khóa:")
+    </div>
+    <div class="login-right">
+        @Html.TextBox("Keywords", "", new { @class = "textbox" })
+    </div>
+    <div class="clear">
+    </div>
+    <div class="login-left">
+        @Html.Label("Ảnh đại diện:")
+    </div>
+    <div class="login-right">
+      <input id="btnImagesUpload" type="button" value="Tải ảnh từ máy tính" style="width: 150px" />
+                <div id="images_container"></div>
+        </div>
+    <div class="clear">
+    </div>
+  <div class="login-left">
+        @Html.Label("Nội dung:")
+    </div>
+    <div class="login-right">
+        @*<a href="javascript:void(0)" onclick="openWin()"><b>Upload nhiều file</b></a><br />*@
+        @Html.TextAreaFor(m => m.News_Content, new { @class = "textbox" })
+    </div>
+    <div class="clear">
+    </div>
+
+</div>
+<script language="javascript" type="text/javascript">
+
+    function openWin() {
+        myWindow = window.open('@Url.Action("MultiUpload", "Admin")?tab=1', '', 'width=868,height=668');
+
+        myWindow.focus();
+    }
+
+</script>

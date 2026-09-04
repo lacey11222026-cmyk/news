@@ -1,0 +1,55 @@
+﻿@using BIZ
+@using UTILS
+@using WebMVC4.Helper
+@model BIZ.Entity.CATEGORY_FULL
+@{
+    List<BIZ.Entity.CATEGORY_FULL> data = ViewBag.lstrelate;
+}
+@{
+    var langpage = WorkContext.GetLanguage();
+}
+@if (Model != null)
+{
+    <div class="article-page">
+        <section class="section-intro-1" style="background-image: url('@Model.Param.Image');">
+            <div class="container">
+                <div class="content">
+                    <div class="title">
+                        <h1>@Model.Name</h1>
+                        <div class="breadcrumbs-02">
+                            <ul>
+                                <li><a href="/">@Resources.Global.Home</a></li>
+                                <li><span>@Model.Name</span></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="section-article-1 mt50 pb100">
+            <div class="container">
+                <div class="content">
+                    <div class="row">
+                        <div class="col-lg-8 col-left p-20">
+                            @*<h3 class="title-small textblue">@Model.Name</h3>*@
+                            <div id="NewsContent">
+                                @Html.Raw(Model.Contents)
+                            </div>
+
+                        </div>
+                        <div class="col-lg-4 p-10 col-right">
+                            @{ Html.RenderAction("RightLastestNews", "News", new { lang = langpage, MaxLastestNews = 4, CategoryId = 5, CateName = "" }); }
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </div>
+}
+<style>
+    #NewsContent strong {
+        color: inherit !important;
+    }
+</style>

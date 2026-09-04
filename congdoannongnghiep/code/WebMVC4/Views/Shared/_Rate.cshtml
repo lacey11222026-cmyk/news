@@ -1,0 +1,57 @@
+﻿@using BIZ
+@{
+    var exchangeRate1 = new SystemConfigBO().GetValueByKey("ExchangeRate1").Split('-');
+    var exchangeRate2 = new SystemConfigBO().GetValueByKey("ExchangeRate2").Split('-');
+    var interestRate2 = new SystemConfigBO().GetValueByKey("InterestRate2");
+    var interestRate1 = new SystemConfigBO().GetValueByKey("InterestRate1");
+}
+<div class="exchange-rate mt20 box-shadow">
+    <div class="rate-title maxheight01">
+        <div>
+            <p>Tỷ giá</p>
+            <img src="/Content/img/tygia-01.svg" alt="" width="85" class="mt-1">
+        </div>
+    </div>
+    <div class="maxheight01 tbl-wrap">
+        <table class="tbl-rate">
+            <tr>
+                <th colspan="3" class="text-yellow">Ngày @DateTime.Now.ToString("dd/MM/yyyy")</th>
+            </tr>
+            <tr>
+                <th>NGOẠI TỆ</th>
+                <th>GIÁ MUA</th>
+                <th>GIÁ BÁN</th>
+            </tr>
+            <tr>
+                <td class="ico-cm-02 text-yellow"><img src="/Content/img/ico-usd.svg" alt="" width="20">USD</td>
+                <td>@exchangeRate1[0] </td>
+                <td>@exchangeRate1[1]</td>
+            </tr>
+            <tr>
+                <td class="ico-cm-02 text-yellow"><img src="/Content/img/ico-eur.svg" alt="" width="18">EUR</td>
+                <td>@exchangeRate2[0]</td>
+                <td>@exchangeRate2[1]</td>
+            </tr>
+        </table>
+    </div>
+</div>
+<div class="interest-rate mt20 box-shadow">
+    <div class="rate-title maxheight01">
+        <div>
+            <p>LÃI SUẤT</p>
+            <img src="/Content/img/laisuat.svg" alt="" width="63" class="mt-1">
+        </div>
+    </div>
+    <div class="maxheight01 tbl-wrap">
+        <table class="tbl-rate">
+            <tr>
+                <td>Lãi suất tái chiết khấu</td>
+                <td>@interestRate1</td>
+            </tr>
+            <tr>
+                <td>Lãi suất tái cấp vốn</td>
+                <td>@interestRate2</td>
+            </tr>
+        </table>
+    </div>
+</div>

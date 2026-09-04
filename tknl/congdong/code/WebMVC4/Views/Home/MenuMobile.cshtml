@@ -1,0 +1,28 @@
+﻿@using BIZ
+@using UTILS
+@using WebMVC4.Helper
+@model List<BIZ.Entity.CATEGORY_FULL>
+
+@foreach (var item in Model.Take(2).Select((value, i) => new { i, value }))
+{
+    <li>
+        <a href="@Utils.FormatUrlRewriteByType(item.value.Id, item.value.Name, int.Parse(item.value.Type.ToString()), item.value.Link)">@item.value.Name.Replace("Video En", "Video") </a>
+        @Html.Raw(HtmlHelpers.BindChildCategories(Convert.ToInt32(item.value.Id), int.Parse(item.value.Type.ToString())))
+    </li>
+}
+@*<li>
+    <a href="#">Cộng đồng HQNL</a>
+    <span class="ico-dropdown"></span>
+    <ul class="nav-mb-sub">
+        <li><a href="#">Kiểm toán viên năng lượng</a></li>
+        <li><a href="#">Người quản lý năng lượng</a></li>
+        <li><a href="/don-vi-cung-cap/">Đơn vị cung cấp dịch vụ, đơn vị tư vấn</a></li>
+    </ul>
+</li>*@
+@foreach (var item in Model.Skip(2).Select((value, i) => new { i, value }))
+{
+    <li>
+        <a href="@Utils.FormatUrlRewriteByType(item.value.Id, item.value.Name, int.Parse(item.value.Type.ToString()), item.value.Link)">@item.value.Name.Replace("Video En", "Video") </a>
+        @Html.Raw(HtmlHelpers.BindChildCategories(Convert.ToInt32(item.value.Id), int.Parse(item.value.Type.ToString())))
+    </li>
+}

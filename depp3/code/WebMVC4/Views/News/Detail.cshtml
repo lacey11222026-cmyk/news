@@ -1,0 +1,130 @@
+﻿@using BIZ
+@using UTILS
+@using WebMVC4.Helper
+@model BIZ.Entity.CONTENT_FULL
+@{var RelateTitle = Resources.Global.RelateNews;}
+@{
+    var langpage = WorkContext.GetLanguage();
+}
+@if (Model != null)
+{
+
+    <div class="detail-page container pb80">
+        <div class="detail-page-content01 mt30">
+            <h2 class="title-cm02"><a href="@ViewBag.Url">@Model.CategoryName</a></h2>
+            <div class="row mt20">
+                <div class="col-md-12 col-lg-8">
+                    <h2 class="detail-post-name">@Model.Title</h2>
+                    <p class="date mt20">@Model.PublishDate.ToString("HH:mm") - @Model.PublishDate.ToString("dd/MM/yyyy")</p>
+                    <div class="tinlienquan">
+                        <ul class="related-posts">
+                            @if (ViewBag.lstRef != null)
+                            {
+                                foreach (var item in ViewBag.lstRef)
+                                {
+                                    <li>
+                                        <a href="@Utils.FormatUrlRewrite(item.Id, item.Title, "ArticleDetail")">@item.Title </a>
+                                    </li>
+                                }
+
+                            }
+                        </ul>
+                    </div>
+                    <div class="mt10">
+                        <div class="fb-like" data-href="@(Model.LinkUrl)" data-layout="button_count" data-action="like" data-show-faces="false" data-share="true"></div>
+                    </div>
+                    <div class="detail-wrap mt20">
+                        <div class="detail-icon-list sticky">
+                            <a href="/"><img src="/Content/images/icon-depp3.png"></a>
+                            <a href="javascript:void(0);" onclick="openWin('@ViewBag.FacebookShare');">
+                                <img src="/Content/images/icon-face02.png">
+                            </a>
+                            <a href="@Url.Action("Print", "News", new {Id=Model.Id})" target="_blank"><img src="/Content/images/icon-prt.png"></a>
+                        </div>
+                        <div class="detail-content" id="NewsContent">
+                            <h3 class="detail-name"> @Html.Raw(Model.IntroText)</h3>
+                            @Html.Raw(Model.Contents.Replace("font-size: small", ""))
+                        </div>
+                    </div>
+                    <div class="tags-box">
+                        <div class="face-box">
+                            <div class="fb-like" data-href="@(Model.LinkUrl)" data-layout="button_count" data-action="like" data-show-faces="false" data-share="true"></div>
+                        </div>
+                        @if (Model.SiteUrl != null)
+                        {
+                            if (!String.IsNullOrEmpty(Model.SiteUrl.Trim()))
+                            {
+
+                                <ul class="tags-list list-inline">
+                                    @foreach (var item in Model.SiteUrl.Split(',').Select((value, i) => new { i, value }))
+                                    {
+                                        <li>  <a href="@Url.Action("Search", new { q = item.value.Trim() })">@item.value.Trim()</a></li>
+                                    }
+                                </ul>
+
+
+                            }
+                        }
+                    </div>
+                </div>
+                <div class="col-md-12 col-lg-4">
+                    @{Html.RenderAction("LastestNews", "News", new { MaxLastestNews = 8, lang = langpage });}
+
+                </div>
+                <div class="col-md-12 mt10">
+                    @{Html.RenderAction("BannerRight2", "Home");}
+                </div>
+                <div class="col-md-8 col-sm-12 mt30" style="margin-left: 0;">
+                    @{Html.RenderAction("Relate", "News", new { CategoryId = Model.CategoryId });}
+
+                </div>
+            </div>
+        </div>
+    </div>
+}
+<script>
+    $('.news_detail_img').removeAttr('style');
+    $('.news_detail_img').attr('style', 'margin:0 auto;text-align:center');
+    $('#NewsContent table').removeAttr('width');
+    $('#NewsContent span img').removeAttr('width');
+    $('#NewsContent img').removeAttr('width');
+    $('#NewsContent img').removeAttr('height');
+    $('#NewsContent img').removeAttr('style');
+
+</script>
+<style>
+
+    #NewsContent ul {
+        display: block;
+        list-style-type: disc;
+        margin-block-start: 1em;
+        margin-block-end: 1em;
+        margin-inline-start: 0px;
+        margin-inline-end: 0px;
+        padding-inline-start: 40px;
+    }
+
+    #NewsContent li {
+        display: list-item;
+        list-style-type: disc;
+        text-align: -webkit-match-parent;
+    }
+</style>
+<script type="text/javascript">
+
+
+
+    function openWin(url) {
+        var myWindow = window.open(url, '', 'width=700,height=500');
+        myWindow.focus();
+    }
+</script>
+@section scripts {
+    <script type="text/javascript">
+
+        $('#menu_' + '@ViewBag.CurrentCategoryId').addClass("active");
+
+     $('#menu_' + '@ViewBag.ParentCategoryId').addClass("active");
+        $('#menu_0').removeClass("active");
+    </script>
+}

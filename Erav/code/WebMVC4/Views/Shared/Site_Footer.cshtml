@@ -1,0 +1,54 @@
+﻿@using WebMVC4.Helper
+
+
+
+<div class="container content07 mt40">
+    @{Html.RenderAction("BannerBottom", "Home");}
+</div>
+<footer class="mt60">
+    <div class="nav-bottom">
+        <div class="container">
+            <nav>
+                @{Html.RenderAction("MenuBottom", "Home");}
+            </nav>
+        </div>
+    </div>
+    <div class="footer-content">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-9 col-md-12">
+                    <div class="f-content01">
+                        <img src="/Content/images/logo-footer.png?vs=2023" alt="" style="width:210px"/>
+                        <div>
+                            <strong>Bản quyền thuộc về Cục Điều tiết điện lực - Bộ Công Thương</strong>
+                            <p class="mt5">
+                                Địa chỉ: D10 Khuất Duy Tiến - Thanh Xuân - Hà Nội - Việt Nam.<br>
+                                Điện thoại: 024.22147474  -  Fax: 024.35543008<br>
+                                Cơ quan chủ quản: Bộ Công Thương<br>
+								Người chịu trách nhiệm : Ông Trần Việt Hoà - Cục trưởng Cục Điều tiết điện lực<br>
+                               Giấy phép hoạt động số 41/GP-TTĐT của Bộ Thông tin và Truyền thông cấp ngày 30 tháng 03 năm 2023<br>
+							  
+                                Ghi rõ nguồn: erav.vn khi sử dụng thông tin từ website này<br>
+                                Phát triển bởi: <img src="/Content/images/vtk-logo.png" alt="vtkmedia">
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-12">
+                    <div class="total">
+                        <div class="total-content">
+                            <p>Tổng số lượt truy cập</p>
+                            <ul>
+                                @foreach (var s in HttpContext.Current.Application["TotalVisited"].ToString().Select(c => c.ToString()).ToList())
+                                {
+                                    <li>@s</li>
+                                }
+                            </ul>
+                        </div>
+                       
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>

@@ -1,0 +1,60 @@
+﻿@using BIZ
+@using UTILS
+@using WebMVC4.Helper
+@model WebMVC4.Models.AlbumModel
+@{
+    var langpage = WorkContext.GetLanguage();
+}
+<div class="document-page container pb80">
+    <div class="row mt30">
+        <div class="col-md-12 col-lg-8 pb-5">
+            @{Html.RenderAction("Breadcrumb", "News", new { CategoryId = Model.CategoryId });}
+            @if (Model.listdata != null)
+            {
+
+
+                <ul class="row row-7 library-list mt15">
+                    @foreach (var item in Model.listdata.Select((value, i) => new { i, value }))
+                    {
+                        <li class="col-md-4 col-sm-6 col-6">
+                            <a href="@Utils.FormatUrlRewrite(item.value.Id, item.value.Title, "AlbumDetail")">
+                                <div class="wrap-img-cm"><img src="@item.value.MainImage?w=239&h=135&mode=crop" alt=""></div>
+                                <p>@item.value.Title</p>
+                            </a>
+                        </li>
+
+                    }
+
+                </ul><!-- end big news-->
+                <div class="paging mt50">
+                    <ul>
+                        @{Html.RenderPartial("Pagination", new WebMVC4.Models.PaginationInfo
+                            {
+                                PageUrl = Url.SetParameter("Page", "!0"),
+                                CurrentPage = Model.pageIndex,
+                                PageSize = Model.pageSize,
+                                TotalItemCount = Model.total,
+                            }); }
+                    </ul>
+                </div>
+
+            }
+        </div>
+        <div class="col-md-12 col-lg-4">
+            @{Html.RenderAction("LastestNews", "News", new { MaxLastestNews = 8, lang = langpage });}
+
+        </div>
+    </div>
+</div>
+
+<script>
+    $("#divbody").addClass("library-img");
+</script>
+@section scripts {
+    <script type="text/javascript">
+
+
+        $('#menu_66').addClass("active");
+
+    </script>
+}

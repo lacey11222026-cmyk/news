@@ -1,0 +1,35 @@
+﻿@using BIZ
+@using DATA
+@using UTILS
+@using WebMVC4.Helper
+
+@model List<Product>
+
+@foreach (var item in Model.Select((value, i) => new { i, value }))
+{
+    <li class="col-md-12 col-12 product-item02">
+        <div>
+            <a href="/san-pham/@item.value.Url" class="wrap-img"><img src="@item.value.DescriptImage?w=300&h=300&mode=crop" alt="@item.value.Name" /></a>
+            <div class="product_content">
+                <a href="/san-pham/@item.value.Url" class="mt10 product-name"><span>@item.value.Name</span></a>
+                <p class="product-price">@Utils.InsertCommaNoStyle(item.value.Price.ToString()) đ<span class="price-old">@Utils.InsertCommaNoStyle(item.value.PriceReal.ToString()) đ</span></p>
+                @*<div class="star">
+            <ul>
+                <li><i class="fa fa-star" aria-hidden="true"></i></li>
+                <li><i class="fa fa-star" aria-hidden="true"></i></li>
+                <li><i class="fa fa-star" aria-hidden="true"></i></li>
+                <li><i class="fas fa-star-half-alt"></i></li>
+                <li><i class="far fa-star"></i></li>
+            </ul>
+        </div>*@
+                <p class="text_detail">@UTILS.Utils.RemoveAllHtmlTags(item.value.Description.Replace("</li><li>", "</li> <li>")).Replace("%26", "&")</p>
+                
+                <div class="viewbutton">
+                    <a href="/san-pham/@item.value.Url" class="btn-viewdetail">Chi tiết</a>
+                    <button data-url="/Product/LoadProduct?Id=@item.value.Id" class="btn-quickview"><i class="fa fa-eye"></i></button>
+                </div>
+            </div>
+        </div>
+    </li>
+    
+}                       

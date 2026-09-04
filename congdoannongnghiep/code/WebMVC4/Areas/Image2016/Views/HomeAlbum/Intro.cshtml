@@ -1,0 +1,106 @@
+﻿@{
+    Layout = "/Areas/Image2016/Views/Shared/_Layout.cshtml";
+
+}
+@using BIZ
+@using UTILS
+@using WebMVC4.Helper
+@model BIZ.Entity.CATEGORY_FULL
+
+
+<div class="pt60 pb60 content-01">
+    <div class="container">
+        <div class="row justify-content-start">
+            <div class="col-lg-3 col-md-3 col-sm-12 sidebar">
+                <ul class="item-list">
+                    <li id="lmenu_166"><a href="/cuoc-thi-sang-tac-thiep/gioi-thieu/">Giới thiệu</a></li>
+                    <li id="lmenu_167"><a href="/cuoc-thi-sang-tac-thiep/the-le">Thể lệ</a></li>
+                    <li id="lmenu_0"><a href="/cuoc-thi-sang-tac-thiep#AlbumContent">Tác phẩm</a></li>
+                    <li><a href="#">Kết quả</a></li>
+                </ul>
+            </div>
+            <div class="col-lg-7 col-md-9 col-sm-12 detail-content" id="NewsContent">
+                @Html.Raw(Model.Contents.Replace("font-family:arial,helvetica,sans-serif;", ""))
+            </div>
+        </div>
+    </div>
+</div><!--/ end content 01-->
+<script>
+    $("#lmenu_@Model.Id").addClass("active");
+</script>
+<style>
+    .time-num {
+        width: 56px;
+    }
+    #NewsContent div {
+        margin: 1em 0;
+    }
+    @@media screen and (max-width: 767px) {
+
+        #NewsContent img {
+            height: auto !important;
+        }
+
+        #NewsContent img, #NewsContent table {
+            max-width: 360px;
+            text-align: center;
+        }
+    }
+
+    @@media screen and (max-width: 485px) {
+        #NewsContent img, #NewsContent table {
+            max-width: 300px;
+            text-align: center;
+        }
+    }
+
+    #NewsContent ul {
+        list-style-type: disc;
+        padding: 0 40px;
+    }
+</style>
+<script type="text/javascript">
+
+    function openWin(url) {
+        var myWindow = window.open(url, '', 'width=700,height=500');
+        myWindow.focus();
+    }
+    (function ($) {
+        $.fn.removeStyle = function (style) {
+            var search = new RegExp(style + '[^;]+;?', 'g');
+
+            return this.each(function () {
+                try {
+                    $(this).attr('style', function (i, style) {
+                        return style.replace(search, '');
+                    });
+                }
+                catch {
+
+                }
+
+            });
+        };
+    }(jQuery));
+</script>
+<script>
+    $('.news_detail_img').removeAttr('style');
+    $('.news_detail_img').attr('style', 'margin:0 auto;text-align:center');
+
+    $('#NewsContent table').removeAttr('width');
+    $('#NewsContent span img').removeAttr('width');
+    $('#NewsContent img').removeAttr('width');
+    $('#NewsContent img').removeAttr('height');
+    $('#NewsContent img').removeAttr('style');
+
+    //$('#NewsContent span').removeStyle('font-size');
+    //$('#NewsContent div').removeStyle('font-size');
+    //$('#NewsContent p').removeStyle('font-size');
+
+    //$('#NewsContent span').removeStyle('font-family');
+    //$('#NewsContent div').removeStyle('font-family');
+    //$('#NewsContent p').removeStyle('font-family');
+
+
+    
+</script>

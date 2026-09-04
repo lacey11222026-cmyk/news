@@ -1,0 +1,197 @@
+﻿@using BIZ
+@using UTILS
+@using WebMVC4.Helper
+@model BIZ.Entity.Album_FULL
+@if (Model != null)
+{
+    <main id="main" class="">
+
+        <div class="portfolio-page-wrapper portfolio-single-page">
+            <div class="page-title normal-title portfolio-breadcrumb-title">
+                <div class="page-title-inner container  flex-row medium-flex-wrap medium-text-center">
+                    <div class="flex-col flex-grow">
+                        <h1 class="entry-title is-larger uppercase pb-0 pt-0 mb-0">@Model.Title</h1>
+                    </div>
+                    <div class="flex-col flex-right">
+                        <div class="breadcrumbs"><a href="/">Trang chủ</a><span class="divider">/</span><a href="/cong-trinh/">Công trình</a></div>
+                    </div>
+                </div><!-- flex-row -->
+            </div><!-- .page-title -->
+            <div class="portfolio-top" style="margin-top:30px;">
+                <div class="row">
+
+                    <div class="large-3 col">
+                        <div class="portfolio-summary entry-summary">
+
+
+
+                        </div><!-- .portfolio-summary .entry-summary -->
+
+                    </div><!-- .large-3 -->
+
+                    <div id="portfolio-content" class="large-9 col col-first col-divided painter" role="main">
+                        <div class="portfolio-inner">
+                            <div class="img has-hover x md-x lg-x y md-y lg-y" id="image_1238583217">
+                                <a class="main-image" href="@Model.CreatedBy" data-gallery="#blueimp-gallery">
+                                    <img width="800" height="450" src="@Model.CreatedBy" class="img-responsive">
+                                </a>
+
+                                <style scope="scope">
+
+                                    #image_1238583217 {
+                                        width: 100%;
+                                    }
+                                </style>
+                            </div>
+
+                            <div class="gap-element clearfix" style="display:block; height:auto; padding-top:30px"></div>
+
+
+                            <div class="row large-columns-4 medium-columns- small-columns-2 row-small row-full-width slider row-slider slider-nav-reveal flickity-enabled" data-flickity-options="{&quot;imagesLoaded&quot;: true, &quot;groupCells&quot;: &quot;100%&quot;, &quot;dragThreshold&quot; : 5, &quot;cellAlign&quot;: &quot;left&quot;,&quot;wrapAround&quot;: true,&quot;prevNextButtons&quot;: true,&quot;percentPosition&quot;: true,&quot;pageDots&quot;: false, &quot;rightToLeft&quot;: false, &quot;autoPlay&quot; : false}" tabindex="0">
+
+                                <!-- .col -->
+                                <!-- .col -->
+                                <!-- .col -->
+                                <!-- .col -->
+                                <div class="flickity-viewport" style="height: 270.625px; touch-action: pan-y;">
+                                    <div class="flickity-slider" style="left: 0px; transform: translateX(-100%);">
+                                        @if (!string.IsNullOrEmpty(Model.ImageParam.Path1))
+                                        {
+
+                                            <div class="gallery-col col is-selected" aria-selected="true" style="position: absolute; left: 100%;">
+                                                <div class="col-inner">
+                                                    <a class="thumb" href="@Model.ImageParam.Path1" data-gallery="#blueimp-gallery">
+                                                        <img class="img-responsive current"
+                                                             src="@Model.ImageParam.Path1"
+                                                             alt="@Model.Title" width="225" height="300"
+                                                             title="@Model.Title"
+                                                             data-src="@Model.ImageParam.Path1" />
+                                                    </a>
+                                                </div><!-- .col-inner -->
+                                            </div>
+                                        }
+                                        @if (!string.IsNullOrEmpty(Model.ImageParam.Path2))
+                                        {
+
+                                            <div class="gallery-col col is-selected" aria-selected="true" style="position: absolute; left: 125%;">
+                                                <div class="col-inner">
+                                                    <a class="thumb" href="@Model.ImageParam.Path2" data-gallery="#blueimp-gallery">
+                                                        <img class="img-responsive current"
+                                                             src="@Model.ImageParam.Path2"
+                                                             alt="@Model.Title" width="225" height="300"
+                                                             title="@Model.Title"
+                                                             data-src="@Model.ImageParam.Path2" />
+                                                    </a>
+                                                </div><!-- .col-inner -->
+                                            </div>
+                                        }
+                                        @if (!string.IsNullOrEmpty(Model.ImageParam.Path3))
+                                        {
+
+                                            <div class="gallery-col col is-selected" aria-selected="true" style="position: absolute; left: 150%;">
+                                                <div class="col-inner">
+                                                    <a class="thumb" href="@Model.ImageParam.Path3" data-gallery="#blueimp-gallery">
+                                                        <img class="img-responsive current"
+                                                             src="@Model.ImageParam.Path3"
+                                                             alt="@Model.Title" width="225" height="300"
+                                                             title="@Model.Title"
+                                                             data-src="@Model.ImageParam.Path3" />
+                                                    </a>
+                                                </div><!-- .col-inner -->
+                                            </div>
+                                        }
+                                        @if (!string.IsNullOrEmpty(Model.ImageParam.Path4))
+                                        {
+
+                                            <div class="gallery-col col is-selected" aria-selected="true" style="position: absolute; left: 175%;">
+                                                <div class="col-inner">
+                                                    <a class="thumb" href="@Model.ImageParam.Path4" data-gallery="#blueimp-gallery">
+                                                        <img class="img-responsive current"
+                                                             src="@Model.ImageParam.Path4"
+                                                             alt="@Model.Title" width="225" height="300"
+                                                             title="@Model.Title"
+                                                             data-src="@Model.ImageParam.Path4" />
+                                                    </a>
+                                                </div><!-- .col-inner -->
+                                            </div>
+                                        }
+
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="row row-small align-equal" id="row-1533545207">
+                                <div class="col medium-6 small-12 large-6">
+                                    <div class="col-inner">
+                                        <p>
+                                            <span style="color: #0b84c8;"><strong>Địa điểm</strong></span>:<br>
+                                            @Model.Description
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="col medium-6 small-12 large-6">
+                                    <div class="col-inner">
+                                        <p>
+                                            <span style="color: #0b84c8;"><strong>Chi phí</strong></span>:<br>
+                                            Liên hệ hotline: <strong>0984 535 085</strong>
+                                        </p>
+                                    </div>
+                                </div>
+
+                                <style scope="scope">
+
+                                    #row-1533545207 > .col > .col-inner {
+                                        padding: 10px 0px 0px 16px;
+                                        background-color: rgb(236, 249, 254);
+                                    }
+                                </style>
+                            </div>
+                            <div class="container section-title-container"><h4 class="section-title section-title-normal"><b></b><span class="section-title-main">Sản phẩm đã lắp đặt</span><b></b></h4></div><!-- .section-title -->
+                            <ul class="product_list_widget">
+                                @{Html.RenderAction("RelateProduct", new { ids=Model.Param });}
+
+                            </ul>
+                        </div><!-- .page-inner -->
+                    </div><!-- #portfolio-content -->
+
+                </div><!-- .row -->
+            </div><!-- .portfolio-top -->
+
+
+        </div>
+
+
+    </main>
+}
+
+
+
+<link rel="stylesheet" type="text/css" href="/Content/js/blueimp/css/blueimp-gallery.min.css" />
+<script type="text/javascript" src="/Content/js/blueimp/js/jquery.blueimp-gallery.min.js"></script>
+
+<script type="text/javascript">
+    /*<![CDATA[*/
+    jQuery(window).on('load', function () {
+        jQuery(document).on('mouseenter', '.painter .image-thumbs .img-responsive', function () {
+            var el = jQuery(this);
+            var src = el.data('src');
+            var href = el.parent().attr('href');
+            jQuery('.painter .image-thumbs .img-responsive').removeClass('current');
+            el.addClass('current');
+            jQuery('.painter .main-image .img-responsive').attr('src', src);
+            jQuery('.painter .main-image .img-responsive').parent().attr('href', href);
+        });
+
+
+    });
+                                                /*]]>*/
+</script>
+<div id="blueimp-gallery" class="blueimp-gallery blueimp-gallery-controls" style="display: none;">
+    <div class="slides" style="width: 12800px;"></div>
+    <h3 class="title"></h3>
+    <a class="prev">‹</a>
+    <a class="next">›</a>
+    <a class="close">×</a>
+    <a class="play-pause"></a>
+    <ol class="indicator"></ol>
+</div>

@@ -1,0 +1,251 @@
+﻿@model BIZ.Entity.CONTENT_FULL
+
+<script type="text/javascript">
+    $(document).ready(function () {
+
+
+        $('#SPublishedTime').datetimepicker({
+            timeFormat: "HH:mm"
+        });
+    });
+
+    function validateForm() {
+        var title = $('#Title').val();
+        if (title == "") {
+
+            alert('Tiêu đề không được trống');
+            $('#Title').focus();
+            return false;
+        }
+        var wordstitle = title.trim().split(' ');
+        if (wordstitle.length > 60) {
+            alert('Tiêu đề tối đa 60 chữ');
+            $('#Title').focus();
+            return false;
+        }
+
+        var subtitle = $('#Alias').val();
+        if (subtitle != "") {
+            var wordssub = subtitle.trim().split(' ');
+            if (wordssub.length > 11) {
+                alert('Tiêu đề phụ tối đa 10 chữ');
+                $('#Alias').focus();
+                return false;
+            }
+        }
+
+        var description = $('#IntroText').val();
+        if (description == "") {
+
+            alert('Mô tả không được trống');
+            $('#IntroText').focus();
+            return false;
+        }
+
+
+        var wordsdes = description.trim().split(' ');
+        if (wordsdes.length > 120) {
+            alert('Mô tả tối đa 120 chữ');
+            $('#IntroText').focus();
+            return false;
+        }
+        tinyMCE.triggerSave();
+        var params = "";
+        $("#SelectedNews option").each(function () {
+            params = params + $(this).val() + ",";
+
+        });
+        $('#Params').val(params);
+
+        ShowProgress();
+        return true;
+
+    }
+
+</script>
+<div class="login" id="tabs-image">
+    
+</div>
+@{Html.RenderAction("FormReference", "AdminNews2");}
+<div class="login" id="tabs-note">
+    <div class="login-left">
+        @Html.Label("Ghi chú:")
+    </div>
+    <div class="login-right">
+        @Html.TextArea("Note", new { @class = "textbox", style = "height:200px;margin-bottom:10px;" })
+    </div>
+
+    <div class="clear">
+    </div>
+</div>
+
+<div class="login" id="tabs-content">
+    
+
+</div>
+
+<div class="login" id="tabs-info">
+    <!-- BEGIN Thông tin cơ bản -->
+    <div class="login-left">
+        @Html.Label("Tiêu đề :")
+    </div>
+    <div class="login-right">
+        @Html.TextBoxFor(m => m.Title, new { @class = "textbox", maxlength = 200 })
+
+        @Html.HiddenFor(m => m.Id)
+        @Html.HiddenFor(m => m.Hits)
+        @Html.HiddenFor(m => m.CreatedBy)
+        @Html.HiddenFor(m => m.CreatedRole)
+        @Html.HiddenFor(m => m.Mark)
+        @Html.HiddenFor(m => m.CreatedDate)
+        @Html.HiddenFor(m => m.Status)
+    </div>
+    <div class="clear">
+    </div>
+
+    <div class="login-left">
+        @Html.Label("Tiêu đề phụ:")
+    </div>
+    <div class="login-right">
+        @Html.TextBoxFor(m => m.Alias, new { @class = "textbox", maxlength = 150 })
+    </div>
+
+    <div class="clear">
+    </div>
+
+    <div class="login-left">
+        @Html.Label("Mô tả:")
+    </div>
+    <div class="login-right">
+        @Html.TextAreaFor(m => m.IntroText, new { @class = "textbox", style = "height:200px;margin-bottom:10px;", maxlength = 500 })
+    </div>
+
+    <div class="clear">
+    </div>
+    <div class="login-left">
+        @Html.Label("Chuyên mục:")
+    </div>
+    <div class="login-right">
+        @Html.DropDownList("CategoryId", new SelectList(ViewBag.CategoryList as System.Collections.IEnumerable, "Id", "Name", Model.CategoryId), new { @class = "drl_Publisher" })
+    </div>
+
+    <div class="clear">
+    </div>
+    <div class="login-left">
+        @Html.Label("Tác giả:")
+    </div>
+    <div class="login-right">
+        @Html.DropDownList("Album", new SelectList(ViewBag.AccountList as System.Collections.IEnumerable, "SValue", "Text", Model.Album), new { @class = "drl_Publisher" })
+    </div>
+    <div class="clear">
+    </div>
+    <div class="login-left">
+        @Html.Label("Trạng thái:")
+    </div>
+    <div class="login-right">
+        @Html.DropDownList("Status", new SelectList(ViewBag.StatusList as System.Collections.IEnumerable, "Value", "Text", Model.Status), new { @disabled = "disabled" })
+    </div>
+    <div class="clear">
+    </div>
+    @*<div class="login-left">
+        @Html.Label("Người viết:")
+    </div>
+    <div class="login-right">
+        @Html.TextBoxFor(m => m.CreatedBy, new { @class = "textbox", @disabled = "disabled", @style = "width:100px" })
+    </div>
+    <div class="clear">
+    </div>*@
+    @if (ViewBag.isAdmin)
+    {
+        <div class="login-left">
+            @Html.Label("Thời gian xuất bản:")
+        </div>
+        <div class="login-right">
+            @Html.TextBoxFor(m => m.SPublishedTime, new { @class = "textbox" })
+
+        </div>
+        <div class="clear">
+        </div>
+    }
+    else
+    {
+        @Html.HiddenFor(m => m.SPublishedTime)
+    }
+    <div class="login-left">
+        @Html.Label("Từ khóa:")
+    </div>
+    <div class="login-right">
+        @Html.TextBoxFor(m => m.Keywords, new { @class = "textbox" })
+    </div>
+    <div class="clear">
+    </div>
+
+
+
+    <div class="login-left">
+        @Html.Label("Loại tin:")
+    </div>
+    <div class="login-right">
+
+
+        @Html.RadioButtonFor(model => model.Type, 1)
+        Tin tức &nbsp;
+        @Html.RadioButtonFor(model => model.Type, 2)
+
+        Video &nbsp;
+        @Html.RadioButtonFor(model => model.Type, 3)
+
+        Tài liệu &nbsp;
+    </div>
+    <div class="clear">
+    </div>
+
+
+    <div class="login-left">
+        @Html.Label("Liên kết media:")
+    </div>
+    <div class="login-right">
+        @Html.TextBoxFor(m => m.Url, new { @class = "textbox" })
+        &nbsp;   <a href="javascript:void(0)" onclick="openWin()">
+            <b>
+                Upload
+                file
+            </b>
+        </a>
+    </div>
+    <div class="clear">
+    </div>
+    <!-- END Thông tin cơ bản -->
+    <!-- BEGIN ảnh đại diện -->
+    <div class="login-left">
+        @Html.Label("Ảnh đại diện:")
+    </div>
+    <div class="login-right">
+        <input id="btnImagesUpload" type="button" value="Tải ảnh từ máy tính" style="width: 150px" />
+        <div id="images_container"></div>
+        
+    </div>
+    <div class="clear">
+    </div>
+    <!-- END Ảnh đại diện -->
+    <!-- BEGIN Nội dung -->
+    <div class="login-left">
+        @Html.Label("Nội dung:")
+    </div>
+    <div class="login-right">
+        @*<a href="javascript:void(0)" onclick="openWin()"><b>Upload nhiều file</b></a><br />*@
+        @Html.TextAreaFor(m => m.Contents, new { @class = "textbox" })
+    </div>
+    <div class="clear">
+    </div>
+    <!-- END Nội dung -->
+</div>
+<script language="javascript" type="text/javascript">
+
+    function openWin() {
+        myWindow = window.open('@Url.Action("MultiUpload", "Admin")?tab=1', '', 'width=900,height=768');
+
+        myWindow.focus();
+    }
+
+</script>

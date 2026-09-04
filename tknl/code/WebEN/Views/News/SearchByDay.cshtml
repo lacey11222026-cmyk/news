@@ -1,0 +1,144 @@
+﻿@using BIZ
+@using UTILS
+@using WebEN.Helper
+@model WebEN.Models.NewsModel
+@if (Model != null)
+{
+    <div class="danhgia-content01 container mt10">
+
+        <div class="title-cm02 mt20">
+            <a href="#">Search by day</a>
+        </div>
+
+
+    </div>
+
+    <div class="border-bottom">
+        <div class="mt30 cap1-content02 container">
+            <div class="row row-40">
+                <div class="col-md-8 col-sm-12 text-left">
+                    <div class="text-center search">
+                        <form class="form-inline">
+                            <div class="form-group">
+                                <label class="">Keyword</label>
+                                <input id="txtkeyword" value="@ViewBag.keyword" class="form-control" />
+                            </div>
+                            <div class="form-group">
+                                <label>Category</label>@Html.DropDownList("drlCategory", new SelectList(ViewBag.CategoryList as System.Collections.IEnumerable, "Id", "Name", ViewBag.CategoryId), new { @class = "form-control" })
+                            </div>
+                            <div style="height:20px;clear:both"></div>
+                            <div class="form-group">
+                                <label>FromDate</label>
+                                <input id="txtfromdate" value="@ViewBag.fromdate" class="form-control" style="width:100px" />
+                            </div>
+                            <div class="form-group">
+                                <label>ToDate</label>
+                                <input id="txttodate" value="@ViewBag.todate" class="form-control" style="width:100px" />
+
+                            </div>
+                            <button onclick="searchnews();" class="btn-search">Search</button><br />
+
+                        </form>
+                    </div>
+                    <div>
+
+                        @if (Model.listdata != null)
+                        {
+                            <ul class="mt20 viewmore-list">
+                                @foreach (var item in Model.listdata.Select((value, i) => new { i, value }))
+                                {
+
+                                <li>
+                                    <a href="@item.value.LinkUrl"><img src="@item.value.MainImage?w=260&mode=crop"></a>
+                                    <div>
+                                        <a href="@item.value.LinkUrl">@item.value.Title</a>
+                                        <span class="newsdate mt10">@item.value.PublishDate.ToString("dd/MM/yyyy")</span>
+                                    </div>
+                                    <div class="hidden-xs">
+                                        @item.value.IntroText
+                                    </div>
+                                </li>
+
+
+                                }
+                            </ul>
+                        }
+                        else
+                        {
+                            <div>Match results not found</div>
+                        }
+
+
+                        <div class="paging mt50 text-center">
+
+                            <ul>
+                                @{Html.RenderPartial("Pagination", new WebEN.Models.PaginationInfo
+                                    {
+                                        PageUrl = Url.SetParameter("page", "!0"),
+                                        CurrentPage = Model.pageIndex,
+                                        PageSize = Model.pageSize,
+                                        TotalItemCount = Model.total,
+                                    }); }
+                            </ul>
+
+                        </div>
+                        <div class="clear padtop10"></div>
+
+                    </div>
+
+                </div>
+                <div class="col-md-4 col-sm-12">
+
+                    @Html.Partial("Site_Right")
+                </div>
+            </div>
+        </div><!-- end content 02-->
+    </div>
+    <script src="/js/bootstrap-datepicker.js"></script>
+    
+    <script type="text/javascript">
+        $(document).ready(function () {
+
+            $("#txtfromdate").datepicker({
+                changeYear: true,
+                changeMonth: true,
+                dateFormat: "dd/mm/yy",
+                duration: 'fast',
+            });
+            $("#txttodate").datepicker({
+                changeYear: true,
+                changeMonth: true,
+                dateFormat: "dd/mm/yy",
+                duration: 'fast',
+            });
+        });
+
+        function searchnews() {
+            var keyword = $("#txtkeyword").val();
+            var fromdate = $("#txtfromdate").val();
+            var todate = $("#txttodate").val();
+            var cateid = $('#drlCategory option:selected').val();
+            window.location = jQuery.query.set("keyword", keyword).set("fromdate", fromdate).set("todate", todate).set("categoryid", cateid).set("Page", "1");
+        }
+
+        var categoryid = '@ViewBag.CategoryId';
+        $(document).ready(function () {
+
+            $("#newsdate").datepicker(
+
+            {
+                onSelect: function (date) {
+                    window.location.href = '@Url.Action("SearchByDay", "News")' + '?fromdate=' + date + '&todate=' + date + '&categoryId=' + categoryid;
+                },
+                changeYear: true,
+                changeMonth: true,
+                dateFormat: "dd/mm/yy",
+                duration: 'fast',
+                showOn: "button",
+                buttonText: "Search by day"
+
+            });
+        });
+    </script>
+
+}

@@ -1,0 +1,39 @@
+﻿@using UTILS
+@using WebMVC4
+@{
+    var request = System.Web.HttpContext.Current.Request;
+    var mobileHelper = new MobileDetectHelper(request);
+}
+@{Html.RenderAction("LastestNews", "News", new { MaxLastestNews = 6 });}
+@{Html.RenderAction("RightNews", "Home", new { CategoryId = 34, MaxLastestNews = 4 });}
+    <div class="sidebar-bnr bnr-slider mt20">
+        <ul class="link-list">
+            @if (ViewBag.CurrentCategoryId != null)
+            {
+                <li>@{ Html.RenderAction("BannerRight1", "Banner", new { currentCategoryId = ViewBag.CurrentCategoryId }); }</li>
+                <li> @{ Html.RenderAction("BannerRight2", "Banner", new { currentCategoryId = ViewBag.CurrentCategoryId }); }</li>
+                <li>@{ Html.RenderAction("BannerRight3", "Banner", new { currentCategoryId = ViewBag.CurrentCategoryId }); }</li>
+                <li>@{ Html.RenderAction("BannerRight4", "Banner", new { currentCategoryId = ViewBag.CurrentCategoryId }); }</li>
+                <li>@{ Html.RenderAction("BannerRight5", "Banner", new { currentCategoryId = ViewBag.CurrentCategoryId }); }</li>
+            }
+            else
+            {
+                <li>@{ Html.RenderAction("BannerRight1", "Banner"); }</li>
+                <li>@{ Html.RenderAction("BannerRight2", "Banner"); }</li>
+                <li>@{ Html.RenderAction("BannerRight3", "Banner"); }</li>
+                <li>@{ Html.RenderAction("BannerRight4", "Banner"); }</li>
+                <li>@{ Html.RenderAction("BannerRight5", "Banner"); }</li>
+            }
+
+        </ul>
+        <div class="clearfix"></div>
+    </div>
+<div class="mt40 readmore">
+    @{Html.RenderAction("TopViewNews", "News", new { MaxLastestNews = 8, CategoryId = -1 });}
+</div>
+
+
+
+
+
+

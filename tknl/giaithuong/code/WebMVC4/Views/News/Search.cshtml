@@ -1,0 +1,91 @@
+﻿@using BIZ
+@using BIZ
+@using UTILS
+@using WebMVC4.Helper
+@model WebMVC4.Models.NewsModel
+
+@if (Model != null)
+{
+    <h2 class="title-blue">Tìm kiếm</h2>
+    <div class="list-page">
+        <div class="text-center search">
+            <form class="form-inline">
+                <div class="form-group">
+                    <label class="">Từ khóa</label>
+                    <input id="txtkeyword" class="form-control" type="text" value="@ViewBag.keyword" width="190">
+                </div>
+
+                <div class="form-group">
+                    <label>Từ ngày</label>
+                    <input id="txtfromdate" placeholder="dd/MM/yyyy" value="@ViewBag.fromdate" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label>Đến ngày</label>
+                    <input id="txttodate" placeholder="dd/MM/yyyy" value="@ViewBag.todate" class="form-control">
+                </div>
+                <div class="form-group" style="display: none">
+                    <label class="">Chuyên mục</label>
+                    @Html.DropDownList("drlCategory", new SelectList(ViewBag.CategoryList as System.Collections.IEnumerable, "Id", "Name", ViewBag.CategoryId), new { @class = "form-control" })
+                </div>
+                <button type="button" onclick="searchnews();" class="btn-search">Tìm kiếm</button>
+            </form>
+        </div>
+        @if (Model.listdata!=null)
+    {
+        <ul class="cap1-news-list mt30">
+            @foreach (var item in Model.listdata.Select((value, i) => new { i, value }))
+        {
+            <li>
+                <a href="@item.value.LinkUrl">
+                    @*<img src="/Content2/images/new-list.jpg" alt="">*@
+                    <img src="@item.value.MainImage?w=239&h=160&mode=crop" />
+                </a>
+                <div class="cap1-content">
+                    <h3>
+                        <a href="@item.value.LinkUrl">@item.value.Title </a>
+                    </h3>
+                    <span>Cập nhật: @item.value.PublishDate.ToString("dd/MM/yyyy")</span>
+                    <p>
+                        @item.value.IntroText
+                    </p>
+                </div>
+                <div class="clearfix"></div>
+            </li>
+    }
+
+        </ul>
+}
+else
+{
+    <div class="cap1-news-list mt30">
+        <h4>Không có kết quả phù hợp</h4>
+        </div>
+        }
+
+        <div class="pagination pull-right mt30">
+            <ul>
+                @{Html.RenderPartial("Pagination", new WebMVC4.Models.PaginationInfo
+                {
+                    PageUrl = Url.SetParameter("Page", "!0"),
+                    CurrentPage = Model.pageIndex,
+                    PageSize = Model.pageSize,
+                    TotalItemCount = Model.total,
+                }); }
+            </ul>
+        </div>
+    </div>
+
+
+    <script src="~/Scripts/jquery.query.js"></script>
+    <script type="text/javascript">
+
+
+        function searchnews() {
+            var keyword = $("#txtkeyword").val();
+            var fromdate = $("#txtfromdate").val();
+            var todate = $("#txttodate").val();
+            var cateid = $('#drlCategory option:selected').val();
+            window.location = jQuery.query.set("q", keyword).set("fromdate", fromdate).set("todate", todate).set("categoryid", cateid).set("Page", "1");
+        }
+    </script>
+}

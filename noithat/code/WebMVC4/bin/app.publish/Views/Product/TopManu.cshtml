@@ -1,0 +1,24 @@
+﻿@model List<BIZ.Entity.MANUFACTORY_FULL>
+<aside id="nav_menu-15" class="widget widget_nav_menu">
+    <span class="widget-title">Hãng sản xuất</span>
+    <div class="menu-loc-theo-hang-2-container">
+        <ul id="menu-loc-theo-hang-2" class="menu">
+            @foreach (var item in Model.Select((value, i) => new {i, value}))
+            {
+                <li class="menu-item">
+                    @if (item.value.Id == ViewBag.ManuId)
+                    {
+                        <a href="@(ViewBag.CateUrl)?ManuId=@(item.value.Id)" class="active">@item.value.Title</a>
+                    }
+                    else
+                    {
+                        <a href="@(ViewBag.CateUrl)?ManuId=@(item.value.Id)">@item.value.Title</a>
+                    }
+                    
+                </li>
+            }
+
+        </ul>
+    </div>
+
+</aside>

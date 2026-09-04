@@ -1,0 +1,41 @@
+﻿@using BIZ
+@using UTILS
+@using WebMVC4.Helper
+@model WebMVC4.Models.NewsModel
+@{
+    Layout = "~/Views/Shared/_Home.cshtml";
+    var lstcate = new CategoryBO().GetAllCategoriesFull(UTILS.Constants.CategoryType.News, "").Where(x => x.Id != Model.CategoryId && x.Language == WorkContext.GetLanguage()).Take(5);
+}
+<div class="container mt20 video-page">
+    <h2 class="title-cm-02"><a href="@ViewBag.Url">@ViewBag.CateName</a></h2>
+
+
+    <div class="mt30 video-wrap bg-gray" id="lstVideo">
+        <ul class="newshot row">
+            @if (Model.listdata != null)
+            {
+                foreach (var item in Model.listdata.Select((value, i) => new { i, value }))
+                {
+                    <li class="col-md-3 col-sm-6 col-12">
+                        <a href="@item.value.LinkUrl" class="newshot-item">
+                            <img src="@item.value.MainImage2?w=242&h=162&mode=cro">
+                            <span class="mt15">@item.value.Title</span>
+                        </a>
+                    </li>
+
+                }
+            }
+        </ul>
+    </div>
+    <div class="paging mt30">
+        <ul>
+            @{Html.RenderPartial("Pagination", new WebMVC4.Models.PaginationInfo
+                {
+                    PageUrl = Url.SetParameter("Page", "!0"),
+                    CurrentPage = ViewBag.Page,
+                    PageSize = ViewBag.PageSize,
+                    TotalItemCount = ViewBag.Total,
+                }); }
+        </ul>
+    </div>
+</div>

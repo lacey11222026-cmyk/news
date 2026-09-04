@@ -1,0 +1,135 @@
+﻿@{
+    Layout = "~/Views/Shared/_AdminV2.cshtml";
+}
+@{
+    ViewBag.Title = "Báo cáo cuộc thi";
+}
+@using BIZ.Entity
+@using UTILS
+@model List<DATA.TestArchiveReport>
+@using WebMVC4.Helper
+<div class="row">
+    <div class="col-lg-12">
+        <div class="panel panel-primary">
+            <div class="panel-heading"><span class="glyphicon glyphicon-user"></span>@ViewBag.Title</div>
+            <div class="panel-body">
+                <div class="row" id="form">
+
+
+                    <div class="form-group col-md-3 col-xs-12 col-sm-6">
+                        @Html.DropDownList("ddlCate", new SelectList(ViewBag.RegistorList as System.Collections.IEnumerable, "Id", "Title", ViewBag.registorId), new { @class = "form-control", })
+                    </div>
+
+
+                </div>
+            </div>
+            <div class="table-responsive">
+                <div id="ListTestArchive">
+                    @if (Model != null && Model.Count > 0)
+                    {
+                        <div id="container" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
+                        <table class="table table-striped table-bordered table-hover dataTable no-footer" id="dataTables">
+                            <thead>
+                                <tr class="rowsao">
+
+                                    <th>Ngày</th>
+                                    <th>Lượt thi</th>
+
+                                    <th>Số người thi</th>
+
+                                </tr>
+                            </thead>
+
+                            @for (int i = Model.Count-1; i>=0; i--)
+                            {
+                                var obj = Model[i];
+                                <tr>
+
+                                    <td>@obj.DateTest</td>
+                                    <td>@obj.CountTest</td>
+                                    <td>@obj.CountMobile</td>
+
+                                </tr>
+                            }
+
+                            <tr>
+                                <td></td>
+                                <td><b>@ViewBag.total</b></td>
+                                <td><b>@ViewBag.totalMobile</b></td>
+                            </tr>
+                        </table>
+                    }
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $('#menu_manageregistor').addClass("active");
+
+</script>
+<script type="text/javascript">
+    $(document).ready(function () {
+
+
+        $("#ddlCate").change(function () {
+            window.location.href = '/AdminTest/TestArchiveReport?registorId=' + $("#ddlCate :selected").val();
+        });
+
+
+    });
+
+</script>
+@if (Model != null)
+{
+    <script src="https://code.highcharts.com/highcharts.js"></script>
+    <script src="https://code.highcharts.com/modules/exporting.js"></script>
+    <script src="https://code.highcharts.com/modules/export-data.js"></script>
+    <script>
+        var colors = ['#8aec76', '#7ab4ec'];
+        Highcharts.chart('container', {
+            chart: {
+                type: 'column'
+            },
+            title: {
+                text: 'Báo cáo cuộc thi'
+            },
+            colors: colors,
+            xAxis: {
+                categories: @(Html.Raw(ViewBag.datacategory)),
+                crosshair: true
+            },
+            yAxis: {
+                min: 0,
+                title: {
+                    text: 'Lượt thi'
+                }
+            },
+            tooltip: {
+                headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+                pointFormat: "Value: {point.y:,.1f} đ",
+                footerFormat: '</table>',
+                shared: true,
+                useHTML: true
+            },
+            plotOptions: {
+                column: {
+                    pointPadding: 0.2,
+                    borderWidth: 0
+                }
+            },
+            series: [{
+                name: 'Lượt thi',
+                data: @Html.Raw(ViewBag.DataLine)
+
+            },
+            {
+                name: 'Số người thi',
+                data: @Html.Raw(ViewBag.DataLine2)
+
+            }]
+        });
+    </script>
+}

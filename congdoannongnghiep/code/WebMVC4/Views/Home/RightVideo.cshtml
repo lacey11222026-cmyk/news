@@ -1,0 +1,26 @@
+﻿@using BIZ
+@using UTILS
+@using WebMVC4.Helper
+@model List<BIZ.Entity.CONTENT_FULL>
+@if (Model != null)
+{
+    <h2 class="title-cm" style="padding-left: 15px;"><a href="/trang-chu-video.html">Video</a></h2>
+    <div class="newsbig mt20">
+        @foreach (var item in Model.Take(1).Select((value, i) => new { i, value }))
+        {
+            <a href="/trang-chu-video.html?VideoId=@(item.value.Id)"><img src="@item.value.MainImage?w=414&h=250&mode=crop" alt=""></a>
+        }
+        <div class="newsbig-content">
+            @foreach (var item in Model.Take(1).Select((value, i) => new { i, value }))
+            {
+                <a href="/trang-chu-video.html?VideoId=@(item.value.Id)" class="news-name mt15">@item.value.Title</a>
+                <p class="news-txt mt10">@item.value.IntroText</p>
+                <p class="newsdate mt10">@item.value.PublishDate.ToString("dd/MM/yyyy")</p>
+            }
+            <div class="text-right mt20">
+                <a href="/trang-chu-video.html" class="btn-blue">Xem thêm</a>
+            </div>
+        </div>
+    </div>
+
+}

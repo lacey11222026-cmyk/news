@@ -1,0 +1,112 @@
+﻿@using BIZ
+@using UTILS
+@using WebMVC4.Helper
+@model WebMVC4.Models.AuditorModel
+@using DATA.ContentDB
+@{
+    List<TestLocation> ListCate = ViewBag.listLocation;
+}
+
+<div class="bnr-detail">
+    <img src="/Content/images/bg-title-red.jpg" alt="">
+    <div class="bnr-detail-inner">
+        <div class="container">
+            <p class="bnr-detail-title">Cơ sở dữ liệu</p>
+            <p class="bnr-detail-title-big">KIỂM TOÁN VIÊN NĂNG LƯỢNG</p>
+        </div>
+    </div>
+</div>
+
+<div class="search-page mt50 pb100">
+    <div class="container">
+        <div class="title-search-wap">
+            <h2 class="title-search">TÌM KIẾM KIỂM TOÁN VIÊN NĂNG LƯỢNG</h2>
+        </div>
+        <div class="form-search mt30">
+            <div class="form-group">
+                <input class="form-control form-radius" id="txtkeyword" value="@ViewBag.keyword" type="text" placeholder="*Nhập từ khóa tìm kiếm">
+            </div>
+            <div class="form-group">
+                <select class="form-control form-radius" id="province">
+
+                    <option value="">Năm cấp chứng chỉ</option>
+
+                    <option value="2025" @if (ViewBag.province == "2025") { @Html.Raw("selected='selected'") ; }>2025</option>
+                    <option value="2024" @if (ViewBag.province == "2024") { @Html.Raw("selected='selected'") ; }>2024</option>
+                    <option value="2023" @if (ViewBag.province == "2023") { @Html.Raw("selected='selected'") ; }>2023</option>
+                    <option value="2022" @if (ViewBag.province == "2022") { @Html.Raw("selected='selected'") ; }>2022</option>
+                    <option value="2021" @if (ViewBag.province == "2021") { @Html.Raw("selected='selected'") ; }>2021</option>
+                    <option value="2020" @if (ViewBag.province == "2020") { @Html.Raw("selected='selected'") ; }>2020</option>
+                    <option value="2019" @if (ViewBag.province == "2019") { @Html.Raw("selected='selected'") ; }>2019</option>
+                    <option value="2018" @if (ViewBag.province == "2018") { @Html.Raw("selected='selected'") ; }>2018</option>
+                    <option value="2017" @if (ViewBag.province == "2017") { @Html.Raw("selected='selected'") ; }>2017</option>
+                    <option value="2016" @if (ViewBag.province == "2016") { @Html.Raw("selected='selected'") ; }>2016</option>
+                    <option value="2015" @if (ViewBag.province == "2015") { @Html.Raw("selected='selected'") ; }>2015</option>
+                    <option value="2014" @if (ViewBag.province == "2014") { @Html.Raw("selected='selected'") ; }>2014</option>
+                    <option value="2013" @if (ViewBag.province == "2013") { @Html.Raw("selected='selected'") ; }>2013</option>
+                    <option value="2012" @if (ViewBag.province == "2012") { @Html.Raw("selected='selected'") ; }>2012</option>
+                    <option value="2011" @if (ViewBag.province == "2011") { @Html.Raw("selected='selected'") ; }>2011</option>
+                    <option value="2010" @if (ViewBag.province == "2010") { @Html.Raw("selected='selected'") ; }>2010</option>
+                </select>
+            </div>
+            <div class="form-group text-center"> <a href="javascript:;" onclick="searchdoc();" class="btn-red form-radius"><i class="icon-search"></i> Tìm kiếm</a> </div>
+        </div>
+        <div class="box-attention mt30">
+            <p class="text-danger">
+                Nếu bạn là Kiểm toán viên năng lượng nhưng chưa có tên trong Cơ sở dữ liệu Kiểm toán viên năng lượng của Bộ Công Thương, vui lòng gửi thông tin về email: <a href="mailto:vneec.gov@gmail.com">vneec.gov@gmail.com</a> hoặc số điện thoại <a href="tel:0915612489">0915612489</a> (zalo) để được cập nhật vào hệ thống.<br>
+                Nội dung thông tin cần cung cấp bao gồm: Họ và tên, Số điện thoại, Email, Số CMND/CCCD, Đơn vị công tác, Bản chụp chứng chỉ.
+            </p>
+        </div>
+        <div class="box-search-user mt50">
+            <p class="title-search text-center">
+                KẾT QUẢ TÌM KIẾM<br>
+                <span>Có tổng số <span class="textred font-weight-bold">@Model.total</span> kết quả được tìm thấy </span>
+            </p>
+            <div class="search-result">
+                <ul class="search-result-list mt30">
+                    @foreach (var item in Model.listdata.Select((value, i) => new { i, value }))
+                    {
+                        <li>
+                            <a href="/kiem-toan-vien-nang-luong/ms-@(item.value.Id)">
+                                <div class="search-result-item">
+                                    <div class="search-result-img"><img src="@item.value.Images" alt=""></div>
+                                    <div class="search-result-content">
+                                        <h3>@item.value.FullName</h3>
+                                        <ul class="search-result-contact">
+                                            <li><img src="/Content/images/icon-map.svg" alt="" width="15"> @item.value.Address</li>
+                                            <li><img src="/Content/images/icon-bulding.svg" alt="" width="15"> @item.value.Organ</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </a>
+                        </li>
+                    }
+                </ul>
+            </div>
+            @*<div>Dữ liệu đang được cập nhật!</div>*@
+        </div>
+        <div class="paging mt50">
+            <ul>
+                @{Html.RenderPartial("Pagination", new WebMVC4.Models.PaginationInfo
+                    {
+                        PageUrl = Url.SetParameter("Page", "!0"),
+                        CurrentPage = Model.pageIndex,
+                        PageSize = Model.pageSize,
+                        TotalItemCount = Model.total,
+                    }); }
+            </ul>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+
+
+    function searchdoc() {
+
+        var keyword = $("#txtkeyword").val();
+        var province = $("#province").val();
+
+        window.location = '/kiem-toan-vien-nang-luong/?keyword=' + keyword + '&province=' + province;
+
+    }
+</script>

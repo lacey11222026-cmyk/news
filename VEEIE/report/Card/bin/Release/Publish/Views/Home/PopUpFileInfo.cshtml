@@ -1,0 +1,77 @@
+﻿
+<div class="row" id="PopupUpLoad">
+    <div class="col-md-12">
+        <div>
+            <form id="defaultForm" method="post" class="form-horizontal">
+                <div class="panel-group" id="steps">
+                    <div class="messager-body">
+                        <div class="alert alert-success display-hide alert-dismissable">
+                            <button type="button" class="close" data-close="alert" aria-hidden="true">×</button>
+                            <span class="glyphicon glyphicon-ok"></span>
+                            <label>Đã lưu dữ liệu thành công !!!</label>
+                        </div>
+                        <div class="alert alert-danger display-hide alert-dismissable">
+                            <button type="button" class="close" data-close="alert" aria-hidden="true">×</button>
+                            <span class="glyphicon glyphicon-warning-sign"></span>
+                            <label>Có một vài lỗi trong khung nhập liệu dưới đây ! kiểm tra lại</label>
+                        </div>
+                    </div>
+                    <div>
+                        <div id="ContentPlace">
+                            <div class="col-md-12">
+                                <label class="control-label col-md-12" for="cbxIsActive">Click vào khung dưới để up ảnh</label>
+
+                                <div class="jumbotron">
+                                    <div class="form-control" id="divUpload" style="width: 100%; height: 150px; background: antiquewhite;"></div>
+                                </div>
+
+                            </div>
+                            @*<button type="button" class="btn btn-default" id="btnBack" onclick="CommonCtrl.BtnBack();"><i class="fa fa-backward"></i>Back</button>*@
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    $('#divUpload').dropzone({
+        url: "/Home/SaveFileUpload",
+        maxFilesize: 500,
+        //acceptedFiles: ".jpeg, .jpg, .jpe, .bmp, .png, .gif, .ico, .tiff, .tif, .svg, .svgz, \n\
+        //                 .doc,.docx,.txt, .pdf,.rtf,.xlsx,.xls,.csv, .ppt,\n\
+        //                .zip,.zipx,.tar,.gz,.z,.rar",
+        //acceptedFiles: "image/jpeg,image/png,image/gif,video/mp4,video/x-flv,text/plain,text/csv,audio/mpeg,application/msword,application/vnd.ms-powerpoint,application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.wordprocessingml.document,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,application/vnd.openxmlformats-officedocument.presentationml.presentation,application/pdf,application/x-zip-compressed,application/octet-stream,application/x-7z-compressed,application/x-rar,application/zip",
+        acceptedFiles: ".jpeg, .jpg, .jpe, .bmp, .png, .gif, .ico, .tiff, .tif, .svg, .svgz,.doc,.docx,.txt, .pdf,.rtf,.xlsx,.xls,.csv, .ppt,.zip,.zipx,.tar,.gz,.z,.rar",
+
+        paramName: "uploadfile",
+        init: function () {
+            this.on('success', function (file, json) {
+                ListImages()
+            });
+
+            this.on('addedfile', function (file) {
+            });
+
+            this.on('drop', function (file) {
+            });
+        }
+    });
+
+    $(".closeModal").click(function () {
+        $(".modal").modal("hide");
+    });
+
+
+</script>
+<style type="text/css">
+    .jumbotron .dz-success {
+        float: left;
+        margin-left: 1%;
+    }
+
+    .dz-error-mark {
+        display: none;
+    }
+</style>

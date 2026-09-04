@@ -1,0 +1,138 @@
+﻿@using UTILS
+@using WebMVC4.Helper
+@{
+    var langpage = WorkContext.GetLanguage();
+}
+@{
+    var date = Utils.formatDateofWeek(DateTime.Now.DayOfWeek) + "," + DateTime.Now.ToString(" dd") + "/" + DateTime.Now.ToString("MM") + "/" + DateTime.Now.Year.ToString() + " | " + DateTime.Now.ToString("HH") + ":" + DateTime.Now.ToString("mm");
+    var DateEN = DateTime.Now.DayOfWeek.ToString() + ", " + DateTime.Now.ToString("dd") + "/" + DateTime.Now.ToString("MM") + "/" + DateTime.Now.Year.ToString() + " | " + DateTime.Now.ToString("HH") + ":" + DateTime.Now.ToString("mm");
+}
+<div class="header">
+    <div class="header-link">
+        <div class="container">
+            <div class="header-right">
+                @if (langpage == "vi-vn")
+                {
+                    <div><a href="https://www.facebook.com/jetpvietnam" target="_blank"><i class="fa-brands fa-facebook"></i></a></div>
+                    <div><a href="/User/Login">Đăng nhập</a></div>
+                    <div><a href="/User/Register">Đăng ký</a></div>
+                    <div><a href="/hoi-dap">FAQs</a></div>
+                    <div class="lang">
+                        <button class="bnt-lang">
+                            <span>Tiếng Việt</span><i class="fas fa-caret-down"></i>
+                        </button>
+                        <ul class="list-lang">
+                            <li><a href="/Home/Language?lang=en-us"><img src="/Content/images/gb.png" alt="images"><span>English</span></a></li>
+                            <li><a href="/Home/Language?lang=vi-vn"><img src="/Content/images/vn.png" alt="images"><span>Tiếng Việt</span></a></li>
+                        </ul>
+                    </div>
+                }
+                else
+                {
+                    <div><a href="https://www.facebook.com/jetpvietnam" target="_blank"><i class="fa-brands fa-facebook"></i></a></div>
+                    <div><a href="/User/Login">Login</a></div>
+                    <div><a href="/User/Register">Register</a></div>
+                    <div><a href="/hoi-dap">FAQs</a></div>
+                    <div class="lang">
+                        <button class="bnt-lang">
+                            <span>English</span><i class="fas fa-caret-down"></i>
+                        </button>
+                        <ul class="list-lang">
+                            <li><a href="/Home/Language?lang=vi-vn"><img src="/Content/images/vn.png" alt="images"><span>VietNamese</span></a></li>
+                            <li><a href="/Home/Language?lang=en-us"><img src="/Content/images/gb.png" alt="images"><span>English</span></a></li>
+
+                        </ul>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+    <div class="header-main">
+        <div class="nav_top header-menu">
+            <div class="container">
+                <div class="nav-top-content">
+                    <div class="logo"><a href="/"><img src="/Content/images/logo2025.png?vs=01" alt="" width="140"></a></div>
+                    <div>
+                        <nav class="nav-list">
+                            <ul>
+                                @{Html.RenderAction("Menu", "Home", new { lang = langpage });}
+
+                                <li class="search-wrap">
+                                    <a href="javascript:" onclick="search()" class="search-btn"><i class="fa fa-search" aria-hidden="true"></i></a>
+                                    <div class="search-box">
+                                        <input type="text" placeholder="@Resources.Global.MenuSearch" onkeydown="javascript: return AnyInput_KeyDown(this, event);" id="txtKeyword" class="input-cm">
+                                    </div>
+                                </li>
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+                <div class="header-mobile">
+                    <div class="mobile-bar">
+                        <div class="mobile-logo">
+                            <a href="/">
+                                <img src="/Content/images/logo2025.png" alt="logo">
+                            </a>
+                        </div>
+                        <button class="open-mobi ico-menu"><img src="/Content/images/menu-white.svg" alt="" width="30"></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="banner">
+            <div class="swiper homeslideSwiper">
+                <div class="swiper-wrapper">
+                    @{Html.RenderAction("Banner", "Home", new { lang = langpage });}
+                </div>
+                <div class="swiper-pagination"></div>
+            </div>
+        </div>
+    </div>
+    <div class="header-mobile-content">
+        <div class="header-mb-top">
+            <a href="#menu" class="ico-close">
+                <i class="fa fa-times" aria-hidden="true"></i>
+            </a>
+        </div>
+        <div class="nav-mb">
+            <ul class="nav-mb-list">
+                @{Html.RenderAction("MenuMobile", "Home", new { lang = langpage });}
+            </ul>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    function search() {
+        var searchtext = $("#txtKeyword").val();
+        window.location = "/News/Search?q=" + searchtext;
+
+    }
+    function AnyInput_KeyDown(sender, e) {
+        if ((e.which && e.which == 13) || (e.keyCode && e.keyCode == 13)) {
+            search();
+
+            return false;
+        }
+
+        return true;
+    }
+
+
+    function Msearch() {
+        var searchtext = $("#txtKeywordMobile").val();
+        window.location = "/News/Search?q=" + searchtext;
+
+    }
+    function MAnyInput_KeyDown(sender, e) {
+        if ((e.which && e.which === 13) || (e.keyCode && e.keyCode === 13)) {
+            Msearch();
+
+            return false;
+        }
+
+        return true;
+    }
+
+
+
+</script>

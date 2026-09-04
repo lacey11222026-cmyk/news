@@ -1,0 +1,23 @@
+﻿@using BIZ
+@using UTILS
+@using WebMVC4.Helper
+@model WebMVC4.Models.LastestNewModel
+@if (Model != null)
+{
+    if (Model.lstdata.Count > 0)
+    {
+    <div class="border-blue">
+        <h2 class="title-cm02"><a href="#">@Model.HeaderTitle</a></h2>
+        <ul class="news-list">
+            @foreach (var item in Model.lstdata.Select((value, i) => new { i, value }))
+            {
+                <li>
+                    <a href="@item.value.LinkUrl">@item.value.Title</a>
+                    <span class="date mt10">@item.value.PublishDate.ToString("dd/MM/yyyy - HH:mm")</span>
+                </li>
+            }
+
+        </ul>
+    </div>
+    }
+}

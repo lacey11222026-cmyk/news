@@ -1,0 +1,216 @@
+﻿@{
+
+    Layout = "~/Views/Shared/_AdminV2.cshtml";
+
+}
+@using BIZ
+@using UTILS
+@using Local.Helper
+@model Local.Models.ViewUserDetail
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <i class="fa fa-fw fa-user-plus"></i><span>@ViewBag.Title </span>
+            </div>
+            <form id="defaultForm" method="post" class="form-horizontal">
+                <div class="panel-group" id="steps">
+
+                    <div class="panel panel-info">
+                        <div id="Errordiv" style="margin:20px;color:red;font-size:13pt"><center></center></div><br />
+
+                        <div style="padding: 10px 0 0 0;background-color:#fff !important">
+                            <ul class="nav nav-tabs">
+                                <li class="active"><a href="#tabs-info" data-toggle="tab"><strong>Thông tin</strong></a></li>
+                                <li><a href="#tabs-role" data-toggle="tab"><strong>Vai trò</strong></a></li>
+                                <li><a href="#tabs-cate" data-toggle="tab"><strong>Chuyên mục</strong></a></li>
+                            </ul>
+                            <div class="tab-content" style="margin-top: 30px;">
+                                <div class="col-md-12 tab-pane active" id="tabs-info">
+                                    <div class="col-md-12">
+
+                                        <!-- dành cho UpdateFunction -->
+                                        <div class="form-group">
+                                            <label for="UserName" class="control-label col-md-2">Tên người dùng :<span class="required">*</span></label>
+                                            <div class="col-md-10">
+                                                <div class="input-icon right">
+                                                    <label class="control-label">@Model.user.UserName</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="NewPassword" class="control-label col-md-2">Mật khẩu :<span class="required">*</span></label>
+                                            <div class="col-md-10">
+                                                <div class="input-icon right">
+                                                    <input type="password" id="NewPassword" name="NewPassword" class="form-control" placeholder="" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="ConfirmPassword" class="control-label col-md-2">Xác nhận mật khẩu :<span class="required">*</span></label>
+                                            <div class="col-md-10">
+                                                <div class="input-icon right">
+                                                    <input type="password" id="ConfirmPassword" name="ConfirmPassword" class="form-control" placeholder="" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="Email" class="control-label col-md-2">Email :<span class="required">*</span></label>
+                                            <div class="col-md-10">
+                                                <div class="input-icon right">
+                                                    <label class="control-label">@Model.user.Email</label>
+                                                </div>
+                                            </div>
+                                        </div>
+
+
+                                    </div>
+                                     <div class="panel-footer form-horizontal">
+                                        <div class="form-group submit">
+                                            <button type="button" class="btn btn-primary" id="btsubmit" onclick="changepass('@Model.user.UserName');"><i class="fa fa-save"></i>Đổi mật khẩu</button>
+                                            <button type="button" class="btn btn-default" id="btnBack" onclick="Close();"><i class="fa fa-backward"></i>Quay lại</button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-12 tab-pane" id="tabs-role">
+                                    <div class="col-md-12">
+
+                                        @foreach (string role in Model.rolenames)
+                                        {
+                                            <div class="col-md-4 data" style="padding-left:0px;">
+                                                @if (Model.user_roles.Contains(role))
+                                                {
+                                                    <input type="checkbox" onclick="setRole('@Model.user.UserName','@role','@HtmlHelpers.GetRoleName(role)');" checked="checked" class="chkRole" /> @HtmlHelpers.GetRoleName(role)
+                                                }
+                                                else
+                                                {
+                                                    <input type="checkbox" value="@role" onclick="setRole('@Model.user.UserName','@role','@HtmlHelpers.GetRoleName(role)');" class="chkRole" />  @HtmlHelpers.GetRoleName(role)
+                                                }
+                                            </div>
+
+                                        }
+                                    </div>
+
+
+
+                                </div>
+                                <div class="col-md-12 tab-pane" id="tabs-cate">
+                                    <div class="col-md-12">
+                                        @foreach (var cate in Model.lstcate)
+                                        {
+                                            <div class="col-md-4 data" style="padding-left:0px;">
+                                                @if (Model.userCategoryPath.Contains(","+cate.Id+","))
+                                                {
+                                                    <input type="checkbox" name="chkcategory" value="@cate.Id" checked="checked" class="chkcate" /> @cate.Name
+                                                }
+                                                else
+                                                {
+                                                    <input type="checkbox"  name="chkcategory" value="@cate.Id" class="chkcate" /> @cate.Name
+                                                }
+                                            </div>
+
+                                        }
+                                    </div>
+                                    <div class="panel-footer form-horizontal">
+                                        <div class="form-group submit">
+                                            <button type="button" class="btn btn-primary" id="btsubmit" onclick="SaveData('@Model.user.UserName');"><i class="fa fa-save"></i>Lưu lại</button>
+                                            <button type="button" class="btn btn-default" id="btnBack" onclick="Close();"><i class="fa fa-backward"></i>Quay lại</button>
+                                        </div>
+                                    </div>
+                                </div>
+                              
+                            </div>
+                            <div style="clear:both"></div>
+                        </div>
+
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+
+<script>
+    $('#menu_adduser').addClass("active");
+
+</script>
+
+
+
+
+<script type="text/javascript">
+    function Close() {
+        window.location.href = "@Url.Action("Users","System")";
+    }
+
+    function changepass(username) {
+        bootbox.confirm("Bạn có chắc chắn muốn đổi mật khẩu ??? ", function (result) {
+            if (result == true) {
+
+                var NewPassword = $('#NewPassword').val();
+                validateForm();
+                $.post('@Url.Action("UserChangPass", "System")',
+                    { "username": username, "newPassword": NewPassword },
+                    function (data) {
+                        Close();
+                    });
+            }
+        });
+
+    }
+    function setRole(username, rolename, roledesc) {
+        bootbox.confirm("Bạn có chắc chắn muốn thêm/xóa quyền ??? ", function (result) {
+            if (result == true) {
+                $.post('@Url.Action("UserSetRole", "System")',
+                               { "username": username, "rolename": rolename, "roledesc": roledesc },
+                               function (data) {
+                                   bootbox.alert(data);
+                               });
+            }
+        });
+
+    }
+    function SaveData(username) {
+        var categorypath = ",";
+        $('.chkcate').each(function () {
+            if ($(this).is(":checked"))
+            {
+                categorypath+=$(this).val() + ",";
+            }
+            
+
+        });
+        
+        $.post('@Url.Action("SaveUserCategory", "System")',
+                              { "svalue": categorypath, "username": username },
+                              function (data) {
+                                  bootbox.alert("Phân quyền thành công");
+                              });
+    }
+    function validateForm() {
+        var NewPassword = $('#NewPassword').val();
+        var ConfirmPassword = $('#ConfirmPassword').val();
+
+        if (NewPassword == "") {
+            alert('Mật khẩu không được trống');
+            $('#NewPassword').focus();
+            return false;
+        }
+        if (NewPassword.length < 6) {
+            alert('Mật khẩu phải trên 6 kí tự');
+            $('#NewPassword').focus();
+            return false;
+        }
+        if (NewPassword != ConfirmPassword) {
+            alert('Mật khẩu không hợp lệ');
+            $('#ConfirmPassword').focus();
+            return false;
+        }
+
+        return true;
+
+    }
+</script>

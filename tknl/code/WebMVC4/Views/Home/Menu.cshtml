@@ -1,0 +1,148 @@
+﻿@using BIZ
+@using UTILS
+@using WebMVC4
+@using WebMVC4.Helper
+@model List<BIZ.Entity.CATEGORY_FULL>
+
+@{var StaticSiteUrl = MvcApplication.StaticSiteUrl;}
+<div class="header2019">
+    <img src="@(StaticSiteUrl)Images/bnr2019.gif" alt="Chương trình quốc gia về sử dụng năng lượng tiết kiệm và hiệu quả" class="f-right bnr-img">
+    <div class="bnr-content">
+        <div class="page">
+            <a href="/" class="logo2019"><img src="@(StaticSiteUrl)Images/logo2019.png" alt="VNEEP"></a>
+        </div>
+    </div>
+</div>
+<div class="menu2019">
+    <ul class="menu2019-list page">
+        <li><a href="/" rel="ct1"><img src="@(StaticSiteUrl)Images/ic1.png"></a></li>
+        @foreach (var item in Model.Select((value, i) => new { i, value }))
+        {
+
+            <li><a href="@UTILS.Utils.FormatUrlRewriteByType(item.value.Id, item.value.Name, int.Parse(item.value.Type.ToString()), item.value.Link)">@item.value.Name</a></li>
+
+        }
+        <li style="width: 30px; height: 20px; margin-top: 5px;"><a href="http://vneec.gov.vn/"><img style="width:100%;" src="@(StaticSiteUrl)Images/uktoday.jpg"></a></li>
+    </ul>
+    <div class="clear"></div>
+</div>
+<div class="nav-mobile">
+    <div class="header-m">
+        <a href="#menu">
+            <img src="@(StaticSiteUrl)Images/ic_m.jpg" alt="">
+        </a>
+    </div>
+    <div id="menu">
+        <ul>
+            @foreach (var item in Model.Select((value, i) => new { i, value }))
+            {
+
+                <li><a href="@UTILS.Utils.FormatUrlRewriteByType(item.value.Id, item.value.Name, int.Parse(item.value.Type.ToString()), item.value.Link)">@item.value.Name</a></li>
+
+            }
+            <li><p style="text-transform: uppercase; padding: 10px 20px;">Ngôn ngữ : <a href="http://vneec.gov.vn/"><img src="@(StaticSiteUrl)Images/uktoday.jpg" alt="EN" style="width: 30px;"></a></p></li>
+            <li class="link-list-m">
+                <a href="https://www.youtube.com/channel/UCFfXHgMRa5zwPhGltIv89LQ" target="_blank"><img src="@(StaticSiteUrl)Images/icon-youtube.png" alt=""></a>
+                <a href="https://www.facebook.com/vptknl2019/" target="_blank"><img src="@(StaticSiteUrl)Images/icon-face.png" alt=""></a>
+                <a href="Tel:02422202358"><img src="@(StaticSiteUrl)Images/icon-phone.png" alt=""> 024.22202358</a>
+            </li>
+        </ul>
+    </div>
+</div>
+<div class="tool_phu page tool">
+    @ViewBag.Date
+    <div class="link-list pull-right mt5">
+        <ul>
+            <li><a href="https://www.youtube.com/channel/UCFfXHgMRa5zwPhGltIv89LQ" target="_blank"><img src="@(StaticSiteUrl)Images/icon-youtube.png" alt=""></a></li>
+            <li><a href="https://www.facebook.com/vptknl2019/" target="_blank"><img src="@(StaticSiteUrl)Images/icon-face.png" alt=""></a></li>
+            <li><a href="Tel:02422202358"><img src="@(StaticSiteUrl)Images/icon-phone.png" alt=""> 024.22202358</a></li>
+            <li>
+                <div class=" input-group">
+                    <input type="text" id="txtKeyword" class="form-control" placeholder="Tìm kiếm ...">
+                    <span class="input-group-btn">
+                        <button class="btn btn-default" onclick="search()" type="button"><img src="@(StaticSiteUrl)Images/icon-search.png" alt="Search"></button>
+                    </span>
+                </div>
+            </li>
+            <li>
+                <form>
+                    <div class="form-group ">
+                        <select class="form-control" id="Select1" onchange="window.open(this.options[this.selectedIndex].value,'_blank');this.options[0].selected=true" style="width:137px">
+                            <option>Liên kết</option>
+                            <option value="https://moit.gov.vn/">Bộ Công Thương</option>
+                            <option value="http://scp.gov.vn/">SXSH & SXTDBV</option>
+                            <option value="http://veeie.vn/">Dự án VEEIE</option>
+                            <option value="http://vecea.vn/">Hội KHCN sử dụng năng lượng TK&HQ VN</option>
+                        </select>
+                    </div>
+                </form>
+            </li>
+        </ul>
+    </div>
+    <div class="clear"></div>
+</div>
+
+<div class="tool_mobile block_mobile">
+    <div class="date">@ViewBag.Date</div>
+    <ul>
+        <li>
+            <div class="search_m">
+                <a class="click" href="javascript:;"></a>
+                <input class="submit_m" type="submit" onclick="Msearch()">
+                <input class="text_m" type="text" id="MtxtKeyword" placeholder="Nhập từ cần tìm" onkeydown="javascript: return MAnyInput_KeyDown(this, event);">
+            </div>
+        </li>
+    </ul>
+    <div class="clearfix"></div>
+</div>
+
+
+
+
+
+<script type="text/javascript">
+    
+//<!-- search box mobile-->
+$(".click").click(function(){
+	$(".click").hide();
+	$(".tool_phu .date").hide();
+	$(".submit_m").fadeIn();
+	$(".text_m").fadeIn("slow");
+});
+
+$(".block_mobile .click").bind('click', function(){
+	$(".block_mobile .date").hide();
+	$(".block_mobile .search_m").animate({width: "80%"});
+});
+
+    function search() {
+        var searchtext = $("#txtKeyword").val();
+        window.location = "/News/Search?keyword=" + searchtext;
+
+    }
+    function AnyInput_KeyDown(sender, e) {
+        if ((e.which && e.which == 13) || (e.keyCode && e.keyCode == 13)) {
+            search();
+
+            return false;
+        }
+
+        return true;
+    }
+   
+     function Msearch() {
+        var searchtext = $("#MtxtKeyword").val();
+        window.location = "/News/Search?keyword=" + searchtext;
+
+    }
+    function MAnyInput_KeyDown(sender, e) {
+        if ((e.which && e.which == 13) || (e.keyCode && e.keyCode == 13)) {
+            Msearch();
+
+            return false;
+        }
+
+        return true;
+    }
+    
+</script>

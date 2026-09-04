@@ -1,0 +1,58 @@
+﻿@using BIZ
+@using UTILS
+@using WebMVC4.Helper
+@model List<BIZ.Entity.CONTENT_FULL>
+
+@{Html.RenderAction("Breadcrumb", "News", new { CategoryId = 40 });}
+<div class="choose-year mt15">
+    <p>Chọn năm xuất bản</p>
+    <select id="ddlYear" onchange="searchnews()">
+        <option value="0">--Chọn năm--</option>
+        @for (var i = DateTime.Now.Year; i >= 2011; i--)
+        {
+            if (i == ViewBag.Year)
+            {
+                <option value="@i" selected="selected">Năm @(i)</option>
+            }
+            else
+            {
+                <option value="@i">Năm @(i)</option>
+            }
+
+        }
+    </select>
+</div>
+<ul class="row bantin-list mt20">
+    @foreach (var item in Model.Select((value, i) => new {i, value}))
+    {
+        <li class="col-md-3 col-sm-3 col-xs-6">
+            <a href="@item.value.LinkUrl">
+                <img alt="@item.value.Title" src="@item.value.MainImage?w=165&h=235&mode=crop" />
+                <span>@item.value.Title</span>
+            </a>
+        </li>
+    }
+
+</ul>
+<div class="pagination pull-right mt30">
+    <ul>
+        @{Html.RenderPartial("Pagination", new WebMVC4.Models.PaginationInfo
+          {
+              PageUrl = Url.SetParameter("Page", "!0"),
+              CurrentPage = ViewBag.Page,
+              PageSize = ViewBag.PageSize,
+              TotalItemCount = ViewBag.Total,
+          }); }
+    </ul>
+</div>
+
+<script src="~/Scripts/jquery.query.js"></script>
+<script type="text/javascript">
+
+
+            function searchnews() {
+               
+                var Year = $('#ddlYear option:selected').val();
+                window.location = jQuery.query.set("Year", Year).set("Page", "1");
+            }
+</script>

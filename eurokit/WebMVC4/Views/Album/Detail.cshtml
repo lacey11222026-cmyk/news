@@ -1,0 +1,62 @@
+﻿@using BIZ
+@using UTILS
+@using WebMVC4.Helper
+@model DATA.Album
+@if (Model != null)
+{
+    <link href="~/fancybox2.1.5/jquery.fancybox.css" rel="stylesheet" />
+    <script src="~/fancybox2.1.5/jquery.fancybox.js"></script>
+    <div class="cate">
+        @{Html.RenderAction("Breadcrumb", "News", new { CategoryId = Model.CategoryId });}
+        <div class="clear">
+        </div>
+        <div class="content_new_detail">
+            <div class="box_nd">
+                <div id="titleNews" class="tieude">
+                    <h2>@Model.Title</h2>
+                </div>
+                <div id="introNews" class="intro">@Html.Raw(Model.Description)</div>
+            </div>
+            <br />
+            <br />
+
+            @if (ViewBag.ImgList != null)
+            {
+                <div id="PnlLightBox">
+                    <div class="chum_anhlist" id="lstlightbox">
+                        @foreach (BIZ.Entity.AlbumImage item in ViewBag.ImgList)
+                        {
+                            <a href="@item.Name.0.@(ViewBag.Height).jpg" class="chum_anh" title="@item.Text" rel="group"  >
+                                <img src="@item.Name.100.100.jpg" width="100px" height="100px" 
+                                        alt="" /></a>
+                        }
+                        <div class="clear">
+                        </div>
+                    </div>
+                    <div class="clear">
+                    </div>
+                    <script type='text/javascript'>
+                        $(document).ready(function () {
+                            $("#lstlightbox a").fancybox({
+                                
+                            });
+                        });
+
+                        //$(function () {
+
+                        //    $(' #lstlightbox a').lightBox();
+
+
+
+                        //});
+                    </script>
+                </div>
+            }
+
+        </div>
+
+    </div>
+}
+
+
+

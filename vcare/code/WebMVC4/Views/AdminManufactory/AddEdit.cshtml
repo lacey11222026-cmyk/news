@@ -1,0 +1,345 @@
+﻿@using UTILS
+@using DATA
+@using BIZ.Entity
+
+@{
+
+    Layout = "~/Views/Shared/_AdminV2.cshtml";
+}
+@{
+    List<CATEGORY_FULL> ListCate = ViewBag.CategoryList;
+    List<MANUFACTORY_FULL> ListManu = ViewBag.ManuList;
+}
+@model MANUFACTORY_FULL
+<div class="row">
+    <div class="col-md-12">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <i class="fa fa-fw fa-user-md"></i><span>@ViewBag.Title</span>
+            </div>
+            <form id="defaultForm" method="post" class="form-horizontal">
+                <div class="panel-group" id="steps">
+                    <div class="messager-body">
+                        <div class="alert alert-success display-hide alert-dismissable">
+                            <button type="button" class="close" data-close="alert" aria-hidden="true">×</button>
+                            <span class="glyphicon glyphicon-ok"></span>
+                            <label>Đã lưu dữ liệu thành công !!!</label>
+                        </div>
+                        <div class="alert alert-danger display-hide alert-dismissable">
+                            <button type="button" class="close" data-close="alert" aria-hidden="true">×</button>
+                            <span class="glyphicon glyphicon-warning-sign"></span>
+                            <label>Có một vài lỗi trong khung nhập liệu dưới đây ! kiểm tra lại</label>
+                        </div>
+                    </div>
+                    <div class="panel panel-info">
+
+                        <div class="panel-body">
+                            <!-- dành cho UpdateFunction -->
+                            <div style="padding: 10px 0 0 0; background-color: #fff !important" class="nav-tabs-custom">
+
+                                <div class="tab-content" style="margin-top: 30px;">
+                                    <div class="col-md-12 tab-pane active" id="tabs-info">
+                                        <div class="form-group">
+                                            <label for="txtName" class="control-label col-md-3">Tên model :<span class="required">*</span></label>
+                                            <div class="col-md-9">
+                                                <div class="input-icon right">
+                                                    <input type="text" id="txtName" maxlength="200" name="title" value="@Model.Title" class="form-control" placeholder="Nhập tên" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="ddlCate" class="control-label col-md-3">Hãng :<span class="required">*</span></label>
+                                            <div class="col-md-9">
+                                                <div class="input-icon right">
+                                                    <select class="form-control" id="ddlCate">
+                                                        @if (ListCate != null && ListCate.Count > 0)
+                                                        {
+                                                            foreach (var obj in ListCate)
+                                                            {
+                                                                <option value="@obj.Id" @if (obj.Id == Model.CategoryId) { @Html.Raw("selected='selected'") ; }>@obj.Name</option>
+                                                            }
+                                                        }
+                                                    </select>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="txtMainCate" class="control-label col-md-3">Chuyên Mục Cha :<span class="required">*</span></label>
+                                            <div class="col-md-9">
+                                                <div class="input-icon right">
+                                                    <select class="form-control" id="ddlMainCate">
+                                                        <option value="0">- Nhóm gốc -</option>
+                                                        @if (ListManu != null && ListManu.Count > 0)
+                                                        {
+                                                            foreach (var obj in ListManu)
+                                                            {
+                                                                <option value="@obj.Id"  @if (obj.Id == Model.ParentId) { @Html.Raw("selected='selected'") ; }>@obj.Title</option>
+                                                            }
+                                                        }
+                                                    </select>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group" @if (Model.Id == 0) { @Html.Raw("style='display:none'"); }>
+                                            <label for="txtUrl" class="control-label col-md-3">Url :</label>
+                                            <div class="col-md-9">
+                                                <div class="input-icon right">
+                                                    <input type="text" id="txtUrl" name="url" value="@Model.Website" class="form-control" placeholder="Nhập liên kết" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="txtOrder" class="control-label col-md-3">Thứ tự :</label>
+                                            <div class="col-md-9">
+                                                <div class="input-icon right">
+                                                    <input type="number" min="0" step="1" id="txtOrder" name="order" value="@Model.Ordering" class="form-control" placeholder="" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group" style="display:none">
+                                            <label for="select_language" class="control-label col-md-3">Ngôn ngữ :<span class="required">*</span></label>
+                                            <div class="col-md-9">
+                                                <div class="input-icon right">
+                                                    <select id="select_language" name="select_language" class="form-control">
+                                                        <option value="vi-vn">Tiếng Việt</option>
+                                                        <option value="en-us">Tiếng Anh</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+
+
+                                        <div class="form-group" style="display:none">
+                                            <label for="txtImgPath" class="control-label col-md-3">Ảnh Đại Diện (280x184) :<span class="required">*</span></label>
+                                            <div class="col-md-6">
+                                                <input type="text" id="txtImgPath" name="imgPath" value="@Model.Image" class="form-control" placeholder="Nhập ảnh đại diện" />
+                                            </div>
+                                            <div class="col-md-1">
+                                                <a href="javascript:;" onclick="CommonCtrl.PopupManagerImages('txtImgPath');"><i class="fa fa-file"></i></a>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="txtDescription" class="control-label col-md-3">Mô tả :<span class="required">*</span></label>
+                                            <div class="col-md-9">
+                                                <div class="input-icon right" style="width:90%">
+                                                    <textarea id="txtDescription" style="height: 200px;" cols="20" name="description" class="form-control" placeholder="Nhập mô tả">@Model.Description.Trim()</textarea>
+                                                </div>
+
+                                            </div>
+                                            <script>
+                                                var editor2 = CKEDITOR.instances['txtDescription'];
+                                                if (editor2) {
+                                                    CKEDITOR.remove(editor2);
+                                                }
+                                                CKEDITOR.replace('txtDescription',
+                                                    {
+                                                        filebrowserBrowseUrl: "/AdminImages/ManageImage",
+                                                        filebrowserWindowWidth: '1100',
+                                                        filebrowserWindowHeight: '800',
+                                                        uiColor: '#FAFAFA',
+                                                        allowedContent: true,
+                                                        extraAllowedContent: '*(*)',
+                                                        extraPlugins: 'youtube',
+                                                        toolbar: [
+                                                            {
+                                                                name: 'document',
+                                                                items: ['Source', '-', 'NewPage', 'Preview', '-']
+                                                            },
+                                                            [
+                                                                'Cut', 'Copy', 'Paste', 'PasteText', 'PasteFromWord', '-',
+                                                                'Undo', 'Redo'
+                                                            ],
+                                                            { name: 'styles', items: ['Font', 'FontSize'] },
+                                                            {
+                                                                name: 'basicstyles',
+                                                                items:
+                                                                    [
+                                                                        'Bold', 'Italic', 'Underline', 'Strike', 'Subscript',
+                                                                        'Superscript', '-', 'RemoveFormat'
+                                                                    ]
+                                                            },
+                                                            '/',
+                                                            { name: 'colors', items: ['TextColor', 'BGColor'] },
+                                                            {
+                                                                name: 'paragraph',
+                                                                items:
+                                                                    [
+                                                                        'NumberedList', 'BulletedList', '-', 'Outdent',
+                                                                        'Indent', '-', 'Blockquote', '-', 'JustifyLeft',
+                                                                        'JustifyCenter', 'JustifyRight', 'JustifyBlock'
+                                                                    ]
+                                                            },
+                                                            {
+                                                                name: 'insert',
+                                                                items:
+                                                                    [
+                                                                        'Image', 'Youtube', 'Flash', 'Table', 'HorizontalRule',
+                                                                        'Smiley', 'SpecialChar', 'PageBreak', 'Iframe'
+                                                                    ]
+                                                            },
+                                                            { name: 'links', items: ['Link', 'Unlink', 'Maximize'] }
+                                                        ],
+                                                        height: 200
+                                                    });
+                                            </script>
+                                        </div>
+
+
+                                        <div class="form-group">
+                                            <label class="control-label col-md-3" for="cbxIsActive">Trạng thái :</label>
+                                            <div class="col-md-4">
+                                                <div class="checkbox">
+                                                    @if (Model.Published == 1)
+                                                    {<input type="checkbox" id="cbxIsActive" checked="checked" />}
+                                                    else
+                                                    {<input type="checkbox" id="cbxIsActive" />}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+                                    @*@if (Model.Id > 0)
+                                        {
+                                            <div class="col-md-12 tab-pane" id="tabs-sub">
+                                                @{ Html.RenderAction("ListCategoryManufactory2", "AdminManufactory", new { ManuId = Model.Id }); }
+                                            </div>
+                                        }*@
+
+
+
+                                    <div class="col-md-12">
+                                        <div class="panel-footer form-horizontal">
+                                            <div class="form-group submit">
+                                                <button type="submit" class="btn btn-primary" id="btnSave"><i class="fa fa-save"></i>Lưu lại</button>
+
+                                                <button type="button" class="btn btn-default" id="btnBack" onclick="GotoListpage()"><i class="fa fa-backward"></i>Quay lại</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="clear"></div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script>
+    $('#menu_managemanufactory').addClass("active");
+
+</script>
+
+
+<script type="text/javascript">
+    $(document).ready(function () {
+
+        $('#defaultForm').bootstrapValidator({
+            message: 'This value is not valid',
+            //live: 'submitted',
+            feedbackIcons: {
+                valid: 'glyphicon glyphicon-ok',
+                invalid: 'glyphicon glyphicon-remove',
+                validating: 'glyphicon glyphicon-refresh'
+            },
+            fields: {
+
+                title: {
+                    message: 'Nhập tên hãng',
+                    validators: {
+                        notEmpty: {
+                            message: 'tên hãng không được bỏ trống'
+                        },
+
+
+                    }
+                },
+
+
+            }
+        })
+        .on('success.form.bv', function (e) {
+            // Prevent submit form
+            e.preventDefault();
+
+            var $form = $(e.target),
+                        validator = $form.data('bootstrapValidator');
+            SaveData();
+            $(".close").click(function () {
+                $(".alert-success").css("display", "none");
+            });
+        })
+        .on('error.form.bv', function (e) {
+            // Active the panel element containing the first invalid element
+            e.preventDefault();
+            var $form = $(e.target),
+                    validator = $form.data('bootstrapValidator');
+            $(".alert-danger label").text("Có một vài lỗi trong khung nhập liệu dưới đây ! kiểm tra lại");
+            $(".alert-danger").css("display", "block");
+            $(".close").click(function () {
+                $(".alert-danger").css("display", "none");
+                $(".alert-success").css("display", "none");
+            });
+        });
+
+        function SaveData() {
+            //var content = tinyMCE.get('txtIntro').getContent();
+
+            var param = {
+                'Id': '@Model.Id',
+                'CategoryId': $("#ddlCate").val(),
+                'Title': $("#txtName").val(),
+                'WebSite': $("#txtUrl").val(),
+                'Image': $("#txtImgPath").val(),
+                'Description': CKEDITOR.instances['txtDescription'].getSnapshot(),
+                'Ordering': $("#txtOrder").val(), 
+                'ParentId': $("#ddlMainCate").val(), 
+                'Published': $("#cbxIsActive").is(":checked") ? 1 : 0
+            }
+            Utils.Loading();
+            $.ajax({
+                type: 'POST',
+                url: "/AdminManufactory/SaveData",
+                data: addAntiForgeryToken(param),
+                async: true,
+                success: function (data) {
+
+                    Utils.UnLoading();
+                    if (data.ResponseCode >= 0) {
+                        $("html,body").animate({ scrollTop: $('#TemplateContent').offset().top }, 'fast');
+                        $(".alert-success").show("slow");
+                        $(".alert-danger").hide("slow");
+                        setTimeout(function () { $(".alert-success").hide("slow"); GotoListpage(); }, 500);
+
+                    }
+                    else {
+                        $("html,body").animate({ scrollTop: $('#TemplateContent').offset().top }, 'fast');
+                        $("#ErrorMessage").text(data.Description);
+                        $(".alert-danger").show("slow");
+                        $(".alert-success").hide("slow");
+                        setTimeout(function () { $(".alert-danger").hide("slow"); }, 2000);
+                    }
+                }
+            });
+        }
+    });
+
+
+
+    function GotoListpage() {
+        window.location.href = '/AdminManufactory/';
+    }
+
+
+
+
+
+</script>
+
+

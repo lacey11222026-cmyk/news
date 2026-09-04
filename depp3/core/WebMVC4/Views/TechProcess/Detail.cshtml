@@ -1,0 +1,160 @@
+﻿@model TechProcess
+
+@using BIZ
+@using DATA
+@using UTILS
+@using WebMVC4.Helper
+
+    <p class="title-cm title-cm-inline"><a href="#">Quy trình công nghệ</a></p>
+<div id="document" class="main-content">
+    <div class="list-page">
+        <div class="document-table table-responsive mt20">
+            <table>
+                <tbody>
+                    <tr class="bgcolor1">
+                        <td width="40%" height="50">
+                            Tên quy trình:
+                        </td>
+                        <td colspan="3">
+
+                            @Model.Name
+
+                        </td>
+                    </tr>
+                    <tr class="bgcolor1">
+                        <td width="40%" height="50">
+                            Quy mô:
+                        </td>
+                        <td colspan="3">
+
+                            @Model.Scale
+
+                        </td>
+                    </tr>
+                    <tr class="bgcolor1">
+                        <td width="40%" height="50">
+                            Thuộc đề tài:
+                        </td>
+                        <td colspan="3">
+
+                            @Model.Topic
+
+                        </td>
+                    </tr>
+                    <tr class="bgcolor1">
+                        <td width="40%" height="50">
+                            Mã số Đề tài/Dự án SXTN:
+                        </td>
+                        <td colspan="3">
+
+                            @Model.Code
+
+                        </td>
+                    </tr>
+                    <tr class="bgcolor1">
+                        <td width="40%" height="50">
+                            Tên cơ quan chủ trì:
+                        </td>
+                        <td colspan="3">
+
+                            @Model.Organ
+
+                        </td>
+                    </tr>
+                    <tr class="bgcolor1">
+                        <td width="40%" height="50">
+                            Tên cá nhân chủ nhiệm:
+                        </td>
+                        <td colspan="3">
+
+                            @Model.CreatedBy
+
+                        </td>
+                    </tr>
+                    <tr class="bgcolor1">
+                        <td width="40%" height="50">
+                            Thời gian thực hiện Đề tài/Dự án SXTN:
+
+
+                        </td>
+                        <td colspan="3">
+
+                            @Model.FromDate
+
+                        </td>
+                    </tr>
+                    <tr class="bgcolor1">
+                        <td width="40%" height="50">
+                            Tình trạng sở hữu trí tuệ (nếu có):
+
+
+                        </td>
+                        <td colspan="3">
+
+                            @Model.Status
+
+                        </td>
+                    </tr>
+                    <tr class="bgcolor1">
+                        <td width="40%" height="50">
+                            Số giấy chứng nhận sở hữu trí tuệ/công
+                            nghiệp (nếu có):
+
+
+                        </td>
+                        <td colspan="3">
+
+                            @Model.Code2
+
+                        </td>
+                    </tr>
+                    <tr class="bgcolor1">
+                        <td width="40%" height="50">
+                            Tình trạng ứng dụng quy trình sản xuất
+                            trong và sau khi hoàn thành nhiệm vụ:
+
+                          
+
+                        </td>
+                        <td colspan="3">
+
+                            @Model.Result
+
+                        </td>
+                    </tr>
+                    <tr class="bgcolor1">
+                        <td width="40%" height="50">
+                            Xem online
+                        </td>
+                        <td colspan="3" class="titledoc2">
+
+                            <a href="@Url.Action("ViewFile",new { id=Model.Id})" target="_blank">Xem online</a>
+                        </td>
+
+                    </tr>
+                    <tr class="bgcolor1">
+                        <td width="40%" height="50" class="titledoc">
+                            Tải file
+                        </td>
+                        <td colspan="3" class="titledoc2">
+                            <a href="@Url.Action("DownloadFile",new { id=Model.Id})">Tải file </a>
+
+
+                        </td>
+
+                    </tr>
+                   
+                    
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</div>
+<div class="clear padtop10"></div>
+
+<style>
+    .titledoc2 a {
+        color: #1f5ecb !important;
+    }
+</style>

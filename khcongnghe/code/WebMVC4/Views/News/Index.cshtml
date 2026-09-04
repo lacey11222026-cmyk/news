@@ -1,0 +1,46 @@
+﻿@using BIZ
+@using UTILS
+@using WebMVC4.Helper
+@model WebMVC4.Models.News2Model
+@{Html.RenderAction("Breadcrumb", "News", new { CategoryId = ViewBag.CategoryId });}
+
+<ul class="cap1-news-list mt30">
+    
+        @if (Model.articles != null)
+        {
+            foreach (var item in Model.articles.Select((value, i) => new { i, value }))
+            {
+            <li>
+                <a href="@item.value.LinkUrl">@*<img src="/Content2/images/new-list.jpg" alt="">*@
+                    <img src="@item.value.MainImage?w=300&h=180&mode=crop" />
+                </a>
+                <div class="cap1-content">
+                    <h3>
+                        <a href="@item.value.LinkUrl">@item.value.Title </a>
+                    </h3>
+                   
+                    <p>
+                        @item.value.IntroText
+                    </p>
+                    <p class="newstime"><span class="glyphicon glyphicon-time" aria-hidden="true"></span>@item.value.PublishDate.ToString("dd/MM/yyyy")</p>
+                </div>
+                <div class="clearfix"></div>
+            </li>
+        }
+    }
+
+
+    </ul>
+<div class="pagination pull-right mt30">
+    <ul>
+        @{Html.RenderPartial("Pagination", new WebMVC4.Models.PaginationInfo
+            {
+                PageUrl = Url.SetParameter("Page", "!0"),
+                CurrentPage = ViewBag.Page,
+                PageSize = ViewBag.PageSize,
+                TotalItemCount = ViewBag.Total,
+            }); }
+    </ul>
+</div>
+
+

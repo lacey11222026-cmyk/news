@@ -1,0 +1,282 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout2.cshtml";
+}
+@using BIZ.Entity
+@using UTILS
+@using WebMVC4.Helper
+@using UTILS;
+@model DATA.ContentDB.UserProjectFull
+<div class="project-detail">
+
+    <section class="section-project-1" style="background-image: url('/Content2/images/cauhinhxaydung-bnr-02.jpg');">
+        <div class="container">
+            <div class="content">
+                <div class="text">
+                    <div class="breadcrumbs-02">
+                        <ul>
+                            <li><a href="/">Trang chủ</a></li>
+                            <li><a href="/du-an">Dự án thực hiện JETP</a></li>
+
+                        </ul>
+                    </div>
+                    <div class="title">
+                        <h2>@Model.Name</h2>
+                        <p></p>
+                    </div>
+                    <div class="option desc">
+                        <div class="status">
+                            <span class="v3"><strong>Loại dự án: &nbsp;</strong> Dự án đầu tư có cấu phần xây dựng</span>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="section-project-2 mt50 pb70">
+        <div class="container">
+            <div class="tbl-wrap">
+                <table>
+                    <tbody>
+                        <tr>
+                            <th>1. Tên dự án</th>
+                            <td>@Model.Name</td>
+                        </tr>
+                        <tr>
+                            <th>2. Địa điểm dự án</th>
+                            <td>@Model.Location</td>
+                        </tr>
+                        <tr>
+                            <th>3. Hạng mục dự án</th>
+                            <td>@HtmlHelpers.UserProjectSubType(Model.SubType, Model.Type)</td>
+                        </tr>
+                        <tr>
+                            <th>4. Đơn vị đăng ký đề xuất</th>
+                            <td>@Model.Unit</td>
+                        </tr>
+                        <tr>
+                            <th>5. Thông tin liên lạc của đại diện đơn vị ký đề xuất </th>
+                            <td>@Html.Raw(Model.UnitIInfo.Replace("\n", "<br>"))</td>
+                        </tr>
+                        <tr>
+                            <th>6. Đơn vị phát triển dự án: </th>
+                            <td>@Model.ProjectConfig.UnitDev</td>
+                        </tr>
+                        <tr>
+                            <th>7. Chủ dự án</th>
+                            <td>
+                                <div class="show-txt">
+                                    <p>
+                                        @Html.Raw(Model.Organ.Replace("\n", "<br>"))
+                                    </p>
+                                    <a href="#" class="btn-orange">Xem thêm</a>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>8. Tổng chi phí dự án</th>
+                            <td>@Model.Total</td>
+                        </tr>
+                        <tr>
+                            <th>9. Đơn vị tiền tệ đầu tư mong muốn</th>
+                            <td>@Model.Currency</td>
+                        </tr>
+                        <tr>
+                            <th>10. Chi tiết ngân sách</th>
+                            <td>
+                                <div class="show-txt">
+                                    <p>
+                                        @Html.Raw(Model.Detail.Replace("\n", "<br>"))
+                                    </p>
+                                    <a href="#" class="btn-orange">Xem thêm</a>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>11. Nguồn tài chính</th>
+                            <td>
+                                <div class="show-txt">
+                                    <p>
+                                        @Html.Raw(Model.Source.Replace("\n", "<br>"))
+                                    </p>
+                                    <a href="#" class="btn-orange">Xem thêm</a>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>12. Loại hình tài chính hiện có và mong muốn</th>
+                            <td>
+                                <div class="show-txt">
+                                    <p>
+                                        @Html.Raw(Model.ProjectConfig.Finance.Replace("\n", "<br>"))
+                                    </p>
+                                    <a href="#" class="btn-orange">Xem thêm</a>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>13. Dòng doanh thu dự kiến</th>
+                            <td>
+                                <div class="show-txt">
+                                    <p>
+                                        @Html.Raw(Model.ProjectConfig.Revenue.Replace("\n", "<br>"))
+                                    </p>
+                                    <a href="#" class="btn-orange">Xem thêm</a>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>14. Tiến độ dự án</th>
+                            <td>@HtmlHelpers.UserProjectProgress(Model.Progress)</td>
+                        </tr>
+                        <tr>
+                            <th>15. Ngày dự kiến khởi công</th>
+                            <td>@Model.ProjectConfig.Time</td>
+                        </tr>
+                        <tr>
+                            <th>16. Ngày dự kiến hoàn thành (CoD)</th>
+                            <td>@Model.ProjectConfig.Finish</td>
+                        </tr>
+                        <tr>
+                            <th>17. Hiện trạng pháp lý của dự án </th>
+                            <td>
+                                <div class="show-txt">
+                                    <p>
+                                        @Html.Raw(Model.LegalStatus.Replace("\n", "<br>"))
+                                    </p>
+                                    <a href="#" class="btn-orange">Xem thêm</a>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>18. Mô tả ngắn gọn dự án và mục tiêu dự án </th>
+                            <td>
+                                <div class="show-txt">
+
+                                    <p>
+                                        @Html.Raw(Model.Detail.Replace("\n", "<br>"))
+                                    </p>
+                                    <a href="#" class="btn-orange">Xem thêm</a>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>19. Tác động dự kiến dự án tạo ra</th>
+                            <td>
+                                <div class="show-txt">
+
+                                    <p>
+                                        @Html.Raw(Model.Impact.Replace("\n", "<br>"))
+                                    </p>
+                                    <a href="#" class="btn-orange">Xem thêm</a>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>20. Cần gói Hỗ trợ Kỹ thuật (TA) <br>để hỗ trợ dự án?</th>
+                            <td>
+                                <div class="show-txt">
+
+                                    <p>
+                                        @Html.Raw(Model.ProjectConfig.TADetail.Replace("\n", "<br>"))
+                                    </p>
+                                    <a href="#" class="btn-orange">Xem thêm</a>
+                                </div>
+
+
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>21. Đáp ứng 4 nguyên tắc chung của JETP: </th>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <th>21.1 Nguyên tắc chung 1</th>
+                            <td>
+                                <div class="show-txt">
+                                    <p>
+                                        @Html.Raw(Model.Rule1.Replace("\n", "<br>"))
+                                    </p>
+                                    <a href="#" class="btn-orange">Xem thêm</a>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>21.2 Nguyên tắc chung 2</th>
+                            <td>
+                                <div class="show-txt">
+                                    <p>
+                                        @Html.Raw(Model.Rule2.Replace("\n", "<br>"))
+                                    </p>
+                                    <a href="#" class="btn-orange">Xem thêm</a>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>21.3 Nguyên tắc chung 3</th>
+                            <td>
+                                <div class="show-txt">
+                                    <p>
+                                        @Html.Raw(Model.Rule3.Replace("\n", "<br>"))
+                                    </p>
+                                    <a href="#" class="btn-orange">Xem thêm</a>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>21.4 Nguyên tắc chung 4</th>
+                            <td>
+                                <div class="show-txt">
+                                    <p>
+                                        @Html.Raw(Model.Rule4.Replace("\n", "<br>"))
+                                    </p>
+                                    <a href="#" class="btn-orange">Xem thêm</a>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>22. Các đánh giá tiền khả thi</th>
+                            <td>
+                                <div class="show-txt">
+                                    <p>
+                                        @Html.Raw(Model.ProjectConfig.Rate.Replace("\n", "<br>"))
+                                    </p>
+                                    <a href="#" class="btn-orange">Xem thêm</a>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>23. Tài liệu dự án</th>
+                            <td>
+                                @Html.Raw(Model.Document.Replace("\n", "<br>"))
+                            </td>
+                        </tr>
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+
+
+
+
+
+</div>
+
+
+<script>
+    $(document).ready(function () {
+        $('.btn-orange').click(function (e) {
+            e.preventDefault();
+            var paragraph = $(this).siblings('p');
+            if (paragraph.hasClass('expanded')) {
+                paragraph.removeClass('expanded');
+                $(this).text('Xem thêm');
+            } else {
+                paragraph.addClass('expanded');
+                $(this).text('Ẩn bớt');
+            }
+        });
+    });
+</script>

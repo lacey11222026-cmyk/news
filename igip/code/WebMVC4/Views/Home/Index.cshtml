@@ -1,0 +1,378 @@
+﻿@using BIZ
+@using UTILS
+@using WebMVC4.Helper
+
+@{
+    var langpage = WorkContext.GetLanguage();
+}
+@model List<DATA.Banner>
+
+@if (langpage == "vi-vn")
+{
+
+
+    <div class="content01 container mt30">
+        <div class="row">
+            <div class="col-lg-9 col-md-12">
+                @{Html.RenderAction("Slide", "Home", new { lang = langpage });}
+            </div>
+            <div class="col-lg-3 col-md-12 sidebar-right">
+                <div class="gray-box">
+                    @{Html.RenderAction("Intro", "Home", new { CategoryId = 65 });}
+                </div>
+                <div class="sider-bnr mt20 hidden-991">
+                    <a href="https://moit.gov.vn/" target="_blank"><img src="~/Content/images/bct.png" alt=""></a>
+                </div>
+                <div class="project-box mt20">
+                    <div class="title-cm01 title-cm01-white">
+                        <a href="#">chương trình - dự án</a>
+                    </div>
+                    <div class="mt20">
+                        <div class="choose-link">
+                            <p>Chương trình - Dự án</p>
+                            <ul class="choose-list">
+                                @foreach (var item in Model.Select((value, i) => new { i, value }))
+                                {
+
+                                    <li><a href="@item.value.Url" target="_blank">@item.value.Name</a></li>
+                                }
+                            </ul>
+                        </div>
+
+                    </div>
+                    @*<div class="mt20">
+                            <select class="form-control input-cm" id="ddLink">
+                                <option value="">Chương trình - Dự án</option>
+                                @foreach (var item in Model.Select((value, i) => new { i, value }))
+                                {
+                                    <option value="@item.value.Url">@item.value.Name</option>
+                                }
+                            </select>
+                        </div>*@
+                </div>
+            </div>
+        </div><!-- end row-->
+    </div><!-- end content 01 -->
+    <div class="bnrCenter container mt40">
+        <div class="bnrSlider">
+            @{Html.RenderAction("Banner", "Home", new { lang = langpage });}
+
+
+        </div>
+    </div>
+    <div class="content03 mt40 container">
+        <div class="row">
+            <div class="col-lg-8 col-sm-12 newsbox-cm">
+                <div class="row">
+
+                    <div class="col-md-6 col-sm-12 newsbox-cm">
+                        @{Html.RenderAction("LastestNews", "Home", new { CateName = "", CategoryId = 19, MaxLastestNews = 4, cssClass = "maxheight02" });}
+                    </div>
+                    <div class="col-md-6 col-sm-12 newsbox-cm">
+                        @{Html.RenderAction("LastestNewsAPI", "Home", new { CateName = "", CategoryId = 7, MaxLastestNews = 4, cssClass = "maxheight02" });}
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-12 col-12 sidebar-right">
+                <div class="gray-box">
+                    @Html.Partial("Site_Right")
+                </div>
+                <div class="gray-box mt20">
+                    @{Html.RenderAction("TopDocument", "Home", new { CategoryId = 3, MaxLastestNews = 2 });}
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+    <div class="bg-gray mt40">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4 col-md-6 col-sm-12 newsbox-cm">
+                    @{Html.RenderAction("LastestNews5", "Home", new { CateName = "", CategoryId = 69, MaxLastestNews = 4, cssClass = "maxheight02" });}
+                </div>
+                <div class="col-lg-4 col-md-6 col-sm-12 newsbox-cm">
+                    @{Html.RenderAction("LastestNews5", "Home", new { CateName = "", CategoryId = 70, MaxLastestNews = 4, cssClass = "maxheight02" });}
+                </div>
+                <div class="col-lg-4 col-md-12 newsbox-cm">
+                    <div class="bnr-sidebar-list">
+                        @{Html.RenderAction("BannerRight3", "Home", new { lang = langpage });}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="content03 mt40 container">
+        <div class="row">
+            <div class="col-md-4 col-sm-12 newsbox-cm">
+                @{Html.RenderAction("LastestNews", "Home", new { CateName = "", CategoryId = 37, MaxLastestNews = 4, cssClass = "maxheight02" });}
+            </div>
+            <div class="col-md-4 col-sm-12 newsbox-cm">
+                @{Html.RenderAction("LastestNewsAPI", "Home", new { CateName = "sử dụng năng lượng tk&Hq", CategoryId = 15, MaxLastestNews = 4, lang = langpage, cssClass = "maxheight02" });}
+            </div>
+            <div class="col-md-4 col-sm-12 newsbox-cm">
+                @{Html.RenderAction("LastestNewsAPI", "Home", new { CateName = "", CategoryId = 20, MaxLastestNews = 4, lang = langpage, cssClass = "maxheight02" });}
+            </div>
+
+        </div>
+    </div>
+    @*<div class="bnrCenter container mt40">
+            <div class="bnr-list-02 bnrSmallSlider02">
+                @{Html.RenderAction("Banner2", "Home", new
+                    {
+                        lang = langpage
+                    });}
+
+            </div>
+        </div>*@
+    <div class="content04 mt40 container">
+        <ul class="video-title nav nav-tabs">
+            <li><a href="#video" class="nav-link active" id="video-tab" data-toggle="tab" data-target="#video">Video</a></li>
+            <li><a href="#inforgraphic" class="nav-link" id="inforgraphic-tab" data-toggle="tab" data-target="#inforgraphic">INFOGRAPHIC</a></li>
+            <li><a href="#podcast" class="nav-link" id="podcast-tab" data-toggle="tab" data-target="#podcast">PODCAST</a></li>
+            <li><a href="#e-magazine" class="nav-link" id="e-magazine-tab" data-toggle="tab" data-target="#e-magazine">E-MAGAZINE</a></li>
+        </ul>
+        <div class="clearfix"></div>
+
+        <div class="tab-content videotabs-content">
+            <div class="video-content tab-pane active" id="video">
+                @{Html.RenderAction("HomeVideo", "Home", new { CategoryName = "Video", CategoryId = 6, MaxLastestNews = 5, IsMobile = ViewBag.IsMobile });}
+            </div>
+            <div class="multimedia-content tab-pane" id="inforgraphic">
+                @{Html.RenderAction("LastestNews3", "Home", new { CateName = "", CategoryId = 41, MaxLastestNews = 3, cssClass = "maxheight02" });}
+
+            </div>
+            <div class="multimedia-content tab-pane" id="podcast">
+                @{Html.RenderAction("Podcast", "Home", new { CategoryId = 42, MaxLastestNews = 3 });}
+            </div>
+            <div class="multimedia-content tab-pane" id="e-magazine">
+                @{Html.RenderAction("Emagazine", "Home", new { CategoryId = 43, MaxLastestNews = 5 });}
+            </div>
+        </div>
+    </div><!-- end content 04-->
+
+    <div class="content03 mt40 container">
+        <div class="row">
+            <div class="col-md-4 col-sm-12 newsbox-cm">
+                @{Html.RenderAction("LastestNews", "Home", new { CateName = "", CategoryId = 39, MaxLastestNews = 4, cssClass = "maxheight02" });}
+            </div>
+            <div class="col-md-4 col-sm-12 newsbox-cm">
+                @{Html.RenderAction("LastestNews", "Home", new { CateName = "", CategoryId = 17, MaxLastestNews = 4, cssClass = "maxheight02" });}
+            </div>
+            <div class="col-md-4 col-sm-12 newsbox-cm">
+                @{Html.RenderAction("LastestNews", "Home", new { CateName = "", CategoryId = 33, MaxLastestNews = 4, cssClass = "maxheight02" });}
+            </div>
+        </div>
+    </div>
+
+}
+else
+{
+    <div class="content01 container mt30">
+        <div class="row">
+            <div class="col-lg-9 col-md-12">
+                @{Html.RenderAction("Slide", "Home", new { lang = langpage });}
+            </div>
+            <div class="col-lg-3 col-md-12 sidebar-right">
+                <div class="gray-box">
+                    @{Html.RenderAction("Intro", "Home", new { CategoryId = 66 });}
+                </div>
+                <div class="sider-bnr mt20 hidden-991">
+                    <a href="https://moit.gov.vn/en" target="_blank"><img src="/Content/images/bct_en.png" alt=""></a>
+                </div>
+                <div class="project-box mt20">
+                    <div class="title-cm01 title-cm01-white">
+                        <a href="#">program - project</a>
+                    </div>
+                    @*<div class="mt20">
+                            <select class="form-control input-cm" id="ddLink">
+                                <option value="">Program - Project</option>
+                                @foreach (var item in Model.Select((value, i) => new { i, value }))
+                                {
+                                    <option value="@item.value.Url">@item.value.Name</option>
+                                }
+                            </select>
+                        </div>*@
+                    <div class="mt20">
+                        <div class="choose-link">
+                            <p>program - project</p>
+                            <ul class="choose-list">
+                                @foreach (var item in Model.Select((value, i) => new { i, value }))
+                                {
+
+                                    <li><a href="@item.value.Url" target="_blank">@item.value.Name</a></li>
+
+                                }
+                            </ul>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div><!-- end row-->
+    </div><!-- end content 01 -->
+    <div class="bnrCenter container mt40">
+        <div class="bnrSlider">
+            @{Html.RenderAction("Banner", "Home", new { lang = langpage });}
+
+
+        </div>
+    </div>
+    <div class="content03 mt40 container">
+        <div class="row">
+            <div class="col-lg-8 col-sm-12 newsbox-cm">
+                <div class="row">
+                    <div class="col-md-6 col-sm-12 newsbox-cm">
+                        @{Html.RenderAction("LastestNews", "Home", new { CateName = "", CategoryId = 34, MaxLastestNews = 4, cssClass = "maxheight02" });}
+                    </div>
+                    <div class="col-md-6 col-sm-12 newsbox-cm">
+                        @{Html.RenderAction("LastestNews", "Home", new { CateName = "", CategoryId = 24, MaxLastestNews = 4, cssClass = "maxheight02" });}
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-12 col-12 sidebar-right">
+                <div class="gray-box">
+                    @Html.Partial("Site_Right")
+                </div>
+                <div class="gray-box mt20">
+                    @{Html.RenderAction("TopDocument", "Home", new { CategoryId = 30, MaxLastestNews = 2 });}
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+    <div class="bg-gray mt40">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4 col-md-6 col-sm-12 newsbox-cm">
+                    @{Html.RenderAction("LastestNews5", "Home", new { CateName = "", CategoryId = 68, MaxLastestNews = 4, cssClass = "maxheight02" });}
+                </div>
+                <div class="col-lg-4 col-md-6 col-sm-12 newsbox-cm">
+                    @{Html.RenderAction("LastestNews5", "Home", new { CateName = "", CategoryId = 71, MaxLastestNews = 4, cssClass = "maxheight02" });}
+                </div>
+                <div class="col-lg-4 col-md-12 newsbox-cm">
+                    <div class="bnr-sidebar-list">
+                        @{Html.RenderAction("BannerRight3", "Home", new { lang = langpage });}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="content03 mt40 container">
+        <div class="row">
+            <div class="col-md-4 col-sm-12 newsbox-cm">
+                @{Html.RenderAction("LastestNews", "Home", new { CateName = "", CategoryId = 25, MaxLastestNews = 4, cssClass = "maxheight02" });}
+            </div>
+            <div class="col-md-4 col-sm-12 newsbox-cm">
+                @{Html.RenderAction("LastestNewsAPI", "Home", new { CateName = "", CategoryId = 23, MaxLastestNews = 4, lang = langpage, cssClass = "maxheight02" });}
+            </div>
+            <div class="col-md-4 col-sm-12 newsbox-cm">
+                @{Html.RenderAction("LastestNewsAPI", "Home", new { CateName = "", CategoryId = 22, MaxLastestNews = 4, lang = langpage, cssClass = "maxheight02" });}
+            </div>
+
+        </div>
+    </div>
+    @*<div class="bnrCenter container mt40">
+            <div class="bnr-list-02 bnrSmallSlider02">
+                @{Html.RenderAction("Banner2", "Home", new
+                    {
+                        lang = langpage
+                    });}
+
+            </div>
+        </div>*@
+
+
+    <div class="content03 mt40 container">
+        <div class="row">
+            <div class="col-md-4 col-sm-12 newsbox-cm">
+                @{Html.RenderAction("LastestNews", "Home", new { CateName = "", CategoryId = 29, MaxLastestNews = 4, cssClass = "maxheight02" });}
+            </div>
+            <div class="col-md-4 col-sm-12 newsbox-cm">
+                @{Html.RenderAction("LastestNews", "Home", new { CateName = "", CategoryId = 28, MaxLastestNews = 4, cssClass = "maxheight02" });}
+            </div>
+            <div class="col-md-4 col-sm-12 newsbox-cm">
+                @{Html.RenderAction("LastestNews", "Home", new { CateName = "", CategoryId = 40, MaxLastestNews = 4, cssClass = "maxheight02" });}
+            </div>
+        </div>
+    </div>
+    <style>
+        .newsnew .nav-link {
+            padding: .5rem 0.5rem;
+        }
+
+        .title-cm01 a {
+            font-family: var(--f-bold);
+            font-size: 18px;
+        }
+    </style>
+
+}
+<script>
+    $("#ddLink").change(function () {
+        if ($("#ddLink").val() != "" && $("#ddLink").val() != "https://igip.gov.vn/") {
+            window.open($("#ddLink").val(), '_blank');
+        }
+    });
+</script>
+<script>
+    const items = document.querySelectorAll('.list-hands li');
+    let index = 0;
+
+    function animateNext() {
+        items.forEach(item => item.classList.remove('blinking'));
+        items[index].classList.add('blinking');
+        index = (index + 1) % items.length;
+        setTimeout(animateNext, 1000);
+    }
+    animateNext();
+</script>
+
+<!-- chuong trinh - du an-->
+<script>
+    $(document).ready(function () {
+        $(".choose-link > p").on("click", function (e) {
+            e.preventDefault();
+
+            const $parent = $(this).closest(".choose-link");
+
+            // Đóng tất cả các list khác
+            $(".choose-link").not($parent).removeClass("active").find(".choose-list").slideUp(200);
+
+            // Toggle list hiện tại
+            $parent.toggleClass("active");
+            $parent.find(".choose-list").slideToggle(200);
+        });
+    });
+
+</script>
+<script>
+    $('.bnrSmallSlider02').slick({
+        autoplay: true,
+        infinite: true,
+        dots: false,
+        arrows: true,
+        speed: 300,
+        slidesToShow: 4,
+        slidesToScroll: 4,
+        responsive: [
+            {
+                breakpoint: 991,
+                settings: {
+                    slidesToShow: 3,
+                    slidesToScroll: 3
+                }
+            },
+            {
+                breakpoint: 575,
+                settings: {
+                    slidesToShow: 1,
+                    slidesToScroll: 1
+                }
+            }
+        ]
+    });
+
+</script>

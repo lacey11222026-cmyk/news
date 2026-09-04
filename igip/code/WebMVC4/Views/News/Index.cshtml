@@ -1,0 +1,137 @@
+﻿@using BIZ
+@using UTILS
+@using WebMVC4.Helper
+@model WebMVC4.Models.News2Model
+
+@{
+    var langpage = WorkContext.GetLanguage();
+}
+
+<div class="cap1-content01 container mt20">
+    <div class="row">
+        <div class="col-lg-8 col-md-12">
+            @{Html.RenderAction("Breadcrumb", "News", new { CategoryId = ViewBag.CategoryId });}
+            @if (Model.hotnews != null)
+            {
+
+                <div class="mt20 row">
+                    <div class="col-md-8 col-sm-12">
+                        @foreach (var item in Model.hotnews.Take(1).Select((value, i) => new { i, value }))
+                        {
+                            <div class="newsbig-top">
+                                <a href="@item.value.LinkUrl"><img src="@item.value.MainImage?w=500&h=280&mode=crop" alt=""></a>
+                                <a href="@item.value.LinkUrl" class="news-name mt15">@item.value.Title</a>
+                                <span class="newsdate mt10">@item.value.PublishDate.ToString("dd/MM/yyyy")</span>
+                                <p class="mt10 news-txt">@item.value.IntroText</p>
+                            </div>
+                        }
+                    </div>
+                    <div class="col-md-4 col-sm-12 cap1-newslist">
+                        <ul class="news-list-03">
+                            @foreach (var item in Model.hotnews.Skip(1).Take(2).Select((value, i) => new { i, value }))
+                            {
+                                <li>
+                                    <a href="@item.value.LinkUrl">
+                                        <img src="@item.value.MainImage?w=234&h=134&mode=crop" alt="">
+                                        <p class="font-weight-bold mt10 mb-0">@item.value.Title</p>
+                                        <span class="newsdate mt10">@item.value.PublishDate.ToString("dd/MM/yyyy")</span>
+                                    </a>
+                                </li>
+                            }
+                        </ul>
+                    </div>
+                    <div class="col-sm-12 mt20">
+                        <ul class="newshot row">
+                            @foreach (var item in Model.hotnews.Skip(3).Take(4).Select((value, i) => new { i, value }))
+                            {
+                                <li class="col-md-3 col-sm-12">
+                                    <a href="@item.value.LinkUrl">
+                                        <img src="@item.value.MainImage?w=178&h=95&mode=crop">
+                                        <span class="mt10">@item.value.Title</span>
+                                    </a>
+                                </li>
+                            }
+                        </ul>
+                    </div>
+                </div>
+            }
+
+        </div>
+        <div class="col-lg-4 col-md-12">
+            @{Html.RenderAction("LastestNews", "News", new { lang = langpage, MaxLastestNews = 4 });}
+        </div>
+    </div><!-- end row-->
+</div><!-- end content 01 -->
+<div class="bnrCenter container mt40">
+    <div class="bnrSlider">
+        @{Html.RenderAction("Banner", "Home", new { lang = langpage });}
+    </div>
+</div>
+<div class="mt40 cap1-content02 container">
+    <div class="row">
+        <div class="col-lg-8 col-md-12 text-left">
+            <h2 class="title-cm01"><a href="#">@Resources.Global.More</a></h2>
+            <ul class="mt20 viewmore-list">
+                @if (Model.articles != null)
+                {
+                    foreach (var item in Model.articles.Select((value, i) => new { i, value }))
+                    {
+
+                        <li>
+                            <a href="@item.value.LinkUrl"><img src="@item.value.MainImage?w=300&h=180&mode=crop"></a>
+                            <div>
+                                <a href="@item.value.LinkUrl">@item.value.Title </a>
+                                <span class="date mt10">@item.value.PublishDate.ToString("dd/MM/yyyy")</span>
+                            </div>
+                        </li>
+
+
+                    }
+
+                }
+            </ul>
+            <div class="paging mt50 text-center">
+                <ul>
+                    @{Html.RenderPartial("Pagination", new WebMVC4.Models.PaginationInfo
+                        {
+                            PageUrl = Url.SetParameter("Page", "!0"),
+                            CurrentPage = ViewBag.Page,
+                            PageSize = ViewBag.PageSize,
+                            TotalItemCount = ViewBag.Total,
+                        }); }
+                </ul>
+            </div>
+        </div>
+        <div class="col-lg-4 col-md-12 sidebar-right">
+            <div class="gray-box">
+                @Html.Partial("Site_Right")
+            </div>
+            @if (langpage == "vi-vn")
+            {
+                <div class="gray-box mt20">
+                    @{Html.RenderAction("TopDocument", "Home", new { CategoryId = 3 });}
+                </div>
+            }
+            else
+            {
+                <div class="gray-box mt20">
+                    @{Html.RenderAction("TopDocument", "Home", new { CategoryId = 30 });}
+                </div>
+            }
+
+            <div class="sidebar-newsnew mt20">
+                @{Html.RenderAction("TopViewNews", "News", new { lang = langpage, MaxLastestNews = 4 });}
+                
+            </div>
+        </div>
+    </div>
+</div><!-- end content 02-->
+<script type="text/javascript">
+
+ $('#menu_' + '@ViewBag.CurrentCategoryId').addClass("active");
+
+  $('#menu_' + '@ViewBag.ParentCategoryId').addClass("active");
+
+
+
+</script>

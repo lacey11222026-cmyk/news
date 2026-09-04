@@ -1,0 +1,37 @@
+﻿@using BIZ
+@using UTILS
+@using WebMVC4.Helper
+@model WebMVC4.Models.LastestNewModel
+@if (Model != null)
+{
+
+    <div class="row">
+        <div class="col-lg-8 col-md-6 col-sm-12">
+            @foreach (var item in Model.lstdata.Take(1).Select((value, i) => new { i, value }))
+            {
+                <a href="@item.value.LinkUrl">
+                    <img src="@item.value.MainImage?w=700&h=400&mode=crop" alt="">
+                    <h3 class="mt20 movie-text"><a href="@item.value.LinkUrl">@item.value.Title</a></h3>
+                </a>
+                <p>@item.value.IntroText</p>
+
+            }
+        </div>
+        <div class="col-lg-4 col-md-6 col-sm-12">
+            <ul class="videolist">
+                @foreach (var item in Model.lstdata.Skip(1).Select((value, i) => new { i, value }))
+                {
+                    <li>
+                        <a href="@item.value.LinkUrl" class="video-img">
+                            <img src="@item.value.MainImage?w=163&h=108&mode=crop">
+                        </a>
+                        <a href="@item.value.LinkUrl" class="video-text">@item.value.Title</a>
+                    </li>
+                }
+            </ul>
+
+            <a href="/tin-tuc/c43/e-magazine" class="btn-viewmore mt20">@Resources.Global.More <span>+</span></a>
+        </div>
+    </div><!--/ End row-->
+
+}

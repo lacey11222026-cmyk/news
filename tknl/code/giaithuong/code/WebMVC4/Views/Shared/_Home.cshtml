@@ -1,0 +1,81 @@
+﻿@using UTILS
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+
+    @Html.Partial("MetaData")
+    @*<link rel="stylesheet" href="/Content/css/bootstrap.min.css">
+        <link rel="stylesheet" href="/Content/css/common.css">
+        <link rel="stylesheet" href="/Content/css/style.css?vs=4">
+        <link type="text/css" rel="stylesheet" href="/Content/css/jquery.mmenu.all.css" />
+
+        <link href="/Content/css/chantrang.css?vs=4" rel="stylesheet" type="text/css" />
+        <link rel="stylesheet" href="/Content/css/extend.css?vs=4">*@
+    @Styles.Render("~/Content/site.css")
+
+    <script src="@(Config.Domain)/Content/js/jquery.min.js"></script>
+    <script src="@(Config.Domain)/Content/js/bootstrap.min.js"></script>
+    @*<script src="~/Content/js/matchHeight.js"></script>
+
+        <script type="text/javascript" src="/Content/js/jquery.mmenu.min.all.js"></script>
+        <script type="text/javascript" src="/Content/js/jquery.flexisel.js"></script>*@
+
+</head>
+<body onorientationchange="updateOrientation();">
+
+    @Html.Partial("Site_Header")
+    <div class="bnr">
+        <div class="bnr-big">
+            @{Html.RenderAction("Banner", "Home");}
+            
+        </div>
+        <div class="bnr-small">
+            @{Html.RenderAction("BannerRight", "Home");}
+            
+        </div>
+    </div>
+    <div class="wrap mt90">
+        @RenderBody()
+        <div style="clear:both"></div>
+        @Html.Partial("Site_Footer")
+
+
+    </div>
+
+    <div id="top_gototop">
+        <a hre f="#" id="back-top" title="Back to top">&uarr;</a>
+    </div>
+    <div id="fb-root"></div>
+    <div class="clearfix">
+    </div>
+    @Scripts.Render("~/sitescript")
+    <script>
+        function updateOrientation() {
+            window.location.reload();
+        }
+    </script>
+
+    <script src="@(Config.Domain)/Content/js/script.js"></script>
+    <script type="text/javascript">
+        jQuery(function ($) {
+
+            var nav = $('.sidemenu'),
+                offset = nav.offset();
+
+            $(window).scroll(function () {
+                if ($(window).scrollTop() > offset.top) {
+                    nav.addClass('fixed');
+                } else {
+                    nav.removeClass('fixed');
+                }
+            });
+
+        });
+    </script>
+</body>
+
+
+
+
+
+</html>

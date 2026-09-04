@@ -1,0 +1,18 @@
+﻿@model List<DATA.Project>
+
+@if (Model != null)
+{
+    foreach (var item in Model.Select((value, i) => new { i, value }))
+    {
+        <li>
+            <div>
+                <a href="@Url.Action("Detail","Project",new { Id=item.value.Id})">
+                    <img src="@item.value.Image?w=245&h=137&mode=crop">
+                    <p>@item.value.Name</p>
+                    <h3>@item.value.CreatedBy</h3>
+                </a>
+            </div>
+        </li>
+    }
+
+}

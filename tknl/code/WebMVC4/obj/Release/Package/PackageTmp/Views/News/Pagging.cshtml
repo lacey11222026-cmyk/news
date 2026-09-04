@@ -1,0 +1,41 @@
+﻿@using UTILS
+@using  WebMVC4.Helper
+<div class="xemtiepthemngay" style="float: left;">
+    <input type="text" id="newsdate" style="display: none" />
+</div>
+
+@if (ViewBag.PageNextShow)
+{
+
+  
+<ul >
+    @{Html.RenderPartial("Pagination", new WebMVC4.Models.PaginationInfo
+        {
+            PageUrl = Url.SetParameter("page", "!0"),
+            CurrentPage = ViewBag.pageIndex,
+            PageSize = ViewBag.pageSize,
+            TotalItemCount = ViewBag.total,
+        }); }
+</ul>
+   
+}
+@*<script type="text/javascript">
+    var categoryid = '@ViewBag.CategoryId';
+    $(document).ready(function () {
+
+        $("#newsdate").datepicker(
+
+        {
+            onSelect: function (date) {
+                window.location.href = '@Url.Action("SearchByDay", "News")' + '?fromdate=' + date + '&todate=' + date + '&categoryId=' + categoryid;
+            },
+            changeYear: true,
+            changeMonth: true,
+            dateFormat: "dd/mm/yy",
+            duration: 'fast',
+            showOn: "button",
+            buttonText: "Xem theo ngày"
+
+        });
+    });
+</script>*@

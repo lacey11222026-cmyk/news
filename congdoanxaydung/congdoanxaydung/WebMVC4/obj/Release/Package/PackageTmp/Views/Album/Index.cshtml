@@ -1,0 +1,56 @@
+﻿@using BIZ
+@using UTILS
+@using WebMVC4.Helper
+@model WebMVC4.Models.AlbumModel
+
+@{
+    Layout = "~/Views/Shared/_Home.cshtml";
+}
+
+
+
+
+@if (Model.listdata != null)
+{
+    <div class="row">
+        @foreach (var item in Model.listdata.Take(1).Select((value, i) => new { i, value }))
+        {
+            <div class="col-md-7 col-sm-12 col-xs-12" id="VideoContent">
+                @{Html.RenderAction("Breadcrumb", "News", new { CategoryId = Model.CategoryId });}
+                <div>
+                    <a href="@Utils.FormatUrlRewrite(item.value.Id, item.value.Title, "AlbumDetail")"><img src="@item.value.MainImage?w=770&h=480&mode=crop" style="width: 100%"></a>
+                </div>
+            </div><!-- end video -->
+                    <div class="col-md-5 col-sm-12 col-xs-12 video-text">
+                        <h3><a href="@Utils.FormatUrlRewrite(item.value.Id, item.value.Title, "AlbumDetail")">@item.value.Title</a></h3>
+                        <p>@Html.Raw(item.value.Description)</p>
+                    </div><!-- end typo-->
+                    }
+    </div>
+                    <div class="clearfix"></div>
+
+                    <ul class="video-list row mt10">
+                        @foreach (var item in Model.listdata.Skip(1).Select((value, i) => new { i, value }))
+                        {
+                            <li class="col-md-3 col-sm-4 col-xs-6">
+                                <a href="@Utils.FormatUrlRewrite(item.value.Id, item.value.Title, "AlbumDetail")">
+                                    <img src="@item.value.MainImage?w=300&h=200&mode=crop">
+                                    <span>@item.value.Title</span>
+                                </a>
+                            </li>
+                        }
+
+                    </ul><!-- end big news-->
+                    <div class="pagination mt30 pull-right">
+                        <ul>
+                            @{Html.RenderPartial("Pagination", new WebMVC4.Models.PaginationInfo
+                {
+                    PageUrl = Url.SetParameter("Page", "!0"),
+                    CurrentPage = Model.pageIndex,
+                    PageSize = Model.pageSize,
+                    TotalItemCount = Model.total,
+                }); }
+                        </ul>
+                    </div>
+
+                                }

@@ -1,0 +1,89 @@
+﻿@using BIZ
+@using UTILS
+@using WebMVC4.Helper
+@using WebMVC4.Models
+@model ProductModel
+
+@if (Model != null)
+{
+    <div class="inner">
+        <div class="section-title wow fadeInDown clearfix" style="visibility: visible; animation-name: fadeInDown;">
+            <h2>
+                Sản phẩm nổi bật
+            </h2>
+            <a href="@Model.Cate.Url" title="@Model.Cate.Name">Xem tất cả <i class="fa fa-angle-double-right"></i></a>
+        </div>
+        <div class="grid-uniform">
+            <div class="grid__item large--three-twelfths medium--hide small--hide custom-banner wow fadeInLeft" style="margin-bottom: 25px; visibility: visible; animation-name: fadeInLeft;">
+                <a href="/" title="Sản phẩm nổi bật" class="banner_1">
+                    <div class="ov1"></div>
+                    <div class="ov2"></div>
+                    <div class="ov3"></div>
+                    <div class="ov4"></div>
+                    <img src="/Content2/banner_sp_noibat.jpg" alt="banner-prd">
+                </a>
+            </div>
+            <div class="grid__item large--nine-twelfths medium--one-whole small--one-whole">
+                <div class="hmp-tab-wrapper1">
+                    <div class="tab text-right clearfix">
+                        @if (Model.listcate != null)
+                        {
+                            foreach (var item in Model.listcate.Select((value, i) => new { i, value }))
+                            {
+
+                                <a class="hmp-tablinks2 hmp-tablinks2_12 wow fadeInLeft" href="@item.value.Name">@item.value.Name </a>
+
+
+
+                            }
+                        }
+
+                        <div id="hmptab12_74" class="hmp-tabcontent2 hmp-tabcontent2_12" style="display:block">
+                            <div class="grid-uniform mg-left-15">
+                                @foreach (var item in Model.listdata.Select((value, i) => new { i, value }))
+                                {
+                                    <div class="grid__item pd-left15 large--one-quarter medium--one-third small--one-half">
+                                        <div class="product-item">
+                                            <div class="product-img">
+                                                <a href="@UTILS.Utils.FormatUrlRewrite(item.value.Id,item.value.Name,"ProductDetail")" title="@item.value.Name">
+                                                    <img class="lazyload" src="@item.value.DescriptImage?h=400&w=400&mode=crop" data-src="@item.value.DescriptImage?h=400&w=400&mode=crop" alt="@item.value.Name" />
+                                                </a>
+
+                                            </div>
+
+                                            <div class="product-item-info text-center">
+                                                <div class="product-title">
+                                                    <a href="@UTILS.Utils.FormatUrlRewrite(item.value.Id,item.value.Name,"ProductDetail")" title="@item.value.Name">@item.value.Name</a>
+                                                </div>
+
+                                                <div class="product-price clearfix">
+                                                    @if (item.value.Price > 0)
+                                                    {
+
+                                                        <span class="current-price">@Utils.InsertCommaNoStyle(item.value.Price.ToString()) đ</span>
+                                                    }
+                                                    else
+                                                    {
+                                                        <span class="current-price">Giá liên hệ</span>
+                                                    }
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+}
+else
+{
+
+}

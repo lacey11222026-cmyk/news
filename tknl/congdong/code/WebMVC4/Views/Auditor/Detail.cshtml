@@ -1,0 +1,106 @@
+﻿@using BIZ.Entity
+@using UTILS
+@using DATA
+@using WebMVC4.Helper
+@using DATA.ContentDB
+@model AuditorFull
+
+<div class="bnr-detail">
+    <img src="/Content/images/bg-title-red.jpg" alt="">
+    <div class="bnr-detail-inner">
+        <div class="container">
+            <p class="bnr-detail-title">Cơ sở dữ liệu</p>
+            <p class="bnr-detail-title-big">KIỂM TOÁN VIÊN NĂNG LƯỢNG</p>
+        </div>
+    </div>
+</div>
+
+<div class="search-detail-page mt50 pb100">
+    <div class="container">
+        <div class="box-cm">
+            <div class="detail-page-box-01">
+                <div class="ava-intro">
+                    <div class="search-result-img"><img src="@Model.Images" alt=""></div>
+                    <div class="ava-content">
+                        <div>
+                            <table>
+                                <tbody>
+                                    <tr>
+                                        <th>Họ và tên:</th>
+                                        <td>@Model.FullName</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Giới tính:</th>
+                                        <td>@Model.Title</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Ngày sinh:</th>
+                                        <td>@Model.BirthDay</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Quốc tịch:</th>
+                                        <td>@Model.Nation</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="mt30">
+                    <table class="tbl-sub">
+                        <tbody>
+                            @*<tr>
+                                <td>Trình độ/Chuyên môn</td>
+                                <td>@Model.Level</td>
+                            </tr>*@
+                            <tr>
+                                <td>Cơ quan, đơn vị công tác</td>
+                                <td>@Model.Organ</td>
+                            </tr>
+                            @*<tr>
+                                <td>Mã số doanh nghiệp</td>
+                                <td>@Model.MSDN</td>
+                            </tr>
+                            <tr>
+                                <td>Chức danh</td>
+                                <td>@Model.Role</td>
+                            </tr>*@
+                            <tr>
+                                <td>Địa chỉ công tác</td>
+                                <td>@Model.Address</td>
+                            </tr>
+                            @*<tr>
+                                <td>Điện thoại</td>
+                                <td>@Model.ProjectConfig.MobileOffice</td>
+                            </tr>
+                            <tr>
+                                <td>Đơn vị đào tạo</td>
+                                <td>@Model.Group</td>
+                            </tr>
+                            <tr>
+                                <td>Thời gian đào tạo</td>
+                                <td>@Model.ProjectConfig.TrainingTime</td>
+                            </tr>
+                            <tr>
+                                <td>Ngày cấp</td>
+                                <td>@Model.ProjectConfig.IssueDate</td>
+                            </tr>
+                            <tr>
+                                <td>Ngày hết hạn</td>
+                                <td>@Model.ProjectConfig.ExpirationDate</td>
+                            </tr>
+                            <tr>
+                                <td>Trạng thái</td>
+                                <td>@HtmlHelpers.GetCTType(Model.Status)</td>
+                            </tr>*@
+                            @*<tr>
+                                <td>Loại chứng chỉ</td>
+                                <td>@Model.Nation</td>
+                            </tr>*@
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

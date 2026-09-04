@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="vn">
+<head>
+  <meta charset="UTF-8">
+  <title>Cuộc thi trực tuyến</title>
+  <meta name="Keywords" content="" />
+  <meta name="Description" content="" />
+  <link rel="shortcut icon" href="images/ico-logo.png" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <link rel="stylesheet" href="css/bootstrap.min.css">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" type="text/css" href="css/animate.css">
+  <link type="text/css" rel="stylesheet" href="css/jquery.mmenu.all.css" />
+  <link rel="stylesheet" href="css/animate.css">
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Saira:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div class="header">
+    <div class="header-pc">
+      <div class="container">
+        <div class="header-pc-inner">
+          <div class="logo">
+            <a href="#"><img src="images/tknl-logo.svg" alt="Tiết kiệm năng lượng" width="180"></a>
+            <a href="#"><img src="images/evn-logo.svg" alt="Công Đoàn Công Thương Việt Nam" width="95"></a>
+            <a href="#"><img src="images/daikin-logo.svg" alt="Daikin" width="170"></a>
+          </div>
+          <div>
+            <div class="userinfo-top mt20 dropdown__inner">
+              <p>Xin chào: <span class="font-weight-bold">094567386</span><span class="dropbtn glyphicon glyphicon-triangle-bottom" aria-hidden="true"></span></p>
+              <ul class="dropdown-content dropdownSub">
+                  <li><a href="#"><span class="glyphicon glyphicon-log-out" aria-hidden="true"></span> Thoát</a></li>
+              </ul>
+            </div>
+            <div class="nav-pc">
+              <nav>
+                <ul>
+                  <li><a href="#"><span class="glyphicon glyphicon-home"></span></a></li>
+                  <li><a href="#">Giới thiệu</a></li>
+                  <li><a href="#">Thể lệ</a></li>
+                  <li><a href="#">Tài liệu</a></li>
+                  <li><a href="#">Kết quả</a></li>
+                </ul>
+              </nav>
+            </div>
+          </div>
+        </div>        
+      </div>
+    </div>
+
+    <div class="nav-mobile">      
+      <div class="header-m">
+        <div class="logo">
+          <a href="#"><img src="images/tknl-logo.svg" alt="Tiết kiệm năng lượng" width="180"></a>
+          <a href="#"><img src="images/evn-logo.svg" alt="Công Đoàn Công Thương Việt Nam" width="95"></a>
+          <a href="#"><img src="images/daikin-logo.svg" alt="Daikin" width="170"></a>
+        </div>
+        <a href="#menu">
+          <img src="images/ico-menu.png" class="ico-menu">
+        </a>
+      </div>
+      <div id="menu">
+        <ul>          
+          <li><a href="#">Giới thiệu cuộc thi </a></li>
+          <li><a href="#">Thể lệ</a></li>
+          <li><a href="#">Tài liệu</a></li>
+          <li><a href="#">Kết quả</a></li>
+        </ul>
+      </div>
+    </div>    
+  </div><!-- end header-->
+  <section class="wrap-content text-center wow fadeInDown"  data-wow-offset="200">
+    <div class="test-name-b2 text-left">
+      <div class="container"><h2>Cuộc thi trực tuyến “Tìm hiểu kiến thức về sử dụng năng lượng tiết kiệm và hiệu quả năm 2024”</h2></div>
+    </div>
+    <div class="container b3-content pb100">      
+      <div class="b2-wrap wow fadeInDown" data-wow-offset="200">        
+        <div class="mt30 text-left">
+          <h3 class="text-green font-weight-bold">Câu hỏi phụ </h3>
+          <p class="text-blue font-weight-bold">Theo bạn có bao nhiêu người tham gia cuộc thi kỳ này?</p>
+          <div class="mt20">
+            <div class="num-box">
+              <input type="text" name="">
+              <p class="text-blue font-weight-bold">người</p>
+            </div>
+            <a href="b4.html" class="btn btn-orange mt30"> <i class="glyphicon glyphicon-chevron-right" aria-hidden="true"></i> Cập nhật</a>
+          </div>
+
+        </div>
+      </div>
+    </div>
+    <div class="footer">
+      <div class="container">
+        <p>Bản quyền thuộc về Vụ Tiết kiệm năng lượng và Phát triển bền vững (Bộ Công Thương)</p>
+      </div>
+    </div><!-- end footer-->
+  </section><!-- end main-->
+  
+
+
+
+
+<!-- nav mobile --->
+<script src="js/jquery.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script type="text/javascript" src="js/jquery.mmenu.min.js"></script>
+<script type="text/javascript" src="js/jquery.matchHeight.js"></script>
+<script type="text/javascript">
+	$(function() {
+		$('div#menu').mmenu();
+	});
+  $(function(){
+    $('.dropdown__inner').on('click', function(){
+      $(this).toggleClass('dropdown_toggle').children('.dropdownSub').slideToggle(200);
+    });
+    $('.dropdown__inner li a').on("click", function() {
+      $(".dropdownSub").hide();
+    });
+    $(document).on('click', function(e) {
+      if (!$(e.target).closest('.dropdown__inner').length) {
+        $('.dropdownSub').hide  ();
+      }
+    });});
+</script>
+
+<script src="js/wow.js"></script>
+<script src="js/script.js" type="text/javascript"></script>
+
+</body>
+</html>

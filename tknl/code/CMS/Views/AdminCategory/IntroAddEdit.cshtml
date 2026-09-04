@@ -1,0 +1,106 @@
+﻿@{
+   
+    Layout = "~/Views/Shared/_AdminV2.cshtml";
+}
+
+@{
+   
+    Layout = "~/Views/Shared/_AdminV2.cshtml";
+    
+}
+@model BIZ.Entity.CATEGORY_FULL
+
+<div class="onecolumn" id="product-tabs">
+    <div class="header">
+        <span>@ViewBag.Title</span>
+
+    </div>
+    <br class="clear">
+    <div class="content">
+        <form id="NewsEditForm" method="get" action="">
+        
+            
+            <div class="login" id="tabs-info">
+
+
+                <div class="login-left">
+                    @Html.Label("Tên chuyên mục:")
+                </div>
+                <div class="login-right">
+                    @Html.TextBoxFor(m => m.Name, new { @class = "textbox", @readonly = "true" })
+                    @Html.HiddenFor(m => m.Id)
+                    @Html.HiddenFor(m => m.Description)
+                    @Html.HiddenFor(m => m.Type)
+                    @Html.HiddenFor(m => m.ParentId)
+                    @Html.HiddenFor(m => m.Language)
+                    @Html.HiddenFor(m => m.Ordering)
+                    @Html.HiddenFor(m => m.CreateDate)
+                    @Html.HiddenFor(m => m.Params)
+                </div>
+                <div class="clear">
+                </div>
+                <div class="login-left">
+                    @Html.Label("Nội dung:")
+                </div>
+                <div class="login-right">
+                    @*<a href="javascript:void(0)" onclick="openWin()"><b>Upload nhiều file</b></a><br />*@
+                    @Html.TextAreaFor(m => m.Contents, new { @class = "textbox" })
+                </div>
+                <!-- END Noi dung -->
+                <div class="clear">
+                </div>
+                <div class="login-left">
+                    @Html.Label("Trạng thái:")
+                </div>
+                <div class="login-right">
+                    @Html.RadioButtonFor(model => model.Published, 1, new { Checked = "checked" })
+                    Hoạt động &nbsp;
+                    @Html.RadioButtonFor(model => model.Published, 0)
+                    Khóa
+                </div>
+                <div class="clear">
+                </div>
+
+            </div>
+            <div class="button_login">
+                <div>
+
+                    <input type="button" id="btnsendEdit2" onclick="fsendEdit()" value="Cập nhật"  return false;" />
+
+
+                    &nbsp;
+                    <input type="button" value="Quay lại" onclick="javascript: history.go(-1);" />
+                </div>
+            </div>
+            <div class="clear">
+            </div>
+            
+        
+        </form>
+    </div>
+</div>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#menu_category').click();
+
+    });
+    LoadRichTextEditor('Contents', 600, 600, null, null, "ajaxupload,youtubeIframe");
+    function validateForm() {
+        tinyMCE.triggerSave();
+        return true;
+
+    }
+	function fsendEdit() {
+        tinyMCE.triggerSave();
+        $("#Contents").html(tinyMCE.get('Contents').getContent());
+        if (confirm("Bạn có chắc chắn muốn thực hiện thao tác này")) {
+            if (validateForm()) {
+                $.post('@Url.Action("IntroAddEdit", "AdminCategory")', $("#NewsEditForm").serialize(), function (data) {
+                    window.location.href = "/AdminCategory/Intro";
+                });
+            }
+        }
+    }
+
+</script>

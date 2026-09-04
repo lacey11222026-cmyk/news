@@ -1,0 +1,26 @@
+﻿@using BIZ
+@using UTILS
+@using WebMVC4.Helper
+@model BIZ.Entity.CATEGORY_FULL
+
+@if (Model != null)
+{
+   
+    <div class="page-title shop-page-title product-page-title">
+        <div class="page-title-inner flex-row medium-flex-wrap container">
+            <div class="flex-col flex-grow medium-text-center">
+                <div class="is-small">
+                    <nav class="woocommerce-breadcrumb breadcrumbs">
+                        <a href="/">Trang chủ</a> <span class="divider">/</span>
+                        @Model.Name
+                    </nav>
+                </div>
+            </div><!-- .flex-left -->
+
+            <div class="flex-col medium-text-center">
+            </div><!-- .flex-right -->
+        </div><!-- flex-row -->
+    </div>
+    
+    
+}

@@ -1,0 +1,95 @@
+﻿@using BIZ
+@using UTILS
+@using WebMVC4.Helper
+@model BIZ.Entity.Album_FULL
+@if (Model != null)
+{
+    <div class="main-content box-09">
+        <p class="title-cm"><a href="/thu-vien-anh/c11/hinh-anh.html">Hình ảnh</a></p>
+
+        <div class="mt20">
+
+            <div class="album-slide">
+                <div id="main_area">
+                    <!-- Slider -->
+                    @if (Model.AlbumImage != null)
+                    {
+
+
+                        <div class="col-md-12" id="carousel-bounding-box">
+                            <div class="carousel slide" id="albumCarousel">
+                                <!-- Carousel items -->
+                                <div class="carousel-inner">
+                                    @foreach (var item in Model.AlbumImage.Select((value, i) => new {i, value}))
+                                    {
+                                        if (item.i == 0)
+                                        {
+                                            <div class="item active" data-slide-number="@item.i">
+                                                <img src="@item.value.Name?w=1000&mode=crop" style="width: 100%"/>
+                                                <p>@(string.IsNullOrEmpty(item.value.Text) ? Model.Title : item.value.Text)</p>
+                                            </div>
+                                        }
+                                        else
+                                        {
+                                            <div class="item" data-slide-number="@item.i">
+                                                <img src="@item.value.Name?w=1000&mode=crop" style="width: 100%"/>
+                                                <p>@(string.IsNullOrEmpty(item.value.Text) ? Model.Title : item.value.Text)</p>
+                                            </div>
+                                        }
+
+                                    }
+
+
+                                </div><!-- Carousel nav -->
+                                <a class="left carousel-control" href="#albumCarousel" role="button" data-slide="prev"></a>
+                                <a class="right carousel-control" href="#albumCarousel" role="button" data-slide="next"></a>
+                            </div>
+                        </div><!--/Slider-->
+
+                        <div class="row hidden-xs" id="slider-thumbs">
+                            <!-- Bottom switcher of slider -->
+                            <ul class="hide-bullets">
+                                @foreach (var item in Model.AlbumImage.Select((value, i) => new {i, value}))
+                                {
+                                    <li class="col-md-2 col-sm-2 col-xs-3 mt10"><a class="thumbnail" id="carousel-selector-@item.i"><img src="@item.value.Name?w=300&h=200&mode=crop"></a></li>
+                                }
+
+
+                            </ul>
+                        </div>
+                    }
+                </div>
+            </div>
+
+            @Html.Action("LastestNews", new {albumId=Model.Id})
+        </div>
+    </div>
+    <script>
+        $(document).ready(function () {
+           
+
+            $('#albumCarousel').carousel({
+                interval: 5000
+            });
+
+            $('#carousel-text').html($('#slide-content-0').html());
+
+            //Handles the carousel thumbnails
+            $('[id^=carousel-selector-]').click(function () {
+                var id = this.id.substr(this.id.lastIndexOf("-") + 1);
+                var id = parseInt(id);
+                $('#albumCarousel').carousel(id);
+            });
+
+
+            // When the carousel slides, auto update the text
+            $('#albumCarousel').on('slid.bs.carousel', function (e) {
+                var id = $('.item.active').data('slide-number');
+                $('#carousel-text').html($('#slide-content-' + id).html());
+            });
+        });
+
+    </script>
+   
+            }
+

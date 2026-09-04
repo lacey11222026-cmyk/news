@@ -1,0 +1,101 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+
+    <title>@ViewBag.Title </title>
+    <meta name="description" content="@ViewBag.Description" />
+    <meta name="keywords" content="@ViewBag.Keywords" />
+    <meta name="news_keywords" content="@ViewBag.Keywords" />
+
+    <meta name="google-site-verification" content="r_610pdttIdxHGes1z1gEzoCXqXyV1kc80v295SOBNI" />
+    <meta content="general" name="rating" />
+    <meta content="cong doan xay dung" name="copyright" />
+    <meta content="never" name="expires" />
+    <meta content="global" name="distribution" />
+    <meta content="DOCUMENT" name="RESOURCE-TYPE" />
+
+    <meta name="robots" content="index,follow" />
+    <meta name="Googlebot" content="index,follow,noarchive" />
+    <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
+
+    <link rel="shortcut icon" href="/Content/images/ico-logo.png" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    @*<link rel="stylesheet" href="/Content/css/bootstrap.min.css">
+        <link rel="stylesheet" href="/Content/css/common.css">
+        <link rel="stylesheet" href="/Content/css/style.css?vs=04">
+        <link type="text/css" rel="stylesheet" href="/Content/css/jquery.mmenu.all.css" />
+
+        <link href="/Content/css/chantrang.css?vs=04" rel="stylesheet" type="text/css" />
+        <link rel="stylesheet" href="/Content/css/extend.css?vs=04">*@
+    @Styles.Render("~/Content/site.css")
+    
+    <script src="/Content/js/jquery.js"></script>
+    <script src="/Content/js/bootstrap.js"></script>
+    @*<script src="~/Content/js/matchHeight.js"></script>
+
+        <script type="text/javascript" src="/Content/js/jquery.mmenu.min.all.js"></script>
+        <script type="text/javascript" src="/Content/js/jquery.flexisel.js"></script>*@
+   
+</head>
+<body>
+    @{Html.RenderAction("Menu", "Home");}
+    <div>
+        @Html.Partial("Site_Header")
+        <section class="content-wrap container">
+            <div class="row">
+                <div class="col-md-8 col-sm-12 col-xs-12">
+                    @RenderBody()
+                </div><!-- end main content -->
+                <div class="col-md-4 col-sm-12 col-xs-12 sidebar">
+                    @Html.Partial("Site_Right")
+                </div><!-- end sidebar-->
+
+                <div class="clearfix"></div>
+            </div>
+            @{Html.RenderAction("BannerBottom", "Home");}
+            @{Html.RenderAction("MenuBottom", "Home");}
+            <div class="clearfix"></div>
+            @Html.Partial("Site_Footer")
+        </section>
+        <div class="total-view">
+            <div class="container">
+                <div class="pull-left">
+                    Phát triển bởi <a href="http://vtkmedia.vn/"><img src="/Content/images/vtk-logo03.png" alt="VtkMedia"></a>
+                </div>
+                <div class="pull-right">
+                    <span>Tổng số lượt truy cập :</span>
+                    <ul>
+                        @foreach (var s in HttpContext.Current.Application["TotalVisited"].ToString().Select(c => c.ToString()).ToList())
+                        {
+                            <li>@s</li>
+                        }
+
+
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="top_gototop"><a href="javascript:;" class="gototop clearfix"><img src="/Content/images/gotop.png" alt="lên đầu trang" /></a></div>
+    @Scripts.Render("~/sitescript")
+    <script src="/Content/js/script.js"></script>
+    <script>
+        (function (i, s, o, g, r, a, m) {
+            i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () {
+                (i[r].q = i[r].q || []).push(arguments)
+            }, i[r].l = 1 * new Date(); a = s.createElement(o),
+                m = s.getElementsByTagName(o)[0]; a.async = 1; a.src = g; m.parentNode.insertBefore(a, m)
+        })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+
+        ga('create', 'UA-43786439-1', 'congdoanxaydungvn.org.vn');
+        ga('send', 'pageview');
+
+    </script>
+</body>
+
+
+
+
+
+</html>

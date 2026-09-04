@@ -1,0 +1,187 @@
+﻿
+
+<div class="breadcrumb">
+    <div class="container">
+        <h2>Liên hệ</h2>
+        <ul>
+            <li><a href="/">Trang chủ</a> /</li>
+            <li>Liên hệ
+
+        </ul>
+    </div>
+</div>
+<div class="container">
+    <div class="info-company">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4 col-sm-4 col-12 info-item info-address">
+                    <div class="maxheight"><img src="/Content/images/icon-address.png" alt=""></div>
+                    <h4>Địa chỉ</h4>
+                    <p>Số 1 Nguyễn Hữu Thọ (ngã 5 cầu vượt Linh Đàm), Q. Hoàng Mai, Hà Nội</p>
+                </div>
+                <div class="col-md-4 col-sm-4 col-12 info-item info-cellphone">
+                    <div class="maxheight"><img src="/Content/images/icon-phone02.png" alt=""></div>
+                    <h4>ĐIỆN THOẠI</h4>
+                    <p><a href="tel:0966697696">0966.697.696</a> <br>Hotline/ Zalo</p>
+                </div>
+                <div class="col-md-4 col-sm-4 col-12 info-item info-email">
+                    <div class="maxheight"><img src="/Content/images/icon-email.png" alt=""></div>
+                    <h4>EMAIL</h4>
+                    <p><a href="mailto:dongkhanhcarservice@gmail.com">dongkhanhcarservice@gmail.com</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row mt30 product-page-content">
+
+        <div class="col-md-6">
+            <h4>@Resources.Global.Contact</h4>
+            <div id="comment-result" style="display:none;" class="status alert alert-success">@Resources.Global.FeedBackMessage</div>
+            <div class="comment-form" id="comment-form">
+                <div class="form-gray-fields">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <p id="msgBox" style="color: #c82e29; font-weight: bold; font-size: 13px"></p>
+                            @Html.AntiForgeryToken()
+                        </div>
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label for="name" class="upper">@Resources.Order.FullName</label>
+                                <input type="text" id="txtname" placeholder="" name="senderName" class="form-control">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="email" class="upper">Mail</label>
+                                <input type="email" id="txtemail" placeholder="" name="senderEmail" class="form-control email">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="email" class="upper">Số điện thoại</label>
+                                <input type="email" id="txtMobile" placeholder="" name="mobile" class="form-control email">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label for="comment" class="upper">@Resources.Order.Question</label>
+                                <textarea id="txtcontent" placeholder="" rows="6" name="comment" class="form-control"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group text-center">
+                                <button class="btn btn-primary" onclick="return validateData()"><i class="fa fa-paper-plane"></i>&nbsp;@Resources.Order.SendQuestion</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3725.5857393315273!2d105.82691131481965!3d20.969144995186916!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3135ac5601c8cc1f%3A0x2611b70291b0d3fa!2zMSBOZ3V54buFbiBI4buvdSBUaOG7jSwgSG_DoG5nIExp4buHdCwgSG_DoG5nIE1haSwgSMOgIE7hu5lpLCBWaeG7h3QgTmFt!5e0!3m2!1svi!2s!4v1628240646123!5m2!1svi!2s" width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+
+
+        </div>
+    </div><!-- end content-->
+</div>
+
+
+
+
+
+
+<script src="~/Content/js/formvalidate.js"></script>
+<script type="text/javascript">
+    
+        function validateEmail() {
+            if (!ValidateControls("@Resources.Order.EmailValidateEmpty", "#txtemail")) {
+                return false;
+            }
+            var mail = $('#txtemail').val();
+            if (!isValidEmailAddress(mail)) {
+
+                $("#msgBox").html("@Resources.Order.EmailValidateFormat").show();
+
+                $('#txtemail').focus();
+                return false;
+            }
+            return true;
+        }
+        function validateMobile() {
+            if (!ValidateControls("Vui lòng nhập số điện thoại", "#txtMobile")) {
+                return false;
+            }
+            var mail = $('#txtMobile').val();
+
+            return true;
+        }
+
+        function validateData() {
+            if (!ValidateControls("@Resources.Order.FullNameEmpty", "#txtname")) {
+                return false;
+            }
+            if (!validateEmail()) {
+                return false;
+            }
+            if (!validateMobile()) {
+                return false;
+            }
+            if (!ValidateControls("@Resources.Order.QuestionValidateEmpty", "#txtcontent")) {
+                return false;
+            }
+            var postdata = {
+                Name: $('#txtname').val(),
+                Email: $('#txtemail').val(),
+                Mobile: $('#txtMobile').val(),
+                Question: $('#txtcontent').val()
+
+            };
+            $.ajax({
+                type: "post",
+                dataType: "html",
+                url: '@Url.Action("Feedback", "Contact")',
+                data: addAntiForgeryToken(postdata),
+                success: function (response) {
+
+                    var data = parseInt(response);
+                    if (data == 1) {
+                        $("#comment-form").hide();
+                        $("#comment-result").show();
+                        $('#txtname').val("");
+                        $('#txtemail').val("");
+                        $('#txtMobile').val("");
+                        $('#txtcontent').val("");
+
+                    }
+
+                    if (data == -99) {
+                        $("#msgBox").html("@Resources.Order.MessageError").show();
+
+                    }
+                    if (data == -4) {
+                        $("#msgBox").html("@Resources.Order.MessageSoMuch").show();
+
+                    }
+
+                }
+            });
+
+            return true;
+        }
+</script>
+
+
+<style>
+    .form-group {
+        margin-bottom: 5px;
+    }
+    #info-company {
+        display:none;
+    }
+</style>

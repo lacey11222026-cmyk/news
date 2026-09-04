@@ -1,0 +1,111 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+
+    @Html.Partial("MetaData")
+
+    @Styles.Render("~/site/css")
+    @*<link href="/Styles/css.css?vs=12" rel="stylesheet" type="text/css" />
+        <link href="/Styles/glowtabs.css" rel="stylesheet" type="text/css" />
+        <link href="/Styles/extend.css?vs=12" rel="stylesheet" type="text/css" />*@
+
+
+
+    @*<link type="text/css" rel="stylesheet" href="/Scripts/jquery.mmenu.all.css" />*@
+
+
+
+
+</head>
+<body onorientationchange="updateOrientation();">
+    @Scripts.Render("~/sitescript")
+    <div class="top_link"></div>
+    <div id="wrap">
+        <div class="header">
+            <div class="fl">
+                <a href="/"><img src="/images/header.png" alt="" /></a>
+
+            </div>
+            <div class="link_top"><a href="/">Trang chủ</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="@Url.Action("SiteMap","Home")">Sơ đồ</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="#">Quy chế</a></div>
+            <div class="dangnhap">
+                <div class="timkiem">
+                    <input name="txtKeyword" id="txtKeyword" onkeydown="javascript: return AnyInput_KeyDown(this, event);" type="text" class="form2" value="" placeholder="Nhập từ cần tìm" />&nbsp;<a href="javascript:void(0);" id="imgsearch"><img src="/images/search.png" alt="" /></a>
+                </div>
+
+
+                <div class="clear"></div>
+                <div class="timkiem">
+                    <select name="" class="form1" onchange="window.open(this.options[this.selectedIndex].value,'_blank');this.options[0].selected=true">
+                        <option selected="selected">Liên kết</option>
+                        <option value="http://congdoan.vn/">Tổng LĐ LĐ VN</option>
+                        <option value="http://www.moit.gov.vn/vn/Pages/Trangchu.aspx">Bộ Công Thương</option>
+                        <option value="http://www.molisa.gov.vn/">Bộ LĐ TB & XH</option>
+                        <option value="http://chinhphu.vn/portal/page/portal/chinhphu/trangchu">Cổng TT ĐT Chính Phủ</option>
+                        <option value="http://congdoanxaydungvn.org.vn/">Công đoàn Xây dựng VN</option>
+                        <option value="http://www.congdoanytevn.org.vn/home/">Công đoàn Y tế VN</option>
+                        <option value="http://www.congdoandlvn.org.vn/">Công đoàn Điện lực VN</option>
+                        <option value="http://www.congdoanbdvn.org.vn/">Công đoàn Bưu điện VN</option>
+                        <option value="http://congdoangtvt.org.vn/">Công đoàn GTVT VN</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="clear"></div>
+
+
+        @{Html.RenderAction("Menu", "Home");}
+        <div class="bgw" id="@ViewBag.PageClass">
+            <div class="left">
+                @RenderBody()
+            </div>
+            <div class="right">
+                @Html.Partial("Site_Right")
+            </div>
+            <div class="clear"></div>
+
+
+            @{Html.RenderAction("BannerBottom", "Home");}
+
+
+
+
+        </div>
+        <div class="clear"></div>
+        <div class="footer">
+            @Html.Partial("Site_Footer")
+        </div>
+    </div>
+    <script>
+        function updateOrientation() {
+            window.location.reload();
+        }
+    </script>
+    @*<script type="text/javascript" src="/Scripts/jquery.mmenu.min.all.js"></script>*@
+    <script type="text/javascript">
+        $(function () {
+            $('nav#menu').mmenu();
+        });
+        $(document).ready(function () {
+
+            $(".block_mobile .click").bind('click', function () {
+                $(".block_mobile .date").hide();
+                $(".block_mobile .search_m").animate({ width: "75%" });
+            });
+        });
+    </script>
+    <script>
+        (function (i, s, o, g, r, a, m) {
+            i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () {
+                (i[r].q = i[r].q || []).push(arguments)
+            }, i[r].l = 1 * new Date(); a = s.createElement(o),
+                m = s.getElementsByTagName(o)[0]; a.async = 1; a.src = g; m.parentNode.insertBefore(a, m)
+        })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+
+        ga('create', 'UA-46843156-1', 'congdoancongthuong.org.vn');
+        ga('send', 'pageview');
+
+    </script>
+</body>
+
+
+</html>

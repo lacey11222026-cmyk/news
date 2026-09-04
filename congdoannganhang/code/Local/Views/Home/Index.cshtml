@@ -1,0 +1,87 @@
+﻿@using BIZ
+@using UTILS
+@using Local.Helper
+@{
+
+    Layout = "~/Views/Shared/_Layout2.cshtml";
+
+}
+<div class="clear"></div>
+<nav class="n_nav">
+    <ul class="page">
+        <li><a href="http://noibo.vnubw.org.vn/">Trang chủ</a> /</li>
+        <li><a href="http://mail.vnubw.org.vn:2096/">Thư điện tử </a> /</li>
+        <li><a href="#">DB điện thoại & mail </a> /</li>
+        <li><a href="#">Mẫu văn bản </a> /</li>
+        <li><a href="/Document/Index/3">Quy chế làm việc  </a> /</li>
+        <li><a href="#">Hỗ trợ người dùng  </a> /</li>
+        <li><a href="#">Sites</a></li>
+    </ul>
+</nav>
+<div class="clear"></div>
+<div class="page">
+    <div class="n_content1">
+        @{Html.RenderAction("TopDocument", "Home", new { CategoryId = 6, MaxDocuments = 2 });}
+        @{Html.RenderAction("TopDocument2", "Home", new { CategoryId = 4, MaxDocuments =1 });}
+        @{Html.RenderAction("TopDocument2", "Home", new { CategoryId = 3, MaxDocuments = 1 });}
+
+        
+    </div>
+    <div class="singin">
+       @if (Request.IsAuthenticated)
+       {
+           <p>Xin chào : <a href="#">@Context.User.Identity.Name</a> | <a href="@Url.Action("LogOff", "Account")">Thoát</a></p>
+       }
+    </div>
+    <div class="clear"></div>
+    <ul class="n_content">
+        <li>
+            @{Html.RenderAction("TopDocument3", "Home", new { CategoryId = 2, MaxDocuments = 3 });}
+        </li>
+        <li>
+            @{Html.RenderAction("TopDocument3", "Home", new { CategoryId = 90, MaxDocuments = 3 });}
+        </li>
+        <li>
+            @{Html.RenderAction("TopDocument3", "Home", new { CategoryId = 91, MaxDocuments = 3 });}
+        </li>
+        <li>
+            @{Html.RenderAction("TopDocument3", "Home", new { CategoryId = 87, MaxDocuments = 3 });}
+        </li>
+        <li>
+            @{Html.RenderAction("TopDocument3", "Home", new { CategoryId = 92, MaxDocuments = 3 });}
+        </li>
+        <li>
+            <div class="n_title"><a href="http://mail.vnubw.org.vn:2096/" target="_blank">Danh bạ và email</a></div>
+            <a href="http://mail.vnubw.org.vn:2096/" target="_blank"><img src="/images-2/n-banner10.jpg"></a>
+        </li>
+    </ul><!-- end content-->
+</div><!-- end page-->
+<div class="clear"></div>
+<footer>
+    <div class="page"><p>Bản quyền thuộc Công Đoàn Ngân Hàng Việt Nam</p></div>
+</footer>
+    <style>
+    .n_box3  p a {
+        color: #000;
+    }
+</style>   
+
+@*@{Html.RenderAction("LastestNews2", "Home", new { CateName = "", CategoryId = 4, MaxLastestNews = 1 });}
+
+
+@{Html.RenderAction("LastestNews2", "Home", new { CateName = "", CategoryId = 6, MaxLastestNews = 1 });}
+
+@{Html.RenderAction("TopDocument", "Home", new { CateName = "", CategoryId = 5, MaxLastestNews = 10 });}
+@{Html.RenderAction("TopDocument", "Home", new { CateName = "Mẫu văn bản", CategoryId = 2, MaxLastestNews = 10 });}
+
+@{Html.RenderAction("LastestNews2", "Home", new { CateName = "", CategoryId =3, MaxLastestNews = 1 });}*@
+
+
+
+
+
+
+
+
+
+

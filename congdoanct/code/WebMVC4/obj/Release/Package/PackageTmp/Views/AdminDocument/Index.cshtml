@@ -1,0 +1,427 @@
+﻿@{
+    
+    Layout = "~/Views/Shared/_Admin.cshtml";
+}
+
+    <script type="text/javascript">
+        var redirectUrl = '@Url.Action("AddEdit","AdminDocument")';
+        var page_index = 1;
+        var page_size = 10;
+
+
+        $(document).ready(function () {
+
+            BindCategoriesToSelectBox();
+
+            BindPageSizeToSelectBox();
+
+            OnLoad(1);
+        });
+
+        function OnLoad(pi) {
+            page_index = pi;
+            $('#select_pagesize').show();
+            $('#paging_container').show();
+            $('#txt_filterbyname').val('');
+            Filter(pi)
+        }
+
+        function Filter(pi) {
+            //$('#select_pagesize').hide();
+            // $('#paging_container').hide();
+            page_index = pi;
+            var tit = $('#txt_filterbyname').val();
+            var cid = $('#select_filterbycategory option:selected').val();
+            var status = $('#select_filterbystatus option:selected').val();
+
+            $.Services({
+                element: $('#grid_items'),
+                loadingImg: '<tr><td colspan="14">Đang tải dữ liệu ...</td><tr>',
+                serviceName: 'DocumentService.ashx',
+                data: {
+                    __m: 'get_filter_Documents',
+                    tit: tit,
+                    cid: cid,
+                    _pi: page_index,
+                    _ps: page_size,
+                    status: status
+                },
+                success: function (data) {
+                    var html = '<tr><td colspan="14">Không có văn bản nào</td><tr>';
+                    if (data != undefined && data != null && data != '') {
+                        var items = data.Items;
+                        var total = data.Total;
+                        html = BindData(items);
+                        RenderPaging(pi, page_size, total, Filter);
+                    }
+
+                    $('#grid_items').html(html);
+                }
+            });
+        }
+
+        function BindData(data) {
+            var html = '';
+            $.each(data, function (index, item) {
+                var thumnail = '';
+                if (item.Images != null && item.Images != undefined && item.Images != '') {
+                    var images = item.Images;
+                    var arr_images = images.split(',');
+                    thumnail = GetThumbnailUrl(item.Id) + arr_images[0];
+                }
+                else {
+                    thumnail = '/Images/nophoto.jpg';
+                }
+
+                html += '<tr id="item' + item.Id + '">';
+                html += '<td align="center">';
+                html += '<input type="checkbox" name="chk_item" value="' + item.Id + '" />';
+                html += '</td>';
+
+                html += '<td>';
+                html += '<a href="' + redirectUrl + '?id=' + item.Id + '" alt="' + item.Name + '">';
+                html += item.Name;
+                html += '</a>';
+                html += '</td>';
+
+                html += '<td>';
+                html += item.CategoryName;
+                html += '</td>';
+
+
+                html += '<td>';
+                if (item.FileName != null) {
+                    html += item.FileName;
+                }
+                
+                html += '</td>';
+                html += '<td>';
+
+
+                html += item.Code;
+                html += '</td>';
+
+                html += '<td>';
+                html += item.Description;
+                html += '</td>';
+
+                html += '<td>';
+                html += item.CreatedBy;
+                html += '</td>';
+
+                html += '<td>';
+                html += dateFormat(item.CreatedDate, 'dd/mm/yyyy');
+                html += '</td>';
+
+                html += '<td>';
+                html += dateFormat(item.PublishDate, 'dd/mm/yyyy');
+                html += '</td>';
+                html += '<td>';
+                html += dateFormat(item.EffectiveDate, 'dd/mm/yyyy');
+                html += '</td>';
+                html += '<td>';
+                html += dateFormat(item.ExpiryDate, 'dd/mm/yyyy');
+                html += '</td>';
+
+                html += '<td>';
+                html += item.SignedByDesc;
+                html += '</td>';
+
+                html += '<td>';
+                html += item.SignedBy;
+                html += '</td>';
+
+                html += '<td align="center">';
+                if (item.Status == 1)
+                    html += "Hoạt động";
+                else
+                    html += "Khóa";
+                html += '</td>';
+                html += '</tr>';
+            });
+
+            return html;
+        }
+
+        function RenderPaging(pageindex, pagesize, totalrecord, callback) {
+
+            var html = {
+                container: '<div class="pagination"></div>',
+                wrraper: '<div class="button2-left"><div class="page"></div></div>',
+                firstbtn: '<div class="button2-right"><div class="start"><a>Bắt đầu</a></div></div>',
+                prevbtn: '<div class="button2-right"><div class="prev"><a>Trước</a></div></div>',
+                nextbtn: '<div class="button2-left"><div class="next"><a>Tiếp</a></div></div>',
+                lastbtn: '<div class="button2-left"><div class="end"><a>Cuối cùng</a></div></div>'
+            }
+
+            if (totalrecord > page_size) {
+                $("#paging_container").pager({ pagenumber: pageindex, pagecount: Math.ceil(totalrecord / page_size), buttonClickCallback: callback, html: html });
+            }
+            else {
+                $("#paging_container").html("");
+            }
+
+        }
+
+
+
+        function New() {
+            window.location.href = redirectUrl;
+        }
+
+        function Delete() {
+
+            DestroyJAlert();
+            var arr_checked_items = [];
+            $('input[type="checkbox"][name="chk_item"]:checked').each(function (i, e) {
+                arr_checked_items.push($(e).val());
+            });
+
+            if (arr_checked_items.length > 0) {
+                var confirmFunc = function () {
+                    $.Services({
+                        isCrossDomain: false,
+                        url: POST_URL + 'DocumentService.ashx',
+                        data: {
+                            __m: "delete",
+                            'id': arr_checked_items
+                        },
+                        success: function (data) {
+                            if (data != undefined && data != null && data != '') {
+                                var json_data = eval('(' + data + ')');
+
+                                if (json_data.Success) {
+                                    //$.jCache.setItem("LIST_ITEMS_PAGING_" + page_index + page_size, null);
+                                    OnLoad(1);
+                                }
+
+                                var jalert_type = "info";
+                                if (!json_data.Success)
+                                    jalert_type = "fatal";
+                                else {
+                                    $.each(arr_checked_items, function (index, item) {
+                                        $("grid_items").find('tr#item' + item).hide();
+                                    });
+
+                                }
+
+                                $('#jalert_notification').jAlert(json_data.Text, jalert_type, "edit", 400);
+                            }
+                        }
+                    });
+                };
+
+                OpenConfirmDialog('Bạn có muốn xóa Document này không ?', confirmFunc);
+            }
+            else {
+                $('#jalert_notification').jAlert('Bạn phải chọn ít nhất 1 Document', "warning", "edit", 400);
+            }
+        }
+
+        function BindPageSizeToSelectBox() {
+            //select_pagesize
+            var html = '';
+            html += '<option value="10">10</option>';
+            html += '<option value="20">20</option>';
+            html += '<option value="30">30</option>';
+            html += '<option value="40">40</option>';
+            html += '<option value="50">50</option>';
+            html += '<option value="60">60</option>';
+            html += '<option value="70">70</option>';
+            html += '<option value="80">80</option>';
+            html += '<option value="90">90</option>';
+            html += '<option value="100">100</option>';
+
+            $('#select_pagesize').html(html).change(function () {
+                page_size = $('#select_pagesize option:selected').val();
+                OnLoad(1);
+            });
+        }
+
+        function BindCategoriesToSelectBox() {
+
+            $('#select_filterbycategory').html('<option value="3">- Tra cứu văn bản -</option>');
+            $.Services({
+                serviceName: 'CategoryService.ashx',
+                data: {
+                    __m: 'get_categorybyparent',
+                    _id: 3
+                },
+                success: function (data) {
+                    html = '';
+                    if (data != undefined && data != null && data != '') {
+                        $.each(data, function (i, item) {
+                            html = '<option value="' + item.Id + '">';
+                            if (item.NodeLevel != 0) {
+                                html += "";
+                                for (var i = 1; i < item.NodeLevel; i++) {
+                                    html += '-+&nbsp;';
+                                }
+                            }
+
+                            html += item.Name;
+                            html += '</option>';
+                            if (item.ParentId != 0) {
+                                if ($('#select_filterbycategory option[value=' + item.ParentId + ']').length)
+                                    $('#select_filterbycategory option[value=' + item.ParentId + ']').after(html);
+                                else
+                                    $('#select_filterbycategory').append(html);
+                            }
+                            else
+                                $('#select_filterbycategory').append(html);
+                        });
+                    }
+
+                }
+            });
+        }
+
+       
+    </script>
+    <div id="toolbar-box">
+        <div class="t">
+            <div class="t">
+                <div class="t">
+                </div>
+            </div>
+        </div>
+        <div class="m">
+            <div class="toolbar" id="toolbar">
+                <table class="toolbar">
+                    <tr>
+                        <td class="button" id="toolbar-delete">
+                            <a class="toolbar" onclick="Delete();" href="javascript:void(0);"><span class="icon-32-delete"
+                                name="Delete"></span>Xóa</a>
+                        </td>
+                        <td class="button" id="toolbar-new">
+                            <a class="toolbar" onclick="New();" href="javascript:void(0);"><span class="icon-32-new"
+                                name="New"></span>Tạo mới</a>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div class="header icon-48-article">
+                Quản lý Văn bản
+            </div>
+            <div class="clr">
+            </div>
+        </div>
+        <div class="b">
+            <div class="b">
+                <div class="b">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="clr">
+    </div>
+    <div id="element-box">
+        <div class="t">
+            <div class="t">
+                <div class="t">
+                </div>
+            </div>
+        </div>
+        <div class="m">
+            <div id="jalert_notification">
+                &nbsp;</div>
+            <table>
+                <tr>
+                    <td width="100%">
+                        Tên văn bản:
+                        <input id="txt_filterbyname" type="text" style="width: 250px;" />
+                        <input id="btn_search" type="button" value="Lọc" onclick="Filter(1);" />
+                        <input id="btn_clear" type="button" value="Làm lại" onclick="OnLoad(1);" />
+                    </td>
+                    <td nowrap="nowrap">
+                        Chuyên mục:
+                        <select id="select_filterbycategory" onchange="Filter();">
+                        </select>
+                    </td>
+                    <td nowrap="nowrap">
+                        Trạng thái:
+                        <select id="select_filterbystatus" onchange="Filter();">
+                            <option value="-1">--Tất cả--</option>
+                            <option value="1">Hoạt động</option>
+                            <option value="0">Khóa</option>
+                        </select>
+                    </td>
+                </tr>
+            </table>
+            <table class="adminlist" cellpadding="1">
+                <thead>
+                    <tr>
+                        <th width="1%" class="Name">
+                            #
+                        </th>
+                        <th width="10%" class="Name" style="text-align: left">
+                            Tên tài liệu
+                        </th>
+                         <th width="5%" class="Name" style="text-align: left">
+                           Chuyên mục
+                        </th>
+                         <th width="7%" class="Name" style="text-align: left">
+                            File đính kèm
+                        </th>
+                        
+                        <th width="5%" class="Name" style="text-align: left">
+                            Mã
+                        </th>
+                        <th width="10%" class="Name" style="text-align: left">
+                            Mô tả
+                        </th>
+                         <th width="5%" class="Name" style="text-align: left">
+                           Người tạo
+                        </th>
+                        <th width="5%" class="Name" style="text-align: left">
+                            Ngày tạo
+                        </th>
+                        <th width="5%" class="Name" style="text-align: left">
+                            Ngày ban hành
+                        </th>
+                        <th width="5%" class="Name" style="text-align: left">
+                            Ngày có hiệu lực
+                        </th>
+                        <th width="5%" class="Name" style="text-align: left">
+                            Ngày hết hiệu lực
+                        </th>
+                        <th width="10%" class="Name" style="text-align: left">
+                            Cơ quan ban hành
+                        </th>
+                        <th width="10%" class="Name" style="text-align: left">
+                            Người ký
+                        </th>
+                        <th width="5%" class="Name">
+                            Trạng thái
+                        </th>
+                    </tr>
+                </thead>
+                <tfoot>
+                    <tr>
+                        <td colspan="14">
+                            <del class="container">
+                                <div class="limit">
+                                    <select id="select_pagesize">
+                                    </select>
+                                </div>
+                                <div id="paging_container">
+                                </div>
+                            </del>
+                        </td>
+                    </tr>
+                </tfoot>
+                <tbody id="grid_items">
+                </tbody>
+            </table>
+            <div class="clr">
+            </div>
+        </div>
+        <div class="b">
+            <div class="b">
+                <div class="b">
+                </div>
+            </div>
+        </div>
+    </div>
+
+

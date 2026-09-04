@@ -1,0 +1,37 @@
+﻿@using BIZ
+@using UTILS
+@using WebMVC4.Helper
+@model BIZ.Entity.CATEGORY_FULL
+<div class="main-content row">
+    @if (Model != null)
+    {
+        <div class="column medium-12 large-8">
+            <nav class="content-breadcrumbs">
+                <ul>
+                    <li><a href="/">Auto JP</a></li>
+
+                    <li class="content-breadcrumbs__separator">»</li>
+                    <li>
+                        @Model.Name
+                    </li>
+                </ul>
+            </nav>
+            <div class="row">
+
+                <hr />
+                <div class="hiden-over content-clear" id="NewsContent">
+                    @Html.Raw(Model.Contents)
+
+                </div>
+                <div class="clear">
+                </div>
+                <hr />
+
+
+            </div>
+
+        </div>
+        
+    }
+    @Html.Partial("Site_Right")
+</div>

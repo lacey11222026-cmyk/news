@@ -1,0 +1,17 @@
+﻿@model List<DATA.Banner>
+
+@if (Model != null)
+{
+    <div class="bnrSliderBig">
+        @foreach (var item in Model.Select((value, i) => new { i, value }))
+        {
+
+        <div><a href="@item.value.Url"><img src="@item.value.Data" alt="@item.value.Name" class="w-100"></a></div>
+        }
+    </div>
+   
+
+
+}
+
+

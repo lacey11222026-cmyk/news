@@ -1,0 +1,43 @@
+﻿
+@using BIZ
+@using UTILS
+@using WebMVC4.Helper
+@{
+    var langpage = WorkContext.GetLanguage();
+}
+@model WebMVC4.Models.LastestNewModel
+@if (Model != null)
+{
+    if (Model.lstdata.Count > 0)
+    {
+        if (langpage == "vi-vn")
+        {
+
+            <h2 class="title-cm"><a href="/tin-tuc/c11/khach-hang.html">Khách hàng của chúng tôi </a><span class="linegreen"></span></h2>
+
+        }
+        else
+        {
+            <h2 class="title-cm"><a href="/tin-tuc/c11/khach-hang.html">Our Clients  </a><span class="linegreen"></span></h2>
+        }
+        <ul class="customer-list list-inline hidden-1024" style="margin-left:0px">
+            @foreach (var item in Model.lstdata.Select((value, i) => new { i, value }))
+            {
+                <li class="wow bounceInLeft" data-wow-delay="@HtmlHelpers.GetDelay2(item.i+1)"><a href="@item.value.LinkUrl"><img src="@item.value.MainImage?h=117&mode=crop" alt=""></a></li>
+
+            }
+
+
+        </ul>
+        <div class="slide-chantrang block-1024">
+            <ul id="flexiselDemo3">
+                @foreach (var item in Model.lstdata.Select((value, i) => new { i, value }))
+                {
+                    <li><a href="@item.value.LinkUrl"><img src="@item.value.MainImage?h=117&mode=crop" alt=""></a></li>
+                }
+            </ul>
+        </div>
+
+
+    }
+}

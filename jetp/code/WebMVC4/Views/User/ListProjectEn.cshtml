@@ -1,0 +1,79 @@
+﻿@using DATA.ContentDB
+@model List<UserProject>
+@using WebMVC4.Helper
+@if (Model != null && Model.Count > 0)
+{
+    <table class="manage-pr-tbl">
+        <tbody>
+            <tr>
+                <th>
+                    No.
+                </th>
+                <th>
+                    Project name
+                </th>
+                <th>
+                    Types of project
+                </th>
+                <th>
+                    Project categories
+                </th>
+                <th>
+                    Total project cost
+                </th>
+                <th>
+                    Creation time
+                </th>
+                <th>
+                    Submission time
+                </th>
+                <th>
+                    Action
+                </th>
+            </tr>
+
+            @for (int i = 0; i < Model.Count; i++)
+            {
+                var obj = Model[i];
+                <tr>
+                    <td>@(i + 1)</td>
+                    @if (obj.ViewCount > 0)
+                    {
+                        <td>@obj.Name</td>
+                    }
+                    else
+                    {
+                        <td>@obj.Name</td>
+                    }
+
+                    <td>@HtmlHelpers.UserProjectTypeEn(obj.Type)</td>
+                    <td>@HtmlHelpers.UserProjectSubTypeEn(obj.SubType, obj.Type)</td>
+                    @if (obj.Type == 1)
+                    {
+                        <td>@obj.Total</td>
+                    }
+                    else
+                    {
+                        <td>@obj.Total @obj.Currency</td>
+                    }
+
+                    <td>@obj.CreateTime.ToString("dd/MM/yyyy HH:mm")</td>
+                    <td>@obj.SendTime.ToString("dd/MM/yyyy HH:mm")</td>
+                    <td>
+                        <div class="tbl-btn">
+                            <a href="@Url.Action("Detail",new { id=obj.Id})" target="_blank"><img src="/Content2/images/icon-eyes.png" alt="" width="20"></a>
+
+                            @if (obj.Status == 0)
+                            {
+                                <a href="@Url.Action("AddProject",new { id=obj.Id})"><img src="/Content2/images/icon-edit.png" alt="" width="18"></a>
+                            }
+
+
+                        </div>
+                    </td>
+                </tr>
+            }
+
+        </tbody>
+    </table>
+}

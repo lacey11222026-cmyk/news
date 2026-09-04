@@ -1,0 +1,47 @@
+﻿@using BIZ
+@using UTILS
+@using WebMVC4.Helper
+@model WebMVC4.Models.MissionModel
+
+
+@{
+    var langpage = WorkContext.GetLanguage();
+}
+<div class="faq-page container mt20">
+    <div class="row">
+        <div class="col-lg-8 col-md-12 pb40">
+            <h2 class="title-cm01"><a href="#">Hỏi đáp</a></h2>
+            <div class="mt30">
+                <div class="qaa mt20">
+                    <div id="faq">
+                        @foreach (var item in Model.listdata.Select((value, i) => new { i, value }))
+                        {
+                            <div class="faq-item @item.value.Id">
+                                <button class="btn btn-link collapsed item-question" data-toggle="collapse" data-target="#collapse@(item.i+1)" aria-expanded="true" aria-controls="collapse@(item.i+1)">
+                                    @item.value.Description
+                                </button>
+                                <div id="collapse@(item.i+1)" class="faq-content collapse" data-parent="#faq">
+                                    @Html.Raw(item.value.Organ)
+                                </div>
+                            </div>
+                        }
+                        </div>
+
+                </div><!-- end qaa page-->
+               
+            </div>
+        </div><!-- end content left-->
+        
+        <div class="col-lg-4 col-md-12">
+            <div class="noti-box">
+                @{Html.RenderAction("RightLastestNews2", "News", new { CateName = "", CategoryId = 93, MaxLastestNews = 3, cssClass = "maxheight02" });}
+
+            </div>
+            <ul class="link-list mt20">
+                @{Html.RenderAction("BannerRight", "Home", new { lang = langpage });}
+
+            </ul>
+        </div>
+    </div>
+</div>
+<!-- end content-->

@@ -1,0 +1,56 @@
+﻿@using BIZ
+@using UTILS
+@using WebMVC4.Helper
+@model WebMVC4.Models.LastestNewModel
+@if (Model.lstdata != null)
+{
+    if (Model.lstdata.Count > 0)
+    {
+        <div class="document-page-item">
+            <h2 class="title-cm">@Model.HeaderTitle</h2>
+            <div class="support-service-list mt40">
+                @foreach (var item in Model.lstdata.Select((value, i) => new { i, value }))
+                {
+                    <div>
+                        <a href="@item.value.LinkUrl" class="maxheight">
+                            <div class="img-wrap">
+                                <img src="@item.value.MainImage?w=246&h=344&mode=crop" alt="">
+                                @if (item.value.Type == 5)
+                                {<span class="sticker-depp3"></span>
+
+                                }
+
+                            </div>
+                            <span class="book-title">@item.value.Title</span>
+                        </a>
+
+                        <div class="detail-tags mt20">
+                            <p>Tags: </p>
+                            <ul>
+                                @if (!string.IsNullOrEmpty(item.value.SiteUrl))
+                                {
+                                    foreach (var tag in item.value.SiteUrl.Split(',').Select((value, i) => new
+                                    {
+                                        i,
+                                        value
+                                    }))
+                                    {
+                                        <li>  <a href="@Url.Action("Search", new { q = tag.value.Trim() })">@tag.value.Trim()</a></li>
+                                    }
+                                }
+
+
+                            </ul>
+                        </div>
+                    </div>
+                }
+            </div>
+            <div class="mt20 text-center">
+                <a href="@Model.Url" class="btn-cm btn-blue">@Resources.Global.More</a>
+            </div>
+        </div>
+
+
+
+    }
+}

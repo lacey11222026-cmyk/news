@@ -1,0 +1,88 @@
+﻿@using BIZ
+@using UTILS
+@using WebMVC4.Helper
+
+
+
+<div class="banner">
+    <div class="slickSlide">
+        @{Html.RenderAction("Banner", "Home", new { lang = "vi-vn" });}
+
+    </div>
+    <div class="intro-time-wrap ">
+        <div class="intro-time container">
+            <div>
+                <div class="mt20" id="countdown">
+                    <ul class="num-time">
+                        <li class="num-time-item"><span id="days">00</span><p>Ngày</p></li>
+                        <li class="num-time-item"><span id="hours">00</span><p>Giờ</p></li>
+                        <li class="num-time-item"><span id="minutes">00</span><p>Phút</p></li>
+                        <li class="num-time-item"><span id="seconds">00</span><p>Giây</p></li>
+                    </ul>
+                </div>
+                <p class="time-txt">Nhận hồ sơ tham gia các giải thưởng đến 24 giờ ngày 31/10/2026</p>
+            </div>
+            <div><a href="#" class="btn-cm btn-white" data-toggle="modal" data-target="#modalHoso">Nhận hồ sơ</a></div>
+        </div>
+    </div>
+
+    <!-- modal nhan ho so-->
+    <div class="modal fade" id="modalHoso" tabindex="-1" role="dialog" aria-labelledby="" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <div class="modalContent">
+                        <p class="modalHoso-title">Ban tổ chức nhận hồ sơ theo hình thức trực tuyến và qua bưu điện. Quý đơn vị vui lòng gửi hồ sơ theo cả 2 phương thức sau (bắt buộc gửi đồng thời bản mềm và bản cứng):</p>
+                        <p class="mt20 font-weight-bold">
+                            1. Hồ sơ bản cứng đóng tập gửi về:
+                        </p>
+                        <p class="mt10">
+                            - Hội Khoa học và Công nghệ sử dụng năng lượng tiết kiệm và hiệu quả Việt Nam<br />
+                            - Địa chỉ: Tầng 5, tòa nhà Sông Đà 9, số 2 đường Nguyễn Hoàng, Phường Từ Liêm, Thành phố Hà Nội
+
+                        </p>
+                        <p class="mt20 font-weight-bold">
+                            2. Hồ sơ bản điện tử file scan gửi về email:
+                        </p>
+                        <ul class="list-dot mt10">
+                            <li>Giải thưởng Hiệu quả năng lượng trong công nghiệp năm 2026: giaithuongcongnghiep@gmail.com</li>
+                            <li>Giải thưởng Hiệu quả năng lượng trong công trình xây dựng năm 2026: quantri@veecom.vn</li>
+                            <li>Giải thưởng Sản phẩm hiệu suất năng lượng cao nhất năm 2026: vneec.gov@gmail.com</li>
+                            <li>Giải thưởng Giải pháp công nghệ hiệu quả năng lượng đổi mới, sáng tạo năm 2026: vneec.gov@gmail.com</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="intro-box pt70 container">
+    @{Html.RenderAction("Intro", "Home", new { CategoryId = 25 });}
+</div>
+<div class="pt70 pb70 container">
+    @{Html.RenderAction("LastestNews", "Home", new { CateName = "", CategoryId = 6, MaxLastestNews = 6, cssClass = "maxheight02" });}
+
+</div>
+<div class="pt70 pb70 img-box">
+    @{Html.RenderAction("TopAlbum", "Home", new { CateName = "", CategoryId = 5, top = 6, cssClass = "maxheight02" });}
+</div>
+<div class="pt70 pb70 video-box container">
+    @{Html.RenderAction("HomeVideo", "Home", new { CateName = "", CategoryId = 4, IsMobile=false, lang = "vi-vn" });}
+</div>
+<div class="pt70 pb70 logo-box">
+    <div class="container">
+        <h2 class="title-cm text-center">ĐƠN VỊ ĐẠT GIẢI</h2>
+        <div class="mt50 logo-list">
+            <ul>
+                @{Html.RenderAction("BannerBottom", "Home", new { lang = "vi-vn" });}
+            </ul>
+        </div>
+    </div>
+</div>
+
+
+<script src="/Content/js/counttime.js" type="text/javascript"></script>

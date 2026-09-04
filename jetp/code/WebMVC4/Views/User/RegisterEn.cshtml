@@ -1,0 +1,401 @@
+﻿@{
+    Layout = "~/Views/Shared/_Login.cshtml";
+}
+@using BIZ.Entity
+@using UTILS
+@using WebMVC4.Helper
+<section class="section-login-1" style="background-image: url('/Content/images/bg-dangky.jpg');">
+    <div class="container-fulid" style="height: inherit;">
+        <div class="content">
+            <div class="col-left">
+                <div class="header-login">
+                    <div class="logo">
+                        <a href="/">
+                            <img src="/Content/images/logo2025.png?vs=01" alt="images">
+                        </a>
+                    </div>
+                    <div class="lang">
+                        <button class="bnt-lang">
+                            <img src="/Content/images/gb.png" alt="images">
+                            <span>English</span>
+                            <i class="fas fa-caret-down"></i>
+                        </button>
+                        <ul class="list-lang">
+
+                            <li><a href="/Home/Language?lang=vi-vn"><img src="/Content/images/vn.png" alt="images"><span>VietNamese</span></a></li>
+                            <li><a href="/Home/Language?lang=en-us"><img src="/Content/images/gb.png" alt="images"><span>English</span></a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="col-right">
+                <div class="right-form ">
+                    <div class="title">
+                        <h2>Create an account</h2>
+                        <p>Welcome to  <br /><strong>the Just Energy Transition Partnership (JETP)</strong> <br />Registration page. Register to participate.</p>
+                    </div>
+                    <div action="" class="form-register" id="step1">
+
+                        <div class="basic-info">
+                            <div class="f-item">
+                                <div class="f-col" style="height: 146px;">
+                                    <label for="">First Name <span class="textred">*</span></label>
+                                    <input type="text" name="firstName" id="firstName" placeholder="Enter your first name" class="input-cm">
+                                    <label class="firstName-error error" for="firstName" id="firstName-er"></label>
+                                </div>
+                                <div class="f-col" style="height:146px;">
+                                    <label for="">Last Name <span class="textred">*</span></label>
+                                    <input type="text" name="lastName" id="lastName" placeholder="Enter your last name" class="input-cm">
+                                    <label class="lastName-error error" for="lastName" id="lastName-er"></label>
+                                </div>
+                            </div>
+                            <div class="f-item fw-100">
+                                <div class="f-col">
+                                    <label for="">Email <span class="textred">*</span></label>
+                                    <input type="text" name="email" id="email" autocomplete="new-password" placeholder="Enter your email address" class="input-cm">
+                                    <label class="email-error error" for="email" id="email-er"></label>
+                                </div>
+                            </div>
+                            @*<div class="f-item fw-100">
+                                    <div class="f-col">
+                                        <label for="">Số điện thoại *</label>
+                                        <input type="number" name="phone" id="phone" placeholder="Nhập số điện thoại của bạn" class="input-cm">
+                                        <label class="phone-error error" for="phone" id="phone-er"></label>
+                                    </div>
+                                </div>*@
+                            <div class="f-item fw-100">
+                                <div class="f-col">
+                                    <label for="">Organization</label>
+                                    <input type="text" name="organization" id="organization" placeholder="Enter your organization" class="input-cm">
+                                </div>
+                            </div>
+
+                            <div class="step">
+                                <div class="step-left">
+                                    <strong>(Step 1/2)</strong>
+                                    <div class="dot-step">
+                                        <span class="dot step-1"></span>
+                                        <span class="dot"></span>
+                                    </div>
+                                </div>
+                                @*<div class="step-right">
+                                        <a href="javascript:;" onclick="goLogin()">
+                                            <i class="fa fa-undo" aria-hidden="true"></i>
+                                            <span>Quay lại</span>
+                                        </a>
+                                    </div>*@
+                            </div>
+                            <button type="button" onclick="validateData()" class="btn-cm btn-blue w-100">Next</button>
+
+                        </div>
+
+                    </div>
+                    <div action="" class="form-register" style="display:none" id="step2">
+                        <input type="hidden" name="csrfToken" value="86bd02aa27">
+                        <div class="account-info">
+                            <div class="f-item fw-100">
+                                <div class="f-col">
+                                    <label for="">Username <span class="textred">*</span></label>
+                                    <input type="text" name="username" autocomplete="off" id="username" placeholder="Enter your username" class="input-cm">
+                                    <label class="username-error error" for="username" id="username-er"></label>
+                                </div>
+                            </div>
+                            <div class="f-item fw-100">
+                                <div class="f-col">
+                                    <label for="">Password <span class="textred">*</span></label>
+                                    <input type="password" name="password" autocomplete="new-password" id="password" placeholder="Enter your password" class="input-cm">
+                                    <label class="password-error error" for="password" id="password-er"></label>
+                                </div>
+                            </div>
+                            <div class="f-item fw-100">
+                                <div class="f-col">
+                                    <label for="">Confirmation <span class="textred">*</span></label>
+                                    <input type="password" name="repassword" autocomplete="new-password" id="repassword" placeholder="Re-enter your password" class="input-cm">
+                                    <label class="repassword-error error" for="repassword" id="repassword-er"></label>
+                                </div>
+                            </div>
+                            <div class="step">
+                                <div class="step-left">
+                                    <strong>(Step 2/2)</strong>
+                                    <div class="dot-step step-v2">
+                                        <span class="dot step-1"></span>
+                                        <span class="dot step-2"></span>
+                                    </div>
+                                </div>
+                                <div class="step-right">
+                                    <a href="javascript:void(0)" class="back-to-basic-info" onclick="goStep1()">
+                                        <i class="fa fa-undo" aria-hidden="true"></i>
+                                        <span>Back</span>
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="note note-v2">
+                                <input type="checkbox" name="commit" id="commit">
+                                <label for="commit">I agree to  the Terms of Use and Privacy Policy of the website</label>
+                            </div>
+                            <button type="submit" class="btn-cm btn-blue w-100" onclick="validateData2()"><span>Register</span></button>
+                            <div class="my-account">
+                                <p>Already have an account?  <a href="/User/Login" class="textblue textlink">Log in now</a></p>
+                            </div>
+                            <div class="form-box mt20">
+                                <p style="color: red;text-align: left;font-weight:bold" id="msgBox"></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Modal -->
+<div class="modal fade" id="modalComplete" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"> <span aria-hidden="true">&times;</span> </button>
+            <div class="modal-body">
+                <h4 class="text-center">Account registration successful</h4>
+                <p class="text-center mt20">An account confirmation email has been sent to your email address.<br> Please check your email to complete account registration.</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn-cm btn-blue font-weight-bold" data-dismiss="modal" aria-label="Close">OK</button>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="~/Content/js/formvalidate.js?vs=02"></script>
+
+<script>
+
+    function goLogin() {
+       window.location.href = "@Url.Action("Login")"
+    }
+
+    function goStep1() {
+        $('#step2').hide();
+        $('#step1').show();
+    }
+    function validatePhone() {
+        if (!ValidateControls("Vui lòng nhập số điện thoại !", "#phone", "#phone-er")) {
+            return false;
+        }
+
+        var phone = $('#phone').val();
+
+        if (phone.length < 9 || phone.length > 12) {
+
+            $("#phone-er").html("Số điện thoại không hợp lệ.").show();
+            $('#phone').focus();
+            return false;
+        }
+        if (!isInteger(phone)) {
+
+            $("#phone-er").html("Số điện thoại không hợp lệ.").show();
+
+            $('#phone').focus();
+            return false;
+        }
+        return true;
+
+    }
+    function validateEmail() {
+        if (!ValidateControls("Please enter your email address! !", "#email", "#email-er")) {
+            return false;
+        }
+        var mail = $('#email').val();
+        if (!isValidEmailAddress(mail)) {
+
+            $("#email-er").html("Invalid email").show();
+
+            $('#email').focus();
+            return false;
+        }
+        return true;
+    }
+    function validateData() {
+        if (!ValidateControls("Please enter your first name!", "#firstName", '#firstName-er')) {
+            $('#firstName').focus();
+            return false;
+        }
+        if (!ValidateControls("Please enter your last name!", "#lastName", '#lastName-er')) {
+            $('#lastName').focus();
+            return false;
+        }
+        if (!validateEmail()) {
+            return false;
+        }
+        //if (!validatePhone()) {
+        //    return false;
+        //}
+
+
+        $('#step1').hide();
+        $('#step2').show();
+    }
+    function validateData2() {
+        if (!ValidateControls("Please enter your username!", "#username", '#username-er')) {
+            return false;
+        }
+        var username = $('#username').val();
+
+        if (username.length < 5) {
+
+            $("#username-er").html("Please enter at least 5 characters.").show();
+            $('#username').focus();
+            return false;
+        }
+        if (!CheckAlpha(username)) {
+            $("#username-er").html("Usernames must contain only letters from A to Z (case insensitive) or numbers from 0 to 9").show();
+            $('#username').focus();
+
+            return false;
+        }
+        if (!ValidateControls("Please enter your password !", "#password", '#password-er')) {
+            return false;
+        }
+        var password = $('#password').val();
+        if (password.length < 8) {
+
+            $("#password-er").html("Please enter at least 8 characters.").show();
+            $('#password').focus();
+            return false;
+        }
+        if (!isValidPassword(password)) {
+            $("#password-er").html("Password must contain at least 1 uppercase letter, 1 number, and 1 special character (!@@#$%&*).").show();
+            $('#username').focus();
+
+            return false;
+        }
+        var repassword = $('#repassword').val();
+        if (password != repassword) {
+            $("#repassword-er").html("Passwords do not match").show();
+            $('#repassword').focus();
+
+            return false;
+        }
+        var check = $('#commit').prop("checked") ? 1 : 0;
+        if (check == 0) {
+            $("#msgBox").html("You have not agreed to our Terms of Service and Privacy Policy").show();
+
+            $('.error').hide();
+            return false;
+        }
+
+
+        var param2 = {
+            Password: password,
+            Username: username,
+            FistName: $("#firstName").val(),
+            LastName: $("#lastName").val(),
+            Email: $("#email").val(),
+            Mobile: '',
+            Organ: $("#organization").val(),
+        };
+        $.ajax({
+            type: 'POST',
+            url: "@Url.Action("Reg")",
+            data: addAntiForgeryToken(param2),
+            async: true,
+            success: function (data) {
+
+                if (data.success === true) {
+                    // bootbox.alert("Đăng ký thành công");
+                    //setTimeout(function () {  goLogin(); }, 3000);
+                   $('#notebox').on('hidden.bs.modal', function () {
+                     goLogin();
+                    });
+                    $('#modalComplete').modal('show');
+                } else {
+
+                    $("#msgBox").text(data.msg).show();
+                    return;
+                }
+            }
+        });
+    }
+</script>
+<style>
+    .section-login-1 .content .col-right .right-form .form-register .f-col {
+        margin-bottom: 0.5rem;
+    }
+
+        .section-login-1 .content .col-right .right-form .form-register .f-col label {
+            display: inline-block;
+            font-weight: 700;
+            line-height: normal;
+            color: #41464b;
+            margin-bottom: 0.62rem;
+        }
+
+    .section-login-1 .content .col-right .right-form .form-register .repass {
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+        gap: 0.62rem;
+        line-height: normal;
+        font-weight: 400;
+        color: var(--blue);
+        margin-bottom: 1.19rem;
+    }
+
+    .section-login-1 .content .col-right .right-form .form-register .note {
+        width: 100%;
+        max-width: 17.75rem;
+        margin: 0 auto 1.69rem;
+        display: block;
+        text-align: center;
+    }
+
+    .section-login-1 .content .col-right .right-form .form-register .bnt-more {
+        display: block;
+        text-align: center;
+    }
+
+
+    .section-login-1 .content .col-right .right-form .form-register .f-item {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+    }
+
+        .section-login-1 .content .col-right .right-form .form-register .f-item .f-col {
+            width: 50%;
+        }
+
+        .section-login-1 .content .col-right .right-form .form-register .f-item.fw-100 .f-col {
+            width: 100%;
+        }
+
+
+    .section-login-1 .content .col-right .right-form .form-register .note-v2 {
+        display: flex;
+        gap: 0.69rem;
+        max-width: 100%;
+        margin-top: 0.81rem;
+        text-align: left;
+        align-items: flex-start;
+    }
+
+        .section-login-1 .content .col-right .right-form .form-register .note-v2 input {
+            width: 1.4375rem;
+            height: 1.4375rem;
+            outline: 0;
+        }
+
+        .section-login-1 .content .col-right .right-form .form-register .note-v2 label {
+            display: block;
+            font-weight: 400;
+            color: #41464b;
+            margin: 0;
+        }
+
+    .section-login-1 .content .col-right .right-form .form-register .step .step-left .dot-step.step-v2 .dot.step-2 {
+        background: var(--blue);
+    }
+</style>
+<style>
+    .error {
+        color: red !important;
+        display: none;
+    }
+</style>

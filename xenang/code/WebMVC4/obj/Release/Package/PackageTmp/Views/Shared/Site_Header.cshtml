@@ -1,0 +1,154 @@
+﻿@using WebMVC4.Helper
+@using BIZ
+@using UTILS
+
+
+
+
+<header id="header" class="header has-sticky sticky-jump" style="">
+    <div class="header-wrapper">
+        @*<div id="top-bar" class="header-top hide-for-sticky nav-dark">
+                <div class="flex-row container">
+                    <div class="flex-col hide-for-medium flex-left">
+                        <ul class="nav nav-left medium-nav-center nav-small nav-divided">
+                            @Html.Action("Menu", "Home")
+
+                        </ul>
+                    </div>
+                    <div class="flex-col hide-for-medium flex-center">
+                        <ul class="nav nav-center nav-small nav-divided"> </ul>
+                    </div>
+                    <div class="flex-col hide-for-medium flex-right">
+                        <ul class="nav top-bar-nav nav-right nav-small nav-divided">
+                            <li class="header-contact-wrapper">
+                                <ul id="header-contact" class="nav nav-divided nav-uppercase header-contact">
+                                    <li class=""> <a href="mailto:contact@samnon.com" class="tooltip tooltipstered"> <i class="icon-envelop" style="font-size:16px;"> </i> <span> contact@samnon.com </span> </a> </li>
+                                    <li class=""> <a class="tooltip tooltipstered"> <i class="icon-clock" style="font-size:16px;"> </i> <span>Làm việc 24/7</span> </a> </li>
+                                    <li class=""> <i class="icon-phone" style="font-size:16px; color: rgba(255, 255, 255, .8);padding-top: 5px"> </i> <a href="tel:0943888255" class="tooltip tooltipstered">  <span>0943888255</span>  -  </a> <a href="tel:0961015605" class="tooltip tooltipstered">  <span>0961015605</span> </a> </li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="flex-col show-for-medium flex-grow">
+                        <ul class="nav nav-center nav-small mobile-nav nav-divided">
+                            <li class="html custom html_topbar_left">Chuyên cung cấp các loại xe nâng cũ Nhật Bãi tại Việt Nam, hàng nhập khẩu nguyên chiếc, có đủ giấy tờ, VAT, nguồn gốc xuất sứ sản phẩm</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>*@
+        <div id="masthead" class="header-main ">
+            <div class="header-main header-inner flex-row container logo-left medium-logo-center" role="navigation" data-wpmeteor-mouseover="true" data-wpmeteor-mouseout="true">
+                <div id="logo" class="flex-col logo">
+                    <a href="/" title="Xe Nâng Bắc Trung Nam - Chuyên mua bán xe nâng mới và qua sử dụng, cung cấp phụ tùng – thiết bị- linh kiện xe nâng xuất xứ Nhật Bản" rel="home">
+                        <img src="~/Content/images/logo.png?vs=02" />
+                    </a>
+                </div>
+                <div class="header-top-info" style="margin-top: 0px;">
+                    <div class="pull-right block-mobile">
+                        <div class="header-secondary-phone">
+                            <div class="phone">
+                                <span class="phone-label">Hỗ trợ <span>kỹ thuật</span>:</span>
+                                <span class="phone-number heading-font"><a href="tel:0961015605">0961015605</a></span>
+                            </div>
+                            <div class="phone">
+                                <span class="phone-label">Hỗ trợ <span>phụ tùng</span>:</span>
+                                <span class="phone-number heading-font"><a href="tel:0943888255">0943888255</a></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="pull-right block-mobile">
+                        <div class="header-main-phone heading-font">
+                            <i class="fa fa-phone-square"></i>
+                            <div class="phone">
+                                <span class="phone-label">Hỗ trợ <span>mua hàng</span>:</span>
+                                <span class="phone-number heading-font"><a href="tel:0943888255">0943888255</a></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="pull-right block-mobile">
+                        <div class="header-address">
+                            <i class="fa fa-envelope-o"></i>
+                            <div class="address">
+                                <span class="heading-font">Email <span>công ty</span><br><p class="email">contact@samnon.com</p></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex-col show-for-medium flex-left">
+                    <ul class="mobile-nav nav nav-left ">
+                        <li class="nav-icon has-icon"> <a href="#" data-open="#main-menu" data-pos="left" data-bg="main-menu-overlay" data-color="" class="is-small" aria-label="Menu" aria-controls="main-menu" aria-expanded="false"> <i class="icon-menu"> </i> </a> </li>
+                    </ul>
+                </div>
+                <div class="flex-col hide-for-medium flex-left flex-grow"> <ul class="header-nav header-nav-main nav nav-left nav-line-grow nav-size-small nav-spacing-xsmall nav-uppercase"> </ul> </div>
+
+                <div class="flex-col show-for-medium flex-right">
+                    <ul class="mobile-nav nav nav-right ">
+                        <li class="header-search header-search-dropdown has-icon has-dropdown menu-item-has-children">
+                            <div class="header-button"> <a href="#" aria-label="Tìm kiếm" class="icon button round is-outline is-small"> <i class="icon-search"> </i> </a> </div>
+                            <ul class="nav-dropdown nav-dropdown-bold dark"> <li class="header-search-form search-form html relative has-icon"> <div class="header-search-form-wrapper"> <div class="searchform-wrapper ux-search-box relative is-normal"> <form role="search" method="get" class="searchform" action="/"> <div class="flex-row relative"> <div class="flex-col flex-grow"> <label class="screen-reader-text" for="woocommerce-product-search-field-1">Tìm kiếm:</label> <input type="search" id="woocommerce-product-search-field-1" class="search-field mb-0" placeholder="Nhập từ khóa tìm kiếm..." name="s"> <input type="hidden" name="post_type" value="product"> </div> <div class="flex-col"> <button type="submit" value="Tìm kiếm" class="ux-search-submit submit-button secondary button icon mb-0"> <i class="icon-search"> </i> </button> </div> </div> <div class="live-search-results text-left z-top"> </div> </form> </div> </div> </li> </ul>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="header-main header-nav header-nav-transparent block-mobile" style="height:50px!important">
+            <div class="container">
+                <ul class="header-nav header-nav-main nav nav-line-grow nav-size-small nav-spacing-xsmall nav-uppercase">
+                    <li class="menu-item menu-item-type-taxonomy menu-item-object-product_cat active" id="menu_0">
+                        <a href="/" class="nav-top-link">Trang chủ </a>
+
+                    </li>
+                    <li class="menu-item menu-item-type-taxonomy menu-item-object-product_cat " id="menu_2">
+                        <a href="/gioi-thieu/c2/gioi-thieu.html" class="nav-top-link">Giới thiệu </a>
+
+                    </li>
+                    @Html.Action("MenuProduct", "Home")
+					
+                    <li class="menu-item menu-item-type-taxonomy menu-item-object-product_cat " id="menu_91">
+                        <a href="/tin-tuc/c91/cho-thue-xe-nang.html" class="nav-top-link">Cho thuê xe nâng</a>
+
+                    </li>
+                    <li class="menu-item menu-item-type-taxonomy menu-item-object-product_cat " id="menu_5">
+                        <a href="/tin-tuc/c5/tin-tuc.html" class="nav-top-link">Tin tức </a>
+
+                    </li>
+                    <li class="menu-item menu-item-type-taxonomy menu-item-object-product_cat " id="menu_99">
+                        <a href="/lien-he" class="nav-top-link">Liên hệ </a>
+
+                    </li>
+                    <li class="header-search header-search-dropdown has-icon has-dropdown menu-item-has-children">
+                        <div class="header-button">
+                            <a href="#" aria-label="Tìm kiếm" class="icon button round is-outline is-small"> <i class="icon-search"> </i> </a>
+                        </div>
+                        <ul class="nav-dropdown nav-dropdown-bold dark">
+                            <li class="header-search-form search-form html relative has-icon">
+                                <div class="header-search-form-wrapper">
+                                    <div class="searchform-wrapper ux-search-box relative is-normal">
+                                        <form role="search" method="get" class="searchform" action="/Product/Search">
+                                            <div class="flex-row relative">
+                                                <div class="flex-col flex-grow">
+                                                    <label class="screen-reader-text" for="woocommerce-product-search-field-0">Tìm kiếm:</label> <input type="search" class="search-field mb-0" placeholder="Nhập từ khóa tìm kiếm..." name="q"> <input type="hidden" name="post_type" value="product">
+                                                </div>
+                                                <div class="flex-col">
+                                                    <button type="submit" value="Tìm kiếm" class="ux-search-submit submit-button secondary button icon mb-0"> <i class="icon-search"> </i> </button>
+                                                </div>
+                                            </div>
+                                            <div class="live-search-results text-left z-top"> </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="header-bg-container fill">
+            <div class="header-bg-image fill"> </div>
+            <div class="header-bg-color fill"> </div>
+        </div>
+    </div>
+</header>
+<div style="clear:both">
+
+</div>

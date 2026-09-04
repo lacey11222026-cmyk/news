@@ -1,0 +1,30 @@
+﻿@using BIZ
+@using UTILS
+@using WebMVC4.Helper
+@model WebMVC4.Models.LastestNoteModel
+@if (Model != null)
+{
+    if (Model.lstdata.Count > 0)
+    {
+        <div class="target">
+            <h2 class="title-cm"> <a href="@Model.Url">@Model.HeaderTitle</a></h2>
+            <ul class="mt5">
+                @foreach (var item in Model.lstdata.Select((value, i) => new { i, value }))
+                {
+                    <li>
+                        <div class="target-date">
+                            <span>@item.value.PublishDate.GetValueOrDefault().Day</span>
+                            <p>@item.value.PublishDate.GetValueOrDefault().ToString("dd.MM.yyyy")</p>
+                        </div>
+                        <p class="target-content"><a href="@Utils.FormatUrlRewrite(item.value.Id, item.value.Title, "NoteDetail")">@item.value.Title </a> <div class="clearfix"></div><span class="address02">Địa điểm:@item.value.Location</span></p>
+                        <div class="clearfix"></div>
+                    </li>
+
+                }
+
+
+            </ul>
+        </div>
+    }
+
+}

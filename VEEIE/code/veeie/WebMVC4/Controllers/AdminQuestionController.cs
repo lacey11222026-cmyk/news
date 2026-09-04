@@ -1,0 +1,226 @@
+﻿using BIZ;
+using BIZ.Entity;
+using DATA;
+using System;
+using System.Collections.Generic;
+using System.Globalization;
+using System.Linq;
+using System.Web;
+using System.Web.Mvc;
+using System.Web.Routing;
+using UTILS;
+using WebMVC4.Models;
+namespace WebMVC4.Controllers
+{
+    [Authorize(Roles = "Administrator,Category")]
+    public class AdminQuestionController : Controller
+    {
+        //
+        // GET: /AdminQuestion/
+        private List<CATEGORY_FULL> _staticCategoryList;
+        protected override void Initialize(RequestContext requestContext)
+        {
+
+            var lstcate = new CategoryBO().GetAllCategoriesFull(UTILS.Constants.CategoryType.Note);
+            _staticCategoryList = new CategoryBO().GetCategoryByUserName(lstcate, "", true);
+            base.Initialize(requestContext);
+        }
+        public ActionResult ManageQA()
+        {
+            ViewBag.Title = "Danh sách câu hỏi";
+            var lstCate = _staticCategoryList;
+            lstCate.Insert(0, new CATEGORY_FULL { Id = 0, Name = "--Chọn chuyên mục--" });
+            ViewBag.CategoryList = lstCate;
+            return View();
+        }
+
+        public ActionResult ListQA(int? status, int? currentPage, int? pageSize,int? categoryid)
+        {
+           
+            var data = new List<QA>();
+
+            int TotalRecord = 0;
+            int Status = status == null ? -1 : (int)status;
+            int Categoryid = categoryid == null ? -1 : (int)categoryid;
+            int CurrPage = currentPage == null ? 1 : (int)currentPage;
+            int RecordPerPage = pageSize == null ? 20 : (int)pageSize;
+            data = new QABO().GetQAsPaged(CurrPage, RecordPerPage, ref TotalRecord, Status, Categoryid);
+            if (data!=null)
+                ViewBag.TotalRecord = TotalRecord;
+            else
+                ViewBag.TotalRecord = 0;
+            ViewBag.PageSize = RecordPerPage;
+            ViewBag.CurrentPage = CurrPage;
+            return PartialView(data);
+        }
+
+        public ActionResult Info(int? Id)
+        {
+            ViewBag.CategoryList = _staticCategoryList;
+            int PageID = Id == null ? 0 : (int)Id;
+            var model = new QA
+            {
+                Question = "",
+                PublishDate=DateTime.Now
+            };
+
+
+           
+            if (PageID > 0)
+            {
+                model = new QABO().GetQA(PageID);
+            }
+
+
+            ViewBag.id = Id;
+
+            if (Id > 0)
+            {
+                ViewBag.Title = "Cập nhật câu hỏi";
+            }
+            else
+            {
+                ViewBag.Title = "Thêm mới câu hỏi";
+            }
+            return View(model);
+        }
+        [ValidateInput(false)]
+        [HttpPost]
+        public JsonResult SaveData(QA QA,string SPublishDate)
+        {
+            var ReturnData = new  ReturnData();
+
+            try
+            {
+
+                IFormatProvider culture = new CultureInfo("en-US", true);
+                QA.PublishDate = DateTime.ParseExact(SPublishDate, "dd/MM/yyyy HH:mm", culture);
+
+                //banner.ImageUrl = Config.UrlRoot + (string.IsNullOrEmpty(banner.ImageUrl) ? string.Empty : banner.ImageUrl.Substring(12));
+
+                QA.Question = string.IsNullOrEmpty(QA.Question) ? string.Empty : QA.Question;
+                QA.Order = Convert.ToInt32(QA.Order);
+
+                var result = new QABO().CreateUpdateQA(QA);
+                ReturnData.ResponseCode = result;
+
+                if (result >= 0)
+                {
+                    if (QA.Id > 0)
+                        ReturnData.Description = "Cập nhật Thành Công";
+                    else
+                        ReturnData.Description = "Thêm mới Thành Công";
+
+                   
+                }
+                else switch (result)
+                    {
+                        case -51: ReturnData.Description = "Đã có bài viết này"; break;
+                        case -600: ReturnData.Description = "Tham số truyền vào không hợp lệ"; break;
+                        default: ReturnData.Description = "Hệ thống đang bận. Vui lòng quay lại sau"; break;
+                    }
+                return Json(ReturnData);
+            }
+            catch (Exception ex)
+            {
+                NLogLogger.PublishException(ex);
+                ReturnData.ResponseCode = -99;
+                ReturnData.Description = "Hệ thống đang bận. Vui lòng quay lại sau";
+                return Json(ReturnData);
+            }
+        }
+        [HttpPost]
+        public JsonResult Delete(int id)
+        {
+            var ReturnData = new ReturnData();
+            try
+            {
+              
+                if (id > 0)
+                {
+                    var result = new QABO().DeleteQA(id);
+                    if (result >= 0)
+                    {
+                        
+                        ReturnData.Description = "Xóa trang Thành Công";
+                    }
+                    else switch (result)
+                        {
+                            case -50: ReturnData.Description = "Tài Khoản không tồn tại"; break;
+                            case -99: ReturnData.Description = "Hệ thống đang bận. Vui lòng quay lại sau"; break;
+                            default: ReturnData.Description = "Hệ thống đang bận. Vui lòng quay lại sau"; break;
+                        }
+                    return Json(ReturnData);
+                }
+                ReturnData.ResponseCode = -100;
+                ReturnData.Description = "Không xác định user cần xóa";
+                return Json(ReturnData);
+            }
+            catch (Exception ex)
+            {
+                NLogLogger.PublishException(ex);
+                ReturnData.ResponseCode = -99;
+                ReturnData.Description = "Hệ thống đang bận. Vui lòng quay lại sau";
+                return Json(ReturnData);
+            }
+        }
+        [HttpPost]
+        public JsonResult UpdateSortOrder(int Id, bool SortOrder)
+        {
+            try
+            {
+                var updateResult = new QABO().UpdateOrder(Id, SortOrder);
+                if (updateResult > 0)
+                {
+                    return Json(new { ResponseCode = updateResult, Msg = "Cập nhật thứ tự thành công" });
+                }
+                else
+                {
+                    return Json(new { ResponseCode = -1, Msg = "Cập nhật thứ tự không thành công" });
+                }
+
+            }
+            catch (Exception ex)
+            {
+                NLogLogger.PublishException(ex);
+                return Json(new { ResponseCode = -99, Msg = "Hệ thống bận bạn vui lòng quay lại sau" });
+            }
+        }
+        [HttpPost]
+        public JsonResult UpdateStatus(int id)
+        {
+            var ReturnData = new ReturnData();
+            try
+            {
+                
+                if (id >= 0)
+                {
+                    var result = new QABO().UpdateStatus(id);
+                    if (result >= 0)
+                    {
+                      
+                        ReturnData.Description = "Cập nhật trạng thái Thành Công";
+                    }
+                    else switch (result)
+                        {
+                            case -50: ReturnData.Description = "Tài Khoản không tồn tại"; break;
+                            case -99: ReturnData.Description = "Hệ thống đang bận. Vui lòng quay lại sau"; break;
+                            default: ReturnData.Description = "Hệ thống đang bận. Vui lòng quay lại sau"; break;
+                        }
+                    return Json(ReturnData);
+                }
+                ReturnData.ResponseCode = -100;
+                ReturnData.Description = "Không xác định trang cần active";
+                return Json(ReturnData);
+            }
+            catch (Exception ex)
+            {
+                NLogLogger.PublishException(ex);
+                ReturnData.ResponseCode = -99;
+                ReturnData.Description = "Hệ thống đang bận. Vui lòng quay lại sau";
+                return Json(ReturnData);
+            }
+        }
+
+    }
+}

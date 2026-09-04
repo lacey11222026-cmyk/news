@@ -1,0 +1,231 @@
+﻿@using UTILS
+@using WebMVC4.Models
+@using DATA
+@{
+
+    Layout = "~/Views/Shared/_AdminV2.cshtml";
+    ViewBag.Title = "Thông tin Đơn Hàng";
+}
+@model OrderModel
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <i class="fa fa-fw fa-user-md"></i><span>Thông tin Đơn Hàng</span>
+            </div>
+            <form id="defaultForm" method="post" class="form-horizontal">
+                <div class="panel-group" id="steps">
+                    <div class="messager-body">
+                        <div class="alert alert-success display-hide alert-dismissable">
+                            <button type="button" class="close" data-close="alert" aria-hidden="true">×</button>
+                            <span class="glyphicon glyphicon-ok"></span>
+                            <label>Đã lưu dữ liệu thành công !!!</label>
+                        </div>
+                        <div class="alert alert-danger display-hide alert-dismissable">
+                            <button type="button" class="close" data-close="alert" aria-hidden="true">×</button>
+                            <span class="glyphicon glyphicon-warning-sign"></span>
+                            <label>Có một vài lỗi trong khung nhập liệu dưới đây ! kiểm tra lại</label>
+                        </div>
+                    </div>
+                    <div class="panel panel-info">
+                        @*<div class="panel-heading">
+                                <h4 class="panel-title"><i class="fa fa-wrench" style="margin-right:7px"></i>Thông Tin Cơ Bản</h4>
+                            </div>*@
+                        <div class="panel-body">
+                            <!-- dành cho UpdateFunction -->
+                            <div style="padding: 10px 0 0 0; background-color: #fff !important" class="nav-tabs-custom">
+                                <ul class="nav nav-tabs">
+                                    <li class="active"><a href="#tabs-info" data-toggle="tab"><strong>Thông tin chính</strong></a></li>
+                                    <li><a href="#tabs-sub" data-toggle="tab"><strong>Thông tin sản phẩm</strong></a></li>
+
+
+
+                                </ul>
+                                <div class="tab-content" style="margin-top: 30px;">
+                                    <div class="col-md-12 tab-pane active" id="tabs-info">
+                                        <div class="form-group">
+                                            <label class="control-label col-md-3">Mã đơn hàng :</label>
+                                            <div class="col-md-9">
+                                                <div class="input-icon right">
+                                                    <label class="control-label">@Model.Order.OrderNo</label>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="control-label col-md-3">Tên khách hàng :</label>
+                                            <div class="col-md-9">
+                                                <div class="input-icon right">
+                                                    <label class="control-label">@Model.Order.FullName</label>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="control-label col-md-3">Email đặt hàng :</label>
+                                            <div class="col-md-9">
+                                                <div class="input-icon right">
+                                                    <label class="control-label">@Model.Order.Email</label>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="control-label col-md-3">SDT đặt hàng :</label>
+                                            <div class="col-md-9">
+                                                <div class="input-icon right">
+                                                    <label class="control-label">@Model.Order.Mobile</label>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="control-label col-md-3">Khu vực :</label>
+                                            <div class="col-md-9">
+                                                <div class="input-icon right">
+                                                    <label class="control-label">@Model.Order.CustomerCity</label>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="control-label col-md-3">Địa chỉ giao dịch :</label>
+                                            <div class="col-md-9">
+                                                <div class="input-icon right">
+                                                    <label class="control-label">@Model.Order.CustomerAddress</label>
+
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        @if (!string.IsNullOrEmpty(Model.Order.CustomerComment))
+                                        {
+                                            <div class="form-group">
+                                                <label class="control-label col-md-3">Ý kiến khách hàng:</label>
+                                                <div class="col-md-9">
+                                                    <div class="input-icon right">
+                                                        <label class="control-label">@Model.Order.CustomerComment</label>
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        }
+                                        <div class="form-group">
+                                            <label class="control-label col-md-3">Client IP :</label>
+                                            <div class="col-md-9">
+                                                <div class="input-icon right">
+                                                    <label class="control-label">@Model.Order.CustomerIp</label>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+
+                                            <label class="control-label col-md-3">Giá trị đơn hàng:</label>
+                                            <div class="col-md-9">
+                                                <div class="input-icon right">
+                                                    <label class="control-label">@Utils.InsertCommaNoStyle(Model.Order.OrderTotal.ToString())</label>
+
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label class="control-label col-md-3">Trạng thái đơn hàng :</label>
+                                            <div class="col-md-9">
+                                                <div class="input-icon right">
+                                                    <label class="control-label">
+                                                        @if (Model.Order.Status > 0)
+                                                        {
+                                                            <span style="color: #3c8dbc">Đã giao hàng</span>
+                                                        }
+                                                        else
+                                                        {
+                                                            <span>Đã tạo đơn hàng hàng</span>
+                                                        }
+
+                                                    </label>
+
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    <div class="col-md-12 tab-pane" id="tabs-sub">
+                                        @if (Model.ListProduct != null)
+                                        {
+                                            <table class="table table-striped table-bordered table-hover dataTable no-footer" id="dataTables">
+                                                <thead>
+                                                    <tr class="rowsao">
+
+                                                        <th>Sản phẩm</th>
+                                                        <th>Cân nặng</th>
+                                                        <th>Giá bán</th>
+
+                                                        <th>Số lượng</th>
+                                                        <th>Tổng cộng</th>
+
+                                                    </tr>
+                                                </thead>
+                                                @foreach (var item in Model.ListProduct)
+                                                {
+                                                    <tr>
+                                                        <td>@item.ProductName</td>
+                                                        <td>@item.ProductWeight</td>
+                                                        <td>@Utils.InsertCommaNoStyle(item.Price.ToString())</td>
+                                                        <td>@item.Amount</td>
+                                                        <td>@Utils.InsertCommaNoStyle((item.Price * item.Amount).ToString()) </td>
+                                                    </tr>
+
+                                                }
+                                            </table>
+                                           
+                                        }
+
+
+                                    </div>
+
+
+
+                                    <div class="col-md-12">
+                                        <div class="panel-footer form-horizontal">
+                                            <div class="form-group submit">
+
+
+                                                <button type="button" class="btn btn-default" id="btnBack" onclick="Close()"><i class="fa fa-backward"></i>Back</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="clear"></div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+<script type="text/javascript">
+    $(document).ready(function () {
+
+
+        $("#tabs").tabs({ selected: 0 });
+    });
+
+    function Close() {
+        window.location.href = '/AdminOrder/';
+    }
+
+    function openWin() {
+        myWindow = window.open('/Administrator/Components/Upload/MultiUpload.aspx', '', 'width=700,height=500');
+
+        myWindow.focus();
+    }
+</script>

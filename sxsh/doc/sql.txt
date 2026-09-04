@@ -1,0 +1,243 @@
+--doc
+GO
+
+INSERT INTO [sxsh].[dbo].[Document]
+           ([Name]
+           ,[Code]
+           ,[Description]
+           ,[CategoryId]
+           ,[CategoryPathway]
+           ,[CreatedBy]
+           ,[CreatedDate]
+           ,[PublishDate]
+           ,[EffectiveDate]
+           ,[ExpiryDate]
+           ,[SignedBy]
+           ,[SignedByDesc]
+           ,[Hits]
+           ,[FilePath]
+           ,[Status])
+
+     SELECT
+	 
+      [abstract]
+	  ,[no]
+	  ,[content]
+	  ,12
+	  ,',3,12,'
+	  ,'quantri'
+	  ,CONVERT(DATETIME,[date]) 
+	   ,CONVERT(DATETIME,[date]) 
+	    ,CONVERT(DATETIME,[date])
+		,'9999-01-01 00:00:00.000'
+		,[signer]
+		,[organization_id]
+		 ,[view]
+		 ,'/App_File/laws/'+[files]
+		 ,1
+		 
+  FROM [sanxuat].[dbo].[law_documents]
+  where [status]='approved' and [lang_id]='vi' and [field_id] in (5,1,4)
+GO
+
+
+--Tai lieu
+--doc
+GO
+
+INSERT INTO [sxsh].[dbo].[Document]
+           ([Name]
+           ,[Code]
+           ,[Description]
+           ,[CategoryId]
+           ,[CategoryPathway]
+           ,[CreatedBy]
+           ,[CreatedDate]
+           ,[PublishDate]
+           ,[EffectiveDate]
+           ,[ExpiryDate]
+           ,[SignedBy]
+           ,[SignedByDesc]
+           ,[Hits]
+           ,[FilePath]
+           ,[Status])
+
+     SELECT
+	 
+      [abstract]
+	  ,[no]
+	  ,[content]
+	  ,32
+	  ,',32,'
+	  ,'quantri'
+	  ,GetDate()
+	   ,CONVERT(DATETIME,[date]) 
+	    ,CONVERT(DATETIME,[date])
+		,'9999-01-01 00:00:00.000'
+		,[signer]
+		,''
+		 ,[view]
+		 ,'/App_File/supports/'+[files]
+		 ,1
+		 
+  FROM [sanxuat].[dbo].[support_documents]
+  where [status]='approved' and [lang_id]='vi' and [field_id] =4
+GO
+
+
+--USE [sxsh]
+GO
+
+INSERT INTO sxsh.[dbo].[Content]
+           ([CategoryId]
+		   ,[CategoryPathway]
+           ,[Title]
+           ,[Alias]
+           ,[IntroText]
+           ,[Contents]
+           ,[Image]
+           ,[Thumbnail]
+           ,[Url]
+           ,[CreatedBy]
+           ,[CreatedDate]
+           ,[PublishDate]
+           ,[Status]
+           ,[Type]
+           ,[Mark]
+           ,[Hits]
+           ,[Params])
+
+    SELECT  
+      5
+      ,',5,'
+      ,[title]
+      ,'quantri'
+	   ,[description]
+       ,[content]
+      ,'/App_File/images/'+[image]
+	  ,''
+	  ,''
+	  ,'quantri'
+	  ,CONVERT(DATETIME,[date]) 
+	    ,CONVERT(DATETIME,[date])
+		
+		,4
+		,1
+		,0
+		 ,ISNULL([view], 0)
+		 ,''
+     
+  FROM [sanxuat].[dbo].[cms_newss]
+   where [status]='approved' and [lang_id]='vi' and [category_id] =2
+GO
+
+
+--video
+USE [sxsh]
+GO
+
+INSERT INTO sxsh.[dbo].[Content]
+           ([CategoryId]
+		   ,[CategoryPathway]
+           ,[Title]
+           ,[Alias]
+           ,[IntroText]
+           ,[Contents]
+           ,[Image]
+           ,[Thumbnail]
+           ,[Url]
+           ,[CreatedBy]
+           ,[CreatedDate]
+           ,[PublishDate]
+           ,[Status]
+           ,[Type]
+           ,[Mark]
+           ,[Hits]
+           ,[Params])
+
+    SELECT  
+      6
+      ,',6,'
+      ,[title]
+      ,'quantri'
+	   ,[description]
+       ,''
+      ,'/App_File/images/'+[cover]
+	  ,''
+	  ,'/App_File/media/'+[file]
+	  ,'quantri'
+	  ,CONVERT(DATETIME,[date]) 
+	    ,CONVERT(DATETIME,[date])
+		
+		,4
+		,2
+		,0
+		 ,ISNULL([view], 0)
+		 ,''
+     
+  FROM [sanxuat].[dbo].[cms_videos]
+   where [status]='approved' and [lang_id]='vi' 
+GO
+
+USE [sxsh]
+GO
+
+UPDATE [dbo].[Content]
+   SET
+      [Url] = REPLACE([Url], '/App_File/media/', '')
+     
+ WHERE Type=2 and [Url] like '%youtube%'
+GO
+
+
+
+
+--Danh ba
+INSERT INTO [sxsh].[dbo].[Expert]
+           ([Name]
+           ,[Address]
+           ,[Role]
+           ,[Company]
+           ,[Mobile]
+           ,[Phone]
+           ,[Exp]
+           ,[Tech]
+           ,[Description]
+           ,[Learning]
+           ,[Status]
+           ,[Order]
+           ,[Image]
+           ,[CityId]
+           ,[CitiName]
+           ,[Email]
+           ,[Language]
+           ,[Year]
+           ,[Gender])
+     SELECT 
+	  [name]
+	  ,[address]
+	  ,[position]
+	  ,[company]
+	   ,[mobile]
+	   ,[phone]
+	    ,[experience]
+		,[technique]
+		,[description]
+		,[activate]
+		,1
+		,[id]
+		 ,'/App_File/images/'+ [logo]
+		   ,[provin_id]
+		     ,[provin_id]
+			 ,[email]
+			 ,'vi-vn'
+			 ,[year]
+			  ,[gender]
+      
+  FROM [sanxuat].[dbo].[production_directory]
+  Where [category_id]=10
+  Order by ID DESC
+GO
+
+
+

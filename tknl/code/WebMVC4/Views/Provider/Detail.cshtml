@@ -1,0 +1,75 @@
+﻿@using BIZ.Entity
+@using UTILS
+@using DATA
+@using WebMVC4.Helper
+@using DATA.DAL
+@model Provider
+
+
+<div class="container mt40 document-page document-detail-page">
+    <div class="title-cm01">
+        <a href="/to-chuc-kiem-toan-nang-luong">TỔ CHỨC KIỂM TOÁN NĂNG LƯỢNG</a>
+    </div>
+
+    <div class="document-table table-responsive mt30 pb50">
+        <div>
+            <table>
+                <tbody>
+                    <tr>
+                        <th>Tên đơn vị</th>
+                        <td>@Model.Name</td>
+                    </tr>
+                    <tr>
+                        <th>Tỉnh/Thành phố</th>
+                        <td>@Model.Province</td>
+                    </tr>
+                    <tr>
+                        <th>Địa chỉ</th>
+                        <td>@Model.Address</td>
+                    </tr>
+                    <tr>
+                        <th>Mã số thuế</th>
+                        <td>@Model.MST</td>
+                    </tr>
+                    <tr>
+                        <th>Điện thoại</th>
+                        <td>@Model.Type</td>
+                    </tr>
+                    <tr>
+                        <th>Email</th>
+                        <td>@Model.Contact</td>
+                    </tr>
+                    <tr>
+                        <th>Người đại diện hợp pháp</th>
+                        <td>@Model.Represent</td>
+                    </tr>
+                    <tr>
+                        <th>Lĩnh vực kiểm toán năng lượng</th>
+                        <td>@Model.Business</td>
+                    </tr>
+                    <tr>
+                        <th>Ghi chú</th>
+                        <td>@Model.Office</td>
+                    </tr>
+                    @*<tr>
+                        <th>Công văn công bố tổ chức kiểm toán năng lượng</th>
+                        <td>
+                            @if (!string.IsNullOrEmpty(Model.Images))
+                            {
+                                <ul class="document-btn">
+                                    <li><a href="@Url.Action("ViewFile",new { id=Model.Id})" target="_blank" class="btn-viewonline btn-green btn-icon" >Xem online</a></li>
+                                    <li><a href="@Url.Action("DownloadFile",new { id=Model.Id})" target="_blank" download class="btn-download btn-green btn-icon" >Tải về</a></li>
+                                </ul>
+                            }
+
+                        </td>
+                    </tr>*@
+                    @*<tr>
+                        <th>Thời hạn khuyến nghị hiệu chuẩn thiết bị</th>
+                        <td>@Model.Year</td>
+                    </tr>*@
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

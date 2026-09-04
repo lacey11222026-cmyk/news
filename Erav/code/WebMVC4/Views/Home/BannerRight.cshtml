@@ -1,0 +1,29 @@
+﻿@model List<DATA.Banner>
+
+<ul class="bnr-list">
+    @if (Model != null)
+    {
+
+
+        foreach (var item in Model.Select((value, i) => new { i, value }))
+        {
+            if (item.i > 1)
+            {
+                <li class="block-991">
+                    <a href="@item.value.Url" target="_blank"><img src="@item.value.Data" alt=""></a>
+                </li>
+            }
+            else
+            {
+                <li>
+                    <a href="@item.value.Url" target="_blank"><img src="@item.value.Data" alt=""></a>
+                </li>
+            }
+
+
+        }
+       
+
+
+    }
+</ul>

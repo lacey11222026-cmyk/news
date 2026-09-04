@@ -1,0 +1,46 @@
+﻿@using BIZ
+@using UTILS
+@using WebMVC4.Helper
+@model List<BIZ.Entity.Album_FULL>
+@if (Model != null)
+{
+
+    <div class="row lib-content">
+        <div class="col-md-6 col-sm-12">
+            @foreach (var item1 in Model.Take(1).Select((value, i) => new { i, value }))
+            {
+                <div class="newsbig">
+                    <a href="@Utils.FormatUrlRewrite(item1.value.Id, item1.value.Title, "AlbumDetail")"><img src="@item1.value.MainImage?w=500&h=318&mode=crop" alt=""></a>
+                    <div class="newsbig-content">
+                        <a href="@Utils.FormatUrlRewrite(item1.value.Id, item1.value.Title, "AlbumDetail")" class="news-name mt15">@item1.value.Title</a>
+                    </div>
+                </div>
+            }
+        </div>
+        <div class="col-md-6 col-sm-12">
+            <div class="newslist-02">
+                @foreach (var item in Model.Skip(1).Select((value, i) => new { i, value }))
+                {
+                    <div class="news-item">
+                        <a href="@Utils.FormatUrlRewrite(item.value.Id, item.value.Title, "AlbumDetail")">
+                            <img src="@item.value.MainImage?w=220&h=147&mode=crop" alt="">
+                            <span>@item.value.Title</span>
+                        </a>
+                    </div>
+                }
+                </div>
+            <div class="text-center mt30">
+                <a href="/thu-vien-anh/c35/thu-vien-hinh-anh.html" class="btn-blue">Xem thêm</a>
+            </div>
+        </div>
+    </div>
+
+  
+
+
+}
+
+
+
+
+

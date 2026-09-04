@@ -1,0 +1,54 @@
+﻿<div class="content container-fluid">
+    <div id="container">
+        <div id="content" role="main">
+
+            <div class="page-title shop-page-title product-page-title">
+                <div class="page-title-inner flex-row medium-flex-wrap container">
+                    <div class="flex-col flex-grow medium-text-center">
+                        <div class="is-small">
+                            <nav class="woocommerce-breadcrumb breadcrumbs">
+                                <a href="/">Trang chủ</a> <span class="divider">/</span>
+                                Đặt hàng
+                            </nav>
+                        </div>
+                    </div><!-- .flex-left -->
+
+                    <div class="flex-col medium-text-center">
+                    </div><!-- .flex-right -->
+                </div><!-- flex-row -->
+            </div>
+            <div class="row sidebar-right">
+                <div class="main-content col-xs-12 col-sm-8 col-md-9">
+
+                    <div class="container contact">
+
+                        <div class="shopping-cart col-sm-12" id="divcart">
+
+                            <section id="shop-checkout-completed">
+                                <div class="container">
+                                    <div class="p-t-10 m-b-20 text-center">
+                                        <div class="text-center">
+                                            <h3>@Resources.Order.MessageSucces</h3>
+                                            <p>
+                                                @TempData["OrderInfo"]
+                                            </p>
+                                        </div>
+                                        @*  <a class="button color button-3d rounded icon-left m-r-10" href="@Url.Action("Index", "Product")"><span>Tiếp tục mua hàng</span></a>*@
+                                        <a href="/" class="button color button-3d rounded icon-left"><span>@Resources.Order.MessageReturnHome</span></a>
+                                    </div>
+                                </div>
+                            </section>
+
+                        </div>
+
+
+                    </div>
+
+
+                </div>
+             
+            </div>
+
+        </div>
+    </div>
+</div>

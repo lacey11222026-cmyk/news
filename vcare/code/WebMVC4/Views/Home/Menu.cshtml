@@ -1,0 +1,88 @@
+﻿@using BIZ.Entity
+@using UTILS
+@using WebMVC4.Helper
+@using WebMVC4.Models
+@model MenuModel
+
+<ul class="no-bullets">
+
+
+
+    <li class="" id="menu_home">
+        <a href="/" class="text-center">
+            <span>Trang chủ</span>
+
+        </a>
+
+    </li>
+
+    @foreach (var item in Model.ListMainCate.Select((value, i) => new { i, value }))
+    {
+
+        if (!Model.ListCate.Exists(x => x.ParentId == item.value.Id))
+        {
+            <li id="menu_@item.value.Id">
+                <a href="@item.value.Url" class="text-center">
+                    <span>@item.value.Name</span>
+
+                </a>
+
+            </li>
+        }
+        else
+        {
+            <li id="menu_@item.value.Id" class="dropdown">
+                <a href="@item.value.Url" class="text-center">
+                    <span>@item.value.Name</span>
+                    <svg class="svg-inline--fa fa-caret-down fa-w-10" aria-hidden="true" data-prefix="fas" data-icon="caret-down" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512" data-fa-i2svg=""><path fill="currentColor" d="M31.3 192h257.3c17.8 0 26.7 21.5 14.1 34.1L174.1 354.8c-7.8 7.8-20.5 7.8-28.3 0L17.2 226.1C4.6 213.5 13.5 192 31.3 192z"></path></svg><!-- <i class="fas fa-caret-down"></i> -->
+                </a>
+                <ul class="no-bullets dropdown-menu">
+                    @foreach (var sub in Model.ListCate.Where(x => x.ParentId == item.value.Id).Select((value, i) => new { i, value }))
+                    {
+                        if (!Model.ListCate.Exists(x => x.ParentId == sub.value.Id))
+                        {
+                            <li>
+                                <a href="@sub.value.Url">
+                                    @sub.value.Name
+
+                                </a>
+
+                            </li>
+                        }
+                        else
+                        {
+                            <li>
+                                <a href="@sub.value.Url">
+                                    @sub.value.Name
+                                    <svg class="svg-inline--fa fa-caret-right fa-w-6" aria-hidden="true" data-prefix="fas" data-icon="caret-right" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 192 512" data-fa-i2svg=""><path fill="currentColor" d="M0 384.662V127.338c0-17.818 21.543-26.741 34.142-14.142l128.662 128.662c7.81 7.81 7.81 20.474 0 28.284L34.142 398.804C21.543 411.404 0 402.48 0 384.662z"></path></svg><!-- <i class="fas fa-caret-right"></i> -->
+                                </a>
+
+                                <ul class="no-bullets">
+                                    @foreach (var sub2 in Model.ListCate.Where(x => x.ParentId == sub.value.Id).Select((value, i) => new { i, value }))
+                                    {
+                                        <li>
+                                            <a href="@sub2.value.Url">  @sub2.value.Name</a>
+                                        </li>
+                                        }
+
+
+                                    </ul>
+
+                            </li>
+                        }
+                    }
+                </ul>
+            </li>
+        }
+
+
+
+    }
+
+
+
+
+
+
+</ul>
+

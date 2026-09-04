@@ -1,0 +1,513 @@
+﻿@{
+
+    Layout = "~/Views/Shared/_AdminV2.cshtml";
+}
+@using BIZ.Entity
+@using UTILS
+@using WebMVC4.Helper
+@model AlbumImage_FULL
+<div class="well">
+    <span class="label label-danger">
+        Chú ý!
+    </span>
+    <span>
+        Hãy chắc chắn nhập vào đầy đủ thông tin tại các mục bắt buộc đánh dấu (*)
+    </span>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <i class="fa fa-fw fa-user-md"></i><span>@ViewBag.Title </span>
+            </div>
+            <form id="defaultForm" method="post" class="form-horizontal">
+                <div class="panel-group" id="steps">
+                    <div class="messager-body">
+                        <div class="alert alert-success display-hide alert-dismissable">
+                            <button type="button" class="close" data-close="alert" aria-hidden="true">×</button>
+                            <span class="glyphicon glyphicon-ok"></span>
+                            <label>Đã lưu dữ liệu thành công !!!</label>
+                        </div>
+                        <div class="alert alert-danger display-hide alert-dismissable">
+                            <button type="button" class="close" data-close="alert" aria-hidden="true">×</button>
+                            <span class="glyphicon glyphicon-warning-sign"></span>
+                            <label>Có một vài lỗi trong khung nhập liệu dưới đây ! kiểm tra lại</label>
+                        </div>
+                    </div>
+                    <div class="panel panel-info">
+                        @*<div id="Errordiv" style="margin:20px;color:red;font-size:13pt"><center></center></div><br />*@
+                        @*<div class="panel-heading">
+                                <h4 class="panel-title"><i class="fa fa-wrench" style="margin-right:7px"></i>Thông Tin Cơ Bản</h4>
+                            </div>*@
+                        <ul class="nav nav-tabs">
+                            <li class="active"><a href="#tabs-info" data-toggle="tab"><strong>Thông tin chính</strong></a></li>
+                            <li><a href="#tabs-info1" data-toggle="tab"><strong> Ảnh</strong></a></li>
+                            @*<li><a href="#tabs-info2" data-toggle="tab"><strong>Nét đẹp công đoàn</strong></a></li>*@
+
+                        </ul>
+                        <div class="tab-content" style="margin-top: 30px;">
+
+
+
+                            <div class="col-md-12 tab-pane active" id="tabs-info">
+                                <!-- dành cho UpdateFunction -->
+                                <div class="form-group">
+                                    <label for="txtTitle" class="control-label col-md-3">Đơn vị :<span class="required">*</span></label>
+                                    <div class="col-md-9">
+                                        <div class="input-icon right">
+                                            <input type="text" id="txtGroupName" name="title" value="@Model.GroupName" class="form-control" placeholder="Nhập tên đơn vị" />
+                                        </div>
+                                    </div>
+                                </div>
+
+
+
+
+                                <div class="form-group">
+                                    <label for="txtPublicTime" class="control-label col-md-3">Ngày xuất bản :<span class="required">*</span></label>
+                                    <div class="col-md-9">
+                                        <div class="input-icon right">
+                                            <input type="text" id="txtPublicTime" data-format="DD/MM/YYYY HH:mm" name="publictime" value="@Model.PublishDate.GetValueOrDefault().ToString("dd/MM/yyyy HH:mm")" class="form-control" />
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group" style="display:none">
+                                    <label for="ddlType" class="control-label col-md-3">Ảnh bìa<span class="required">*</span></label>
+                                    <div class="col-md-9">
+                                        <div class="input-icon right">
+                                            <select id="ddlType" name="Type" class="form-control">
+                                                <option value="2" @(Model.Type == 2 ? "selected='selected'" : "")>Nét đẹp công đoàn</option>
+                                                <option value="1" @(Model.Type == 1 ? "selected='selected'" : "")> Người lao động</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group" style="display:none">
+                                    <label for="ddlType" class="control-label col-md-3">Chủ đề<span class="required">*</span></label>
+                                    <div class="col-md-9">
+                                        <div class="input-icon right">
+                                            <select id="ddlCategoryId" name="CategoryId" class="form-control">
+
+                                                <option value="1" @(Model.CategoryId == 1 ? "selected='selected'" : "")>Nét đẹp công đoàn</option>
+                                                <option value="2" @(Model.CategoryId == 2 ? "selected='selected'" : "")>Người lao động</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="txtTitle" class="control-label col-md-3">Tác giả :<span class="required">*</span></label>
+                                    <div class="col-md-9">
+                                        <div class="input-icon right">
+                                            <input type="text" id="txtAuthor" value="@Model.Author" class="form-control" placeholder="Nhập tên tác giả" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-md-3" for="cbxIsActive">Trạng thái :</label>
+                                    <div class="col-md-4">
+                                        <div class="checkbox">
+                                            <select class="form-control" id="ddlStatus">
+                                                @*<option value="-1" @if (Model.Status == -1) { @Html.Raw("selected='selected'") ; }>Đợi xuất bản</option>*@
+                                                
+                                                <option value="1" @if (Model.Status == 1) { @Html.Raw("selected='selected'") ; }>Vòng Dự thi</option>
+                                                <option value="0" @if (Model.Status == 0) { @Html.Raw("selected='selected'") ; }>Khoá</option>                                            
+    @*<option value="2" @if (Model.Status == 2) { @Html.Raw("selected='selected'") ; }>Vòng bình chọn</option>*@
+                                                @*<option value="3" @if (Model.Status == 3) { @Html.Raw("selected='selected'") ; }>Kết quả chung cuộc</option>*@
+                                            </select>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-12 tab-pane" id="tabs-info1">
+                               
+                                <div class="table-responsive">
+                                    <div id="dgrid" class="dataTables_wrapper form-inline" role="grid">
+                                        <table class="table table-bordered table-hover dataTable no-footer" id="dataTables">
+                                            <thead>
+                                                <tr class="rowsao">
+                                                    <th style="width:39px">STT </th>
+                                                    <th>Ảnh </th>
+                                                    <th>Mô tả </th>
+                                                    <th>Ảnh bìa</th>
+
+                                                    <th></th>
+                                                </tr>
+                                            </thead>
+
+                                            @for (var index = 0; index < 20; index++)
+                                            {
+
+                                                if (Model.Album.Count > 0 && index < Model.Album.Count)
+                                                {
+                                                    <tr>
+                                                        <td>@(index+1)</td>
+
+                                                        <td>
+                                                            <input type="text" id="txtUrl_@(index+1)" value="@Model.Album[index].Url" class="form-control" style="width: 350px;" />
+                                                            &nbsp; <a href="javascript:;" onclick="CommonCtrl.PopupManagerImages('txtUrl_@(index+1)');"><i class="fa fa-file"></i></a>
+                                                        </td>
+                                                        <td>
+                                                            <textarea id="txtSummary_@(index+1)" style="height: 70px; width: 550px;" cols="30" name="description" class="form-control">@Html.Raw(Model.Album[index].Description.Replace("<br />","\n"))</textarea>
+                                                            
+                                                        </td>
+
+                                                        <td>
+                                                            @if (@Model.Album[index].IsHot == 1)
+                                                            {
+                                                                <input type="radio" name="main_image" id="txtHot_@(index+1)" checked class="form-control" />
+                                                            }
+                                                            else
+                                                            {
+                                                                <input type="radio" name="main_image" id="txtHot_@(index+1)" class="form-control" />
+                                                            }
+                                                        </td>
+                                                    </tr>
+                                                }
+                                                else
+                                                {
+                                                    <tr>
+                                                        <td>@(index+1)</td>
+
+                                                        <td>
+                                                            <input type="text" id="txtUrl_@(index+1)" value="" class="form-control"  style="width:350px;"/>
+                                                            &nbsp; <a href="javascript:;" onclick="CommonCtrl.PopupManagerImages('txtUrl_@(index+1)');"><i class="fa fa-file"></i></a>
+                                                        </td>
+                                                        <td>
+                                                            <textarea id="txtSummary_@(index+1)" style="height: 70px; width: 650px;" cols="30" name="description" class="form-control"></textarea>
+
+                                                        </td>
+                                                        <td>
+                                                            @if (index == 0)
+                                                            {
+                                                                <input type="radio" name="main_image" id="txtHot_@(index+1)" class="form-control" checked />
+                                                            }
+                                                            else
+                                                            {
+                                                                <input type="radio" name="main_image" id="txtHot_@(index+1)" class="form-control" />
+                                                            }
+
+                                                        </td>
+                                                    </tr>
+                                                }
+
+                                            }
+
+                                        </table>
+                                    </div>
+                                </div>
+                                @*<div class="form-group" style="display:none">
+                                        <label for="txtTitle" class="control-label col-md-3">Tên ảnh :<span class="required">*</span></label>
+                                        <div class="col-md-9">
+                                            <div class="input-icon right">
+                                                <input type="text" id="txtTitle" value="@Model.Name" class="form-control" placeholder="Nhập tên ảnh" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="txtImgPath" class="control-label col-md-3">Ảnh:<span class="required">*</span></label>
+                                        <div class="col-md-8">
+                                            <div class="input-icon right">
+                                                <input type="text" id="txtFilePath" name="filepath" value="@Model.Image" class="form-control" placeholder="Nhập ảnh" />
+                                            </div>
+                                        </div>
+                                        <div class="col-md-1">
+                                            <a href="javascript:;" onclick="CommonCtrl.PopupManagerImages('txtFilePath');"><i class="fa fa-file"></i></a>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="txtSummary" class="control-label col-md-3">Mô tả :<span class="required">*</span></label>
+                                        <div class="col-md-9">
+                                            <div class="input-icon right">
+                                                <textarea id="txtSummary" style="height: 100px;" cols="20" name="description" class="form-control">@Html.Raw(Model.Description.Replace("<br />","\n"))</textarea>
+
+                                            </div>
+                                        </div>
+                                    </div>*@
+
+                            </div>
+                            <div class="col-md-12 tab-pane" id="tabs-info2">
+                                <div class="form-group" style="display:none">
+                                    <label for="txtTitle" class="control-label col-md-3">Tên ảnh :<span class="required">*</span></label>
+                                    <div class="col-md-9">
+                                        <div class="input-icon right">
+                                            <input type="text" id="txtTitle2" value="@Model.Name2" class="form-control" placeholder="Nhập tên ảnh" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="txtImgPath" class="control-label col-md-3">Ảnh:<span class="required">*</span></label>
+                                    <div class="col-md-8">
+                                        <div class="input-icon right">
+                                            <input type="text" id="txtFilePath2" value="@Model.Image2" class="form-control" placeholder="Nhập ảnh" />
+                                        </div>
+                                    </div>
+                                    <div class="col-md-1">
+                                        <a href="javascript:;" onclick="CommonCtrl.PopupManagerImages('txtFilePath2');"><i class="fa fa-file"></i></a>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="txtSummary" class="control-label col-md-3">Mô tả :<span class="required">*</span></label>
+                                    <div class="col-md-9">
+                                        <div class="input-icon right">
+                                            <textarea id="txtSummary2" style="height: 30px;" cols="20" name="description" class="form-control">@Model.Description2</textarea>
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-md-3" for="cbxName2">Tham gia vòng bình chọn :</label>
+                                    <div class="col-md-4">
+                                        <div class="checkbox">
+                                            @if (!String.IsNullOrEmpty(Model.Name2))
+                                            {<input type="checkbox" id="cbxName2" checked="checked" />}
+                                            else
+                                            {<input type="checkbox" id="cbxName2" />}
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="panel-footer form-horizontal" >
+                                    <div class="form-group submit">
+                                        <button type="submit" class="btn btn-primary" id="btsubmit"><i class="fa fa-save"></i>Lưu lại</button>
+                                        <button type="button" class="btn btn-default" id="btnBack" onclick="GotoListpage();"><i class="fa fa-backward"></i>Quay lại</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div style="clear:both"></div>
+
+
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<style>
+    .input-icon {
+        position: relative;
+        width: 100%;
+    }
+</style>
+<script src="/Scripts/site.lib.encode.js" type="text/javascript"></script>
+<script>
+
+    $('#menu_6').addClass("active");
+</script>
+<script>
+
+    if (typeof (CKEDITOR) !== "undefined") {
+        CKEDITOR.env.isCompatible = true;
+    }
+</script>
+
+<script>
+
+
+    function GotoListpage() {
+        window.location = '@Url.Action("Index")';
+    }
+    function decodeEntities(encodedString) {
+        var textArea = document.createElement('textarea');
+        textArea.innerHTML = encodedString;
+        return textArea.value;
+    }
+    $(document).ready(function () {
+
+        //var editor = CKEDITOR.instances['txtSummary'];
+        //if (editor) {
+        //    CKEDITOR.remove(editor);
+        //}
+        //CKEDITOR.replace('txtSummary', {
+        //    filebrowserBrowseUrl: "/AdminImages/ManageImage",
+        //    filebrowserWindowWidth: '1200',
+        //    filebrowserWindowHeight: '800',
+        //    uiColor: '#FAFAFA',
+        //    allowedContent: true,
+        //    extraAllowedContent: '*(*)',
+        //    // ALLOW <i></i>
+
+        //    //extraAllowedContent: 'p(*)[*]{*};div(*)[*]{*};li(*)[*]{*};ul(*)[*]{*}',
+        //    extraPlugins: '',
+
+        //    toolbar: [
+        //        { name: 'document', items: ['Source', '-', 'Preview', '-'] },
+        //        ['Cut', 'Copy', 'Paste', 'PasteText', 'PasteFromWord', '-', 'Undo', 'Redo'],
+        //        { name: 'styles', items: ['Font', 'FontSize'] },
+        //        { name: 'basicstyles', items: ['Bold', 'Italic', 'Underline', 'Strike', '-', 'RemoveFormat'] },
+
+        //        //'/',
+        //         { name: 'paragraph', items: ['NumberedList', 'BulletedList', '-', 'Outdent', 'Indent', '-', 'Blockquote', '-', 'JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock'] },
+        //        //{ name: 'insert', items: ['Image', 'Youtube', 'Flash', 'Table', 'HorizontalRule', 'Smiley', 'SpecialChar', 'PageBreak', 'Iframe'] }
+        //        //{ name: 'links', items: ['Link', 'Unlink', 'Maximize'] }
+        //    ],
+        //    height: 200
+        //});
+
+
+        //var editor2 = CKEDITOR.instances['txtSummary2'];
+        //if (editor2) {
+        //    CKEDITOR.remove(editor2);
+        //}
+        //CKEDITOR.replace('txtSummary2', {
+        //    filebrowserBrowseUrl: "/AdminImages/ManageImage",
+        //    filebrowserWindowWidth: '1200',
+        //    filebrowserWindowHeight: '800',
+        //    uiColor: '#FAFAFA',
+        //    allowedContent: true,
+        //    extraAllowedContent: '*(*)',
+        //    // ALLOW <i></i>
+
+        //    //extraAllowedContent: 'p(*)[*]{*};div(*)[*]{*};li(*)[*]{*};ul(*)[*]{*}',
+        //    extraPlugins: '',
+        //    toolbar: [
+        //        { name: 'document', items: ['Source', '-',  'Preview', '-'] },
+        //        ['Cut', 'Copy', 'Paste', 'PasteText', 'PasteFromWord', '-', 'Undo', 'Redo'],
+        //        { name: 'styles', items: ['Font', 'FontSize'] },
+        //        { name: 'basicstyles', items: ['Bold', 'Italic', 'Underline', 'Strike', '-', 'RemoveFormat'] },
+
+        //        //'/',
+        //         { name: 'paragraph', items: ['NumberedList', 'BulletedList', '-', 'Outdent', 'Indent', '-', 'Blockquote', '-', 'JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock'] },
+        //        //{ name: 'insert', items: ['Image', 'Youtube', 'Flash', 'Table', 'HorizontalRule', 'Smiley', 'SpecialChar', 'PageBreak', 'Iframe'] }
+        //        //{ name: 'links', items: ['Link', 'Unlink', 'Maximize'] }
+        //    ],
+        //    height: 200
+        //});
+        $('#txtPublicTime').datetimepicker({
+            format: 'DD/MM/YYYY HH:mm',
+            inline: true,
+            sideBySide: true,
+            showTodayButton: true
+        });
+        $("button.close").click(function () {
+            $(this).parent().css("display", "none");
+        });
+        $('#defaultForm').bootstrapValidator({
+            message: 'This value is not valid',
+            //live: 'submitted',
+            feedbackIcons: {
+                valid: 'glyphicon glyphicon-ok',
+                invalid: 'glyphicon glyphicon-remove',
+                validating: 'glyphicon glyphicon-refresh'
+            },
+            fields: {
+
+                title: {
+                    message: 'Nhập tên đơn vị',
+                    validators: {
+                        notEmpty: {
+                            message: 'đơn vị không được bỏ trống'
+                        },
+
+                        stringLength: {
+                            min: 3,
+                            max: 250,
+                            message: 'đơn vị nhỏ nhất 3 ký tự và nhiều nhất 250 ký tự'
+                        },
+
+                    }
+                },
+
+
+            }
+        })
+        .on('success.form.bv', function (e) {
+            // Prevent submit form
+            e.preventDefault();
+
+            var $form = $(e.target),
+                        validator = $form.data('bootstrapValidator');
+            SaveData();
+            $(".close").click(function () {
+                $(".alert-success").css("display", "none");
+            });
+        })
+        .on('error.form.bv', function (e) {
+            // Active the panel element containing the first invalid element
+            e.preventDefault();
+            var $form = $(e.target),
+                    validator = $form.data('bootstrapValidator');
+            $(".alert-danger label").text("Có một vài lỗi trong khung nhập liệu dưới đây ! kiểm tra lại");
+            $(".alert-danger").css("display", "block");
+            $(".close").click(function () {
+                $(".alert-danger").css("display", "none");
+                $(".alert-success").css("display", "none");
+            });
+        });
+
+        $("#btnReset").click(function () {
+            $('#defaultForm').data('bootstrapValidator').resetForm(true);
+            $(".alert-danger").css("display", "none");
+            $(".alert-success").css("display", "none");
+        });
+
+
+        function SaveData() {
+            var services_json = [];
+            for (i = 1; i < 21; i++) {
+                if ($("#txtUrl_" + i).val() != '' && $("#txtUrl_" + i).val() != undefined) {
+                    var services = {
+                        'Url': $("#txtUrl_" + i).val() + '',
+                        'Description': $("#txtSummary_" + i).val().replace(/\n/g, '<br />') + '',
+                        'IsHot': $("#txtHot_" + i).is(":checked") ? "1" : "0",
+
+                    };
+                    services_json.push(services);
+                }
+
+            }
+            var param = {
+                'Id': '@Model.Id',
+                'GroupName': $("#txtGroupName").val(),
+                //'Description': $("#txtSummary").val().replace(/\n/g, '<br />'),
+                'Description2': $("#txtSummary2").val(),
+                'Name': $("#txtTitle").val(),
+                'Name2': $("#txtTitle2").val(),
+                'Type': $("#ddlType").val(),
+                'CategoryId': $("#ddlCategoryId").val(),
+                'Image': $("#txtFilePath").val(),
+                'Image2': $("#txtFilePath2").val(),
+                'Author': $("#txtAuthor").val(),
+                'SPublishDate': $('#txtPublicTime').val(),
+                'Status': $("#ddlStatus").val(),
+                'Description': JSON.stringify(services_json),
+                'Name': $("#cbxName").is(":checked") ? "1" : "",
+                'Name2': $("#cbxName2").is(":checked") ? "1" : "",
+
+            }
+            console.log(param)
+            Utils.Loading();
+            $.ajax({
+                type: 'POST',
+                url: "@Url.Action("SaveData")",
+                data: addAntiForgeryToken(param),
+                async: true,
+                success: function (data) {
+                    Utils.UnLoading();
+                    if (data.ResponseCode >= 0) {
+                        $("html,body").animate({ scrollTop: $('#TemplateContent').offset().top }, 'fast');
+                        $(".alert-success").show("slow");
+                        $(".alert-danger").hide("slow");
+                       setTimeout(function () { $(".alert-success").hide("slow"); GotoListpage(); }, 500);
+
+                    }
+                    else {
+                        $("html,body").animate({ scrollTop: $('#TemplateContent').offset().top }, 'fast');
+                        $("#ErrorMessage").text(data.Description);
+                        $(".alert-danger").show("slow");
+                        $(".alert-success").hide("slow");
+                        setTimeout(function () { $(".alert-danger").hide("slow"); }, 2000);
+                    }
+                }
+            });
+        };
+    });
+
+
+
+</script>
+

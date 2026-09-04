@@ -1,0 +1,27 @@
+﻿@using System.Configuration
+@using UTILS
+@model List<BIZ.Entity.CONTENT_FULL>
+@{
+    var domain = ConfigurationManager.AppSettings["Domain"];
+}
+<ul class="mt20">
+    @if(Model!=null)
+    { 
+    foreach (var item in Model.Select((value, i) => new {i, value}))
+    {
+
+        <li>
+            <a href="@Utils.FormatUrlRewrite(item.value.Id, item.value.Title, "ArticleDetail").Replace(".html", "")">
+                @*<img src="/Content/images/img-gift.jpg" alt="" class="pull-left"/>*@
+                <img src="@domain@item.value.MainImage?w=143&h=93&mode=crop" alt="" class="pull-left">
+            </a>
+            <div>
+                <span class="text-orange">@item.value.PublishDate.ToString("dd/MM/yyyy")</span>
+                <p>@item.value.Title</p>
+            </div>
+            <div class="clearfix"></div>
+        </li>
+    }
+
+    }
+</ul>

@@ -1,0 +1,46 @@
+﻿@model BIZ.Entity.TestRegister_Full
+
+
+<div class="time-content">
+    <h3 class="test-name">@Model.Title</h3>
+    <ul class="info-list">
+        <li>
+            <p>
+                Từ <strong>@Model.StartTime.GetValueOrDefault().ToString("dd/MM/yyyy HH:mm")</strong><br>
+                Đến <strong>@Model.EndTime.GetValueOrDefault().ToString("dd/MM/yyyy HH:mm")</strong>
+            </p>
+        </li>
+        <li>
+            <p>
+                Số lượng câu hỏi:
+                <strong>@Model.NumberQuestion</strong>
+            </p>
+        </li>
+        <li>
+            <p>
+                Thời gian trả lời:
+                <strong>@(Model.TestTime/60) phút</strong>
+            </p>
+        </li>
+    </ul>
+</div>
+
+<div class="text-center mt20 btn-join-wrap">
+    @if (DateTime.Now < Model.EndTime.GetValueOrDefault() && DateTime.Now > Model.StartTime.GetValueOrDefault())
+    {
+        <div class="animate-flicker"> <a href="javascript:" class="btn-join" onclick="JoinTest('@Model.Id')"><img src="/Content/images/btn-join.png"></a></div>
+    }
+    else
+    {
+        if (DateTime.Now > Model.StartTime.GetValueOrDefault())
+        {
+            
+                <div>
+                    <a href="@Url.Action("ResultExam",new {id=Model.Id})" class="btn-view">Xem kết quả</a>
+                </div>
+           
+        }
+
+    }
+</div>
+

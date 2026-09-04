@@ -1,0 +1,42 @@
+﻿@using BIZ
+@using UTILS
+@using WebMVC4.Helper
+@model BIZ.Entity.CONTENT_FULL
+@if (Model != null)
+{
+    <div class="video mt15">
+        <div class="title-cm">
+            <a href="/trang-chu-video.html">VIDEO</a> /
+            <a href="/thu-vien-anh/c11/hinh-anh.html"> HÌNH ẢNH</a>
+        </div>
+        <div class="video-content mt10" id="hVideoContent">
+           @if (Model.Url.Contains("youtube.com"))
+           {
+               <iframe id="hifvideo" width="376" height="250" frameborder="0" allowfullscreen
+                       src="@(Model.Url.Replace("watch?v=", "embed/"))">
+
+               </iframe>
+           }
+           else
+           {
+            <video poster="@Model.MainImage" controls preload="auto" width="376" height="250" id="hifvideo">
+                <source src="@Model.Url" type="video/mp4" />
+            </video>
+           }
+            <h4><a href="/trang-chu-video.html?VideoId=@(Model.Id)">@Model.Title</a></h4>
+        </div>
+    </div>
+    <script type="text/javascript">
+        var width = $("#hVideoContent").width();
+        var height = width / 1.502040816326531;
+
+        $("#hifvideo").width(width);
+        $("#hifvideo").height(height);
+    </script>
+
+}
+
+
+
+
+

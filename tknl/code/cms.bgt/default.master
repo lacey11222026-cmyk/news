@@ -1,0 +1,154 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" Inherits="CMS.master_default" CodeBehind="default.master.cs" %>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="content-language" content="en" />
+    <meta http-equiv="X-UA-Compatible" content="IE=7" />
+    <meta name="description" content="" />
+    <meta name="keywords" content="" />
+    <meta name="author" content="" />
+    <script src="/Scripts/jquery-1.4.1.js" type="text/javascript"></script>
+    <script type="text/javascript" src="<%# UrlRoot %>js/common.js"></script>
+    <script type="text/javascript" src="<%# UrlRoot %>js/swfobject.js"></script>
+    
+    <script type="text/javascript">
+
+        function keepalive() {
+            var keepAliveFrame = document.createElement("iframe")
+            keepAliveFrame.src = "<%# UrlRoot %>keepalive.aspx"
+            keepAliveFrame.style.display = "none"
+            document.body.appendChild(keepAliveFrame)
+        }
+        setTimeout("keepalive()", 600000);
+    </script>
+    <script type="text/javascript">
+
+        function preventBack() { window.history.forward(); }
+
+        setTimeout("preventBack()", 0);
+
+        window.onunload = function () { null };
+
+    </script>
+</head>
+<body>
+    <form id="form1" runat="server" enctype="multipart/form-data">
+    <asp:ScriptManager ID="ScriptManager" runat="server" />
+    <div id="container">
+        <div id="header">
+            <table cellpadding="0" cellspacing="0" border="0px" width="100%">
+                <tr class="homePageHeader" valign="top">
+                    <td>
+                        <table cellspacing="0" cellpadding="0" width="100%" border="0">
+                            <tr valign="top">
+                                <td>
+                                    <table cellspacing="0" cellpadding="0" width="100%" border="0">
+                                        <tr valign="bottom">
+                                            <td>
+                                                <a href="http://baogiaothong.vn">
+                                                    <img style="border: 0px; cursor: pointer;height:37px;width:116px;" src="<%# UrlRoot %>images/Logo1.jpg" alt="" /></a>
+                                            </td>
+                                            <td style="width: 100%; font-family: Arial; font-size: 1.1em; color: #FFFFFF; top: -2;
+                                                left: -1; text-align: left">
+                                                - Content Management System
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="2" valign="bottom" style="height: 33px;">
+                                                <table cellspacing="0" cellpadding="0" border="0">
+                                                    <tr>
+                                                        <asp:Literal ID="ltlMenu" runat="server"></asp:Literal>
+                                                    </tr>
+                                                </table>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </td>
+                                <td valign="top" style="width: 180px">
+                                    <table cellpadding="0" cellspacing="0" border="0" width="100%">
+                                        <tr>
+                                            <td colspan="2" style="height: 3px">
+                                            </td>
+                                        </tr>
+                                        <tr style="height: 20px;" class="title_tin">
+                                            <td>
+                                                <img alt="" id="img4" src="<%# UrlRoot %>images/dot.gif" />&nbsp;Xin chào:<asp:Literal
+                                                    ID="ltlUserID" runat="server"></asp:Literal>
+                                            </td>
+                                        </tr>
+                                        <tr style="height: 20px;">
+                                            <td>
+                                                <img alt="" id="img1" src="<%# UrlRoot %>images/dot.gif" />&nbsp;<a id="hlChangePwd"
+                                                    runat="server" class="helpHyperLink"></a>&nbsp;<span class="title_tin">|</span>&nbsp;<a
+                                                        id="hlSignOut" runat="server" class="helpHyperLink"></a>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <table style="width: 100%; height: 31px" cellspacing="0" cellpadding="0" border="0px">
+                            <tr>
+                                <td style="width: 24px;" valign="top" align="right">
+                                    <img alt="" style="border: 0px" src="<%# UrlRoot %>images/goc.gif" />
+                                </td>
+                                <td align="left" style="background-image: url(<%# UrlRoot %>images/canhtren.gif)">
+                                    &nbsp;
+                                </td>
+                                <td style="width: 24px;" valign="top" align="right">
+                                    <img alt="" style="border: 0px" src="<%# UrlRoot %>images/goc2.gif" />
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div id="content_panel">
+            <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
+            </asp:ContentPlaceHolder>
+        </div>
+        <div id="footer">
+            <div style="float: left;">
+                <img alt="" style="border: 0px" src="<%# UrlRoot %>images/goc1.gif" /></div>
+            <div style="float: right;">
+                <img alt="" style="border: 0px" src="<%# UrlRoot %>images/goc3.gif" /></div>
+            <div style="float: left; width: 100%; text-align: center; background-color: #3b78ae;
+                padding-bottom: 15px; padding-top: 15px; color: #ffffff; font: 9pt, Arial;">
+                <asp:Literal ID="ltlFooter" runat="server" Text="©2014"></asp:Literal></div>
+        </div>
+    </div>
+    <div id="fixBottom" style="display: block; position: absolute; bottom: 0px">
+    </div>
+    </form>
+</body>
+</html>
+<script type="text/javascript">
+    var MinContentH = 0;
+    Resize();
+    function Resize() {
+        var fixBottomH = document.getElementById('fixBottom').offsetTop;
+        var containerH = document.getElementById('container').offsetHeight;
+        var headerH = document.getElementById('header').offsetHeight;
+        var contentH = document.getElementById('content_panel').offsetHeight;
+        var footerH = 61;
+        MinContentH = fixBottomH - headerH - footerH;
+        if (fixBottomH > headerH + contentH + footerH) {
+            document.getElementById('content_panel').style.height = MinContentH + "px";
+        }
+
+    }
+    function ActualResize(ContentID) {
+        var ContentIDH = document.getElementById(ContentID).offsetHeight;
+        if (ContentIDH > MinContentH)
+            document.getElementById('content_panel').style.height = ContentIDH + "px";
+        else
+            document.getElementById('content_panel').style.height = MinContentH + "px";
+    }
+</script>

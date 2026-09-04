@@ -1,0 +1,288 @@
+﻿@using WebMVC4
+@using UTILS
+@using WebMVC4.Helper
+@model WebMVC4.Areas.Image2016.Models.AlbumImageModel
+
+
+@if (Model.listdata != null)
+{
+    if (Model.listdata.Count > 0)
+    {
+
+
+
+        <div class="postbox pt60 container">
+            <div class="postbox-inn">
+                <h2 class="title">Tác phẩm tiêu biểu</h2>
+                <div class="search-box mt10">
+                    <input type="text" id="txtkeyword" placeholder="Tìm kiếm" value="@ViewBag.keyword" class="form-control">
+                    <button type="button" class="btn-search" onclick="fillter()"></button>
+                </div>
+            </div>
+
+            <div class="postlist mt20">
+                @foreach (var item in Model.listdata.Select((value, i) => new { i, value }))
+                {
+                    <div class="postitem">
+                        <div class="main-img">
+                            <a href="javascript:;" data-to="1" data-toggle="modal" data-target="#posts@(item.i)">
+                                <img src="@item.value.MainImage?w=370&h=248&mode=crop&autorotate=true">
+                            </a>
+                        </div>
+                        <div class="maso">
+                            <p class="ms-name">@item.value.Code - @item.value.Author</p>
+                            <p class="donvi">@item.value.GroupName</p>
+                        </div>
+                    </div>
+                }
+            </div>
+            <div class="paging mt50">
+                <ul>
+                    @{Html.RenderPartial("Pagination", new WebMVC4.Models.PaginationInfo
+                        {
+                            PageUrl = Url.SetParameter("Page", "!0"),
+                            CurrentPage = Model.pageIndex,
+                            PageSize = Model.pageSize,
+                            TotalItemCount = Model.total,
+                        }); }
+                </ul>
+            </div>
+        </div>
+
+        foreach (var item in Model.listdata.Select((value, i) => new { i, value }))
+        {
+
+            <!-- Post 02 -->
+            <div id="posts@(item.i)" class="modal fade" role="dialog">
+                <div class="modal-dialog modal-lg">
+                    <div class="modal-content">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <div id="images@(item.i)">
+
+
+                            @foreach (var img in item.value.Album)
+                            {
+                                if (!string.IsNullOrEmpty(img.Url))
+                                {
+                                    <div>
+                                        <img src="@img.Url?h=@(ViewBag.Height)&mode=crop&autorotate=true" alt="">
+                                        <p>
+                                            @Html.Raw(img.Description)
+                                        </p>
+                                    </div>
+                                }
+                            }
+
+
+                        </div>
+                        <div id="diaporama@(item.i)"></div>
+                    </div>
+                </div>
+            </div>
+
+        }
+        <script>
+            function fillter() {
+                var keyword = $("#txtkeyword").val();
+
+                window.location = '/cuoc-thi-sang-tac-thiep/?keyword=' + keyword;
+            }
+            $('#txtkeyword').keyup(function (e) {
+                if (e.keyCode == 13) {
+                    //window.location = jQuery.query.set("keyword", this.value).set("Page", "1");
+                    window.location = '/cuoc-thi-sang-tac-thiep/?keyword=' + this.value;
+                }
+            });
+            // Slider 01
+            $(function () {
+                $('#diaporama0').html($("#images0").html());
+                $('#diaporama0').mixSlide({
+                    fullscreen: false,
+                    thumbs: true,
+                    controls: true,
+                    transition: { name: "circle" },
+                    animation: {
+                        delay: 2,
+                        speed: 2
+                    },
+                    labels: true,
+                    layout: MXS_LAYOUT_1
+                });
+
+                $('#diaporama1').html($("#images1").html());
+                $('#diaporama1').mixSlide({
+                    fullscreen: false,
+                    thumbs: true,
+                    controls: true,
+                    transition: { name: "circle" },
+                    animation: {
+                        delay: 2,
+                        speed: 2
+                    },
+                    labels: true,
+                    layout: MXS_LAYOUT_1
+                });
+
+                // Slider 02
+                $('#diaporama2').html($("#images2").html());
+                $('#diaporama2').mixSlide({
+                    fullscreen: false,
+                    thumbs: true,
+                    controls: true,
+                    transition: { name: "circle" },
+                    animation: {
+                        delay: 2,
+                        speed: 2
+                    },
+                    labels: true,
+                    layout: MXS_LAYOUT_1
+                });
+
+                // Slider 03
+                $('#diaporama3').html($("#images3").html());
+                $('#diaporama3').mixSlide({
+                    fullscreen: false,
+                    thumbs: true,
+                    controls: true,
+                    transition: { name: "circle" },
+                    animation: {
+                        delay: 2,
+                        speed: 2
+                    },
+                    labels: true,
+                    layout: MXS_LAYOUT_1
+                });
+
+                // Slider 04
+                $('#diaporama4').html($("#images4").html());
+                $('#diaporama4').mixSlide({
+                    fullscreen: false,
+                    thumbs: true,
+                    controls: true,
+                    transition: { name: "circle" },
+                    animation: {
+                        delay: 2,
+                        speed: 2
+                    },
+                    labels: true,
+                    layout: MXS_LAYOUT_1
+                });
+
+                // Slider 05
+                $('#diaporama5').html($("#images5").html());
+                $('#diaporama5').mixSlide({
+                    fullscreen: false,
+                    thumbs: true,
+                    controls: true,
+                    transition: { name: "circle" },
+                    animation: {
+                        delay: 2,
+                        speed: 2
+                    },
+                    labels: true,
+                    layout: MXS_LAYOUT_1
+                });
+
+                // Slider 06
+                $('#diaporama6').html($("#images6").html());
+                $('#diaporama6').mixSlide({
+                    fullscreen: false,
+                    thumbs: true,
+                    controls: true,
+                    transition: { name: "circle" },
+                    animation: {
+                        delay: 2,
+                        speed: 2
+                    },
+                    labels: true,
+                    layout: MXS_LAYOUT_1
+                });
+
+                // Slider 07
+                $('#diaporama7').html($("#images7").html());
+                $('#diaporama7').mixSlide({
+                    fullscreen: false,
+                    thumbs: true,
+                    controls: true,
+                    transition: { name: "circle" },
+                    animation: {
+                        delay: 2,
+                        speed: 2
+                    },
+                    labels: true,
+                    layout: MXS_LAYOUT_1
+                });
+
+                // Slider 02
+                $('#diaporama8').html($("#images8").html());
+                $('#diaporama8').mixSlide({
+                    fullscreen: false,
+                    thumbs: true,
+                    controls: true,
+                    transition: { name: "circle" },
+                    animation: {
+                        delay: 2,
+                        speed: 2
+                    },
+                    labels: true,
+                    layout: MXS_LAYOUT_1
+                });
+
+                // Slider 09
+                $('#diaporama9').html($("#images09").html());
+                $('#diaporama9').mixSlide({
+                    fullscreen: false,
+                    thumbs: true,
+                    controls: true,
+                    transition: { name: "circle" },
+                    animation: {
+                        delay: 2,
+                        speed: 2
+                    },
+                    labels: true,
+                    layout: MXS_LAYOUT_1
+                });
+
+                // Slider 10
+                $('#diaporama10').html($("#images10").html());
+                $('#diaporama10').mixSlide({
+                    fullscreen: false,
+                    thumbs: true,
+                    controls: true,
+                    transition: { name: "circle" },
+                    animation: {
+                        delay: 2,
+                        speed: 2
+                    },
+                    labels: true,
+                    layout: MXS_LAYOUT_1
+                });
+
+            });
+        </script>
+        <style>
+            #diaporama10,
+            #diaporama9,
+            #diaporama8,
+            #diaporama7,
+            #diaporama6,
+            #diaporama5,
+            #diaporama4,
+            #diaporama3,
+            #diaporama2,
+            #diaporama1,
+            #diaporama0 {
+                margin: auto;
+                overflow: hidden;
+                width: 100%;
+                height: 100%;
+                box-shadow: 0 0 30px black;
+                position: fixed;
+            }
+
+            #images10, #images9, #images8, #images7, #images6, #images5, #images4, #images3, #images2, #images1, #images0 {
+                display: none;
+            }
+        </style>
+    }
+}

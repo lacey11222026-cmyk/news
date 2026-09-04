@@ -1,0 +1,48 @@
+﻿@using BIZ
+@using UTILS
+@using WebMVC4.Helper
+@{
+    var langpage = WorkContext.GetLanguage();
+}
+@model List<BIZ.Entity.CONTENT_FULL>
+@if (Model != null)
+{
+    if (Model.Count > 0)
+    {
+        if (langpage == "vi-vn")
+        {
+            <ul class="news-list row pt60">
+                @foreach (var item in Model.Select((value, i) => new { i, value }))
+                {
+
+                    <li class="col-md-3 col-sm-4 col-xs-6">
+                        <a href="@item.value.LinkUrl">
+                            <img src="@item.value.MainImage?w=423&h=250&mode=crop" alt="">
+                            <p class="news-title f18">@item.value.Title</p>
+                        </a>
+                    </li>
+                }
+            </ul>
+
+        }
+        else
+        {
+            <ul class="news-list row pt60">
+                @foreach (var item in Model.Select((value, i) => new { i, value }))
+                {
+
+                    <li class="col-md-3 col-sm-4 col-xs-6">
+                        <a href="@item.value.LinkUrl">
+                            <img src="@item.value.MainImage?w=423&h=250&mode=crop" alt="">
+                            <p class="news-title f18">@item.value.IntroText</p>
+                        </a>
+                    </li>
+                }
+            </ul>
+        }
+
+
+    }
+
+
+}

@@ -1,0 +1,98 @@
+﻿@using BIZ
+@using DATA
+@using UTILS
+@using WebMVC4.Helper
+@model BIZ.Entity.DOCUMENT_FULL
+
+<div class="container document-page mt40">
+    @{Html.RenderAction("Breadcrumb", "News", new { CategoryId = Model.CategoryId });}
+    <div class="row mt30">
+        <div class="col-lg-8 col-md-12">
+
+            <div class=" manage-detail-page">
+                <table>
+                    <tbody>
+                        <tr>
+                            <th>Tên văn bản</th>
+                            <td colspan="3"> @Model.Name</td>
+                        </tr>
+                        <tr>
+                            <th>Xem online</th>
+                            <td colspan="3"><a href="@Url.Action("ViewFile","Document",new { id=Model.Id})" target="_blank" class="document-view textlink">Xem Online</a></td>
+                        </tr>
+                        <tr>
+                            <th>Tải về</th>
+                            <td colspan="3"><a href="@Url.Action("DownloadFile","Document",new { id=Model.Id})"" class="document-view textlink"><img src="/Content/img/icon-pdf-02.svg" alt="" width="40"></a></td>
+                        </tr>
+                        <tr>
+                            <th>Mô tả</th>
+                            <td colspan="3"> @Model.Description</td>
+                        </tr>
+                        <tr>
+                            <th>Số hiệu</th>
+                            <td> @Model.Code</td>
+                            <th>Ngày ban hành</th>
+                            <td>
+                                @Convert.ToDateTime(Model.PublishDate).ToString(@" dd'/'MM'/'yyyy")
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>Ngày có hiệu lực</th>
+                            <td>
+                                @if (!Model.EffectiveDate.HasValue)
+                                {
+
+                                    <text>&nbsp;</text>
+                                }
+                                else
+                                {
+                                    if (Model.EffectiveDate.Value.Year < 9000)
+                                    {
+                                        @Convert.ToDateTime(Model.EffectiveDate).ToString(@" dd'/'MM'/'yyyy")
+                                    }
+                                    else
+                                    {
+                                        <text>&nbsp;</text>
+                                    }
+
+                                }
+                            </td>
+                            <th>Ngày hết hiệu lực</th>
+                            <td>
+                                @if (!Model.ExpiryDate.HasValue)
+                                {
+
+                                    <text>&nbsp;</text>
+                                }
+                                else
+                                {
+                                    if (Model.ExpiryDate.Value.Year < 9000)
+                                    {
+                                        @Convert.ToDateTime(Model.ExpiryDate).ToString(@" dd'/'MM'/'yyyy")
+                                    }
+                                    else
+                                    {
+                                        <text>&nbsp;</text>
+                                    }
+
+                                }
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>Cơ quan ban hành</th>
+                            <td>@HtmlHelpers.GetDocA(Model.SignedByDesc)</td>
+                            <th>Loại văn bản</th>
+                            <td>@HtmlHelpers.GetDocType(Model.SignedBy)</td>
+                        </tr>
+                    </tbody>
+
+                </table>
+            </div>
+
+        </div>
+        <div class="col-lg-4 col-md-12 sidebar-right">
+            @Html.Partial("Site_Right")
+        </div>
+    </div>
+</div>
+

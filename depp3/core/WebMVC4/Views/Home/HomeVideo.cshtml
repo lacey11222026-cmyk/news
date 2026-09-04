@@ -1,0 +1,30 @@
+﻿@using BIZ
+@using UTILS
+@using WebMVC4.Helper
+@model List<BIZ.Entity.CONTENT_FULL>
+@{
+    var langpage = WorkContext.GetLanguage();
+}
+@if (Model != null)
+{
+    if (Model.Count > 0)
+    {
+        foreach (var item in Model.Take(1).Select((value, i) => new { i, value }))
+        {
+            <div class="tabs-content-txt">
+                <p class="tabs-content-name">@item.value.Title</p>
+                <p class="mt20">@item.value.IntroText</p>
+                <div class="mt20 btn-list">
+                    <a href="/video.html?VideoId=@(item.value.Id)" class="btn-cm">@Resources.Global.More</a>
+                    
+                </div>
+            </div>
+            <div class="tabs-content-img"><img src="@item.value.MainImage?w=660&h=371&mode=crop" alt=""></div>
+        }
+
+
+
+    }
+}
+
+

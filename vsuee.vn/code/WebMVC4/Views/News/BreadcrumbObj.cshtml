@@ -1,0 +1,16 @@
+﻿@using BIZ
+@using UTILS
+@using WebMVC4.Helper
+@model BIZ.Entity.CATEGORY_FULL
+@using WebMVC4.Helper
+@{
+    var langpage = WorkContext.GetLanguage();
+}
+
+@if (Model != null)
+{
+    
+
+<h2 class="title-cm-02"><a href="@Model.Url">@Model.Name</a></h2>
+
+}

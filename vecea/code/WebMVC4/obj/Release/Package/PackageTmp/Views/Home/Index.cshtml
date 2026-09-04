@@ -1,0 +1,37 @@
+﻿@using BIZ
+@using UTILS
+@using WebMVC4.Helper
+
+
+
+
+<div class="main-content box-09">
+    @Html.Action("Banner", "Home")
+    <div class="row mt10">
+        <div class="box-cm col-md-6 col-sm-6 col-xs-12">
+            @Html.Action("LastestNews", "Home", new {CategoryId = 4, CateName = "HOẠT ĐỘNG HỘI", MaxLastestNews = 4})
+
+        </div>
+        <div class="box-cm col-md-6 col-sm-6 col-xs-12">
+
+            @Html.Action("LastestNews", "Home", new { CategoryId = 6, CateName = "Khoa học công nghệ", MaxLastestNews = 4 })
+        </div>
+        
+    </div>
+   @Html.Action("BannerBottomLeft", "Home")
+    <div class="row mt10">
+        <div class="box-cm col-md-6 col-sm-6 col-xs-12">
+            @Html.Action("LastestNews", "Home", new { CategoryId = 5, CateName = "Hội viên", MaxLastestNews = 4 })
+
+        </div>
+        <div class="box-cm col-md-6 col-sm-6 col-xs-12">
+           @Html.Action("LastestNews", "Home", new { CategoryId = 12, CateName = "Thông tin chung", MaxLastestNews = 4 })
+        </div>
+    </div>
+</div><!-- end main content-->
+
+
+
+
+
+

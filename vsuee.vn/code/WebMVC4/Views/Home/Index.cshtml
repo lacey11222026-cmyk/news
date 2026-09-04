@@ -1,0 +1,346 @@
+﻿@using BIZ
+@using UTILS
+@using WebMVC4.Helper
+
+@{
+    var langpage = WorkContext.GetLanguage();
+}
+
+@if (langpage == "vi-vn")
+{
+
+    <div class="news container mt50">
+        <ul class="nav nav-title" id="newsTab" role="tablist">
+            <li class="nav-item">
+                <a class="nav-link active" id="news-tab" data-toggle="tab" href="#news" role="tab" aria-controls="news" aria-selected="true">Tin tức</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="news02-tab" data-toggle="tab" href="#news02" role="tab" aria-controls="news02" aria-selected="false">HOẠT ĐỘNG DỰ ÁN</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="news03-tab" data-toggle="tab" href="#news03" role="tab" aria-controls="news03" aria-selected="false">Điển hình TKNL</a>
+            </li>
+        </ul>
+        <div class="tab-content mt40" id="newsTabContent">
+            <div class="tab-pane fade show active" id="news" role="tabpanel" aria-labelledby="news-tab">
+                @{Html.RenderAction("LastestNews", "Home", new { CateName = "Tin tức", CategoryId = 5, MaxLastestNews = 4, cssClass = "maxheight02", lang = langpage });}
+            </div>
+            <div class="tab-pane fade" id="news02" role="tabpanel" aria-labelledby="news02-tab">
+                @{Html.RenderAction("LastestNews", "Home", new { CateName = "Hoạt động dự án", CategoryId = 38, MaxLastestNews = 4, cssClass = "maxheight02", lang = langpage });}
+            </div>
+            <div class="tab-pane fade" id="news03" role="tabpanel" aria-labelledby="news03-tab">
+                @{Html.RenderAction("LastestNews", "Home", new { CateName = "Điển hình tiết kiệm năng lượng", CategoryId = 40, MaxLastestNews = 4, cssClass = "maxheight02", lang = langpage });}
+            </div>
+        </div>
+    </div><!-- end news-->
+    <div class="pt60 container project-box">
+        <h2 class="title-cm"><a href="#">KẾT QUẢ DỰ ÁN</a></h2>
+        <ul class="project-list mt50">
+            @{Html.RenderAction("Project", "Home");}
+        </ul>
+        <div class="project-intro mt60">
+            <img src="/Content/images/img-big.jpg" alt="">
+            <div class="project-intro-wrap">
+                <div class="project-intro-content">
+                    <div>
+                        <div class="float-right">
+                            <ul class="list-inline">
+                                <li><img src="/Content/images/logo-01.png" alt=""></li>
+                                <li><img src="/Content/images/logo-02.png" alt=""></li>
+                            </ul>
+                        </div>
+                        <div class="clearfix"></div>
+                        <h2 class="title-cm"><a href="/gioi-thieu/c2/gioi-thieu.html">Giới thiệu</a></h2>
+                        <p class="mt30">
+                            Dự án Thúc đẩy tiết kiệm năng lượng trong các ngành Công nghiệp Việt Nam (Vietnam Scaling up Energy Efficiency Project - VSUEE) do Quỹ khí hậu xanh (GCF) tài trợ thông qua Ngân hàng Thế giới (World Bank) với tổng kinh phí là 11,3  triệu USD.<br><br>
+                            Dự án bao gồm hai hợp phần: Hợp phần 1 – Vận hành Quỹ chia sẻ rủi ro (RSF) và Hợp phần 2 – Hỗ trợ kỹ thuật.<br><br>
+                            Dự án được triển khai từ tháng 3/2022 đến tháng 1/2026 trên phạm vi toàn quốc. Bộ Công Thương – Cơ quan chủ quản dự án là đơn vị chủ trì chịu trách nhiệm chung kết quả thực hiện dự án.
+                        </p>
+                        <a href="/gioi-thieu/c2/gioi-thieu.html" class="btn-green mt30">Xem chi tiết</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div><!-- end project-->
+    <div class="container pt60 bank-list">
+        <h2 class="title-cm"><a href="#">CÁC NGÂN HÀNG THAM GIA</a></h2>
+        <ul class="slick02 mt20">
+            @{Html.RenderAction("BannerBottom", "Home", new { lang = langpage });}
+        </ul>
+    </div>
+    <div class="container pt60">
+        <div class="row row-50">
+            <div class="col-lg-8 col-md-12">
+                <div class="share-box">
+                    <h2 class="title-cm"><a href="/gioi-thieu/c86/quy-chia-se-rui-ro.html" class="text-left">QUỸ CHIA SẺ RỦI RO</a></h2>
+                    <a href="/gioi-thieu/c86/quy-chia-se-rui-ro.html"><img src="/Content/images/img-02.png" alt="" class="share-img"></a>
+                    <div class="share-content">
+                        <div class="share-txt w-40">
+                            <ul class="slick23">
+                                <li>
+                                    <p>
+                                        Quỹ chia sẻ rủi ro (RSF) là một hợp phần của Dự án VSUEE có quy mô 75 triệu USD từ nguồn vốn hoàn lại do Quỹ Khí hậu Xanh cấp thông qua Ngân hàng Thế giới.<br><br>
+                                        Quỹ được thành lập để cung cấp giảm thiểu rủi ro tín dụng của các tổ chức tài chính tham gia khi cho vay các dự án đầu tư tiết kiệm năng lượng dưới hình thức phát hành bảo lãnh tín dụng RSF.
+                                    </p>
+                                </li>
+
+                            </ul>
+                            <a href="/gioi-thieu/c86/quy-chia-se-rui-ro.html" class="btn-green mt30">Xem chi tiết</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-12">
+                <div class="document-box">
+                    <ul class="nav nav-title" role="tablist">
+                        <li class="nav-item">
+                            <a class="nav-link active" id="document-tab" data-toggle="tab" href="#document" role="tab" aria-controls="document" aria-selected="true">VĂN BẢN</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" id="document02-tab" data-toggle="tab" href="#document02" role="tab" aria-controls="document02" aria-selected="false">TÀI LIỆU</a>
+                        </li>
+                    </ul>
+                    <div class="tab-content mt30">
+                        <div class="tab-pane fade show active" id="document" role="tabpanel" aria-labelledby="document-tab">
+                            <ul class="ducoment-list">
+                                @{Html.RenderAction("TopDocument", "Home", new { MaxLastestNews = 4, CateName = "", CategoryId = 3 });}
+                            </ul>
+                            <div class="text-center mt20">
+                                <a href="/Document/Index/3" class="btn-green">Xem thêm</a>
+                            </div>
+                        </div>
+                        <div class="tab-pane fade" id="document02" role="tabpanel" aria-labelledby="document02-tab">
+                            @{Html.RenderAction("LastestNews2", "Home", new { CateName = "Tài liệu", CategoryId = 69, MaxLastestNews = 4, cssClass = "maxheight02", lang = langpage });}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="video-box container pt60">
+        <ul class="nav nav-title text-center" role="tablist">
+            <li class="nav-item">
+                <a class="nav-link active" id="video-tab" data-toggle="tab" href="#video" role="tab" aria-controls="video" aria-selected="true">Video</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="image-tab" data-toggle="tab" href="#image" role="tab" aria-controls="image" aria-selected="false">HÌNH ẢNH</a>
+            </li>
+        </ul>
+        <div class="video-inner mt40">
+            <div class="tab-content">
+                <div class="tab-pane fade show active" id="video" role="tabpanel" aria-labelledby="video-tab">
+                    @{Html.RenderAction("HomeVideo", "Home", new { CateName = "Video", CategoryId = 6, MaxLastestNews = 4, cssClass = "maxheight02", lang = langpage });}
+                    <div class="text-center mt30">
+                        <a href="/trang-chu-video.html" class="btn-green">Xem thêm</a>
+                    </div>
+
+                </div>
+                <div class="tab-pane fade" id="image" role="tabpanel" aria-labelledby="image-tab">
+                    @{Html.RenderAction("TopAlbum", "Home", new { CateName = "Thư viện ảnh", CategoryId = 47, Top = 4, cssClass = "maxheight02", lang = langpage });}
+                    <div class="text-center mt30">
+                        <a href="/thu-vien-anh/c47/hinh-anh.html" class="btn-green">Xem thêm</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div><!-- end video-->
+    <div class="event-box pt60 container">
+        <h2 class="title-cm"><a href="/su-kien.html">SỰ KIỆN</a></h2>
+        <div class="mt40">
+            <div class="slick04">
+
+                @{Html.RenderAction("TopMission", "Home", new { lang = langpage });}
+            </div>
+        </div>
+    </div><!-- end event-->
+
+    <div class="support-box pt60 pb60 container">
+        <h2 class="title-cm"><a href="#">ĐƠN VỊ TƯ VẤN</a></h2>
+        <div class="mt30">
+            <ul class="slick05">
+                @{Html.RenderAction("BannerRight2", "Home", new { lang = langpage });}
+            </ul>
+        </div>
+    </div>
+}
+else
+{
+    <div class="news container mt50">
+        <ul class="nav nav-title" id="newsTab" role="tablist">
+            <li class="nav-item">
+                <a class="nav-link active" id="news-tab" data-toggle="tab" href="#news" role="tab" aria-controls="news" aria-selected="true">News</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="news02-tab" data-toggle="tab" href="#news02" role="tab" aria-controls="news02" aria-selected="false">Project Activities</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="news03-tab" data-toggle="tab" href="#news03" role="tab" aria-controls="news03" aria-selected="false">Case Study</a>
+            </li>
+        </ul>
+        <div class="tab-content mt40" id="newsTabContent">
+            <div class="tab-pane fade show active" id="news" role="tabpanel" aria-labelledby="news-tab">
+                @{Html.RenderAction("LastestNews", "Home", new { CateName = "News", CategoryId = 44, MaxLastestNews = 4, cssClass = "maxheight02", lang = langpage });}
+            </div>
+            <div class="tab-pane fade" id="news02" role="tabpanel" aria-labelledby="news02-tab">
+                @{Html.RenderAction("LastestNews", "Home", new { CateName = "Project Activities", CategoryId = 64, MaxLastestNews = 4, cssClass = "maxheight02", lang = langpage });}
+            </div>
+            <div class="tab-pane fade" id="news03" role="tabpanel" aria-labelledby="news03-tab">
+                @{Html.RenderAction("LastestNews", "Home", new { CateName = "ĐCase study", CategoryId = 65, MaxLastestNews = 4, cssClass = "maxheight02", lang = langpage });}
+            </div>
+        </div>
+    </div><!-- end news-->
+    <div class="pt60 container project-box">
+        <h2 class="title-cm"><a href="#">PROJECT RESULT</a></h2>
+        <ul class="project-list mt50">
+            @{Html.RenderAction("Project", "Home");}
+        </ul>
+        <div class="project-intro mt60">
+            <img src="/Content/images/img-big.jpg" alt="">
+            <div class="project-intro-wrap">
+                <div class="project-intro-content">
+                    <div>
+                        <div class="float-right">
+                            <ul class="list-inline">
+                                <li><img src="/Content/images/logo03.png" alt=""></li>
+                                <li><img src="/Content/images/logo-02.png" alt=""></li>
+                            </ul>
+                        </div>
+                        <div class="clearfix"></div>
+                        <h2 class="title-cm"><a href="/gioi-thieu/c76/introduction.html">Introduction</a></h2>
+                        <p class="mt30">
+                            The Vietnam Scaling up Energy Efficiency Project (VSUEE) is financed by the Green Climate Fund (GCF) with a total of USD 11.3 million through the World Bank.<br><br>
+                            The project includes two components: Component 1 - Risk Sharing Facility (RSF) and Component 2 - Technical Assistance.<br><br>
+                            The project is implemented from March of 2022 to January of 2026 throughout the country. The Ministry of Industry and Trade is the project governing agency, responsible for the project's results.
+
+                        </p>
+                        <a href="/gioi-thieu/c76/introduction.html" class="btn-green mt30">View More</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div><!-- end project-->
+    <div class="container pt60 bank-list">
+        <h2 class="title-cm"><a href="#">Participating Financial Institutions</a></h2>
+        <ul class="slick02 mt20">
+            @{Html.RenderAction("BannerBottom", "Home", new { lang = langpage });}
+        </ul>
+    </div>
+    <div class="container pt60">
+        <div class="row row-50">
+            <div class="col-lg-8 col-md-12">
+                <div class="share-box">
+                    <h2 class="title-cm"><a href="/gioi-thieu/c87/risk-sharing-facility.html" class="text-left">Risk Sharing Facility</a></h2>
+                    <a href="/gioi-thieu/c86/quy-chia-se-rui-ro.html"><img src="/Content/images/img-02.png" alt="" class="share-img"></a>
+                    <div class="share-content">
+                        <div class="share-txt w-40">
+                            <ul class="slick23">
+                                <li>
+                                    <p>
+                                        The Risk Sharing Facility (RSF) is a component of the VSUEE Project with a total of USD 75 million funded by the Green Climate Fund through the World Bank.<br /><br />
+                                        The Fund was established to provide credit risk reduction for participating financial institutions (PFIs) when lend lãnh tín dụng RSF.
+                                    </p>
+                                </li>
+
+                            </ul>
+                            <a href="/gioi-thieu/c87/risk-sharing-facility.html" class="btn-green mt30">View More</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-12">
+                <div class="document-box">
+                    <ul class="nav nav-title" role="tablist">
+                        <li class="nav-item">
+                            <a class="nav-link active" id="document-tab" data-toggle="tab" href="#document" role="tab" aria-controls="document" aria-selected="true">Legislation</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" id="document02-tab" data-toggle="tab" href="#document02" role="tab" aria-controls="document02" aria-selected="false">Materials</a>
+                        </li>
+                    </ul>
+                    <div class="tab-content mt30">
+                        <div class="tab-pane fade show active" id="document" role="tabpanel" aria-labelledby="document-tab">
+                            <ul class="ducoment-list">
+                                @{Html.RenderAction("TopDocument", "Home", new { MaxLastestNews = 4, CateName = "", CategoryId = 39 });}
+                            </ul>
+                            <div class="text-center mt20">
+                                <a href="/Document/Index/39" class="btn-green">View More</a>
+                            </div>
+                        </div>
+                        <div class="tab-pane fade" id="document02" role="tabpanel" aria-labelledby="document02-tab">
+                            @{Html.RenderAction("LastestNews2", "Home", new { CateName = "Materials", CategoryId = 63, MaxLastestNews = 4, cssClass = "maxheight02", lang = langpage });}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="video-box container pt60">
+        <ul class="nav nav-title text-center" role="tablist">
+            <li class="nav-item">
+                <a class="nav-link active" id="video-tab" data-toggle="tab" href="#video" role="tab" aria-controls="video" aria-selected="true">Video</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="image-tab" data-toggle="tab" href="#image" role="tab" aria-controls="image" aria-selected="false">Images</a>
+            </li>
+        </ul>
+        <div class="video-inner mt40">
+            <div class="tab-content">
+                <div class="tab-pane fade show active" id="video" role="tabpanel" aria-labelledby="video-tab">
+                    @{Html.RenderAction("HomeVideo", "Home", new { CateName = "Video", CategoryId = 89, MaxLastestNews = 4, cssClass = "maxheight02", lang = langpage });}
+                    <div class="text-center mt30">
+                        <a href="/trang-chu-video.html" class="btn-green">View More</a>
+                    </div>
+
+                </div>
+                <div class="tab-pane fade" id="image" role="tabpanel" aria-labelledby="image-tab">
+                    @{Html.RenderAction("TopAlbum", "Home", new { CateName = "Images", CategoryId = 90, Top = 4, cssClass = "maxheight02", lang = langpage });}
+                    <div class="text-center mt30">
+                        <a href="/thu-vien-anh/c90/images.html" class="btn-green">View More</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div><!-- end video-->
+    <div class="event-box pt60 container">
+        <h2 class="title-cm"><a href="/su-kien.html">EVENTS</a></h2>
+        <div class="mt40">
+            <div class="slick04">
+
+                @{Html.RenderAction("TopMission", "Home", new { lang = langpage });}
+            </div>
+        </div>
+    </div><!-- end event-->
+
+    <div class="support-box pt60 pb60 container">
+        <h2 class="title-cm"><a href="#">Consulting Firms</a></h2>
+        <div class="mt30">
+            <ul class="slick05">
+                @{Html.RenderAction("BannerRight2", "Home", new { lang = langpage });}
+            </ul>
+        </div>
+    </div>
+}
+<script src="~/fancybox2.1.5/jquery.fancybox.pack.js"></script>
+<link href="~/fancybox2.1.5/jquery.fancybox.css" rel="stylesheet" />
+<script>
+    $(".fancybox-video").click(function () {
+        $.fancybox({
+
+            padding: 0,
+            'autoScale': false,
+            'transitionIn': 'none',
+            'transitionOut': 'none',
+            'title': this.title,
+            'width': 795,
+            'height': 447,
+            'href': this.href.replace(new RegExp("watch.*v=", "i"), "v/") + '&autoplay=1',
+            'type': 'swf',
+            'swf': {
+                'wmode': 'transparent',
+                'allowfullscreen': 'true'
+            }
+
+        });
+        return false;
+    });
+</script>

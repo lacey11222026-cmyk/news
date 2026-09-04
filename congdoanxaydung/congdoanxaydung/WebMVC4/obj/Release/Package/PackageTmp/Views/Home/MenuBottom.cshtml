@@ -1,0 +1,36 @@
+﻿@using BIZ
+@using UTILS
+@using WebMVC4.Helper
+@model List<BIZ.Entity.CATEGORY_FULL>
+<div class="tags mt30" id="MenuBottom">
+    <ul class="pull-left tags-list">
+        @foreach (var item in Model.Select((value, i) => new { i, value }))
+        {
+            if (item.i % 3 == 0)
+            {
+                @Html.Raw("<li><ul>")
+
+
+
+            }
+            <li>
+                <a href="@Utils.FormatUrlRewriteByType(item.value.Id, item.value.Name, int.Parse(item.value.Type.ToString()), item.value.Link)">@item.value.Name </a>
+
+            </li>
+            if (item.i % 3 == 2 || item.i == Model.Count - 1)
+            {
+                @Html.Raw("</ul></li>")
+
+
+
+            }
+        }
+
+    </ul>
+    <ul class="f-nav pull-right">
+        <li><a href="/">Trang chủ</a></li>
+        <li><a href="/Home/SiteMap">Sơ đồ</a></li>
+        <li><a href="#">Quy chế</a></li>
+        <li><a href="mailto:lienhe@congdoanxaydungvn.org.vn">Liên hệ</a></li>
+    </ul>
+</div>

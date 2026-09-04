@@ -1,0 +1,90 @@
+﻿@using BIZ
+@using UTILS
+@using WebMVC4.Helper
+@model WebMVC4.Models.News2Model
+
+@if (Model != null)
+{
+    /*active menu*/
+    if (ViewBag.ParentCategoryId > 0)
+    {
+        <script type="text/javascript">
+            var index = $('#ddtabs1 li').index($('#cate_' + '@ViewBag.ParentCategoryId'));
+            ddtabmenu.definemenu("ddtabs1", index);
+
+            setTimeout(function () {
+                $("#ddtabs1 .current").parent().addClass("select");
+
+            }, 1000);
+        </script>
+
+    }
+    else
+    {
+        <script type="text/javascript">
+            var index = $('#ddtabs1 li').index($('#cate_' + '@ViewBag.CurrentCategoryId'));
+
+            ddtabmenu.definemenu("ddtabs1", index);
+            setTimeout(function () {
+                $("#ddtabs1 .current").parent().addClass("select");
+
+            }, 1000);
+        </script>
+
+    }
+
+    if(ViewBag.CurrentCategoryId == 4|| ViewBag.CurrentCategoryId == 61)
+    {
+        if (Model.listcate.Count > 0)
+        {
+            if (ViewBag.CurrentCategoryId == 4)
+            {
+                { Html.RenderAction("LastestNews2", "News", new { CateName = "Công đoàn Công Thương VN", CategoryId = 8, MaxLastestNews = 9 }); }
+                foreach (var item in Model.listcate.Skip(1).Select((value, i) => new { i, value }))
+                {
+
+                    { Html.RenderAction("LastestNews", "News", new { CateName = item.value.Name, CategoryId = item.value.Id, MaxLastestNews = 5 }); }
+
+
+                }
+            }
+            if (ViewBag.CurrentCategoryId == 61)
+            {
+                { Html.RenderAction("LastestNews2", "News", new { CateName = "", CategoryId = 91, MaxLastestNews = 9 }); }
+                foreach (var item in Model.listcate.Skip(1).Select((value, i) => new { i, value }))
+                {
+
+                    { Html.RenderAction("LastestNews", "News", new { CateName = item.value.Name, CategoryId = item.value.Id, MaxLastestNews = 5 }); }
+
+
+                }
+            }
+
+
+        }
+    }
+    else
+    {
+        if (Model.listcate.Count > 0)
+        {
+            { Html.RenderAction("LastestNews2", "News", new { CateName = "", CategoryId = ViewBag.CurrentCategoryId, MaxLastestNews = 9 }); }
+            foreach (var item in Model.listcate.Select((value, i) => new { i, value }))
+            {
+
+
+                { Html.RenderAction("LastestNews", "News", new { CateName = item.value.Name, CategoryId = item.value.Id, MaxLastestNews = 5 }); }
+
+
+            }
+
+
+        }
+    }
+
+    if (ViewBag.CurrentCategoryId == 11)
+    {
+        Html.RenderAction("LastestNews", "Album", new { CateName = "", CategoryId = 71, MaxLastestNews = 5 });
+    }
+
+
+}

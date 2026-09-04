@@ -1,0 +1,38 @@
+﻿@using BIZ
+@using UTILS
+@using WebMVC4.Helper
+@model List<BIZ.Entity.Album_FULL>
+@if (Model != null)
+{
+    <div class="row mt30">
+        @foreach (var item in Model.Take(1).Select((value, i) => new { i, value }))
+        {
+            <div class="col-md-8 col-sm-12">
+                <a href="@Utils.FormatUrlRewrite(item.value.Id, item.value.Title, "AlbumDetail")"><img src="@item.value.MainImage?w=447&h=229&mode=crop" alt="" class="w-100"></a>
+            </div>
+            <div class="col-md-4 col-sm-12">
+                <h3 class="mt20 video-name">@item.value.Title</h3>
+                <span class="date mt10 textwhite">@item.value.PublishDate.GetValueOrDefault().ToString("HH:mm") - @item.value.PublishDate.GetValueOrDefault().ToString("dd/MM/yyyy")</span>
+                @*<p class="mt20 textwhite"> @Html.Raw(item.value.Description)</p>*@
+            </div>
+        }
+    </div>
+    <div class="mt30 slider-02">
+        <ul id="flexiselDemo3">
+            @foreach (var item in Model.Skip(1).Select((value, i) => new { i, value }))
+            {
+                <li>
+                    <a href="@Utils.FormatUrlRewrite(item.value.Id, item.value.Title, "AlbumDetail")"><img src="@item.value.MainImage?w=381&h=214&mode=crop" alt=""></a>
+                    <h3><a href="@Utils.FormatUrlRewrite(item.value.Id, item.value.Title, "AlbumDetail")">@item.value.Title</a></h3>
+                </li>
+            }
+               
+            </ul>
+    </div>
+    
+}
+
+
+
+
+

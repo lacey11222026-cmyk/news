@@ -1,0 +1,74 @@
+﻿@using BIZ
+@using UTILS
+@using WebMVC4.Helper
+@model WebMVC4.Models.MissionModel
+
+
+@{
+    var langpage = WorkContext.GetLanguage();
+}
+
+<div class="image-page container pb60 pt40">
+    <div class="row row-50">
+        <div class="col-lg-8 col-md-12">
+            @if (langpage == "vi-vn")
+            {
+                <h2 class="title-cm-02"><a href="/su-kien.html">Sự kiện </a></h2>
+            }
+            else
+            {
+                <h2 class="title-cm-02"><a href="/su-kien.html">Events </a></h2>
+            }
+            <ul class="row video-list-02 mt30">
+                @foreach (var item in Model.listdata.Select((value, i) => new { i, value }))
+                {
+
+                    <li class="col-md-4 col-6">
+                        <a href="@item.value.LinkUrl"><img src="@item.value.CreatedBy?w=491&h=291&mode=crop" alt="" class="w-100"></a>
+                        <a href="@item.value.LinkUrl" class="mt15 font-weight-bold dis-block">@item.value.Name</a>
+                    </li>
+                }
+
+
+            </ul>
+
+            <div class="paging mt50 text-center">
+                <ul>
+                    @{Html.RenderPartial("Pagination", new WebMVC4.Models.PaginationInfo
+                        {
+                            PageUrl = Url.SetParameter("Page", "!0"),
+                            CurrentPage = Model.pageIndex,
+                            PageSize = Model.pageSize,
+                            TotalItemCount = Model.total,
+                        }); }
+                </ul>
+            </div>
+        </div>
+        <div class="col-lg-4 col-md-12 sidebar">
+            @Html.Partial("Site_Right2")
+        </div>
+    </div>
+</div><!-- end main content-->
+
+            }); }
+    </ul>
+</div>
+<script type="text/javascript">
+    function showtime() {
+
+        $('#list-time').toggle();
+    }
+
+    function searchdoc() {
+        var id = '@Model.CategoryId';
+        var keyword = $("#txtkeyword").val();
+        var year = $("#ddlYear").val();
+        var categoryId = $("#ddlCategory").val();
+        var createdBy = $("#ddlCreatedBy").val();
+        window.location = '/danh-muc-khcongnghe.html?keyword=' + keyword + '&year=' + year + '&categoryId=' + categoryId + '&createdBy=' + createdBy;
+        //window.location = jQuery.query.set("keyword", keyword).set("fromdate", fromdate).set("todate", todate).set("Page", "1");
+    }
+</script>
+<script>
+    $("#content-wrap").addClass("danhmuc-page");
+</script>

@@ -1,0 +1,40 @@
+﻿@model List<DATA.Banner>
+
+
+@if (Model != null)
+{
+
+    if (Model.Count == 1)
+    {
+        foreach (var item in Model.Take(1).Select((value, i) => new { i, value }))
+        {
+            <a href="@item.value.Url" rel="nofollow" target="_blank"><img src="@item.value.Data" alt="@item.value.Name"></a>
+        }
+    }
+    else
+    {
+        <div id="myCarousel04" class="carousel slide" data-ride="carousel" >
+            <ol class="carousel-indicators">
+                @foreach (var item in Model.Select((value, i) => new { i, value }))
+                {
+                    <li data-target="#myCarousel04" data-slide-to="@item.i" class="@(item.i==0?" active":"")"></li>
+                }
+            </ol>
+            <!-- Wrapper for slides -->
+            <div class="carousel-inner">
+                @foreach (var item in Model.Select((value, i) => new { i, value }))
+                {
+                    <div class="@(item.i==0?"item active":"item")">
+                        <a href="@item.value.Url" rel="nofollow" target="_blank">
+                            <img src="@item.value.Data" alt="@item.value.Name" />
+                        </a>
+                    </div>
+                }
+            </div>
+        </div>
+    }
+
+
+
+}
+

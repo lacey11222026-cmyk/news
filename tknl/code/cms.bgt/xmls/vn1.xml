@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--Cấu hình Menu Header và các menu cấp 1-->
+<Resources language="Tiếng việt" code="vn" priority="0">
+    <page name="HEADER">
+        <Resource tag="HEADER_TITLE">Hệ thống Quản trị nội dung</Resource>
+    </page>
+
+    <page name="MENU_ADMIN_HEADER">
+        <Resource url="system/user/index.htm" caption="Quản lý hệ thống" priority="1" key ="system" />
+        <Resource url="workflow.aspx" caption="Biên tập nội dung" priority="2" key ="article" />
+        <Resource url="organize/focus/index.htm" caption="Tổ chức nội dung" priority="3" key ="organize" />
+        <Resource url="service/advert/index.htm" caption="Dịch vụ" priority="4" key ="service" />
+        <Resource url="data/reportsummary/index.htm" caption="Thống kê" priority="5" key ="data" />
+    </page>
+
+    <page name="ADMIN_SERVICE_PAGES">
+        <Resource caption="Giao lưu trực tuyến" priority="1" key ="discuss" FuncID="1" />
+        <Resource caption="Quản lý quảng cáo" priority="2" key ="advert" FuncID="2" />
+        <Resource caption="Quản lý hình ảnh" priority="3" key ="photo" FuncID="2" />
+        <Resource caption="Kiểm duyệt bình luận" priority="4" key ="comment" FuncID="2" />
+    </page>
+    <page name="ADMIN_SERVICE_DISCUSS_PAGES">
+        <Resource url="service/discuss/index.htm" caption="Thông tin giao lưu trực tuyến" priority="1" key ="discuss" />
+        <Resource url="service/discuss/detail.htm" caption="Duyệt câu hỏi giao lưu" priority="2" key ="discuss" />
+    </page>
+    <page name="ADMIN_SERVICE_ADVERT_PAGES">
+        <Resource url="service/advert/index.htm" caption="Quản lý quảng cáo" priority="1" key ="advert" />
+        <Resource url="service/advert/add.htm" caption="Thêm mới quảng cáo" priority="2" key ="advert" />
+    </page>
+    <page name="ADMIN_SERVICE_PHOTO_PAGES">
+        <Resource url="service/photo/index.htm" caption="Quản lý hình ảnh" priority="1" key ="photo" />
+        <Resource url="service/photo/add.htm" caption="Thêm mới hình ảnh" priority="2" key ="photo" />
+    </page>
+    <page name="ADMIN_SERVICE_COMMENT_PAGES">
+      <Resource url="service/comment/article/index.htm" caption="Bình luận tin bài" priority="1" key="comment" />
+      <Resource url="service/comment/photo/index.htm" caption="Bình luận hình ảnh" priority="2" key="comment" />
+      <Resource url="service/comment/clip/index.htm" caption="Bình luận Clip" priority="3" key="comment" />
+    </page>
+    <page name="ADMIN_SYSTEM_PAGES">
+        <!--<Resource caption="Quản lý quy trình biên tập" priority="1" key ="workflow" FuncID="1" />-->
+        <Resource caption="Quản lý ban biên tập" priority="2" key ="part" FuncID="2" />
+        <Resource caption="Quản lý người dùng" priority="3" key ="user" FuncID="3" />
+        <Resource caption="Quản lý nhóm chuyên mục" priority="4" key ="cate" FuncID="4" />
+    </page>
+
+    <!--<page name="ADMIN_SYSTEM_WORKFLOW_PAGES">
+    <Resource url="system/workflow/index.htm" caption="Quản lý quy trình biên tập" priority="1" key ="workflow" />
+    <Resource url="system/workflow/add.htm" caption="Thêm mới quy trình" priority="2" key ="workflow" />
+  </page>-->
+
+    <page name="ADMIN_SYSTEM_PART_PAGES">
+        <Resource url="system/part/index.htm" caption="Quản lý ban biên tập" priority="1" key ="part" />
+        <Resource url="system/part/add.htm" caption="Thêm mới ban biên tập" priority="2" key ="part" />
+    </page>
+
+    <page name="ADMIN_SYSTEM_USER_PAGES">
+        <Resource url="system/user/index.htm" caption="Quản lý nguời dùng" priority="1" key ="user" />
+        <Resource url="system/user/add.htm" caption="Thêm mới người dùng" priority="2" key ="user" />
+    </page>
+
+    <page name="ADMIN_SYSTEM_CATE_PAGES">
+        <Resource url="system/cate/index.htm" caption="Quản lý nhóm chuyên mục" priority="1" key ="cate" />
+        <Resource url="system/cate/add.htm" caption="Thêm mới nhóm chuyên mục" priority="2" key ="cate" />
+    </page>
+
+    <page name="ADMIN_ORGANIZE_PAGES">
+        <Resource caption="Tổ chức tiêu điểm" priority="1" key ="focus" FuncID="1" />
+        <Resource caption="Tổ chức chuyên đề" priority="2" key ="subject" FuncID="2" />
+        
+    </page>
+
+    <page name="ADMIN_ORGANIZE_FOCUS_PAGES">
+        <Resource url="organize/focus/index.htm" caption="Quản lý tiêu điểm" priority="1" key ="focus" />
+        <Resource url="organize/focus/add.htm" caption="Thêm mới tiêu điểm" priority="2" key ="focus" />
+    </page>
+    
+    <page name="ADMIN_ORGANIZE_SUBJECT_PAGES">
+        <Resource url="organize/topic/index.htm" caption="Quản lý chuyên đề" priority="1" key ="topic" />
+        <Resource url="organize/topic/add.htm" caption="Thêm mới chuyên đề" priority="2" key ="topic" />
+    </page>
+
+    
+    
+    
+    
+    
+    <page name="ADMIN_DATA_PAGES">
+        <Resource caption="Thống kê tin bài" priority="1" key ="ARTICLE" FuncID="1" path="data" />
+    </page>
+
+    <page name="ADMIN_DATA_ARTICLE_PAGES">
+        <Resource url="data/reportsummary/index.htm" caption="Thống kê tổng hợp" priority="1" key ="workflow" />
+        <Resource url="data/reportdetail/index.htm" caption="Thống kê chi tiết" priority="2" key ="workflow" />
+    </page>
+
+    <page name="ADMIN_INTERFACE_PAGES">
+        <Resource caption="Quản lý bố cục" priority="1" key ="template" FuncID="6" />
+        <Resource caption="Quản lý module" priority="2" key ="module" FuncID="6" />
+        <Resource caption="Quản lý giao diện" priority="3" key ="layout" FuncID="6" />
+    </page>
+
+    <page name="FOOTER">
+        <Resource tag="FOOTER_TEXT">©2008 - VTC Intecom</Resource>
+    </page>
+
+</Resources>

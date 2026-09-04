@@ -1,0 +1,30 @@
+﻿@using BIZ
+@using UTILS
+@using WebMVC4.Helper
+
+<footer>
+    <div class="footer-inner container">
+        <div class="footer-left">
+            <a href="#"><img src="/Content/images/logo-top.png" alt="" width="550"></a>
+            <h2 class="f-title mt30">Bộ Công Thương</h2>
+            <p class="icon-f-map"><img src="/Content/images/icon-map-footer.svg" alt="" width="17"> 54 Hai Bà Trưng, phường Cửa Nam, Hà Nội</p>
+        </div>
+        <div class="footer-right">
+            <div class="f-nav">
+                @{Html.RenderAction("MenuBottom", "Home", new { lang = "vi-vn" });}
+              
+            </div>
+            <div class="mt1 0 f-total">
+                <p>Tổng số lượt truy cập:</p>
+                <ul class="f-total-num">
+                    @foreach (var s in HttpContext.Current.Application["TotalVisited"].ToString().Select(c => c.ToString()).ToList())
+                    {
+                        <li>@s</li>
+                    }
+                </ul>
+            </div>
+        </div>
+    </div>
+
+</footer>
+

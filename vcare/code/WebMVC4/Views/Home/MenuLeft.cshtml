@@ -1,0 +1,40 @@
+﻿@using BIZ.Entity
+@using UTILS
+@using WebMVC4.Helper
+@using WebMVC4.Models
+@model MenuModel
+
+<ul class="no-bullets">
+
+
+    <li>
+        <a href="/">Trang chủ</a>
+
+    </li>
+    @foreach (var item in Model.ListMainCate.Select((value, i) => new { i, value }))
+    {
+        <li>
+            <a href="@item.value.Url">@item.value.Name</a>
+            @if (Model.ListCate.Exists(x => x.ParentId == item.value.Id))
+            {
+                <ul class="no-bullets">
+                    @foreach (var sub in Model.ListCate.Where(x => x.ParentId == item.value.Id).Select((value, i) => new { i, value }))
+                    {
+
+                        <li>
+                            <a href="@sub.value.Url">
+                                @sub.value.Name
+
+                            </a>
+
+                        </li>
+                    }
+                </ul>
+            }
+        </li>
+
+    }
+    
+
+
+</ul>

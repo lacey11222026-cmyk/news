@@ -1,0 +1,24 @@
+﻿@using BIZ.Entity
+@using UTILS
+@using WebMVC4.Helper
+@using WebMVC4.Models
+@model MenuModel
+
+
+<ul class="mobile-nav">
+
+    <li class="mobile-nav__item ">
+        <a href="/" class="mobile-nav__link">Trang chủ</a>
+    </li>
+
+
+    @foreach (var item in Model.ListMainCate.Select((value, i) => new { i, value }))
+    {
+
+        <li class="mobile-nav__item">
+            <a href="@item.value.Url" class="mobile-nav__link">@item.value.Name</a>
+        </li>
+
+    }
+
+    </ul>

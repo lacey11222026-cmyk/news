@@ -1,0 +1,106 @@
+﻿@using WebEN
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+    @{var StaticSiteUrl = MvcApplication.StaticSiteUrl;}
+    <title>@ViewBag.Title </title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta content="1800" http-equiv="REFRESH">
+    <meta name="description" content="@ViewBag.Description" />
+    <meta name="keywords" content="@ViewBag.Keywords" />
+    <meta name="news_keywords" content="@ViewBag.Keywords" />
+    <meta content="@ViewBag.NewsTitle" property="og:title" />
+    <meta content="@ViewBag.NewsDescription" property="og:description" />
+    <meta content="" property="og:url" />
+    <meta content="@ViewBag.MainImage" property="og:image">
+    <meta name="author" content="VNEEP" />
+    <meta name="google-site-verification" content="gGOjlV44OwKjKK1t-DasjCVvLJxYvmz2_ZXwbxQgYok" />
+    <meta content="general" name="rating" />
+    <meta content="tiet kiem nang luong" name="copyright" />
+    <meta content="never" name="expires" />
+    <meta content="global" name="distribution" />
+    <meta content="DOCUMENT" name="RESOURCE-TYPE" />
+    <meta content="tietkiemnangluong.com.vn" name="GENERATOR" />
+    <link rel="publisher" href="https://www.facebook.com/vptknl2019/" />
+    <link rel="author" href="https://www.facebook.com/vptknl2019/" />
+    <meta property="article:publisher" content="https://www.facebook.com/vptknl2019/">
+    <meta property="article:author" content="https://www.facebook.com/vptknl2019/">
+
+    <meta name="robots" content="index,follow" />
+    <meta name="Googlebot" content="index,follow,noarchive" />
+    <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
+    <link rel="shortcut icon" href="@(StaticSiteUrl)/favicon.ico">
+
+    <style>
+        @@font-face {
+            font-family: 'roboto';
+            src: url(/fonts/Roboto-Regular.ttf);
+        }
+
+        @@font-face {
+            font-family: 'playfairdisplay';
+            src: url(/fonts/PlayfairDisplay-VariableFont_wght.ttf);
+        }
+
+        @@font-face {
+            font-family: 'merriweather';
+            src: url(/fonts/Merriweather-Regular.ttf);
+        }
+        @@font-face {
+            font-family: 'oswald';
+            src: url(/fonts/Oswald-VariableFont_wght.ttf);
+        }
+    </style>
+
+
+    <link rel="stylesheet" href="@(StaticSiteUrl)/Content/css/bootstrap.min.css">
+    <link rel="stylesheet" href="@(StaticSiteUrl)/Content/css/common.css">
+    <link rel="stylesheet" href="@(StaticSiteUrl)/Content/css/style.css?v=23">
+    <link rel="stylesheet" type="text/css" href="@(StaticSiteUrl)/Content/css/animate.css">
+    <link type="text/css" rel="stylesheet" href="@(StaticSiteUrl)/Content/css/jquery.mmenu.all.css" />
+    <link type="text/css" rel="stylesheet" href="@(StaticSiteUrl)/Content/css/chantrang.css" />
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
+    <link href="@(StaticSiteUrl)/Content/css/extend.css?v=23" rel="stylesheet" type="text/css" />
+
+
+
+
+    
+
+
+</head>
+<body onorientationchange="updateOrientation();">
+
+    <!-- nav mobile --->
+    <script src="/js/jquery.min.js"></script>
+    <script src="/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="/js/jquery.mmenu.min.all.js"></script>
+    <script type="text/javascript">
+        $(function () {
+            $('div#menu').mmenu();
+        });
+
+    </script>
+    <script src="/js/jquery.matchHeight.js" type="text/javascript"></script>
+    <script type="text/javascript" src="/js/jquery.flexisel.js"></script>
+    <script src="/js/script.js?v=16" type="text/javascript"></script>
+
+    <script>
+        function updateOrientation() {
+            window.location.reload();
+        }
+    </script>
+
+    @Html.Partial("Site_Header")
+    @RenderBody()
+    @Html.Partial("Site_Footer")
+    @RenderSection("scripts", required: false)
+
+    <script>
+        $("#qnmb").remove();
+    </script>
+</body>
+
+
+</html>

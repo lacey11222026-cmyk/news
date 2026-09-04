@@ -1,0 +1,157 @@
+﻿@using BIZ
+@using UTILS
+@using WebMVC4.Helper
+@model BIZ.Entity.CONTENT_FULL
+@{
+    Layout = "~/Views/Shared/_Home.cshtml";
+
+}
+<div class="content01 container mt10">
+    <div class="row">
+        <div class="col-lg-8 col-md-12 col-sm-12">
+            <div class="row">
+                <div class="col-sm-7">
+                    <div class="newsbig newsbig-top">
+
+                        <a href="@Model.LinkUrl"><img src="@Model.MainImage2?w=436&h=246&mode=crop" alt=""></a>
+                        <a href="@Model.LinkUrl" class="news-name mt15">@Model.Title</a>
+                        <span class="newsdate mt10">@Model.PublishDate.ToString("dd/MM/yyyy")</span>
+                        <p class="mt10 news-txt">@Model.IntroText</p>
+
+                    </div>
+                </div>
+                <div class="col-sm-5 newsnew hidden-575">
+                    <ul class="newslist">
+                        @{Html.RenderAction("LastestNews", "Home", new { lang = WorkContext.GetLanguage() });}
+                    </ul>
+                </div>
+            </div>
+            <div class="mt20">
+                @{Html.RenderAction("Slide2", "Home", new { lang = WorkContext.GetLanguage() });}
+            </div>
+            <div class="newsnew block-575 mt10">
+                <ul class="newslist">
+                    @{Html.RenderAction("LastestNews", "Home", new { lang = WorkContext.GetLanguage() });}
+                </ul>
+                
+            </div>
+            <div class="bnr-center mt40">
+                <div class="slider bnrSlider">
+                    @{Html.RenderAction("Banner", "Home", new { param = "col-md-12 col-sm-6" });}
+                </div>
+            </div>
+
+            <div class="mt30 news-box">
+                @{Html.RenderAction("LastestNews2", "Home", new { CateName = "Tin hoạt động", CategoryId = 5, MaxLastestNews = 4, CssClass = "title-orange" });}
+            </div>
+        </div><!--/End content left-->
+        <div class="col-lg-4 col-md-12">
+            <div class="event">
+                @{Html.RenderAction("RightNews", "Home", new { CateName = "Theo dòng sự kiện", CategoryId = 18, MaxLastestNews = 4, lang = WorkContext.GetLanguage() });}
+
+            </div>
+            <div class="bnr-list mt30 imgSlider">
+                @{Html.RenderAction("BannerRight1", "Home", new { param = "col-md-12 col-sm-6" });}
+
+            </div>
+        </div><!--/End content right-->
+    </div><!-- end row-->
+</div><!-- end content 01 -->
+
+<div class="mt40 content02 container">
+    <div class="row newsbox-list">
+        <div class="col-lg-4 col-md-12">
+            @{Html.RenderAction("LastestNews3", "Home", new { CateName = "Sản xuất bền vững", CategoryId = 4, MaxLastestNews = 4, CssClass = "title-blue-02" });}
+        </div>
+        <div class="col-lg-4 col-md-12">
+            @{Html.RenderAction("LastestNews3", "Home", new { CateName = "Tiêu dùng bền vững", CategoryId = 44, MaxLastestNews = 4, CssClass = "title-blue-02" });}
+        </div>
+        <div class="col-lg-4 col-md-12">
+            @{Html.RenderAction("LastestNews3", "Home", new { CateName = "Infographic", CategoryId = 53, MaxLastestNews = 4, CssClass = "title-blue-02" });}
+        </div>
+    </div><!-- end row-->
+</div><!-- end content 02-->
+<div class="content03 mt40 video-box">
+    <div class="container">
+        <ul class="video-title nav nav-tabs">
+            <li class="nav-item">
+                <a class="active" id="video-tab" data-toggle="tab" href="#video" role="tab" aria-controls="video" aria-selected="true">Video</a>
+            </li>
+            <li class="nav-item">
+                <a class="" id="podcast-tab" data-toggle="tab" href="#podcast" role="tab" aria-controls="podcast" aria-selected="false">podcast</a>
+            </li>
+            <li class="nav-item">
+                <a class="" id="e-magazine-tab" data-toggle="tab" href="#e-magazine" role="tab" aria-controls="e-magazine" aria-selected="false">e-magazine</a>
+            </li>
+        </ul>
+        <div class="tab-content videotabs-content mt20">
+            <div class="video-content tab-pane fade show active" id="video">
+                @{Html.RenderAction("HomeVideo", "Home", new { CategoryName = "Video", CategoryId = 6, MaxLastestNews = 5 });}
+            </div>
+            <div class="multimedia-content tab-pane fade" id="podcast">
+                @{Html.RenderAction("Podcast", "Home", new { CategoryName = "Podcast", CategoryId = 6, MaxLastestNews = 5 });}
+            </div>
+            <div class="e-magazine-content tab-pane fade" id="e-magazine">
+                @{Html.RenderAction("Emagazine", "Home", new { CategoryName = "Emagazine", CategoryId = 66, MaxLastestNews = 5 });}
+            </div>
+        </div>
+
+    </div>
+</div><!-- end content03-->
+
+
+<div class="content04 container mt40">
+    <div class="row newsbox-list">
+        <div class="col-lg-4 col-md-12">
+
+            @{Html.RenderAction("LastestNews3", "Home", new { CateName = "Kinh tế tuần hoàn", CategoryId = 49, MaxLastestNews = 4, CssClass = "title-blue-02" });}
+        </div>
+        <div class="col-lg-4 col-md-12">
+            @{Html.RenderAction("LastestNews3", "Home", new { CateName = "Khoa học công nghệ", CategoryId = 51, MaxLastestNews = 4, CssClass = "title-blue-02" });}
+        </div>
+        <div class="col-lg-4 col-md-12">
+            <div class="document-box">
+                <h2 class="title-cm"><a href="/Document/Index/8">Tài liệu</a></h2>
+                <ul class="document-list mt20">
+                    
+                        <li><a href="/Document/Index/17">Sổ tay hướng dẫn</a></li>
+                        <li><a href="/Document/Index/19">Ấn phẩm truyền thông</a></li>
+                        <li><a href="/Document/Index/22">Tài liệu khác</a></li>
+                    
+                </ul>
+            </div>
+            <div class="document-02-box mt40">
+                @{Html.RenderAction("TopDocument", "Home", new { cateName = "Văn bản", cateId = 3, num = 3 });}
+
+            </div>
+            <div class="facebook mt30">
+                <div class="fb-page" data-href="https://www.facebook.com/scp.gov.vn " data-tabs="" data-width="" data-height="" data-small-header="false" data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="true"><blockquote cite="https://www.facebook.com/scp.gov.vn" class="fb-xfbml-parse-ignore"><a href="https://www.facebook.com/scp.gov.vn">Sản xuất và tiêu dùng bền vững tại  Việt Nam</a></blockquote></div>
+            </div>
+            <div class="link-box mt40">
+                <h2 class="title-cm"><a href="#">liên kết website</a></h2>
+                <div class="link mt20">
+                    <select class="form-control" id="Select1" onchange="window.open(this.options[this.selectedIndex].value,'_blank');this.options[0].selected=true">
+                        <option>Liên kết website</option>
+                        <option value="https://tietkiemnangluong.com.vn/">Chương trình VNEEP</option>
+
+
+                    </select>
+                </div>
+                @*<div class="link mt20 dropdown__inner">
+                    <a class="">Liên kết website</a>
+                    <div class="link-list dropdownSub">
+                        <ul>
+                            <li><a href="https://tietkiemnangluong.com.vn/" target="_blank">Chương trình VNEEP</a></li>
+                            <li><a href="#">Liên kết 2</a></li>
+                            <li><a href="#">Liên kết 3</a></li>
+                        </ul>
+                    </div>
+                </div>*@
+            </div>
+        </div>
+    </div><!-- end row-->
+
+</div>	<!-- End content 04-->
+<div class="content05 mt40 container">
+    @{Html.RenderAction("LastestNews5", "Home", new { CateName = "Điển hình", CategoryId = 7, MaxLastestNews = 4, CssClass = "title-blue-02" });}
+</div>

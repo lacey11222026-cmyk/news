@@ -1,0 +1,363 @@
+﻿@using Car.Data
+@using Car.CMS.Models
+@model PlanDetail
+@using Car.Utility
+
+@{ var idx = 0; }
+@{ var idx2 = 0; }
+<div class="row">
+    <div class="col-md-12">
+        <div class="box box-primary">
+            <div class="box-header">
+                <span>@ViewBag.Title </span>
+            </div>
+            <div class="box-body">
+                <h4><b>I. Giải ngân trong năm</b></h4>
+                <div class="table-responsive">
+                    <div class="dataTables_wrapper form-inline" role="grid">
+                        <div id="ListPlanStuck">
+                            <table class="table  table-bordered table-hover dataTable no-footer" id="dataTables">
+                                <tr>
+                                    <th rowspan="2">Nguồn vốn</th>
+                                    <th rowspan="2">Đơn vị <br />tiền tệ <br />(VND)</th>
+                                    <th rowspan="2">Đơn vị <br />tiền tệ<br />(US$)</th>
+                                    <th rowspan="2">Tỷ giá</th>
+                                    <th colspan="5">Giải ngân trong năm(VND)</th>
+
+                                    <th rowspan="2">Lũy kế<br /> giải ngân<br /> (VND)</th>
+                                    <th rowspan="2">Lũy kế<br /> giải ngân<br /> (USD)</th>
+                                    <th rowspan="2">Mức TKNL<br /> (MWh/năm)</th>
+                                    <th rowspan="2">Mức TKNL<br /> (MJ/năm)</th>
+                                    <th rowspan="2">Giảm <br>phát thải<br /> KNK <br />(Tấn CO2/năm)</th>
+                                    <th rowspan="2">Số lượng <br />người <br />hưởng lợi<br /> trực tiếp</th>
+                                    <th rowspan="2">Tỷ lệ <br />người <br />hưởng lợi<br /> là phụ nữ (%)</th>
+                                    <th rowspan="2">Ngày <br />bắt đầu <br />vận hành</th>
+                                </tr>
+                                <tr>
+
+                                    <th>Kế hoạch <br />giải ngân<br /> năm</th>
+                                    <th>Kế hoạch <br />tới thời<br /> điểm báo<br /> cáo</th>
+                                    <th>Giải ngân<br /> trong<br /> Quý/Năm</th>
+                                    <th>Lũy kế <br />từ <br />đầu năm</th>
+                                    <th>Tỷ lệ % <br />đạt được <br />so với <br />kế hoạch</th>
+
+
+                                </tr>
+                                <tr>
+                                    <td>1</td>
+                                    <td>2</td>
+                                    <td> </td>
+                                    <td>3</td>
+                                    <td>4</td>
+                                    <td>5</td>
+                                    <td>6</td>
+                                    <td>7</td>
+                                    <td>(8)=(7)/(4)</td>
+                                    <td>9</td>
+                                    <td>10</td>
+                                    <td> </td>
+                                    <td> </td>
+                                    <td> </td>
+                                    <td> </td>
+                                    <td> </td>
+                                    <td> </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="15"><b>Ngân hàng thương mại cổ phần Ngoại thương Việt Nam</b></td>
+                                </tr>
+                                @if (Model.PlanItem.Count > 0)
+                                {
+                                    foreach (var obj in Model.PlanItem)
+                                    {
+
+                                        <tr>
+                                            <td colspan="11"><b>@obj.Name</b></td>
+                                            <td rowspan="4"> @obj.Total1 </td>
+                                            <td rowspan="4"> @(obj.Total1 * 3600 )</td>
+                                            <td rowspan="4">@obj.Total2 </td>
+                                            <td rowspan="4"> @obj.NumberPeople </td>
+                                            <td rowspan="4">@obj.WomanRate </td>
+                                            <td rowspan="4">@obj.Time.GetValueOrDefault().ToString("dd/MM/yyyy") </td>
+
+                                        </tr>
+                                        <tr>
+                                            <td>Vốn vay WB</td>
+                                            <td>@StringUtils.InsertCommaNoStyle(obj.Item1.Money.ToString())</td>
+                                            <td>@(Math.Round((StringUtils.GetDevide(obj.Item1.Money, obj.Item1.CurrencyRate)), 3))</td>
+                                            <td>@obj.Item1.CurrencyRate</td>
+                                            <td>@StringUtils.InsertCommaNoStyle(obj.Item1.PlanYear.ToString())</td>
+                                            <td>@StringUtils.InsertCommaNoStyle(obj.Item1.PlanCurrent.ToString())</td>
+                                            <td>@StringUtils.InsertCommaNoStyle(obj.Item1.PlanQ.ToString())</td>
+                                            <td>@StringUtils.InsertCommaNoStyle(obj.Item1.BalanceYear.ToString())</td>
+                                            <td> @(Math.Round((StringUtils.GetDevide(obj.Item1.BalanceYear * 100, obj.Item1.PlanYear)), 3))</td>
+                                            <td>@StringUtils.InsertCommaNoStyle(obj.Item1.Balance.ToString())</td>
+                                            <td>@(Math.Round((StringUtils.GetDevide(obj.Item1.Balance, obj.Item1.CurrencyRate)), 3))</td>
+
+                                        </tr>
+                                        <tr>
+                                            <td>Vốn đối ứng của PFI</td>
+                                            <td>@StringUtils.InsertCommaNoStyle(obj.Item2.Money.ToString()) </td>
+                                            <td>@(Math.Round((StringUtils.GetDevide(obj.Item2.Money, obj.Item2.CurrencyRate)), 3))</td>
+                                            <td>@obj.Item2.CurrencyRate</td>
+                                            <td>@StringUtils.InsertCommaNoStyle(obj.Item2.PlanYear.ToString())</td>
+                                            <td>@StringUtils.InsertCommaNoStyle(obj.Item2.PlanCurrent.ToString())</td>
+                                            <td>@StringUtils.InsertCommaNoStyle(obj.Item2.PlanQ.ToString())</td>
+                                            <td>@StringUtils.InsertCommaNoStyle(obj.Item2.BalanceYear.ToString())</td>
+                                            <td> @(Math.Round((StringUtils.GetDevide(obj.Item2.BalanceYear * 100, obj.Item2.PlanYear)), 3))</td>
+                                            <td>@StringUtils.InsertCommaNoStyle(obj.Item2.Balance.ToString())</td>
+                                            <td>@(Math.Round((StringUtils.GetDevide(obj.Item2.Balance, obj.Item2.CurrencyRate)), 3))</td>
+
+                                        </tr>
+                                        <tr>
+                                            <td>Vốn đối ứng của IE</td>
+                                            <td>@StringUtils.InsertCommaNoStyle(obj.Item3.Money.ToString()) </td>
+                                            <td>@(Math.Round((StringUtils.GetDevide(obj.Item3.Money, obj.Item3.CurrencyRate)), 3))</td>
+                                            <td>@obj.Item3.CurrencyRate</td>
+                                            <td>@StringUtils.InsertCommaNoStyle(obj.Item3.PlanYear.ToString())</td>
+                                            <td>@StringUtils.InsertCommaNoStyle(obj.Item3.PlanCurrent.ToString())</td>
+                                            <td>@StringUtils.InsertCommaNoStyle(obj.Item3.PlanQ.ToString())</td>
+                                            <td>@StringUtils.InsertCommaNoStyle(obj.Item3.BalanceYear.ToString())</td>
+                                            <td> @(Math.Round((StringUtils.GetDevide(obj.Item3.BalanceYear * 100, obj.Item3.PlanYear)), 3))</td>
+                                            <td>@StringUtils.InsertCommaNoStyle(obj.Item3.Balance.ToString())</td>
+                                            <td>@(Math.Round((StringUtils.GetDevide(obj.Item3.Balance, obj.Item3.CurrencyRate)), 3))</td>
+
+                                        </tr>
+                                    }
+
+                                }
+                                <tr>
+                                    <td colspan="15"><b>Ngân hàng TMCP Đầu tư và Phát triển Việt Nam</b></td>
+                                </tr>
+                                @if (Model.PlanItemBidv.Count > 0)
+                                {
+                                    foreach (var obj in Model.PlanItemBidv)
+                                    {
+
+                                        <tr>
+                                            <td colspan="11"><b>@obj.Name</b></td>
+                                            <td rowspan="4"> @obj.Total1 </td>
+                                            <td rowspan="4"> @(obj.Total1 * 3600 )</td>
+                                            <td rowspan="4">@obj.Total2 </td>
+                                            <td rowspan="4"> @obj.NumberPeople </td>
+                                            <td rowspan="4">@obj.WomanRate </td>
+                                            <td rowspan="4">@obj.Time.GetValueOrDefault().ToString("dd/MM/yyyy") </td>
+
+                                        </tr>
+                                        <tr>
+                                            <td>Vốn vay WB</td>
+                                            <td>@StringUtils.InsertCommaNoStyle(obj.Item1.Money.ToString())</td>
+                                            <td>@(Math.Round((StringUtils.GetDevide(obj.Item1.Money, obj.Item1.CurrencyRate)), 3))</td>
+                                            <td>@obj.Item1.CurrencyRate</td>
+                                            <td>@StringUtils.InsertCommaNoStyle(obj.Item1.PlanYear.ToString())</td>
+                                            <td>@StringUtils.InsertCommaNoStyle(obj.Item1.PlanCurrent.ToString())</td>
+                                            <td>@StringUtils.InsertCommaNoStyle(obj.Item1.PlanQ.ToString())</td>
+                                            <td>@StringUtils.InsertCommaNoStyle(obj.Item1.BalanceYear.ToString())</td>
+                                            <td> @(Math.Round((StringUtils.GetDevide(obj.Item1.BalanceYear * 100, obj.Item1.PlanYear)), 3))</td>
+                                            <td>@StringUtils.InsertCommaNoStyle(obj.Item1.Balance.ToString())</td>
+                                            <td>@(Math.Round((StringUtils.GetDevide(obj.Item1.Balance, obj.Item1.CurrencyRate)), 3))</td>
+
+                                        </tr>
+                                        <tr>
+                                            <td>Vốn đối ứng của PFI</td>
+                                            <td>@StringUtils.InsertCommaNoStyle(obj.Item2.Money.ToString()) </td>
+                                            <td>@(Math.Round((StringUtils.GetDevide(obj.Item2.Money, obj.Item2.CurrencyRate)), 3))</td>
+                                            <td>@obj.Item2.CurrencyRate</td>
+                                            <td>@StringUtils.InsertCommaNoStyle(obj.Item2.PlanYear.ToString())</td>
+                                            <td>@StringUtils.InsertCommaNoStyle(obj.Item2.PlanCurrent.ToString())</td>
+                                            <td>@StringUtils.InsertCommaNoStyle(obj.Item2.PlanQ.ToString())</td>
+                                            <td>@StringUtils.InsertCommaNoStyle(obj.Item2.BalanceYear.ToString())</td>
+                                            <td> @(Math.Round((StringUtils.GetDevide(obj.Item2.BalanceYear * 100, obj.Item2.PlanYear)), 3))</td>
+                                            <td>@StringUtils.InsertCommaNoStyle(obj.Item2.Balance.ToString())</td>
+                                            <td>@(Math.Round((StringUtils.GetDevide(obj.Item2.Balance, obj.Item2.CurrencyRate)), 3))</td>
+
+                                        </tr>
+                                        <tr>
+                                            <td>Vốn đối ứng của IE</td>
+                                            <td>@StringUtils.InsertCommaNoStyle(obj.Item3.Money.ToString()) </td>
+                                            <td>@(Math.Round((StringUtils.GetDevide(obj.Item3.Money, obj.Item3.CurrencyRate)), 3))</td>
+                                            <td>@obj.Item3.CurrencyRate</td>
+                                            <td>@StringUtils.InsertCommaNoStyle(obj.Item3.PlanYear.ToString())</td>
+                                            <td>@StringUtils.InsertCommaNoStyle(obj.Item3.PlanCurrent.ToString())</td>
+                                            <td>@StringUtils.InsertCommaNoStyle(obj.Item3.PlanQ.ToString())</td>
+                                            <td>@StringUtils.InsertCommaNoStyle(obj.Item3.BalanceYear.ToString())</td>
+                                            <td> @(Math.Round((StringUtils.GetDevide(obj.Item3.BalanceYear * 100, obj.Item3.PlanYear)), 3))</td>
+                                            <td>@StringUtils.InsertCommaNoStyle(obj.Item3.Balance.ToString())</td>
+                                            <td>@(Math.Round((StringUtils.GetDevide(obj.Item3.Balance, obj.Item3.CurrencyRate)), 3))</td>
+
+                                        </tr>
+                                    }
+
+                                }
+                                <tr>
+                                    <td colspan="11"><b>Tổng cộng</b></td>
+                                    <td rowspan="4"> @(Model.PlanItem.Sum(x => x.Total1 *3600) + Model.PlanItemBidv.Sum(x => x.Total1 * 3600))</td>
+                                    <td rowspan="4"> @(Model.PlanItem.Sum(x => x.Total1) + Model.PlanItemBidv.Sum(x => x.Total1))</td>
+                                    <td rowspan="4"> @(Model.PlanItem.Sum(x => x.Total2) + Model.PlanItemBidv.Sum(x => x.Total2))</td>
+                                    <td rowspan="4"> @(Model.PlanItem.Sum(x => x.NumberPeople)+Model.PlanItemBidv.Sum(x => x.NumberPeople) )</td>
+                                    <td rowspan="4"> @( (Model.PlanItem.Sum(x => x.WomanRate)+Model.PlanItemBidv.Sum(x => x.WomanRate)) /( Model.PlanItem.Count+Model.PlanItemBidv.Count))</td>
+                                    <td rowspan="4"> </td>
+
+                                </tr>
+                                <tr>
+                                    <td>Vốn vay WB</td>
+                                    <td>@StringUtils.InsertCommaNoStyle2(Model.PlanItem.Sum(x => x.Item1.Money) + Model.PlanItemBidv.Sum(x => x.Item1.Money))</td>
+                                    <td>@(Model.PlanItemAll.Sum(x => Math.Round((StringUtils.GetDevide(x.Item1.Money, x.Item1.CurrencyRate)), 3)))</td>
+                                    <td></td>
+                                    <td>@StringUtils.InsertCommaNoStyle2(Model.PlanItem.Sum(x => x.Item1.PlanYear) + Model.PlanItemBidv.Sum(x => x.Item1.PlanYear))</td>
+                                    <td>@StringUtils.InsertCommaNoStyle2(Model.PlanItem.Sum(x => x.Item1.PlanCurrent) + Model.PlanItemBidv.Sum(x => x.Item1.PlanCurrent))</td>
+                                    <td>@StringUtils.InsertCommaNoStyle2(Model.PlanItem.Sum(x => x.Item1.PlanQ) + Model.PlanItemBidv.Sum(x => x.Item1.PlanQ))</td>
+                                    <td>@StringUtils.InsertCommaNoStyle2(Model.PlanItem.Sum(x => x.Item1.BalanceYear) + Model.PlanItemBidv.Sum(x => x.Item1.BalanceYear))</td>
+                                    <td>@(Math.Round((StringUtils.GetDevide(Model.PlanItemAll.Sum(x => x.Item1.BalanceYear) * 100, Model.PlanItemAll.Sum(x => x.Item1.PlanYear))), 3))</td>
+                                    <td>@StringUtils.InsertCommaNoStyle2(Model.PlanItem.Sum(x => x.Item1.Balance) + Model.PlanItemBidv.Sum(x => x.Item1.Balance))</td>
+                                    <td>@(Model.PlanItemAll.Sum(x => Math.Round((StringUtils.GetDevide(x.Item1.Balance, x.Item1.CurrencyRate)), 3)))</td>
+
+                                </tr>
+                                <tr>
+                                    <td>Vốn đối ứng của PFI</td>
+                                    <td>@StringUtils.InsertCommaNoStyle2(Model.PlanItem.Sum(x => x.Item2.Money) + Model.PlanItemBidv.Sum(x => x.Item2.Money))</td>
+                                    <td>@(Model.PlanItemAll.Sum(x => Math.Round((StringUtils.GetDevide(x.Item2.Money, x.Item2.CurrencyRate)), 3)))</td>
+                                    <td></td>
+                                    <td>@StringUtils.InsertCommaNoStyle2(Model.PlanItem.Sum(x => x.Item2.PlanYear) + Model.PlanItemBidv.Sum(x => x.Item2.PlanYear))</td>
+                                    <td>@StringUtils.InsertCommaNoStyle2(Model.PlanItem.Sum(x => x.Item2.PlanCurrent) + Model.PlanItemBidv.Sum(x => x.Item2.PlanCurrent))</td>
+                                    <td>@StringUtils.InsertCommaNoStyle2(Model.PlanItem.Sum(x => x.Item2.PlanQ) + Model.PlanItemBidv.Sum(x => x.Item2.PlanQ))</td>
+                                    <td>@StringUtils.InsertCommaNoStyle2(Model.PlanItem.Sum(x => x.Item2.BalanceYear) + Model.PlanItemBidv.Sum(x => x.Item2.BalanceYear))</td>
+                                    <td>@(Math.Round((StringUtils.GetDevide(Model.PlanItemAll.Sum(x => x.Item2.BalanceYear) * 100, Model.PlanItemAll.Sum(x => x.Item2.PlanYear))), 3))</td>
+                                    <td>@StringUtils.InsertCommaNoStyle2(Model.PlanItem.Sum(x => x.Item2.Balance) + Model.PlanItemBidv.Sum(x => x.Item2.Balance))</td>
+                                    <td>@(Model.PlanItemAll.Sum(x => Math.Round((StringUtils.GetDevide(x.Item2.Balance, x.Item2.CurrencyRate)), 3)))</td>
+
+                                </tr>
+                                <tr>
+                                    <td>Vốn đối ứng của IE</td>
+                                    <td>@StringUtils.InsertCommaNoStyle2(Model.PlanItem.Sum(x => x.Item3.Money) + Model.PlanItemBidv.Sum(x => x.Item3.Money))</td>
+                                    <td>@(Model.PlanItemAll.Sum(x => Math.Round((StringUtils.GetDevide(x.Item3.Money, x.Item3.CurrencyRate)), 3)))</td>
+                                    <td></td>
+                                    <td>@StringUtils.InsertCommaNoStyle2(Model.PlanItem.Sum(x => x.Item3.PlanYear) + Model.PlanItemBidv.Sum(x => x.Item3.PlanYear))</td>
+                                    <td>@StringUtils.InsertCommaNoStyle2(Model.PlanItem.Sum(x => x.Item3.PlanCurrent) + Model.PlanItemBidv.Sum(x => x.Item3.PlanCurrent))</td>
+                                    <td>@StringUtils.InsertCommaNoStyle2(Model.PlanItem.Sum(x => x.Item3.PlanQ) + Model.PlanItemBidv.Sum(x => x.Item3.PlanQ))</td>
+                                    <td>@StringUtils.InsertCommaNoStyle2(Model.PlanItem.Sum(x => x.Item3.BalanceYear) + Model.PlanItemBidv.Sum(x => x.Item3.BalanceYear))</td>
+                                    <td>@(Math.Round((StringUtils.GetDevide(Model.PlanItemAll.Sum(x => x.Item3.BalanceYear) * 100, Model.PlanItemAll.Sum(x => x.Item3.PlanYear))), 3))</td>
+                                    <td>@StringUtils.InsertCommaNoStyle2(Model.PlanItem.Sum(x => x.Item3.Balance) + Model.PlanItemBidv.Sum(x => x.Item3.Balance))</td>
+                                    <td>@(Model.PlanItemAll.Sum(x => Math.Round((StringUtils.GetDevide(x.Item3.Balance, x.Item3.CurrencyRate)), 3)))</td>
+
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <div style="clear:both"></div>
+                <h4><b>II. Tóm tắt các kết quả đạt được</b></h4>
+
+
+                <h4><b>III. Các vướng mắc</b></h4>
+
+                <h4><b>IV. Kế hoạch trong quý tiếp theo</b></h4>
+
+                <h4><b>V. Các vấn đề khác </b></h4>
+
+                <h4><b>VI. Danh mục dự án tiềm năng</b></h4>
+                <div class="table-responsive">
+                    <div class="dataTables_wrapper form-inline" role="grid">
+                        <div id="ListPlanRequire">
+                            <table class="table table-bordered table-hover dataTable no-footer" id="dataTables">
+                                <thead>
+                                    <tr class="rowsao">
+                                        <th style="width:39px">STT </th>
+                                        <th>
+                                            Tên và địa điểm thực hiện dự án
+
+                                        </th>
+                                        <th>Loại dự án </th>
+                                        <th>Tổng chi phí đầu tư(triệu VND)</th>
+                                        <th>Tổng vay(triệu VND)</th>
+                                        <th>
+                                            Vốn vay IBRD (triệu VND)
+                                        </th>
+
+
+                                        <th>Hiện trạng </th>
+
+                                    </tr>
+                                </thead>
+                                <tr>
+                                    <td colspan="7"><b>Ngân hàng thương mại cổ phần Ngoại thương Việt Nam</b></td>
+                                </tr>
+                                @if (Model.PlanRequire.Count > 0)
+                                {
+                                    foreach (var obj in Model.PlanRequire)
+                                    {
+                                        { idx2++; }
+                                        <tr>
+                                            <td>@(idx2)</td>
+                                            <td>@obj.FinishDate</td>
+                                            <td>@obj.Description</td>
+                                            <td>@obj.Total</td>
+                                            <td>@obj.Total1</td>
+                                            <td>@obj.Total2</td>
+                                            <td>@obj.Result</td>
+
+
+                                        </tr>
+
+                                    }
+                                }
+                                <tr>
+                                    <td colspan="7"><b>Ngân hàng TMCP Đầu tư và Phát triển Việt Nam</b></td>
+                                </tr>
+                                @if (Model.PlanRequireBidv.Count > 0)
+                                {
+                                    foreach (var obj in Model.PlanRequireBidv)
+                                    {
+                                        { idx2++; }
+                                        <tr>
+                                            <td>@(idx2)</td>
+                                            <td>@obj.FinishDate</td>
+                                            <td>@obj.Description</td>
+                                            <td>@obj.Total</td>
+                                            <td>@obj.Total1</td>
+                                            <td>@obj.Total2</td>
+                                            <td>@obj.Result</td>
+
+
+                                        </tr>
+
+                                    }
+                                }
+                                <tr>
+                                    <td colspan="3"><b>Tổng</b></td>
+                                    <td>@(Model.PlanRequire.Sum(x => x.Total) + Model.PlanRequireBidv.Sum(x => x.Total))</td>
+                                    <td>@(Model.PlanRequire.Sum(x => x.Total1) + Model.PlanRequireBidv.Sum(x => x.Total1))</td>
+                                    <td>@(Model.PlanRequire.Sum(x => x.Total2) + Model.PlanRequireBidv.Sum(x => x.Total2))</td>
+                                    <td></td>
+                                </tr>
+                            </table>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="panel-footer form-horizontal">
+                    <div class="form-group submit">
+
+
+                        <button type="button" class="btn btn-default" id="btnBack" onclick="GotoListpage()"><i class="fa fa-backward"></i>Quay lại</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .tdbold {
+        font-weight: bold;
+    }
+
+    .tdData {
+        background-color: #F3F5EE;
+    }
+</style>
+<script>
+    function GotoListpage() {
+        window.location = "/AdminReport/Index";
+    }
+</script>

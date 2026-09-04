@@ -1,0 +1,8 @@
+﻿@using BIZ.Entity
+@using UTILS
+@using WebMVC4.Helper
+@model List<CATEGORY_FULL>
+@foreach (var item in Model.Select((value, i) => new { i, value }))
+{
+    <li id="menu-item-@item.value.Id" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-@item.value.Id"><a href="@Utils.FormatUrlRewriteByType(item.value.Id, item.value.Name, int.Parse(item.value.Type.ToString()), item.value.Link)">@item.value.Name</a></li>
+}

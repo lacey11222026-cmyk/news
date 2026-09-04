@@ -1,0 +1,152 @@
+﻿@using BIZ
+@using UTILS
+@using  WebMVC4.Helper
+@model BIZ.Entity.Album_FULL
+@if (Model != null)
+{
+    if (ViewBag.ParentCategoryId > 0)
+    {
+    <script type="text/javascript">
+        var index = $('#ddtabs1 li').index($('#cate_' + '@ViewBag.ParentCategoryId'));
+        ddtabmenu.definemenu("ddtabs1", index);
+
+        setTimeout(function () {
+            $("#ddtabs1 .current").parent().addClass("select");
+
+        }, 1000);
+    </script>
+       
+    }
+    else
+    {
+    <script type="text/javascript">
+        var index = $('#ddtabs1 li').index($('#cate_' + '@ViewBag.CurrentCategoryId'));
+
+        ddtabmenu.definemenu("ddtabs1", index);
+        setTimeout(function () {
+            $("#ddtabs1 .current").parent().addClass("select");
+
+        }, 1000);
+    </script>
+       
+    }
+    <div class="cate">
+        @{Html.RenderAction("Breadcrumb", "News", new { CategoryId = Model.CategoryId });}
+        <div class="clear">
+        </div>
+        <div class="box_nd">
+            <div id="titleNews" class="tieude">
+                <h2>@Model.Title</h2>
+            </div>
+            <div id="introNews" class="intro">@Html.Raw(Model.Description)</div>
+        </div>
+        <br />
+        <br />
+        @if (Model.Style == 1)
+        {
+            if (ViewBag.ImgList != null)
+            {
+            <div id="PnlLightBox">
+                <div class="chum_anhlist" id="lstlightbox">
+                    @foreach (BIZ.Entity.AlbumImage item in ViewBag.ImgList)
+                    {
+                        <a href="@item.Name?h=500&mode=crop" class="chum_anh" title="@item.Text">
+                            <img src="@item.Name?w=100&h=100&mode=crop" width="100px" height="100px"
+                                        alt="" /></a>
+                    }
+
+                </div>
+                <div class="clear">
+                </div>
+                <script type='text/javascript'>
+
+
+                    $(function () {
+
+                        $(' #lstlightbox a').lightBox();
+
+
+
+                    });
+                </script>
+            </div>
+            }
+
+        }
+        else
+        {
+            if (ViewBag.ImgList != null)
+            {
+                    <div id="PnlSlide">
+                        <link rel="stylesheet" type="text/css" href="/Styles/gallery/jquery.ad-gallery.css" />
+                        <script type="text/javascript" src="/Styles/gallery/jquery.ad-gallery.js"></script>
+                        <script type="text/javascript">
+                            $(function () {
+
+                                var galleries = $('.ad-gallery').adGallery();
+                                $('#switch-effect').change(
+                                      function () {
+                                          galleries[0].settings.effect = $(this).val();
+                                          return false;
+                                      }
+                                    );
+                                $('#toggle-slideshow').click(
+                                  function () {
+                                      galleries[0].slideshow.toggle();
+                                      return false;
+                                  }
+                                );
+                                $('#toggle-description').click(
+                                  function () {
+                                      if (!galleries[0].settings.description_wrapper) {
+                                          galleries[0].settings.description_wrapper = $('#descriptions');
+                                      } else {
+                                          galleries[0].settings.description_wrapper = false;
+                                      }
+                                      return false;
+                                  });
+
+                            });
+                        </script>
+
+
+                        <div id="gallery" class="ad-gallery">
+                            <div class="ad-image-wrapper">
+                            </div>
+                            <div class="ad-controls">
+                            </div>
+                            <div class="ad-nav">
+                                <div class="ad-thumbs">
+                                    <ul class="ad-thumb-list">
+                                        @foreach (BIZ.Entity.AlbumImage item in ViewBag.ImgList)
+                                        {
+                                            <li>
+                                                <a href="@item.Name?w=600&mode=crop" class="chum_anh" >
+                                                    <img src="@item.Name?w=100&h=100&mode=crop" width="60px" height="60px"
+                                                 alt="@item.Text" /></a></li>
+                                        }
+
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <select id="switch-effect" style="display: none;">
+                            <option value="slide-hori">Slide horizontal</option>
+                            <option value="slide-vert">Slide vertical</option>
+                            <option value="resize">Shrink/grow</option>
+                            <option value="fade">Fade</option>
+                            <option value="">None</option>
+                        </select>
+
+                        <div class="clear">
+                        </div>
+                    </div>
+                
+            }
+
+        }
+    </div>
+}
+
+
+

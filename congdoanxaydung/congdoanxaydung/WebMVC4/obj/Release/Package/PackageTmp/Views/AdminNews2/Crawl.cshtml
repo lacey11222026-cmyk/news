@@ -1,0 +1,97 @@
+﻿@{
+    Layout = "~/Views/Shared/_AdminV2.cshtml";
+}
+@using BIZ.Entity
+@using UTILS
+@model CONTENT_FULL
+@{
+    List<CATEGORY_FULL> ListCate = ViewBag.CategoryList;
+}
+@*<div class="well">
+        <span class="label label-danger">
+            Chú ý!
+        </span>
+        <span>
+            Hãy chắc chắn nhập vào đầy đủ thông tin tại các mục bắt buộc đánh dấu (*)
+        </span>
+    </div>*@
+<div class="row">
+    <div class="col-md-12">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <i class="fa fa-fw fa-user-md"></i><span>@ViewBag.Title </span>
+            </div>
+            <form id="defaultForm" method="post" class="form-horizontal">
+                <div class="panel-group" id="steps">
+                    <div class="messager-body">
+                        <div class="alert alert-success display-hide alert-dismissable">
+                            <button type="button" class="close" data-close="alert" aria-hidden="true">×</button>
+                            <span class="glyphicon glyphicon-ok"></span>
+                            <label>Đã lưu dữ liệu thành công !!!</label>
+                        </div>
+                        <div class="alert alert-danger display-hide alert-dismissable">
+                            <button type="button" class="close" data-close="alert" aria-hidden="true">×</button>
+                            <span class="glyphicon glyphicon-warning-sign"></span>
+                            <label>Có một vài lỗi trong khung nhập liệu dưới đây ! kiểm tra lại</label>
+                        </div>
+                    </div>
+                    <div class="panel panel-info">
+
+
+                        <div style="padding: 10px 0 0 0; background-color: #fff !important">
+                          
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label for="txtUrl" class="control-label col-md-2">Url:<span class="required">*</span></label>
+                                        <div class="col-md-8">
+                                            <input type="text" id="txtUrl" name="img" class="form-control" placeholder="Nhập url tin bài" />
+                                        </div>
+                                        <div class="col-md-2">
+                                            <a href="javascript:;" onclick="LoadData()"><b>Lấy nội dung</b></a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div style="clear: both"></div>
+                            
+                            <div id="newdetail">
+
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<style>
+    .input-icon {
+        position: relative;
+        width: 100%;
+    }
+</style>
+<script>
+    $('#menu_crawlnews').addClass("active");
+    function LoadData() {
+        var parameters = {
+            url: $("#txtUrl").val(),
+
+        };
+        Utils.Loading();
+        var urlRequestAns = "@Url.Action("LoadCrawl")";
+        $.ajax({
+            type: 'GET',
+            url: urlRequestAns,
+            data: parameters,
+            success: function (data) {
+                $("#newdetail").html(data);
+                Utils.UnLoading();
+            },
+            error: function () {
+                Utils.UnLoading();
+            }
+        });
+    };
+</script>

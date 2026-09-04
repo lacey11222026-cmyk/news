@@ -1,0 +1,66 @@
+﻿<meta content="general" name="rating" />
+<meta content="Khoa hoc cong nghe" name="copyright" />
+<meta content="never" name="expires" />
+<meta content="global" name="distribution" />
+<meta content="DOCUMENT" name="RESOURCE-TYPE" />
+
+<meta name="robots" content="index,follow" />
+<meta name="Googlebot" content="index,follow,noarchive" />
+<meta http-equiv="content-type" content="text/html;charset=UTF-8" />
+
+
+<link rel="shortcut icon" href="/Content/img/ico-logo.png" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+
+
+<title>@Html.Raw(ViewBag.Title)</title>
+<meta property="og:title" content="@Html.Raw(ViewBag.Title)" />
+<meta name="description" content="@Html.Raw(ViewBag.Description)" />
+<meta property="og:description" content="@Html.Raw(ViewBag.Description)" />
+@if (string.IsNullOrEmpty(ViewBag.SiteImage))
+{
+    <meta property="og:image" itemprop="thumbnailUrl" content="https://coe.depp3.vn/Content/img/THUMBNAIL_COE.jpg" />
+    <link rel="image_src" href="https://coe.depp3.vn/Content/img/THUMBNAIL_COE.jpg" />
+    <meta property="og:type" content="website" />
+
+}
+else
+{
+    <meta property="og:image" content="@ViewBag.SiteImage" />
+    <link rel="image_src" href="@ViewBag.SiteImage" />
+    <meta property="og:type" content="article" />
+
+}
+<meta name="Keywords" content="hiệu quả năng lượng, CoE, Trung tâm Xuất sắc về Hiệu quả năng lượng, tiết kiệm năng lượng, hỗ trợ kỹ thuật, Chương trình VAS" />
+
+
+<meta property="og:url" content="@HttpContext.Current.Request.Url.AbsoluteUri" />
+
+<link rel="publisher" href="https://www.facebook.com/KHCNcongthuong/" />
+<link rel="author" href="https://www.facebook.com/KHCNcongthuong/" />
+
+<meta name="geo.placename" content="Ha Noi, Viet Nam" />
+<meta name="geo.region" content="VN-HN" />
+<meta property="fb:app_id" content="1017677488409545" />
+@if (string.IsNullOrEmpty(ViewBag.Schema))
+{
+    <script type="application/ld+json">
+
+        {"@@context" : "http://schema.org",
+        "@@type" : "WebSite", "name" : "Center of Excellence - CoE",
+        "alternateName" : "Trung tâm Xuất sắc về Hiệu quả năng lượng ,Chương trình Hợp tác Đối tác Năng lượng Việt Nam – Đan Mạch giai đoạn 2020-2025",
+        "url": "https://coe.depp3.vn",
+        "potentialAction":
+        {"@@type": "SearchAction", "target": "https://coe.depp3.vn/News/Search?q={search_term_string}",
+        "query-input": "required name=search_term_string" } }
+    </script>
+}
+else
+{
+<script type="application/ld+json">
+    @Html.Raw(ViewBag.Schema)
+
+</script>
+
+        }

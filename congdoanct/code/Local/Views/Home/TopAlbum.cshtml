@@ -1,0 +1,48 @@
+﻿@using BIZ
+@using UTILS
+@using Local.Helper
+@model List<BIZ.Entity.Album_FULL>
+@if (Model != null)
+{
+    {
+        var obj =Model.FirstOrDefault();
+    }
+    <div class="bg_anh bor"><a href="/thu-vien-anh/c71/tu-lieu-anh.html" style="color: #D50A02">Tư liệu ảnh</a>&nbsp;|&nbsp;<a href="/tin-tuc/c69/video.html">Video clip</a></div>
+    <div class="video">
+          @foreach (var item1 in Model.Take(1).Select((value, i) => new { i, value }))
+        {   
+         <img src="@item1.value.MainImage.260.141.jpg">
+        <div class="video_text"><a href="@Utils.FormatUrlRewrite(item1.value.Id, item1.value.Title, "AlbumDetail")">@item1.value.Title</a></div>
+        
+        }
+       
+        @if (Model.Count > 1)
+        {
+            foreach (var item in Model.Skip(1).Select((value, i) => new { i, value }))
+            {               
+
+                <ul class="listright">
+                    <li><a href="@Utils.FormatUrlRewrite(item.value.Id, item.value.Title, "AlbumDetail")">@item.value.Title</a></li>
+
+                </ul>
+            }
+
+        }
+
+        <div class="clear"></div>
+    </div>@*
+    
+    <div class="bg_cate blue">
+        <div class="animal">
+            <img alt="album " src="/images/consen.png"></div>
+        <div class="cate_text">
+            <h2><a href="@ViewBag.Url">@ViewBag.CateName</a></h2>
+        </div>
+    </div>*@
+    
+}
+
+
+
+
+

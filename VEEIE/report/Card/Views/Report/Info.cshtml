@@ -1,0 +1,665 @@
+﻿@using Car.Data
+@using Car.CMS.Models
+@model ProjectReportFull
+@using Car.Utility
+@using Newtonsoft.Json;
+@{
+    List<Project> ListProject = ViewBag.ProjectList;
+}
+
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="box box-primary">
+            <div class="box-header">
+                <span>@ViewBag.Title </span>
+            </div>
+            <form id="defaultForm" method="post" class="form-horizontal">
+                <div class="panel-group" id="steps">
+                    <div class="messager-body">
+                        <div class="alert alert-success display-hide alert-dismissable">
+                            <button type="button" class="close" data-close="alert" aria-hidden="true">×</button>
+                            <span class="glyphicon glyphicon-ok"></span>
+                            <label>Đã lưu dữ liệu thành công !!!</label>
+                        </div>
+                        <div class="alert alert-danger display-hide alert-dismissable">
+                            <button type="button" class="close" data-close="alert" aria-hidden="true">×</button>
+                            <span class="glyphicon glyphicon-warning-sign"></span>
+                            <label>Có một vài lỗi trong khung nhập liệu dưới đây ! kiểm tra lại</label>
+                        </div>
+                    </div>
+                    <div class="panel">
+
+                        <div class="panel-body">
+                            <!-- dành cho UpdateFunction -->
+                            <div>
+
+
+                                <div class="col-md-12">
+                                    <h4 class="box-title" style="border-bottom:1px solid #f4f4f4;padding-bottom:10px">Thông tin cơ bản</h4>
+                                    <div class="form-group">
+                                        <label for="ddlProject" class="control-label col-md-4">Dự án  :<span class="required">*</span></label>
+                                        <div class="col-md-6">
+                                            <div class="input-icon right">
+                                                <select class="form-control" id="ddlProject">
+                                                    @if (ListProject != null && ListProject.Count > 0)
+                                                    {
+
+
+                                                        foreach (var obj in ListProject)
+                                                        {
+                                                            <option value="@obj.Id" @if (obj.Id == Model.ProjectId) { @Html.Raw("selected='selected'") ; }>
+                                                                @obj.Name
+                                                            </option>
+                                                        }
+                                                    }
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="ddlYear" class="control-label col-md-4">Năm :<span class="required">*</span></label>
+                                        <div class="col-md-6">
+                                            <div class="input-icon right">
+                                                <select class="form-control" id="ddlYear">
+                                                    @for (var i = DateTime.Now.Year + 1; i >= 2017; i--)
+                                                    {
+
+                                                        if (i == Model.Year.GetValueOrDefault())
+                                                        {
+                                                            <option value="@i" selected="selected">Năm @(i)</option>
+                                                        }
+                                                        else
+                                                        {
+                                                            <option value="@i">Năm @(i)</option>
+                                                        }
+                                                    }
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="ddlYear" class="control-label col-md-4">Loại báo cáo :<span class="required">*</span></label>
+                                        <div class="col-md-6">
+                                            <div class="input-icon right">
+                                                <select class="form-control" id="ddlType">
+                                                    <option value="5" @(Model.Type == 5 ? "selected='selected'" : "")>Năm</option>
+
+                                                    <option value="1" @(Model.Type == 1 ? "selected='selected'" : "")>Quý I</option>
+                                                    <option value="2" @(Model.Type == 2 ? "selected='selected'" : "")>Quý II</option>
+                                                    <option value="3" @(Model.Type == 3 ? "selected='selected'" : "")>Quý III</option>
+                                                    <option value="4" @(Model.Type == 4 ? "selected='selected'" : "")>Quý IV</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="project-info">
+                                        <div class="form-group">
+                                            <label for="txtInvestor" class="control-label col-md-4">Chủ đầu tư </label>
+                                            <div class="col-md-6">
+                                                <div class="input-icon right">
+                                                    <input type="text" id="txtInvestor" disabled name="Investor" value="@Model.Data.Investor" class="form-control" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="txtAddress" class="control-label col-md-4">Địa chỉ </label>
+                                            <div class="col-md-6">
+                                                <div class="input-icon right">
+                                                    <input type="text" id="txtAddress" disabled name="Address" value="@Model.Data.Address" class="form-control" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="txtContact" class="control-label col-md-4">Người liên hệ </label>
+                                            <div class="col-md-6">
+                                                <div class="input-icon right">
+                                                    <input type="text" id="txtContact" disabled name="Address" value="@Model.Data.Contact" class="form-control" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="txtOrgan" class="control-label col-md-4">Chức danh </label>
+                                            <div class="col-md-6">
+                                                <div class="input-icon right">
+                                                    <input type="text" id="txtOrgan" disabled name="Organ" value="@Model.Data.Organ" class="form-control" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="txtGroupName" class="control-label col-md-4">Phòng/ban </label>
+                                            <div class="col-md-6">
+                                                <div class="input-icon right">
+                                                    <input type="text" id="txtGroupName" disabled name="GroupName" value="@Model.Data.GroupName" class="form-control" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="txtTel" class="control-label col-md-4">Số điện thoại </label>
+                                            <div class="col-md-6">
+                                                <div class="input-icon right">
+                                                    <input type="text" id="txtTel" disabled name="Tel" value="@Model.Data.Tel" class="form-control" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="txtEmail" class="control-label col-md-4">Email </label>
+                                            <div class="col-md-6">
+                                                <div class="input-icon right">
+                                                    <input type="text" id="txtEmail" disabled name="Email" value="@Model.Data.Email" class="form-control" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="txtTotal" class="control-label col-md-4">Tổng vốn đầu tư (VND) </label>
+                                            <div class="col-md-3">
+                                                <div class="input-icon right">
+                                                    <input id="txtTotal" maxlength="20" disabled name="Total" value="@StringUtils.InsertCommaNoStyle(Model.Data.Total.ToString())" class="form-control amount" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="txtTotal1" class="control-label col-md-4">Tổng vốn vay (VND) </label>
+                                            <div class="col-md-3">
+                                                <div class="input-icon right">
+                                                    <input id="txtTotal1" maxlength="20" disabled name="Total1" value="@StringUtils.InsertCommaNoStyle(Model.Data.Total1.ToString())" class="form-control amount" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="txtTotal2" class="control-label col-md-4">Vốn vay WB (VND) </label>
+                                            <div class="col-md-3">
+                                                <div class="input-icon right">
+                                                    <input id="txtTotal2" maxlength="20" disabled name="Total2" value="@StringUtils.InsertCommaNoStyle(Model.Data.Total2.ToString())" class="form-control amount" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <h4 class="box-title" style="border-bottom:1px solid #f4f4f4;padding-bottom:10px">Tiến độ thực hiện dự án</h4>
+                                    <b>Các công việc triển khai</b>
+                                    <div class="form-group">
+                                        <label for="txtJob1" class="control-label col-md-4">Về xây dựng, lắp đặt, vận hành các giải pháp TKNL </label>
+                                        <div class="col-md-8">
+                                            <div class="input-icon right">
+                                                <textarea id="txtJob1" class="form-control" rows="3" name="Job1">@Html.Raw(Model.Job1.Replace("<br />","\n"))</textarea>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="txtJob2" class="control-label col-md-4">Về giải ngân </label>
+                                        <div class="col-md-8">
+                                            <div class="input-icon right">
+                                                <textarea id="txtJob2" class="form-control" rows="3" name="Job2">@Html.Raw(Model.Job2.Replace("<br />","\n"))</textarea>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="txtJob3" class="control-label col-md-4">Về thực hiện các chính sách an toàn </label>
+                                        <div class="col-md-8">
+                                            <div class="input-icon right">
+                                                <textarea id="txtJob3" class="form-control" rows="3" name="Job3">@Html.Raw(Model.Job3.Replace("<br />","\n"))</textarea>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <b>Dự kiến kết quả</b>
+                                    <div class="form-group">
+                                        <label for="txtResult1" class="control-label col-md-4">Mức TKNL đạt được (MWh/năm) </label>
+                                        <div class="col-md-3">
+                                            <div class="input-icon right">
+                                                <input id="txtResult1" maxlength="20" name="Result1" value="@Model.Result1" class="form-control" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="txtResult2" class="control-label col-md-4">Giảm phát thải KNK (Tấn CO2/năm)  </label>
+                                        <div class="col-md-3">
+                                            <div class="input-icon right">
+                                                <input id="txtResult2" maxlength="20" name="Result2" value="@Model.Result2" class="form-control" />
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="txtNumberPeople" class="control-label col-md-4">Số lượng người hưởng lợi trực tiếp </label>
+                                        <div class="col-md-3">
+                                            <div class="input-icon right">
+                                                <input id="txtNumberPeople" maxlength="20" name="NumberPeople" value="@Model.NumberPeople" class="form-control" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="txtWomanRate" class="control-label col-md-4">Tỷ lệ người hưởng lợi là phụ nữ (%) </label>
+                                        <div class="col-md-3">
+                                            <div class="input-icon right">
+                                                <input id="txtWomanRate" maxlength="20" name="WomanRate" value="@Model.WomanRate" class="form-control" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="txtTime" class="control-label col-md-4">Ngày bắt đầu vận hành :</label>
+                                        <div class="col-md-3">
+                                            <div class="input-icon right input-group">
+                                                <div class="input-group-addon">
+                                                    <i class="fa fa-calendar"></i>
+                                                </div>
+                                                <input type="text" value="@Model.Time.GetValueOrDefault().ToString("dd/MM/yyy")" id="txtTime" data-format="DD/MM/YYYY" name="time" class="form-control" />
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+
+                                        <label for="txtStuck" class="control-label col-md-4">
+                                            Vướng mắc, khuyến nghị
+                                        </label>
+                                        <div class="col-md-8">
+
+                                            <div class="input-icon right">
+                                                <textarea id="txtStuck" class="form-control" rows="3" name="Stuck">@Html.Raw(Model.Stuck.Replace("<br />","\n"))</textarea>
+                                                @*<input id="txtStuck" name="Stuck" value="@Model.Stuck" class="form-control" />*@
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    <h4 class="box-title" style="border-bottom:1px solid #f4f4f4;padding-bottom:10px">File đính kèm</h4>
+                                    <div id="dvfile" style="display:block">
+                                        <div class="form-group">
+                                            <div class="col-md-4">
+                                            </div>
+                                            <div class="col-md-3">
+                                                <input type="text" id="txtFileParamName1" value="@Model.FileParam.Name1" class="form-control" placeholder="Nhập tên tài liệu" />
+                                            </div>
+                                            <div class="col-md-4">
+                                                <input type="text" id="txtFileParamPath1" value="@Model.FileParam.Path1" class="form-control" placeholder="Nhập đường dẫn" />
+                                            </div>
+                                            <div class="col-md-1">
+                                                <a href="javascript:;" onclick="PopupManagerImages('txtFileParamPath1');"><i class="fa fa-file"></i></a>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="col-md-4">
+                                            </div>
+                                            <div class="col-md-3">
+                                                <input type="text" id="txtFileParamName2" value="@Model.FileParam.Name2" class="form-control" placeholder="Nhập tên tài liệu" />
+                                            </div>
+                                            <div class="col-md-4">
+                                                <input type="text" id="txtFileParamPath2" value="@Model.FileParam.Path2" class="form-control" placeholder="Nhập đường dẫn" />
+                                            </div>
+                                            <div class="col-md-1">
+                                                <a href="javascript:;" onclick="PopupManagerImages('txtFileParamPath2');"><i class="fa fa-file"></i></a>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="col-md-4">
+                                            </div>
+                                            <div class="col-md-3">
+                                                <input type="text" id="txtFileParamName3" value="@Model.FileParam.Name3" class="form-control" placeholder="Nhập tên tài liệu" />
+                                            </div>
+                                            <div class="col-md-4">
+                                                <input type="text" id="txtFileParamPath3" value="@Model.FileParam.Path3" class="form-control" placeholder="Nhập đường dẫn" />
+                                            </div>
+                                            <div class="col-md-1">
+                                                <a href="javascript:;" onclick="PopupManagerImages('txtFileParamPath3');"><i class="fa fa-file"></i></a>
+                                            </div>
+                                        </div>
+                                        <div id="viewmore">
+                                            <div class="form-group">
+                                                <div class="col-md-2 col-md-offset-10 pull-right">
+                                                    <a onclick="showmore()" href="javascript:;">Thêm file đính kèm</a>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                        <div id="filemore" style="display:none;">
+                                            <div class="form-group">
+                                                <div class="col-md-4">
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <input type="text" id="txtFileParamName4" value="@Model.FileParam.Name4" class="form-control" placeholder="Nhập tên tài liệu" />
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <input type="text" id="txtFileParamPath4" value="@Model.FileParam.Path4" class="form-control" placeholder="Nhập đường dẫn" />
+                                                </div>
+                                                <div class="col-md-1">
+                                                    <a href="javascript:;" onclick="PopupManagerImages('txtFileParamPath4');"><i class="fa fa-file"></i></a>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <div class="col-md-4">
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <input type="text" id="txtFileParamName5" value="@Model.FileParam.Name5" class="form-control" placeholder="Nhập tên tài liệu" />
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <input type="text" id="txtFileParamPath5" value="@Model.FileParam.Path5" class="form-control" placeholder="Nhập đường dẫn" />
+                                                </div>
+                                                <div class="col-md-1">
+                                                    <a href="javascript:;" onclick="PopupManagerImages('txtFileParamPath5');"><i class="fa fa-file"></i></a>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <div class="col-md-4">
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <input type="text" id="txtFileParamName6" value="@Model.FileParam.Name6" class="form-control" placeholder="Nhập tên tài liệu" />
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <input type="text" id="txtFileParamPath6" value="@Model.FileParam.Path6" class="form-control" placeholder="Nhập đường dẫn" />
+                                                </div>
+                                                <div class="col-md-1">
+                                                    <a href="javascript:;" onclick="PopupManagerImages('txtFileParamPath6');"><i class="fa fa-file"></i></a>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <div class="col-md-4">
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <input type="text" id="txtFileParamName7" value="@Model.FileParam.Name7" class="form-control" placeholder="Nhập tên tài liệu" />
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <input type="text" id="txtFileParamPath7" value="@Model.FileParam.Path7" class="form-control" placeholder="Nhập đường dẫn" />
+                                                </div>
+                                                <div class="col-md-1">
+                                                    <a href="javascript:;" onclick="PopupManagerImages('txtFileParamPath7');"><i class="fa fa-file"></i></a>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <div class="col-md-4">
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <input type="text" id="txtFileParamName8" value="@Model.FileParam.Name8" class="form-control" placeholder="Nhập tên tài liệu" />
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <input type="text" id="txtFileParamPath8" value="@Model.FileParam.Path8" class="form-control" placeholder="Nhập đường dẫn" />
+                                                </div>
+                                                <div class="col-md-1">
+                                                    <a href="javascript:;" onclick="PopupManagerImages('txtFileParamPath8');"><i class="fa fa-file"></i></a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group" style="display:none">
+                                        <label class="control-label col-md-4" for="cbxIsActive">Gửi báo cáo :</label>
+                                        <div class="col-md-4">
+                                            <div class="checkbox">
+                                                @if (Model.Status == 1)
+                                                {<input type="checkbox" id="cbxIsActive" checked="checked" />}
+                                                else
+                                                {<input type="checkbox" id="cbxIsActive" />}
+                                                <input id="hdStatus" />
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="panel-footer form-horizontal">
+                                        <div class="form-group submit">
+                                            <button type="submit" class="btn btn-primary" id="btsubmit" style="display:none"><i class="fa fa-save"></i>Lưu lại</button>
+                                            <button type="button" class="btn btn-primary" id="btnSaveOnly" onclick="NewsSave('0');"><i class="fa fa-save"></i>Lưu lại</button>
+                                            <button type="button" class="btn btn-success" id="btnSend" onclick="NewsSave('1');"><i class="fa fa-arrow-right"></i>Gửi báo cáo</button>
+                                            <button type="button" class="btn btn-default" id="btnBack" onclick="GotoListpage()"><i class="fa fa-backward"></i>Back</button>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="clear"></div>
+                        </div>
+
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<style>
+    .input-icon {
+        position: relative;
+        width: 100%;
+    }
+
+    .form-group {
+        margin-bottom: 7px;
+    }
+</style>
+<script>
+    function showmore() {
+        $('#filemore').show();
+        $('#viewmore').hide();
+    }
+</script>
+@if (!string.IsNullOrEmpty(Model.FileParam.Name4))
+{
+    <script>
+        showmore();
+    </script>
+}
+<script type="text/javascript">
+    function GotoListpage() {
+        window.location = "/Report/Index";
+    }
+     function NewsSave(actionType) {
+         $("#hdStatus").val(actionType);
+        $("#btsubmit").click();
+    }
+    $(document).ready(function () {
+     $('#txtTime').datetimepicker({
+                format: 'DD/MM/YYYY',
+                autoclose: true,
+                pickTime: false,
+                inline: true,
+                sideBySide: true,
+                showTodayButton: true
+            });
+         $("#ddlProject").change(function () {
+                $.ajax({
+                    type: 'Post',
+                    url: "/Project/Get",
+                    data: {
+                        'id': $("#ddlProject").val()
+                    },
+                    success: function (data) {
+                        $("#txtInvestor").val(data.Investor);
+                        $("#txtAddress").val(data.Address);
+                         $("#txtContact").val(data.Contact);
+                        $("#txtOrgan").val(data.Organ);
+                         $("#txtGroupName").val(data.GroupName);
+                        $("#txtTel").val(data.Tel);
+                         $("#txtEmail").val(data.Email);
+                        $("#txtTotal").val(data.Total.formatMoney(0, '', '.'));
+                        $("#txtTotal1").val(data.Total1.formatMoney(0, '', '.'));
+                        $("#txtTotal2").val(data.Total2.formatMoney(0, '', '.'));
+
+                    }
+                });
+
+            });
+
+         $(".amount").keyup(function () {
+            var val = $(this).val();
+
+            if (val) {
+
+                val = val.replace(/\./g, '');
+                val = unformat(val, 0);
+                //$(this).val(val);
+
+                var price = parseInt(val);
+
+                var formatMoneyVNDVal = price.formatMoney(0, '', '.');
+                $(this).val(formatMoneyVNDVal);
+            }
+        }).blur(function () {
+            var val = $(this).val();
+
+            if (val) {
+                //console.log(val);
+                val = val.replace('.', '').replace(/\./g, '');
+                val = unformat(val, 0);
+                //$(this).val(val);
+
+                var price = parseInt(val);
+
+                var formatMoneyVNDVal = price.formatMoney(0, '', '.');
+                $(this).val(formatMoneyVNDVal);
+            }
+                });
+        $("button.close").click(function () {
+            $(this).parent().css("display", "none");
+        });
+        $('#defaultForm').bootstrapValidator({
+            message: 'This value is not valid',
+            //live: 'submitted',
+            feedbackIcons: {
+                valid: 'glyphicon glyphicon-ok',
+                invalid: 'glyphicon glyphicon-remove',
+                validating: 'glyphicon glyphicon-refresh'
+            },
+            fields: {
+
+                name: {
+                    message: 'Nhập tên dự án',
+                    validators: {
+                        notEmpty: {
+                            message: 'Tên dự án không được bỏ trống'
+                        },
+
+                    }
+                },
+
+            }
+        })
+        .on('success.form.bv', function (e) {
+            // Prevent submit form
+            e.preventDefault();
+
+            var $form = $(e.target),
+                validator = $form.data('bootstrapValidator');
+            SaveData();
+            $(".close").click(function () {
+                $(".alert-success").css("display", "none");
+            });
+        })
+        .on('error.form.bv', function (e) {
+            // Active the panel element containing the first invalid element
+            e.preventDefault();
+            var $form = $(e.target),
+            validator = $form.data('bootstrapValidator');
+            $(".alert-danger label").text("Có một vài lỗi trong khung nhập liệu dưới đây ! kiểm tra lại");
+            $(".alert-danger").css("display", "block");
+            $(".close").click(function () {
+                $(".alert-danger").css("display", "none");
+                $(".alert-success").css("display", "none");
+            });
+        });
+
+        $("#btnReset").click(function () {
+            $('#defaultForm').data('bootstrapValidator').resetForm(true);
+            $(".alert-danger").css("display", "none");
+            $(".alert-success").css("display", "none");
+        });
+        //Save Data
+        function SaveData() {
+            if ($("#ddlProject").val() == "0") {
+                 bootbox.alert("Vui lòng tạo dự án trước");
+                return;
+            }
+
+            var param = {
+                'Id': '@Model.Id',
+                'ProjectId': $("#ddlProject").val(),
+                'Job1': $("#txtJob1").val().replace(/\n/g, '<br />'),
+                'Job2': $("#txtJob2").val().replace(/\n/g, '<br />'),
+                'Job3': $("#txtJob3").val().replace(/\n/g, '<br />'),
+                'Result1': $("#txtResult1").val(),
+                'Result2': $("#txtResult2").val(),
+                'Stuck': $("#txtStuck").val().replace(/\n/g, '<br />'),
+                'Year': $("#ddlYear").val(),
+                'Type': $("#ddlType").val(),
+                  'WomanRate': $("#txtWomanRate").val(),
+                'NumberPeople': $("#txtNumberPeople").val(),
+                 'STime': $("#txtTime").val(),
+                'Status': $("#hdStatus").val(),
+                'FileParam.Name1': $("#txtFileParamName1").val(),
+                'FileParam.Path1': $("#txtFileParamPath1").val(),
+                'FileParam.Name2': $("#txtFileParamName2").val(),
+                'FileParam.Path2': $("#txtFileParamPath2").val(),
+                'FileParam.Name3': $("#txtFileParamName3").val(),
+                'FileParam.Path3': $("#txtFileParamPath3").val(),
+                'FileParam.Name4': $("#txtFileParamName4").val(),
+                'FileParam.Path4': $("#txtFileParamPath4").val(),
+                'FileParam.Name5': $("#txtFileParamName5").val(),
+                'FileParam.Path5': $("#txtFileParamPath5").val(),
+                'FileParam.Name6': $("#txtFileParamName6").val(),
+                'FileParam.Path6': $("#txtFileParamPath6").val(),
+                'FileParam.Name7': $("#txtFileParamName7").val(),
+                'FileParam.Path7': $("#txtFileParamPath7").val(),
+                'FileParam.Name8': $("#txtFileParamName8").val(),
+                'FileParam.Path8': $("#txtFileParamPath8").val(),
+            };
+            Utils.Loading();
+            $.ajax({
+                type: 'POST',
+                url: "/Report/SaveData",
+                data: param,
+                async: true,
+                success: function (data) {
+                    Utils.UnLoading();
+                    if (data.ResponseCode >= 0) {
+                        $(".alert-success").show("slow");
+                        $(".alert-danger").hide("slow");
+                        if ($("#hdStatus").val() == '1') {
+                            setTimeout(function () { $(".alert-success").hide("slow"); GotoListpage(); }, 2000);
+                        }
+                        else {
+                            setTimeout(function () { $(".alert-success").hide("slow"); window.location.reload(); }, 2000);
+                        }
+
+                    }
+                    else {
+
+                        $("#ErrorMessage").text(data.NameEn);
+                        $(".alert-danger").show("slow");
+                        $(".alert-success").hide("slow");
+                        setTimeout(function () { $(".alert-danger").hide("slow"); }, 2000);
+                    }
+                }
+            });
+        };
+    });
+
+     function PopupManagerImages (imageChoose) {
+        $.ajax({
+            type: 'GET',
+            url: "/Home/PopupManagerImages",
+            data: {},
+            contentType: "application/json; charset=utf-8",
+            dataType: "html",
+            success: function (data) {
+                bootbox.dialog({
+                    message: data,
+                    buttons: {
+                        success: {
+                            label: "Lưu Lại",
+                            className: "btn-success",
+                            callback: function () {
+                                var txtImageUrl = $('#txtImageUrl').val();
+                                if (txtImageUrl != null && txtImageUrl != '') {
+                                    $("#" + imageChoose).val(txtImageUrl);
+                                    if ($("#" + imageChoose.replace('txt', '')).length)
+                                    {
+                                        $("#" + imageChoose.replace('txt', '')).attr('src', txtImageUrl);
+                                    }
+
+                                }
+                            }
+                        }
+                    }
+                });
+            }
+        });
+    }
+</script>

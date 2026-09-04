@@ -1,0 +1,318 @@
+﻿@{
+    var IsCategory = false;
+    var IsAlbum = false;
+    var IsBanner = false;
+    var IsLocal = false;
+    var IsDocument = false;
+    var IsNews = false;
+    var IsAdmin = false;
+    var IsReport = false;
+    var IsComment = false;
+    var IsMark = false;
+    var IsCompetition = false;
+    var IsCompetitionImage = false;
+    var IsRate = false;
+    if (HttpContext.Current.User.IsInRole("Administrator") || HttpContext.Current.User.IsInRole("Category"))
+    {
+        IsCategory = true;
+    }
+    if (HttpContext.Current.User.IsInRole("Administrator") || HttpContext.Current.User.IsInRole("Album"))
+    {
+        IsAlbum = true;
+    }
+    if (HttpContext.Current.User.IsInRole("Administrator") || HttpContext.Current.User.IsInRole("Banner"))
+    {
+        IsBanner = true;
+    }
+
+    if (HttpContext.Current.User.IsInRole("Administrator") || HttpContext.Current.User.IsInRole("Comment"))
+    {
+        IsComment = true;
+    }
+    if (HttpContext.Current.User.IsInRole("Local"))
+    {
+        IsLocal = true;
+    }
+    if (HttpContext.Current.User.IsInRole("Administrator") || HttpContext.Current.User.IsInRole("Report"))
+    {
+        IsReport = true;
+    }
+
+    if (HttpContext.Current.User.IsInRole("Administrator") || HttpContext.Current.User.IsInRole("Document"))
+    {
+        IsDocument = true;
+    }
+    if (HttpContext.Current.User.IsInRole("Administrator") || HttpContext.Current.User.IsInRole("Competition"))
+    {
+        IsCompetition = true;
+    }
+    if (HttpContext.Current.User.IsInRole("Administrator") || HttpContext.Current.User.IsInRole("CompetitionCreate"))
+    {
+        IsCompetitionImage = true;
+    }
+    if (HttpContext.Current.User.IsInRole("Administrator"))
+    {
+        IsAdmin = true;
+    }
+    if (HttpContext.Current.User.IsInRole("Mark"))
+    {
+        IsMark = true;
+    }
+    if (HttpContext.Current.User.IsInRole("Administrator") || HttpContext.Current.User.IsInRole("Rate"))
+    {
+        IsRate = true;
+    }
+    if (HttpContext.Current.User.IsInRole("Administrator") || HttpContext.Current.User.IsInRole("NewsEdit") || HttpContext.Current.User.IsInRole("NewsPublish"))
+    {
+        IsNews = true;
+    }
+
+}
+
+<aside class="main-sidebar">
+    <!-- sidebar: style can be found in sidebar.less -->
+    <section class="sidebar">
+        <ul class="sidebar-menu">
+            @if (true)
+            {
+                <li class="treeview" id="menu_1">
+
+                    <a href="#">
+                        <i class="fa fa-cog"></i> <span>Hệ thống</span> <i class="fa fa-angle-left pull-right"></i>
+                    </a>
+                    <ul class="treeview-menu">
+                        @if (IsAdmin)
+                        {
+                            <li id="menu_manageuser">
+                                <a href="@Url.Action("Users", "System")">
+                                    Quản lý người dùng
+
+                                </a>
+                            </li>
+                            <li id="menu_adduser">
+                                <a href="@Url.Action("UserAdd", "System")">
+                                    Thêm mới người dùng
+                                </a>
+                            </li>
+                            <li id="menu_log">
+                                <a href="@Url.Action("Index", "AdminLog")">
+                                    Quản trị log người dùng
+                                </a>
+                            </li>
+                        }
+                        @if (IsLocal)
+                        {
+                            <li><a href="http://noibo.vnubw.org.vn/admin/index2" target="_blank">Quản trị nội bộ</a> </li>
+                        }
+                        @if (IsRate)
+                        {
+                            <li id="menu_config">
+                                <a href="@Url.Action("Configuration", "System")">
+                                    Thiết lập hệ thống
+
+                                </a>
+                            </li>
+                        }
+                        <li id="menu_file">
+                            <a href="@Url.Action("Index", "AdminImages")">
+                                Danh sách file
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+            }
+            @if (IsCategory || IsBanner)
+            {
+                <li class="treeview" id="menu_2">
+
+                    <a href="#">
+                        <i class="fa fa-th"></i> <span>Chuyên mục</span> <i class="fa fa-angle-left pull-right"></i>
+                    </a>
+                    <ul class="treeview-menu">
+                        @if (IsCategory)
+                        {
+                            <li id="menu_managecate">
+                                <a href="@Url.Action("Index", "AdminCategory")">
+                                    Quản lý chuyên mục
+
+                                </a>
+                            </li>
+                            <li id="menu_addcate">
+                                <a href="@Url.Action("GetCategoryDetail", "AdminCategory")">
+                                    Thêm mới chuyên mục
+                                </a>
+                            </li>
+                            <li id="menu_manageintro">
+                                <a href="@Url.Action("Intro", "AdminCategory")">
+                                    Quản lý nội dung giới thiệu
+                                </a>
+                            </li>
+                            <li id="menu_managechannel">
+                                <a href="@Url.Action("Index", "AdminChannel")">
+                                    Quản lý kênh tin
+
+                                </a>
+                            </li>
+                            <li id="menu_addchannel">
+                                <a href="@Url.Action("GetChannelDetail", "AdminChannel")">
+                                    Thêm mới kênh tin
+                                </a>
+                            </li>
+                        }
+                        @if (IsBanner)
+                        {
+                            <li id="menu_managebanner">
+                                <a href="@Url.Action("Index", "AdminBanner")">
+                                    Quản lý banner
+
+                                </a>
+                            </li>
+                            <li id="menu_addbanner">
+                                <a href="@Url.Action("GetBannerDetail", "AdminBanner")">
+                                    Thêm mới banner
+                                </a>
+                            </li>
+
+                        }
+                    </ul>
+                </li>
+            }
+            @if (IsNews || IsComment || IsAlbum)
+            {
+                <li class="treeview" id="menu_3">
+
+                    <a href="#">
+                        <i class="fa fa-edit"></i> <span>Tin tức</span> <i class="fa fa-angle-left pull-right"></i>
+                    </a>
+                    <ul class="treeview-menu">
+                        @if (IsNews)
+                        {
+                            <li id="menu_managenews">
+                                <a href="@Url.Action("Index", "AdminNews2")">
+                                    Quản lý tin tức
+
+                                </a>
+                            </li>
+                            <li id="menu_managenews2">
+                                <a href="@Url.Action("Index2", "AdminNews2")">
+                                    Tin chờ xuất bản
+
+                                </a>
+                            </li>
+                            <li id="menu_addnews">
+                                <a href="@Url.Action("GetNewsDetail", "AdminNews2")">
+                                    Thêm mới tin tức
+                                </a>
+                            </li>
+                            <li id="menu_addnews">
+                                <a href="@Url.Action("GetENewsDetail", "AdminNews2")">
+                                    Thêm mới tin e-magazine
+                                </a>
+                            </li>
+                        }
+                        @if (HttpContext.Current.User.IsInRole("Administrator") || HttpContext.Current.User.IsInRole("NewsPublish"))
+                        {
+                            <li id="menu_confighotnews"><a href="@Url.Action("ConfigHotNews", "AdminNews")">Cấu hình tin top</a></li>
+                            <li id="menu_configtopviewnews"><a href="@Url.Action("ConfigTopViewNews", "AdminNews")">Cấu hình tin nổi bật</a></li>
+                            <li id="menu_confighotnewscate"><a href="@Url.Action("ConfigHotNewsForCate", "AdminNews")">Tin nổi bật chuyên mục</a></li>
+                            <li id="menu_confighotnews"><a href="@Url.Action("Index", "AdminReport")">Thống kê tin bài</a></li>
+                            @*<li id="menu_configtopviewnews"><a href="@Url.Action("ConfigTopViewNews", "AdminNews")">Cấu hình tin tiêu điểm</a></li>
+            <li id="menu_confighotvideo"><a href="@Url.Action("ConfigHotVideo", "AdminNews")">Cấu hình album ảnh nổi bật</a></li>*@
+                        }
+
+                        @if (IsAlbum)
+                        {
+                            <li id="menu_managealbum">
+                                <a href="@Url.Action("Index", "AdminAlbum")">
+                                    Quản lý album ảnh
+
+                                </a>
+                            </li>
+                            <li id="menu_addalbum">
+                                <a href="@Url.Action("GetAlbumDetail", "AdminAlbum")">
+                                    Thêm mới album ảnh
+
+                                </a>
+                            </li>
+                            <li id="menu_confighotvideo"><a href="@Url.Action("ConfigHotVideo", "AdminNews")">Cấu hình album ảnh nổi bật</a></li>
+                        }
+                        @if (IsComment)
+                        {
+                            <li id="menu_managecomment">
+                                <a href="@Url.Action("Index", "AdminComment")">
+                                    Quản lý bình luận
+
+                                </a>
+                            </li>
+
+                        }
+                    </ul>
+                </li>
+            }
+            @if (IsDocument)
+            {
+                <li class="treeview" id="menu_4">
+
+                    <a href="#">
+                        <i class="fa fa-book"></i> <span>Văn bản</span> <i class="fa fa-angle-left pull-right"></i>
+                    </a>
+                    <ul class="treeview-menu">
+
+                        <li id="menu_managedoc">
+                            <a href="@Url.Action("Index", "AdminDocument2")">
+                                Quản lý văn bản
+
+                            </a>
+                        </li>
+                        <li id="menu_adddoc">
+                            <a href="@Url.Action("GetDocumentDetail", "AdminDocument2")">
+                                Thêm mới văn bản
+                            </a>
+                        </li>
+
+
+
+                    </ul>
+                </li>
+            }
+            @if (UTILS.Utils.GetAppSettingValue("EnableMark") == "1" && IsMark)
+            {
+                <li class="treeview" id="menu_5">
+
+                    <a href="#">
+                        <i class="fa fa-money"></i> <span>Nhuận bút</span> <i class="fa fa-angle-left pull-right"></i>
+                    </a>
+                    <ul class="treeview-menu">
+                        <li id="menu_managemark"><a href="@Url.Action("Index", "Mark")">Chấm nhuận bút</a> </li>
+                        <li id="menu_reportmark"><a href="@Url.Action("Report", "Mark")">Thống kê nhuận bút</a> </li>
+
+                    </ul>
+                </li>
+            }
+            @if (IsCompetition || IsCompetitionImage)
+            {
+                <li class="treeview" id="menu_6">
+
+                    <a href="#">
+                        <i class="fa fa-paint-brush"></i> <span>Cuộc thi</span> <i class="fa fa-angle-left pull-right"></i>
+                    </a>
+                    <ul class="treeview-menu">
+                        @if (IsCompetition)
+                        {
+                            <li id="menu_manageregistor"><a href="@Url.Action("TestRegistor", "AdminTest")">Quản trị đợt thi</a> </li>
+                        }
+                        @if (IsCompetition)
+                        {
+                            <li id="menu_topregistor"><a href="@Url.Action("TopTestArchive", "AdminTest")">Top người thi</a> </li>
+                        }
+                        @if (IsCompetitionImage)
+                        {
+                            <li id="menu_albumimage"><a href="@Url.Action("Index","AdminAlbumImage")">Quản trị cuộc thi ảnh</a> </li>
+                        }
+                    </ul>
+                </li>
+            }
+        </ul>
+    </section>
+    <!-- /.sidebar -->
+</aside>

@@ -1,0 +1,168 @@
+﻿@using BIZ
+@using UTILS
+@using WebMVC4.Helper
+@model BIZ.Entity.CONTENT_FULL
+@{var RelateTitle = "Các tin khác";}
+
+@if (Model != null)
+{
+    <div class="container newspage-c2 mt40">
+        @{Html.RenderAction("Breadcrumb", "News", new
+            {
+                CategoryId = Model.CategoryId
+            });}
+        <div class="row mt30">
+            <div class="col-lg-8 col-md-12 col-sm-12">
+
+                <div class="detail-content">
+                    <p class="news-name-big">@Model.Title</p>
+                    <p class="newsdate mt15">@Model.PublishDate.ToString("dd/MM/yyyy")</p>
+                    <div class="mt30">
+                        @if (ViewBag.lstRef != null)
+                        {
+                            <ul class="newslist-05 suggest">
+                                @foreach (var item in ViewBag.lstRef)
+                                {
+                                    <li><a href="@Utils.FormatUrlRewrite(item.Id, item.Title, "ArticleDetail")">@item.Title </a></li>
+
+                                }
+                            </ul>
+
+                        }
+                    </div>
+                    <div class="logo-icon mt30">
+                        <div><img src="/Content/img/ico-logo.png" width="45"></div>
+                        <div>
+                            <p>@Model.IntroText</p>
+                        </div>
+                    </div>
+                    <div class="mt30">
+                        <div class="detail-icon-list sticky">
+                            <div class="choose-font">
+                                <a href="javascript:;" onclick="addsize();"><img src="/Content/img/icon-plus.png" alt=""></a>
+                                <a href="#"><img src="/Content/img/icon-a.png" alt=""></a>
+                                <a href="javascript:;" onclick="plussize();"><img src="/Content/img/icon-minus.png" alt=""></a>
+                            </div>
+                            <ul class="choose-other mt10">
+                                @*<li><a href="#"><img src="img/icon-01.png" alt=""></a></li>*@
+                                <li><a href="javascript:void(0);" onclick="openWin('@ViewBag.FacebookShare');"><img src="/Content/img/icon-02.png" alt=""></a></li>
+                                <li><a href="@Url.Action("Print", "News", new {Id=Model.Id})" target="_blank"><img src="/Content/img/icon-03.png" alt=""></a></li>
+                            </ul>
+                        </div>
+                        <div class="detail-text" id="NewsContent">
+                            @Html.Raw(Model.Contents.Replace("font-family:arial,helvetica,sans-serif;", ""))
+                        </div>
+                    </div>
+
+
+                </div>
+
+                @if (Model.FileParam.Tag != null)
+                {
+                    if (!String.IsNullOrEmpty(Model.FileParam.Tag.Trim()))
+                    {
+                        <div class="detail-tags mt30">
+                            <p class="textblue">Tags:</p>
+                            <ul>
+                                @foreach (var item in Model.FileParam.Tag.Split(',').Select((value, i) => new
+                                {
+                                    i,
+                                    value
+                                }))
+                                {
+                                    <li>  <a href="@Url.Action("Search", new { q = item.value.Trim() })">@item.value.Trim()</a></li>
+                                }
+                            </ul>
+                        </div>
+
+
+                    }
+                }
+                <div class="text-right mt20">
+                    <div class="fb-like" data-href="@(Request.Url)" data-layout="button_count" data-action="like" data-show-faces="false" data-share="true"></div>
+                </div>
+
+                <div class="mt30">
+                    @{Html.RenderAction("Relate", "News", new { CategoryId = Model.CategoryId });}
+
+
+                </div>
+
+
+            </div><!--/End content left-->
+            <div class="col-lg-4 col-md-12 col-sm-12 sidebar-right">
+              
+                @Html.Partial("Site_Right")
+
+            </div><!-- end col-lg-4-->
+        </div>
+    </div>
+
+
+
+
+}
+<script type="text/javascript">
+
+    function openWin(url) {
+        var myWindow = window.open(url, '', 'width=700,height=500');
+        myWindow.focus();
+    }
+    (function ($) {
+        $.fn.removeStyle = function (style) {
+            var search = new RegExp(style + '[^;]+;?', 'g');
+
+            return this.each(function () {
+                try {
+                    $(this).attr('style', function (i, style) {
+                        return style.replace(search, '');
+                    });
+                }
+                catch {
+
+                }
+               
+            });
+        };
+    }(jQuery));
+</script>
+<script>
+    $('.news_detail_img').removeAttr('style');
+    $('.news_detail_img').attr('style', 'margin:0 auto;text-align:center');
+
+    $('#NewsContent table').removeAttr('width');
+    $('#NewsContent span img').removeAttr('width');
+    $('#NewsContent img').removeAttr('width');
+    $('#NewsContent img').removeAttr('height');
+    $('#NewsContent img').removeAttr('style');
+
+    $('#NewsContent span').removeStyle('font-size');
+    $('#NewsContent div').removeStyle('font-size');
+    $('#NewsContent p').removeStyle('font-size');
+
+    //$('#NewsContent span').removeStyle('font-family');
+    //$('#NewsContent div').removeStyle('font-family');
+    //$('#NewsContent p').removeStyle('font-family');
+
+
+    fsize = 14;
+
+    function addsize() {
+
+        fsize = fsize + 1;
+        $('#NewsContent').attr('style', 'font-size:' + fsize + 'px');
+    }
+    function plussize() {
+        if (fsize > 8) {
+            fsize = fsize - 1;
+        }
+
+        $('#NewsContent').attr('style', 'font-size:' + fsize + 'px');
+    }
+</script>
+
+<style>
+    #NewsContent h2, #NewsContent h1, #NewsContent h3{
+        font-size: 16px;
+    }
+</style>

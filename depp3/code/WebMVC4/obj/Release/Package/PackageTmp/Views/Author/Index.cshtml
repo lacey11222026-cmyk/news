@@ -1,0 +1,75 @@
+﻿@using BIZ
+@using UTILS
+@using WebMVC4.Helper
+@model WebMVC4.Models.News2Model
+@{
+    Layout = "~/Views/Shared/_Layout2.cshtml";
+}
+<div class="title-cm02" style="border:none"><a href="#">CHUYÊN GIA CNSH-CNTP</a></div>
+
+<div class="row">
+    <div class="col-sm-4 col-xs-4 hidden-480">
+
+        <span class="author">Tác giả</span>
+        <ul class="author-list">
+            @foreach (var user in Model.listUser)
+            {
+
+                <li>
+                    <a href="/tac-gia/@(user.UserName)">
+                        <div class="author-img"><img src="@user.Avatar" alt=""></div>
+                        <p>@user.FullName</p>
+                        <div class="clearfix"></div>
+                    </a>
+                </li>
+
+            }
+
+
+        </ul>
+    </div>
+    <div class="col-sm-8 col-xs-8 main-author">
+        <ul class="author-detail">
+            @if (Model.articles != null)
+            {
+                foreach (var item in Model.articles.Select((value, i) => new { i, value }))
+                {
+                    <li>
+                        <a href="/tac-gia/@(item.value.Alias)">
+                            <img src="@item.value.Avatar?w=128&h=128&mode=crop" alt="">
+                        </a>
+                        <div class="author-info">
+                            <a href="@item.value.LinkUrl ">
+                                <h3 class="author-name" style="margin-top:0px;">@item.value.Title</h3>
+                            </a>
+                            <a href="/tac-gia/@(item.value.Alias)">
+                                <span class="author-work">@item.value.FullName</span>
+                            </a>
+                            <p class="author-text">@item.value.IntroText</p>
+                        </div>
+                        <div class="clearfix"></div>
+
+                    </li>
+                }
+            }
+        </ul>
+        <div class="pagination pull-right mt30">
+            @{Html.RenderPartial("Pagination", new WebMVC4.Models.PaginationInfo
+                {
+                    PageUrl = Url.SetParameter("Page", "!0"),
+                    CurrentPage = ViewBag.Page,
+                    PageSize = ViewBag.PageSize,
+                    TotalItemCount = ViewBag.Total,
+                }); }
+        </div>
+    </div>
+
+
+</div>
+<style>
+    @@media screen and (max-width: 485px) {
+        .author-detail img {
+            margin-right: 5px;
+        }
+    }
+</style>

@@ -1,0 +1,68 @@
+﻿<table border="0" cellpadding="0" cellspacing="0" width="100%">
+    <tbody>
+        <tr>
+            <td width="61%">
+           
+               <input type="text" onkeydown="javascript: return AnyInput_KeyDown(this, event);" class="f2" id="txtKeyword" name="txtKeyword"> 
+            </td>
+            <td width="12%">
+                
+                    <img src="/images/search.jpg" alt="tìm kiếm" id="imgsearch" style="cursor:pointer;"/>
+                   @* <div style="display:none;">
+
+                        <input type="submit" class="btn-search-img" id="btnSearch" value="" name="btnSearch">
+                    </div>*@
+            </td>
+            <td width="9%">
+                <a href="">
+                    <img src="/images/google.jpg" alt="mau giao lieu giai" /></a>
+            </td>
+            <td width="9%">
+                <a href="">
+                    <img src="/images/twister.jpg" alt="mau giao lieu giai" /></a>
+            </td>
+            <td width="9%">
+                <a href="">
+                    <img src="/images/face.jpg" alt="mau giao lieu giai" /></a>
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+<script type="text/javascript">
+    function search() {
+        var searchtext = $("#txtKeyword").val();
+        window.location = "/Home/Search?q=" + searchtext;
+
+    }
+    function AnyInput_KeyDown(sender, e) {
+        if ((e.which && e.which == 13) || (e.keyCode && e.keyCode == 13)) {
+            search();
+
+            return false;
+        }
+
+        return true;
+    }
+    $("#imgsearch").click(function () {
+        search();
+    });
+    var defaultKeyword = "Tìm kiếm ...";
+    if ($("#txtKeyword").val() == '') {
+        $("#txtKeyword>").val(defaultKeyword);
+    }
+
+    $("#txtKeyword").focus(function () {
+        if ($(this).val() == defaultKeyword) {
+            $(this).val('');
+        }
+    });
+
+    $("#txtKeyword").blur(function () {
+        if ($(this).val() == '') {
+            $(this).val(defaultKeyword);
+        }
+    });
+</script>
+<div class="clear">
+</div>

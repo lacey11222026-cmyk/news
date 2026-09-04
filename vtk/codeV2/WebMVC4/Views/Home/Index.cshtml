@@ -1,0 +1,36 @@
+﻿@using BIZ
+@using UTILS
+@using WebMVC4.Helper
+@using BIZ
+@using UTILS
+
+
+
+@using WebMVC4.Helper
+@{
+    var langpage = WorkContext.GetLanguage();
+}
+
+@{Html.RenderAction("Banner", "Home");}
+
+
+@{Html.RenderAction("Service", "Home");}
+
+<div class="customer container pt60 pb60">
+    @{Html.RenderAction("LastestNews", "Home", new { CategoryId = 11, MaxLastestNews = 20 });}
+</div><!-- end customer-->
+
+<div class="project pt60 pb60">
+    <div class="container">
+        @if (langpage == "vi-vn")
+        {
+            <h2 class="title-cm">Dự án tiêu biểu <span class="linegreen"></span></h2>
+        }
+        else
+        {
+            <h2 class="title-cm">Case Study <span class="linegreen"></span></h2>
+        }
+
+        @{Html.RenderAction("Slide", "Home");}
+    </div>
+</div>

@@ -1,0 +1,17 @@
+﻿@{
+   
+    Layout = "~/Views/Shared/_PrintLayout.cshtml";
+
+}
+@using BIZ
+@using UTILS
+
+@model BIZ.Entity.CONTENT_FULL
+
+<div id="title" class="title">@Model.Title</div>
+
+<div id="NewsContent" class="content" style="width: 100%; ">
+    @Html.Raw(Model.Contents)
+
+</div>
+

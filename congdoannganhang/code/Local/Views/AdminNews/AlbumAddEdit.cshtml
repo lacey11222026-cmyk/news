@@ -1,0 +1,806 @@
+﻿@{
+   
+    Layout = "~/Views/Shared/_Admin.cshtml";
+}
+
+
+    <script src="../../../Scripts/jquery-ui-1.8.16.custom.min.js" type="text/javascript"></script>
+    <script type="text/javascript">
+        OpenAlertDialog('Đang xử lý ...');
+    </script>
+    <div id="toolbar-box">
+        <div class="t">
+            <div class="t">
+                <div class="t">
+                </div>
+            </div>
+        </div>
+        <div class="m">
+            <div class="toolbar" id="toolbar">
+                <table class="toolbar">
+                    <tr>
+                        <td class="button" id="toolbar-create">
+                            <a id="A1" class="toolbar" href="javascript:void(0);" onclick="Save('','add');"><span
+                                class="icon-32-new" title="New"></span>Tạo mới</a>
+                        </td>
+                        <td class="button" id="toolbar-save">
+                            <a id="lnkSave" class="toolbar" href="javascript:void(0);" onclick="Save('close','save');">
+                                <span class="icon-32-save" title="Save"></span>Lưu lại</a>
+                        </td>
+                        <td class="button" id="toolbar-apply">
+                            <a id="lnkApply" class="toolbar" href="javascript:void(0);" onclick="Save('','save');"><span
+                                class="icon-32-apply" title="Apply"></span>Áp dụng</a>
+                        </td>
+                        <td class="button" id="toolbar-cancel">
+                            <a id="lnkClose" class="toolbar" href="javascript:void(0);" onclick="Close('','save');"><span
+                                class="icon-32-cancel" title="Close"></span>Đóng</a>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div class="header icon-48-addedit">
+                Sản phẩm: <small><span id="spDetailTitle"></span></small>
+            </div>
+            <div class="clr">
+            </div>
+        </div>
+        <div class="b">
+            <div class="b">
+                <div class="b">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="clr">
+    </div>
+    <div id="element-box">
+        <div class="t">
+            <div class="t">
+                <div class="t">
+                </div>
+            </div>
+        </div>
+        <div class="m" id="all_item_info_container">
+            <div id="jalert_notification">
+                &nbsp;</div>
+            <div id="tabs">
+                <ul>
+                    <li><a href="#tabs-1">Thông tin cơ bản</a></li>
+                    <li id="li_tabimg"><a href="#tabs-3">Ảnh</a></li>
+                    <li id="li_tabrelate"><a href="#tabs-5">Album liên quan</a></li>
+                </ul>
+                <div class="col width-70" id="tabs-1">
+                    <fieldset>
+                        <legend>Thông tin chi tiết album</legend>
+                        <table class="admintable" cellspacing="1">
+                            <tr>
+                                <td width="250" class="key">
+                                    <label for="">
+                                        Tên album
+                                    </label>
+                                </td>
+                                <td>
+                                    <input id="txtTitle" type="text" class="inputbox" maxlength="250" style="width: 350px" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="key">
+                                    <label for="">
+                                        Chuyên mục
+                                    </label>
+                                </td>
+                                <td>
+                                    <select id="select_category" name="select_category">
+                                    </select>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td width="250" class="key">
+                                    <label for="">
+                                        Tóm lược
+                                    </label>
+                                </td>
+                                <td>
+                                    <textarea id="txtDescription" cols="20" class="inputbox" style="width: 650px; height: 400px;"></textarea>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="key">
+                                    <label for="">
+                                        Hiển thị
+                                    </label>
+                                </td>
+                                <td>
+                                    <select id="select_style" name="select_style">
+                                        <option value="1">Light Box</option>
+                                        <option value="2">Gallery</option>
+                                    </select>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="key">
+                                    <label for="">
+                                        Tình trạng
+                                    </label>
+                                </td>
+                                <td>
+                                    <input name="radPublished" type="radio" value="0" />
+                                    Khóa
+                                    <input name="radPublished" type="radio" value="1" checked="checked" />
+                                    Hoạt động
+                                </td>
+                            </tr>
+                        </table>
+                    </fieldset>
+                </div>
+                <div id="tabs-3" class="col width-45" style="padding-left: 5px !important; width: 98%;">
+                    <fieldset>
+                        <legend>Ảnh </legend>
+                        
+                        <table class="admintable">
+                            <tr>
+                                <td>
+                                    @{Html.RenderAction("AlbumUploadContent", "AdminNews", new { id = ViewBag.Id });}                                
+                                </td>
+                            </tr>
+                            <tr class="admintable">
+                                <td>
+                                    <div id="images_container" style="width: 990px;">
+                                    </div>
+                                </td>
+                            </tr>
+                        </table>
+                    </fieldset>
+                </div>
+                 <div id="tabs-5" class="col width-70">
+                <fieldset>
+                    <legend>Thiết lập album liên quan</legend>
+                    <table class="admintable" id="configuration_container">
+                        <tr>
+                            <td colspan="3">
+                                Tên album:
+                                <input id="txt_filterbyname" type="text" style="width: 200px;" />
+                                <input id="btn_search" type="button" value="Lọc" onclick="Filter();" />
+                                &nbsp; &nbsp;Chuyên mục:
+                                <select id="select_filterbycategory" onchange="Filter();">
+                                </select>
+                                <br />
+                                <br />
+                            </td>
+                            <td width="40%">
+                                &nbsp;
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div>
+                                    Danh sách chọn
+                                    <select id="AvailableNews" style="height:400px;width:500px;" multiple="multiple" name="AvailableNews" size="4">
+                                    </select>
+                                </div>
+                            </td>
+                            <td>
+                                <div>
+                                    <img src="/Administrator/images/dualist/select.gif" alt="top" height="16px" width="16px"
+                                        title="chọn" style="cursor: pointer;" onclick="add();" /><br />
+                                    <img src="/Administrator/images/dualist/selectall.gif" alt="top" height="16px" width="16px"
+                                        title="chọn tất cả" style="cursor: pointer;" onclick="addall();" /><br />
+                                    <img src="/Administrator/images/dualist/remove.gif" alt="top" height="16px" width="16px"
+                                        title="loại bỏ" style="cursor: pointer;" onclick="remove();" /><br />
+                                    <img src="/Administrator/images/dualist/removeall.gif" alt="top" height="16px" width="16px"
+                                        title="bỏ tất cả" style="cursor: pointer;" onclick="removeall();" /><br />
+                                </div>
+                            </td>
+                            <td>
+                                <div>
+                                    Danh sách đã chọn
+                                    <select id="SelectedNews" style="height:400px;width:500px;" multiple="multiple" name="SelectedNews" size="4">
+                                    </select>
+                                    </div>
+                                
+                            </td>
+                            <td>
+                                <div>
+                                    <img src="/Administrator/images/dualist/top.gif" alt="top" height="16px" width="16px"
+                                        title="lên trên cùng" style="cursor: pointer;" onclick="moveTopItem();" /><br />
+                                    <img src="/Administrator/images/dualist/up.gif" alt="up" height="16px" width="16px"
+                                        title="lên trên" style="cursor: pointer;" onclick="moveUpItem();" /><br />
+                                    <img src="/Administrator/images/dualist/down.gif" alt="down" height="16px" width="16px"
+                                        title="xuống dưới" style="cursor: pointer;" onclick="moveDownItem();" /><br />
+                                    <img src="/Administrator/images/dualist/bottom.gif" alt="bottom" height="16px" width="16px"
+                                        title="xuống dưới cùng" style="cursor: pointer;" onclick="moveBottomItem();" /><br />
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+                </fieldset>
+            </div>
+                <div class="clr">
+                </div>
+            </div>
+        </div>
+        <div class="b">
+            <div class="b">
+                <div class="b">
+                </div>
+            </div>
+        </div>
+    </div>
+   
+    
+    <script type="text/javascript">
+        
+        var albumId = '@ViewBag.Id';
+        var currentCategorytId = 0;
+        var redirectUrl = '@Url.Action("Album","AdminNews")';
+        var imgdata = '';
+        var imageUrl = '@ViewBag.ImageUrl';
+        var entityName = 'Album';
+      
+        $(document).ready(function () {
+
+            BindCategoriesToSelectBox();
+
+            $("#tabs").tabs({ selected: 0 });
+           
+            LoadImages();
+
+           
+
+        });
+
+        function CuteWebUI_AjaxUploader_OnPostback() {
+            LoadImages();
+            LoadImagesForAlbumInDB();
+        }
+        function OnLoad() {
+            $(".button").hide();
+            $("#toolbar-cancel").show();
+            if (albumId != 0) {
+
+                $('#spDetailTitle').text('Sửa chữa');
+
+
+                $.Services({
+                    serviceName: 'AlbumService.ashx',
+                    data: {
+                        __m: 'get_album',
+                        _id: albumId
+                    },
+                    success: function (data) {
+
+                        if (data != undefined && data != null && data != '') {
+
+
+                            BindData(data);
+                            Filter();
+                        }
+                        else
+                            $('#all_item_info_container').html("Album không tồn tại hoặc đã bị xóa");
+
+                        DestroyDialog();
+                    }
+                });
+                $("#toolbar-apply").show();
+                $("#toolbar-save").show();
+            }
+            else {
+
+                $('#spDetailTitle').text('Tạo mới');
+                $("#toolbar-create").show();
+
+                $('#li_tabimg').hide();
+                $('#li_tabrelate').hide();
+                LoadRichTextEditor('txtDescription', 800, 400, null, null, "ajaxupload,media");
+                DestroyDialog();
+            }
+
+        }
+
+        function BindData(data) {
+
+            $('#txtTitle').val(data.Title);
+
+            $('#txtDescription').val(data.Description);
+            $('#select_style option[value=' + data.Style + ']').attr('selected', 'selected');
+            $('#select_category option[value=' + data.CategoryId + ']').attr('selected', 'selected');
+
+            currentCategorytId = data.CategoryId;
+
+            if (data.Images != null && data.Images != undefined && data.Images != '') {
+                var images = data.Images;
+                imgdata = data.Images;
+                var arr_images = jQuery.parseJSON(images);
+
+                var preimg = 'imagefirst_item';
+                $.each(arr_images, function (index, item) {
+                    $('#imageitem_' + item.Name.replace('.', '')).insertAfter($("#" + preimg));
+                    preimg = 'imageitem_' + item.Name.replace('.', '');
+                    if (index == 0) {
+
+
+                        $('#images_container').find('input[type="radio"][name="main_image"][value="' + item.Name + '"]').attr('checked', 'checked');
+
+
+                    }
+                    $('#image_text_' + item.Name.replace('.', '')).val(item.Text);
+                    $('#images_container').find('input[type="checkbox"][name="image_name"][value="' + item.Name + '"]').attr('checked', 'checked');
+                });
+            }
+
+
+            $('input[name="radPublished"]').each(function (i, e) {
+                if ($(e).val() == data.Status)
+                    $(e).attr('checked', 'checked');
+                else
+                    $(e).removeAttr('checked');
+            });
+            BinDataSelectedNews(data.Param);
+            LoadRichTextEditor('txtDescription', 800, 400, null, null, "ajaxupload,media");
+        }
+
+        function FormValidate() {
+            var title = $.trim($('#txtTitle').val());
+            if (title == '') {
+                $('#jalert_notification').jAlert('Tên album không được để trống', 'warning', "edit", 400);
+                $('#txtTitle').focus();
+                return false;
+            }
+            var main_image = $('input[type="radio"][name="main_image"]:checked').val();
+            if (albumId > 0) {
+                if (main_image == undefined || main_image == null || main_image == '') {
+                    $('#jalert_notification').jAlert('Bạn phải chọn ảnh bìa cho album', 'warning', "edit", 400);
+                    
+                    return false;
+                }
+            }
+            
+
+            return true;
+        }
+
+
+        function PostObj(method) {
+
+            var title = Encoder.urlEndcode($.trim($('#txtTitle').val()));
+            //var description = Encoder.urlEndcode($('#txtDescription').val());
+
+            var description = Encoder.urlEndcode(tinyMCE.get('txtDescription').getContent());
+            var cateogryId = $('#select_category option:selected').val();
+            var style = $('#select_style option:selected').val();
+            var categorypathway = $('#select_category option:selected').attr('title');
+            var status = 0;
+            status = $('input[name="radPublished"]:checked').val();
+
+            //main_image
+            var main_image_json = '';
+            var main_image = $('input[type="radio"][name="main_image"]:checked').val();
+            if (main_image == undefined || main_image == null || main_image == '') {
+                main_image_json = '';
+            }
+            else {
+                var main_text = $('#image_text_' + main_image.replace('.', '')).val().toString();
+                
+                if (main_text == undefined || main_text == null)
+                    main_text = '';
+
+                main_image_json = '{"Name":"' + main_image + '","Text":"' + main_text.replace(/"/g, '\\"') + '"}';
+           
+            }
+            
+          
+            //other image
+            var images_json = [];
+            var images = $('input[type="checkbox"][name="image_name"]:checked');
+            $.each(images, function (i, image) {
+                var imagevalue = $(image).val();
+
+                if (imagevalue != main_image) {
+                    var text = $('#image_text_' + imagevalue.replace('.', '')).val().toString();
+                    
+                    if (text == undefined || text == null)
+                        text = '';
+                    var json = Encoder.urlEndcode('{"Name":"' + imagevalue + '","Text":"' + text.replace(/"/g, '') + '"}');
+                    images_json.push(json);
+                }
+
+            });
+            //relate
+
+            var param = "";
+            $("#SelectedNews option").each(function () {
+                param = param + $(this).val() + ",";
+
+            });
+            var post_data = {
+                __m: method,
+                id: albumId,
+                title: title,
+                categoryid: cateogryId,
+                categorypathway: categorypathway,
+                description: description,
+                style: style,
+                status: status,
+                param:param,
+                'image': images_json,
+                mainimage: Encoder.urlEndcode(main_image_json)
+            }
+
+            return post_data;
+        }
+        function LoadImagesForAlbumInDB() {
+            //load by database
+            //alert(imgdata);
+            try {
+                if (imgdata != null && imgdata != undefined && imgdata != '') {
+                    var arr_images = jQuery.parseJSON(imgdata);
+                    var preimg = 'imagefirst_item';
+                    $.each(arr_images, function (index, item) {
+                        $('#imageitem_' + item.Name.replace('.', '')).insertAfter($("#" + preimg));
+                        preimg = 'imageitem_' + item.Name.replace('.', '');
+                        if (index == 0) {
+
+
+                            $('#images_container').find('input[type="radio"][name="main_image"][value="' + item.Name + '"]').attr('checked', 'checked');
+
+
+                        }
+                        $('#image_text_' + item.Name.replace('.', '')).val(item.Text);
+                        $('#images_container').find('input[type="checkbox"][name="image_name"][value="' + item.Name + '"]').attr('checked', 'checked');
+                    });
+
+                }
+            }
+            catch (e) {
+                // statements to handle any exceptions
+                //logMyErrors(e); // pass exception object to error handler
+            }
+
+
+        }
+        function Save(type, func) {
+
+            DestroyJAlert();
+
+            if (!FormValidate())
+                return;
+
+            OpenAlertDialog('Đang xử lý ...');
+
+            $.Services({
+
+                isCrossDomain: false,
+                url: POST_URL + 'AlbumService.ashx',
+                data: PostObj('save'),
+                success: function (data) {
+
+                    if (data != undefined && data != null && data != '') {
+                        //var json_data = eval('(' + data + ')');
+                        var json_data = $.parseJSON(data.substring(data.indexOf("{"), data.lastIndexOf("}") + 1));
+                        if (json_data.Success) {
+
+                            if (json_data.Value != 0 && json_data.Value != null && json_data.Value != undefined && json_data.Value != '') {
+                                albumId = json_data.Value;
+                                imageUrl = GetImageUrl(albumId, "Album", false);
+                                //RenderAjaxUpload('btnImagesUpload');
+
+                            }
+
+                            //OnLoad();                               
+                        }
+
+
+                        if (type != undefined && type != null && type != '' && type == 'close')
+                            Close();
+                        if (func == 'add')
+                            window.location.href = window.location.href + '?id=' + albumId;
+
+                        DestroyDialog();
+
+                        var jalert_type = "info";
+                        if (!json_data.Success)
+                            jalert_type = "fatal";
+
+                        $('#jalert_notification').jAlert(json_data.Text, jalert_type, "edit", 400);
+                    }
+
+
+
+                }
+            });
+        }
+
+        function Close() {
+
+            window.location.href = redirectUrl;
+        }
+
+        function BindCategoriesToSelectBox() {
+
+            //$('#select_category').html('<option value="0">- Không thuộc nhóm nào -</option>');
+            $('#select_filterbycategory').html('<option value="0">- Tất cả các chuyên mục -</option>');
+            $.Services({
+
+                serviceName: 'CategoryService.ashx',
+                data: {
+                    __m: 'get_all_categories',
+                    ctype: 4
+                },
+                success: function (data) {
+                    html = '';
+
+                    if (data != undefined && data != null && data != '') {
+
+                        $.each(data, function (i, item) {
+
+                            html = '<option value="' + item.Id + '" title="' + item.Pathway + '">';
+
+                            if (item.NodeLevel != 0) {
+                                for (var i = 1; i < item.NodeLevel; i++) {
+                                    html += '-+&nbsp;';
+                                }
+                            }
+
+                            html += item.Name;
+                            html += '</option>';
+
+                            if (item.ParentId != 0) {
+                                if ($('#select_category option[value=' + item.ParentId + ']').length) {
+
+                                    $('#select_category option[value=' + item.ParentId + ']').after(html);
+                                    $('#select_filterbycategory option[value=' + item.ParentId + ']').after(html);
+                                }
+                                else {
+                                    $('#select_category').append(html);
+                                    $('#select_filterbycategory').append(html);
+
+                                }
+                            }
+                            else {
+                                $('#select_category').append(html);
+                                $('#select_filterbycategory').append(html);
+                            }
+
+                        });
+
+                        OnLoad();
+
+                    }
+
+                }
+            });
+
+
+
+        }
+
+
+        function LoadImages() {
+            $.Services({
+                serviceName: 'ImageService.ashx',
+                data: {
+                    __m: 'album',
+                    _id: albumId
+                },
+                success: function (data) {
+                    var tablehtml = '<table id="images_table" class="adminlist" cellpadding="1">';
+
+                    tablehtml += '<tr id="imagefirst_item"><td align="center" width="20%">Ảnh</td><td align="center" width="40%">Mô tả</td><td align="left" width="15%"><input id="checkall" type="checkbox" onclick="checkAll(this);" name="checkall" /> Sử dụng </td><td align="center" width="15%">Chọn ảnh bìa </td><td align="center" width="10%"> Xóa</td>  </tr>';
+                    var html = '';
+                    if (data != undefined && data != null && data != '') {
+
+
+
+                        $.each(data, function (i, item) {
+                            html += '<tr id="imageitem_' + item.replace('.', '') + '"> ';
+                            html += '<td align="left" width="20%"><img src="' + imageUrl + item + '" width="50" height="50" /> (' + item+')';
+                            html += '</td><td align="center" width="55%"><input name="image_text" id="image_text_' + item.replace('.', '') + '" type="text" style="width:400px;"  />';
+                            html += '</td><td align="left" width="10%"><input name="image_name"  type="checkbox" value="' + item + '" />';
+                            html += '</td><td align="center" width="15%"><input type="radio" value="' + item + '" name="main_image"  />';
+                            html += '</td><td align="center" width="10%"> <input type="button" value="Xóa" onclick="DeleteImage(\'' + item + '\',this)" /> </td></tr>';
+
+
+                        });
+
+                    }
+                    $('#images_container').html("");
+                    $('#images_container').append(tablehtml + html + '</table >');
+                    $("#images_container").children().children().sortable();
+                   // $("#images_container").children().children().disableSelection(); 
+                }
+            });
+        }
+
+        function DeleteImage(image, elm) {
+
+            DestroyJAlert();
+
+            if ($(elm).next().attr('checked') == true) {
+                $('#jalert_notification').jAlert('Hiện tại ảnh này đang được đưa làm ảnh đại diện không thể xóa', 'fatal', 'edit', 400);
+                return;
+            }
+
+            var confirmFunc = function () {
+                $.Services({
+                    isCrossDomain: false,
+                    url: POST_URL + 'ImageService.ashx',
+                    data: {
+                        __m: 'del',
+                        _id: albumId,
+                        _en: entityName,
+                        fna: image
+                    },
+                    success: function (data) {
+                        if (data != undefined && data != null && data != '') {
+                           // var json_data = eval('(' + data + ')');
+                            var json_data = $.parseJSON(data.substring(data.indexOf("{"), data.lastIndexOf("}") + 1));
+                            if (json_data.Success) {
+
+
+                                $(elm).parent().parent().remove();
+                            }
+                            else {
+                                $('#jalert_notification').jAlert(json_data.Text, 'fatal', 'edit', 400);
+                            }
+
+                        }
+                    }
+                });
+            };
+
+            OpenConfirmDialog('Bạn có muốn xóa ảnh này không', confirmFunc);
+        }
+        
+        function checkAll(obj1) {
+
+            $('input[type="checkbox"][name="image_name"]').each(function (i, e) {
+
+                if (obj1.checked == true) {
+                    $(e).removeAttr('checked');
+                    $(e).attr('checked', 'checked');
+                }
+                else {
+                    $(e).removeAttr('checked');
+
+                }
+
+
+            });
+
+
+        }
+        function BinDataSelectedNews(lstid) {
+
+            var tit = $('#txt_filterbyname').val();
+            var cid = $('#select_filterbycategory option:selected').val();
+
+
+            $.Services({
+                element: $('#AvailableNews'),
+                loadingImg: '',
+                serviceName: 'AlbumService.ashx',
+                data: {
+                    __m: 'get_album_byids',
+                    _lstid: lstid
+                },
+                success: function (data) {
+
+                    if (data != undefined && data != null && data != '') {
+                        var html = '';
+                        $.each(data, function (index, item) {
+                            html += '<option value="' + item.Id + '">' + item.Title + '</option>';
+                        });
+                        $("#SelectedNews ").html(html);
+
+                    }
+                }
+
+            });
+        }
+    </script>
+    <script language="javascript" type="text/javascript">
+
+
+
+
+
+        function Filter() {
+
+
+            var tit = $('#txt_filterbyname').val();
+            var cid = $('#select_filterbycategory option:selected').val();
+
+
+            $.Services({
+                element: $('#AvailableNews'),
+                loadingImg: '',
+                serviceName: 'AlbumService.ashx',
+                data: {
+                    __m: 'get_filter_albums',
+                    tit: tit,
+                    cid: cid,
+                    status:1,
+                    _pi: 1,
+                    _ps: 15
+                },
+                success: function (data) {
+                    var html = '';
+                    if (data != undefined && data != null && data != '') {
+                        var items = data.Items;
+                        var total = data.Total;
+
+                        html = BinDataAvailableNews(items);
+
+                    }
+
+                    $("#AvailableNews ").html(html)
+                }
+
+            });
+        }
+        function BinDataAvailableNews(data) {
+            var html = '';
+            $.each(data, function (index, item) {
+                html += '<option value="' + item.Id + '">' + item.Title + '</option>';
+            });
+
+            return html;
+        }
+        function add() {
+            $("#AvailableNews option:selected").appendTo("#SelectedNews");
+
+        }
+        function addall() {
+            $("#AvailableNews option").appendTo("#SelectedNews");
+
+        }
+
+        function remove() {
+            $("#SelectedNews option:selected").appendTo("#AvailableNews");
+        }
+
+        function removeall() {
+            $("#SelectedNews option").appendTo("#AvailableNews");
+        }
+
+
+        function moveTopItem() {
+
+
+            //            if ($('#SelectedNews option:selected').attr('index') > $('#SelectedNews option:first').attr('index')) {
+
+            $('#SelectedNews option:selected').insertBefore($('#SelectedNews option:first'));
+
+            //            }
+            return false;
+
+        }
+
+        function moveUpItem() {
+            $('#SelectedNews option:selected').each(function () {
+
+                $(this).insertBefore($(this).prev());
+            });
+        }
+
+        function moveDownItem() {
+
+            $('#SelectedNews option:selected').each(function () {
+                $(this).insertAfter($(this).next());
+            });
+
+        }
+        function moveBottomItem() {
+
+            //            if ($('#SelectedNews option:selected').attr('index') < $('#SelectedNews option:last').attr('index')) {
+
+            $('#SelectedNews option:selected').insertAfter($('#SelectedNews option:last'));
+
+            //            }
+            return false;
+
+        }
+
+      
+
+    </script>

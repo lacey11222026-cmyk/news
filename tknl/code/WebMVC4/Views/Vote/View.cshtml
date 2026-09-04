@@ -1,0 +1,41 @@
+﻿@{
+
+    Layout = "~/Views/Shared/_VoteLayout.cshtml";
+
+}
+@using UTILS
+@using  WebMVC4.Models
+@using  WebMVC4.Helper
+@model WebMVC4.Models.SurveyItemModel
+
+<div style="font-family:Arial; width:100%; ">
+    <div style="line-height: 30px; font-weight: bold; padding-left:20px;border: 1px solid #ededed;">Kết quả bình chọn</div>
+    <div style="background:#ededed; padding:1px 20px; font-size:13px;">
+        <p>
+            @Model.obj.Content<br />
+            <span style="font-size:12px;">Tổng cộng: @Model.listdata.Sum(x => x.Count) phiếu</span>
+        </p>
+    </div>
+    <div id="votechartcontainer" style="min-height:300px;"></div>
+</div>
+
+
+
+<script type="text/javascript">
+    google.load("visualization", "1", { packages: ["corechart"] });
+    google.setOnLoadCallback(drawChart);
+    function drawChart() {
+        var data = google.visualization.arrayToDataTable([@(Html.Raw(Model.data))]);
+
+        var options = {
+            legend: { position: 'top', maxLines: 5 },
+            axisTitlesPosition: 'none',
+            vAxis: { textPosition: 'none' },
+            bar: { groupWidth: 60 },
+            chartArea: { width: '90%', height: '50%' }
+        };
+
+        var chart = new google.visualization.BarChart(document.getElementById('votechartcontainer'));
+        chart.draw(data, options);
+    }
+</script>

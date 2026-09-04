@@ -1,0 +1,188 @@
+﻿@{
+   
+    Layout = "~/Views/Shared/_AdminV2.cshtml";
+    
+}
+@model BIZ.Entity.CATEGORY_FULL
+<link href="/Styles/admin/css/blue/tab.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#menu_category').click();
+
+    });
+
+    function validateForm() {
+        var Name = $('#Name').val();
+        if (Name == "") {
+
+            alert('Tên không được trống');
+            $('#Name').focus();
+            return false;
+        }
+        var Description = $('#Description').val();
+        if (Description == "") {
+
+            alert('Mô tả không được trống');
+            $('#Description').focus();
+            return false;
+        }
+        var DisplayOrder = $('#DisplayOrder').val();
+        if (DisplayOrder == "") {
+
+            alert('Thứ tự không được trống');
+            $('#DisplayOrder').focus();
+            return false;
+        }
+        if (!isInteger(DisplayOrder) || DisplayOrder < 1) {
+
+            alert('Thứ tự phải là số nguyên dương');
+            $('#DisplayOrder').focus();
+            return false;
+        }
+        return true;
+
+    }
+
+
+</script>
+<div class="onecolumn" id="product-tabs">
+    <div class="header">
+        <span>@ViewBag.Title</span>
+        <div class="menuitem">
+            <ul>
+                <li><a href="#tabs-info">Thông tin cơ bản</a></li>
+                <li><a href="#tabs-seo">Thiết lập</a></li>
+            </ul>
+        </div>
+    </div>
+    <br class="clear">
+    <div class="content">
+        @using (Html.BeginForm(null, null, FormMethod.Post, new { onsubmit = "return validateForm();" }))
+        {
+        <div class="login" id="tabs-seo">
+            <div class="login-left">
+
+            </div>
+            <div class="login-right">
+                Hiển thị trên <b>Menu chính</b> &nbsp;
+                @Html.CheckBoxFor(model => model.Param.IsHomepage, 1) &nbsp; &nbsp;
+
+                @Html.HiddenFor(model => model.CreateDate)
+            </div>
+            <div class="clear">
+            </div>
+            <div class="login-left">
+
+            </div>
+            <div class="login-right">
+                Hiển thị dưới <b>chân trang</b> &nbsp;
+                @Html.CheckBoxFor(model => model.Param.IsFooter, 1) &nbsp; &nbsp;
+
+               
+            </div>
+            <div class="clear">
+            </div>
+            <div class="login-left">
+                @Html.Label("Liên kết:")
+            </div>
+            <div class="login-right">
+                @Html.TextBoxFor(m => m.Link, new { @class = "textbox" })
+            </div>
+
+            <div class="clear">
+            </div>
+        </div>
+            <div class="login" id="tabs-info">
+
+
+                <div class="login-left">
+                    @Html.Label("Tên chuyên mục:")
+                </div>
+                <div class="login-right">
+                    @Html.TextBoxFor(m => m.Name, new { @class = "textbox" })
+                    @Html.HiddenFor(m => m.Id)
+                </div>
+                <div class="clear">
+                </div>
+                <div class="login-left">
+                    @Html.Label("Mô tả:")
+                </div>
+                <div class="login-right">
+                    @Html.TextAreaFor(m => m.Description, new { @class = "textbox" })
+                </div>
+                <div class="clear">
+                </div>
+                <div class="login-left">
+                    @Html.Label("Phân loại:")
+                </div>
+                <div class="login-right">
+
+                    @Html.DropDownList("Type", new SelectList(ViewBag.TypeCateList as System.Collections.IEnumerable, "Value", "Text", Model.Type), new { @class = "drl_Status" })
+                </div>
+
+                <div class="clear">
+                </div>
+                <div class="login-left">
+                    @Html.Label("Chuyên mục cha:")
+                </div>
+                <div class="login-right">
+                    @Html.DropDownList("ParentId", new SelectList(ViewBag.CategoryList as System.Collections.IEnumerable, "Id", "Name", Model.ParentId), new { @class = "drl_ContentType" })
+                </div>
+                <div class="clear">
+                </div>
+                <div class="login-left">
+                    @Html.Label("Ngôn ngữ:")
+                </div>
+                <div class="login-right">
+
+                    @Html.DropDownList("Language", new SelectList(ViewBag.LanguageList as System.Collections.IEnumerable, "SValue", "Text", Model.Language), new { @class = "drl_Status" })
+                </div>
+
+                <div class="clear">
+                </div>
+                <div class="login-left">
+                    @Html.Label("Thứ tự:")
+                </div>
+                <div class="login-right">
+                    @Html.TextBoxFor(m => m.Ordering, new { @class = "textbox" })
+
+                </div>
+                <div class="clear">
+                </div>
+
+                <div class="login-left">
+                    @Html.Label("Trạng thái:")
+                </div>
+                <div class="login-right">
+                    @Html.RadioButtonFor(model => model.Published, 1, new { Checked = "checked" })
+                    Hoạt động &nbsp;
+                    @Html.RadioButtonFor(model => model.Published, 0)
+                    Khóa
+                </div>
+                <div class="clear">
+                </div>
+
+            </div>
+            <div class="button_login">
+                <div>
+
+                    <input type="submit" value="Cập nhật" onclick="doStart(); return false;" />
+
+
+                    &nbsp;
+                    <input type="button" value="Quay lại" onclick="javascript: history.go(-1);" />
+                </div>
+            </div>
+            <div class="clear">
+            </div>
+            
+        
+        }
+    </div>
+</div>
+
+<script type="text/javascript">
+    $(function () {
+        $('#product-tabs').tabs();
+    });
+</script>

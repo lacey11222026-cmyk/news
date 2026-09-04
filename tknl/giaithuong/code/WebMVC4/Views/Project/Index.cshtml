@@ -1,0 +1,40 @@
+﻿@using BIZ
+@using UTILS
+@using WebMVC4.Helper
+@model WebMVC4.Models.ProjectModel
+
+@{
+    Layout = "~/Views/Shared/_Home.cshtml";
+}    <h2 class="title-cm mt0">CÔNG NGHỆ VÀ THIẾT BỊ CHUYỂN GIAO</h2>
+<ul class="row tb-list">
+    @foreach (var item in Model.listdata.Select((value, i) => new { i, value }))
+    {
+        <li class="col-md-3 col-sm-4 col-xs-6 ">
+            <a href="@Url.Action("Detail","Project",new { Id=item.value.Id})" class="maxheight08" >
+                <div class="wrap-img"><img src="@item.value.Image?w=219&h=135&mode=crop"></div>
+                <p>@item.value.Name</p>
+                <span>@item.value.CreatedBy</span>
+            </a>
+        </li>
+    }
+
+
+</ul><!-- end danh sach thiet bi-->
+<div class="pagination pull-left mt30">
+    <ul>
+        @{Html.RenderPartial("Pagination", new WebMVC4.Models.PaginationInfo
+            {
+                PageUrl = Url.SetParameter("Page", "!0"),
+                CurrentPage = Model.pageIndex,
+                PageSize = Model.pageSize,
+                TotalItemCount = Model.total,
+            }); }
+    </ul>
+</div>
+<div class="clearfix"></div>
+
+
+
+
+
+

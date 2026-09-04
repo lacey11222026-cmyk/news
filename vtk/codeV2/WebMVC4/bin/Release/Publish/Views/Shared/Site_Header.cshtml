@@ -1,0 +1,68 @@
+﻿@using UTILS
+<div class="header">
+    <div class="container">
+        <div class="text-right"><p class="hotline">Hotline: <a href="tel:0945 673 386">0945 673 386</a></p></div>
+    </div>
+    <div id="navbar">
+        <div class="container">
+            <div class="head-content">
+                <a href="/" class="logo"><img src="/Content/images/logo.png" alt="vtkmedia"></a>
+                <div class="pull-right">
+                    <nav class="nav-top">
+                        @{Html.RenderAction("Menu", "Home");}
+                    </nav>
+                    <div class="boxsearch">
+                        <input type="text" placeholder="Tìm kiếm" id="txtKeyword" onkeydown="javascript: return AnyInput_KeyDown(this, event);">
+                        <span class="glyphicon glyphicon-search" onclick="search()" ></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="nav-mobile">
+            <div class="header-m">
+                <a href="#menu">
+                    <img src="/Content/images/ico-menu.png" class="ico-menu pull-right" alt="">
+                </a>
+            </div>
+            <div id="menu">
+                @{Html.RenderAction("MenuMobile", "Home");}
+            </div>
+        </div>
+    </div>
+</div><!-- end header-->
+<div class="clearfix"></div>
+<script type="text/javascript">
+    function search() {
+        var searchtext = $("#txtKeyword").val();
+        window.location = "/News/Search?q=" + searchtext;
+
+    }
+    function AnyInput_KeyDown(sender, e) {
+        if ((e.which && e.which == 13) || (e.keyCode && e.keyCode == 13)) {
+            search();
+
+            return false;
+        }
+
+        return true;
+    }
+
+
+    function Msearch() {
+        var searchtext = $("#txtKeywordMobile").val();
+        window.location = "/News/Search?q=" + searchtext;
+
+    }
+    function MAnyInput_KeyDown(sender, e) {
+        if ((e.which && e.which === 13) || (e.keyCode && e.keyCode === 13)) {
+            Msearch();
+
+            return false;
+        }
+
+        return true;
+    }
+
+
+
+</script>

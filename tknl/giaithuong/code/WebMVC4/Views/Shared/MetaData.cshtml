@@ -1,0 +1,45 @@
+﻿<meta content="general" name="rating" />
+<meta content="Khoa hoc cong nghe" name="copyright" />
+<meta content="never" name="expires" />
+<meta content="global" name="distribution" />
+<meta content="DOCUMENT" name="RESOURCE-TYPE" />
+
+<meta name="robots" content="index,follow" />
+<meta name="Googlebot" content="index,follow,noarchive" />
+<meta http-equiv="content-type" content="text/html;charset=UTF-8" />
+
+<link rel="shortcut icon" href="/Content/images/ico-logo.png" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+
+
+<title>@Html.Raw(ViewBag.Title)</title>
+<meta property="og:title" content="@Html.Raw(ViewBag.Title)" />
+<meta name="description" content="@Html.Raw(ViewBag.Description)" />
+<meta property="og:description" content="@Html.Raw(ViewBag.Description)" />
+@if (string.IsNullOrEmpty(ViewBag.SiteImage))
+{
+    <meta property="og:image" content="" />
+    <link rel="image_src" href="" />
+    <meta property="og:type" content="website" />
+
+}
+else
+{
+    <meta property="og:image" content="@ViewBag.SiteImage" />
+    <link rel="image_src" href="@ViewBag.SiteImage" />
+    <meta property="og:type" content="article" />
+
+}
+
+
+
+<meta property="og:url" content="@HttpContext.Current.Request.Url.AbsoluteUri" />
+
+<link rel="publisher" href="https://www.facebook.com/KHCNcongthuong/" />
+<link rel="author" href="https://www.facebook.com/KHCNcongthuong/" />
+
+<meta name="geo.placename" content="Ha Noi, Viet Nam" />
+<meta name="geo.region" content="VN-HN" />
+<meta property="fb:app_id" content="1017677488409545" />
+

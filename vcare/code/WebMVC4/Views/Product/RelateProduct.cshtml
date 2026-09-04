@@ -1,0 +1,77 @@
+﻿@using BIZ
+@using UTILS
+@using WebMVC4.Helper
+@model List<DATA.Product>
+
+
+@if (Model != null)
+{
+    if (Model.Count > 3)
+    {
+        <div class="home-section-head clearfix">
+            <h2>
+                <span>Sản phẩm tương tự</span>
+            </h2>
+
+        </div>
+        <div class="home-section-body">
+            <div class="section-desc">
+                Các sản phẩm mà bạn cũng có thể bạn muốn xem
+            </div>
+            <div id="owl-related-products-slider" class="owl-carousel owl-theme">
+
+                @foreach (var item in Model.Select((value, i) => new { i, value }))
+                {
+                    <div class="item">
+
+                        <div class="product-item">
+                            <div class="product-img">
+                                <div class="product-img">
+                                    <a href="/products/@(item.value.Url)">
+                                        @if (string.IsNullOrEmpty(item.value.Album))
+                                        {
+                                            <img src="@item.value.DescriptImage" class="only-one" alt="@item.value.Name" />
+                                        }
+                                        else
+                                        {
+                                            <img src="@item.value.DescriptImage" alt="@item.value.Name" />
+                                            <img src="@item.value.Album" alt="@item.value.Name" />
+                                        }
+                                    </a>
+                                </div>
+                                <div class="product-item-info">
+                                    <div class="product-title">
+                                        <a href="/products/@(item.value.Url)">@item.value.Name</a>
+                                    </div>
+                                    <div class="product-price clearfix test">
+                                        @if (!string.IsNullOrEmpty(item.value.Language))
+                                        {
+                                            <span class="current-price">@item.value.Language</span>
+                                        }
+                                        else
+                                        {
+                                            if (item.value.Price > 0)
+                                            {
+                                                <span class="current-price">@Utils.InsertCommaNoStyle(item.value.Price.ToString()) đ</span>
+                                            }
+                                            else
+                                            {
+                                                <span class="current-price">Liên hệ</span>
+                                            }
+
+                                        }
+
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                }
+
+                </div>
+        </div>
+      
+
+    }
+}

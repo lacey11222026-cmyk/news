@@ -1,0 +1,28 @@
+﻿@using BIZ
+@using UTILS
+@using WebMVC4.Helper
+@model WebMVC4.Models.LastestNewModel
+@if (Model != null)
+{
+    if (Model.lstdata.Count > 0)
+    {
+        <div class="border-blue">
+            <h2 class="title-cm p5"><a href="#">Tin đọc nhiều</a></h2>
+            <div class="p5">
+                @foreach (var item in Model.lstdata.Take(1).Select((value, i) => new { i, value }))
+                {
+                    <img src="@item.value.MainImage?w=500&h=300&mode=crop" alt="" class="w100">
+                }
+                </div>
+            <ul class="news-list">
+                @foreach (var item in Model.lstdata.Select((value, i) => new { i, value }))
+                {
+                    <li>
+                        <a href="@item.value.LinkUrl">@item.value.Title</a>
+                        <span class="date mt10">@item.value.PublishDate.ToString("dd/MM/yyyy - HH:mm")</span>
+                    </li>
+                }
+            </ul>
+        </div>
+    }
+}

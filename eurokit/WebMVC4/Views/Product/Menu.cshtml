@@ -1,0 +1,15 @@
+﻿@using BIZ.Entity
+@using UTILS
+@using WebMVC4.Helper
+@model List<CATEGORY_FULL>
+
+
+@foreach (var item in Model.Where(x => x.ParentId == 15).Select((value, i) => new { i, value }))
+{
+    <li><a id="menu-@(item.value.Id)" href="@item.value.Url" title="@item.value.Name" class="left-cat active"><i class="fa fa-caret-right"></i> @item.value.Name</a> </li>
+    foreach (var sub in Model.Where(x => x.ParentId == item.value.Id).Select((value, i) => new { i, value }))
+    {
+        <li class="sub-cat"><a href="@sub.value.Url" title="@sub.value.Name" class="left-cat "><i class="fa fa-angle-right"></i> @sub.value.Name</a> </li>
+    }
+}
+

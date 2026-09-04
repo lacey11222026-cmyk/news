@@ -1,0 +1,236 @@
+﻿@using BIZ
+@using UTILS
+@using WebMVC4.Helper
+@{
+    var langpage = WorkContext.GetLanguage();
+}
+@model WebMVC4.Models.News2Model
+
+
+@if (langpage == "vi-vn")
+{
+    <div class="bnr-detail">
+        <img src="@Model.cate.Image" alt="">
+    </div>
+}
+else
+{
+    <div class="bnr-detail">
+        <img src="@(!String.IsNullOrEmpty(Model.cate.Param.ImageEn)?Model.cate.Param.ImageEn:Model.cate.Image)" alt="">
+    </div>
+}
+@if (Model.listcate != null)
+{
+    <div class="submenu">
+        <div class="container">
+            @if (langpage == "vi-vn")
+            {
+                <ul class="submenu-list list-inline">
+                    @foreach (var item in Model.listcate.Select((value, i) => new { i, value }))
+                    {
+                        <li class="@(item.value.Id == Model.cate.Id ? "active" : "")"><a href="@item.value.Url">@item.value.Name</a></li>
+                    }
+
+
+                </ul>
+                <div class="dropdown">
+                    <div class="dropdown__inner">
+                        <h4>MENU</h4><i class="glyphicon glyphicon-chevron-down"></i>
+                        <ul class="banner__navi_list dropdownSub">
+                            @foreach (var item in Model.listcate.Select((value, i) => new { i, value }))
+                            {
+                                <li class="@(item.value.Id == Model.cate.Id ? "active" : "")"><a href="@item.value.Url">@item.value.Name</a></li>
+                            }
+                        </ul>
+                    </div>
+                </div>
+            }
+            else
+            {
+                <ul class="submenu-list list-inline">
+                    @foreach (var item in Model.listcate.Select((value, i) => new { i, value }))
+                    {
+                        <li class="@(item.value.Id == Model.cate.Id ? "active" : "")"><a href="@item.value.Url">@item.value.Language</a></li>
+                    }
+
+
+                </ul>
+                <div class="dropdown">
+                    <div class="dropdown__inner">
+                        <h4>MENU</h4><i class="glyphicon glyphicon-chevron-down"></i>
+                        <ul class="banner__navi_list dropdownSub">
+                            @foreach (var item in Model.listcate.Select((value, i) => new { i, value }))
+                            {
+                                <li class="@(item.value.Id == Model.cate.Id ? "active" : "")"><a href="@item.value.Url">@item.value.Language</a></li>
+                            }
+                        </ul>
+                    </div>
+                </div>
+            }
+
+
+        </div>
+    </div>
+}
+@if (langpage == "vi-vn")
+{
+    <div class="project pt60 pb60">
+        <div class="container">
+            <div class="decs">@Html.Raw(Model.cate.Contents)</div>
+
+            @if (Model.cate.Id == 9)
+            {
+                <h2 class="title-cm mt30">Tin mới nhất <span class="linegreen"></span></h2>
+                <ul class="row projecthot mt20">
+                    @foreach (var item in Model.hotnews.Select((value, i) => new { i, value }))
+                    {
+                        <li class="col-md-6 col-sm-6 col-xs-12">
+                            <a href="@item.value.LinkUrl">
+                                <p class="maxheight01">@item.value.Title</p>
+                                <img src="@item.value.MainImage?w=855&h=518&mode=crop" alt="">
+                            </a>
+                        </li>
+                    }
+
+
+                </ul>
+            }
+            @if (Model.cate.Id == 7 || Model.cate.Id == 8 || Model.cate.Id == 10 || Model.cate.Id == 16)
+            {
+                <h2 class="title-cm mt30">Dự án nổi bật <span class="linegreen"></span></h2>
+                <ul class="row mt90 project-list">
+                    @foreach (var item in Model.hotnews.Select((value, i) => new { i, value }))
+                    {
+                        <li class="col-md-4 col-sm-4 col-xs-6 project-item wow slideInRight" data-wow-delay="@HtmlHelpers.GetDelay(item.i + 1)">
+                            <a href="@item.value.LinkUrl">
+                                <img src="@item.value.MainImage?w=579&h=351&mode=crop" alt="">
+                                <div class="pr-content"><p>@item.value.Title</p></div>
+                            </a>
+                        </li>
+                    }
+                </ul>
+            }
+            @if (Model.cate.Id == 15)
+            {
+                <h2 class="title-cm mt30">Video mới nhất <span class="linegreen"></span></h2>
+                <div class="videobox mt60">
+                    @foreach (var item in Model.hotnews.Take(1).Select((value, i) => new { i, value }))
+                    {
+                        <div class="row video-big">
+                            <div class="col-md-8 col-sm-8 col-xs-12">
+                                <div class="movie">
+                                    <iframe src="@(item.value.Url.Replace("watch?v=", "embed/"))?autoplay=1&rel=0" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen style="position: absolute; top: 0px; right: 0px; bottom: 0px; left: 0px; width: 100%; height: 100%;"></iframe>
+                                </div>
+                            </div>
+                            <div class="col-md-4 col-sm-4 col-xs-12">
+                                <h2 class="videobig-title">@item.value.Title</h2>
+                                @*<p class="mt30 f18">
+                                    @Html.Raw(item.value.IntroText)
+                                </p>*@
+                            </div>
+                        </div>
+                    }
+                    <ul class="video-list row pt60">
+                        @foreach (var item in Model.hotnews.Skip(1).Select((value, i) => new { i, value }))
+                        {
+                            <li class="col-md-4 col-sm-4 col-xs-6">
+                                <a href="@item.value.LinkUrl">
+                                    <img src="@item.value.MainImage?w=560&h=340&mode=crop" alt="">
+                                    <p class="videoitem-title">@item.value.Title</p>
+                                </a>
+                            </li>
+                        }
+                    </ul>
+                </div>
+            }
+        </div>
+    </div>
+}
+else
+{
+    <div class="project pt60 pb60">
+        <div class="container">
+            <div class="decs">@Html.Raw(Model.cate.Param.ContentEn)</div>
+
+            @if (Model.cate.Id == 9)
+            {
+                <h2 class="title-cm mt30">Case Study <span class="linegreen"></span></h2>
+                <ul class="row projecthot mt20">
+                    @foreach (var item in Model.hotnews.Select((value, i) => new { i, value }))
+                    {
+                        <li class="col-md-6 col-sm-6 col-xs-12">
+                            <a href="@item.value.LinkUrl">
+                                <p class="maxheight01">@item.value.IntroText</p>
+                                <img src="@item.value.MainImage?w=855&h=518&mode=crop" alt="">
+                            </a>
+                        </li>
+                    }
+
+
+                </ul>
+            }
+            @if (Model.cate.Id == 7 || Model.cate.Id == 8 || Model.cate.Id == 10 || Model.cate.Id == 16)
+            {
+                <h2 class="title-cm mt30">Case Study <span class="linegreen"></span></h2>
+                <ul class="row mt90 project-list">
+                    @foreach (var item in Model.hotnews.Select((value, i) => new { i, value }))
+                    {
+                        <li class="col-md-4 col-sm-4 col-xs-6 project-item wow slideInRight" data-wow-delay="@HtmlHelpers.GetDelay(item.i + 1)">
+                            <a href="@item.value.LinkUrl">
+                                <img src="@item.value.MainImage?w=579&h=351&mode=crop" alt="">
+                                <div class="pr-content"><p>@item.value.IntroText</p></div>
+                            </a>
+                        </li>
+                    }
+                </ul>
+            }
+            @if (Model.cate.Id == 15)
+            {
+                <h2 class="title-cm mt30">Hot Video <span class="linegreen"></span></h2>
+                <div class="videobox mt60">
+                    @foreach (var item in Model.hotnews.Take(1).Select((value, i) => new { i, value }))
+                    {
+                        <div class="row video-big">
+                            <div class="col-md-8 col-sm-8 col-xs-12">
+                                <div class="movie">
+                                    <iframe src="@(item.value.Url.Replace("watch?v=", "embed/"))?autoplay=1&rel=0" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen style="position: absolute; top: 0px; right: 0px; bottom: 0px; left: 0px; width: 100%; height: 100%;"></iframe>
+                                </div>
+                            </div>
+                            <div class="col-md-4 col-sm-4 col-xs-12">
+                                <h2 class="videobig-title">@item.value.IntroText</h2>
+                                @*<p class="mt30 f18">
+                                        @Html.Raw(item.value.IntroText)
+                                    </p>*@
+                            </div>
+                        </div>
+                    }
+                    <ul class="video-list row pt60">
+                        @foreach (var item in Model.hotnews.Skip(1).Select((value, i) => new { i, value }))
+                        {
+                            <li class="col-md-4 col-sm-4 col-xs-6">
+                                <a href="@item.value.LinkUrl">
+                                    <img src="@item.value.MainImage?w=560&h=340&mode=crop" alt="">
+                                    <p class="videoitem-title">@item.value.IntroText</p>
+                                </a>
+                            </li>
+                        }
+                    </ul>
+                </div>
+            }
+        </div>
+    </div>
+}
+<div class="pagination-cm mt20">
+    <ul>
+        @{Html.RenderPartial("Pagination", new WebMVC4.Models.PaginationInfo
+            {
+                PageUrl = Url.SetParameter("Page", "!0"),
+                CurrentPage = ViewBag.Page,
+                PageSize = ViewBag.PageSize,
+                TotalItemCount = ViewBag.Total,
+            }); }
+    </ul>
+</div>
+
+
+

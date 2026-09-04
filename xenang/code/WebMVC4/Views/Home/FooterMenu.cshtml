@@ -1,0 +1,26 @@
+﻿@using BIZ.Entity
+@using UTILS
+@using WebMVC4.Helper
+@model List<CATEGORY_FULL>
+<div class="tukhoa-chantrang">
+    @if (Model != null)
+    {
+
+        if (Model.Count > 0)
+        {
+            foreach (var item in Model.Select((value, i) => new { i, value }))
+            {
+                <div id="widget_kt_seo_keyword-@item.i" class="widget-container widget-footer-bottom widget_kt_seo_keyword">
+                    <ul class="trademark-list">
+                        <li class="trademark-text-tit">@item.value.Name:</li>
+                        @{ Html.RenderAction("FooterMenu", "Product", new { id = item.value.Id, name = item.value.Name }); }
+                       
+                    </ul>
+                </div>
+            }
+        }
+    }
+
+
+</div>
+    

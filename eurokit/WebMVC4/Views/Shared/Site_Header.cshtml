@@ -1,0 +1,142 @@
+﻿@using WebMVC4.Helper
+@using BIZ
+@using UTILS
+
+
+@{
+    var cartProductCount = OrderHelper.GetShopingCart().ListProduct.Count;
+
+}
+<div id="NavDrawer" class="drawer drawer--right">
+    <div class="drawer__header">
+        <div class="drawer__close js-drawer-close">
+            <button type="button" class="icon-fallback-text">
+                <i class="fa fa-times"></i>
+            </button>
+        </div>
+    </div>
+    @Html.Action("MenuMobile", "Home")
+</div>
+<div class="cart-overlay"></div>
+<div id="CartDrawer" class="drawer drawer--left">
+    <div class="drawer__header">
+        <div class="drawer__title h3">Giỏ hàng</div>
+        <div class="drawer__close js-drawer-close">
+            <button type="button" class="icon-fallback-text">
+                <span class="icon icon-x" aria-hidden="true"></span>
+                <span class="fallback-text">"Đóng"</span>
+            </button>
+        </div>
+    </div>
+    <div id="CartContainer"></div>
+</div>
+<header id="header" class="">
+    <div class="desktop-header medium--hide small--hide">
+        <div class="desktop-header-top">
+            <div class="wrapper">
+                <div class="inner">
+                    <div class="grid">
+                        <div class="grid__item large--eight-twelfths">
+                            <div class="hdt-left-contact wow fadeInLeft" data-wow-duration="0.75s" data-wow-delay="0.2s" style="visibility: visible; animation-duration: 0.75s; animation-delay: 0.2s; animation-name: fadeInLeft;">
+                                <div><br></div>
+                            </div>
+                        </div>
+                        <div class="grid__item large--four-twelfths text-right">
+                           
+                            <div class="desktop-cart-wrapper wow fadeInRight" id="header-cart" style="visibility: visible; animation-name: fadeInRight;">
+                                <a href="@Url.Action("ShoppingCart", "Order")" title="Xem giỏ hàng" class="hd-cart">
+                                    <i class="fa fa-shopping-cart" aria-hidden="true"></i> Giỏ hàng (<span class="hd-cart-count">@(cartProductCount)</span>)
+                                </a>
+                                
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="desktop-header-center">
+            <div class="wrapper">
+                <div class="inner">
+                    <div class="grid">
+                        <div class="grid__item large--six-twelfths">
+                            <div class="hd-logo wow fadeInUp" style="visibility: visible; animation-name: fadeInUp;">
+                                <a href="/" title="Eurokit - Chuyên gia Tủ bếp thông minh">
+                                    <img src="/Content/images/logo2020.jpg?vs=08" alt="eurokit" height="129">
+                                    <div style="color:#fff;margin-left:40px; margin-top:-20px;">0984535085 / 0916306215 </div>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="grid__item large--six-twelfths">
+                            <div class="hdt-right-search wow zoomIn" style="visibility: visible; animation-name: zoomIn;">
+                                <div class="search-form-wrapper">
+                                    <form id="searchauto" action="/product/search/" method="GET" class="searchform-categoris ultimate-search">
+                                        <div class="wpo-search">
+                                            <div class="wpo-search-inner">
+                                               
+
+                                                <div class="input-group">
+                                                    <input id="searchtext" name="q" maxlength="40" class="form-control input-search" type="text" size="20" required="" placeholder="Tìm kiếm sản phẩm...">
+                                                    <span class="input-group-btn">
+                                                        <button type="submit" id="searchsubmit"><i class="fa fa-search"></i></button>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                                
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="desktop-header-main-menu">
+            <div class="wrapper">
+                <div class="inner">
+                    <div class="text-left">
+                        <div class="desktop-header-navbar">
+                            @Html.Action("Menu", "Home")
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="mobile-header large--hide">
+        <div class="wrapper">
+            <div class="inner">
+                <div class="grid">
+                    <div class="grid__item medium--one-third small--one-third">
+                        <div class="hd-logo text-left">
+                            <a href="/" title="Eurokit - Chuyên gia Tủ bếp thông minh">
+                                <img src="/Content/images/logo2020.jpg?vs=08" alt="LOGO">
+                               
+                            </a>
+                        </div>
+                    </div>
+                    <div class="grid__item large--two-twelfths push--large--eight-twelfths medium--two-thirds small--two-thirds clearfix text-right">
+                        <div class="desktop-cart-wrapper1">
+                            <a href="@Url.Action("ShoppingCart", "Order")" title="Giỏ hàng" class="hd-cart">
+                                <i class="fa fa-shopping-bag"></i><span class="hd-cart-count">@(cartProductCount)</span>
+                            </a>
+                           
+                        </div>
+                        <div class="hd-btnMenu">
+                            <a href="javascript:void(0)" class="icon-fallback-text site-nav__link js-drawer-open-right" aria-controls="NavDrawer" aria-expanded="false">
+                                <i class="fa fa-bars"></i>
+                            </a>
+                        </div>
+
+                    </div>
+                    <!--<div class="grid__item large--nine-twelfths medium--one-whole small--one-whole mobile-slogan">
+                        <img src="/images_upload/slogan.png" alt="SLOGAN"/>
+                    </div>
+                    -->
+                </div>
+            </div>
+        </div>
+    </div>
+</header>

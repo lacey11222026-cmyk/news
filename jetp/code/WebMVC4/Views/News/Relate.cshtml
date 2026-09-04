@@ -1,0 +1,39 @@
+﻿@using BIZ
+@using UTILS
+@using WebMVC4.Helper
+@model List<BIZ.Entity.CONTENT_FULL>
+@if (Model != null)
+{
+    if (Model.Count > 0)
+    {
+        
+        <h3>@Resources.Global.RelateNews</h3>
+        <div class="list-relate">
+            <div class="row row-20">
+                @foreach (var item in Model.Select((value, i) => new { i, value }))
+                {
+                    <div class="col-sm-6 col-lg-4 p-10 col-item">
+                        <div class="news-item">
+                            <a href="@item.value.LinkUrl" class="picture"><img src="@item.value.MainImage?w=241&h=161&mode=crop"></a>
+                            <div class="desc">
+                                <div class="v-card">
+                                    <div class="time-read">
+                                        <i class="fa-regular fa-clock"></i>
+                                        <span>@item.value.PublishDate.ToString("dd/MM/yyyy")</span>
+                                    </div>
+                                </div>
+                                <h4><a href="@item.value.LinkUrl">@item.value.Title</a></h4>
+                            </div>
+                        </div>
+                    </div>
+                }
+
+            </div>
+        </div>
+
+
+
+    }
+
+
+}

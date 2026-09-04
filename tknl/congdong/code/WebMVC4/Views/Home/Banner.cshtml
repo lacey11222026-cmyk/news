@@ -1,0 +1,37 @@
+﻿@model List<DATA.Banner>
+@using WebMVC4.Helper
+@{
+    var langpage = WorkContext.GetLanguage();
+}
+@if (Model != null)
+{
+
+    <ul class="grid-cols-3 bnr-center-list">
+
+        @foreach (var item in Model.Select((value, i) => new { i, value }))
+        {
+
+            <li><a href="@item.value.Url" target="_blank"><img src="@item.value.Data" alt=""></a></li>
+           
+
+            @*if (langpage == "vi-vn")
+            {
+                if (!string.IsNullOrEmpty(item.value.Data))
+                {
+                    <div><a href="@item.value.Url"><img src="@item.value.Data" alt=""></a></div>
+                }
+
+            }
+            else
+            {
+                if (!string.IsNullOrEmpty(item.value.Description))
+                {
+                    <div><a href="@item.value.Url"><img src="@item.value.Description" alt=""></a></div>
+                }
+
+            }*@
+        }
+        
+    </ul>
+
+}

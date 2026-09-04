@@ -1,0 +1,49 @@
+﻿@using BIZ
+@using UTILS
+@using WebMVC4.Helper
+@model WebMVC4.Models.News2Model
+
+@{
+    var langpage = WorkContext.GetLanguage();
+}
+<div class="newspage container mt20 pb50">
+    @{Html.RenderAction("Breadcrumb", "News", new { CategoryId = ViewBag.CategoryId });}
+
+    <ul class="video-list row mt30">
+        @if (Model.articles != null)
+        {
+            foreach (var item in Model.articles.Select((value, i) => new { i, value }))
+            {
+                <li class="video-item">
+                    <a href="@item.value.LinkUrl" class="videonews-img">
+                        <img src="@item.value.MainImage?w=290&h=160&mode=crop">
+                    </a>
+                    <a href="@item.value.LinkUrl" class="mt15">@item.value.Title</a>
+                    <span class="newsdate mt10">@item.value.PublishDate.ToString("dd/MM/yyyy")</span>
+                </li>
+            }
+        }
+    </ul>
+    <div class="paging mt50 text-center">
+        <ul>
+            @{Html.RenderPartial("Pagination", new WebMVC4.Models.PaginationInfo
+                {
+                    PageUrl = Url.SetParameter("Page", "!0"),
+                    CurrentPage = ViewBag.Page,
+                    PageSize = ViewBag.PageSize,
+                    TotalItemCount = ViewBag.Total,
+                }); }
+        </ul>
+    </div>
+</div>
+
+
+<script type="text/javascript">
+
+ $('#menu_' + '@ViewBag.CurrentCategoryId').addClass("active");
+
+  $('#menu_' + '@ViewBag.ParentCategoryId').addClass("active");
+
+
+
+</script>

@@ -1,0 +1,301 @@
+﻿@{
+    Layout = "~/Views/Shared/_AdminV2.cshtml";
+}
+@using BIZ.Entity
+@using UTILS
+@using DATA
+@using WebMVC4.Helper
+@model Shop
+
+
+
+<div class="well">
+    <span class="label label-danger">
+        Chú ý!
+    </span>
+    <span>
+        Hãy chắc chắn nhập vào đầy đủ thông tin tại các mục bắt buộc đánh dấu (*)
+    </span>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <i class="fa fa-fw fa-user-md"></i><span>@ViewBag.Title </span>
+            </div>
+            <form id="defaultForm" method="post" class="form-horizontal">
+                <div class="panel-group" id="steps">
+                    <div class="messager-body">
+                        <div class="alert alert-success display-hide alert-dismissable">
+                            <button type="button" class="close" data-close="alert" aria-hidden="true">×</button>
+                            <span class="glyphicon glyphicon-ok"></span>
+                            <label>Đã lưu dữ liệu thành công !!!</label>
+                        </div>
+                        <div class="alert alert-danger display-hide alert-dismissable">
+                            <button type="button" class="close" data-close="alert" aria-hidden="true">×</button>
+                            <span class="glyphicon glyphicon-warning-sign"></span>
+                            <label>Có một vài lỗi trong khung nhập liệu dưới đây ! kiểm tra lại</label>
+                        </div>
+                    </div>
+                    <div class="panel panel-info">
+
+                        <div class="panel-body">
+                            <!-- dành cho UpdateFunction -->
+                            <div style="padding: 10px 0 0 0;background-color:#fff !important">
+
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label for="txtName" class="control-label col-md-3">Tên hệ thống phân phối :<span class="required">*</span></label>
+                                        <div class="col-md-9">
+                                            <div class="input-icon right">
+                                                <input type="text" id="txtName" maxlength="250" name="name" value="@Model.Name" class="form-control" placeholder="Tên hệ thống phân phối" />
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+                                    <div class="form-group">
+                                        <label for="txtName" class="control-label col-md-3">Địa chỉ :<span class="required">*</span></label>
+                                        <div class="col-md-9">
+                                            <div class="input-icon right">
+                                                <input type="text" id="txtAddress" maxlength="300" name="Address" value="@Model.Address" class="form-control" placeholder="Nhập địa chỉ" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="txtPhone" class="control-label col-md-3">Số điện thoại :<span class="required">*</span></label>
+                                        <div class="col-md-9">
+                                            <div class="input-icon right">
+                                                <input type="text" id="txtPhone" maxlength="20" name="phone" value="@Model.Phone" class="form-control" placeholder="Nhập số điện thoại" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="ddlCity" class="control-label col-md-3">Tỉnh Thành :<span class="required">*</span></label>
+                                        <div class="col-md-9">
+                                            <div class="input-icon right">
+                                                <select class="form-control" id="ddlCity"></select>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="txtLatitude" class="control-label col-md-3">Vĩ độ :<span class="required">*</span></label>
+                                        <div class="col-md-9">
+                                            <div class="input-icon right">
+                                                <input type="text" id="txtLatitude" maxlength="20" name="Latitude" value="@Model.Latitude" class="form-control" placeholder="Nhập địa chỉ" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="txtLongitude" class="control-label col-md-3">Kinh độ :<span class="required">*</span></label>
+                                        <div class="col-md-9">
+                                            <div class="input-icon right">
+                                                <input type="text" id="txtLongitude" maxlength="20" name="Longitude" value="@Model.Longitude" class="form-control" placeholder="Nhập địa chỉ" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group" style="display:none;">
+                                        <label for="txtOrder" class="control-label col-md-3">Order :<span class="required">*</span></label>
+                                        <div class="col-md-9">
+                                            <div class="input-icon right">
+                                                <input type="text" id="txtOrder" name="Order" required value="@Model.Order" class="form-control" placeholder="Nhập Link ảnh" />&nbsp;<span id="errmsg"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="control-label col-md-3" for="cbxIsActive">Trạng thái :</label>
+                                        <div class="col-md-4">
+                                            <div class="checkbox">
+                                                @if (Model.Status == 1)
+                {<input type="checkbox" id="cbxIsActive" checked="checked" />}
+else
+{<input type="checkbox" id="cbxIsActive" />}
+
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="panel-footer form-horizontal">
+                                        <div class="form-group submit">
+                                            <button type="submit" class="btn btn-primary" id="btnSave"><i class="fa fa-save"></i>Lưu lại</button>
+
+                                            <button type="button" class="btn btn-default" id="btnBack" onclick="GotoListpage()"><i class="fa fa-backward"></i>Back</button>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="clear"></div>
+                        </div>
+
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<style>
+    .input-icon {
+        position: relative;
+        width: 100%;
+    }
+</style>
+<script type="text/javascript">
+    function LoadCity(selecter, rvalue) {
+        $.ajax({
+            cache: false,
+            type: "GET",
+            url:"@Url.Action("GetListCity")",
+            data: {},
+            success: function (data) {
+                $(selecter).html('');
+                $.each(data, function (id, option) {
+                    if (rvalue == option.Id) {
+                        $(selecter).append($('<option selected="selected"></option>').val(option.Id).html(option.Name));
+                    }
+                    else {
+                        $(selecter).append($('<option></option>').val(option.Id).html(option.Name));
+                    }
+                });
+            },
+            error: function (xhr, ajaxOptions, thrownError) {
+                console.log("Không lấy được danh sách Thành/Phố.");
+            }
+        });
+    }
+    function GotoListpage() {
+        window.location = "/AdminShop/ManageShop";
+    }
+    $(document).ready(function () {
+
+        LoadCity('#ddlCity', '@Model.CityId');
+        $("#txtOrder").keypress(function (e) {
+            //if the letter is not digit then display error and don't type anything
+            if (e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57)) {
+                //display error message
+                $("#errmsg").html("Chỉ Nhập Được Số").show().fadeOut(1000);
+                return false;
+            }
+        });
+        $("button.close").click(function () {
+            $(this).parent().css("display", "none");
+        });
+        $('#defaultForm').bootstrapValidator({
+            message: 'This value is not valid',
+            //live: 'submitted',
+            feedbackIcons: {
+                valid: 'glyphicon glyphicon-ok',
+                invalid: 'glyphicon glyphicon-remove',
+                validating: 'glyphicon glyphicon-refresh'
+            },
+            fields: {
+
+                name: {
+                    message: 'Nhập tên hệ thống',
+                    validators: {
+                        notEmpty: {
+                            message: 'Tên hệ thống không được bỏ trống'
+                        },
+
+                        stringLength: {
+                            min: 3,
+                            max: 200,
+                            message: 'Tên nhỏ nhất 3 ký tự và nhiều nhất 200 ký tự'
+                        },
+
+                    }
+                },
+
+                phone: {
+                    validators: {
+                        notEmpty: {
+                            message: 'Số điện thoại không được bỏ trống'
+                        }
+                    }
+                },
+                adddress: {
+                    message: 'Bạn chưa nhập địa chỉ.',
+                    validators: {
+                        notEmpty: {
+                            message: 'Bạn chưa nhập địa chỉ'
+                        },
+
+                    }
+                },
+
+            }
+        })
+        .on('success.form.bv', function (e) {
+            // Prevent submit form
+            e.preventDefault();
+
+            var $form = $(e.target),
+                validator = $form.data('bootstrapValidator');
+            SaveData();
+            $(".close").click(function () {
+                $(".alert-success").css("display", "none");
+            });
+        })
+        .on('error.form.bv', function (e) {
+            // Active the panel element containing the first invalid element
+            e.preventDefault();
+            var $form = $(e.target),
+            validator = $form.data('bootstrapValidator');
+            $(".alert-danger label").text("Có một vài lỗi trong khung nhập liệu dưới đây ! kiểm tra lại");
+            $(".alert-danger").css("display", "block");
+            $(".close").click(function () {
+                $(".alert-danger").css("display", "none");
+                $(".alert-success").css("display", "none");
+            });
+        });
+
+        $("#btnReset").click(function () {
+            $('#defaultForm').data('bootstrapValidator').resetForm(true);
+            $(".alert-danger").css("display", "none");
+            $(".alert-success").css("display", "none");
+        });
+        //Save Data
+        function SaveData() {
+            var param = {
+                'Id': '@Model.Id',
+                'Name': $("#txtName").val(),
+                'Address': $("#txtAddress").val(),
+                'Phone': $("#txtPhone").val(),
+                'Description': '',
+                'Longitude': $("#txtLongitude").val(),
+                'Latitude': $("#txtLatitude").val(),
+                'CityId': $("#ddlCity").val(),
+                'CityName': $("#ddlCity option:selected").text(),
+                'DistrictId': 0,
+                'DistrictName': '',
+                'Status': $("#cbxIsActive").is(":checked") ? 1 : 0,
+
+            }
+            Utils.Loading();
+            $.ajax({
+                type: 'POST',
+                url: "/AdminShop/SaveData",
+                data: param,
+                async: true,
+                success: function (data) {
+                    Utils.UnLoading();
+                    if (data.ResponseCode >= 0) {
+                        $("html,body").animate({ scrollTop: $('#TemplateContent').offset().top }, 'fast');
+                        $(".alert-success").show("slow");
+                        $(".alert-danger").hide("slow");
+                        setTimeout(function () { $(".alert-success").hide("slow"); GotoListpage(); }, 2000);
+                    }
+                    else {
+                        $("html,body").animate({ scrollTop: $('#TemplateContent').offset().top }, 'fast');
+                        $("#ErrorMessage").text(data.Description);
+                        $(".alert-danger").show("slow");
+                        $(".alert-success").hide("slow");
+                        setTimeout(function () { $(".alert-danger").hide("slow"); }, 2000);
+                    }
+                }
+            });
+        };
+    });
+</script>

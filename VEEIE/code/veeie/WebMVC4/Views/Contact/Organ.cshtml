@@ -1,0 +1,84 @@
+﻿@{
+    Layout = "~/Views/Shared/_Home.cshtml";
+}
+@using BIZ
+@using UTILS
+@using WebMVC4.Helper
+@model WebMVC4.Models.OrganModel
+@{
+    List<DATA.City> ListCity = ViewBag.CityList;
+}
+<div class="contact-page">
+    <h3 class="title-blue">Danh bạ tổ chức</h3>
+    <form class="form-inline row mt30">
+        <div class="form-group col-md-3 col-sm-6 col-xs-12">
+            <select class="form-control" id="ddlPageType">
+                <option value="/danh-ba.html/?keyword=">Cá nhân</option>
+                <option value="/danh-ba-to-chuc.html/?keyword=" selected="selected">Tổ chức</option>
+
+                }
+            </select>
+        </div>
+        <div class="form-group col-md-3 col-sm-6 col-xs-12">
+            <select class="form-control" id="ddlType">
+                <option  value="-1">@Resources.Global.All</option>
+                @if (ListCity != null && ListCity.Count > 0)
+                {
+                    foreach (var obj in ListCity)
+                    {
+                        <option value="@obj.Id" @if (obj.Id == Model.CategoryId) { @Html.Raw("selected='selected'") ; }>@obj.Name</option>
+                    }
+                }
+            </select>
+        </div>
+        <div class="col-md-3 col-sm-6 col-xs-12">
+            <div class="input-group">
+                <input type="text" class="form-control" placeholder="@Resources.Global.Keyword" id="txtkeyword">
+                <span class="input-group-btn">
+                    <button class="btn btn-default search-btn" type="button" onclick="searchdoc()"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
+                </span>
+            </div><!-- /input-group -->
+        </div><!-- /.col-lg-6 -->
+    </form>
+    <div class="clearfix"></div>
+    <ul class="danhba-list danhba02 row mt30">
+
+        @foreach (var item in Model.listdata.Select((value, i) => new { i, value }))
+        {
+            <li class="col-md-6 col-sm-6 col-xs-12">
+                <div>
+                    <h4 style="height:38px;">@item.value.Name</h4>
+                    <p>@UTILS.Utils.SubString(item.value.Description, 68)</p>
+                    <a href="@Url.Action("OrganDetail",new {Id=item.value.Id })" class="btn-view btn btn-primary">Tìm hiểu</a>
+                </div>
+            </li>
+
+        }
+    </ul>
+
+
+</div><!-- end main content-->
+
+<div class="clearfix"></div>
+<div class="pagination pull-right mt50">
+    <ul>
+        @{Html.RenderPartial("Pagination", new WebMVC4.Models.PaginationInfo
+            {
+                PageUrl = Url.SetParameter("Page", "!0"),
+                CurrentPage = Model.pageIndex,
+                PageSize = Model.pageSize,
+                TotalItemCount = Model.total,
+            }); }
+    </ul>
+</div>
+<div class="clearfix"></div>
+<script type="text/javascript">
+    //$('#page').addClass("lienket-page");
+    function searchdoc() {
+        var keyword = $("#txtkeyword").val();
+        var type = $("#ddlType").val();
+        var pageurl = $("#ddlPageType").val();
+        window.location = pageurl + keyword + '&type=' + type;
+        //window.location = jQuery.query.set("keyword", keyword).set("fromdate", fromdate).set("todate", todate).set("Page", "1");
+    }
+</script>

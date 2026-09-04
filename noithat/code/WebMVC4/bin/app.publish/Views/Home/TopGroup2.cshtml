@@ -1,0 +1,119 @@
+﻿@using BIZ.Entity
+@using UTILS
+@using WebMVC4.Helper
+@model List<CATEGORY_FULL>
+
+@foreach (var item in Model.Take(1).Select((value, i) => new { i, value }))
+{
+
+    <div class="wpb_column vc_column_container vc_col-sm-6">
+        <div class="vc_column-inner">
+            <div class="wpb_wrapper">
+                <div class="promo-banner-wrapper">
+                    <div id="wd-5fd492d20d4de" class="promo-banner banner-vr-align-top banner-hr-align-left banner- banner-hover-zoom color-scheme-light banner-btn-size-default banner-btn-style-link  with-btn banner-btn-position-static cursor-pointer" onclick="window.location.href='@item.value.Url'">
+
+                        <div class="main-wrapp-img">
+                            <div class="banner-image">
+                                <img src="@item.value.Image" class="promo-banner-image image-1 attachment-full" alt="" width="800" height="800">
+                            </div>
+                        </div>
+
+                        <div class="wrapper-content-banner ">
+                            <div class="content-banner text-left content-width-100">
+                                <div class="banner-title-wrap banner-title-custom">
+                                    <span class="banner-subtitle subtitle-style-default woodmart-font-weight-600">#1 Việt Nam gỗ công nghiệp</span><div class="banner-title woodmart-font-weight- font-alt">
+                                        Giải pháp<br>
+                                        @item.value.Name
+                                    </div>
+                                </div>
+                                <div class="banner-btn-wrapper"><div id="wd-6010d98b04d02" class="woodmart-button-wrapper text-left"><a class="btn btn-color-default btn-style-link btn-shape-rectangle btn-size-default">Xem chi tiết</a></div></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+}
+
+<div class="wpb_column vc_column_container vc_col-sm-6">
+    <div class="vc_column-inner">
+        <div class="wpb_wrapper">
+            @foreach (var item in Model.Skip(1).Take(1).Select((value, i) => new { i, value }))
+            {
+                <div class="promo-banner-wrapper">
+                    <div id="wd-5ff3e22d60bc5" class="promo-banner banner-vr-align-top banner-hr-align-left banner- banner-hover-zoom color-scheme-light banner-btn-size-default banner-btn-style-link  with-btn banner-btn-position-static cursor-pointer" onclick="window.location.href='@item.value.Url'">
+
+                        <div class="main-wrapp-img">
+                            <div class="banner-image">
+                                <img class="promo-banner-image image-1 " src="@item.value.Image" alt="da-vico" title="da-vico" width="1000" height="480">
+                            </div>
+                        </div>
+
+                        <div class="wrapper-content-banner ">
+                            <div class="content-banner text-left content-width-100">
+                                <div class="banner-title-wrap banner-title-custom"><span class="banner-subtitle subtitle-style-default woodmart-font-weight-600">#3 thế giới đá nội thất</span><div class="banner-title woodmart-font-weight-">@item.value.Name</div></div>
+                                <div class="banner-btn-wrapper"><div id="wd-6010d98b050f7" class="woodmart-button-wrapper text-left"><a class="btn btn-color-default btn-style-link btn-shape-rectangle btn-size-default">Xem chi tiết</a></div></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+            <div class="vc_row wpb_row vc_inner vc_row-fluid vc_custom_1606535360442">
+                <div class="wpb_column vc_column_container vc_col-sm-7">
+                    <div class="vc_column-inner">
+                        <div class="wpb_wrapper">
+                            @foreach (var item in Model.Skip(2).Take(1).Select((value, i) => new { i, value }))
+                            {
+                                <div class="promo-banner-wrapper">
+                                    <div id="wd-5ff3e1d46e196" class="promo-banner banner-vr-align-top banner-hr-align-left banner- banner-hover-zoom color-scheme-light banner-btn-size-default banner-btn-style-link  with-btn banner-btn-position-static cursor-pointer" onclick="window.location.href='@item.value.Url'">
+
+                                        <div class="main-wrapp-img">
+                                            <div class="banner-image">
+                                                <img src="@item.value.Image" class="promo-banner-image image-1 attachment-full" alt="" width="666" height="570">
+                                            </div>
+                                        </div>
+
+                                        <div class="wrapper-content-banner ">
+                                            <div class="content-banner text-left content-width-100">
+                                                <div class="banner-title-wrap banner-title-custom"><div class="banner-title woodmart-font-weight- font-alt">@item.value.Name</div></div>
+                                                <div class="banner-btn-wrapper"><div id="wd-6010d98b055b9" class="woodmart-button-wrapper text-left"><a class="btn btn-color-default btn-style-link btn-shape-rectangle btn-size-default">Xem chi tiết</a></div></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                        </div>
+                    </div>
+                </div>
+                <div class="wpb_column vc_column_container vc_col-sm-5">
+                    <div class="vc_column-inner">
+                        <div class="wpb_wrapper">
+                            @foreach (var item in Model.Skip(3).Take(1).Select((value, i) => new { i, value }))
+                            {
+                                <div class="promo-banner-wrapper">
+                                    <div id="wd-5ff6d0587dc21" class="promo-banner banner-vr-align-top banner-hr-align-left banner- banner-hover-zoom color-scheme-light banner-btn-size-default banner-btn-style-link  with-btn banner-btn-position-static cursor-pointer" onclick="window.location.href='@item.value.Url'">
+
+                                        <div class="main-wrapp-img">
+                                            <div class="banner-image">
+                                                <img src="@item.value.Image" class="promo-banner-image image-1 attachment-full" alt="" loading="lazy" width="464" height="570">
+                                            </div>
+                                        </div>
+
+                                        <div class="wrapper-content-banner ">
+                                            <div class="content-banner text-left content-width-100">
+                                                <div class="banner-title-wrap banner-title-large"><div class="banner-title woodmart-font-weight-">@item.value.Name</div></div>
+                                                <div class="banner-btn-wrapper"><div id="wd-6010d98b05929" class="woodmart-button-wrapper text-left"><a class="btn btn-color-black btn-style-link btn-shape-rectangle btn-size-default">Chi tiết</a></div></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,41 @@
+﻿@model List<DATA.City>
+@{
+    Layout = "~/Views/Shared/_Home.cshtml";
+}
+<div class="ketqua-page">
+    <h2 class="title-blue" id="mb">Case Study</h2>
+    <h3 class="title-blue02 mt40" >Northern</h3>
+    <ul class="ketqua-list">
+        @foreach (var item in Model.Where(x => x.Type == 1).Select((value, i) => new { i, value }))
+        {
+
+
+            <li><a href="@Url.Action("ViewFile",  new {id = item.value.Id})">@item.value.NameEn</a></li>
+        }
+
+    </ul>
+    <div class="clearfix" id="mt"></div>
+    <h3 class="title-blue02 mt40" >
+        Central
+    </h3>
+    <ul class="ketqua-list">
+        @foreach (var item in Model.Where(x => x.Type == 2).Select((value, i) => new { i, value }))
+        {
+
+
+            <li><a href="@Url.Action("ViewFile",  new {id = item.value.Id})">@item.value.NameEn</a></li>
+        }
+    </ul>
+    <div class="clearfix" id="mn"></div>
+    <h3 class="title-blue02 mt40" >
+        South
+    </h3>
+    <ul class="ketqua-list">
+        @foreach (var item in Model.Where(x => x.Type == 3).Select((value, i) => new { i, value }))
+        {
+
+
+            <li><a href="@Url.Action("ViewFile",  new {id = item.value.Id})">@item.value.NameEn</a></li>
+        }
+    </ul>
+</div>

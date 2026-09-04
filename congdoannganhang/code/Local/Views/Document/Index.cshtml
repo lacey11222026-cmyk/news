@@ -1,0 +1,143 @@
+﻿@using BIZ
+@using UTILS
+@using Local.Helper
+@model Local.Models.DocumentModel
+@{
+
+    Layout = "~/Views/Shared/_Layout2.cshtml";
+
+}
+<div class="clear"></div>
+<nav class="n_nav">
+    <ul class="page">
+        <li><a href="http://noibo.vnubw.org.vn/">Trang chủ</a> /</li>
+        <li><a href="http://mail.vnubw.org.vn:2096/">Thư điện tử </a> /</li>
+        <li><a href="#">DB điện thoại & mail </a> /</li>
+        <li><a href="#">Mẫu văn bản </a> /</li>
+        <li><a href="/Document/Index/3">Quy chế làm việc  </a> /</li>
+        <li><a href="#">Hỗ trợ người dùng  </a> /</li>
+        <li><a href="#">Sites</a></li>
+    </ul>
+</nav>
+<div class="clear"></div>
+
+<div class="page n_listpage">
+    <div class="n_content_right">
+        @{Html.RenderAction("MenuLeft", "Home");}
+
+    </div><!-- end content right-->
+    <div class="n_content_left">
+        @{Html.RenderAction("Breadcrumb", "News", new { CategoryId = Model.CategoryId });}
+      
+        <div>
+            Từ khóa: <input id="txtkeyword" value="@ViewBag.keyword" width="190" style="width: 190px;border: 1px solid black" />&nbsp;&nbsp;
+            
+            &nbsp;&nbsp;<button onclick="searchdoc();">Tra cứu</button><br /><br />
+        </div>
+        <table class="n_table1">
+            <thead>
+                <tr>
+                    <th>STT</th>
+                    <th>Số hiệu</th>
+                    <th>Tên văn bản</th>
+                    <th>Ngày ban hành</th>
+                    <th>Download</th>
+                </tr>
+            </thead>
+            @foreach (var item in Model.listdata.Select((value, i) => new { i, value }))
+            {
+                <tr>
+                    <td>@(item.i + 1)</td>
+                    <td>@item.value.Code</td>
+                    <td>
+                        <a href="@UTILS.Utils.FormatUrlRewrite(item.value.Id, "", "DocumentDetail")">
+                            @item.value.Name
+                        </a>
+                    </td>
+                    <td>@Convert.ToDateTime(item.value.PublishDate).ToString(@" dd'/'MM'/'yyyy")</td>
+                    <td>
+                        <a href="@item.value.FilePath">
+                            <img alt="@item.value.FileName" width="16" height="16" src="@item.value.FileType" />
+                        </a>&nbsp;@if (item.value.FilePath.ToLower().Contains(".pdf"))
+                                  {
+
+                                      <a href="@Url.Action("ViewPDF", "Home", new { url = item.value.FilePath })" target="_blank">Xem online</a>
+                                  }
+                    </td>
+                </tr>
+            }
+
+
+        </table>
+        <div class="ctpaging">
+
+            <ul class="paging">
+                @{Html.RenderPartial("Pagination", new Local.Models.PaginationInfo
+                                                       {
+                                                           PageUrl = Url.SetParameter("Page", "!0"),
+                                                           CurrentPage = Model.pageIndex,
+                                                           PageSize = Model.pageSize,
+                                                           TotalItemCount = Model.total,
+                                                       }); }
+            </ul>
+
+        </div>
+        <div class="clear padtop10"></div>
+    </div><!-- end content left-->
+</div><!-- end page-->
+<div class="clear"></div>
+<footer>
+    <div class="page"><p>Bản quyền thuộc Công Đoàn Ngân Hàng Việt Nam</p></div>
+</footer>
+<style>
+    /*page*/
+    .ctpaging {
+        float: right;
+        margin: 0;
+        padding-right: 6px;
+        padding-top: 10px;
+    }
+
+    .ctpaging ul {
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+    }
+
+    .ctpaging li {
+        display: inline;
+        padding: 0 4px;
+    }
+
+    .ctpaging a, .ctpaging a:visited {
+        background-color: #E7E7E7;
+        border: 1px solid #D3D3D3;
+        color: #545454;
+        font: bold 12px Arial,Helvetica,sans-serif;
+        padding: 2px 5px;
+        text-decoration: none;
+    }
+
+    .ctpaging a:hover {
+        background-color: #42a9a6;
+        border: 1px solid #42a9a6;
+        color: #FFFFFF;
+    }
+
+    .ctpaging a.currentpage {
+        background-color: #42a9a6 !important;
+        border: 1px solid #42a9a6 !important;
+        color: #FFFFFF !important;
+        cursor: default;
+    }
+</style>
+<script src="~/Scripts/jquery.query.js"></script>
+ <script type="text/javascript">
+       
+
+        function searchdoc() {
+            var keyword = $("#txtkeyword").val();
+          
+            window.location = jQuery.query.set("keyword", keyword).set("Page","1");
+        }
+    </script>

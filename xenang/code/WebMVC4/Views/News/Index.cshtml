@@ -1,0 +1,81 @@
+﻿@using BIZ
+@using UTILS
+@using WebMVC4.Helper
+@model List<BIZ.Entity.CONTENT_FULL>
+
+
+@{Html.RenderAction("Breadcrumb", "News", new { CategoryId = ViewBag.CategoryId });}
+<main id="main" class="">
+    <div class="row category-page-row">
+        <div class="large-3 col hide-for-medium ">
+            @Html.Partial("Site_Right")
+        </div><!-- large-3 -->
+        <div class="col large-9">
+            @if (Model != null)
+            {
+                <div class="row large-columns-2 medium-columns- small-columns-1 row-masonry" data-packery-options="{&quot;itemSelector&quot;: &quot;.col&quot;, &quot;gutter&quot;: 0, &quot;presentageWidth&quot; : true}" style="position: relative; ">
+
+
+
+                    @foreach (var item in Model.Select((value, i) => new { i, value }))
+                    {
+                        <div class="col post-item" >
+                            <div class="col-inner">
+                                <a href="@item.value.LinkUrl" class="plain">
+                                    <div class="box box-text-bottom box-blog-post has-hover">
+                                        <div class="box-image">
+                                            <div class="image-cover" style="padding-top:56%;">
+                                                <img  alt="@item.value.Title"   data-wpmeteor-mouseout="true"  class="attachment-medium size-medium wp-post-image" src="@item.value.MainImage?h=480&w=270&mode=crop" />
+                                            </div>
+                                        </div><div class="box-text text-left">
+                                            <div class="box-text-inner blog-post-inner">
+                                                <h5 class="post-title is-large ">@item.value.Title</h5><div class="is-divider"></div>
+                                                <p class="from_the_blog_excerpt ">@item.value.IntroText</p>
+                                            </div>
+                                        </div>
+                                        <div class="badge absolute top post-date badge-square">
+                                            <div class="badge-inner">
+                                                <span class="post-date-day">@item.value.PublishDate.Day</span><br>
+                                                <span class="post-date-month is-xsmall">Th@(item.value.PublishDate.Month)</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                        if(item.i%2==1)
+                        {
+                            <div style="clear:both"></div>
+                        }
+
+
+                    }
+
+                </div>
+                <div class="container">
+                    <nav class="woocommerce-pagination">
+                        <ul class="page-numbers nav-pagination links text-center">
+                            @{Html.RenderPartial("Pagination", new WebMVC4.Models.PaginationInfo
+                                {
+                                    PageUrl = Url.SetParameter("Page", "!0"),
+                                    CurrentPage = ViewBag.Page,
+                                    PageSize = ViewBag.PageSize,
+                                    TotalItemCount = ViewBag.Total,
+                                }); }
+
+                        </ul>
+                    </nav>
+                </div>
+
+            }
+
+        </div><!-- col-fit  -->
+
+
+    </div>
+    <script>
+         $('#menu_@(ViewBag.CategoryId)').addClass('active');
+        
+    </script>
+</main>
+

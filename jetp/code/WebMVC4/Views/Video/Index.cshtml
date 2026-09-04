@@ -1,0 +1,49 @@
+﻿@using BIZ
+@using UTILS
+@using WebMVC4.Helper
+@model BIZ.Entity.CONTENT_FULL
+@{
+    var langpage = WorkContext.GetLanguage();
+}
+
+
+<div class="section-news">
+    <div class="breadcrumbs-03 mt30">
+        <div class="container">
+            <ul>
+                <li><a href="/">@Resources.Global.Home</a></li>
+                <li><span>Video</span></li>
+            </ul>
+        </div>
+    </div>
+    <section class="section-video mt50 pb100">
+        <div class="container">
+            <div class="content">
+                <div class="video-big">
+                    <div class="row">
+                        <div class="col-md-7 col-sm-12">
+                            <div class="movie">
+                                <iframe src="@(Model.Url.Replace("watch?v=", "embed/"))" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen="" style="position: absolute; top: 0px; right: 0px; bottom: 0px; left: 0px; width: 100%; height: 100%;"></iframe>			&nbsp;&nbsp;&nbsp;
+                            </div>
+                        </div>
+                        <div class="col-md-5 col-sm-12">
+                            <h3 class="big-name">@Model.Title</h3>
+                            <div class="v-card">
+                                <p>@Model.PublishDate.ToString("dd/MM/yyyy")</p>
+                            </div>
+                            <p>@Model.IntroText</p>
+                        </div>
+                    </div>
+                </div>
+                <div id="lstVideo">
+                    @Html.Action("LoadVideo", "Video", new { VideoId = Model.Id, page = 1, CategoryId = ViewBag.CategoryId })
+                </div>
+                
+            </div>
+        </div>
+    </section>
+</div>
+
+
+
+

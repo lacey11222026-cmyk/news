@@ -1,0 +1,14 @@
+﻿@model List<DATA.Banner>
+<div class="container">
+    <div class="slide-logo">
+        <ul id="flexiselDemo2">
+            @foreach (var item in Model.Select((value, i) => new { i, value }))
+            {
+                <li><a href="@item.value.Url"><img src="@item.value.Data" /></a></li>
+            }
+
+        </ul>
+    </div>
+</div>
+   
+

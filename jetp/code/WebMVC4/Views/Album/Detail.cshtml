@@ -1,0 +1,69 @@
+﻿@using BIZ
+@using UTILS
+@using WebMVC4.Helper
+@model DATA.Album
+@{
+    var langpage = WorkContext.GetLanguage();
+}
+<link rel="stylesheet" href="/Content/css/glightbox.min.css" />
+
+
+@if (Model != null)
+{
+
+    <div class="article-page">
+        <section class="section-intro-1" style="background-image: url('@ViewBag.CateImg');">
+            <div class="container">
+                <div class="content">
+                    <div class="title">
+                        <h1>Hình ảnh</h1>
+                        <div class="breadcrumbs-02">
+                            <ul>
+                                <li><a href="/">@Resources.Global.Home</a></li>
+                                <li><span>@ViewBag.CateName</span></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="section-article-1 mt50 pb100 lib-img">
+            <div class="container">
+                <div class="content">
+                    <div class="row">
+                        <div class="col-lg-8 col-left p-20">
+                            <h3 class="big-name">@Model.Title</h3>
+                            <div class="gallery news-list img-list mt30">
+                                @foreach (BIZ.Entity.AlbumImage item in ViewBag.ImgList)
+                                {
+                                    <div class="news-item ">
+                                        <a href="@(item.Name)?w=0&h=@(ViewBag.Height)&mode=crop" class="glightbox">
+                                            <img src="@(item.Name)?w=234&h=156&mode=crop" alt="@item.Text" />
+                                        </a>
+                                    </div>
+                                }
+                            </div>
+                        </div>
+                        <div class="col-lg-4 p-10 col-right">
+                            @{ Html.RenderAction("RightLastestNews", "News", new { lang = langpage, MaxLastestNews = 4, CategoryId = 5, CateName = "" }); }
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </div>
+
+
+
+    <!-- Slider-->
+    <script src="/Content/js/glightbox.min.js"></script>
+    <script>
+        const lightbox = GLightbox({
+            selector: '.glightbox'
+        });
+    </script>
+
+
+}

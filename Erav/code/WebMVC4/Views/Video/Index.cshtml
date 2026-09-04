@@ -1,0 +1,57 @@
+﻿@using BIZ
+@using UTILS
+@using WebMVC4.Helper
+@model BIZ.Entity.CONTENT_FULL
+
+<div class="video-page border-bottom-gray mt30 pb50">
+    <div class="container">
+        <h2 class="title-cm01 title-inline"><a href="#">Video</a></h2>
+       
+        <div class="row mt20 videocontent01">
+            <div class="col-lg-8 col-md-7 col-sm-12">
+                <div class="videobig">
+                    <div class="movie">
+                        <div class="movie-inner">
+                            <iframe src="@(Model.Url.Replace("watch?v=", "embed/"))?autoplay=1&rel=0" frameborder="0" gesture="media" allowfullscreen="" webkitallowfullscreen="" mozallowfullscreen="" allow="encrypted-media" style="position: absolute; top: 0px; right: 0px; bottom: 0px; left: 0px; width: 100%; height: 100%;"></iframe>
+                        </div>
+                    </div>
+                </div>
+                <ul class="detail-link mt20 brbottom text-right">
+                    <li>
+                        <div class="fb-like" data-href="@(Model.LinkUrl)" data-layout="button_count" data-action="like" data-show-faces="false" data-share="true"></div>
+                    </li>
+                </ul>
+            </div><!-- end video -->
+            <div class="col-lg-4 col-md-5 col-sm-12">
+                <h3>@Model.Title</h3>
+                <p class="mt30">@Model.IntroText</p>
+            </div><!-- end typo-->
+        </div>
+
+        <div class="videocontent01 container mt30" id="lstVideo">
+            @Html.Action("LoadVideo", "Video", new { VideoId = Model.Id, page = 1, CategoryId = ViewBag.CategoryId })
+        </div>
+    </div>
+ 
+
+</div><!-- end content-->
+
+
+<style>
+video-list li a {
+    font-size: 15px;
+    color: #000;
+    font-weight: 500;
+    display: block;
+    width: 100%;
+}
+</style>
+
+@section scripts {
+    <script type="text/javascript">
+
+
+        $('#menu_66').addClass("active");
+
+    </script>
+}

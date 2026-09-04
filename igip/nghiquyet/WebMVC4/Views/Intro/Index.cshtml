@@ -1,0 +1,70 @@
+﻿@using BIZ
+@using UTILS
+@using WebMVC4.Helper
+@model BIZ.Entity.CATEGORY_FULL
+@{
+    var langpage = WorkContext.GetLanguage();
+}
+@if (Model != null)
+{
+    <div class="chitiet-content01 container mt20">
+        <div class="row row-40">
+            <div class="col-lg-8 col-mm-12">
+                @{Html.RenderAction("BreadcrumbObj", "News", new { data = Model }); }
+
+                <div class="mt20">
+
+                    <div class="detail-content mt40" id="NewsContent">
+                        
+
+
+                        @Html.Raw(Model.Contents)
+
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="col-lg-4 col-md-12">
+                @{Html.RenderAction("LastestNews", "News", new { lang = langpage, MaxLastestNews = 4 });}
+                <div class="sidebar-right mt20">
+                    <div class="gray-box">
+                        @Html.Partial("Site_Right")
+                    </div>
+                    @if (langpage == "vi-vn")
+                    {
+                        <div class="gray-box mt20">
+                            @{Html.RenderAction("TopDocument", "Home", new { CategoryId = 3 });}
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="gray-box mt20">
+                            @{Html.RenderAction("TopDocument", "Home", new { CategoryId = 30 });}
+                        </div>
+                    }
+                </div>
+            </div>
+        </div><!-- end row-->
+    </div><!-- end content 01 -->
+
+
+
+<style>
+    #NewsContent table td {
+        padding: 10px;
+    }
+</style>
+   
+
+}
+
+<script type="text/javascript">
+
+ $('#menu_' + '@ViewBag.CurrentCategoryId').addClass("active");
+
+  $('#menu_' + '@ViewBag.ParentCategoryId').addClass("active");
+
+
+
+</script>

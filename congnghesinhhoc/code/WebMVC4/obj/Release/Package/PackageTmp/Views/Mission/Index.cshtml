@@ -1,0 +1,160 @@
+﻿@using BIZ
+@using UTILS
+@using WebMVC4.Helper
+@model WebMVC4.Models.MissionModel
+
+@{
+    Layout = "~/Views/Shared/_Home.cshtml";
+}
+<p class="title-cm title-cm-inline">
+    <a href="#">DANH MỤC NHIỆM VỤ KHCN</a>
+</p>
+<div class="row">
+    <div class="col-md-3 col-sm-3 col-xs-3 hidden-xs danhmuc-list">
+        <ul>
+            <li>
+                <p>Danh mục</p>
+                <ul>
+                    <li><a href="@Url.SetParameter("categoryId", "1")">Đề tài</a></li>
+                    <li><a href="@Url.SetParameter("categoryId", "2")">Dự án SXTN</a></li>
+                </ul>
+            </li>
+            <li>
+                <p onclick="showtime()" style="cursor:pointer">Thời gian</p>
+                <ul class="list-time" style="display:none" id="list-time">
+                    @for (var i = DateTime.Now.Year; i >= 2007; i--)
+                    {
+                        <li><a href="@Url.SetParameter("year", i)"> Năm @i</a></li>
+                    }
+
+
+                </ul>
+            </li>
+            <li>
+                <p>Đơn vị thực hiện</p>
+                <ul class="list-orther">
+                    <li><a href="@Url.SetParameter("createdBy", "1")">Khối viện</a></li>
+                    <li><a href="@Url.SetParameter("createdBy", "2")">Khối trường</a></li>
+                    <li><a href="@Url.SetParameter("createdBy", "3")">Đơn vị khác</a></li>
+                </ul>
+            </li>
+        </ul>
+
+    </div><!-- end side bar left-->
+
+    <div class="col-md-9 col-sm-9 col-xs-9">
+        <table class="dm-table">
+            <tr>
+                <td>Từ khóa:</td>
+                <td>
+                    <input type="text" class="form-control" id="txtkeyword" value="@Model.keyword">
+                </td>
+                <td>Thời gian:</td>
+                <td>
+                    <select class="custom-select form-control" id="ddlYear">
+                        <option value="-1">-Năm-</option>
+                        @for (var i = DateTime.Now.Year; i >= 2007; i--)
+                        {
+                            <option value="@i" @(Model.Year == i ? "selected='selected'" : "")>@i</option>
+                        }
+
+                    </select>
+                </td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>Danh mục:</td>
+                <td>
+                    <select class="custom-select form-control" id="ddlCategory">
+                        <option value="-1">-Danh mục-</option>
+                        <option value="1" @(Model.CategoryId == 1 ? "selected='selected'" : "")>Đề tài</option>
+
+                        <option value="2" @(Model.CategoryId == 2 ? "selected='selected'" : "")>Dự án SXTN</option>
+                    </select>
+                </td>
+                <td>Đơn vị thực hiện:</td>
+                <td>
+                    <select class="custom-select form-control" id="ddlCreatedBy">
+                        <option value="-1">-Đơn vị thực hiện-</option>
+                        <option value="1" @(Model.CreatedBy == 1 ? "selected='selected'" : "")>Khối viện</option>
+
+                        <option value="2" @(Model.CreatedBy == 2 ? "selected='selected'" : "")>Khối trường</option>
+                        <option value="3" @(Model.CreatedBy == 3 ? "selected='selected'" : "")>Đơn vị khác</option>
+                    </select>
+                </td>
+                <td><button type="submit" class="btn btn-primary" onclick="searchdoc();">Tìm kiếm</button></td>
+            </tr>
+        </table>
+
+
+        <div class="document-table table-responsive mt30 dm-table02">
+            @if (Model.listdata != null)
+            {
+                <table>
+                    <tbody>
+                        <tr>
+                            <th>STT </th>
+                            <th>Tên nhiệm vụ</th>
+                            <th>Cơ quan chủ trì</th>
+                            <th>Thời gian thực hiện</th>
+                            @*<th>Tình trạng nghiệm thu </th>
+                                <th>Kết quả nghiệm thu</th>*@
+                        </tr>
+                        @foreach (var item in Model.listdata.Select((value, i) => new { i, value }))
+                        {
+                            <tr>
+                                <td>@(Model.total - item.i - Model.pageSize * (Model.pageIndex - 1)) </td>
+                                <td style="text-align:left">
+                                    @item.value.Name
+                                </td>
+                                <td style="min-width:160px;text-align:left">@Html.Raw(item.value.Organ.Replace(";", "<br>"))</td>
+                                <td style="min-width:120px;"> @item.value.FromDate - @item.value.ToDate</td>
+                                @*<td style="min-width:120px;">@HtmlHelpers.MissionAccept(item.value.Accept)</td>
+                                    <td>@HtmlHelpers.MissionResult(item.value.Result)</td>*@
+                            </tr>
+                        }
+
+                </table>
+            }
+            else
+            {
+                <h4 style="text-align:center"> Không có nhiệm vụ nào</h4>
+            }
+
+        </div>
+
+    </div><!-- end main content-->
+</div><!-- end row-->
+
+
+<div class="clearfix"></div>
+<div class="pagination pull-right mt50">
+    <ul>
+        @{Html.RenderPartial("Pagination", new WebMVC4.Models.PaginationInfo
+            {
+                PageUrl = Url.SetParameter("Page", "!0"),
+                CurrentPage = Model.pageIndex,
+                PageSize = Model.pageSize,
+                TotalItemCount = Model.total,
+            }); }
+    </ul>
+</div>
+<script type="text/javascript">
+    function showtime() {
+
+        $('#list-time').toggle();
+    }
+
+    function searchdoc() {
+        var id = '@Model.CategoryId';
+        var keyword = $("#txtkeyword").val();
+        var year = $("#ddlYear").val();
+        var categoryId = $("#ddlCategory").val();
+        var createdBy = $("#ddlCreatedBy").val();
+        window.location = '/danh-muc-khcongnghe.html?keyword=' + keyword + '&year=' + year + '&categoryId=' + categoryId + '&createdBy=' + createdBy;
+        //window.location = jQuery.query.set("keyword", keyword).set("fromdate", fromdate).set("todate", todate).set("Page", "1");
+    }
+</script>
+<script>
+    $("#content-wrap").addClass("danhmuc-page");
+</script>

@@ -1,0 +1,293 @@
+﻿@{
+    Layout = "~/Views/Shared/_AdminV2.cshtml";
+}
+@using BIZ.Entity
+@using UTILS
+@using DATA
+@using WebMVC4.Helper
+@model QA
+
+
+
+<div class="well">
+    <span class="label label-danger">
+        Chú ý!
+    </span>
+    <span>
+        Hãy chắc chắn nhập vào đầy đủ thông tin tại các mục bắt buộc đánh dấu (*)
+    </span>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <i class="fa fa-fw fa-user-md"></i><span>@ViewBag.Title </span>
+            </div>
+            <form id="defaultForm" method="post" class="form-horizontal">
+                <div class="panel-group" id="steps">
+                    <div class="messager-body">
+                        <div class="alert alert-success display-hide alert-dismissable">
+                            <button type="button" class="close" data-close="alert" aria-hidden="true">×</button>
+                            <span class="glyphicon glyphicon-ok"></span>
+                            <label>Đã lưu dữ liệu thành công !!!</label>
+                        </div>
+                        <div class="alert alert-danger display-hide alert-dismissable">
+                            <button type="button" class="close" data-close="alert" aria-hidden="true">×</button>
+                            <span class="glyphicon glyphicon-warning-sign"></span>
+                            <label>Có một vài lỗi trong khung nhập liệu dưới đây ! kiểm tra lại</label>
+                        </div>
+                    </div>
+                    <div class="panel panel-info">
+
+                        <div class="panel-body">
+                            <!-- dành cho UpdateFunction -->
+                            <div style="padding: 10px 0 0 0;background-color:#fff !important">
+                                <div class="col-md-7">
+                                    <div class="form-group">
+
+                                        <div class="col-md-12">
+
+                                            <div>
+                                                <textarea id="txtAnswer" name="answer">@Html.Raw(Model.Answer)</textarea>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-5">
+
+
+                                    <div class="form-group">
+                                        <label for="txtDescription" class="control-label col-md-3">Họ và tên :<span class="required">*</span></label>
+                                        <div class="col-md-9">
+                                            <div class="input-icon right">
+                                                <input type="text" id="txtTitle" name="title" value="@Model.Name" class="form-control" placeholder="Nhập họ và tên" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="txtDescription" class="control-label col-md-3">Email :<span class="required">*</span></label>
+                                        <div class="col-md-9">
+                                            <div class="input-icon right">
+                                                <input type="text" id="txtEmail" name="email" value="@Model.Email" class="form-control" placeholder="Nhập email" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="txtDescription" class="control-label col-md-3">Câu hỏi :<span class="required">*</span></label>
+                                        <div class="col-md-9">
+                                            <div class="input-icon right">
+                                                <textarea id="txtQuestion" style="height:80px;" cols="20" name="question" class="form-control" placeholder="Nhập nội dung câu hỏi">@Model.Question.Trim()</textarea>
+
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group" style="display:none;">
+                                        <label for="txtOrder" class="control-label col-md-3">Order :<span class="required">*</span></label>
+                                        <div class="col-md-9">
+                                            <div class="input-icon right">
+                                                <input type="text" id="txtOrder" name="Order" required value="@Model.Order" class="form-control" placeholder="Nhập Link ảnh" />&nbsp;<span id="errmsg"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="control-label col-md-3" for="cbxIsActive">Trạng thái :</label>
+                                        <div class="col-md-4">
+                                            <div class="checkbox">
+                                                @if (Model.Status == 1)
+                                                {<input type="checkbox" id="cbxIsActive" checked="checked" />}
+                                                else
+                                                {<input type="checkbox" id="cbxIsActive" />}
+
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="panel-footer form-horizontal">
+                                        <div class="form-group submit">
+                                            <button type="submit" class="btn btn-primary" id="btnSave"><i class="fa fa-save"></i>Lưu lại</button>
+
+                                            <button type="button" class="btn btn-default" id="btnBack" onclick="GotoListpage()"><i class="fa fa-backward"></i>Back</button>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="clear"></div>
+                        </div>
+
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<style>
+    .input-icon {
+        position: relative;
+        width: 100%;
+    }
+</style>
+<script type="text/javascript">
+        function GotoListpage() {
+            window.location = "/AdminQuestion/ManageQA";
+        }
+        $(document).ready(function () {
+
+            var editor = CKEDITOR.instances['txtAnswer'];
+            if (editor) {
+                CKEDITOR.remove(editor);
+            }
+            CKEDITOR.replace('txtAnswer', {
+                filebrowserBrowseUrl: "/AdminImages/ManageImage",
+                filebrowserWindowWidth: '1000',
+                filebrowserWindowHeight: '800',
+                uiColor: '#FAFAFA',
+                extraPlugins: 'youtube',
+                toolbar: [
+                 { name: 'document', items: ['Source', '-', 'NewPage', 'Preview', '-'] },
+                 ['Cut', 'Copy', 'Paste', 'PasteText', 'PasteFromWord', '-', 'Undo', 'Redo'],
+                { name: 'styles', items: ['Font', 'FontSize'] },
+                { name: 'basicstyles', items: ['Bold', 'Italic', 'Underline', 'Strike', 'Subscript', 'Superscript', '-', 'RemoveFormat'] },
+
+                '/',
+                { name: 'colors', items: ['TextColor', 'BGColor'] }, { name: 'paragraph', items: ['NumberedList', 'BulletedList', '-', 'Outdent', 'Indent', '-', 'Blockquote', '-', 'JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock'] },
+                { name: 'insert', items: ['Image', 'Youtube', 'Flash', 'Table', 'HorizontalRule', 'Smiley', 'SpecialChar', 'PageBreak', 'Iframe'] },
+                { name: 'links', items: ['Link', 'Unlink', 'Maximize'] }
+                ],
+                height: 400
+            });
+
+            $("#txtOrder").keypress(function (e) {
+                //if the letter is not digit then display error and don't type anything
+                if (e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57)) {
+                    //display error message
+                    $("#errmsg").html("Chỉ Nhập Được Số").show().fadeOut(1000);
+                    return false;
+                }
+            });
+            $("button.close").click(function () {
+                $(this).parent().css("display", "none");
+            });
+            $('#defaultForm').bootstrapValidator({
+                message: 'This value is not valid',
+                //live: 'submitted',
+                feedbackIcons: {
+                    valid: 'glyphicon glyphicon-ok',
+                    invalid: 'glyphicon glyphicon-remove',
+                    validating: 'glyphicon glyphicon-refresh'
+                },
+                fields: {
+
+                    title: {
+                        message: 'Nhập họ và tên',
+                        validators: {
+                            notEmpty: {
+                                message: 'họ và tên không được bỏ trống'
+                            },
+
+                            stringLength: {
+                                min: 3,
+                                max: 250,
+                                message: 'họ và tên nhỏ nhất 3 ký tự và nhiều nhất 250 ký tự'
+                            },
+
+                        }
+                    },
+                    email: {
+                        message: 'Nhập email',
+                        validators: {
+                            notEmpty: {
+                                message: 'email không được bỏ trống'
+                            },
+
+                         
+
+                        }
+                    },
+                    question: {
+                        message: 'Bạn chưa nhập nội dung câu hỏi.',
+                        validators: {
+                            notEmpty: {
+                                message: 'Bạn chưa nhập nội dung câu hỏi'
+                            },
+
+                        }
+                    },
+                    answer: {
+                        validators: {
+                            notEmpty: {
+                                message: 'Câu trả lời không được bỏ trống'
+                            }
+                        }
+                    }
+
+                }
+            })
+            .on('success.form.bv', function (e) {
+                // Prevent submit form
+                e.preventDefault();
+
+                var $form = $(e.target),
+                    validator = $form.data('bootstrapValidator');
+                SaveData();
+                $(".close").click(function () {
+                    $(".alert-success").css("display", "none");
+                });
+            })
+            .on('error.form.bv', function (e) {
+                // Active the panel element containing the first invalid element
+                e.preventDefault();
+                var $form = $(e.target),
+                validator = $form.data('bootstrapValidator');
+                $(".alert-danger label").text("Có một vài lỗi trong khung nhập liệu dưới đây ! kiểm tra lại");
+                $(".alert-danger").css("display", "block");
+                $(".close").click(function () {
+                    $(".alert-danger").css("display", "none");
+                    $(".alert-success").css("display", "none");
+                });
+            });
+
+            $("#btnReset").click(function () {
+                $('#defaultForm').data('bootstrapValidator').resetForm(true);
+                $(".alert-danger").css("display", "none");
+                $(".alert-success").css("display", "none");
+            });
+            //Save Data
+            function SaveData() {
+                var param = {
+                    'Id': '@Model.Id',
+                    'Name': $("#txtTitle").val(),
+                    'Email': $("#txtEmail").val(),
+                    'Question': $("#txtQuestion").val(),
+                    'Answer': CKEDITOR.instances['txtAnswer'].getSnapshot(),
+                    'Status': $("#cbxIsActive").is(":checked") ? 1 : 0,
+
+                }
+                Utils.Loading();
+                $.ajax({
+                    type: 'POST',
+                    url: "/AdminQuestion/SaveData",
+                    data: param,
+                    async: true,
+                    success: function (data) {
+                        Utils.UnLoading();
+                        if (data.ResponseCode >= 0) {
+                            $("html,body").animate({ scrollTop: $('#TemplateContent').offset().top }, 'fast');
+                            $(".alert-success").show("slow");
+                            $(".alert-danger").hide("slow");
+                            setTimeout(function () { $(".alert-success").hide("slow"); GotoListpage(); }, 2000);
+                        }
+                        else {
+                            $("html,body").animate({ scrollTop: $('#TemplateContent').offset().top }, 'fast');
+                            $("#ErrorMessage").text(data.Description);
+                            $(".alert-danger").show("slow");
+                            $(".alert-success").hide("slow");
+                            setTimeout(function () { $(".alert-danger").hide("slow"); }, 2000);
+                        }
+                    }
+                });
+            };
+        });
+</script>

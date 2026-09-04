@@ -1,0 +1,143 @@
+﻿@using WebMVC4
+
+@Html.AntiForgeryToken()
+<div class="title9" style="margin-top: 40px; margin-bottom: -5px; padding-top: 10px;">Ý kiến phản hồi</div>
+
+
+<div class="binhluan">
+
+    <ul>
+
+        <li>
+            <input id="txtname" name="name" type="text" placeholder="Họ và tên" />
+
+
+        </li>
+
+        <li>
+            <textarea id="txtmessage" name="message" rows="8" placeholder="Nội dung"></textarea>
+        </li>
+
+        <li>
+            <button onclick="Send();">Gửi bình luận</button>
+        </li>
+    </ul>
+    <div class="clear"></div>
+    
+</div>
+<div class="comment" id="box_comment">
+    <div class="title_comment"><span>Bình luận</span></div>
+    <ul id="ul_comment"></ul>
+</div>
+
+<script type="text/javascript">
+
+    var itemid = '@ViewBag.ItemId';
+    var itemname = '@Html.Raw(ViewBag.ItemName)';
+    var type = '@ViewBag.Type';
+
+
+    function Reset() {
+        $('#txtname').val('');
+        $('#txtmessage').val('');
+        $('#txtmail').val('');
+    }
+
+    $(document).ready(function () {
+
+
+        gettopComment(8);
+    });
+    function gettopComment(top) {
+        $.ajax({
+            type: 'GET',
+            async: false,
+            jsonpCallback: 'jsonCallback',
+            contentType: "application/json",
+            dataType: 'jsonp',
+            url: '/Get/CommentService.ashx?jsoncallback=?',
+            data: {
+                __m: 'get_top_comments',
+
+                itemid: itemid,
+
+                top: top
+            },
+            success: function (data) {
+                var html = '';
+                if (data != undefined && data != null && data != '') {
+
+                    html = BindData(data);
+                    $('#ul_comment').html(html);
+                    if (top > 0 && top <= data.length) {
+                        html = ' <div class="xemtiep"> <a onclick="gettopComment(0);" class="fr" href="javascript:void(0);" >Xem tất cả</a> </div> </div class="clear">&nbsp;</div>';
+                        $('#box_comment').append(html);
+                    }
+
+                }
+                
+            },
+            error: function () {
+               
+            }
+        });
+        
+
+    }
+    function BindData(data) {
+        //var html = '<div class="title9">Ý kiến bạn đọc</div>';
+        var html = '';
+        $.each(data, function (index, item) {
+
+            html += ' <li>  <div><div class="vitri1">';
+            html += '<span class="red">' + item.UserName + '  </span>';
+            html += ' <span class="font10">' + dateFormat(item.CreatedTime, 'dd/MM/yyyy HH:mm') + '</span><br>  </div> ';
+            html += '  <p>  ' + item.Message + '    </p>    </div>   <div class="clear"></div></li>';
+
+        });
+
+        return html;
+    }
+
+    function Send() {
+        var username = $('#txtname').val();
+        var message = $('#txtmessage').val();
+
+        if (username == "") {
+
+            alert('Vui lòng nhập tên của bạn');
+            $('#txtname').focus();
+            return false;
+        }
+
+        if (message == "") {
+
+            alert('Vui lòng nhập nội dung bình luận');
+            $('#txtmessage').focus();
+            return false;
+        }
+        var post_data = {
+            
+            UserName: username,
+            Message: message,
+            ItemId: itemid,
+            ItemName: itemname,
+            Type: type,
+            Published: 0
+        }
+        $.ajax({
+            type: 'POST',
+            url: "@Url.Action("SendComment")",
+            data: addAntiForgeryToken(post_data),
+            success: function (data) {
+
+                if (data != undefined && data != null && data != '') {
+                    Reset();
+                }
+
+                alert(data.Description);
+            }
+        });
+        
+    }
+</script>

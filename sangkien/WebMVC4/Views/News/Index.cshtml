@@ -1,0 +1,107 @@
+﻿@using BIZ
+@using UTILS
+@using WebMVC4.Helper
+@model WebMVC4.Models.News2Model
+
+@{
+    var langpage = WorkContext.GetLanguage();
+}
+<div class="container news-page mt30">
+    <div class="content03">
+        <div >
+            @{Html.RenderAction("Breadcrumb", "News", new { CategoryId = ViewBag.CategoryId });}
+        </div>
+        <div class="mt20 row">
+            <div class="col-md-6 col-sm-12">
+                @foreach (var item in Model.hotnews.Take(1).Select((value, i) => new { i, value }))
+                {
+                    <div class="newsbig">
+                        <a href="@item.value.LinkUrl"><img src="@item.value.MainImage?w=565&h=317&mode=crop" alt=""></a>
+                        <h2 class="mt10"><a href="@item.value.LinkUrl">@item.value.Title</a></h2>
+                        <p class="mt10">@item.value.IntroText</p>
+                        <span class="newsdate mt10">@item.value.PublishDate.ToString("dd/MM/yyyy")</span>
+                    </div>
+                }
+            </div>
+            <div class="col-md-6 col-sm-12">
+                <ul class="newshot row">
+                    @foreach (var item in Model.hotnews.Skip(1).Select((value, i) => new { i, value }))
+                    {
+                        <li class="col-md-6 col-sm-12">
+                            <a href="@item.value.LinkUrl">
+                                <img src="@item.value.MainImage?w=268&h=151&mode=crop">
+                                <span class="mt10">@item.value.Title</span>
+                            </a>
+                        </li>
+                    }
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="bnrCenter mt40">
+        <div class="bnrSlider">
+            @{Html.RenderAction("Banner", "Home", new { lang = langpage });}
+        </div>
+    </div>
+
+    <div class="row mt30">
+        <div class="col-lg-8 col-md-12 col-sm-12">
+            @if (Model.articles != null)
+            {
+                if (Model.articles.Count > 0)
+                {
+                    <div class="">
+                        <h2 class="title-cm01"><a href="#">XEM THÊM</a></h2>
+                        <ul class="mt20 viewmore-list">
+                            @foreach (var item in Model.articles.Select((value, i) => new { i, value }))
+                            {
+
+                                <li>
+                                    <a href="@item.value.LinkUrl"><img src="@item.value.MainImage?w=300&h=180&mode=crop"></a>
+                                    <div>
+                                        <a href="@item.value.LinkUrl">@item.value.Title </a>
+                                        <span class="date mt10">@item.value.PublishDate.ToString("dd/MM/yyyy")</span>
+                                    </div>
+                                </li>
+
+
+                            }
+
+
+                        </ul>
+                        <div class="paging mt50 text-center">
+                            <ul>
+                                @{Html.RenderPartial("Pagination", new WebMVC4.Models.PaginationInfo
+                                    {
+                                        PageUrl = Url.SetParameter("Page", "!0"),
+                                        CurrentPage = ViewBag.Page,
+                                        PageSize = ViewBag.PageSize,
+                                        TotalItemCount = ViewBag.Total,
+                                    }); }
+                            </ul>
+                        </div>
+                    </div>
+                }
+            }
+        </div><!--/End content left-->
+        <div class="col-lg-4 col-md-12 col-sm-12 sidebar-right">
+            <ul class="link-list mt20">
+                @{Html.RenderAction("BannerRight", "Home", new { lang = langpage });}
+
+            </ul>
+        </div><!-- end col-lg-4-->
+    </div>
+</div><!-- end content-->
+
+
+
+<script type="text/javascript">
+
+    $('#menu_' + '@ViewBag.CurrentCategoryId').addClass("active");
+
+     $('#menu_' + '@ViewBag.ParentCategoryId').addClass("active");
+
+
+
+</script>

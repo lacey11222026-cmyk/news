@@ -1,0 +1,119 @@
+﻿@using WebMVC4.Helper
+@{
+    var langpage = WorkContext.GetLanguage();
+}
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+
+    @Html.Partial("MetaData")
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lobster&family=Oswald:wght@200..700&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="/Content/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/Content/css/common.css">
+    <link rel="stylesheet" href="/Content/css/style.css">
+    <link type="text/css" rel="stylesheet" href="/Content/css/jquery.mmenu.all.css" />
+    <link href="/Content/css/slick.min.css" type="text/css" rel="stylesheet" />
+    <link href="/Content/css/slick-theme.css" type="text/css" rel="stylesheet" />
+    <link href="~/Content/css/extend.css?vs=04" rel="stylesheet" />
+    <style>
+
+        @@font-face {
+            font-family: 'oswald';
+            src: url(/fonts/Oswald-VariableFont_wght.ttf);
+        }
+    </style>
+</head>
+<body>
+
+    <script src="/Content/js/jquery.min.js"></script>
+    <script src="/Content/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="/Content/js/jquery.mmenu.min.all.js"></script>
+    <script type="text/javascript" src="/Content/js/jquery.flexisel.js"></script>
+    <script src="/Content/js/slick.min.js"></script>
+    <script src="/Content/js/jquery.matchHeight.js"></script>
+
+    @*<script src="https://kit.fontawesome.com/9d8584fa51.js" crossorigin="anonymous"></script>*@
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <div class="header">
+
+        @{Html.RenderAction("Menu", "Home", new { lang = langpage });}
+        @{Html.RenderAction("MenuMobile", "Home", new { lang = langpage });}
+
+
+    </div>
+    @Html.Partial("Site_Header")
+
+
+
+    @RenderBody()
+
+    <footer class="mt40">
+        <div class="nav_top">
+            <div class="container">
+                @{Html.RenderAction("MenuBottom", "Home", new { lang = langpage });}
+            </div>
+        </div>
+        <div class="f-content">
+            <div class="mt30 f-content container">
+                @Html.Partial("Site_Footer")
+            </div>
+        </div><!-- end container-->
+    </footer>
+    <p><a href="#top" id="backToTop" class="backTop block"></a></p>
+
+    <div id="fb-root"></div>
+    <div style="clear:both">
+    </div>
+
+    <script src="/Content/js/script.js" type="text/javascript"></script>
+
+    <script>
+        $('.bnrSlider').slick({
+            arrows: false,
+            dots: true,
+            infinite: true,
+            speed: 500,
+            fade: true,
+            autoplay: true,
+            responsive: [
+                {
+                    breakpoint: 767,
+                    settings: {
+                        arrows: true
+                    }
+                }
+            ]
+        });
+    </script>
+    <script>
+
+        (function (d, s, id) {
+            var js, fjs = d.getElementsByTagName(s)[0];
+            if (d.getElementById(id)) return;
+            js = d.createElement(s); js.id = id;
+            js.src = "//connect.facebook.net/vi_VN/sdk.js#xfbml=1&version=v2.8&appId=275786053207358";
+            fjs.parentNode.insertBefore(js, fjs);
+        }(document, 'script', 'facebook-jssdk'));
+    </script>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-36352862-2"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'UA-36352862-2');
+    </script>
+    <script>
+        $("#qnmb").remove();
+    </script>
+
+</body>
+
+
+</html>

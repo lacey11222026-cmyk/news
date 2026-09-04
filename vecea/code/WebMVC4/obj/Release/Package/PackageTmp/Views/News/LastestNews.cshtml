@@ -1,0 +1,37 @@
+﻿@using BIZ
+@using UTILS
+@using WebMVC4.Helper
+@model WebMVC4.Models.LastestNewModel
+@if (Model != null)
+{
+    if (Model.lstdata.Count > 0)
+    {
+
+        <a href="@Model.Url" class="title-cm">@Model.HeaderTitle</a>
+        foreach (var item in Model.lstdata.Select((value, i) => new { i, value }))
+        {
+
+            if (item.i == 0)
+            {
+                <a href="@Utils.FormatUrlRewrite(item.value.Id, item.value.Title, "ArticleDetail")"><img src="@item.value.MainImage?w=197&h=116&mode=crop" />@item.value.Title</a>
+            }
+        }
+
+        <ul class="read-more-list">
+            @foreach (var item in Model.lstdata.Skip(1).Select((value, i) => new { i, value }))
+            {
+                <li>
+                    <a href="@Utils.FormatUrlRewrite(item.value.Id, item.value.Title, "ArticleDetail")"
+                       title="@item.value.Title">
+                        @item.value.Title
+                    </a>
+                </li>
+
+            }
+
+        </ul>
+        
+        
+
+    }
+}

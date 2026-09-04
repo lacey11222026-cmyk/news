@@ -1,0 +1,21 @@
+﻿@using BIZ
+@using UTILS
+@using WebMVC4
+@using WebMVC4.Helper
+@model BIZ.Entity.CONTENT_FULL
+<ul class="detail-link clearfix mt20">
+    <li><a href="javascript:void(0);" onclick="openWin('@ViewBag.FacebookShare');"><img src="/Content2/images/ico-face.jpg"></a></li>
+    <li><a href="javascript:void(0);" onclick="openWin('@ViewBag.GoogleShare');"><img src="/Content2/images/ico-google.jpg"></a></li>
+    <li><a href="@Url.Action("Print", "News", new {Id=Model.Id})" target="_blank"><img src="/Content2/images/ico-print.jpg"> Bản in</a></li>
+</ul>
+
+
+<script type="text/javascript">
+
+        
+
+        function openWin(url) {
+            var myWindow = window.open(url, '', 'width=700,height=500');
+            myWindow.focus();
+        }
+    </script>

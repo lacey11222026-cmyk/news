@@ -1,0 +1,39 @@
+﻿@using BIZ
+@using UTILS
+@using WebMVC4.Helper
+
+@model WebMVC4.Models.LastestNewModel
+@if (Model != null)
+{
+    if (Model.lstdata != null)
+    {
+        foreach (var item in Model.lstdata.Select((value, i) => new { i, value }))
+        {
+            <div class="col post-item">
+                <div class="col-inner">
+                    <a href="@item.value.LinkUrl" class="plain">
+                        <div class="box box-normal box-text-bottom box-blog-post has-hover">
+                            <div class="box-image">
+                                <div class="image-overlay-add image-cover" style="padding-top:65%;">
+                                    <img alt="@item.value.Title"  class="attachment-original size-original wp-post-image lazyloaded" src="@item.value.MainImage?h=480&w=270&mode=crop" width="480" height="270">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="box-text text-left">
+                            <div class="box-text-inner blog-post-inner">
+                                <h5 class="post-title is-large uppercase">@item.value.Title</h5>
+                                <div class="is-divider"></div>
+                                <p class="from_the_blog_excerpt ">
+                                    @item.value.IntroText
+                                </p>
+                            </div>
+                        </div>
+
+                    </a>
+                </div>
+            </div>
+        }
+
+
+    }
+}

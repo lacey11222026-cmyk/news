@@ -1,0 +1,45 @@
+﻿@using BIZ
+@using UTILS
+@using WebMVC4.Helper
+@model List<BIZ.Entity.CONTENT_FULL>
+@{
+    var langpage = WorkContext.GetLanguage();
+}
+<div class="row row-50">
+    @if (Model != null)
+    {
+
+
+        <div class="col-md-6 col-sm-12">
+            @foreach (var item in Model.Take(1).Select((value, i) => new { i, value }))
+            {
+                <div>
+                    <a href="@(item.value.Url)" class="icon-video fancybox-video"><img src="@item.value.MainImage?w=640&h=360&mode=crop" alt="" class="w-100"></a>
+                    <a href="@(item.value.Url)" class="big-name font-weight-bold mt15 fancybox-video">@item.value.Title</a>
+                    <p class="date02 mt15">@item.value.PublishDate.ToString("dd/MM/yyyy")</p>
+                    <p class="mt15">@item.value.IntroText</p>
+                </div>
+
+            }
+        </div>
+        <div class="col-md-6 col-sm-12">
+            <ul class="video-list">
+                @foreach (var item in Model.Skip(1).Select((value, i) => new { i, value }))
+                {
+                    <li>
+                        <div>
+                            <a href="@(item.value.Url)" class="icon-video fancybox-video"><img src="@item.value.MainImage?w=256&h=150&mode=crop" alt=""></a>
+                            <div>
+                                <a href="@(item.value.Url)" class="fancybox-video">@item.value.Title </a>
+                                <p class="date02 mt10">@item.value.PublishDate.ToString("dd/MM/yyyy")</p>
+                            </div>
+                        </div>
+                    </li>
+                }
+            </ul>
+        </div>
+    }
+</div>
+
+
+

@@ -1,0 +1,38 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+
+    @Html.Partial("MetaData")
+
+    <link rel="stylesheet" href="/Content/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/Content/css/common.css">
+    <link rel="stylesheet" href="/Content/css/style.css?vs=03">
+    @*<link rel="stylesheet" href="/Content/css/banner.css">*@
+    <link type="text/css" rel="stylesheet" href="/Content/css/jquery.mmenu.all.css" />
+    <link type="text/css" rel="stylesheet" href="/Content/css/chantrang.css" />
+    <link type="text/css" rel="stylesheet" href="/Content/css/animate.css" />
+
+    <link type="text/css" rel="stylesheet" href="~/Content/css/extend.css?vs=05" />
+
+
+
+</head>
+<body onorientationchange="updateOrientation();">
+    <script src="/Content/js/jquery.min.js"></script>
+    <script src="/Content/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="/Content/js/jquery.mmenu.min.all.js"></script>
+    <script type="text/javascript" src="/Content/js/jquery.flexisel.js"></script>
+    <script type="text/javascript" src="/Content/js/jquery.matchHeight.js"></script>
+    <script type="text/javascript" src="/Content/js/wow.js"></script>
+
+
+    @Html.Partial("Site_Header")
+    @RenderBody()
+    @Html.Partial("Site_Footer")
+</body>
+
+
+
+
+
+</html>

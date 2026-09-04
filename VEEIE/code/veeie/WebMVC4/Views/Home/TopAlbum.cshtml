@@ -1,0 +1,37 @@
+﻿@using BIZ
+@using UTILS
+@using WebMVC4.Helper
+@model List<BIZ.Entity.Album_FULL>
+@if (Model != null)
+{
+    <div class="bg_cate blue"> <div class="animal"> <img alt="album " src="/images/consen.png"></div><div class="cate_text"><h2><a href="@ViewBag.Url">@ViewBag.CateName</a></h2></div></div>
+    <div id="album">
+        <ul id="mycarouse2">
+            @foreach (var item in Model.Select((value, i) => new { i, value }))
+            {
+        
+       
+              
+                    <li><a  href="@Utils.FormatUrlRewrite(item.value.Id, item.value.Title, "AlbumDetail")"
+                        title="@item.value.Title">
+                        <img src="@item.value.MainImage.100.100.jpg" width="100px" height="100px"
+                            alt="@item.value.Title" /></a> </li>
+              
+       
+            }
+        </ul>
+        <div style="clear: both">
+        </div>
+    </div>  
+    <script type="text/javascript">
+
+    jQuery('#mycarouse2').jcarousel({ wrap: 'circular' });
+        $("#album .jcarousel-clip-horizontal").css({ width: "586px", height: "124px", overflow: "hidden" });
+    
+</script>
+}
+
+
+
+
+

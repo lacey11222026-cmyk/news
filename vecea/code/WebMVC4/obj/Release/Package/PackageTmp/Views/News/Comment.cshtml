@@ -1,0 +1,136 @@
+﻿<script src="~/Scripts/site.utils.js"></script>
+<div class="title-cm mt40">Ý kiến phản hồi</div>
+<div class="row">
+    @Html.AntiForgeryToken()
+    <div class="col-md-6 col-sm-6 col-xs-12 mt15">
+        <input type="text" placeholder="Họ và tên" id="txtname" class="input-box w100">
+    </div>
+    @*<div class="col-md-6 col-sm-6 col-xs-12 mt15">
+        <input type="text" placeholder="Email" id="txtEmail" class="input-box w100">
+    </div>*@
+    <div class="col-md-12 col-xs-12 mt10">
+        <textarea placeholder="Nội dung" id="txtmessage" rows="8" class="input-box w100"></textarea>
+    </div>
+</div>
+<a href="javascript:;"  onclick="Send();" class="btn btn-primary mt15">Gửi bình luận</a>
+<div id="box_comment">
+    <div class="title-cm mt30">Bình luận</div>
+    <ul class="comment-box mt10" id="ul_comment">
+        
+
+    </ul>
+</div>
+
+<script type="text/javascript">
+
+    var itemid = '@ViewBag.ItemId';
+    var itemname = '@Html.Raw(ViewBag.ItemName)';
+    var type = '@ViewBag.Type';
+
+
+    function Reset() {
+        $('#txtname').val('');
+        $('#txtmessage').val('');
+        $('#txtmail').val('');
+    }
+
+    $(document).ready(function () {
+
+
+        gettopComment(8);
+    });
+    function gettopComment(top) {
+        $.ajax({
+            type: 'GET',
+            async: false,
+            jsonpCallback: 'jsonCallback',
+            contentType: "application/json",
+            dataType: 'jsonp',
+            url: '/Get/CommentService.ashx?jsoncallback=?',
+            data: {
+                __m: 'get_top_comments',
+
+                itemid: itemid,
+
+                top: top
+            },
+            success: function (data) {
+                var html = '';
+                if (data != undefined && data != null && data != '') {
+                    $('#box_comment').show();
+                    html = BindData(data);
+                    $('#ul_comment').html(html);
+                    if (top > 0 && top <= data.length) {
+                        html = ' <div class="xemtiep"> <a onclick="gettopComment(0);" class="fr" href="javascript:void(0);" >Xem tất cả</a> </div> </div class="clear">&nbsp;</div>';
+                        $('#box_comment').append(html);
+                    }
+
+                }
+                else {
+                    $('#box_comment').hide();
+                }
+                
+
+            },
+            error: function () {
+                $('#box_comment').hide();
+            }
+        });
+
+
+    }
+    function BindData(data) {
+        //var html = '<div class="title9">Ý kiến bạn đọc</div>';
+        var html = '';
+        $.each(data, function (index, item) {
+            html += '  <li><a href="#" class="name">' + item.UserName + '</a>';
+            html += '<span class="date">' + dateFormat(item.CreatedTime, 'dd/MM/yyyy HH:mm') + '</span> ';
+            html += '<p class="mt5">' + item.Message + ' </p><div class="clearfix"></div> </li>';
+         
+        });
+
+        return html;
+    }
+
+    function Send() {
+        var username = $('#txtname').val();
+        var message = $('#txtmessage').val();
+
+        if (username == "") {
+
+            alert('Vui lòng nhập tên của bạn');
+            $('#txtname').focus();
+            return false;
+        }
+
+        if (message == "") {
+
+            alert('Vui lòng nhập nội dung bình luận');
+            $('#txtmessage').focus();
+            return false;
+        }
+        var post_data = {
+
+            UserName: username,
+            Message: message,
+            ItemId: itemid,
+            ItemName: itemname,
+            Type: type,
+            Published: 0
+        }
+        $.ajax({
+            type: 'POST',
+            url: "@Url.Action("SendComment")",
+            data: addAntiForgeryToken(post_data),
+            success: function (data) {
+
+                if (data != undefined && data != null && data != '') {
+                    Reset();
+                }
+
+                alert(data.Description);
+            }
+        });
+
+    }
+</script>

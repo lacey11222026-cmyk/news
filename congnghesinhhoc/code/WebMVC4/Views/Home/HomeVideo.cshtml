@@ -1,0 +1,60 @@
+﻿@using BIZ
+@using UTILS
+@using WebMVC4.Helper
+@model List<BIZ.Entity.CONTENT_FULL>
+@if (Model != null)
+{
+   
+    <div class="video-newsbig mt20" id="hVideoContent">
+        @foreach (var item in Model.Take(1).Select((value, i) => new { i, value }))
+        {
+            <iframe id="hifvideo" class="embed-responsive-item"  width="367" height="210" frameborder="0" allowfullscreen
+                    src="@(item.value.Url.Replace("watch?v=", "embed/"))?rel=0"></iframe>
+            <h3></h3>
+            <a href="/trang-chu-video.html?VideoId=@(item.value.Id)"><p>@item.value.Title</p></a>
+            <p>@item.value.Title</p>
+
+        }
+
+    </div>
+    <ul class="list-news02 mt15">
+        @foreach (var item in Model.Skip(1).Take(3).Select((value, i) => new { i, value }))
+        {
+            <li>
+                <a href="/trang-chu-video.html?VideoId=@(item.value.Id)">
+                    <img src="@item.value.MainImage?w=98&mode=crop" alt="">
+                    <p>@item.value.Title</p>
+                </a>
+                <div class="clearfix"></div>
+            </li>
+
+        }
+
+    </ul>
+  
+
+}
+
+<script type="text/javascript">
+    var width = $("#hVideoContent").width();
+    var height = width*9 /16;
+
+    $("#hifvideo").width(width);
+    $("#hifvideo").height(height);
+</script>
+
+
+<style>
+    .title-cm2{
+    font-size: 18px;
+    /* font-weight: bold; */
+    text-transform: uppercase;
+    display: block;
+    background-color: #1e88c9;
+    color: #fff;
+    padding: 7px 10px 5px 10px;
+}
+    .title-cm2 a,.title-cm2 a:hover{
+        color: #fff;
+    }
+</style>

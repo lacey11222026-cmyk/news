@@ -1,0 +1,14 @@
+﻿@using BIZ
+@using UTILS
+@using WebMVC4.Helper
+@model List<BIZ.Entity.CATEGORY_FULL>
+
+
+            <ul>
+                <li class="active"><a href="#"><img src="/Content/images/icon-home.png " alt=""></a></li>
+                @foreach (var item in Model.Select((value, i) => new { i, value }))
+                {
+                    <li><a href="@item.value.Url">@item.value.Name</a></li>
+                }
+            </ul>
+       

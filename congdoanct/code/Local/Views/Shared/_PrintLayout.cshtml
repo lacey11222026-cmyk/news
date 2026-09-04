@@ -1,0 +1,58 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+
+    <title>@ViewBag.Title </title>
+    <meta name="description" content="@ViewBag.Description" />
+    <meta name="keywords" content="@ViewBag.Keywords" />
+    <meta name="news_keywords" content="@ViewBag.Keywords" />
+    <meta name="author" content="vuit" />
+    <meta content="general" name="rating" />
+    <meta content="vuit" name="copyright" />
+    <meta content="never" name="expires" />
+    <meta content="global" name="distribution" />
+    <meta content="DOCUMENT" name="RESOURCE-TYPE" />
+    <meta content="vuit.org.vn" name="GENERATOR" />
+    <meta name="robots" content="index,follow" />
+    <meta name="Googlebot" content="index,follow,noarchive" />
+    <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
+    <link rel="icon" type="image/icon" href="/Content/images/icon_logo.png">
+
+    @Styles.Render("~/Content/sitecss")
+
+    <link href="/Styles/print.css" rel="stylesheet" type="text/css" />
+</head>
+
+
+<body>
+    @Scripts.Render("~/Content/sitejs")
+    <header>
+        <div class="container">
+            <a href="/">
+                <img src="~/Content/images/logo.png" alt="Công Đoàn Công Thương Việt Nam - Trang nội bộ" class="logo mt10" />
+            </a>
+        </div>
+    </header>
+
+    <div id="body" class="container">
+        <div class="print"><span onclick="window.print()" class="cursor">[In trang]</span></div>
+        <div id="article">
+            <div class="col-md-8 col-sm-12 col-md-offset-2">
+
+                @RenderBody()
+            </div>
+            <div style="clear:both"></div>
+        </div>
+    </div>
+   
+
+
+    @Html.Partial("Site_Footer")
+
+
+
+   
+</body>
+</html>
+
+

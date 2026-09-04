@@ -1,0 +1,128 @@
+﻿@using BIZ
+@using DATA
+@using UTILS
+@using WebMVC4.Helper
+@model BIZ.Entity.DOCUMENT_FULL
+
+
+<div class="content01 container mt10">
+    <div class="row">
+        <div class="col-lg-8 col-md-12 col-sm-12">
+
+            @if (Model != null)
+            {
+                {Html.RenderAction("Breadcrumb", "News", new { CategoryId = Model.CategoryId });}
+
+                <div class="mt40 manage-detail-page">
+                    <table>
+                        <tbody>
+                            <tr>
+                                <th> @Resources.Global.DocName</th>
+                                <td colspan="3"> @Html.Raw(Model.Name)</td>
+                            </tr>
+                            <tr>
+                                <th>@Resources.Global.DocViewOnline</th>
+                                <td colspan="3"><a href="@Url.Action("ViewFile","Document",new { id=Model.Id})" target="_blank">@Resources.Global.DocViewOnline</a></td>
+                            </tr>
+                            <tr>
+                                <th>@Resources.Global.DocDownload</th>
+                                <td colspan="3"><a href="@Url.Action("DownloadFile","Document",new { id=Model.Id})" class="document-view textlink"><img src="/Content/img/icon-pdf-02.svg" alt="" width="40"></a></td>
+                            </tr>
+                            <tr>
+                                <th> @Resources.Global.DocDescription</th>
+                                <td colspan="3">@Html.Raw(Model.Description)</td>
+                            </tr>
+                            <tr>
+                                <th> @Resources.Global.DocCode</th>
+                                <td>@Model.Code</td>
+                                <th> @Resources.Global.DocEffectiveDate</th>
+                                <td>
+                                    @if (!Model.EffectiveDate.HasValue)
+                                    {
+
+                                        <text>&nbsp;</text>
+                                    }
+                                    else
+                                    {
+                                        if (Model.EffectiveDate.Value.Year < 9000)
+                                        {
+                                            @Convert.ToDateTime(Model.EffectiveDate).ToString(@" dd'/'MM'/'yyyy")
+                                        }
+                                        else
+                                        {
+                                            <text>&nbsp;</text>
+                                        }
+
+                                    }
+                                </td>
+                            </tr>
+                            <tr>
+                                <th> @Resources.Global.DocExpiryDate</th>
+                                <td>
+                                    @if (!Model.ExpiryDate.HasValue)
+                                    {
+
+                                        <text>&nbsp;</text>
+                                    }
+                                    else
+                                    {
+                                        if (Model.ExpiryDate.Value.Year < 9000)
+                                        {
+                                            @Convert.ToDateTime(Model.ExpiryDate).ToString(@" dd'/'MM'/'yyyy")
+                                        }
+                                        else
+                                        {
+                                            <text>&nbsp;</text>
+                                        }
+
+                                    }
+                                </td>
+                                <th>@Resources.Global.DocPublishDate</th>
+                                <td>
+                                    @if (!Model.ExpiryDate.HasValue)
+                                    {
+
+                                        <text>&nbsp;</text>
+                                    }
+                                    else
+                                    {
+                                        if (Model.ExpiryDate.Value.Year < 9000)
+                                        {
+                                            @Convert.ToDateTime(Model.ExpiryDate).ToString(@" dd'/'MM'/'yyyy")
+                                        }
+                                        else
+                                        {
+                                            <text>&nbsp;</text>
+                                        }
+
+                                    }
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>
+                                    @Resources.Global.DocSignedByDesc
+                                </th>
+                                <td>
+                                    @Model.SignedByDesc
+
+                                </td>
+                                <th>
+                                    @Resources.Global.DocSignedBy
+                                </th>
+                                <td>
+                                    @Model.SignedBy
+                                </td>
+
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+            }
+        </div><!--/End content left-->
+        <div class="col-lg-4 col-md-12">
+            @Html.Partial("Site_Right2")
+        </div><!--/End content right-->
+    </div><!-- end row-->
+</div>
+

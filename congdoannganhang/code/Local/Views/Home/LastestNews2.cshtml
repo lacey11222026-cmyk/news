@@ -1,0 +1,49 @@
+﻿@using BIZ
+@using UTILS
+@using Local.Helper
+@model List<BIZ.Entity.CONTENT_FULL>
+@if (Model != null)
+{
+    if (Model.Count > 0)
+    {
+    <div class="n_border i_content_top">
+        
+            <div class="title9"><a href="@ViewBag.Url">@ViewBag.CateName</a></div>
+        
+        <div class="clear"></div>
+        <div class="noidung">
+            <div class="pad7">
+                @foreach (var item in Model.Select((value, i) => new { i, value }))
+                {
+                    <h4>@item.value.Title</h4>
+                    if (item.i == 0)
+                    {
+
+                        @Html.Raw(item.value.Contents)
+                        if (item.value.PublishDate.DayOfYear == DateTime.Now.DayOfYear)
+                        {
+                             <script type="text/javascript">
+                                 $('#menuleft_' + '@ViewBag.CategoryId a').append("<span class=\"c_ic_moi\">Mới</span>");
+       
+                            </script>
+                        }
+
+                    }
+
+                }
+            </div>
+            <div class="clear"></div>
+        </div>
+        <p><a href="@ViewBag.Url" class="opa">Xem chi tiết</a></p>
+        <div class="clear"></div>
+    </div>
+    
+    
+ 
+    
+         
+       
+    
+        
+    }
+}

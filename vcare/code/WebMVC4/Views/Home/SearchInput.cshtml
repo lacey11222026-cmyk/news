@@ -1,0 +1,137 @@
+﻿@using BIZ
+@using UTILS
+@using WebMVC4.Helper
+@model List<DATA.CarGroup>
+
+<div class="searchbox-pc" id="searchbox-pn">
+    <div class="searchproduct container">
+        <ul class="row row-10">
+            <li class="col-md-4 col-sm-12 col-12">
+                <div class="form-group">
+                    <select class="form-control" id="HangXe">
+                        <option value="-1">Hãng xe</option>
+                        @foreach (var item in Model)
+                        {
+                            <option value="@item.Id">@item.Name</option>
+                        }
+                    </select>
+                </div>
+            </li>
+            <li class="col-md-4 col-sm-12 col-12">
+                <div class="form-group">
+                    <select class="form-control" id="TenXe">
+                        <option value="-1">Tên xe</option>
+                        
+                    </select>
+                </div>
+            </li>
+            <li class="col-md-4 col-sm-12 col-12" id="car-pn">
+                <button type="submit"  onclick="FinCar();" class="btn btn-primary mb-2">TÌM ẮC QUY & LỐP THEO XE</button>
+            </li>
+            <li class="col-md-4 col-sm-12 col-12">
+                <div class="form-group">
+                    <select class="form-control" id="KichCo">
+                        <option value="-1">Kích cỡ mâm (vành)</option>
+                        @for (var i = 13; i <= 22; i++)
+                        {
+                            if (i != 21)
+                            {
+                                <option value="@i">Vành @i</option>
+                            }
+
+                        }
+                    </select>
+                </div>
+            </li>
+            <li class="col-md-4 col-sm-12 col-12" id="size-pn">
+                <div class="form-group">
+                    <select class="form-control" id="ddlSize">
+                        <option>Kích cỡ lốp</option>
+                       
+                    </select>
+                </div>
+            </li>
+            <li class="col-md-4 col-sm-12 col-12">
+                <button type="submit" onclick="FinSize();" class="btn btn-primary mb-2">TÌM LỐP THEO SIZE</button>
+            </li>
+        </ul>
+    </div>
+</div>
+<!-- END SEARCH-->
+<script>
+    function LoadModel(cateid) {
+        $.ajax({
+            cache: false,
+            type: "GET",
+            url: "/Product/GetCarModel?Id=" + cateid,
+            data: {},
+            success: function (data) {
+                $('#TenXe').html('');
+                var html = '';
+                $.each(data, function (id, item) {
+
+                    html = '<option value="' + item.Id + '" title="' + item.Url + '">';
+
+                    html += item.Name;
+                    html += '</option>';
+                    $('#TenXe').append(html);
+
+
+
+                });
+            },
+
+        });
+    }
+</script>
+<script>
+    function LoadSize(size) {
+        $.ajax({
+            cache: false,
+            type: "GET",
+            url: "/Product/GetCarSize?size=" + size,
+            data: {},
+            success: function (data) {
+                $('#ddlSize').html('');
+                var html = '';
+                $.each(data, function (id, item) {
+
+                    html = '<option value="' + item.Id + '" title="' + item.Url + '">';
+
+                    html += item.Name;
+                    html += '</option>';
+                    $('#ddlSize').append(html);
+
+
+
+                });
+            },
+
+        });
+    }
+
+    $("#HangXe").change(function () {
+        if ($(this).val() != -1) {
+            LoadModel($(this).val());
+        }
+        
+        
+    });
+    $("#KichCo").change(function () {
+        if ($(this).val() != -1) {
+            LoadSize($(this).val());
+        }
+
+
+    });
+    function FinCar() {
+        if ($("#HangXe").val() != -1) {
+            window.location.href = '/' + $("#TenXe option:selected").attr("title");
+        }
+    }
+    function FinSize() {
+        if ($("#KichCo").val() != -1) {
+            window.location.href = '/' + $("#ddlSize option:selected").attr("title");
+        }
+    }
+</script>

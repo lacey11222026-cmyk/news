@@ -1,0 +1,56 @@
+﻿@using WebMVC4.Helper
+
+
+
+<div class="menu-mobile menu-mobile_is-guest">
+    <div class="menu-mobile__close icon-close"></div>
+
+    
+    <div class="menu-site">
+        
+        <div class="menu-site__i">
+           
+            <ul class="menu-site__lst">
+                
+               
+                <li class="menu-site__lst__i">
+                    <a href="/" class="menu-site__lst__i__a">
+                        Trang chủ
+                    </a>
+                </li>
+                <li class="menu-site__lst__i">
+                    <a href="#" class="menu-site__lst__i__a">
+                        Giới thiệu
+                    </a>
+                </li>
+                <li class="menu-site__lst__i">
+                    <a href="#" class="menu-site__lst__i__a">
+                        Hướng dẫn mua hàng
+                    </a>
+                </li>
+                <li class="menu-site__lst__i">
+                    <a href="/lien-he/" class="menu-site__lst__i__a">
+                        Liên hệ
+                    </a>
+                </li>
+                <li class="menu-site__lst__i">
+                    <a href="/tin-tuc/" class="menu-site__lst__i__a">
+                        Tin tức
+                    </a>
+                </li>
+                
+            </ul>
+        </div>
+    </div>
+</div>
+<form id="w0" class="search-form-top search-form-top_beyond-header" action="/home/search/" method="get">
+    <label for="search-form-top__it_w0"
+           class="search-form-top__lbl icon-search">
+        <span class="search-form-top__txt">Tìm kiếm</span>
+    </label>
+
+    <input type="text" id="search-form-top__it_w0" class="search-form-top__it" name="partNo" placeholder="Nhập mã linh kiện" aria-required="true">
+    <button type="submit" class="search-form-top__btn icon-enter">
+        <span class="search-form-top__txt">Tìm kiếm</span>
+    </button>
+</form>

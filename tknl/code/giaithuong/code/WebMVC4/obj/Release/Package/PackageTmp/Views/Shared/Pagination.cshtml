@@ -1,0 +1,34 @@
+﻿@model WebMVC4.Models.PaginationInfo
+@using WebMVC4.Helper
+@if (Model.Pages.Count() > 1)
+{
+   
+    if (Model.HasPrevPage)
+    {
+    
+    <li><a href="@Model.PrevPageUrl" ><i class="glyphicon glyphicon-chevron-left"> </i></a> </li> 
+    }
+@* else
+    {
+    <li><a href="#" class="active">Trước</a> </li>      }*@
+    foreach (var p in Model.Pages)
+    {
+        if (p == Model.CurrentPage)
+        {
+    <li class="active"><a class="currentpage" href="#">@p</a></li>
+        }
+        else
+        {
+    
+    <li><a href="@Model.PageUrlFor(p)" >@p</a> </li>
+        }
+    }
+    if (Model.HasNextPage)
+    { 
+
+    <li> <a href="@Model.NextPageUrl" > <i class="glyphicon glyphicon-chevron-right"></i> </a></li>
+    }
+  
+
+    
+}

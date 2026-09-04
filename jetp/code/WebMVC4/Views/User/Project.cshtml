@@ -1,0 +1,61 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout2.cshtml";
+}
+@using BIZ.Entity
+@using UTILS
+@using WebMVC4.Helper
+@using UTILS;
+@model UserSession
+<div class="manage-body">
+    <div class="manage-bnr">
+        <img src="/Content2/images/manage-bnr.jpg" alt="">
+        
+    </div>
+    <div class="manage-content">
+        <div class="mw-01 manage-sidebar">
+            @Html.Partial("User_Menu")
+        </div>
+        <div class="mw-02 manage-main">
+            <div class="manage-wrap mt50">
+                <p class="text-center choose-project-title">Chọn mẫu đề xuất dự án</p>
+                <ul class="choose-project-list mt30">
+                    <li>
+                        <a href="@Url.Action("AddProject","User")">Dự án đầu tư <br>có cấu phần xây dựng</a>
+                    </li>
+                    <li>
+                        <a href="@Url.Action("AddProject2","User")">Dự án <br>hỗ trợ kỹ thuật</a>
+                    </li>
+                </ul>
+                <div class="mt30">
+                    <p class="font-weight-bold">Lưu ý:</p>
+                    <p class="mt20 font-weight-bold">1. Dự án đầu tư có cấu phần xây dựng bao gồm 05 nhóm: </p>
+                    <ul class="list-dot mt10">
+                        <li>Thúc đẩy chuyển đổi điện than sang năng lượng sạch</li>
+                        <li>Phát triển hệ sinh thái công nghiệp và dịch vụ về năng lượng tái tạo</li>
+                        <li>Sử dụng năng lượng tiết kiệm và hiệu quả</li>
+                        <li>Nâng cấp hệ thống truyền tải và phân phối điện, đẩy nhanh lộ trình xây dựng hệ thống điện thông minh và phát triển hệ thống lưu trữ năng lượng</li>
+                        <li>Chuyển đổi năng lượng xanh, giảm phát thải khí nhà kính của ngành giao thông vận tải</li>
+                    </ul>
+                    <p class="mt30 font-weight-bold">2. Dự án hỗ trợ kỹ thuật (HTKT) bao gồm 3 nhóm: </p>
+                    <ul class="list-dot mt10">
+                        <li>Hoàn thiện thể chế, chính sách thúc đẩy chuyển đổi năng lượng</li>
+                        <li>Đổi mới sáng tạo, phát triển và chuyển giao công nghệ</li>
+                        <li>Bảo đảm công bằng trong chuyển đổi năng lượng</li>
+                    </ul>
+                    <p class="mt30">
+                        <strong>3. Đối với Dự án đầu tư nhưng có thêm hợp phần HTKT</strong> (như hỗ trợ chuẩn bị hồ sơ đầu tư, hỗ trợ xây dựng năng lực triển khai) thì hợp phần HTKT cần khai báo như một dự án HTKT và ghi rõ tên của dự án HTKT ở mục 20 của mẫu đề xuất đầu tư, và tên của dự án đầu tư ở mục 4 của mẫu đề xuất dự án HTKT tương ứng
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="m-log-out">
+            <img src="/Content2/images/manage-img.png" alt="">
+            <a href="@Url.Action("Login","User",new { act="out"})" class="btn-log-out"><img src="/Content2/images/icon-log-out.png" alt=""> Đăng xuất</a>
+        </div>
+    </div>
+</div>
+<script src="~/Content/js/formvalidate.js?vs=02"></script>
+<script>
+    $("#menu_2").addClass("active");
+    
+</script>

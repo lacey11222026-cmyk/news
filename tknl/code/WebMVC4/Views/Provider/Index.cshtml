@@ -1,0 +1,109 @@
+﻿@using BIZ
+@using UTILS
+@using DATA.DAL
+@using WebMVC4.Helper
+@model WebMVC4.Models.ProviderModel
+
+@{
+    List<TestLocation> ListCate = ViewBag.listLocation;
+}
+
+
+<div class="container mt40 document-page">
+    <div class="title-cm01">
+        <a href="/to-chuc-kiem-toan-nang-luong">TỔ CHỨC KIỂM TOÁN NĂNG LƯỢNG</a>
+    </div>
+    <div class="text-center document-search mt20">
+        <div class="form-group">
+            <label class="">Từ khóa</label>
+            <input id="txtkeyword" value="@ViewBag.keyword" class="form-control" type="text">
+        </div>
+        <div class="form-group">
+            <label class="">Mã số thuế</label>
+            <input id="txtmst" value="@ViewBag.mst" class="form-control" type="text" placeholder="">
+        </div>
+        <div class="form-group">
+            <label class="">Tỉnh/Thành phố</label>
+            <select class="form-control" id="province">
+                <option>Tỉnh/Thành phố</option>
+                @if (ListCate != null && ListCate.Count > 0)
+                {
+
+                    foreach (var obj in ListCate)
+                    {
+                        <option value="@obj.Name" title="@obj.Name" @if (obj.Name.ToString() == ViewBag.province) { @Html.Raw("selected='selected'") ; }>@obj.Name</option>
+                    }
+                }
+            </select>
+        </div>
+        <div>
+            <a href="javascript:;" onclick="searchdoc();" class="btn-green">Tìm kiếm</a>
+        </div>
+    </div>
+    <div class="document-table table-responsive mt20">
+        <div>
+            <table>
+                <tbody>
+                    <tr>
+                        <th>STT</th>
+                        <th>Tên đơn vị</th>
+                        <th>Tỉnh/thành phố</th>
+                        <th>Địa chỉ</th>
+                        <th>Mã số thuế</th>
+                        <th>Lĩnh vực kiểm toán năng lượng</th>
+                    </tr>
+
+                    @foreach (var item in Model.listdata.Select((value, i) => new { i, value }))
+                    {
+                        <tr>
+                            <td>@(item.i+1 +((Model.pageIndex-1)*20) )</td>
+                            <td><a href="/to-chuc-kiem-toan-nang-luong/don-vi-@(item.value.Id)">@item.value.Name</a></td>
+                            <td>@item.value.Province</td>
+                            <td>@item.value.Address</td>
+                            <td>@item.value.MST</td>
+                            <td>@item.value.Business </td>
+                        </tr>
+                    }
+
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="paging mt50 text-center">
+        <ul>
+            @{Html.RenderPartial("Pagination", new WebMVC4.Models.PaginationInfo
+                {
+                    PageUrl = Url.SetParameter("page", "!0"),
+                    CurrentPage = Model.pageIndex,
+                    PageSize = Model.pageSize,
+                    TotalItemCount = Model.total,
+                }); }
+        </ul>
+    </div>
+</div>
+
+<
+<script type="text/javascript">
+
+
+    function searchdoc() {
+
+        var keyword = $("#txtkeyword").val();
+        var province = $("#province").val();
+        var mst = $("#txtmst").val();
+        window.location = '/to-chuc-kiem-toan-nang-luong/?keyword=' + keyword + '&province=' + province + '&mst=' + mst;
+
+    }
+</script>
+<style>
+    .search-result-list li > a {
+        color: #333;
+    }
+
+    .search-result-content ul {
+        display: block;
+        list-style-type: disc;
+        padding-left: 15px;
+    }
+</style>

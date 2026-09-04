@@ -1,0 +1,140 @@
+﻿@{
+   
+    Layout = "~/Views/Shared/_AdminV2.cshtml";
+    
+}
+@using BIZ
+@using UTILS
+@using CMS.Helper
+@model CMS.Models.UserModel
+
+
+<div class="onecolumn">
+    <div class="header">
+        <span>@ViewBag.Title</span>
+    </div>
+    <br class="clear">
+    <div class="content">
+        <form method="get" action="@Url.Action("Users", "System")" >
+            Tìm:&nbsp;
+                        @Html.TextBox("searchtext", Model.searchtext)
+            <input type="submit" value="Tìm kiếm" />
+            <br />
+            <br />
+            <table class="adminlist data"  cellspacing="0" cellpadding="0"  id="mytable">
+                <thead>
+                    <tr>
+                       @* <th width="1%" class="title">#
+                        </th>*@
+                        <th width="1%" class="title">
+                            <input type="checkbox" onclick="javascript: CheckAll(this);" />
+                        </th>
+                        <th width="15%" class="title">Tên đăng nhập
+                        </th>
+                        <th width="12%" class="title">E-Mail
+                        </th>
+                        <th width="15%" class="title" nowrap="nowrap">Vai trò
+                        </th>
+                        <th width="10%" class="title" nowrap="nowrap">Ngày tạo
+                        </th>
+                        <th width="10%" class="title">Giờ đăng nhập trước
+                        </th>
+                        <th width="7%" class="title">Đang Online?
+                        </th>
+                        <th width="5%" class="title">Kích hoạt
+                        </th>
+                        <th width="5%" class="title">Xóa
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (MembershipUser item in Model.listuser)
+                    {
+                        <tr id="tr_@item.UserName">
+                           
+                            <td></td>
+                            <td>
+                                <a id="lbtnUserName"  href='@Url.Action("UserEdit", "System", new { username = item.UserName })'>
+                                    @item.UserName</a>
+
+                            </td>
+                            <td align="left">
+                                @item.Email
+                            </td>
+                            <td align="left">@HtmlHelpers.GetRolesByUserName(@item.UserName)</td>
+                            <td align="center">
+                                @item.CreationDate.ToString("dd/MM/yyyy HH:mm")
+                            </td>
+                            <td align="center">
+                                @item.LastActivityDate.ToString("dd/MM/yyyy HH:mm")
+                            </td>
+                            <td align="center">
+                                @if (item.IsOnline)
+                                {
+                                    <img alt="" src="/Administrator/Images/online.png" />
+                                }
+                                else
+                                {
+                                    <img alt="" src="/Administrator/Images/offline.png" />
+                                }
+
+                            </td>
+                            <td align="center">
+                                @if (item.IsApproved)
+                                {
+                                    <input type="checkbox" onclick="return setApprove('@item.UserName    ');"  checked="checked"  class="chkApprove" /> 
+                                }
+                                else
+                                {
+                           
+                                    <input type="checkbox"   onclick="return setApprove('@item.UserName    ');" class="chkApprove" />                                                                                               
+                                }
+                            </td>
+                            <td class="alt">
+                                <a onclick="return userdelete('@item.UserName');" href='javascript:void(0);'>  <img class="help" alt="delete" src="/Styles/admin/images/icon_delete.png"></a>
+                            </td>
+                        </tr>
+                    }
+
+
+                </tbody>
+            </table>
+            <br />
+            <a  class="adminbutton" href='@Url.Action("UserAdd", "System")'>Tạo mới</a>
+        </form>
+    </div>
+</div>
+
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#menu_user').click();
+
+    });
+    function userdelete(username) {
+        if(confirm("Bạn có chắc chắn muốn xóa người dùng này không?"))
+        {
+            $.post('@Url.Action("UserDelete", "System")', { "username": username },
+                function (data) {
+                    if(data=="1")
+                    {
+                        $("#tr_"+username).hide();
+                    }
+                    else
+                    {
+
+                    }
+                });
+        }
+    }
+    function setApprove(username) 
+    {
+        if(confirm("Bạn có chắc chắn muốn kích hoạt/bỏ kích hoạt người dùng này không?"))
+        {
+            $.post('@Url.Action("UserAppproved", "System")', { "username": username },
+                function (data) {
+                    alert(data);
+                });
+        }
+    }
+</script>

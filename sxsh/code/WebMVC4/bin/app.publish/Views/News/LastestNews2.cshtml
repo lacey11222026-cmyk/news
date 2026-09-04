@@ -1,0 +1,64 @@
+﻿@using BIZ
+@using UTILS
+@using WebMVC4.Helper
+@model WebMVC4.Models.LastestNewModel
+@if (Model != null)
+{
+    if (Model.lstdata.Count > 0)
+    {
+
+        <h2 class="title border-blue">@Model.HeaderTitle</h2>
+        <div class="big-news-item mt15">
+            <div class="big-news">
+                <a href="@Utils.FormatUrlRewrite(Model.lstdata.FirstOrDefault().Id, Model.lstdata.FirstOrDefault().Title, "ArticleDetail")">
+                    <img src="@Model.lstdata.FirstOrDefault().MainImage?w=460&h=290&mode=crop" alt="@Model.lstdata.FirstOrDefault().Title" />
+                    <h3>@Model.lstdata.FirstOrDefault().Title</h3>
+                </a>
+                <p>@Model.lstdata.FirstOrDefault().IntroText</p>
+            </div>
+            <div class="big-news-list">
+                <ul>
+                    @foreach (var item in Model.lstdata.Skip(1).Take(5).Select((value, i) => new { i, value }))
+                    {
+                        <li>
+                            <a href="@item.value.LinkUrl">
+                                <img src="@item.value.MainImage?w=202&h=114&mode=crop" alt="@item.value.Title" />
+                                @item.value.Title
+                            </a>
+                            <div class="clear"></div>
+                        </li>
+                    }
+                </ul>
+            </div>
+            <div class="clear"></div>
+
+        </div>
+        <div class="big-news-item02">
+            <div>
+                <ul>
+                    @foreach (var item in Model.lstdata.Skip(6).Select((value, i) => new { i, value }))
+                    {
+                        <li>
+                            <a href="@item.value.LinkUrl">
+                                <img src="@item.value.MainImage?w=217&h=122&mode=crop" alt="@item.value.Title" />
+                                @item.value.Title
+                            </a>
+                            <div class="clear"></div>
+                        </li>
+                    }
+
+                </ul>
+                <div class="clear"></div>
+            </div>
+        </div>
+
+
+
+
+
+
+
+
+
+    }
+}

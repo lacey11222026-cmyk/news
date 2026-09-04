@@ -1,0 +1,102 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{37DA2C87-5F10-40E5-A265-18B2F97C0141}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>cmsbtg.libs</RootNamespace>
+    <AssemblyName>cmsbtg.libs</AssemblyName>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Enyim.Caching">
+      <HintPath>..\dll\Enyim.Caching.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="CacheUtil.cs" />
+    <Compile Include="CacheUtilEnyim.cs" />
+    <Compile Include="CacheUtilWeb.cs" />
+    <Compile Include="CaptchaGender.cs" />
+    <Compile Include="Common.cs" />
+    <Compile Include="Config.cs" />
+    <Compile Include="Constants.cs" />
+    <Compile Include="ConvertTools.cs" />
+    <Compile Include="UsersDiscuss.cs" />
+    <Compile Include="DateTimeUtil.cs" />
+    <Compile Include="DBArticles.cs" />
+    <Compile Include="DBCommon.cs" />
+    <Compile Include="DBHelper.cs" />
+    <Compile Include="Discuss.cs" />
+    <Compile Include="DiscussDetail.cs" />
+    <Compile Include="ExtendedHtmlUtility.cs" />
+    <Compile Include="ExtensionFunctions.cs" />
+    <Compile Include="FileManager.cs" />
+    <Compile Include="FlashInfo.cs" />
+    <Compile Include="Forms.cs" />
+    <Compile Include="Guest.cs" />
+    <Compile Include="ICacheUtil.cs" />
+    <Compile Include="ImageResize.cs" />
+    <Compile Include="Key.cs" />
+    <Compile Include="Languages.cs" />
+    <Compile Include="LOGs.cs" />
+    <Compile Include="Paper.cs" />
+    <Compile Include="Parts.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="QuestionType.cs" />
+    <Compile Include="Reader.cs" />
+    <Compile Include="ReaderDiscuss.cs" />
+    <Compile Include="Security.cs" />
+    <Compile Include="Sites.cs" />
+    <Compile Include="SSOInfo.cs" />
+    <Compile Include="SysFunction.cs" />
+    <Compile Include="SysFunc_User.cs" />
+    <Compile Include="Timer.cs" />
+    <Compile Include="UrlUtils.cs" />
+    <Compile Include="Users.cs" />
+    <Compile Include="UserTask.cs" />
+    <Compile Include="UserValidation.cs" />
+    <Compile Include="Utilities.cs" />
+    <Compile Include="Workflows.cs" />
+    <Compile Include="WorkflowTask.cs" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

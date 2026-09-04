@@ -1,0 +1,22 @@
+﻿@model List<DATA.Banner>
+@if (Model != null)
+{
+    <div id="myCarousel02" class="carousel slide mt20" data-ride="carousel">
+        <ol class="carousel-indicators">
+            @foreach (var item in Model.Select((value, i) => new { i, value }))
+            {
+                <li data-target="#myCarousel2" data-slide-to="@item.i" class="@(item.i==0?"active":"")"></li>
+            }
+        </ol>
+        <div class="carousel-inner">
+            @foreach (var item in Model.Select((value, i) => new { i, value }))
+            {
+                <div class="@(item.i==0?"item active":"item")">
+                    <img src="@item.value.Data" alt="@item.value.Name" />
+                </div>
+            }
+        </div>
+    </div>
+
+
+}

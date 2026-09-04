@@ -1,0 +1,31 @@
+﻿@using BIZ
+@using UTILS
+@using WebMVC4.Helper
+@model BIZ.Entity.CONTENT_FULL
+
+
+<div class="container mt30">
+<div class="">
+    <h2 class="title-cm text-center"><a href="#">CHUYÊN ĐỀ CÔNG NGHỆ</a></h2>
+    <div class="box-gray">
+        <div class="video-conent-big">
+            <div class="movie">
+                <iframe src="@(Model.Url.Replace("watch?v=", "embed/"))?autoplay=1&rel=0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen style="position: absolute; top: 0px; right: 0px; bottom: 0px; left: 0px; width: 100%; height: 100%;"></iframe>
+            </div>
+            <div class="new-content">
+                <a href="#" class="news-name mt30">@Model.Title</a>
+                <span class="dategray mt15">@Model.PublishDate.ToString("dd/MM/yyyy")</span>
+                <p class="news-content mt15">@Model.IntroText</p>
+            </div>
+        </div>
+    </div>
+</div>
+  </div><!-- end container -->
+<div class="container mt40 pb100">
+    <div  id="lstVideo">
+        @Html.Action("LoadVideo", "Video", new { VideoId = Model.Id, page = 1, CategoryId = Model.CategoryId.GetValueOrDefault() })
+
+    </div>
+   
+</div>
+

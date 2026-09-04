@@ -1,0 +1,93 @@
+﻿<div class="content_new_detail hethong">
+    <h3> SƠ ĐỒ CƠ CẤU TỔ CHỨC CÔNG ĐOÀN NGÂN HÀNG VIỆT NAM</h3>
+    <div class="orgmap">
+        <img src="/img/so_do_co_cau_to_chuc_cong_doan_ngan_hang_viet_nam-01.jpg" alt="" class="orgmap-img">
+        <button class="hotspot nav-tab-01" data-target="#tab-01"></button>
+        <button class="hotspot nav-tab-02" data-target="#tab-02"></button>
+        <button class="hotspot nav-tab-03" data-target="#tab-03"></button>
+    </div>
+    <div class="org-content">
+        <div id="tab-01" class="tab-panel is-active">
+            @{Html.RenderAction("GetContent", "Intro", new { CategoryId = 101 });}
+        </div>
+
+        <div id="tab-02" class="tab-panel">
+            @{Html.RenderAction("GetContent", "Intro", new { CategoryId = 102 });}
+        </div>
+        <div id="tab-03" class="tab-panel">
+            @{Html.RenderAction("GetContent", "Intro", new { CategoryId = 103 });}
+        </div>
+        
+    </div><!-- end tab content-->
+</div>
+<script>
+    $(function () {
+        $('.hotspot').on('click', function (e) {
+            e.preventDefault();
+            const target = $(this).data('target');
+            $('.tab-panel.is-active').fadeOut(300, function () {
+                $(this).removeClass('is-active');
+                $(target).fadeIn(300).addClass('is-active');
+            });
+        });
+    });
+
+</script>
+<style>
+    /*----- He thong to chuc ----------*/
+    .orgmap {
+        position: relative;
+        width: 100%;
+    }
+
+    .orgmap-img {
+        width: 100%;
+        height: auto;
+        display: block;
+    }
+
+    .hotspot {
+        position: absolute;
+        background: transparent;
+        cursor: pointer;
+        border: none;
+        border-radius: 50px;
+        width: 29%;
+        height: 10%;
+        outline: none;
+    }
+
+        .hotspot:hover,
+        .hotspot:focus {
+            border: none;
+            outline: none;
+        }
+
+    .nav-tab-01 {
+        top: 51%;
+        left: 19%;
+    }
+
+    .nav-tab-02 {
+        top: 51%;
+        right: 19%;
+    }
+
+    .nav-tab-03 {
+        top: 67%;
+        left: 19%;
+    }
+
+    .tab-panel {
+        display: none;
+    }
+
+        .tab-panel.is-active {
+            display: block;
+        }
+
+    #NewsContent p, #NewsContent div, #NewsContent span {
+        margin: 1em 0;
+        font-size: 14px;
+    }
+</style>

@@ -1,0 +1,53 @@
+﻿@using System.Configuration
+@using UTILS
+
+@model TestRegistor.Models.CONTENT_APIFULL
+@{
+    var domain = ConfigurationManager.AppSettings["Domain"];
+}
+
+<div class="maincontent screen03-content screen-full">
+    <div class="bg-gradient">
+        <div class="container">
+            <div class="question-title">
+                <p class="name-question">Cuộc thi trực tuyến Tìm hiểu kiến thức về sử dụng năng lượng tiết kiệm và hiệu quả năm 2026</p>
+            </div>
+        </div>
+    </div>
+    <div class="container pt60 b4-content">
+        <div style="width:1000px; max-width:100%;">
+            <div class="text-center"><h3 class="title-cm">@Model.Title</h3></div>
+            <div id="NewsContent">
+                @Html.Raw(Model.Contents)
+            </div>
+        </div>
+    </div>
+</div>
+<div style="clear:both"></div>
+<footer class="bg-gradient">
+    <p class="container">Bản quyền thuộc <strong>Chương trình quốc gia về sử dụng năng lượng tiết kiệm và hiệu quả</strong></p>
+</footer>
+
+
+
+<style>
+    .post-content {
+        min-height: 600px;
+    }
+
+    td {
+        font-size: 100%;
+    }
+
+    #NewsContent div {
+        margin: 1em 0;
+    }
+
+    .b2-wrap h3 {
+        font-size: 28px;
+    }
+
+    .screen03-content {
+        height: auto;
+    }
+</style>

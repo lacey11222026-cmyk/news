@@ -1,0 +1,288 @@
+﻿@using BIZ
+@{
+
+    Layout = "~/Views/Shared/_AdminV2.cshtml";
+    ViewBag.Title = "Cấu hình tin nổi bật";
+}
+<div class="row">
+    <div class="col-lg-12">
+        <div class="panel panel-primary">
+            <div class="panel-heading"><span class="glyphicon glyphicon-user"></span>@ViewBag.Title</div>
+            <div class="panel-body">
+                <div class="row" id="form">
+
+                    <div class="form-group col-md-3 col-xs-12 col-sm-6">
+                        <input type="text" id="txt_filterbyname" class="form-control" placeholder="Nhập từ khóa">
+                    </div>
+                    <div class="form-group col-md-3 col-xs-12 col-sm-6">
+                        @Html.DropDownList("select_filterbycategory", new SelectList(ViewBag.CategoryList as System.Collections.IEnumerable, "ID", "Name", -1), new { @class = "form-control", })
+                        @*<select id="select_filterbycategory" onchange="Filter();"></select>*@
+                    </div>
+
+                    <div class="form-group col-md-3 col-xs-12 col-sm-6">
+                        <button type="button" id="btnSearch" onclick="Filter();" class="btn btn-info"><i class="fa fa-search"></i>Lọc</button>
+
+                    </div>
+
+
+                </div>
+            </div>
+            <div class="table-responsive">
+                <div id="dgrid" class="dataTables_wrapper form-inline" role="grid">
+                    <table class="table table-striped borderless table-hover dataTable no-footer" id="dataTables">
+                        <thead>
+                            <tr>
+
+                                <td width="45%" style="min-width:250px;">
+                                    <div>
+                                        Danh sách chọn
+                                        <select id="AvailableNews" style="height:400px;width:100%" multiple="multiple" name="AvailableNews" size="4"></select>
+                                    </div>
+                                </td>
+                                <td width="5%">
+                                    <div style="margin-top:150px;text-align:center;font-size:24px;line-height:15px;">
+                                        <a href="javascript:;" title="chọn" onclick="add();"><span class="fa fa-angle-right"></span></a><br />
+                                        <a href="javascript:;" title="chọn tất cả" onclick="addall();"><span class="fa fa-angle-double-right"></span></a><br />
+                                        <a href="javascript:;" title="loại bỏ" onclick="fremove();"><span class="fa fa-angle-left"></span></a><br />
+                                        <a href="javascript:;" title="bỏ tất cả" onclick="removeall();"><span class="fa fa-angle-double-left"></span></a><br />
+
+                                    </div>
+                                </td>
+                                <td width="45%" style="min-width:250px;">
+                                    <div>
+                                        Danh sách đã chọn
+                                        <select id="SelectedNews" style="height:400px;width:100%" multiple="multiple" name="SelectedNews" size="4"></select>
+                                        <div style="clear: both;">
+                                        </div>
+                                    </div>
+                                </td>
+                                <td width="5%">
+                                    <div style="margin-top:150px;text-align:center;font-size:24px;line-height:15px;">
+                                        <a href="javascript:;" title="lên trên cùng" onclick="moveTopItem();"><span class="fa fa-angle-double-up" style="font-size:24px;"></span></a><br />
+                                        <a href="javascript:;" title="lên trên" onclick="moveUpItem();"><span class="fa fa-angle-up" style="font-size:24px;"></span></a><br />
+                                        <a href="javascript:;" title="xuống dưới" onclick="moveDownItem();"><span class="fa fa-angle-down" style="font-size:24px;"></span></a><br />
+                                        <a href="javascript:;" title="xuống dưới cùng" onclick="moveBottomItem();"><span class="fa fa-angle-double-down" style="font-size:24px;"></span></a><br />
+
+                                    </div>
+                                </td>
+
+
+                            </tr>
+                        </thead>
+
+                    </table>
+
+
+                </div>
+            </div>
+            <div class="panel-footer form-horizontal">
+                <div class="form-group submit">
+
+
+                    <button type="button" class="btn btn-primary" id="btsubmit" onclick="Save()"><i class="fa fa-save"></i>Lưu lại</button>
+                    <button type="button" class="btn btn-default" id="btnBack" onclick="GotoListpage();"><i class="fa fa-backward"></i>Quay lại</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $('#menu_configtopviewnews').addClass("active");
+
+</script>
+
+@{ var lstid = new SystemConfigBO().GetValueByKey("TopViewNews");}
+<script language="javascript" type="text/javascript">
+    $('#menu_3').addClass("active");
+    $(document).ready(function () {
+
+        var lstid = '@lstid';
+        BinDataSelectedNews(lstid);
+        Filter();
+
+
+    });
+    $("#select_filterbycategory").change(function () {
+        Filter();
+    });
+    function Save() {
+
+
+        var value = "";
+        $("#SelectedNews option").each(function () {
+            value = value + $(this).val() + ",";
+
+        });
+
+        var postData = 'TopViewNews' + '|' + value;
+        $.ajax({
+            type: 'POST',
+            url: "/Post/SystemService.ashx",
+            data: {
+                __m: 'save_appsetting',
+                'data': postData
+            },
+            success: function (data) {
+                Utils.UnLoading();
+                bootbox.alert("Lưu thông tin thành công");
+            }
+        });
+
+    }
+
+    function GotoListpage() {
+        window.location.href = '/AdminNews2';
+    }
+
+    function BinDataSelectedNews(lstid) {
+
+        Utils.Loading();
+        $.ajax({
+            type: 'GET',
+            async: false,
+            jsonpCallback: 'jsonCallback',
+            contentType: "application/json",
+            dataType: 'jsonp',
+            url: '/Get/ArticleService.ashx?jsoncallback=?',
+            data: {
+                __m: 'get_article_byids',
+                _lstid: lstid
+            },
+            success: function (data) {
+                if (data != undefined && data != null && data != '') {
+                    var html = '';
+                    $.each(data, function (index, item) {
+                        if (index < 15)
+                        {
+                            html += '<option value="' + item.Id + '" title="' + item.Title + '" >' + item.Title + '</option>';
+                        }
+
+                    });
+                    $("#SelectedNews ").html(html);
+
+                }
+                Utils.UnLoading();
+            },
+            error: function () {
+                Utils.UnLoading();
+            }
+        });
+
+    }
+
+    function Filter() {
+
+
+        var tit = $('#txt_filterbyname').val();
+        var cid = $('#select_filterbycategory option:selected').val();
+
+        $.ajax({
+            type: 'GET',
+            async: false,
+            jsonpCallback: 'jsonCallback',
+            contentType: "application/json",
+            dataType: 'jsonp',
+            url: '/Get/ArticleService.ashx?jsoncallback=?',
+            data: {
+                __m: 'get_filter_articles',
+                tit: tit,
+                cid: cid,
+                tid: 4,
+                createdby: '',
+                _pi: 1,
+                _ps: 25
+            },
+            success: function (data) {
+                var html = '';
+                if (data != undefined && data != null && data != '') {
+                    var items = data.Items;
+                    var total = data.Total;
+
+                    html = BinDataAvailableNews(items);
+
+                }
+
+                $("#AvailableNews ").html(html)
+                Utils.UnLoading();
+            },
+            error: function () {
+                Utils.UnLoading();
+            }
+        });
+
+    }
+    function BinDataAvailableNews(data) {
+        var html = '';
+        $.each(data, function (index, item) {
+            html += '<option value="' + item.Id + '" title="' + item.Title + '" >' + item.Title + '</option>';
+        });
+
+        return html;
+    }
+    function add() {
+        $("#AvailableNews option:selected").appendTo("#SelectedNews");
+
+    }
+    function addall() {
+        $("#AvailableNews option").appendTo("#SelectedNews");
+
+    }
+
+    function fremove() {
+        $("#SelectedNews option:selected").appendTo("#AvailableNews");
+    }
+
+    function removeall() {
+        $("#SelectedNews option").appendTo("#AvailableNews");
+    }
+
+
+    function moveTopItem() {
+
+
+        //            if ($('#SelectedNews option:selected').attr('index') > $('#SelectedNews option:first').attr('index')) {
+
+        $('#SelectedNews option:selected').insertBefore($('#SelectedNews option:first'));
+
+        //            }
+        return false;
+
+    }
+
+    function moveUpItem() {
+        $('#SelectedNews option:selected').each(function () {
+
+            $(this).insertBefore($(this).prev());
+        });
+    }
+
+    function moveDownItem() {
+
+        $('#SelectedNews option:selected').each(function () {
+            $(this).insertAfter($(this).next());
+        });
+
+    }
+    function moveBottomItem() {
+
+        //            if ($('#SelectedNews option:selected').attr('index') < $('#SelectedNews option:last').attr('index')) {
+
+        $('#SelectedNews option:selected').insertAfter($('#SelectedNews option:last'));
+
+        //            }
+        return false;
+
+    }
+
+
+
+
+</script>
+<style>
+    .borderless table {
+        border-top-style: none;
+        border-left-style: none;
+        border-right-style: none;
+        border-bottom-style: none;
+    }
+</style>

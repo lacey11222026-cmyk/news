@@ -1,0 +1,31 @@
+﻿@model List<BIZ.Entity.TestRegister_Full>
+@foreach (var item in Model.Select((value, i) => new { i, value }))
+{
+
+    <div class="col-lg-3 col-md-6 col-12 wow bounceInLeft" data-wow-duration="1s">
+        <div class="content-cm">
+            <h3 class="time-name">@item.value.Title</h3>
+            <ul>
+                <li>Thời gian bắt đầu: <strong>@item.value.StartTime.GetValueOrDefault().ToString("dd/MM/yyyy HH:mm")</strong></li>
+                <li>Thời gian kết thúc: <strong>@item.value.EndTime.GetValueOrDefault().ToString("dd/MM/yyyy HH:mm")</strong></li>
+                <li>Số lượng câu hỏi: <strong>@item.value.NumberQuestion</strong></li>
+                <li>Thời gian trả lời: <strong>@item.value.TestTime giây</strong></li>
+            </ul>
+            @if (DateTime.Now < item.value.EndTime.GetValueOrDefault() && DateTime.Now > item.value.StartTime.GetValueOrDefault())
+            {
+                <a href="javascript:" class="btn btn-result mt20 btTest" onclick="JoinTest('@item.value.Id')"><b>Tham gia</b></a>
+            }
+            else
+            {
+                if (DateTime.Now > item.value.StartTime.GetValueOrDefault())
+                {
+                    <a href="@Url.Action("ResultExam",new {id=item.value.Id})" class="btn btn-result mt20">Xem kết quả</a>
+
+                }
+
+            }
+        </div>
+    </div>
+    
+
+}

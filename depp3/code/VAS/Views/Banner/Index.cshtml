@@ -1,0 +1,56 @@
+﻿@using BIZ
+@using UTILS
+@using  VAS.Helper
+
+
+
+
+
+<div style="text-align: center;margin: 20px auto;font-size: 26px;color: red;font-weight: bold"> Xem trước banner</div>
+
+@{Html.RenderAction("BannerCenter1", "Banner");}
+
+@*hoat dong chuong trinh-chinh sach nang luong*@
+<div class="box3 vitri1">
+    @{Html.RenderAction("LastestNews", "Home", new { CategoryId = 3, MaxLastestNews = 4 });}
+
+</div>
+<div class="box3 vitri2">
+    @{Html.RenderAction("LastestNews", "Home", new { CategoryId = 4, MaxLastestNews = 4 });}
+
+</div>
+<div class="clear"></div>
+@* carbon*@
+@{ Html.RenderAction("LastestNews3", "Home", new { CategoryId = 5, MaxLastestNews = 4 }); }
+
+@{Html.RenderAction("TopVideo", "Home");}
+
+
+@*kinh nghiem trien khai - nhan nang luong*@
+<div class="box3 vitri1">
+    @{Html.RenderAction("LastestNews", "Home", new { CategoryId =6, MaxLastestNews = 4 });}
+
+</div>
+<div class="box3 vitri2">
+    @{Html.RenderAction("LastestNews", "Home", new { CategoryId = 7, MaxLastestNews = 4 });}
+
+</div>
+<div class="clear"></div>
+@{Html.RenderAction("BannerCenter2", "Banner");}
+@* meo vat*@
+@{ Html.RenderAction("LastestNews3", "Home", new { CategoryId =10, MaxLastestNews = 4 }); }
+
+@*khcn - pho bien kien thuc*@
+<div class="box3 vitri1">
+    @{Html.RenderAction("LastestNews", "Home", new { CategoryId = 9, MaxLastestNews = 4 });}
+
+</div>
+<div class="box3 vitri2">
+    @{Html.RenderAction("LastestNews", "Home", new { CategoryId = 8, MaxLastestNews = 4 });}
+
+</div>
+<div class="clear"></div>
+
+
+   
+

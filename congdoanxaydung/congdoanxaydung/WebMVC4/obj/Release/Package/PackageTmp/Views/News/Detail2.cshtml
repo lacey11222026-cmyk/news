@@ -1,0 +1,52 @@
+﻿@using BIZ
+@using UTILS
+@using WebMVC4.Helper
+@model BIZ.Entity.CONTENT_FULL
+@{var RelateTitle = "Các tin khác";}
+
+@if (Model != null)
+{
+    <div class="row-8px mt10">
+    
+    <div class="col-md-12 col-sm-12 col-xs-12 detail-content">
+        @{Html.RenderAction("Breadcrumb", "News", new { CategoryId = Model.CategoryId });}
+        <span class="news-date">Cập nhật lúc @Model.PublishDate.ToString("hh:mm") ngày @Model.PublishDate.ToString("dd/MM/yyyy")</span>
+        <h3>@Model.Title</h3>
+        
+        <div class="tinlienquan">
+            @if (ViewBag.lstRef != null)
+                {
+                    foreach (var item in ViewBag.lstRef)
+                    {
+                    <br />
+                    <a href="@Utils.FormatUrlRewrite(item.Id, item.Title, "ArticleDetail")">@item.Title </a>
+                }
+
+            }
+
+        </div>
+        <div class="nd" id="NewsContent">
+            <iframe src="@Model.Url" style="width: 100%; height: 1000px; border: 0px none;" id="source"></iframe>
+        </div>
+      
+        <div class="clearfix"></div>
+
+        <div class="news-other mt30">
+            @{Html.RenderAction("Relate", "News", new { CategoryId = Model.CategoryId });}
+
+        </div>
+
+    </div>
+</div><!-- end big news-->
+
+
+                    }
+@if (ViewBag.IsMobile)
+{
+    <script>
+        $('#NewsContent table').removeAttr('width');
+
+        $('#NewsContent  img').removeAttr('width');
+    </script>
+}
+

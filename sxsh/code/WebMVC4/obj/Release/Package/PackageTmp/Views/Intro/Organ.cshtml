@@ -1,0 +1,58 @@
+﻿@using BIZ
+@using UTILS
+@using WebMVC4.Helper
+@model WebMVC4.Models.ShopModel
+<h3 class="title-blue">Hệ thống tổ chức</h3>
+<form class="form-inline row mt30">
+    
+    <div class="col-md-6 col-sm-6 col-xs-12">
+        <div class="input-group">
+            <input type="text" class="form-control" placeholder="@Resources.Global.Keyword" id="txtkeyword">
+            <span class="input-group-btn">
+                <button class="btn btn-default search-btn" type="button" onclick="searchdoc()"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
+            </span>
+        </div><!-- /input-group -->
+    </div><!-- /.col-lg-6 -->
+</form>
+<div class="clearfix"></div>
+<ul class="link-list mt30">
+    @foreach (var item in Model.listdata.Select((value, i) => new { i, value }))
+    {
+        <li>
+            <div class="row">
+                @*<div class="col-md-4 col-sm-4 col-xs-5">
+                        <a href="@item.value.Url"> <img src="@(!string.IsNullOrEmpty(item.value.Images)?item.value.Images:"/App_File/images/Untitled-1.png")"></a>
+                    </div>*@
+                <div class="col-md-12 col-sm-12 col-xs-12">
+                    <h3><a href="@item.value.Url"  target="_blank">@item.value.Name</a></h3>
+                    <p>
+                        @Html.Raw(item.value.Address)
+                    </p>
+                </div>
+            </div>
+            <div class="brbottom"></div>
+        </li>
+    }
+</ul>
+
+<div class="pagination pull-right mt30">
+    <ul>
+        @{Html.RenderPartial("Pagination", new WebMVC4.Models.PaginationInfo
+            {
+                PageUrl = Url.SetParameter("Page", "!0"),
+                CurrentPage = Model.pageIndex,
+                PageSize = Model.pageSize,
+                TotalItemCount = Model.total,
+            }); }
+    </ul>
+</div>
+<div class="clearfix"></div>
+<script type="text/javascript">
+    $('#page').addClass("lienket-page");
+    function searchdoc() {
+        var keyword = $("#txtkeyword").val();
+        
+        window.location = '/he-thong-to-chuc.html/?keyword=' + keyword;
+        //window.location = jQuery.query.set("keyword", keyword).set("fromdate", fromdate).set("todate", todate).set("Page", "1");
+    }
+</script>

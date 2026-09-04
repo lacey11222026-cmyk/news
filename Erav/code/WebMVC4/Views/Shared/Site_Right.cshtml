@@ -1,0 +1,161 @@
+﻿@using WebMVC4.Helper
+@{
+    var langpage = WorkContext.GetLanguage();
+}
+    <div class="bs-example bs-example-tabs" data-example-id="togglable-tabs">
+        @if (langpage == "vi-vn")
+        {
+            <ul class="nav nav-tabs" id="myTabs" role="tablist">
+                <li role="presentation" class="active"><a href="#news" id="news-tab" role="tab" data-toggle="tab" aria-controls="news" aria-expanded="false">Tin mới</a></li>
+                <li role="presentation" class=""><a href="#newsmore" role="tab" id="newsmore-tab" data-toggle="tab" aria-controls="newsmore" aria-expanded="false">Tin đọc nhiều</a></li>
+                <li role="presentation" class=""><a href="#expert" role="tab" id="expert-tab" data-toggle="tab" aria-controls="expert" aria-expanded="false">Chuyên gia <br class="block-detail">CNSH-CNTP</a></li>
+            </ul>
+            <div class="tab-content" id="myTabContent">
+                <div class="tab-pane fade active in" role="tabpanel" id="news" aria-labelledby="news-tab">
+                    <ul class="list-news mt10">
+                        @{Html.RenderAction("LastestNews4", "Home", new { MaxLastestNews = 5, lang = langpage });}
+
+
+                    </ul>
+                </div>
+                <div class="tab-pane fade" role="tabpanel" id="newsmore" aria-labelledby="newsmore-tab">
+                    <ul class="list-news mt10">
+                        @{Html.RenderAction("LastestNews5", "Home", new { MaxLastestNews = 5, lang = langpage });}
+                    </ul>
+                </div>
+                <div class="tab-pane fade" role="tabpanel" id="expert" aria-labelledby="expert-tab">
+                    <ul class="list-cm04 list-expert">
+                        @{Html.RenderAction("LastestNewsAuthor", "Home", new { CategoryId = 42, MaxLastestNews = 5, lang = langpage });}
+                    </ul>
+                </div>
+            </div>
+        }
+        else
+        {
+            <ul class="nav nav-tabs" id="myTabs" role="tablist">
+                <li role="presentation" class="active"><a href="#news" id="news-tab" role="tab" data-toggle="tab" aria-controls="news" aria-expanded="false">Lastest</a></li>
+                <li role="presentation" class=""><a href="#newsmore" role="tab" id="newsmore-tab" data-toggle="tab" aria-controls="newsmore" aria-expanded="false">Most View</a></li>
+                <li role="presentation" class=""><a href="#expert" role="tab" id="expert-tab" data-toggle="tab" aria-controls="expert" aria-expanded="false">Expert</a></li>
+            </ul>
+            <div class="tab-content" id="myTabContent">
+                <div class="tab-pane fade active in" role="tabpanel" id="news" aria-labelledby="news-tab">
+                    <ul class="list-news mt10">
+                        @{Html.RenderAction("LastestNews4", "Home", new { MaxLastestNews = 5, lang = langpage });}
+
+
+                    </ul>
+                </div>
+                <div class="tab-pane fade" role="tabpanel" id="newsmore" aria-labelledby="newsmore-tab">
+                    <ul class="list-news mt10">
+                        @{Html.RenderAction("LastestNews5", "Home", new { MaxLastestNews = 5, lang = langpage });}
+                    </ul>
+                </div>
+                <div class="tab-pane fade" role="tabpanel" id="expert" aria-labelledby="expert-tab">
+                    <ul class="list-cm04 list-expert">
+                        @{Html.RenderAction("LastestNewsAuthor", "Home", new { CategoryId = 61, MaxLastestNews = 5, lang = langpage });}
+                    </ul>
+                </div>
+            </div>
+        }
+
+
+    </div><!-- end s-content 01-->
+
+<div class="video">
+    @if (langpage == "vi-vn")
+    {
+        <div class="title-cm2"><a href="/trang-chu-video.html">Video</a> / <a href="/thu-vien-anh/c47/thu-vien-hinh-anh.html">Hình ảnh </a> </div>
+        { Html.RenderAction("HomeVideo", "Home", new { CateName = "", CategoryId = 6 }); }
+    }
+    else
+    {
+        <div class="title-cm2"><a href="/trang-chu-video.html">Video</a> / <a href="/thu-vien-anh/c50/thu-vien-hinh-anh.html">Gallery </a> </div>
+        {Html.RenderAction("HomeVideo", "Home", new { CateName = "", CategoryId = 59 });}
+    }
+
+  
+
+</div><!-- end video-->
+
+<div class="document-pdf">
+    @if (langpage == "vi-vn")
+    {
+        <h2 class="title-cm"><a href="#" class="alert">Quy trình công nghệ</a></h2>
+    }
+    else
+    {
+        <h2 class="title-cm"><a href="#" class="alert">Technological Process</a></h2>
+    }
+    <div style="height:232px;">
+        @*<div class="toptobottom marquee0" data-direction="bottom" data-speed="1">*@
+        <marquee direction="up" height="240px" scrolldelay="500" loop="100">
+            @{Html.RenderAction("TopTechProcesss", "TechProcess", new { Top = 5 });}
+        </marquee>
+    </div>
+</div><!-- end document-->
+
+<div class="news-hot">
+    @if (langpage == "vi-vn")
+    {
+        <h2 class="title-cm"><a href="#">Tin nổi bật</a></h2>
+        <ul class="list-newshot mt15">
+            @{Html.RenderAction("HotNews", "Home", new { CategoryId = 0 });}
+
+        </ul>
+    }
+    else
+    {
+        <h2 class="title-cm"><a href="#">Hot News</a></h2>
+        <ul class="list-newshot mt15">
+            @{Html.RenderAction("HotNews", "Home", new { CategoryId = 1001 });}
+
+        </ul>
+    }
+
+
+
+</div><!-- end hot news-->
+
+<div class="document02 mt30">
+    @if (langpage == "vi-vn")
+    {
+        <div class="document-title">
+            <img src="/Content2/images/icon-document.png" alt="">
+            <h2 class=""><a href="/Document/Index/3">Văn bản điều hành</a></h2>
+            <div class="clearfix"></div>
+        </div>
+    }
+    else
+    {
+        <div class="document-title">
+            <img src="/Content2/images/icon-document.png" alt="">
+            <h2 class=""><a href="/Document/Index/56">Documents</a></h2>
+            <div class="clearfix"></div>
+        </div>
+    }
+
+    @{Html.RenderAction("TopDocument", "Home", new { MaxLastestNews = 7, CateName = "", CategoryId = 0 });}
+</div><!-- end document-->
+
+<script src="~/Administrator/Scripts/bootbox.min.js"></script>
+@if (langpage == "vi-vn")
+{
+    <script>
+        $(document).on("click", ".alert", function (e) {
+            bootbox.alert(" Cảm ơn bạn đã quan tâm!<br>Vui lòng liên hệ với Ban Điều hành Đề án để nhận được tài liệu mong muốn.", function () {
+
+            });
+        });
+    </script>
+}
+else
+{
+    <script>
+        $(document).on("click", ".alert", function (e) {
+            bootbox.alert("Thank you for your interest!<br>Please contact the Project Steering Committee to get the desired documents.", function () {
+
+            });
+        });
+    </script>
+}
+
