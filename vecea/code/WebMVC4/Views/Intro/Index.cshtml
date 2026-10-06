@@ -6,7 +6,7 @@
 @if (Model != null)
 {
     <div class="main-content box-09">
-        
+
 
         <p class="title-cm">@Model.Name</p>
         <div class="mt20">
@@ -19,9 +19,18 @@
                 List<BIZ.Entity.CATEGORY_FULL> data = ViewBag.lstrelate;
             }
             @{Html.RenderAction("Relate", "Intro", new { data = data });}
-           
+
         </div>
     </div><!-- end main content-->
-    
+
 
 }
+
+<script>
+    $(function () {
+        $('#main ').addClass("mt10 ");
+    });
+$(function() {
+    $('.sidebar-right ').addClass("mt30 ");
+    });
+</script>

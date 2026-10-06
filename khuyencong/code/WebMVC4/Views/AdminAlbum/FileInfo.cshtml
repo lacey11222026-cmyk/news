@@ -1,0 +1,61 @@
+﻿
+<div >
+    <label class="control-label col-md-12" for="cbxIsActive">Click vào khung dưới để up ảnh</label>
+
+    <div class="jumbotron">
+        <div class="form-control" id="divUpload" style="width: 100%; height: 100px; background: antiquewhite;"></div>
+    </div>
+
+</div>
+
+<script type="text/javascript">
+    var imageUrl = '@ViewBag.ImagesUrl';
+    var productId = '@ViewBag.Id';
+    $('#divUpload').dropzone({
+        url: "/AdminAlbum/SaveFileUpload/" + productId,
+        maxFilesize: 500,
+        acceptedFiles: "image/jpeg",
+        paramName: "uploadfile",
+        init: function () {
+            this.on('success', function (file, json) {
+                var html = '<tr><td width="20%" align="left"><img src="' + imageUrl + json.Message + '" width="50" height="50" />(' + json.Message + ')</td>';
+                html += '<td width="60%"><input name="image_text"  id="image_text_' + json.Message.replace('.', '') + '" type="text" style="width:100%;" /></td>';
+                html += '<td width="10%" align="center"><input name="image_name" type="checkbox" checked="true" value="' + json.Message + '" /></td>';
+                html += '<td width="10%" align="center"> <input name="main_image" type="radio"  value="' + json.Message + '" /></td>';
+                html += '<td width="10%" align="center">  <a href="javascript:;" title="Delete" onclick="DeleteImage(\'' + json.Message + '\',this)"><i class="fa fa-trash-o"></i></a></td></tr>';
+               
+                $('#dataTables').append(html);
+            });
+
+            this.on('addedfile', function (file) {
+            });
+
+            this.on('drop', function (file) {
+            });
+        }
+    });
+
+    $(".closeModal").click(function () {
+        $(".modal").modal("hide");
+    });
+
+
+</script>
+<style type="text/css">
+    .jumbotron .dz-success {
+        float: left;
+        margin-left: 1%;
+        display: none;
+    }
+
+    .dz-error-mark {
+        display: none;
+    }
+
+    .imageitem {
+        float: left;
+        width: 120px;
+        margin-right: 10px;
+        margin-bottom: 10px;
+    }
+</style>

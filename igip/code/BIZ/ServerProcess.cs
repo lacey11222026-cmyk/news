@@ -23,7 +23,7 @@ namespace BIZ
         {
             if (Domain == "https://tietkiemnangluong.com.vn/"|| Domain == "https://vneec.gov.vn/")
                 return "http://localhost:8080/";
-            if (Domain == "https://nq57.igip.gov.vn/")
+            if (Domain == "https://nq57.khcn.gov.vn/")
                 return "http://localhost:8081/";
             return "http://localhost:8090/";
         }

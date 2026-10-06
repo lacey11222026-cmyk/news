@@ -1,0 +1,149 @@
+﻿@using BIZ.Entity
+@using UTILS
+@model List<CONTENT_FULL>
+@using WebMVC4.Helper
+<table class="table table-striped table-bordered table-hover dataTable no-footer" id="dataTables">
+    <thead>
+        <tr class="rowsao">
+            <th>ID</th>
+            <th>Ảnh</th>
+            <th class="texttable">Tiêu Đề</th>
+            <th class="hidemobile">Chuyên mục</th>
+            <th class="hidemobile">Người viết</th>
+            <th class="hidemobile">Ngày Tạo</th>
+            <th>Ngày xuất bản</th>
+            <th> Phân loại</th>
+            <th class="hidemobile">Lượt xem</th>
+            <th>Trạng Thái</th>
+            <th>Thao Tác</th>
+        </tr>
+    </thead>
+    @if (Model != null && Model.Count > 0)
+    {
+        for (int i = 0; i < Model.Count; i++)
+        {
+            var obj = Model[i];
+<tr>
+    <td>@obj.Id</td>
+    <td class="hidemobile"> <img width="100" src="@obj.MainImage?w=234&h=132&mode=crop" /></td>
+    <td class="texttable" style="text-align:left;">
+        <div style="min-width: 200px ">
+            @if (ViewBag.IsNewsPublish || obj.Status == 1)
+            {
+                <a href="@Url.Action("GetNewsDetail",new {id=obj.Id })" title="Edit">@obj.Title</a>
+            }
+            else
+            {
+                @obj.Title
+            }
+        </div>
+
+    </td>
+
+    <td class="hidemobile" style="text-align:left">@HtmlHelpers.GetNewsCategoryName(obj.CategoryId, ViewBag.CategoryList)</td>
+    <td class="hidemobile">@obj.CreatedBy</td>
+    <td style="width:120px;" class="hidemobile">@obj.CreatedDate.ToString("dd/MM/yyyy HH:mm")</td>
+    <td style="width:120px;">@obj.PublishDate.ToString("dd/MM/yyyy HH:mm")</td>
+    <td style="width:90px;"> @HtmlHelpers.GetNewsType(obj.SiteId)</td>
+    <td class="hidemobile">@obj.Hits</td>
+    <td style="width:90px;"> @HtmlHelpers.GetNewsStatus(obj.Status)</td>
+    <td style="text-align: right;width:100px;">
+        @if (ViewBag.IsNewsPublish || obj.Status == 1)
+        {
+            <a href="javascript:;" title="Delete" onclick="DeleteData('@Utils.Base64Encode(obj.Id)','@obj.Title')"><i class="fa fa-trash-o"></i></a><text>&nbsp;</text>
+        }
+
+        @if (obj.Status == 4)
+        {
+            <a href="https://igip.gov.vn/@Utils.FormatUrlRewrite(obj.Id, obj.Title, "ArticleDetail")" title="View" target="_blank"><i class="fa fa-eye"></i></a>
+        }
+        else
+        {
+            <a href="https://igip.gov.vn/@Url.Action("Preview", "News",new { id=obj.Id})" title="Xem trước" target="_blank"><i class="fa fa-eye"></i></a>
+        }
+        <a href="javascript:;" onclick="CommonCtrl.PopupManagerPage('@Url.Action("History", "AdminNews2",new { id=obj.Id,type=2,name=obj.Title})');" title="Lịch sử tin bài"><i class="fa fa-clock-o"></i></a>
+    </td>
+
+</tr>
+        }
+    }
+</table>
+<script type="text/javascript">
+    var PageOnSize = '@ViewBag.PageSize';
+    var CurrentPage = '@ViewBag.CurrentPage';
+    function BindDataRequest(currentPage) {
+        var params = {
+            title: $("#txtTitle").val(),
+            fromdate: $("#fromDate").val(),
+            todate: $("#toDate").val(),
+            status: $('#ddlStatus :selected').val(),
+            cateId: $('#ddlCate :selected').val(),
+            orderBy: $('#ddlOrder :selected').val(),
+            //channelId: $('#ddlChannel :selected').val(),
+            currentPage: currentPage,
+            pageSize: PageOnSize
+        };
+        var urlRequestAns = '@Url.Action("ListNews2")';
+        Utils.Loading();
+        $.ajax({
+            type: 'GET',
+            url: urlRequestAns,
+            data: params,
+            success: function (data) {
+                $("#ListNews").html(data);
+                Utils.UnLoading();
+            },
+            error: function () {
+                Utils.UnLoading();
+            }
+        });
+    };
+    $(document).ready(function () {
+
+
+        $("#pager").pager({
+            pagenumber: CurrentPage,
+            pagecount: Math.ceil('@ViewBag.TotalRecord' / PageOnSize),
+            buttonClickCallback: function (page) { BindDataRequest(page); }
+        });
+
+
+    });
+
+    function DeleteData(id,title) {
+        var IsDelete = "true"
+        if (IsDelete != "true") {
+            bootbox.alert("Bạn không có quyền xóa ");
+            return;
+        }
+        bootbox.confirm("Bạn chắc chắn muốn xóa bài viết này ??? ", function (result) {
+            if (result == true) {
+                var postdata= {
+                    '_id': id,
+                    'Title': title,
+                };
+                Utils.Loading();
+                $.ajax({
+                    type: 'POST',
+                    url:"@Url.Action("Delete")",
+                    data: addAntiForgeryToken(postdata),
+                    success: function (data) {
+                        Utils.UnLoading();
+                        if (data.ResponseCode >= 0) {
+                            bootbox.alert(data.Description);
+                            BindDataRequest(CurrentPage);
+                        }
+                        else {
+                            bootbox.alert(data.Description);
+                            return;
+                        }
+                    }
+                });
+            }
+        });
+
+    }
+</script>
+<script>
+    $("#qnmb").remove();
+</script>

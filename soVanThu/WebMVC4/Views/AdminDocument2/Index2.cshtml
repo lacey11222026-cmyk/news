@@ -1,0 +1,157 @@
+﻿@{
+    Layout = "~/Views/Shared/_AdminV2.cshtml";
+}
+@{
+    ViewBag.Title = "Danh sách đơn khiếu nại";
+}
+<div class="row">
+    <div class="col-lg-12">
+        <div class="panel panel-primary">
+            <div class="panel-heading"><span class="glyphicon glyphicon-user"></span>@ViewBag.Title</div>
+            <div class="panel-body">
+                <div class="row" id="form">
+
+
+                    <div class="form-group col-md-3 col-xs-12 col-sm-6">
+                        <input type="text" id="txtTitle" class="form-control" placeholder="Nhập từ khóa">
+                    </div>
+                    <div class="form-group col-md-3 col-xs-12 col-sm-6">
+                        <select class="form-control" id="ddlGroupId" name="GroupId">
+                            <option value="-1">Địa bàn</option>
+                            <option value="1">Văn phòng</option>
+                            <option value="2">Phòng Tổ chức cán bộ</option>
+                            <option value="3">Phòng Quản trị dữ liệu và quản lý rủi ro</option>
+                            <option value="4">Phòng Thuế cá nhân, hộ kinh doanh và thu khác</option>
+                            <option value="5">Phòng Quản lý các khoản thu từ đất</option>
+                            <option value="6">Phòng Nghiệp vụ, dự toán, pháp chế</option>
+
+                            <option value="7">Phòng Quản lý, hỗ trợ doanh nghiệp số 1</option>
+                            <option value="8">Phòng Quản lý, hỗ trợ doanh nghiệp số 2</option>
+                            <option value="9">Phòng Quản lý, hỗ trợ doanh nghiệp số 3</option>
+                            <option value="10">Phòng Quản lý, hỗ trợ doanh nghiệp số 4</option>
+                            <option value="11">Phòng Quản lý, hỗ trợ doanh nghiệp số 5</option>
+
+                            <option value="12">Phòng Kiểm tra số 1</option>
+                            <option value="13">Phòng Kiểm tra số 2</option>
+                            <option value="14">Phòng Kiểm tra số 3</option>
+                            <option value="15">Phòng Kiểm tra số 4</option>
+                            <option value="16">Phòng Kiểm tra số 5</option>
+
+                            <option value="17">Thuế cơ sở 1 TP Hà Nội</option>
+                            <option value="18">Thuế cơ sở 2 TP Hà Nội</option>
+                            <option value="19">Thuế cơ sở 3 TP Hà Nội</option>
+                            <option value="20">Thuế cơ sở 4 TP Hà Nội</option>
+                            <option value="21">Thuế cơ sở 5 TP Hà Nội</option>
+                            <option value="22">Thuế cơ sở 6 TP Hà Nội</option>
+                            <option value="23">Thuế cơ sở 7 TP Hà Nội</option>
+                            <option value="24">Thuế cơ sở 8 TP Hà Nội</option>
+                            <option value="25">Thuế cơ sở 9 TP Hà Nội</option>
+                            <option value="26">Thuế cơ sở 10 TP Hà Nội</option>
+                            <option value="27">Thuế cơ sở 11 TP Hà Nội</option>
+                            <option value="28">Thuế cơ sở 12 TP Hà Nội</option>
+                            <option value="29">Thuế cơ sở 13 TP Hà Nội</option>
+                            <option value="30">Thuế cơ sở 14 TP Hà Nội</option>
+                            <option value="31">Thuế cơ sở 15 TP Hà Nội</option>
+                            <option value="32">Thuế cơ sở 16 TP Hà Nội</option>
+                            <option value="33">Thuế cơ sở 17 TP Hà Nội</option>
+                            <option value="34">Thuế cơ sở 18 TP Hà Nội</option>
+                            <option value="35">Thuế cơ sở 19 TP Hà Nội</option>
+                            <option value="36">Thuế cơ sở 20 TP Hà Nội</option>
+                            <option value="37">Thuế cơ sở 21 TP Hà Nội</option>
+                            <option value="38">Thuế cơ sở 22 TP Hà Nội</option>
+                            <option value="39">Thuế cơ sở 23 TP Hà Nội</option>
+                            <option value="40">Thuế cơ sở 24 TP Hà Nội</option>
+                            <option value="41">Thuế cơ sở 25 TP Hà Nội</option>
+
+                        </select>
+                    </div>
+                    <div class="form-group submit col-md-3 col-xs-12 col-sm-6">
+                        <button type="button" id="btnSearch" class="btn btn-info"><i class="fa fa-search"></i>Tìm Kiếm</button>
+                        <a id="btnCreate" href="@Url.Action("GetDocumentDetail",new {id=0 ,type=2})" class="btn btn-success"><i class="fa fa-user-plus"></i>Thêm Mới</a>
+
+                    </div>
+
+
+                </div>
+            </div>
+            <div class="table-responsive">
+                <div id="dgrid" class="dataTables_wrapper form-inline" role="grid">
+                    <div id="ListDocument">
+                        @Html.Action("ListDocument2")
+                    </div>
+
+                    <div class="dataTables_paginate" id="pager">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $('#menu_managedoc2').addClass("active");
+
+</script>
+<link href="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/css/select2.min.css"
+      rel="stylesheet" />
+<script src="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/js/select2.min.js"></script>
+<script type="text/javascript">
+        $(document).ready(function () {
+            $('#ddlGroupId').select2({
+
+                allowClear: true,
+                width: '100%'
+            });
+            var parameters = {
+            };
+            $("#form").keypress(function (event) {
+                if (event.which == 13) {
+                    $("#btnSearch").click();
+                }
+            });
+            $("#btnSearch").click(function () {
+                GetList(1);
+            });
+            $("#ddlStatus").change(function () {
+                GetList(1);
+            });
+            $("#ddlProgress").change(function () {
+                GetList(1);
+            });
+            $("#ddlGroupId").change(function () {
+                GetList(1);
+            });
+            function GetList(currentPage) {
+                parameters = {
+                    title: $("#txtTitle").val(),
+                    group: $("#ddlGroupId").val(),
+                    currentPage: currentPage,
+                };
+                btnSearch(currentPage);
+            };
+            function btnSearch(currentPage) {
+                Utils.Loading();
+                var urlRequestAns = "@Url.Action("ListDocument2")";
+                $.ajax({
+                    type: 'GET',
+                    url: urlRequestAns,
+                    data: parameters,
+                    success: function (data) {
+                        $("#ListDocument").html(data);
+                        Utils.UnLoading();
+                    },
+                    error: function () {
+                        Utils.UnLoading();
+                    }
+                });
+            }
+
+        });
+
+</script>
+<style>
+    .select2-container .select2-selection--single {
+      
+        height: 35px;
+       
+    }
+</style>

@@ -1,0 +1,18 @@
+﻿@model List<BIZ.Entity.SUPPORT_FULL>
+@if (Model != null)
+{
+     
+    <div class="hotro" style="margin-top: 0px;">
+        <img src="/images/hotro.jpg" alt="mau giao lieu giai" />
+        <table width="94%" cellspacing="5" cellpadding="0" border="0" align="center">
+            @foreach (var item in Model.Select((value, i) => new { i, value }))
+            {
+                <tr>
+                    <td width="15%">&nbsp;<a rel="nofollow" href="ymsgr:sendim?@item.value.Yahoo&amp;m=Xin chào "><img alt="yahoo" src="/images/ym.jpg"></a> </td>
+                    <td width="60%" class="font_bl2"><a rel="nofollow" href="mailto:@item.value.Mail">@item.value.Supporter - ĐT: @item.value.Mobile</a></td>
+                </tr>
+            }
+            
+        </table>
+    </div>
+}

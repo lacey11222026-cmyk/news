@@ -1,12 +1,14 @@
-﻿using System;
+﻿using DATA.SMS;
+using System;
 using System.Collections.Generic;
-using UTILS;
 using System.Data;
 using System.Data.SqlClient;
-using DATA.SMS;
+using System.Diagnostics;
 using System.Globalization;
 using System.Linq;
-using System.Diagnostics;
+using System.Net.NetworkInformation;
+using System.Web.UI.WebControls;
+using UTILS;
 
 namespace DATA.ContentDB
 {
@@ -36,6 +38,48 @@ namespace DATA.ContentDB
             }
         }
 
+        public static List<VanThu> GetSearch(string keyword,int IncomingDocumentType,int IncomingDocumentDetail,int GroupId, int pageIndex, int pageSize, ref int totalRecords)
+        {
+            var select = "*";
+
+
+
+            var where = string.Empty;
+            var orderBy = "Id ASC";
+            
+            if (IncomingDocumentType >= 0)
+            {
+                if (!string.IsNullOrEmpty(where))
+                    where += " AND ";
+
+                where += " IncomingDocumentType =" + IncomingDocumentType;
+            }
+            if (IncomingDocumentDetail >= 0)
+            {
+                if (!string.IsNullOrEmpty(where))
+                    where += " AND ";
+
+                where += " IncomingDocumentDetail =" + IncomingDocumentDetail;
+            }
+            if (GroupId >= 0)
+            {
+                if (!string.IsNullOrEmpty(where))
+                    where += " AND ";
+
+                where += " GroupId =" + GroupId;
+            }
+            if (!string.IsNullOrEmpty(keyword))
+            {
+                keyword = Utils.FormatKeywordSearch(keyword);
+
+                //where += "OR SignedBy LIKE N'%" + keyword + "%' ";
+                //where += "OR SignedByDesc LIKE N'%" + keyword + "%' ";
+                where += " IncomingDocumentSummary LIKE N'%" + keyword + "%'";
+
+            }
+        
+            return SelectDynamicPage(select, where, orderBy, pageIndex, pageSize, ref totalRecords);
+        }
         public static List<VanThu> SelectDynamic(string select, string where, string order)
         {
             try
@@ -74,7 +118,7 @@ namespace DATA.ContentDB
         {
             try
             {
-                var pars = new SqlParameter[87];
+                var pars = new SqlParameter[88];
                 pars[0] = new SqlParameter("@Id", functions.Id);
                 pars[1] = new SqlParameter("@DutyDate", (object)functions.DutyDate ?? DBNull.Value);
                 pars[2] = new SqlParameter("@DutyLeaderName", (object)functions.DutyLeaderName ?? DBNull.Value);
@@ -162,6 +206,7 @@ namespace DATA.ContentDB
                 pars[84] = new SqlParameter("@IsComplaintIncorrect", (object)functions.IsComplaintIncorrect ?? DBNull.Value);
                 pars[85] = new SqlParameter("@IsComplaintPartiallyCorrect", (object)functions.IsComplaintPartiallyCorrect ?? DBNull.Value);
                 pars[86] = new SqlParameter("@ProcessingStatusNote", (object)functions.ProcessingStatusNote ?? DBNull.Value);
+                pars[87] = new SqlParameter("@GroupId", functions.GroupId);
                 new DBHelper(Configuration.HomeConnectionString).ExecuteNonQuerySP("sp_VanThu_InsertUpdate", pars);
                 return 1;
             }

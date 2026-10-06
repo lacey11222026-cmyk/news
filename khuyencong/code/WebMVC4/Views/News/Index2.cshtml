@@ -1,0 +1,61 @@
+﻿@using BIZ
+@using UTILS
+@using WebMVC4.Helper
+@model WebMVC4.Models.News2Model
+@{
+    var langpage = WorkContext.GetLanguage();
+}
+
+<div class="main-content container mt20">
+    <div class="row">
+        <div class="col-lg-8 col-md-12">
+            @{Html.RenderAction("Breadcrumb", "News", new { CategoryId = ViewBag.CategoryId });}
+            <div class="item-list mt20">
+                @foreach (var item in Model.articles.Select((value, i) => new { i, value }))
+                {
+
+                    <div class="item">
+                        <a href="@item.value.LinkUrl" class="item-title">@item.value.Title</a>
+                        <span class="newsdate mt10">@item.value.PublishDate.ToString("dd/MM/yyyy")</span>
+                        <p class="mt10">@item.value.IntroText</p>
+                    </div>
+                }
+            </div>
+            <div class="paging mt50 text-center">
+                <ul>
+                    @{Html.RenderPartial("Pagination", new WebMVC4.Models.PaginationInfo
+                        {
+                            PageUrl = Url.SetParameter("Page", "!0"),
+                            CurrentPage = ViewBag.Page,
+                            PageSize = ViewBag.PageSize,
+                            TotalItemCount = ViewBag.Total,
+                        }); }
+                </ul>
+            </div>
+        </div><!-- end content left-->
+
+        <div class="col-lg-4 col-md-12">
+            <div class="sidebar-right mt20">
+                <div class="gray-box">
+                    @Html.Partial("Site_Right")
+                </div>
+                @if (langpage == "vi-vn")
+                {
+                    <div class="gray-box mt20">
+                        @{Html.RenderAction("TopDocument", "Home", new { CategoryId = 3 });}
+                    </div>
+                }
+                else
+                {
+                    <div class="gray-box mt20">
+                        @{Html.RenderAction("TopDocument", "Home", new { CategoryId = 30 });}
+                    </div>
+                }
+            </div>
+            <ul class="link-list">
+                @{Html.RenderAction("BannerRight2", "Home", new { lang = langpage });}
+            </ul>
+        </div>
+    </div>
+</div>
+

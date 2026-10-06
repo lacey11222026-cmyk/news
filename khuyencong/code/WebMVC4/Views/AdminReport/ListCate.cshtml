@@ -1,0 +1,111 @@
+﻿@using BIZ.Entity
+@using UTILS
+@model List<DATA.LogView>
+@using WebMVC4.Helper
+    <table class="table table-striped table-bordered table-hover dataTable no-footer" id="dataTables">
+        <thead>
+            <tr class="rowsao">
+                <th>STT</th>
+                <th class="texttable">Tiêu Đề</th>
+                <th>Lượt xem</th>
+
+            </tr>
+        </thead>
+        @if (Model != null && Model.Count > 0)
+        {
+            for (int i = 0; i < Model.Count; i++)
+            {
+                var obj = Model[i];
+                <tr>
+                    <td>@(i + 1)</td>
+                    <td class="texttable" style="text-align:left;">
+                        @obj.Name
+
+
+                    </td>
+                    <td style="text-align:left">@obj.Total
+
+
+                </tr>
+            }
+            <tr>
+                <td colspan="2" style="text-align:left"><b>Tổng</b></td>
+                <td style="text-align:left"><b>@Model.Sum(x => x.Total)</b></td>
+            </tr>
+        }
+    </table>
+<script type="text/javascript">
+    var PageOnSize = '@ViewBag.PageSize';
+    var CurrentPage = '@ViewBag.CurrentPage';
+    function BindDataRequest(currentPage) {
+        var params = {
+            title: $("#txtTitle").val(),
+            fromdate: $("#fromDate").val(),
+            todate: $("#toDate").val(),
+            status: $('#ddlStatus :selected').val(),
+            cateId: $('#ddlCate :selected').val(),
+            orderBy: $('#ddlOrder :selected').val(),
+            currentPage: currentPage,
+            pageSize: PageOnSize
+        };
+        var urlRequestAns = '@Url.Action("ListNews")';
+        Utils.Loading();
+        $.ajax({
+            type: 'GET',
+            url: urlRequestAns,
+            data: params,
+            success: function (data) {
+                $("#ListNews").html(data);
+                Utils.UnLoading();
+            },
+            error: function () {
+                Utils.UnLoading();
+            }
+        });
+    };
+    $(document).ready(function () {
+
+
+        $("#pager").pager({
+            pagenumber: CurrentPage,
+            pagecount: Math.ceil('@ViewBag.TotalRecord' / PageOnSize),
+            buttonClickCallback: function (page) { BindDataRequest(page); }
+        });
+
+
+    });
+
+    function DeleteData(id,title) {
+        var IsDelete = "true"
+        if (IsDelete != "true") {
+            bootbox.alert("Bạn không có quyền xóa ");
+            return;
+        }
+        bootbox.confirm("Bạn chắc chắn muốn xóa bài viết này ??? ", function (result) {
+            if (result == true) {
+                var postdata= {
+                    '_id': id,
+                    'Title': title,
+                };
+                Utils.Loading();
+                $.ajax({
+                    type: 'POST',
+                    url:"@Url.Action("Delete")",
+                    data: addAntiForgeryToken(postdata),
+                    success: function (data) {
+                        Utils.UnLoading();
+                        if (data.ResponseCode >= 0) {
+                            bootbox.alert(data.Description);
+                            BindDataRequest(CurrentPage);
+                        }
+                        else {
+                            bootbox.alert(data.Description);
+                            return;
+                        }
+                    }
+                });
+            }
+        });
+
+    }
+</script>

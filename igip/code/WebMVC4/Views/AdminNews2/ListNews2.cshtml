@@ -55,11 +55,11 @@
 
         @if (obj.Status == 4)
         {
-            <a href="https://igip.gov.vn/@Utils.FormatUrlRewrite(obj.Id, obj.Title, "ArticleDetail")" title="View" target="_blank"><i class="fa fa-eye"></i></a>
+            <a href="https://khcn.gov.vn/@Utils.FormatUrlRewrite(obj.Id, obj.Title, "ArticleDetail")" title="View" target="_blank"><i class="fa fa-eye"></i></a>
         }
         else
         {
-            <a href="https://igip.gov.vn/@Url.Action("Preview", "News",new { id=obj.Id})" title="Xem trước" target="_blank"><i class="fa fa-eye"></i></a>
+            <a href="https://khcn.gov.vn/@Url.Action("Preview", "News",new { id=obj.Id})" title="Xem trước" target="_blank"><i class="fa fa-eye"></i></a>
         }
         <a href="javascript:;" onclick="CommonCtrl.PopupManagerPage('@Url.Action("History", "AdminNews2",new { id=obj.Id,type=2,name=obj.Title})');" title="Lịch sử tin bài"><i class="fa fa-clock-o"></i></a>
     </td>

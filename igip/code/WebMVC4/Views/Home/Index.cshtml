@@ -70,6 +70,7 @@
                     </div>
                     <div class="col-md-6 col-sm-12 newsbox-cm">
                         @{Html.RenderAction("LastestNewsAPI", "Home", new { CateName = "", CategoryId = 7, MaxLastestNews = 4, cssClass = "maxheight02" });}
+                       
                     </div>
                 </div>
             </div>
@@ -109,10 +110,11 @@
                 @{Html.RenderAction("LastestNews", "Home", new { CateName = "", CategoryId = 37, MaxLastestNews = 4, cssClass = "maxheight02" });}
             </div>
             <div class="col-md-4 col-sm-12 newsbox-cm">
-                @{Html.RenderAction("LastestNewsAPI", "Home", new { CateName = "sử dụng năng lượng tk&Hq", CategoryId = 15, MaxLastestNews = 4, lang = langpage, cssClass = "maxheight02" });}
+                @{Html.RenderAction("LastestNews", "Home", new { CateName = "", CategoryId = 15, MaxLastestNews = 4, lang = langpage, cssClass = "maxheight02" });}
             </div>
             <div class="col-md-4 col-sm-12 newsbox-cm">
-                @{Html.RenderAction("LastestNewsAPI", "Home", new { CateName = "", CategoryId = 20, MaxLastestNews = 4, lang = langpage, cssClass = "maxheight02" });}
+                @{Html.RenderAction("LastestNews", "Home", new { CateName = "", CategoryId = 17, MaxLastestNews = 4, cssClass = "maxheight02" });}
+               
             </div>
 
         </div>
@@ -158,7 +160,8 @@
                 @{Html.RenderAction("LastestNews", "Home", new { CateName = "", CategoryId = 39, MaxLastestNews = 4, cssClass = "maxheight02" });}
             </div>
             <div class="col-md-4 col-sm-12 newsbox-cm">
-                @{Html.RenderAction("LastestNews", "Home", new { CateName = "", CategoryId = 17, MaxLastestNews = 4, cssClass = "maxheight02" });}
+
+                @{Html.RenderAction("LastestNewsAPI", "Home", new { CateName = "", CategoryId = 20, MaxLastestNews = 4, lang = langpage, cssClass = "maxheight02" });}
             </div>
             <div class="col-md-4 col-sm-12 newsbox-cm">
                 @{Html.RenderAction("LastestNews", "Home", new { CateName = "", CategoryId = 33, MaxLastestNews = 4, cssClass = "maxheight02" });}
@@ -266,7 +269,7 @@ else
                 @{Html.RenderAction("LastestNews", "Home", new { CateName = "", CategoryId = 25, MaxLastestNews = 4, cssClass = "maxheight02" });}
             </div>
             <div class="col-md-4 col-sm-12 newsbox-cm">
-                @{Html.RenderAction("LastestNewsAPI", "Home", new { CateName = "", CategoryId = 23, MaxLastestNews = 4, lang = langpage, cssClass = "maxheight02" });}
+                @{Html.RenderAction("LastestNews", "Home", new { CateName = "", CategoryId = 23, MaxLastestNews = 4, lang = langpage, cssClass = "maxheight02" });}
             </div>
             <div class="col-md-4 col-sm-12 newsbox-cm">
                 @{Html.RenderAction("LastestNewsAPI", "Home", new { CateName = "", CategoryId = 22, MaxLastestNews = 4, lang = langpage, cssClass = "maxheight02" });}
@@ -312,7 +315,7 @@ else
 }
 <script>
     $("#ddLink").change(function () {
-        if ($("#ddLink").val() != "" && $("#ddLink").val() != "https://igip.gov.vn/") {
+        if ($("#ddLink").val() != "" && $("#ddLink").val() != "https://khcn.gov.vn/") {
             window.open($("#ddLink").val(), '_blank');
         }
     });

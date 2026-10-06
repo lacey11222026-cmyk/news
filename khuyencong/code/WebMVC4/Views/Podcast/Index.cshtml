@@ -1,0 +1,72 @@
+﻿@using BIZ
+@using UTILS
+@using WebMVC4.Helper
+@model BIZ.Entity.CONTENT_FULL
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+
+<div class="podcast-page mt25 pb70">
+    <div class="container">
+        <div class="title-line">
+            <a href="#"><i class="icon-mic"></i>podcast</a>
+        </div>
+    </div>
+    <div class="mt50 podcast-c1">
+        <div class="container">
+            <div class="podcast-bignew">
+                <div class="podcast-bignew-img"><img src="@Model.MainImage?w=320&mode=crop" alt=""></div>
+                <div class="podcast-bignew-content">
+                    <h3 class="podcast-bigname">@Model.Title</h3>
+                    <p class="date mt15">@Model.PublishDate.ToString("dd/MM/yyyy")</p>
+                    <p class="mt20">
+                        @Model.IntroText
+                    </p>
+                    <div class="icon-wrap mt15">
+                        <div class="icon-list">
+                            <a href="javascript:void(0);" onclick="openWin('@ViewBag.FacebookShare');"><img src="/Content/img/icon-face-gray.png" alt=""></a>
+                            <a href="#"><img src="/Content/img/icon-video-gray.png" alt=""></a>
+                            <a href="javascript:void(0);" onclick="openWin('@ViewBag.GoogleShare');"><img src="/Content/img/icon-mail-gray.png" alt=""></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="mp3 mt50">
+                <div class="audio-player">
+                    <audio id="audioFile" src="@Model.Url"></audio>
+                    <button onclick="skipTime(-10)" class="audio-back">10s</button>
+                    <button id="playPauseButton" onclick="togglePlayPause()"></button>
+                    <button onclick="skipTime(10)" class="audio-next">10s</button>
+                    <span id="currentTime">0:00</span>
+                    <div class="progress-bar" id="progressBar">
+                        <div class="progress" id="progress"></div>
+                    </div>
+                    <span id="totalTime">0:00</span>
+                </div>
+            </div>
+        </div>
+    </div><!--/ Edn c1 --->
+    <div class="podcast-02 mt50 pb50">
+        <div class="podcast-news container">
+            <div class="title-podcast">
+                <a href="#">Podcast</a>
+                <a href="#" class="active"><i class="icon-mic-white"></i>mới nhất</a>
+            </div>
+            <div class="" id="lstVideo">
+                @Html.Action("LoadVideo", new { VideoId = Model.Id, page = 1 })
+                
+            </div>
+        </div>
+    </div>
+</div><!-- end content-->
+
+
+
+
+<script type="text/javascript">
+
+                function openWin(url) {
+                    var myWindow = window.open(url, '', 'width=700,height=500');
+                    myWindow.focus();
+                }
+</script>
+<script src="https://kit.fontawesome.com/9d8584fa51.js" crossorigin="anonymous"></script>
+<script src="/Content/js/audio.js" type="text/javascript"></script>

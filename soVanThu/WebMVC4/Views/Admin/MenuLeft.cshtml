@@ -75,30 +75,63 @@
     <!-- sidebar: style can be found in sidebar.less -->
     <section class="sidebar">
         <ul class="sidebar-menu">
-            
-           
+
+
             @if (IsDocument)
             {
                 <li class="treeview active" id="menu_4">
 
                     <a href="#">
-                        <i class="fa fa-book"></i> <span>Sáng kiến</span> <i class="fa fa-angle-left pull-right"></i>
+                        <i class="fa fa-book"></i> <span>Đơn thư</span> <i class="fa fa-angle-left pull-right"></i>
                     </a>
                     <ul class="treeview-menu">
 
                         <li id="menu_managedoc">
                             <a href="@Url.Action("Index", "AdminDocument2")">
-                                Quản lý sáng kiến
+                                Đơn tố cáo
 
                             </a>
                         </li>
-                       
 
+                        <li id="menu_managedoc2">
+                            <a href="@Url.Action("Index2", "AdminDocument2")">
+                                Đơn khiếu nại
 
+                            </a>
+                        </li>
+                        <li id="menu_managedoc3">
+                            <a href="@Url.Action("Index3", "AdminDocument2")">
+                                Đơn phản ánh, kiến nghị
+
+                            </a>
+                        </li>
+                        <li id="menu_managedoc4">
+                            <a href="@Url.Action("Index4", "AdminDocument2")">
+                                Đơn khác
+
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="treeview active" id="menu_5">
+
+                    <a href="#">
+                        <i class="fa fa-book"></i> <span>Công văn</span> <i class="fa fa-angle-left pull-right"></i>
+                    </a>
+                    <ul class="treeview-menu">
+
+                        <li id="menu_managedoc5">
+                            <a href="@Url.Action("Index5", "AdminDocument2")">
+                               Công văn
+
+                            </a>
+                        </li>
+
+                        
                     </ul>
                 </li>
             }
-           
+
         </ul>
     </section>
     <!-- /.sidebar -->

@@ -1,0 +1,43 @@
+﻿@using BIZ
+@using UTILS
+@using WebMVC4.Helper
+@model DATA.Album
+@if (Model != null)
+{
+    <div class="container mt20 pb70">
+        <div class="row">
+            <div class="col-lg-8 col-md-12">
+               <h2 class="title-cm"><a href="#">@Model.Title</a></h2>
+                <div class="photo-list">
+                    <div class="gallery mt30">
+                        @foreach (BIZ.Entity.AlbumImage item in ViewBag.ImgList)
+                        {
+                            <div class="">
+                                <a href="@(item.Name)?w=0&h=@(ViewBag.Height)&mode=crop" class="glightbox">
+                                    <img src="@(item.Name)?w=272&h=181&mode=crop" alt="@item.Text" />
+                                </a>
+                            </div>
+                        }
+                    </div>
+                </div>
+
+            </div>
+            <div class="col-lg-4 col-md-12 sidebar-right">
+                @Html.Partial("Site_Right")
+            </div>
+        </div>
+    </div>
+
+
+    <script src="/Content/js/glightbox.min.js"></script>
+    <script>
+                                  const lightbox = GLightbox({
+                                    selector: '.glightbox'
+                                  });
+    </script>
+
+
+}
+
+
+

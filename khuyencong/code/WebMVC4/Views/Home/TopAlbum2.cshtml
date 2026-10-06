@@ -1,0 +1,40 @@
+﻿@using BIZ
+@using UTILS
+@using WebMVC4.Helper
+@model List<BIZ.Entity.Album_FULL>
+@if (Model != null)
+{
+    <div class="news-general mt30">
+        <h2 class="title-cm03">
+            <a href="/thu-vien-anh/c42/thu-vien-hinh-anh.html">Thư viện hình ảnh</a> / <a href="/trang-chu-video.html">Video</a>
+        </h2>
+        <div class="row-8px">
+            <div class="col-md-6 col-sm-6 col-xs-12 news-big mt10">
+                @foreach (var item1 in Model.Take(1).Select((value, i) => new {i, value}))
+                {
+                    <a href="@Utils.FormatUrlRewrite(item1.value.Id, item1.value.Title, "AlbumDetail")">
+                        <img src="@item1.value.MainImage?w=360&h=210&mode=crop" alt="@item1.value.Title">
+                    </a>
+                    <h3><a href="@Utils.FormatUrlRewrite(item1.value.Id, item1.value.Title, "AlbumDetail")">@item1.value.Title</a>
+                    </h3>
+                    <p>@Html.Raw(item1.value.Description)</p>
+                }
+            </div>
+            <div class="col-md-6 col-sm-6 col-xs-12">
+                <ul class="library-list">
+                    @foreach (var item in Model.Skip(1).Select((value, i) => new {i, value}))
+                    {
+                        <li>
+                            <a href="@Utils.FormatUrlRewrite(item.value.Id, item.value.Title, "AlbumDetail")" class="row-8px">
+                                <span class="col-md-4 col-sm-4 col-xs-4"><img src="@item.value.MainImage?w=89&h=65&mode=crop"></span>
+                                <span class="col-md-8 col-sm-8 col-xs-8">@item.value.Title</span>
+                            </a>
+                            <div class="clearfix"></div>
+                        </li>
+                    }
+                </ul>
+            </div>
+        </div>
+    </div>
+
+}

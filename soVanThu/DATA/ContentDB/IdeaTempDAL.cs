@@ -31,6 +31,7 @@ namespace DATA.ContentDB
                 return new List<IdeaTemp>();
             }
         }
+       
         public static List<IdeaTemp> GetTop()
         {
             var select = "Top 1000 *";

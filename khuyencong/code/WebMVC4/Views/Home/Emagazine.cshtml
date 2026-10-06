@@ -1,0 +1,23 @@
+﻿@using BIZ
+@using UTILS
+@using WebMVC4.Helper
+@model WebMVC4.Models.LastestNewModel
+@if (Model != null)
+{
+    <div class="grid-cols-4 m-grid-cols-1">
+        @foreach (var item in Model.lstdata.Select((value, i) => new { i, value }))
+        {
+            <div class="news-item-small">
+                <a href="@item.value.LinkUrl" class="newshot-item">
+                    <img src="@item.value.MainImage?w=302&h=171&mode=crop">
+                    <span class="mt15">@item.value.Title</span>
+                </a>
+            </div>
+        }
+    </div>
+    <div class="text-center mt40">
+        <a href="/tin-tuc/c43/e-magazine" class="btn-viewmore btn-border">Xem thêm</a>
+    </div>
+   
+
+}

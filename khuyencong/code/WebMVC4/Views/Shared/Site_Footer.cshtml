@@ -1,0 +1,36 @@
+﻿@using BIZ
+@using UTILS
+@using WebMVC4.Helper
+
+
+<footer class="f-content">
+    <div class="container">
+        <div class="f-content-inner">
+            <div class="f-content-left">
+                <h3 class="f-title">BẢN QUYỀN THUỘC CHƯƠNG TRÌNH KHUYẾN CÔNG QUỐC GIA</h3>
+                <p>
+                    Địa chỉ: Bộ Công Thương, 54 Hai Bà Trưng, phường Cửa Nam, thành phố Hà Nội<br>
+                    Điện thoại: 024 22218282
+                </p>
+            </div>
+            <div class="f-content-right">
+                <ul class="f-social">
+                    <li><a href="#"><img src="/Content/img/icon-face.png" alt="Facebook"></a></li>
+                    <li><a href="#"><img src="/Content/img/icon-youtube.png" alt="Youtube"></a></li>
+                </ul>
+                <p class="mt10">Ghi rõ nguồn: http://khuyencongonline.gov.vn/ khi sử dụng thông tin từ website này</p>
+                <div class="total text-right mt10">
+                    <span>Tổng số lượt truy cập </span>
+                    <ul>
+                        @foreach (var s in HttpContext.Current.Application["TotalVisited"].ToString().Select(c => c.ToString()).ToList())
+                        {
+                            <li>@s</li>
+                        }
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div><!-- end container-->
+</footer>
+
+<p><a href="#top" id="backToTop" class="backTop block"></a></p>

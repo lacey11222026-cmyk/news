@@ -1,0 +1,58 @@
+﻿@using BIZ
+@using UTILS
+@using WebMVC4.Helper
+@model WebMVC4.Models.LastestNewModel
+@if (Model != null)
+{
+    if (Model.lstdata.Count > 0)
+    {
+        <div class="box-news-big row box-video-list">
+            <div class="col-md-6">
+                @foreach (var item in Model.lstdata.Take(1).Select((value, i) => new { i, value }))
+                {
+                    <div class="newsbig-top">
+                        <div class="movie">
+                            <iframe src="@(item.value.Url.Replace("watch?v=", "embed/"))?rel=0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen style="position: absolute; top: 0px; right: 0px; bottom: 0px; left: 0px; width: 100%; height: 100%;"></iframe>
+                        </div>
+                        <a href="/trang-chu-video/?VideoId=@(@item.value.Id)" class="news-name mt15">@item.value.Title</a>
+                        <p class="mt10 news-txt">@item.value.IntroText</p>
+                        <span class="newsdate mt10">@item.value.PublishDate.ToString("dd/MM/yyyy")</span>
+                    </div>
+
+                }
+            </div>
+            <div class="col-md-3">
+                @foreach (var item in Model.lstdata.Skip(1).Take(2).Select((value, i) => new { i, value }))
+                {
+                    <div class="news-item-small">
+                        <a href="/trang-chu-video/?VideoId=@(@item.value.Id)" class="newshot-item">
+                            <img src="@item.value.MainImage?w=295&h=167&mode=crop">
+                            <span class="mt15">@item.value.Title</span>
+                        </a>
+                    </div>
+                }
+            </div>
+            <div class="col-md-3">
+                @foreach (var item in Model.lstdata.Skip(3).Take(2).Select((value, i) => new { i, value }))
+                {
+                    <div class="news-item-small">
+                        <a href="/trang-chu-video/?VideoId=@(@item.value.Id)" class="newshot-item">
+                            <img src="@item.value.MainImage?w=295&h=167&mode=crop">
+                            <span class="mt15">@item.value.Title</span>
+                        </a>
+                    </div>
+                }
+            </div>
+        </div>
+        <div class="text-center mt40">
+            <a href="/trang-chu-video" class="btn-viewmore btn-border">Xem thêm</a>
+        </div>
+
+        
+    }
+
+}
+
+
+
+

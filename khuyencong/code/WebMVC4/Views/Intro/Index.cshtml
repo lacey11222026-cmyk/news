@@ -1,0 +1,51 @@
+﻿@using BIZ
+@using UTILS
+@using WebMVC4.Helper
+@model BIZ.Entity.CATEGORY_FULL
+@{
+    var langpage = WorkContext.GetLanguage();
+}
+@if (Model != null)
+{
+
+    <div class="intro-page container mt20 pb70">
+        <div class="row">
+            <div class="col-lg-8 col-md-12 pb40">
+                @{Html.RenderAction("BreadcrumbObj", "News", new { data = Model }); }
+                <div class="detail-content mt40" id="NewsContent">
+
+
+
+                    @Html.Raw(Model.Contents)
+
+                </div>
+
+            </div><!-- end content left-->
+
+            <div class="col-md-12 col-lg-4">
+                @Html.Partial("Site_Right")
+               
+            </div>
+        </div>
+    </div>
+    
+
+
+    <style>
+        #NewsContent table td {
+            padding: 10px;
+        }
+    </style>
+
+
+}
+
+@*<script type="text/javascript">
+
+ $('#menu_' + '@ViewBag.CurrentCategoryId').addClass("active");
+
+  $('#menu_' + '@ViewBag.ParentCategoryId').addClass("active");
+
+
+
+</script>*@

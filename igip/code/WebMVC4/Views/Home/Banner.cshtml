@@ -16,9 +16,19 @@
         else
         {
             <div>
-                <a href="@item.value.Url" rel="nofollow" target="_blank">
-                    <img src="@item.value.Description" alt="@item.value.Name" />
-                </a>
+                @if (string.IsNullOrEmpty(item.value.Description))
+                {
+                    <a href="@item.value.Url" rel="nofollow" target="_blank">
+                        <img src="@item.value.Data" alt="@item.value.Name" />
+                    </a>
+                }
+                else
+                {
+                    <a href="@item.value.Url" rel="nofollow" target="_blank">
+                        <img src="@item.value.Description" alt="@item.value.Name" />
+                    </a>
+
+                }
             </div>
         }
 

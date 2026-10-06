@@ -51,8 +51,8 @@
                             <th>3. Hạng mục dự án</th>
                             <td>@HtmlHelpers.UserProjectSubType(Model.Project.SubType, Model.Project.Type)</td>
                         </tr>
-                       
-                      
+
+
 
                         <tr>
                             <th>4. Chủ dự án</th>
@@ -61,8 +61,8 @@
                                     <p style="-webkit-line-clamp: unset;">
                                         @Html.Raw(Model.Project.Organ.Replace("\n", "<br>"))
                                     </p>
-                                    
-                                    
+
+
                                 </div>
                             </td>
                         </tr>
@@ -75,18 +75,30 @@
                             <td>@Model.Project.Total</td>
                         </tr>
 
+                        <tr>
+                            <th>7.  Nguồn vốn</th>
+                            <td>
+                                <div class="show-txt">
+                                    <p>
+                                        @Html.Raw(Model.Project.Source.Replace("\n", "<br>"))
+                                    </p>
+                                    <a href="#" class="btn-orange">Xem thêm</a>
+                                </div>
+                            </td>
+                        </tr>
 
                         <tr>
-                            <th>7. Tiến độ dự án</th>
+                            <th>8. Tiến độ dự án</th>
                             <td>@HtmlHelpers.UserProjectProgress2(Model.Project.Progress)</td>
                         </tr>
+
                         <tr>
-                            <th>8. Thời gian thực hiện</th>
+                            <th>9. Thời gian thực hiện</th>
                             <td>@Model.ProjectConfig.Time</td>
                         </tr>
 
                         <tr>
-                            <th>9. Mô tả ngắn gọn dự án và mục tiêu dự án </th>
+                            <th>10. Mô tả ngắn gọn dự án và mục tiêu dự án </th>
                             <td>
                                 <div class="show-txt">
 
@@ -189,7 +201,7 @@
                             <th>3. Project category</th>
                             <td>@HtmlHelpers.UserProjectSubTypeEn(Model.Project.SubType, Model.Project.Type)</td>
                         </tr>
-                       
+
                         <tr>
                             <th>4. Project Owner </th>
                             <td>
@@ -198,7 +210,7 @@
                                         @Html.Raw(Model.Project.Organ.Replace("\n", "<br>"))
                                     </p>
 
-                                    
+
                                 </div>
                             </td>
                         </tr>
@@ -210,18 +222,29 @@
                             <th>6. Total project budget </th>
                             <td>@Model.Project.Total</td>
                         </tr>
-                       
+
                         <tr>
                             <th>7. Development Phase of the Project</th>
                             <td>@HtmlHelpers.UserProjectProgress2En(Model.Project.Progress)</td>
                         </tr>
                         <tr>
-                            <th>8. Project Duration</th>
+                            <th>7.  Funding sources </th>
+                            <td>
+                                <div class="show-txt">
+                                    <p>
+                                        @Html.Raw(Model.Project.Source.Replace("\n", "<br>"))
+                                    </p>
+                                    <a href="#" class="btn-orange">View more</a>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>9. Project Duration</th>
                             <td>@Model.ProjectConfig.Time</td>
                         </tr>
-                       
+
                         <tr>
-                            <th>9. Brief Project Objectives & Description </th>
+                            <th>10. Brief Project Objectives & Description </th>
                             <td>
                                 <div class="show-txt">
 
@@ -232,8 +255,8 @@
                                 </div>
                             </td>
                         </tr>
-                      
-                        
+
+
                     </table>
                 </div>
             </div>

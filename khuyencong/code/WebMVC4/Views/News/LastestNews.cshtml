@@ -1,0 +1,47 @@
+﻿@using BIZ
+@using UTILS
+@using WebMVC4.Helper
+@model List<BIZ.Entity.CONTENT_FULL>
+@if (Model != null)
+{
+    if (Model.Count > 0)
+    {
+
+
+        <div class="box-pink">
+            <h2 class="title-cm"><a href="#">tin mới</a></h2>
+            @foreach (var item in Model.Take(1).Select((value, i) => new { i, value }))
+            { 
+                <div class="newsbig">
+                    <a href="item.value.LinkUrl"><img src="@item.value.MainImage?w=362&h=203&mode=crop" alt=""></a>
+                    <div class="newsbig-content">
+                        <a href="@item.value.LinkUrl" class="news-name mt15">@item.value.Title</a>
+                        <p class="newsdate mt15">@item.value.PublishDate.ToString("dd/MM/yyyy")</p>
+                    </div>
+                </div>
+            }
+        <ul class="newslist-arrow newslist-border mt20">
+            @foreach (var item in Model.Skip(1).Select((value, i) => new { i, value }))
+            {
+                <li>
+                    <a href="@item.value.LinkUrl" class="mb-0">@item.value.Title</a>
+                    <p class="date mt10">@item.value.PublishDate.ToString("dd/MM/yyyy")</p>
+                </li>
+            }
+        </ul>
+            <div class="mt30 text-right">
+                <a href="#" class="btn-viewmore">Xem thêm</a>
+            </div>
+        </div>
+
+        
+
+
+
+
+
+
+
+
+    }
+}

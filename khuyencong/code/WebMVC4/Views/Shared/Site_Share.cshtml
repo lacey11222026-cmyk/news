@@ -1,0 +1,25 @@
+﻿<script type="text/javascript">
+    $(document).ready(
+            function () {
+                var GoIconType = 2;
+                var des = $("#introNews").text();
+                var tit = $("#titleNews").text();
+                var img = "http://" + window.location.host + $("#igmNews").text();
+               
+                var obj = {
+                    link: window.location.href
+            , message: ""
+            , picture: img
+            , title: tit
+            , description: des
+            , name: window.location.host
+                }
+                init_shareAll("share_gonewws", obj);
+            });
+</script>
+<div id="share_gonewws" style="width: auto; float: right; padding-top: 3px;">
+ 
+    <script src="/Scripts/share.js" type="text/javascript"></script>
+    <div class="clear">
+    </div>
+</div>

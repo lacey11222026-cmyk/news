@@ -31,7 +31,7 @@ namespace UTILS
         {
             if (Expire==0)
             {
-                Expire = Constants.OneDayExpire;
+                Expire = Constants.FiveMinuteExpire;
             }
             DataCaching.Instance.Set(CacheKey, value, Expire);
         }

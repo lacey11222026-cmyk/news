@@ -40,80 +40,18 @@ namespace WebMVC4.Controllers
 
             return View();
         }
-        public ActionResult Upload()
-        {
-
-
-            return View();
-        }
-        public ActionResult SaveUpload(List<IdeaTemp> lstdata)
-        {
-            var ReturnData = new ReturnData();
-            int TotalRecord = 0;
-            var data = IdeaDAL.GetSearch(-1, -1, -1, "", "", 1, 10000, ref TotalRecord);
-
-            IFormatProvider culture = new CultureInfo("vi-VN", true);
-
-          
-            try
-            {
-                foreach (var item in lstdata)
-                {
-                   if(!String.IsNullOrEmpty(item.SPublishDate))
-                    {
-                        item.Type = 0;
-                        item.Description = " ";
-                        //NLogLogger.DebugMessage(item.SPublishDate);
-                        item.PublishDate = DateTime.ParseExact(item.SPublishDate, "M/d/yy", CultureInfo.InvariantCulture);
-
-                        foreach (var itemx in data)
-                        {
-                            var similarity = Utils.CalculateSimilarity(itemx.Name, item.Name);
-                            if (similarity >= 0.7)
-                            {
-
-                                item.Type = 1;
-                                item.Description = $"Gần giống với sáng kiến {itemx.Code}";
-                                break; //
-                            }
-                        }
-                        IdeaTempDAL.InsertUpdate(item);
-                        System.Threading.Thread.Sleep(30);
-                    }    
-                    
-                }
-               
-            }
-
-            catch (Exception ex)
-            {
-                NLogLogger.PublishException(ex);
-                ReturnData.ResponseCode = -99;
-                ReturnData.Description = "Có lỗi trong quá trình xử lý";
-            }
-            return Json(ReturnData);
-        }
-        public ActionResult Download(int Id)
-        {
-            var newsobj = IdeaDAL.GetDetail(Id);
-            if (newsobj == null)
-                return RedirectToAction("Error", "Home");
-
-
-            return Redirect(newsobj.FilePath);
-        }
-        public ActionResult ListDocument(int? year, int? status, int? progress, string unit, string title, int? currentPage, int? pageSize)
+       
+        //Đơn tố cáo
+        public ActionResult ListDocument(string title, int? currentPage, int? pageSize, int? group)
         {
 
             string Title = string.IsNullOrEmpty(title) ? string.Empty : title;
-
             int CurrPage = currentPage == null ? 1 : (int)currentPage;
+            int Group = group == null ? -1 : (int)group;
             int RecordPerPage = pageSize == null ? 100 : (int)pageSize;
-            int Year = year == null ? 0 : (int)year;
-            int Status = status == null ? 0 : (int)status;
-            int Progress = progress == null ? 0 : (int)progress;
+
             int TotalRecord = 0;
-            var data = IdeaDAL.GetSearch(Status, Progress, Year, title, unit, CurrPage, RecordPerPage, ref TotalRecord);
+            var data = VanThuDAL.GetSearch( title,1,1, Group, CurrPage, RecordPerPage, ref TotalRecord);
             if (data.Count > 0)
             {
                 ViewBag.TotalRecord = TotalRecord;
@@ -135,104 +73,391 @@ namespace WebMVC4.Controllers
 
             return PartialView(data);
         }
-        public ActionResult ListDocument2()
+        public ActionResult Index2()
         {
 
-            var data = IdeaTempDAL.GetTop();
-            return PartialView(data);
+
+            return View();
         }
-        public ActionResult GetDocumentDetail(int Id = 0)
-        {
-            ViewBag.CategoryList = _staticCategoryList;
-            var model = new Idea { Id = 0 };
-            if (Id > 0)
-            {
-                model = IdeaDAL.GetDetail(Id);
-                //model.FollowersConfig = JsonConvert.DeserializeObject<IdeaConfig>(model.Followers);
-                //model.ProposerConfig = JsonConvert.DeserializeObject<IdeaConfig>(model.Proposer);
 
-                ViewBag.Title = "Cập nhật sáng kiến";
+       
+
+        //Đơn khiếu nại
+        public ActionResult ListDocument2(string title, int? currentPage, int? pageSize, int? group)
+        {
+
+            string Title = string.IsNullOrEmpty(title) ? string.Empty : title;
+            int CurrPage = currentPage == null ? 1 : (int)currentPage;
+            int Group = group == null ? -1 : (int)group;
+            int RecordPerPage = pageSize == null ? 100 : (int)pageSize;
+
+            int TotalRecord = 0;
+            var data = VanThuDAL.GetSearch(title, 1, 2, Group, CurrPage, RecordPerPage, ref TotalRecord);
+            if (data.Count > 0)
+            {
+                ViewBag.TotalRecord = TotalRecord;
+                //foreach (var  item in data)
+                //{
+                //    item.FollowersConfig= JsonConvert.DeserializeObject<IdeaConfig>(item.Followers);
+                //    item.ProposerConfig = JsonConvert.DeserializeObject<IdeaConfig>(item.Proposer);
+                //}
             }
             else
             {
-                int TotalRecord = 0;
-                var data = IdeaDAL.GetSearch(0, 0, 0, "", "", 1, 1, ref TotalRecord);
-                model.Code = String.Format("SK-{0}", (TotalRecord + 1).ToString("D3"));
-                model.PublishDate = DateTime.Now;
-                model.ProgressPercent = 0;
+                ViewBag.TotalRecord = 0;
+            }
 
-                ViewBag.Title = "Thêm mới sáng kiến";
+
+
+            ViewBag.PageSize = RecordPerPage;
+            ViewBag.CurrentPage = CurrPage;
+
+            return PartialView(data);
+        }
+        //Đơn phàn ánh
+        public ActionResult ListDocument3(string title, int? currentPage, int? pageSize, int? group)
+        {
+
+            string Title = string.IsNullOrEmpty(title) ? string.Empty : title;
+            int CurrPage = currentPage == null ? 1 : (int)currentPage;
+            int Group = group == null ? -1 : (int)group;
+            int RecordPerPage = pageSize == null ? 100 : (int)pageSize;
+
+            int TotalRecord = 0;
+            var data = VanThuDAL.GetSearch(title, 1, 3, Group, CurrPage, RecordPerPage, ref TotalRecord);
+            if (data.Count > 0)
+            {
+                ViewBag.TotalRecord = TotalRecord;
+                //foreach (var  item in data)
+                //{
+                //    item.FollowersConfig= JsonConvert.DeserializeObject<IdeaConfig>(item.Followers);
+                //    item.ProposerConfig = JsonConvert.DeserializeObject<IdeaConfig>(item.Proposer);
+                //}
+            }
+            else
+            {
+                ViewBag.TotalRecord = 0;
+            }
+
+
+
+            ViewBag.PageSize = RecordPerPage;
+            ViewBag.CurrentPage = CurrPage;
+
+            return PartialView(data);
+        }
+
+        public ActionResult Index4()
+        {
+
+
+            return View();
+        }
+        //Đơn khác
+        public ActionResult ListDocument4(string title, int? currentPage, int? pageSize, int? group)
+        {
+
+            string Title = string.IsNullOrEmpty(title) ? string.Empty : title;
+            int CurrPage = currentPage == null ? 1 : (int)currentPage;
+            int Group = group == null ? -1 : (int)group;
+            int RecordPerPage = pageSize == null ? 100 : (int)pageSize;
+
+            int TotalRecord = 0;
+            var data = VanThuDAL.GetSearch(title, 1, 4, Group, CurrPage, RecordPerPage, ref TotalRecord);
+            if (data.Count > 0)
+            {
+                ViewBag.TotalRecord = TotalRecord;
+                //foreach (var  item in data)
+                //{
+                //    item.FollowersConfig= JsonConvert.DeserializeObject<IdeaConfig>(item.Followers);
+                //    item.ProposerConfig = JsonConvert.DeserializeObject<IdeaConfig>(item.Proposer);
+                //}
+            }
+            else
+            {
+                ViewBag.TotalRecord = 0;
+            }
+
+
+
+            ViewBag.PageSize = RecordPerPage;
+            ViewBag.CurrentPage = CurrPage;
+
+            return PartialView(data);
+        }
+        //cong van
+        public ActionResult Index5()
+        {
+
+
+            return View();
+        }
+        //Đơn khác
+        public ActionResult ListDocument5(string title, int? currentPage, int? pageSize, int? group)
+        {
+
+            string Title = string.IsNullOrEmpty(title) ? string.Empty : title;
+            int CurrPage = currentPage == null ? 1 : (int)currentPage;
+            int Group = group == null ? -1 : (int)group;
+            int RecordPerPage = pageSize == null ? 100 : (int)pageSize;
+
+            int TotalRecord = 0;
+            var data = VanThuDAL.GetSearch(title, 2, -1, Group, CurrPage, RecordPerPage, ref TotalRecord);
+            if (data.Count > 0)
+            {
+                ViewBag.TotalRecord = TotalRecord;
+                //foreach (var  item in data)
+                //{
+                //    item.FollowersConfig= JsonConvert.DeserializeObject<IdeaConfig>(item.Followers);
+                //    item.ProposerConfig = JsonConvert.DeserializeObject<IdeaConfig>(item.Proposer);
+                //}
+            }
+            else
+            {
+                ViewBag.TotalRecord = 0;
+            }
+
+
+
+            ViewBag.PageSize = RecordPerPage;
+            ViewBag.CurrentPage = CurrPage;
+
+            return PartialView(data);
+        }
+
+
+        public ActionResult Index3()
+        {
+
+
+            return View();
+        }
+
+        public ActionResult GetDocumentDetail(int Id = 0,int type=1)
+        {
+            ViewBag.CategoryList = _staticCategoryList;
+            var model = new VanThu { Id = 0 };
+            if (Id > 0)
+            {
+                model = VanThuDAL.GetDetail(Id);
+
+                //model.FollowersConfig = JsonConvert.DeserializeObject<IdeaConfig>(model.Followers);
+                //model.ProposerConfig = JsonConvert.DeserializeObject<IdeaConfig>(model.Proposer);
+                if(model.IncomingDocumentType==1)
+                {
+                    if (model.IncomingDocumentDetail == 1)
+                    {
+                        ViewBag.Title = "Cập nhật đơn tố cáo";
+                    }
+                    if (model.IncomingDocumentDetail == 2)
+                    {
+                        ViewBag.Title = "Cập nhật đơn khiếu nại";
+                        return View("GetDocumentDetail2",model);
+                    }
+                    if (model.IncomingDocumentDetail == 3)
+                    {
+                        ViewBag.Title = "Cập nhật đơn phản ánh, kiến nghị";
+                        return View("GetDocumentDetail3", model);
+                    }
+                    if (model.IncomingDocumentDetail == 3)
+                    {
+                        ViewBag.Title = "Cập nhật đơn khác";
+                        return View("GetDocumentDetail4", model);
+                    }
+                }
+                else
+                {
+                    ViewBag.Title = "Cập nhật công văn";
+                    return View("GetDocumentDetail5", model);
+                }
+                
+            }
+            else
+            {
+              
+                ViewBag.Title = "Thêm mới đơn tố cáo";
+                if (type == 1)
+                {
+                    ViewBag.Title = "Thêm mới đơn tố cáo";
+                }
+                if (type == 2)
+                {
+                    ViewBag.Title = "Thêm mới đơn khiếu nại";
+                    return View("GetDocumentDetail2", model);
+                }
+                if (type == 3)
+                {
+                    ViewBag.Title = "Thêm mới đơn phản ánh, kiến nghị";
+                    return View("GetDocumentDetail3", model);
+                }
+                if (type == 4)
+                {
+                    ViewBag.Title = "Thêm mới đơn khác";
+                    return View("GetDocumentDetail4", model);
+                }
+                if (type == 5)
+                {
+                    ViewBag.Title = "Thêm mới công văn";
+                    return View("GetDocumentDetail5", model);
+                }
             }
             return View(model);
         }
+        private DateTime? ConvertVanThuDate(string value)
+        {
+            IFormatProvider culture = new CultureInfo("en-US", true);
+
+            if (string.IsNullOrWhiteSpace(value))
+            {
+                return Utils.ConvertToDate("01/01/9999", "dd-MM-yyyy");
+            }
+
+            return DateTime.ParseExact(
+                value.Trim(),
+                "dd/MM/yyyy",
+                culture
+            );
+        }
         [ValidateAntiForgeryToken]
         [HttpPost]
-        public JsonResult SaveData(Idea doc)
+        public JsonResult SaveData(
+            VanThu doc,
+
+            string SDutyDate,
+            string SReceivedDate,
+            string SIncomingDocumentDate,
+            string SLeaderReceivedDate,
+            string SAssignedOfficerReceivedDate,
+            string SOutgoingDocumentDate,
+            string SProposalSubmissionDate,
+            string SGuidanceDocumentDate,
+            string STransferSlipDate,
+            string SReminderDocumentDate,
+            string SReportToInspection2Date,
+            string SNonAcceptanceNoticeDate,
+            string SAcceptanceDecisionDate,
+            string SVerificationDecisionDate,
+            string STemporarySuspensionDecisionDate,
+            string SSuspensionDecisionDate,
+            string SResolutionDecisionDate
+        )
         {
             var ReturnData = new ReturnData();
+
             try
             {
+                // Xử lý toàn bộ trường ngày
+                doc.DutyDate = ConvertVanThuDate(SDutyDate);
 
-                IFormatProvider culture = new CultureInfo("en-US", true);
-                //doc.Followers = Utils.ConvertToJson(doc.FollowersConfig, string.Empty);
-                //doc.Proposer = Utils.ConvertToJson(doc.Proposer, string.Empty);
-                doc.PublishDate = DateTime.ParseExact(doc.SPublishDate, "dd/MM/yyyy", culture);
-                if (string.IsNullOrEmpty(doc.Mark))
-                    doc.Mark = " ";
-                if (string.IsNullOrEmpty(doc.FilePath))
-                    doc.FilePath = " ";
-                if (string.IsNullOrEmpty(doc.Followers))
-                    doc.Followers = " ";
-                if (string.IsNullOrEmpty(doc.Effective))
-                    doc.Effective = " ";
-                var result = IdeaDAL.InsertUpdate(doc);
+                doc.ReceivedDate = ConvertVanThuDate(SReceivedDate);
+
+                doc.IncomingDocumentDate = ConvertVanThuDate(SIncomingDocumentDate);
+
+                doc.LeaderReceivedDate = ConvertVanThuDate(SLeaderReceivedDate);
+
+                doc.AssignedOfficerReceivedDate =
+                    ConvertVanThuDate(SAssignedOfficerReceivedDate);
+
+                doc.OutgoingDocumentDate =
+                    ConvertVanThuDate(SOutgoingDocumentDate);
+
+                doc.ProposalSubmissionDate =
+                    ConvertVanThuDate(SProposalSubmissionDate);
+
+                doc.GuidanceDocumentDate =
+                    ConvertVanThuDate(SGuidanceDocumentDate);
+
+                doc.TransferSlipDate =
+                    ConvertVanThuDate(STransferSlipDate);
+
+                doc.ReminderDocumentDate =
+                    ConvertVanThuDate(SReminderDocumentDate);
+
+                doc.ReportToInspection2Date =
+                    ConvertVanThuDate(SReportToInspection2Date);
+
+                doc.NonAcceptanceNoticeDate =
+                    ConvertVanThuDate(SNonAcceptanceNoticeDate);
+
+                doc.AcceptanceDecisionDate =
+                    ConvertVanThuDate(SAcceptanceDecisionDate);
+
+                doc.VerificationDecisionDate =
+                    ConvertVanThuDate(SVerificationDecisionDate);
+
+                doc.TemporarySuspensionDecisionDate =
+                    ConvertVanThuDate(STemporarySuspensionDecisionDate);
+
+                doc.SuspensionDecisionDate =
+                    ConvertVanThuDate(SSuspensionDecisionDate);
+
+                doc.ResolutionDecisionDate =
+                    ConvertVanThuDate(SResolutionDecisionDate);
+
+
+                var result = VanThuDAL.InsertUpdate(doc);
+
                 ReturnData.ResponseCode = result;
+
                 if (result >= 0)
                 {
-
                     var lognewsobj = new ContentLog
                     {
                         UserName = HttpContext.User.Identity.Name,
                         ItemtType = (int)Constants.CategoryType.Doc,
                         ItemId = doc.Id,
-                        ItemName = doc.Name,
-                        Note = "Xóa văn bản",
+                        ItemName = doc.IncomingDocumentSummary,
+                        Note = "Đơn",
                         Type = 1
-
                     };
+
                     if (doc.Id > 0)
                     {
                         ReturnData.Description = "Cập nhật Thành Công";
-                        lognewsobj.Note = "Cập nhật sáng kiến";
+                        lognewsobj.Note = "Cập nhật đơn";
                     }
-
                     else
                     {
                         ReturnData.Description = "Thêm mới Thành Công";
-                        lognewsobj.Note = "Tạo mới sáng kiến";
+                        lognewsobj.Note = "Tạo mới đơn";
                     }
 
-                    //Ghi log
+                    // Ghi log
                     Action<ContentLog> send = InsertContentLog;
                     var asynSend = send.BeginInvoke(lognewsobj, null, null);
                 }
-                else switch (result)
+                else
+                {
+                    switch (result)
                     {
-                        case -51: ReturnData.Description = "Đã có bài viết này"; break;
-                        case -600: ReturnData.Description = "Tham số truyền vào không hợp lệ"; break;
-                        default: ReturnData.Description = "Hệ thống đang bận. Vui lòng quay lại sau"; break;
+                        case -51:
+                            ReturnData.Description = "Đã có bài viết này";
+                            break;
+
+                        case -600:
+                            ReturnData.Description = "Tham số truyền vào không hợp lệ";
+                            break;
+
+                        default:
+                            ReturnData.Description =
+                                "Hệ thống đang bận. Vui lòng quay lại sau";
+                            break;
                     }
+                }
+
                 return Json(ReturnData);
             }
             catch (Exception ex)
             {
                 NLogLogger.PublishException(ex);
+
                 ReturnData.ResponseCode = -99;
-                ReturnData.Description = "Hệ thống đang bận. Vui lòng quay lại sau";
+                ReturnData.Description =
+                    "Hệ thống đang bận. Vui lòng quay lại sau";
+
                 return Json(ReturnData);
             }
         }
-
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Delete(string _id, string Title)

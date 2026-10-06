@@ -4,67 +4,98 @@
 @{
     var lstcategory = new CategoryBO().GetAllCategoryFullsByPosition(UTILS.Constants.CategoryPosition.MainMenu, 18, false);
     var Date = Utils.formatDateofWeek(DateTime.Now.DayOfWeek) + " " + DateTime.Now.ToString("dd") + "/" + DateTime.Now.ToString("MM") + "/ " + DateTime.Now.Year.ToString();
+    var youtubeUrl = "https://www.youtube.com/@VECEA-2011";
 }
-<header>
-    <div>
-        <a href="/"><img src="~/Content/images/logo-vecea.png" alt="vecea"></a>
-        <h1><img src="~/Content/images/logo-vecea_text.png" alt="HỘI KHOA HỌC VÀ CÔNG NGHỆ SỬ DỤNG NĂNG LƯỢNG TIẾT KIỆM VÀ HIỆU QUẢ VIỆT NAM"></h1>
-    </div>
-    <span class="clearfix"></span>
-</header>
-<section class="nav-pc">
-    <nav>
-        <ul class="nav-pc-content">
-            <li><a href="/"><img src="~/Content/images/icon_home.png" alt="Trang chủ"></a></li>
 
-            @foreach (var item in lstcategory.Select((value, i) => new { i, value }))
-            {
-                <li>
-                    <a href="@Utils.FormatUrlRewriteByType(item.value.Id, item.value.Name, int.Parse(item.value.Type.ToString()), item.value.Link)">@item.value.Name</a>| @Html.Raw(HtmlHelpers.BindChildCategories(Convert.ToInt32(item.value.Id), int.Parse(item.value.Type.ToString())))
-                </li>
-            }
-            <li><a href="/hoi-vien.html">Hội viên</a>| </li>
-            <li><a href="/tin-tuc/c16/mau-don-gia-nhap-hoi.html">Mẫu đơn gia nhập Hội</a></li>
+<header>
+    <div class="header-conent01">
+        <img src="/Content/images/bnr-top.gif?vs=11" alt="HỘI KHOA HỌC VÀ CÔNG NGHỆ SỬ DỤNG NĂNG LƯỢNG TIẾT KIỆM VÀ HIỆU QUẢ VIỆT NAM" class="bnr-img hidden-mb">
+        <img src="/Content/images/bnr-top-mb.gif?vs=11" alt="HỘI KHOA HỌC VÀ CÔNG NGHỆ SỬ DỤNG NĂNG LƯỢNG TIẾT KIỆM VÀ HIỆU QUẢ VIỆT NAM" class="bnr-img block-mb">
+        <div class="bnr-content">
+            <div class="container">
+                <a href="/"><img src="/Content/images/logo-top.png?vs=1" alt="vecea" class="logo-top"></a>
+            </div>
+        </div>
+    </div>
+    <div class="nav_top">
+        <div class="container">
+            <div class="nav-top-content">
+                <div class="ico-home"><a href="/"><img src="/images/icon_home.png" alt="Trang chủ" width="22" height="30"></a></div>
+                <nav class="nav-list">
+                    <ul>
+                        @foreach (var item in lstcategory.Select((value, i) => new { i, value }))
+                        {
+                            <li>
+                                <a href="@Utils.FormatUrlRewriteByType(item.value.Id, item.value.Name, int.Parse(item.value.Type.ToString()), item.value.Link)">@item.value.Name</a>@Html.Raw(HtmlHelpers.BindChildCategories(Convert.ToInt32(item.value.Id), int.Parse(item.value.Type.ToString())))
+                            </li>
+                        }
+                        <li><a href="/hoi-vien.html">Hội viên</a></li>
+                        <li><a href="/tin-tuc/c16/mau-don-gia-nhap-hoi.html">Mẫu đơn gia nhập Hội</a></li>
+                        <li>
+                            <a href="/Document/Index/8">Văn bản</a>
+                        </li>
+                    </ul>
+                </nav>
+                <div class="nav-right">
+                    <ul>
+                        <li><a href="https://www.facebook.com/vecea2011" target="_blank"><img src="/images/icon-facebook.svg" width="23" height="23"></a></li>
+                        <li><a href="@youtubeUrl" target="_blank"><img src="/images/icon-youtube.svg" width="23" height="23"></a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="header-mobile">
+        <a href="#menu">
+            <img src="/images/menu.svg" width="30" class="ico-menu">
+        </a>
+        <div class="header-mobile-content">
+            <div class="header-mb-top">
+                <a href="#menu" class="ico-close">
+                    <img src="/images/close.svg" width="18">
+                </a>
+                <a href="/" class="logo-top-mb"><img src="/images/logo-top.png" alt=""></a>
+            </div>
+            <div class="nav-mb mt20">
+                <div class="search-box w100">
+                    <button class="search-icon" onclick="Msearch();"> </button>
+                    <input type="text" class="form-control" id="MtxtKeyword" onkeydown="javascript: return MAnyInput_KeyDown(this, event);">
+                </div>
+                <ul class="nav-mb-list mt20">
+                    @foreach (var item in lstcategory.Select((value, i) => new { i, value }))
+                    {
+                        <li>
+                            <a href="@Utils.FormatUrlRewriteByType(item.value.Id, item.value.Name, int.Parse(item.value.Type.ToString()), item.value.Link)">@item.value.Name</a> @Html.Raw(HtmlHelpers.BindChildCategories(Convert.ToInt32(item.value.Id), int.Parse(item.value.Type.ToString())))
+                        </li>
+                    }
+                    <li><a href="/hoi-vien.html">Hội viên</a></li>
+                    <li><a href="/tin-tuc/c16/mau-don-gia-nhap-hoi.html">Mẫu đơn gia nhập Hội</a></li>
+                    <li>
+                        <a href="/Document/Index/8">Văn bản</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</header>
+
+
+<div class="container">
+    <section class="tool-top">
+        <p class="date">@(Date)</p>
+        <ul class="pull-right">
+            <li class="search_m">
+                <a class="click" href="javascript:;"></a>
+                <input class="submit_m" type="submit" onclick="Msearch();">
+                <input class="text_m" type="text" id="MtxtKeyword" onkeydown="javascript: return MAnyInput_KeyDown(this, event);">
+            </li>
+            <li><input type="text" class="box-search" placeholder="Tìm kiếm" id="txtKeyword" onkeydown="javascript: return AnyInput_KeyDown(this, event);"></li>
+
         </ul>
         <div class="clearfix"></div>
-    </nav>
-</section>
-
-<!-- nav mobile-->
-<div id="page">
-    <div class="header-m" style="float:left;">
-        <a href="#menu"> <img src="~/Content/images/nav-m.png"></a>
-    </div>
-    <nav id="menu">
-        <ul>
-            <li><a href="/">Trang chủ</a></li>
-            @foreach (var item in lstcategory.Select((value, i) => new { i, value }))
-            {
-                <li>
-                    <a href="@Utils.FormatUrlRewriteByType(item.value.Id, item.value.Name, int.Parse(item.value.Type.ToString()), item.value.Link)">@item.value.Name</a>
-                </li>
-            }
-            <li><a href="/hoi-vien.html">Hội viên</a></li>
-            <li><a href="/tin-tuc/c16/mau-don-gia-nhap-hoi.html">Mẫu đơn gia nhập Hội</a></li>
-        </ul>
-    </nav>
-</div><!-- end page mobile-->
-<div class="clear"></div>
-
-
-<section class="tool-top">
-    <p class="date">@(Date)</p>
-    <ul class="pull-right">
-        <li class="search_m">
-            <a class="click" href="javascript:;"></a>
-            <input class="submit_m" type="submit" onclick="Msearch();">
-            <input class="text_m" type="text" id="MtxtKeyword" onkeydown="javascript: return MAnyInput_KeyDown(this, event);">
-        </li>
-        <li><input type="text" class="box-search" placeholder="Tìm kiếm" id="txtKeyword" onkeydown="javascript: return AnyInput_KeyDown(this, event);"></li>
-
-    </ul>
-    <div class="clearfix"></div>
-</section>
+    </section>
+</div>
 <script>
     function Msearch() {
         var searchtext = $("#MtxtKeyword").val();

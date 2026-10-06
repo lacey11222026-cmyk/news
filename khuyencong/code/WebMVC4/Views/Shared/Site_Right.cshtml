@@ -1,0 +1,12 @@
+﻿
+@using BIZ
+@using UTILS
+@using WebMVC4.Helper
+
+<div class="sidebar-right">
+    @{Html.RenderAction("LastestNews", "News", new { lang = "vi-vn", MaxLastestNews = 4 });}
+    <div class="bnr-list mt25">
+        @{Html.RenderAction("BannerRight", "Home", new { lang = "vi-vn" });}
+    </div>
+</div>
+

@@ -1,0 +1,50 @@
+﻿
+@using BIZ
+@using UTILS
+@using WebMVC4.Helper
+@model WebMVC4.Models.LastestNewModel
+@if (Model != null)
+{
+    if (Model.lstdata.Count > 0)
+    {
+
+        <div class="@Model.Css">
+            <h2 class="title-line"><a href="@Model.Url">@Model.HeaderTitle</a></h2>
+            <div class="row">
+                <div class="col-md-6 col-sm-12">
+                    @foreach (var item in Model.lstdata.Take(1).Select((value, i) => new { i, value }))
+                    {
+
+                        <div class="newsbig">
+                            <a href="@item.value.LinkUrl"><img src="@item.value.MainImage?w=403&h=226&mode=crop" alt=""></a>
+                            <a href="@item.value.LinkUrl" class="news-name mt15">@item.value.Title</a>
+                            <p class="mt10 news-txt">@item.value.IntroText</p>
+                            <span class="newsdate mt10 newsdate-line">@item.value.PublishDate.ToString("dd/MM/yyyy")</span>
+                        </div>
+                    }
+                </div>
+                <div class="col-md-6 col-sm-12">
+                    <div class="newslist-02">
+                        @foreach (var item in Model.lstdata.Skip(1).Select((value, i) => new { i, value }))
+                        {
+                            <div class="news-item">
+                                <a href="@item.value.LinkUrl">
+                                    <img src="@item.value.MainImage?w=177&h=100&mode=crop" alt="">
+                                    <span>@item.value.Title</span>
+                                </a>
+                            </div>
+                        }
+                       
+                    </div>
+                    <div class="mt40">
+                        <a href="@Model.Url" class="btn-viewmore">Xem thêm</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        
+
+
+    }
+}

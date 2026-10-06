@@ -1,0 +1,29 @@
+﻿@using BIZ
+@using UTILS
+@using WebMVC4.Helper
+@model List<BIZ.Entity.Album_FULL>
+@if (Model != null)
+{
+
+    <div class="grid-cols-4 m-grid-cols-1">
+        @foreach (var item in Model.Select((value, i) => new { i, value }))
+        {
+            <div class="news-item-small">
+                <a href="Utils.FormatUrlRewrite(item.value.Id, item.value.Title, "AlbumDetail")" class="newshot-item">
+                    <img src="@item.value.MainImage?w=302&h=171&mode=crop">
+                    <span class="mt15">@item.value.Title</span>
+                </a>
+            </div>
+        }
+    </div>
+    <div class="text-center mt40">
+        <a href="/thu-vien-anh/c73/hinh-anh.html" class="btn-viewmore btn-border">Xem thêm</a>
+    </div>
+   
+
+}
+
+
+
+
+

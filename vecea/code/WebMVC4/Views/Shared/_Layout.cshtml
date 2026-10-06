@@ -21,26 +21,39 @@
     <meta content="@ViewBag.MainImage" property="og:image">
     <link rel="icon" type="image/icon" href="~/Content/images/logo-icon.png">
 
+    
+    @*@Styles.Render("~/Content/sitecss")*@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
-    @Styles.Render("~/Content/sitecss")
+    <link href="~/Content/css/common.css?vs=11" rel="stylesheet" type="text/css" />
+    <link href="~/Content/css/style.css?vs=11" rel="stylesheet" type="text/css" />
+    <!-- slide chân trang-->
+    <link href="~/Content/css/chantrang.css?vs=11" rel="stylesheet" type="text/css" />
+    <!-- Menu mobile-->
+    <link type="text/css" rel="stylesheet" href="~/Content/css/jquery.mmenu.all.css?vs=11" />
 
-
-
+    <link href="~/Content/css/extend.css?vs=11" rel="stylesheet" />
 </head>
 <body>
-    @Scripts.Render("~/Content/sitejs")
+    <!-- Script-->
+    <script type="text/javascript" src="~/Content/js/jquery.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js	"></script>
+    <script type="text/javascript" src="~/Content/js/jquery.mmenu.min.all.js"></script>
+
+    <script type="text/javascript" src="~/Content/js/jquery.flexisel.js"></script>
+    
+
+    @Html.Partial("Site_Header")
     <div class="container">
-        @Html.Partial("Site_Header")
-        <section class="main row">
+        <section class="main row" id="main">
             @RenderBody()
             @Html.Partial("Site_Right")
             @Html.Action("BannerBottom", "Home")
         </section>
 
         <div class="clear"></div>
-        @Html.Partial("Site_Footer")
+
     </div>
+    @Html.Partial("Site_Footer")
     <script>
         (function (i, s, o, g, r, a, m) {
             i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () {
@@ -53,9 +66,13 @@
         ga('send', 'pageview');
 
     </script>
-    <script>
-        $("#qnmb").remove();
+    <script type="text/javascript">
+        $(function () {
+            $('div#menu').mmenu();
+        });
+
     </script>
+    <script type="text/javascript" src="/content/js/script.js?vs=1"></script>
 </body>
 
 

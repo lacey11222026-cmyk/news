@@ -1,0 +1,18 @@
+﻿<script type="text/javascript">
+
+    
+    function doStart() {
+        var uploadobj = document.getElementById('myuploader');
+        if (uploadobj.getqueuecount() > 0) {
+            uploadobj.startupload();
+        }
+        else {
+            alert("Hãy chọn file cần Upload!");
+        }
+    }
+</script>
+<button id="uploadbutton" onclick="return false;" class="adminbutton">
+    Chọn file</button>@ViewData["uploaderhtml"]
+<br /><br /><br />
+<button id="submitbutton" onclick="doStart();return false;" class="adminbutton">
+    Updload</button>

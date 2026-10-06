@@ -1,0 +1,93 @@
+﻿@using BIZ
+@using UTILS
+@using WebMVC4.Helper
+
+<div class="content01 container mt25">
+    @{Html.RenderAction("Slide", "Home", new { lang = "vi-vn" });}
+</div><!-- end content01 -->
+
+
+<div class="container mt50">
+    <div class="bnrSlider">
+        @{Html.RenderAction("Banner", "Home", new { lang = "vi-vn" });}
+    </div>
+</div>
+<div class="content02 container mt50">
+    <div class="row">
+        <div class="col-lg-8 col-md-12">
+            @{Html.RenderAction("LastestNews", "Home", new { CateName = "", CategoryId = 7, MaxLastestNews = 4, cssClass = "box-yellow" });}
+        </div>
+        <div class="col-lg-4 col-md-12">
+            @{Html.RenderAction("LastestNews2", "Home", new { CateName = "", CategoryId = 54, MaxLastestNews = 4, cssClass = "box-yellow" });}
+        </div>
+    </div>
+</div>
+<div class="content03 container pt70">
+    <div class="row">
+        <div class="col-lg-8 col-md-12">
+            @{Html.RenderAction("LastestNews", "Home", new { CateName = "", CategoryId = 15, MaxLastestNews = 4, cssClass = "" });}
+        </div>
+        <div class="col-lg-4 col-md-12">
+            <div class="bnr-list block-767 mb-15">
+                @{Html.RenderAction("BannerRight", "Home", new { lang = "vi-vn" });}
+            </div>
+            <div class="bnr-list">
+                @{Html.RenderAction("BannerRight2", "Home", new { lang = "vi-vn" });}
+            </div>
+        </div>
+    </div>
+</div>
+<div class="content04 container pt70 pb70">
+    <div class="row newsbox-list">
+        <div class="col-md-4 col-sm-12">
+            @{Html.RenderAction("LastestNews3", "Home", new { CateName = "HOẠT ĐỘNG CÔNG THƯƠNG <br>ĐỊA PHƯƠNG", CategoryId = 19, MaxLastestNews = 4, cssClass = "" });}
+        </div>
+        <div class="col-md-4 col-sm-12">
+            @{Html.RenderAction("LastestNews3", "Home", new { CateName = "CỤM CN – TIỂU THỦ CÔNG NGIỆP", CategoryId = 53, MaxLastestNews = 4, cssClass = "" });}
+        </div>
+        <div class="col-md-4 col-sm-12">
+            @{Html.RenderAction("LastestNews3", "Home", new { CateName = "", CategoryId = 67, MaxLastestNews = 4, cssClass = "" });}
+        </div>
+    </div>
+</div>
+<div class="multi-media pt70 bg-gray pb70">
+    <div class="container">
+        <h2 class="title-cm text-center">ĐA PHƯƠNG TIỆN</h2>
+        <ul class="nav title-tabs-02" role="tablist">
+            <li class="nav-item">
+                <a class="nav-link active" id="tab03-tab" data-toggle="tab" href="#tab03" role="tab" aria-controls="tab03" aria-selected="false"><span>Video </span> </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="tab04-tab" data-toggle="tab" href="#tab04" role="tab" aria-controls="tab04" aria-selected="true"><span>E-magazine</span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="tab05-tab" data-toggle="tab" href="#tab05" role="tab" aria-controls="tab05" aria-selected="true"><span>Infographic</span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="tab06-tab" data-toggle="tab" href="#tab06" role="tab" aria-controls="tab06" aria-selected="true"><span>Podcast</span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="tab07-tab" data-toggle="tab" href="#tab07" role="tab" aria-controls="tab07" aria-selected="true"><span>Hình ảnh</span></a>
+            </li>
+        </ul>
+        <div class="tab-content mt30">
+            <div class="tab-pane fade active show" id="tab03" role="tabpanel" aria-labelledby="tab03-tab">
+                @{Html.RenderAction("HomeVideo", "Home", new { CategoryName = "Video", CategoryId = 6, MaxLastestNews = 5, IsMobile = ViewBag.IsMobile });}
+            </div>
+            <div class="tab-pane fade" id="tab04" role="tabpanel" aria-labelledby="tab04-tab">
+                @{Html.RenderAction("Emagazine", "Home", new { CategoryId = 43, MaxLastestNews = 4});}
+            </div>
+            <div class="tab-pane fade" id="tab05" role="tabpanel" aria-labelledby="tab05-tab">
+                @{Html.RenderAction("LastestNews5", "Home", new { CateName = "", CategoryId = 41, MaxLastestNews = 4, cssClass = "maxheight02" });}
+            </div>
+            <div class="tab-pane fade" id="tab06" role="tabpanel" aria-labelledby="tab06-tab">
+                @{Html.RenderAction("Podcast", "Home", new { CategoryId = 42, MaxLastestNews = 3 });}
+            </div>
+            <div class="tab-pane fade" id="tab07" role="tabpanel" aria-labelledby="tab07-tab">
+                @*@{Html.RenderAction("TopAlbum", "Home", new { CateName = "", CategoryId = 73, Top = 4 });}*@
+                
+            </div>
+        </div>
+    </div>
+</div>
+  

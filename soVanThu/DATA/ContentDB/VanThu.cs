@@ -13,6 +13,9 @@ namespace DATA.ContentDB
         /// </summary>
         public int Id { get; set; }
 
+
+        public int GroupId { get; set; }
+
         /// <summary>
         /// 1. Ngày trực
         /// </summary>

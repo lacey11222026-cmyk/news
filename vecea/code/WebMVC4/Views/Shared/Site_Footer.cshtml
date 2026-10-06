@@ -2,42 +2,60 @@
 @using UTILS
 @{
     var lstcategory = new CategoryBO().GetAllCategoryFullsByPosition(UTILS.Constants.CategoryPosition.MainMenu, 18, false);
-
+    var youtubeUrl = "https://www.youtube.com/@VECEA-2011";
 }
-<footer class="mt10">
-    <div class="nav-pc">
-        <nav>
-            <ul>
-                <li><a href="/"><img src="~/Content/images/icon_home.png" alt="trang chủ"></a></li>
-                @foreach (var item in lstcategory.Select((value, i) => new { i, value }))
-            {
-                    <li>
-                        <a href="@Utils.FormatUrlRewriteByType(item.value.Id, item.value.Name, int.Parse(item.value.Type.ToString()), item.value.Link)">@item.value.Name</a>|
-                    </li>
-                }
-                <li><a href="/hoi-vien.html">Hội viên</a></li>
-            </ul>
-            <div class="clearfix"></div>
-        </nav>
+<footer class="mt50">
+    <div class="nav_top">
+        <div class="container">
+            <div class="nav-top-content">
+                <div class="ico-home"><a href="/"><img src="/images/icon_home.png" alt="Trang chủ" width="22" height="30"></a></div>
+                <nav class="nav-list">
+                    <ul>
+                        @foreach (var item in lstcategory.Select((value, i) => new { i, value }))
+                        {
+                            <li>
+                                <a href="@Utils.FormatUrlRewriteByType(item.value.Id, item.value.Name, int.Parse(item.value.Type.ToString()), item.value.Link)">@item.value.Name</a>
+                            </li>
+                        }
+                        <li><a href="/hoi-vien.html">Hội viên</a></li>
+                        <li><a href="/tin-tuc/c16/mau-don-gia-nhap-hoi.html">Mẫu đơn gia nhập Hội</a></li>
+                        <li>
+                            <a href="/Document/Index/8">Văn bản</a>
+                        </li>
+                    </ul>
+                </nav>
+                <div class="nav-right">
+                    <ul>
+                        <li><a href="https://www.facebook.com/vecea2011" target="_blank"><img src="/images/icon-facebook.svg" width="23" height="23"></a></li>
+                        <li><a href="@youtubeUrl" target="_blank"><img src="/images/icon-youtube.svg" width="23" height="23"></a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
     </div>
-    <div class="clearfix"></div>
-    <div class="row mt15">
-        <div class="box-09 footer-content">
-            <h4 class="textblue">2017@Bản quyền thuộc Hội Khoa học công nghệ sử dụng năng lượng tiết kiệm và hiệu quả Việt Nam.</h4>
-            <p class="textblue">
-                Địa chỉ: Tầng 2, Tòa nhà Bộ Công Thương, 655 Phạm Văn Đồng, Từ Liêm, Hà Nội <br>
-                Điện thoại: 024-37286113/ Fax: 024-37286112<br>
-                Website: http://vecea.vn/
-            </p>
+
+    <div class="container">
+        <div class="box-09 f-content-left">
+            <img src="/images/logo-f.png" alt="vecea" width="100">
+            <div class="footer-content">
+                <h4 class="textblue">2026@Bản quyền thuộc Hội Khoa học và công nghệ sử dụng năng lượng tiết kiệm và hiệu quả Việt Nam.</h4>
+                <p class="textblue">
+                    Địa chỉ: Tầng 5, tòa nhà Sông Đà 9, số 2 đường Nguyễn Hoàng, Phường Từ Liêm, Thành phố Hà Nội<br>
+                    Điện thoại: 024-37286113/ Fax: 024-37286112<br>
+                    Website: http://vecea.vn/
+                </p>
+            </div>
         </div>
         <div class="box-03 footer-link">
             <ul>
-                <li><a href="#"><img src="~/Content/images/icon_footer.jpg"></a></li>
-                <li><a href="#"><img src="~/Content/images/icon_footer02.jpg"></a></li>
-                <li><a href="#"><img src="~/Content/images/icon_footer03.jpg"></a></li>
+                <li><a href="#"><img src="/images/icon_footer.jpg"></a></li>
+                <li><a href="#"><img src="/images/icon_footer02.jpg"></a></li>
+                <li><a href="#"><img src="/images/icon_footer03.jpg"></a></li>
             </ul>
             <div class="clearfix"></div>
-            <p class="mt20 text-center">Phát triển bởi <a href="http://vtkmedia.vn/"><img src="~/Content/images/VTK.png?vs=02" alt="VtkMedia"></a></p>
+            <p class="mt20 text-center">Phát triển bởi <a href="http://vtkmedia.vn/" target="_blank"><img src="images/VTK.png?vs=02" alt="VtkMedia"></a></p>
         </div>
+
     </div>
 </footer>
+

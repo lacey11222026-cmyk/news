@@ -1,0 +1,66 @@
+﻿@using BIZ
+@using UTILS
+@using WebMVC4.Helper
+@model List<BIZ.Entity.CONTENT_FULL>
+@if (Model != null)
+{
+    if (Model.Count > 0)
+    {
+
+        <div class="">
+            <h2 class="title-line"><a href="#">Tin cùng chuyên mục</a></h2>
+            <div class="row">
+                <div class="col-md-6 col-sm-12">
+                    @foreach (var item in Model.Take(1).Select((value, i) => new { i, value }))
+                    {
+                        <div class="newsbig">
+                            <a href="@item.value.LinkUrl"><img src="@item.value.MainImage?w=620&h=348&mode=crop" alt=""></a>
+                            <a href="@item.value.LinkUrl" class="news-name mt15">@item.value.Title</a>
+                            <p class="mt10 news-txt">@item.value.IntroText</p>
+                            <span class="newsdate mt10 newsdate-line">@item.value.PublishDate.ToString("dd/MM/yyyy")</span>
+                        </div>
+                    }
+                </div>
+                <div class="col-md-6 col-sm-12">
+                    <div class="newslist-02">
+                        @foreach (var item in Model.Skip(1).Take(3).Select((value, i) => new { i, value }))
+                        {
+
+
+                            <div class="news-item">
+                                <a href="@item.value.LinkUrl">
+                                    <img src="@item.value.MainImage?w=295&h=167&mode=crop" alt="">
+                                    <span>@item.value.Title</span>
+                                </a>
+                            </div>
+
+
+                        }
+                    </div>
+                    @*<div class="mt40">
+                            <a href="#" class="btn-viewmore">Xem thêm</a>
+                        </div>*@
+                </div>
+            </div>
+        </div>
+        <div class="newslist-04 mt30">
+            @foreach (var item in Model.Skip(4).Select((value, i) => new { i, value }))
+            {
+                <div>
+                    <a href="@item.value.LinkUrl" class="newslist-04-item">
+                        <img src="@item.value.MainImage?w=295&h=167&mode=crop" alt="">
+                        <div>
+                            <p class="news-name">@item.value.Title</p>
+                            <p class="mt10 newsdate">@item.value.PublishDate.ToString("dd/MM/yyyy")</p>
+                        </div>
+                    </a>
+                </div>
+            }
+        </div>
+
+
+
+    }
+
+
+}

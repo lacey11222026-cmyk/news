@@ -1,0 +1,61 @@
+﻿@using BIZ
+@using UTILS
+@using WebMVC4.Helper
+@model WebMVC4.Models.News2Model
+@{
+    var langpage = WorkContext.GetLanguage();
+}
+
+<div class="container mt25">
+    @{Html.RenderAction("Breadcrumb", "News", new { CategoryId = ViewBag.CategoryId });}
+
+
+
+
+    <div class=" row-30 multimedia-content ">
+        <div class="grid-cols-4 m-grid-cols-1">
+            @foreach (var item in Model.articles.Select((value, i) => new { i, value }))
+            {
+                <div class="news-item-small">
+                    <a href="/Podcast/@(item.value.Id)" class="newshot-item">
+                        <img src="@item.value.MainImage?w=302&h=171&mode=crop">
+                        <span class="mt15">@item.value.Title</span>
+                    </a>
+                </div>
+            }
+
+        </div>
+    </div>
+    <div class="paging mt50 text-center">
+        <ul>
+            @{Html.RenderPartial("Pagination", new WebMVC4.Models.PaginationInfo
+                {
+                    PageUrl = Url.SetParameter("Page", "!0"),
+                    CurrentPage = ViewBag.Page,
+                    PageSize = ViewBag.PageSize,
+                    TotalItemCount = ViewBag.Total,
+                }); }
+        </ul>
+    </div>
+</div>
+
+<style>
+    .item {
+        width: 33%;
+        padding-right: 15px !important;
+        padding-left: 15px !important;
+        float: left;
+        margin-bottom: 20px;
+    }
+
+    .row-30 {
+        margin-left: -15px;
+        margin-right: -15px;
+    }
+
+    @@media screen and (max-width: 767px) {
+        .item {
+            width: 100%;
+        }
+    }
+</style>

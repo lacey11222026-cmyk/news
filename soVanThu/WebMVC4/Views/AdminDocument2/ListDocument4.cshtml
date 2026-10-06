@@ -1,0 +1,150 @@
+﻿@using DATA.ContentDB
+@using UTILS
+@model List<VanThu>
+@using WebMVC4.Helper
+
+<table class="table table-striped table-bordered table-hover dataTable no-footer" id="dataTables">
+    <thead>
+        <tr class="rowsao">
+            @*<th>ID</th>*@
+
+            <th class="texttable">Ngày trực</th>
+            <th class="">Tên trường nhóm trực</th>
+
+            <th class="">
+                Số phiếu trình văn bản
+            </th>
+            <th class="">
+                Chi tiết phân loại văn bản
+            </th>
+            <th>
+                Ngày đến văn thư Thuế TP Hà Nội
+            </th>
+            <th class="">
+                Số đến Văn thư Thuế TP Hà Nội
+            </th>
+
+            <th class="">
+                Nơi gửi
+            </th>
+            <th class="">
+                Trích yếu văn bản
+            </th>
+
+            <th>Thao Tác</th>
+        </tr>
+    </thead>
+    @if (Model != null && Model.Count > 0)
+    {
+        for (int i = 0; i < Model.Count; i++)
+        {
+            var obj = Model[i];
+            <tr>
+
+
+                <td>
+                    <a href="@Url.Action("GetDocumentDetail",new {id=obj.Id })" title="Edit">@obj.DutyDate.GetValueOrDefault().ToString("dd/MM/yyyy")</a>
+                </td>
+                <td class="">@obj.DutyLeaderName</td>
+
+                <td class="texttable"> @Html.Raw(obj.IncomingSubmissionNo)</td>
+                <td class="texttable">@Html.Raw(obj.IncomingDocumentDetail.GetValueOrDefault())</td>
+                <td class="">@HtmlHelpers.GetDateDocument(obj.ReceivedDate)</td>
+
+                <td class="">@obj.ReceivedNo</td>
+
+
+                <td class="">@obj.Sender</td>
+
+                <td class="">@obj.IncomingDocumentSummary</td>
+                <td style="text-align: center">
+                    <a href="javascript:;" title="Delete" onclick="DeleteData('@Utils.Base64Encode(obj.Id)','@obj.IncomingDocumentSummary')"><i class="fa fa-trash-o"></i></a>
+
+                </td>
+
+            </tr>
+        }
+    }
+</table>
+<script type="text/javascript">
+    var PageOnSize = '@ViewBag.PageSize';
+    var CurrentPage = '@ViewBag.CurrentPage';
+    function BindDataRequest(currentPage) {
+        var params = {
+            title: $("#txtTitle").val(),
+            group: $("#ddlGroupId").val(),
+            currentPage: currentPage,
+            pageSize: PageOnSize
+        };
+        var urlRequestAns = '@Url.Action("ListDocument4")';
+        Utils.Loading();
+        $.ajax({
+            type: 'GET',
+            url: urlRequestAns,
+            data: params,
+            success: function (data) {
+                $("#ListDocument").html(data);
+                Utils.UnLoading();
+            },
+            error: function () {
+                Utils.UnLoading();
+            }
+        });
+    };
+    $(document).ready(function () {
+
+
+        $("#pager").pager({
+            pagenumber: CurrentPage,
+            pagecount: Math.ceil('@ViewBag.TotalRecord' / PageOnSize),
+            buttonClickCallback: function (page) { BindDataRequest(page); }
+        });
+
+
+    });
+
+    function DeleteData(id,title) {
+
+        bootbox.confirm("Bạn chắc chắn muốn dữ liệu này ??? ", function (result) {
+            if (result == true) {
+                var postdata= {
+                    '_id': id,
+                    'Title': title,
+                };
+                Utils.Loading();
+                $.ajax({
+                    type: 'POST',
+                    url:"@Url.Action("Delete")",
+                    data: addAntiForgeryToken(postdata),
+                    success: function (data) {
+                        Utils.UnLoading();
+                        if (data.ResponseCode >= 0) {
+                            bootbox.alert(data.Description);
+                            BindDataRequest(CurrentPage);
+                        }
+                        else {
+                            bootbox.alert(data.Description);
+                            return;
+                        }
+                    }
+                });
+            }
+        });
+
+    }
+
+</script>
+<style>
+    .table-responsive {
+        overflow-x: auto;
+    }
+
+    .table {
+        width: 99%;
+        max-width: 99%;
+    }
+
+        .table > thead > tr > td, .table > thead > tr > th {
+            padding: 8px 2px;
+        }
+</style>

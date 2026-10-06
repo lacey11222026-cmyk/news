@@ -1,0 +1,61 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+
+    @Html.Partial("MetaData")
+
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="/Content/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/Content/css/common.css?vs=05">
+    <link rel="stylesheet" href="/Content/css/style.css?vs=01">
+
+    <link type="text/css" rel="stylesheet" href="/Content/css/jquery.mmenu.all.css" />
+    <link href="/Content/css/slick.min.css" type="text/css" rel="stylesheet" />
+    <link href="/Content/css/slick-theme.css" type="text/css" rel="stylesheet" />
+
+    <link rel="stylesheet" href="fonts/fontawesome/css/all.min.css">
+    <link href="~/Content/css/extend.css?vs=03" rel="stylesheet" />
+</head>
+<body id="body">
+    <script src="/Content/js/jquery.min.js"></script>
+    <script src="/Content/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="/Content/js/jquery.mmenu.min.all.js"></script>
+    <script type="text/javascript" src="/Content/js/jquery.flexisel.js"></script>
+    <script src="/Content/js/slick.min.js"></script>
+    <script src="/Content/js/jquery.matchHeight.js"></script>
+    @Html.Partial("Site_Header")
+    @RenderBody()
+    @Html.Partial("Site_Footer")
+
+
+    <div id="fb-root"></div>
+    <div class="clearfix">
+    </div>
+
+    <script src="/Content/js/script.js?vs=05"></script>
+
+    <!--Start of Tawk.to Script-->
+    <script type="text/javascript">
+        var Tawk_API = Tawk_API || {}, Tawk_LoadStart = new Date();
+        (function () {
+            var s1 = document.createElement("script"), s0 = document.getElementsByTagName("script")[0];
+            s1.async = true;
+            s1.src = 'https://embed.tawk.to/58367d5da9a0346a521bab32/default';
+            s1.charset = 'UTF-8';
+            s1.setAttribute('crossorigin', '*');
+            s0.parentNode.insertBefore(s1, s0);
+        })();
+    </script>
+    <!--End of Tawk.to Script-->
+
+</body>
+
+
+
+
+
+</html>

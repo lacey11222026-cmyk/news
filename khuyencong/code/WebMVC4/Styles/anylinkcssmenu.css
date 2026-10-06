@@ -1,0 +1,47 @@
+.selectedanchor{ /*CSS class that gets added to the currently selected anchor link (assuming it's a text link)*/
+background: yellow;
+}
+
+
+/* ######### Default class for drop down menus ######### */
+
+.anylinkcss{
+position: absolute;
+left:0;
+top: 0;
+visibility: hidden;
+border: 3px solid #7ed900;
+font: normal 12px Verdana;
+line-height: 18px;
+z-index: 100; /* zIndex should be greater than that of shadow's below */
+background:#dcf3bf;
+padding-bottom:8px;
+width:310px;
+margin-left:6px;
+}
+
+.anylinkcss ul{
+margin: 0;
+padding: 0;
+list-style-type: none;
+}
+
+.anylinkcss ul li {
+display: block;
+border-bottom: dotted 1px #d6100d;
+padding:5px; float:left; width:300px;
+}
+
+.anylinkcss ul li a, .anylinkcss ul li p a {font: bold 12px Tahoma, Geneva, sans-serif; color:#54534f; text-decoration: none;}
+
+.anylinkcss ul li p { width:80px; float:left; margin:0;}
+
+.anylinkcss ul li span a { text-decoration:none; font:normal 12px Arial, Helvetica, sans-serif;}
+
+.anylinkcss ul li span { width:210px; float:left; padding-left:10px;}
+
+.anylinkcss ul li a:hover, .anylinkcss ul li p a:hover{ /*hover background color*/
+color: #d6100d;
+}
+
+.anylinkcss ul li span a:hover { color:#000; text-decoration:underline;}

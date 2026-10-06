@@ -10,15 +10,30 @@
     <section class="section-intro-1" style="background-image: url('@ViewBag.CateImg');">
         <div class="container">
             <div class="content">
-                <div class="title">
-                    <h1>@ViewBag.CateName</h1>
-                    <div class="breadcrumbs-02">
-                        <ul>
-                            <li><a href="/">@Resources.Global.Home</a></li>
-                            <li><span>@ViewBag.CateName</span></li>
-                        </ul>
+                @if (langpage == "vi-vn")
+                {
+                    <div class="title">
+                        <h1>Dự án phù hợp JETP</h1>
+                        <div class="breadcrumbs-02">
+                            <ul>
+                                <li><a href="/">@Resources.Global.Home</a></li>
+                                <li><span>Dự án phù hợp JETP/span></li>
+                            </ul>
+                        </div>
                     </div>
-                </div>
+                }
+                else
+                {
+                    <div class="title">
+                        <h1>JETP-ALIGNED PROJECTS</h1>
+                        <div class="breadcrumbs-02">
+                            <ul>
+                                <li><a href="/">@Resources.Global.Home</a></li>
+                                <li><span>JETP-ALIGNED PROJECTS</span></li>
+                            </ul>
+                        </div>
+                    </div>
+                }
             </div>
         </div>
     </section>
@@ -161,7 +176,7 @@
                                         </li>
                                     </ul>
                                 </div>
-                                <div class="op-item" >
+                                <div class="op-item">
                                     <h3>Project Category </h3>
                                     <ul>
                                         @if (ViewBag.status == 1)
@@ -258,65 +273,65 @@
 
 <script>
 
-    var updateQueryStringParam = function (key, value) {
-        var baseUrl = [location.protocol, '//', location.host, location.pathname].join(''),
-            urlQueryString = document.location.search,
-            newParam = key + '=' + value,
-            params = '?' + newParam;
+        var updateQueryStringParam = function (key, value) {
+            var baseUrl = [location.protocol, '//', location.host, location.pathname].join(''),
+                urlQueryString = document.location.search,
+                newParam = key + '=' + value,
+                params = '?' + newParam;
 
-        // If the "search" string exists, then build params from it
-        if (urlQueryString) {
-            var keyRegex = new RegExp('([\?&])' + key + '[^&]*');
+            // If the "search" string exists, then build params from it
+            if (urlQueryString) {
+                var keyRegex = new RegExp('([\?&])' + key + '[^&]*');
 
-            // If param exists already, update it
-            if (urlQueryString.match(keyRegex) !== null) {
-                params = urlQueryString.replace(keyRegex, "$1" + newParam);
-            } else { // Otherwise, add it to end of query string
-                params = urlQueryString + '&' + newParam;
+                // If param exists already, update it
+                if (urlQueryString.match(keyRegex) !== null) {
+                    params = urlQueryString.replace(keyRegex, "$1" + newParam);
+                } else { // Otherwise, add it to end of query string
+                    params = urlQueryString + '&' + newParam;
+                }
             }
+            window.history.replaceState({}, "", baseUrl + params);
+        };
+        function selectCard(obj) {
+            var o = $(obj).find("input");
+            var value = o.val();
+            //alert(!o.is(":checked"));
+            if (!o.is(":checked")) {
+                value = -1;
+            }
+
+            updateQueryStringParam('systemtype', value);
+            updateQueryStringParam('type', -1);
+            location.reload();
+
+
         }
-        window.history.replaceState({}, "", baseUrl + params);
-    };
-    function selectCard(obj) {
-        var o = $(obj).find("input");
-        var value = o.val();
-        //alert(!o.is(":checked"));
-        if (!o.is(":checked")) {
-            value = -1;
+        function selectType(obj) {
+            var o = $(obj).find("input");
+            var value = o.val();
+            //alert(!o.is(":checked"));
+            if (!o.is(":checked")) {
+                value = -1;
+            }
+
+            updateQueryStringParam('type', value);
+            location.reload();
+
+
         }
-
-        updateQueryStringParam('systemtype', value);
-        updateQueryStringParam('type', -1);
-        location.reload();
-
-
-    }
-    function selectType(obj) {
-        var o = $(obj).find("input");
-        var value = o.val();
-        //alert(!o.is(":checked"));
-        if (!o.is(":checked")) {
-            value = -1;
+        function searchproject() {
+            updateQueryStringParam('keyword', $('#txtName').val());
+            location.reload();
         }
+        function PAnyInput_KeyDown(sender, e) {
+            if ((e.which && e.which === 13) || (e.keyCode && e.keyCode === 13)) {
+                searchproject();
 
-        updateQueryStringParam('type', value);
-        location.reload();
+                return false;
+            }
 
-
-    }
-    function searchproject() {
-        updateQueryStringParam('keyword', $('#txtName').val());
-        location.reload();
-    }
-    function PAnyInput_KeyDown(sender, e) {
-        if ((e.which && e.which === 13) || (e.keyCode && e.keyCode === 13)) {
-            searchproject();
-
-            return false;
+            return true;
         }
-
-        return true;
-    }
 
 </script>
 

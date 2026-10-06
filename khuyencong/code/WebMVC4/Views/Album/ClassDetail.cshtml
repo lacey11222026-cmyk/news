@@ -1,0 +1,83 @@
+﻿@using BIZ
+@using UTILS
+@using WebMVC4.Helper
+@model WebMVC4.Models.ClassDetailModel
+@if (Model.album != null)
+{
+    <div class="cate">
+        @{Html.RenderAction("Breadcrumb", "Album", new { CategoryId = Model.CategoryId });}
+        <div class="clear">
+        </div>
+        <br />
+        <br />
+        <div id="introNews" class="intro">
+            @Html.Raw(Model.album.Description)
+        </div>
+        <br />
+        <br />
+        @if (Model.listimgful != null)
+        {
+            <div class="chum_anhlist">
+                @foreach (BIZ.Entity.AlbumImage item in Model.listimgful)
+                {
+                    <a href="@item.Name.0.450.jpg" class="chum_anh" title="@item.Text">
+                        <img src="@item.Name.140.170.jpg" width="140px" height="170px"
+                            alt="@item.Text" /></a>
+                }
+            </div>
+            <div class="clear">
+            </div>
+        }
+        @if (Model.relatealbum != null)
+        {
+            <div class="cate">
+                <div class="bg_cate green">
+                    <div class="animal">
+                        <img src="/images/caynam.png" alt="mau giao lieu giai">
+                    </div>
+                    <div class="cate_text">
+                        <span>Các hoạt động khác</span>
+                    </div>
+                </div>
+            </div>
+             foreach (var album in Model.relatealbum)
+                {
+                    <div style="height: 132px;" class="tin_list_anh">
+                       
+                        <a href="@UTILS.Utils.FormatUrlRewrite( album.Id, album.Title, "AlbumDetail")"
+                            title="@album.Title" target="_blank">
+                            <img width="135px" src="@album.MainImage.135.100.jpg" /><p>
+                                @album.Title</p>
+                        </a>
+                    </div>
+             }
+            <div class="clear">
+            </div>
+        }
+    </div>
+    <style type="text/css">
+        .tipsy-inner {
+            background: url("../images/small_tooltip_bg.png") no-repeat scroll 0 0 transparent;
+            height: 118px;
+            list-style-type: none;
+            margin: 0;
+            padding: 44px 0 0 36px;
+            width: 196px;
+            z-: z-index: 100000;
+        }
+    </style>
+    <script type='text/javascript'>
+        $(function () {
+            $('.chum_anh').tipsy({ gravity: 'w', html: true, fade: true, delayIn: 500, delayOut: 1000 });
+        });
+        $(function () {
+
+            $(' .chum_anhlist a').lightBox();
+
+
+
+        });
+
+
+    </script>
+}

@@ -83,9 +83,9 @@ namespace WebMVC4.Controllers
                 ViewBag.lstNews = configValue.ConfigValue;
 
             //var lstCate2 = new CategoryBO().GetAllCategoriesFull(Constants.CategoryType.News); 
-            lstCate.Insert(0, new CATEGORY_FULL { Id = 104, Name = "Tin IPIG tiếng Anh" });
+            lstCate.Insert(0, new CATEGORY_FULL { Id = 104, Name = "Tin KHCN tiếng Anh" });
             lstCate.Insert(0, new CATEGORY_FULL { Id = 102, Name = "Tin nổi bật tiếng Anh" });
-            lstCate.Insert(0, new CATEGORY_FULL { Id = 99, Name = "Tin IPIG " });
+            lstCate.Insert(0, new CATEGORY_FULL { Id = 99, Name = "Tin KHCN " });
             //lstCate2.Insert(0, new CATEGORY_FULL { Id = 101, Name = "Tin mới nhât" });
             lstCate.Insert(0,new CATEGORY_FULL { Id = 0, Name = "Tin nổi bật" });
            

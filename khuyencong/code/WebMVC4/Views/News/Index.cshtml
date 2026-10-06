@@ -1,0 +1,115 @@
+﻿@using BIZ
+@using UTILS
+@using WebMVC4.Helper
+@model WebMVC4.Models.News2Model
+
+@{
+    var langpage = WorkContext.GetLanguage();
+}
+
+<div class="container mt25">
+    @{Html.RenderAction("Breadcrumb", "News", new { CategoryId = ViewBag.CategoryId });}
+    @if (Model.hotnews != null)
+    {
+        <div class="row box-news-big">
+            <div class="col-md-6">
+                @foreach (var item in Model.hotnews.Take(1).Select((value, i) => new { i, value }))
+                {
+                    <div class="newsbig-top">
+                        <a href="@item.value.LinkUrl"> <img src="@item.value.MainImage?w=620&h=348&mode=crop"></a>
+                        <a href="@item.value.LinkUrl" class="news-name mt15">@item.value.Title</a>
+                        <p class="mt10 news-txt">@item.value.IntroText</p>
+                        <span class="newsdate newsdate-line mt10">@item.value.PublishDate.ToString("dd/MM/yyyy")</span>
+                    </div>
+                }
+            </div>
+            <div class="col-md-3">
+                @foreach (var item in Model.hotnews.Skip(1).Take(2).Select((value, i) => new { i, value }))
+                {
+                    <div class="news-item-small">
+                        <a href="@item.value.LinkUrl" class="newshot-item">
+                            <img src="@item.value.MainImage?w=295&h=167&mode=crop">
+                            <span class="mt15">@item.value.Title</span>
+                        </a>
+                    </div>
+                }
+            </div>
+            <div class="col-md-3">
+                @foreach (var item in Model.hotnews.Skip(3).Take(2).Select((value, i) => new { i, value }))
+                {
+                    <div class="news-item-small">
+                        <a href="@item.value.LinkUrl" class="newshot-item">
+                            <img src="@item.value.MainImage?w=295&h=167&mode=crop">
+                            <span class="mt15">@item.value.Title</span>
+                        </a>
+                    </div>
+                }
+
+            </div>
+        </div>
+    }
+</div><!-- end content01 -->
+<div class="container mt50">
+    <div class="bnrSlider">
+        @{Html.RenderAction("Banner", "Home", new { lang = "vi-vn" });}
+    </div>
+</div>
+
+<div class="mt50 pb70 container">
+    <div class="row">
+        <div class="col-lg-9 col-md-12">
+            <h2 class="title-line"><a href="#">Xem thêm</a></h2>
+            <div class="newslist-04">
+                @if (Model.articles != null)
+                {
+                    foreach (var item in Model.articles.Select((value, i) => new { i, value }))
+                    {
+                        <div>
+                            <a href="@item.value.LinkUrl" class="newslist-04-item">
+                                <img src="@item.value.MainImage?w=230&h=130&mode=crop" alt="">
+                                <div>
+                                    <p class="news-name">@item.value.Title</p>
+                                    <p class="mt10 news-content">@item.value.IntroText </p>
+                                    <p class="mt10 newsdate">@item.value.PublishDate.ToString("dd/MM/yyyy")</p>
+                                </div>
+                            </a>
+                        </div>
+                    }
+                }
+            </div>
+            <div class="paging mt50">
+                <ul>
+                    @{Html.RenderPartial("Pagination", new WebMVC4.Models.PaginationInfo
+                        {
+                            PageUrl = Url.SetParameter("Page", "!0"),
+                            CurrentPage = ViewBag.Page,
+                            PageSize = ViewBag.PageSize,
+                            TotalItemCount = ViewBag.Total,
+                        }); }
+                    
+                </ul>
+            </div>
+        </div>
+        <div class="col-lg-3 col-md-12">
+            <div class="bnr-list">
+                @{Html.RenderAction("BannerRight", "Home", new { lang = "vi-vn" });}
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+
+
+
+
+@*<script type="text/javascript">
+
+ $('#menu_' + '@ViewBag.CurrentCategoryId').addClass("active");
+
+  $('#menu_' + '@ViewBag.ParentCategoryId').addClass("active");
+
+
+
+</script>*@

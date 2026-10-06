@@ -5,22 +5,18 @@
 @using WebMVC4.Helper
 @using UTILS
 @using DATA.ContentDB
-@using UTILS
-@model Idea
+@model VanThu
 
 <div class="well">
-    <span class="label label-danger">
-        Chú ý!
-    </span>
-    <span>
-        Hãy chắc chắn nhập vào đầy đủ thông tin tại các mục bắt buộc đánh dấu (*)
-    </span>
+    <span class="label label-info">Thông tin</span>
+    <span>Các trường có thể để trống. Các trường ngày nhập theo định dạng ngày tháng giống Ngày trực.</span>
 </div>
+
 <div class="row">
     <div class="col-md-12">
         <div class="panel panel-primary">
             <div class="panel-heading">
-                <i class="fa fa-fw fa-user-md"></i><span>@ViewBag.Title </span>
+                <i class="fa fa-fw fa-file-text-o"></i><span>@ViewBag.Title</span>
             </div>
             <form id="defaultForm" method="post" class="form-horizontal">
                 <div class="panel-group" id="steps">
@@ -28,418 +24,1029 @@
                         <div class="alert alert-success display-hide alert-dismissable">
                             <button type="button" class="close" data-close="alert" aria-hidden="true">×</button>
                             <span class="glyphicon glyphicon-ok"></span>
-                            <label>Đã lưu dữ liệu thành công !!!</label>
+                            <label>Đã lưu dữ liệu thành công !!!</label>
                         </div>
                         <div class="alert alert-danger display-hide alert-dismissable">
                             <button type="button" class="close" data-close="alert" aria-hidden="true">×</button>
                             <span class="glyphicon glyphicon-warning-sign"></span>
-                            <label>Có một vài lỗi trong khung nhập liệu dưới đây ! kiểm tra lại</label>
+                            <label>Có lỗi trong quá trình lưu dữ liệu.</label>
                         </div>
                     </div>
                     <div class="panel panel-info">
-                        <div id="Errordiv" style="margin:20px;color:red;font-size:13pt"><center></center></div><br />
-                        @*<div class="panel-heading">
-                                <h4 class="panel-title"><i class="fa fa-wrench" style="margin-right:7px"></i>Thông Tin Cơ Bản</h4>
-                            </div>*@
-                        <div style="padding: 10px 0 0 0;background-color:#fff !important">
-
-                            <div class="col-md-12">
-                                <div>
+                        <div id="Errordiv" style="margin:20px;color:red;font-size:13pt"><center></center></div>
+                        <div style="padding:10px 0 0 0;background-color:#fff !important">
+                            <ul class="nav nav-tabs">
+                                <li class="active"><a href="#tabs-info" data-toggle="tab"><strong>Thông tin chính</strong></a></li>
+                                <li class=""><a href="#tabs-outgoing" data-toggle="tab"><strong>Văn bản đi</strong></a></li>
+                                <li class=""><a href="#tabs-petition" data-toggle="tab"><strong>Phân loại đơn</strong></a></li>
+                                <li class=""><a href="#tabs-field" data-toggle="tab"><strong>Lĩnh vực / Nội dung</strong></a></li>
+                                <li class=""><a href="#tabs-process" data-toggle="tab"><strong>Xử lý đơn</strong></a></li>
+                                <li class=""><a href="#tabs-resolution" data-toggle="tab"><strong>Giải quyết / Kết quả</strong></a></li>
+                            </ul>
+                            <div class="tab-content" style="margin-top:30px;">
+                                <div class="tab-pane active" id="tabs-info">
+                                    <h4 class="tab-title">Thông tin chính</h4>
                                     <div class="form-group">
-                                        <label for="txtCode" class="control-label col-md-3">Mã sáng kiến :<span class="required">*</span></label>
+                                        <label for="ddlIncomingDocumentDetail" class="control-label col-md-3">Địa bàn:</label>
                                         <div class="col-md-9">
                                             <div class="input-icon right">
-                                                <input type="text" id="txtCode" name="code" value="@Model.Code" class="form-control" placeholder="Nhập mã sáng kiến" />
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="txtTitle" class="control-label col-md-3">Tên sáng kiến :<span class="required">*</span></label>
-                                        <div class="col-md-9">
-                                            <div class="input-icon right">
-                                                <input type="text" id="txtTitle" name="title" value="@Model.Name" class="form-control" placeholder="Nhập tên sáng kiến" />
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="txtNo" class="control-label col-md-3"> Số quyết định phê duyệt:<span class="required">*</span></label>
-                                        <div class="col-md-9">
-                                            <div class="input-icon right">
-                                                <input type="text" id="txtNo" name="No" value="@Model.No" class="form-control" />
+                                                <select class="form-control" id="ddlGroupId" name="GroupId">
 
-                                            </div>
-                                        </div>
-                                    </div>
+                                                    <option value="1" @(Model.GroupId == 1 ? "selected" : "")>Văn phòng</option>
+                                                    <option value="2" @(Model.GroupId == 2 ? "selected" : "")>Phòng Tổ chức cán bộ</option>
+                                                    <option value="3" @(Model.GroupId == 3 ? "selected" : "")>Phòng Quản trị dữ liệu và quản lý rủi ro</option>
+                                                    <option value="4" @(Model.GroupId == 4 ? "selected" : "")>Phòng Thuế cá nhân, hộ kinh doanh và thu khác</option>
+                                                    <option value="5" @(Model.GroupId == 5 ? "selected" : "")>Phòng Quản lý các khoản thu từ đất</option>
+                                                    <option value="6" @(Model.GroupId == 6 ? "selected" : "")>Phòng Nghiệp vụ, dự toán, pháp chế</option>
 
-                                    <div class="form-group">
-                                        <label for="txtProposer" class="control-label col-md-3">Người đề xuất :<span class="required">*</span></label>
-                                        <div class="col-md-9">
-                                            <div class="input-icon right">
-                                                <textarea id="txtProposer" style="height: 100px;" cols="20" name="Proposer" class="form-control">@Model.Proposer</textarea>
+                                                    <option value="7" @(Model.GroupId == 7 ? "selected" : "")>Phòng Quản lý, hỗ trợ doanh nghiệp số 1</option>
+                                                    <option value="8" @(Model.GroupId == 8 ? "selected" : "")>Phòng Quản lý, hỗ trợ doanh nghiệp số 2</option>
+                                                    <option value="9" @(Model.GroupId == 9 ? "selected" : "")>Phòng Quản lý, hỗ trợ doanh nghiệp số 3</option>
+                                                    <option value="10" @(Model.GroupId == 10 ? "selected" : "")>Phòng Quản lý, hỗ trợ doanh nghiệp số 4</option>
+                                                    <option value="11" @(Model.GroupId == 11 ? "selected" : "")>Phòng Quản lý, hỗ trợ doanh nghiệp số 5</option>
 
-                                            </div>
-                                        </div>
-                                    </div>
-                                   
-                                    <div class="form-group">
-                                        <label for="txtUnit" class="control-label col-md-3"> Đơn vị thực hiện:<span class="required">*</span></label>
-                                        <div class="col-md-9">
-                                            <div class="input-icon right">
-                                                <input type="text" id="txtUnit" name="Unit" value="@Model.Unit" class="form-control" />
+                                                    <option value="12" @(Model.GroupId == 12 ? "selected" : "")>Phòng Kiểm tra số 1</option>
+                                                    <option value="13" @(Model.GroupId == 13 ? "selected" : "")>Phòng Kiểm tra số 2</option>
+                                                    <option value="14" @(Model.GroupId == 14 ? "selected" : "")>Phòng Kiểm tra số 3</option>
+                                                    <option value="15" @(Model.GroupId == 15 ? "selected" : "")>Phòng Kiểm tra số 4</option>
+                                                    <option value="16" @(Model.GroupId == 16 ? "selected" : "")>Phòng Kiểm tra số 5</option>
 
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="txtPublicTime" class="control-label col-md-3">Ngày ban hành :<span class="required">*</span></label>
-                                        <div class="col-md-9">
-                                            <div class="input-icon right">
-                                                <input type="text" id="txtPublicTime" data-date-format="DD/MM/YYYY" name="publictime" value="@HtmlHelpers.GetDateDocument(Model.PublishDate)" class="form-control" />
-
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="ddlStatus" class="control-label col-md-3">Tình trạng triển khai:<span class="required">*</span></label>
-                                        <div class="col-md-9">
-                                            <div class="input-icon right">
-                                                <select class="form-control" id="ddlStatus">
-                                                    <option value="1" @if (Model.Status == 1) { @Html.Raw("selected='selected'") ; }>Đang triển khai</option>
-                                                    <option value="2" @if (Model.Status == 2) { @Html.Raw("selected='selected'") ; }>Đã hoàn thành</option>
-                                                    <option value="3" @if (Model.Status == 3) { @Html.Raw("selected='selected'") ; }>Tạm dừng</option>
-                                                    <option value="4" @if (Model.Status == 4) { @Html.Raw("selected='selected'") ; }>Huỷ bỏ</option>
-
-
+                                                    <option value="17" @(Model.GroupId == 17 ? "selected" : "")>Thuế cơ sở 1 TP Hà Nội</option>
+                                                    <option value="18" @(Model.GroupId == 18 ? "selected" : "")>Thuế cơ sở 2 TP Hà Nội</option>
+                                                    <option value="19" @(Model.GroupId == 19 ? "selected" : "")>Thuế cơ sở 3 TP Hà Nội</option>
+                                                    <option value="20" @(Model.GroupId == 20 ? "selected" : "")>Thuế cơ sở 4 TP Hà Nội</option>
+                                                    <option value="21" @(Model.GroupId == 21 ? "selected" : "")>Thuế cơ sở 5 TP Hà Nội</option>
+                                                    <option value="22" @(Model.GroupId == 22 ? "selected" : "")>Thuế cơ sở 6 TP Hà Nội</option>
+                                                    <option value="23" @(Model.GroupId == 23 ? "selected" : "")>Thuế cơ sở 7 TP Hà Nội</option>
+                                                    <option value="24" @(Model.GroupId == 24 ? "selected" : "")>Thuế cơ sở 8 TP Hà Nội</option>
+                                                    <option value="25" @(Model.GroupId == 25 ? "selected" : "")>Thuế cơ sở 9 TP Hà Nội</option>
+                                                    <option value="26" @(Model.GroupId == 26 ? "selected" : "")>Thuế cơ sở 10 TP Hà Nội</option>
+                                                    <option value="27" @(Model.GroupId == 27 ? "selected" : "")>Thuế cơ sở 11 TP Hà Nội</option>
+                                                    <option value="28" @(Model.GroupId == 28 ? "selected" : "")>Thuế cơ sở 12 TP Hà Nội</option>
+                                                    <option value="29" @(Model.GroupId == 29 ? "selected" : "")>Thuế cơ sở 13 TP Hà Nội</option>
+                                                    <option value="30" @(Model.GroupId == 30 ? "selected" : "")>Thuế cơ sở 14 TP Hà Nội</option>
+                                                    <option value="31" @(Model.GroupId == 31 ? "selected" : "")>Thuế cơ sở 15 TP Hà Nội</option>
+                                                    <option value="32" @(Model.GroupId == 32 ? "selected" : "")>Thuế cơ sở 16 TP Hà Nội</option>
+                                                    <option value="33" @(Model.GroupId == 33 ? "selected" : "")>Thuế cơ sở 17 TP Hà Nội</option>
+                                                    <option value="34" @(Model.GroupId == 34 ? "selected" : "")>Thuế cơ sở 18 TP Hà Nội</option>
+                                                    <option value="35" @(Model.GroupId == 35 ? "selected" : "")>Thuế cơ sở 19 TP Hà Nội</option>
+                                                    <option value="36" @(Model.GroupId == 36 ? "selected" : "")>Thuế cơ sở 20 TP Hà Nội</option>
+                                                    <option value="37" @(Model.GroupId == 37 ? "selected" : "")>Thuế cơ sở 21 TP Hà Nội</option>
+                                                    <option value="38" @(Model.GroupId == 38 ? "selected" : "")>Thuế cơ sở 22 TP Hà Nội</option>
+                                                    <option value="39" @(Model.GroupId == 39 ? "selected" : "")>Thuế cơ sở 23 TP Hà Nội</option>
+                                                    <option value="40" @(Model.GroupId == 40 ? "selected" : "")>Thuế cơ sở 24 TP Hà Nội</option>
+                                                    <option value="41" @(Model.GroupId == 41 ? "selected" : "")>Thuế cơ sở 25 TP Hà Nội</option>
 
                                                 </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="txtDutyDate" class="control-label col-md-3">1. Ngày trực: <span class="required">*</span></label>
+                                        <div class="col-md-9">
+                                            <div class="input-icon right">
+                                                <input type="text" id="txtDutyDate" data-date-format="DD/MM/YYYY" name="DutyDate" value="@HtmlHelpers.GetDateDocument(Model.DutyDate)" class="form-control date-field" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="txtDutyLeaderName" class="control-label col-md-3">2. Tên Trưởng nhóm trực: </label>
+                                        <div class="col-md-9">
+                                            <div class="input-icon right">
+                                                <input type="text" id="txtDutyLeaderName" name="DutyLeaderName" value="@Model.DutyLeaderName" class="form-control" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="txtClericalOfficerName" class="control-label col-md-3">3. Tên công chức trực văn thư:</label>
+                                        <div class="col-md-9">
+                                            <div class="input-icon right">
+                                                <input type="text" id="txtClericalOfficerName" name="ClericalOfficerName" value="@Model.ClericalOfficerName" class="form-control" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="txtIncomingSubmissionNo" class="control-label col-md-3">4. Số phiếu trình văn bản đến của Phòng TTKT số 2:</label>
+                                        <div class="col-md-9">
+                                            <div class="input-icon right">
+                                                <input type="text" id="txtIncomingSubmissionNo" name="IncomingSubmissionNo" value="@Model.IncomingSubmissionNo" class="form-control" />
                                             </div>
                                         </div>
                                     </div>
                                     <div class="form-group" style="display:none">
-                                        <label for="ddlProgress" class="control-label col-md-3">Tiến độ đánh giá:<span class="required">*</span></label>
+                                        <label for="txtIncomingDocumentType" class="control-label col-md-3">5. Loại văn bản đến:</label>
                                         <div class="col-md-9">
                                             <div class="input-icon right">
-                                                <select class="form-control" id="ddlProgress">
+                                                <select class="form-control" id="txtIncomingDocumentType" name="IncomingDocumentDetail">
 
-                                                    <option value="1" @if (Model.Progress == 1) { @Html.Raw("selected='selected'") ; }>Chưa đánh giá</option>
-                                                    <option value="2" @if (Model.Progress == 2) { @Html.Raw("selected='selected'") ; }>Đang đánh giá</option>
-                                                    <option value="3" @if (Model.Progress == 3) { @Html.Raw("selected='selected'") ; }>Đã đánh giá</option>
+                                                    <option value="1" @if (Model.IncomingDocumentDetail == 1) { @Html.Raw("selected=\"selected\"") }>Đơn thư</option>
 
                                                 </select>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="form-group">
-                                        <label for="txtProgressPercent" class="control-label col-md-3"> Tiến độ (%):</label>
-                                        <div class="col-md-9">
-                                            <div class="input-icon right">
-                                                <input type="number" step="5" id="txtProgressPercent" name="ProgressPercent" value="@Model.ProgressPercent" class="form-control" />
 
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="form-group">
-                                        <label for="ddlResult" class="control-label col-md-3">KQ đánh giá:<span class="required">*</span></label>
+                                    <div class="form-group" style="display:none">
+                                        <label for="ddlIncomingDocumentDetail" class="control-label col-md-3">6. Chi tiết phân loại văn bản:</label>
                                         <div class="col-md-9">
                                             <div class="input-icon right">
-                                                <select class="form-control" id="ddlResult">
+                                                <select class="form-control" id="ddlIncomingDocumentDetail" name="IncomingDocumentDetail">
 
-                                                    <option value="1" @if (Model.Result == 1) { @Html.Raw("selected='selected'") ; }>Đạt</option>
-                                                    <option value="2" @if (Model.Result == 2) { @Html.Raw("selected='selected'") ; }>Chưa đánh giá</option>
+                                                    <option value="1" @if (Model.IncomingDocumentDetail == 1) { @Html.Raw("selected=\"selected\"") }>Đơn TC</option>
 
                                                 </select>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label for="txtMark" class="control-label col-md-3"> Điểm đạt được:</label>
+                                        <label for="txtReceivedDate" class="control-label col-md-3">7. Ngày đến văn thư Thuế TP Hà Nội:</label>
                                         <div class="col-md-9">
                                             <div class="input-icon right">
-                                                <input type="text" id="txtMark" name="Mark" value="@Model.Mark" class="form-control" />
-
+                                                <input type="text" id="txtReceivedDate" data-date-format="DD/MM/YYYY" name="ReceivedDate" value="@HtmlHelpers.GetDateDocument(Model.ReceivedDate)" class="form-control date-field" />
                                             </div>
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label for="ddlRegion" class="control-label col-md-3">Mức độ áp dụng:<span class="required">*</span></label>
+                                        <label for="txtReceivedNo" class="control-label col-md-3">8. Số đến Văn thư Thuế TP Hà Nội:</label>
                                         <div class="col-md-9">
                                             <div class="input-icon right">
-                                                <select class="form-control" id="ddlRegion">
-
-                                                    <option value="1" @if (Model.Region == 1) { @Html.Raw("selected='selected'") ; }>Thí điểm</option>
-                                                    <option value="2" @if (Model.Region == 2) { @Html.Raw("selected='selected'") ; }>Chính thức</option>
-                                                    <option value="3" @if (Model.Region == 3) { @Html.Raw("selected='selected'") ; }>Nhân rộng</option>
+                                                <input type="text" id="txtReceivedNo" name="ReceivedNo" value="@Model.ReceivedNo" class="form-control" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="txtSender" class="control-label col-md-3">9. Nơi gửi:</label>
+                                        <div class="col-md-9">
+                                            <div class="input-icon right">
+                                                <input type="text" id="txtSender" name="Sender" value="@Model.Sender" class="form-control" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="txtIncomingDocumentNo" class="control-label col-md-3">10. Số và ký hiệu văn bản:</label>
+                                        <div class="col-md-9">
+                                            <div class="input-icon right">
+                                                <input type="text" id="txtIncomingDocumentNo" name="IncomingDocumentNo" value="@Model.IncomingDocumentNo" class="form-control" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="txtIncomingDocumentDate" class="control-label col-md-3">11. Ngày tháng văn bản:</label>
+                                        <div class="col-md-9">
+                                            <div class="input-icon right">
+                                                <input type="text" id="txtIncomingDocumentDate" data-date-format="DD/MM/YYYY" name="IncomingDocumentDate" value="@HtmlHelpers.GetDateDocument(Model.IncomingDocumentDate)" class="form-control date-field" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="txtIncomingDocumentSummary" class="control-label col-md-3">12. Trích yếu văn bản:</label>
+                                        <div class="col-md-9">
+                                            <div class="input-icon right">
+                                                <textarea id="txtIncomingDocumentSummary" name="IncomingDocumentSummary" class="form-control" rows="3">@Model.IncomingDocumentSummary</textarea>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="txtLeaderName" class="control-label col-md-3">13. Lãnh đạo phụ trách - Tên:</label>
+                                        <div class="col-md-9">
+                                            <div class="input-icon right">
+                                                <select class="form-control" id="txtLeaderName" name="LeaderName">
+                                                    <option value="">--Chọn lãnh đạo--</option>
+                                                    <option value="Nguyễn Hà Trung" @if (Model.LeaderName == "Nguyễn Hà Trung") { @Html.Raw("selected=\"selected\"") }>Nguyễn Hà Trung</option>
+                                                    <option value="Bùi Ngọc Lập" @if (Model.LeaderName == "Bùi Ngọc Lập") { @Html.Raw("selected=\"selected\"") }>Bùi Ngọc Lập</option>
+                                                    <option value="Phạm Anh Tuấn" @if (Model.LeaderName == "Phạm Anh Tuấn") { @Html.Raw("selected=\"selected\"") }>Phạm Anh Tuấn</option>
 
                                                 </select>
+                                                @*<input type="text" id="txtLeaderName" name="LeaderName" value="@Model.LeaderName" class="form-control" />*@
                                             </div>
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label for="txtSummary" class="control-label col-md-3">Hiệu quả đem lại: <span class="required">*</span></label>
+                                        <label for="txtLeaderReceivedDate" class="control-label col-md-3">14. Lãnh đạo phụ trách - Ngày nhận:</label>
                                         <div class="col-md-9">
                                             <div class="input-icon right">
-                                                <textarea id="txtSummary" style="height: 100px;" cols="20" name="description" class="form-control">@Model.Effective</textarea>
-
+                                                <input type="text" id="txtLeaderReceivedDate" data-date-format="DD/MM/YYYY" name="LeaderReceivedDate" value="@HtmlHelpers.GetDateDocument(Model.LeaderReceivedDate)" class="form-control date-field" />
                                             </div>
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label for="txtImgPath" class="control-label col-md-3">File:<span class="required">*</span></label>
-                                        <div class="col-md-8">
-                                            <input type="text" id="txtFilePath" name="filepath" value="@Model.FilePath" class="form-control" placeholder="Nhập đường dẫn file" />
-                                        </div>
-                                        <div class="col-md-1">
-                                            <a href="javascript:;" onclick="CommonCtrl.PopupManagerImages('txtFilePath');"><i class="fa fa-file"></i></a>
-                                        </div>
-                                    </div>
-
-                                    <div class="form-group">
-                                        <label for="txtFollowers" class="control-label col-md-3">Người phụ trách theo dõi :<span class="required">*</span></label>
+                                        <label for="txtAssignedOfficerName" class="control-label col-md-3">15. CB được giao giải quyết - Tên CB:</label>
                                         <div class="col-md-9">
                                             <div class="input-icon right">
-                                                <textarea id="txtFollowers" style="height: 100px;" cols="20" name="Followers" class="form-control">@Model.Followers</textarea>
-
+                                                <input type="text" id="txtAssignedOfficerName" name="AssignedOfficerName" value="@Model.AssignedOfficerName" class="form-control" />
                                             </div>
                                         </div>
                                     </div>
-
-
-
-
-
-
-
-                                    <div class="panel-footer form-horizontal">
-                                        <div class="form-group submit">
-
-
-                                            <button type="submit" class="btn btn-primary" id="btsubmit"><i class="fa fa-save"></i>Lưu lại</button>
-                                            <button type="button" class="btn btn-default" id="btnBack" onclick="GotoListpage();"><i class="fa fa-backward"></i>Quay lại</button>
+                                    <div class="form-group">
+                                        <label for="chkAssignedOfficerSigned" class="control-label col-md-3">16. CB được giao giải quyết - Ký nhận:</label>
+                                        <div class="col-md-9">
+                                            <div class="input-icon right">
+                                                <div class="checkbox"><label><input type="checkbox" id="chkAssignedOfficerSigned" name="AssignedOfficerSigned" @if (Model.AssignedOfficerSigned == true) { @Html.Raw("checked=\"checked\"") }> Có</label></div>
+                                            </div>
                                         </div>
                                     </div>
+                                    <div class="form-group">
+                                        <label for="txtAssignedOfficerReceivedDate" class="control-label col-md-3">17. CB được giao giải quyết - Ngày nhận:</label>
+                                        <div class="col-md-9">
+                                            <div class="input-icon right">
+                                                <input type="text" id="txtAssignedOfficerReceivedDate" data-date-format="DD/MM/YYYY" name="AssignedOfficerReceivedDate" value="@HtmlHelpers.GetDateDocument(Model.AssignedOfficerReceivedDate)" class="form-control date-field" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
 
+                                <div class="tab-pane " id="tabs-outgoing">
+                                    <h4 class="tab-title">Văn bản đi</h4>
+                                    <div class="form-group">
+                                        <label for="txtOutgoingDocumentType" class="control-label col-md-3">18. Loại văn bản đi:</label>
+                                        <div class="col-md-9">
+                                            <div class="input-icon right">
+                                                <input type="text" id="txtOutgoingDocumentType" name="OutgoingDocumentType" value="@Model.OutgoingDocumentType" class="form-control" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="txtOutgoingDocumentNo" class="control-label col-md-3">19. Số văn bản đi:</label>
+                                        <div class="col-md-9">
+                                            <div class="input-icon right">
+                                                <input type="text" id="txtOutgoingDocumentNo" name="OutgoingDocumentNo" value="@Model.OutgoingDocumentNo" class="form-control" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="txtOutgoingDocumentDate" class="control-label col-md-3">20. Ngày văn bản đi:</label>
+                                        <div class="col-md-9">
+                                            <div class="input-icon right">
+                                                <input type="text" id="txtOutgoingDocumentDate" data-date-format="DD/MM/YYYY" name="OutgoingDocumentDate" value="@HtmlHelpers.GetDateDocument(Model.OutgoingDocumentDate)" class="form-control date-field" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="txtOutgoingRecipient" class="control-label col-md-3">21. Nơi nhận:</label>
+                                        <div class="col-md-9">
+                                            <div class="input-icon right">
+                                                <input type="text" id="txtOutgoingRecipient" name="OutgoingRecipient" value="@Model.OutgoingRecipient" class="form-control" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
 
+                                <div class="tab-pane " id="tabs-petition">
+                                    <h4 class="tab-title">Phân loại đơn</h4>
+                                    <div class="form-group">
+                                        <label for="chkIsDenunciation" class="control-label col-md-3">22. Tố cáo:</label>
+                                        <div class="col-md-9">
+                                            <div class="input-icon right">
+                                                <div class="checkbox"><label><input type="checkbox" id="chkIsDenunciation" name="IsDenunciation" @if (Model.IsDenunciation == true) { @Html.Raw("checked=\"checked\"") }> Có</label></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="chkIsComplaint" class="control-label col-md-3">23. Khiếu nại:</label>
+                                        <div class="col-md-9">
+                                            <div class="input-icon right">
+                                                <div class="checkbox"><label><input type="checkbox" id="chkIsComplaint" name="IsComplaint" @if (Model.IsComplaint == true) { @Html.Raw("checked=\"checked\"") }> Có</label></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="chkIsFeedbackPetition" class="control-label col-md-3">24. Phản ánh, kiến nghị:</label>
+                                        <div class="col-md-9">
+                                            <div class="input-icon right">
+                                                <div class="checkbox"><label><input type="checkbox" id="chkIsFeedbackPetition" name="IsFeedbackPetition" @if (Model.IsFeedbackPetition == true) { @Html.Raw("checked=\"checked\"") }> Có</label></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="chkIsMultiContentPetition" class="control-label col-md-3">25. Đơn nhiều nội dung:</label>
+                                        <div class="col-md-9">
+                                            <div class="input-icon right">
+                                                <div class="checkbox"><label><input type="checkbox" id="chkIsMultiContentPetition" name="IsMultiContentPetition" @if (Model.IsMultiContentPetition == true) { @Html.Raw("checked=\"checked\"") }> Có</label></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="txtPetitionerNameTaxCode" class="control-label col-md-3">26. Tên tổ chức/cá nhân gửi đơn - MST:</label>
+                                        <div class="col-md-9">
+                                            <div class="input-icon right">
+                                                <input type="text" id="txtPetitionerNameTaxCode" name="PetitionerNameTaxCode" value="@Model.PetitionerNameTaxCode" class="form-control" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="chkIsRepeatedDenunciation" class="control-label col-md-3">27. Tố cáo tiếp:</label>
+                                        <div class="col-md-9">
+                                            <div class="input-icon right">
+                                                <div class="checkbox"><label><input type="checkbox" id="chkIsRepeatedDenunciation" name="IsRepeatedDenunciation" @if (Model.IsRepeatedDenunciation == true) { @Html.Raw("checked=\"checked\"") }> Có</label></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="chkIsAuthorizedComplaint" class="control-label col-md-3">28. Uỷ quyền KN, KNPA:</label>
+                                        <div class="col-md-9">
+                                            <div class="input-icon right">
+                                                <div class="checkbox"><label><input type="checkbox" id="chkIsAuthorizedComplaint" name="IsAuthorizedComplaint" @if (Model.IsAuthorizedComplaint == true) { @Html.Raw("checked=\"checked\"") }> Có</label></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="chkIsHandledByInspection2" class="control-label col-md-3">29. Phòng TTKT2 giải quyết:</label>
+                                        <div class="col-md-9">
+                                            <div class="input-icon right">
+                                                <div class="checkbox"><label><input type="checkbox" id="chkIsHandledByInspection2" name="IsHandledByInspection2" @if (Model.IsHandledByInspection2 == true) { @Html.Raw("checked=\"checked\"") }> Có</label></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="txtComplaintArea" class="control-label col-md-3">30. Địa bàn bị KN, TC, KNPA:</label>
+                                        <div class="col-md-9">
+                                            <div class="input-icon right">
+                                                <input type="text" id="txtComplaintArea" name="ComplaintArea" value="@Model.ComplaintArea" class="form-control" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="txtComplaintTarget" class="control-label col-md-3">31. Đối tượng bị tố cáo / kiến nghị:</label>
+                                        <div class="col-md-9">
+                                            <div class="input-icon right">
+                                                <input type="text" id="txtComplaintTarget" name="ComplaintTarget" value="@Model.ComplaintTarget" class="form-control" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="txtPetitionContent" class="control-label col-md-3">32. Nội dung đơn:</label>
+                                        <div class="col-md-9">
+                                            <div class="input-icon right">
+                                                <textarea id="txtPetitionContent" name="PetitionContent" class="form-control" rows="3">@Model.PetitionContent</textarea>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="txtCaseCount" class="control-label col-md-3">33. Số vụ việc KN, TC, PAKN:</label>
+                                        <div class="col-md-9">
+                                            <div class="input-icon right">
+                                                <input type="number" id="txtCaseCount" name="CaseCount" value="@Model.CaseCount" class="form-control" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="chkIsPreviouslyResolved" class="control-label col-md-3">34. Đã được cơ quan có thẩm quyền giải quyết:</label>
+                                        <div class="col-md-9">
+                                            <div class="input-icon right">
+                                                <div class="checkbox"><label><input type="checkbox" id="chkIsPreviouslyResolved" name="IsPreviouslyResolved" @if (Model.IsPreviouslyResolved == true) { @Html.Raw("checked=\"checked\"") }> Có</label></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
 
+                                <div class="tab-pane " id="tabs-field">
+                                    <h4 class="tab-title">Lĩnh vực / Nội dung</h4>
+                                    <div class="form-group">
+                                        <label for="chkFieldPolicy" class="control-label col-md-3">35. Chế độ, chính sách:</label>
+                                        <div class="col-md-9">
+                                            <div class="input-icon right">
+                                                <div class="checkbox"><label><input type="checkbox" id="chkFieldPolicy" name="FieldPolicy" @if (Model.FieldPolicy == true) { @Html.Raw("checked=\"checked\"") }> Có</label></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="chkFieldAdministrativeDecision" class="control-label col-md-3">36. Quyết định hành chính bị khiếu nại:</label>
+                                        <div class="col-md-9">
+                                            <div class="input-icon right">
+                                                <div class="checkbox"><label><input type="checkbox" id="chkFieldAdministrativeDecision" name="FieldAdministrativeDecision" @if (Model.FieldAdministrativeDecision == true) { @Html.Raw("checked=\"checked\"") }> Có</label></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="chkFieldOfficialAdministrativeAct" class="control-label col-md-3">37. Hành vi hành chính của CBCC:</label>
+                                        <div class="col-md-9">
+                                            <div class="input-icon right">
+                                                <div class="checkbox"><label><input type="checkbox" id="chkFieldOfficialAdministrativeAct" name="FieldOfficialAdministrativeAct" @if (Model.FieldOfficialAdministrativeAct == true) { @Html.Raw("checked=\"checked\"") }> Có</label></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="chkFieldCorruption" class="control-label col-md-3">38. Hành vi tham nhũng:</label>
+                                        <div class="col-md-9">
+                                            <div class="input-icon right">
+                                                <div class="checkbox"><label><input type="checkbox" id="chkFieldCorruption" name="FieldCorruption" @if (Model.FieldCorruption == true) { @Html.Raw("checked=\"checked\"") }> Có</label></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="chkFieldTaxEvasion" class="control-label col-md-3">39. Hành vi trốn thuế:</label>
+                                        <div class="col-md-9">
+                                            <div class="input-icon right">
+                                                <div class="checkbox"><label><input type="checkbox" id="chkFieldTaxEvasion" name="FieldTaxEvasion" @if (Model.FieldTaxEvasion == true) { @Html.Raw("checked=\"checked\"") }> Có</label></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="chkFieldJustice" class="control-label col-md-3">40. Tư pháp:</label>
+                                        <div class="col-md-9">
+                                            <div class="input-icon right">
+                                                <div class="checkbox"><label><input type="checkbox" id="chkFieldJustice" name="FieldJustice" @if (Model.FieldJustice == true) { @Html.Raw("checked=\"checked\"") }> Có</label></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="chkFieldPartyOrganization" class="control-label col-md-3">41. Đảng, đoàn thể:</label>
+                                        <div class="col-md-9">
+                                            <div class="input-icon right">
+                                                <div class="checkbox"><label><input type="checkbox" id="chkFieldPartyOrganization" name="FieldPartyOrganization" @if (Model.FieldPartyOrganization == true) { @Html.Raw("checked=\"checked\"") }> Có</label></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="chkFieldInspection" class="control-label col-md-3">42. Thanh tra, kiểm tra:</label>
+                                        <div class="col-md-9">
+                                            <div class="input-icon right">
+                                                <div class="checkbox"><label><input type="checkbox" id="chkFieldInspection" name="FieldInspection" @if (Model.FieldInspection == true) { @Html.Raw("checked=\"checked\"") }> Có</label></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="chkFieldOther" class="control-label col-md-3">43. Lĩnh vực khác:</label>
+                                        <div class="col-md-9">
+                                            <div class="input-icon right">
+                                                <div class="checkbox"><label><input type="checkbox" id="chkFieldOther" name="FieldOther" @if (Model.FieldOther == true) { @Html.Raw("checked=\"checked\"") }> Có</label></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="chkDetailTaxRefund" class="control-label col-md-3">44. Hoàn thuế:</label>
+                                        <div class="col-md-9">
+                                            <div class="input-icon right">
+                                                <div class="checkbox"><label><input type="checkbox" id="chkDetailTaxRefund" name="DetailTaxRefund" @if (Model.DetailTaxRefund == true) { @Html.Raw("checked=\"checked\"") }> Có</label></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="chkDetailTaxDebt" class="control-label col-md-3">45. Nợ thuế:</label>
+                                        <div class="col-md-9">
+                                            <div class="input-icon right">
+                                                <div class="checkbox"><label><input type="checkbox" id="chkDetailTaxDebt" name="DetailTaxDebt" @if (Model.DetailTaxDebt == true) { @Html.Raw("checked=\"checked\"") }> Có</label></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="chkDetailLand" class="control-label col-md-3">46. Đất:</label>
+                                        <div class="col-md-9">
+                                            <div class="input-icon right">
+                                                <div class="checkbox"><label><input type="checkbox" id="chkDetailLand" name="DetailLand" @if (Model.DetailLand == true) { @Html.Raw("checked=\"checked\"") }> Có</label></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="chkDetailCIT" class="control-label col-md-3">47. TNDN:</label>
+                                        <div class="col-md-9">
+                                            <div class="input-icon right">
+                                                <div class="checkbox"><label><input type="checkbox" id="chkDetailCIT" name="DetailCIT" @if (Model.DetailCIT == true) { @Html.Raw("checked=\"checked\"") }> Có</label></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="chkDetailVAT" class="control-label col-md-3">48. GTGT:</label>
+                                        <div class="col-md-9">
+                                            <div class="input-icon right">
+                                                <div class="checkbox"><label><input type="checkbox" id="chkDetailVAT" name="DetailVAT" @if (Model.DetailVAT == true) { @Html.Raw("checked=\"checked\"") }> Có</label></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="chkDetailPIT" class="control-label col-md-3">49. TNCN:</label>
+                                        <div class="col-md-9">
+                                            <div class="input-icon right">
+                                                <div class="checkbox"><label><input type="checkbox" id="chkDetailPIT" name="DetailPIT" @if (Model.DetailPIT == true) { @Html.Raw("checked=\"checked\"") }> Có</label></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="chkDetailInvoice" class="control-label col-md-3">50. Hóa đơn:</label>
+                                        <div class="col-md-9">
+                                            <div class="input-icon right">
+                                                <div class="checkbox"><label><input type="checkbox" id="chkDetailInvoice" name="DetailInvoice" @if (Model.DetailInvoice == true) { @Html.Raw("checked=\"checked\"") }> Có</label></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="chkDetailTaxExemption" class="control-label col-md-3">51. Miễn giảm:</label>
+                                        <div class="col-md-9">
+                                            <div class="input-icon right">
+                                                <div class="checkbox"><label><input type="checkbox" id="chkDetailTaxExemption" name="DetailTaxExemption" @if (Model.DetailTaxExemption == true) { @Html.Raw("checked=\"checked\"") }> Có</label></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="chkDetailOther" class="control-label col-md-3">52. Khác:</label>
+                                        <div class="col-md-9">
+                                            <div class="input-icon right">
+                                                <div class="checkbox"><label><input type="checkbox" id="chkDetailOther" name="DetailOther" @if (Model.DetailOther == true) { @Html.Raw("checked=\"checked\"") }> Có</label></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="txtProposalSubmissionDate" class="control-label col-md-3">53. Ngày trình phiếu VB đi / đề xuất xử lý đơn:</label>
+                                        <div class="col-md-9">
+                                            <div class="input-icon right">
+                                                <input type="text" id="txtProposalSubmissionDate" data-date-format="DD/MM/YYYY" name="ProposalSubmissionDate" value="@HtmlHelpers.GetDateDocument(Model.ProposalSubmissionDate)" class="form-control date-field" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="chkIsDuplicateResolvedPetition" class="control-label col-md-3">54. Đơn trùng với nội dung đơn đã được giải quyết:</label>
+                                        <div class="col-md-9">
+                                            <div class="input-icon right">
+                                                <div class="checkbox"><label><input type="checkbox" id="chkIsDuplicateResolvedPetition" name="IsDuplicateResolvedPetition" @if (Model.IsDuplicateResolvedPetition == true) { @Html.Raw("checked=\"checked\"") }> Có</label></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="tab-pane " id="tabs-process">
+                                    <h4 class="tab-title">Xử lý đơn</h4>
+                                    <div class="form-group">
+                                        <label for="txtEligibleCaseCount" class="control-label col-md-3">55. Đơn đủ điều kiện xử lý - Số vụ việc:</label>
+                                        <div class="col-md-9">
+                                            <div class="input-icon right">
+                                                <input type="number" id="txtEligibleCaseCount" name="EligibleCaseCount" value="@Model.EligibleCaseCount" class="form-control" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="txtIneligibleCaseCount" class="control-label col-md-3">56. Đơn không đủ điều kiện xử lý - Số vụ việc:</label>
+                                        <div class="col-md-9">
+                                            <div class="input-icon right">
+                                                <input type="number" id="txtIneligibleCaseCount" name="IneligibleCaseCount" value="@Model.IneligibleCaseCount" class="form-control" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="txtWithinAuthorityCaseCount" class="control-label col-md-3">57. Đơn thuộc thẩm quyền CQT nhận đơn - Số vụ việc:</label>
+                                        <div class="col-md-9">
+                                            <div class="input-icon right">
+                                                <input type="number" id="txtWithinAuthorityCaseCount" name="WithinAuthorityCaseCount" value="@Model.WithinAuthorityCaseCount" class="form-control" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="txtOutsideAuthorityCaseCount" class="control-label col-md-3">58. Đơn không thuộc thẩm quyền CQT nhận đơn - Số vụ việc:</label>
+                                        <div class="col-md-9">
+                                            <div class="input-icon right">
+                                                <input type="number" id="txtOutsideAuthorityCaseCount" name="OutsideAuthorityCaseCount" value="@Model.OutsideAuthorityCaseCount" class="form-control" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="chkIsPetitionFiled" class="control-label col-md-3">59. Lưu đơn:</label>
+                                        <div class="col-md-9">
+                                            <div class="input-icon right">
+                                                <div class="checkbox"><label><input type="checkbox" id="chkIsPetitionFiled" name="IsPetitionFiled" @if (Model.IsPetitionFiled == true) { @Html.Raw("checked=\"checked\"") }> Có</label></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="txtGuidanceDocumentNo" class="control-label col-md-3">60. Công văn hướng dẫn / Phiếu hướng dẫn / CV trả lời PAKN - Số:</label>
+                                        <div class="col-md-9">
+                                            <div class="input-icon right">
+                                                <input type="text" id="txtGuidanceDocumentNo" name="GuidanceDocumentNo" value="@Model.GuidanceDocumentNo" class="form-control" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="txtGuidanceDocumentDate" class="control-label col-md-3">61. Công văn hướng dẫn / Phiếu hướng dẫn / CV trả lời PAKN - Ngày ban hành:</label>
+                                        <div class="col-md-9">
+                                            <div class="input-icon right">
+                                                <input type="text" id="txtGuidanceDocumentDate" data-date-format="DD/MM/YYYY" name="GuidanceDocumentDate" value="@HtmlHelpers.GetDateDocument(Model.GuidanceDocumentDate)" class="form-control date-field" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="txtTransferSlipNo" class="control-label col-md-3">62. Phiếu chuyển - Số:</label>
+                                        <div class="col-md-9">
+                                            <div class="input-icon right">
+                                                <input type="text" id="txtTransferSlipNo" name="TransferSlipNo" value="@Model.TransferSlipNo" class="form-control" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="txtTransferSlipDate" class="control-label col-md-3">63. Phiếu chuyển - Ngày tháng ban hành:</label>
+                                        <div class="col-md-9">
+                                            <div class="input-icon right">
+                                                <input type="text" id="txtTransferSlipDate" data-date-format="DD/MM/YYYY" name="TransferSlipDate" value="@HtmlHelpers.GetDateDocument(Model.TransferSlipDate)" class="form-control date-field" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="txtTransferRecipient" class="control-label col-md-3">64. Phiếu chuyển - Nơi nhận văn bản:</label>
+                                        <div class="col-md-9">
+                                            <div class="input-icon right">
+                                                <input type="text" id="txtTransferRecipient" name="TransferRecipient" value="@Model.TransferRecipient" class="form-control" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="txtReminderDocumentNo" class="control-label col-md-3">65. Văn bản đôn đốc báo cáo - Số:</label>
+                                        <div class="col-md-9">
+                                            <div class="input-icon right">
+                                                <input type="text" id="txtReminderDocumentNo" name="ReminderDocumentNo" value="@Model.ReminderDocumentNo" class="form-control" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="txtReminderDocumentDate" class="control-label col-md-3">66. Văn bản đôn đốc báo cáo - Ngày tháng ban hành:</label>
+                                        <div class="col-md-9">
+                                            <div class="input-icon right">
+                                                <input type="text" id="txtReminderDocumentDate" data-date-format="DD/MM/YYYY" name="ReminderDocumentDate" value="@HtmlHelpers.GetDateDocument(Model.ReminderDocumentDate)" class="form-control date-field" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="txtReportToInspection2No" class="control-label col-md-3">67. VB báo cáo về Phòng TTKT2 - Số:</label>
+                                        <div class="col-md-9">
+                                            <div class="input-icon right">
+                                                <input type="text" id="txtReportToInspection2No" name="ReportToInspection2No" value="@Model.ReportToInspection2No" class="form-control" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="txtReportToInspection2Date" class="control-label col-md-3">68. VB báo cáo về Phòng TTKT2 - Ngày tháng ban hành:</label>
+                                        <div class="col-md-9">
+                                            <div class="input-icon right">
+                                                <input type="text" id="txtReportToInspection2Date" data-date-format="DD/MM/YYYY" name="ReportToInspection2Date" value="@HtmlHelpers.GetDateDocument(Model.ReportToInspection2Date)" class="form-control date-field" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="txtNonAcceptanceNoticeNo" class="control-label col-md-3">69. Thông báo không thụ lý - Số:</label>
+                                        <div class="col-md-9">
+                                            <div class="input-icon right">
+                                                <input type="text" id="txtNonAcceptanceNoticeNo" name="NonAcceptanceNoticeNo" value="@Model.NonAcceptanceNoticeNo" class="form-control" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="txtNonAcceptanceNoticeDate" class="control-label col-md-3">70. Thông báo không thụ lý - Ngày tháng ban hành:</label>
+                                        <div class="col-md-9">
+                                            <div class="input-icon right">
+                                                <input type="text" id="txtNonAcceptanceNoticeDate" data-date-format="DD/MM/YYYY" name="NonAcceptanceNoticeDate" value="@HtmlHelpers.GetDateDocument(Model.NonAcceptanceNoticeDate)" class="form-control date-field" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="tab-pane " id="tabs-resolution">
+                                    <h4 class="tab-title">Giải quyết / Kết quả</h4>
+                                    <div class="form-group">
+                                        <label for="txtAcceptanceDecisionNo" class="control-label col-md-3">71. Quyết định thụ lý TC / Thông báo thụ lý khiếu nại - Số:</label>
+                                        <div class="col-md-9">
+                                            <div class="input-icon right">
+                                                <input type="text" id="txtAcceptanceDecisionNo" name="AcceptanceDecisionNo" value="@Model.AcceptanceDecisionNo" class="form-control" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="txtAcceptanceDecisionDate" class="control-label col-md-3">72. Quyết định thụ lý TC / Thông báo thụ lý khiếu nại - Ngày ban hành:</label>
+                                        <div class="col-md-9">
+                                            <div class="input-icon right">
+                                                <input type="text" id="txtAcceptanceDecisionDate" data-date-format="DD/MM/YYYY" name="AcceptanceDecisionDate" value="@HtmlHelpers.GetDateDocument(Model.AcceptanceDecisionDate)" class="form-control date-field" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="txtVerificationDecisionNo" class="control-label col-md-3">73. Quyết định xác minh nội dung KNTC - Số:</label>
+                                        <div class="col-md-9">
+                                            <div class="input-icon right">
+                                                <input type="text" id="txtVerificationDecisionNo" name="VerificationDecisionNo" value="@Model.VerificationDecisionNo" class="form-control" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="txtVerificationDecisionDate" class="control-label col-md-3">74. Quyết định xác minh nội dung KNTC - Ngày tháng năm:</label>
+                                        <div class="col-md-9">
+                                            <div class="input-icon right">
+                                                <input type="text" id="txtVerificationDecisionDate" data-date-format="DD/MM/YYYY" name="VerificationDecisionDate" value="@HtmlHelpers.GetDateDocument(Model.VerificationDecisionDate)" class="form-control date-field" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="chkIsComplexCase" class="control-label col-md-3">75. Vụ việc phức tạp / đặc biệt phức tạp:</label>
+                                        <div class="col-md-9">
+                                            <div class="input-icon right">
+                                                <div class="checkbox"><label><input type="checkbox" id="chkIsComplexCase" name="IsComplexCase" @if (Model.IsComplexCase == true) { @Html.Raw("checked=\"checked\"") }> Có</label></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="txtTemporarySuspensionDecisionNo" class="control-label col-md-3">76. Quyết định tạm đình chỉ giải quyết đơn - Số:</label>
+                                        <div class="col-md-9">
+                                            <div class="input-icon right">
+                                                <input type="text" id="txtTemporarySuspensionDecisionNo" name="TemporarySuspensionDecisionNo" value="@Model.TemporarySuspensionDecisionNo" class="form-control" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="txtTemporarySuspensionDecisionDate" class="control-label col-md-3">77. Quyết định tạm đình chỉ giải quyết đơn - Ngày ban hành:</label>
+                                        <div class="col-md-9">
+                                            <div class="input-icon right">
+                                                <input type="text" id="txtTemporarySuspensionDecisionDate" data-date-format="DD/MM/YYYY" name="TemporarySuspensionDecisionDate" value="@HtmlHelpers.GetDateDocument(Model.TemporarySuspensionDecisionDate)" class="form-control date-field" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="txtSuspensionDecisionNo" class="control-label col-md-3">78. Quyết định đình chỉ giải quyết đơn - Số:</label>
+                                        <div class="col-md-9">
+                                            <div class="input-icon right">
+                                                <input type="text" id="txtSuspensionDecisionNo" name="SuspensionDecisionNo" value="@Model.SuspensionDecisionNo" class="form-control" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="txtSuspensionDecisionDate" class="control-label col-md-3">79. Quyết định đình chỉ giải quyết đơn - Ngày ban hành:</label>
+                                        <div class="col-md-9">
+                                            <div class="input-icon right">
+                                                <input type="text" id="txtSuspensionDecisionDate" data-date-format="DD/MM/YYYY" name="SuspensionDecisionDate" value="@HtmlHelpers.GetDateDocument(Model.SuspensionDecisionDate)" class="form-control date-field" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="chkIsDialogue" class="control-label col-md-3">80. Đối thoại:</label>
+                                        <div class="col-md-9">
+                                            <div class="input-icon right">
+                                                <div class="checkbox"><label><input type="checkbox" id="chkIsDialogue" name="IsDialogue" @if (Model.IsDialogue == true) { @Html.Raw("checked=\"checked\"") }> Có</label></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="txtResolutionDecisionNo" class="control-label col-md-3">81. QĐ giải quyết khiếu nại / KL giải quyết tố cáo - Số:</label>
+                                        <div class="col-md-9">
+                                            <div class="input-icon right">
+                                                <input type="text" id="txtResolutionDecisionNo" name="ResolutionDecisionNo" value="@Model.ResolutionDecisionNo" class="form-control" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="txtResolutionDecisionDate" class="control-label col-md-3">82. QĐ giải quyết khiếu nại / KL giải quyết tố cáo - Ngày tháng:</label>
+                                        <div class="col-md-9">
+                                            <div class="input-icon right">
+                                                <input type="text" id="txtResolutionDecisionDate" data-date-format="DD/MM/YYYY" name="ResolutionDecisionDate" value="@HtmlHelpers.GetDateDocument(Model.ResolutionDecisionDate)" class="form-control date-field" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="chkIsComplaintCorrect" class="control-label col-md-3">83. KNTC, PAKN đúng:</label>
+                                        <div class="col-md-9">
+                                            <div class="input-icon right">
+                                                <div class="checkbox"><label><input type="checkbox" id="chkIsComplaintCorrect" name="IsComplaintCorrect" @if (Model.IsComplaintCorrect == true) { @Html.Raw("checked=\"checked\"") }> Có</label></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="chkIsComplaintIncorrect" class="control-label col-md-3">84. KNTC, PAKN sai:</label>
+                                        <div class="col-md-9">
+                                            <div class="input-icon right">
+                                                <div class="checkbox"><label><input type="checkbox" id="chkIsComplaintIncorrect" name="IsComplaintIncorrect" @if (Model.IsComplaintIncorrect == true) { @Html.Raw("checked=\"checked\"") }> Có</label></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="chkIsComplaintPartiallyCorrect" class="control-label col-md-3">85. KNTC, PAKN đúng một phần:</label>
+                                        <div class="col-md-9">
+                                            <div class="input-icon right">
+                                                <div class="checkbox"><label><input type="checkbox" id="chkIsComplaintPartiallyCorrect" name="IsComplaintPartiallyCorrect" @if (Model.IsComplaintPartiallyCorrect == true) { @Html.Raw("checked=\"checked\"") }> Có</label></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="txtProcessingStatusNote" class="control-label col-md-3">86. Ghi chú rõ trạng thái hồ sơ đang giải quyết:</label>
+                                        <div class="col-md-9">
+                                            <div class="input-icon right">
+                                                <textarea id="txtProcessingStatusNote" name="ProcessingStatusNote" class="form-control" rows="3">@Model.ProcessingStatusNote</textarea>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="panel-footer form-horizontal">
+                                    <div class="form-group submit">
+                                        <div class="col-md-offset-3 col-md-9">
+                                            <button type="submit" class="btn btn-primary" id="btsubmit"><i class="fa fa-save"></i> Lưu lại</button>
+                                            <button type="button" class="btn btn-default" id="btnBack" onclick="GotoListpage();"><i class="fa fa-backward"></i> Quay lại</button>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
-                            <div style="clear:both"></div>
                         </div>
-
                     </div>
                 </div>
             </form>
         </div>
     </div>
 </div>
-
-
+<link href="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/css/select2.min.css"
+      rel="stylesheet" />
+<script src="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/js/select2.min.js"></script>
 <script>
     $('#menu_managedoc').addClass("active");
 
-</script>
-<script>
     function GotoListpage() {
         window.location = '@Url.Action("Index")';
     }
+
     $(document).ready(function () {
-
-
-
-        $('#txtExpiryDate').datetimepicker({
-            //pickTime: false
+        $('.date-field').datetimepicker({
+            // pickTime: false
         });
-        $('#txtEffectiveDate').datetimepicker({
-            //pickTime: false
-        });
-        $('#txtPublicTime').datetimepicker({
-            //pickTime: false
+        $('#ddlGroupId').select2({
+        
+            allowClear: true,
+            width: '100%'
         });
         $("button.close").click(function () {
             $(this).parent().css("display", "none");
         });
-        $('#defaultForm').bootstrapValidator({
-            message: 'This value is not valid',
-            //live: 'submitted',
-            feedbackIcons: {
-                valid: 'glyphicon glyphicon-ok',
-                invalid: 'glyphicon glyphicon-remove',
-                validating: 'glyphicon glyphicon-refresh'
-            },
-            fields: {
-                code: {
-                    message: 'Bạn chưa nhập mã sáng kiến.',
-                    validators: {
-                        notEmpty: {
-                            message: 'Bạn chưa nhập mã sáng kiến'
-                        },
 
-                    }
-                },
-                title: {
-                    message: 'Nhập tên sáng kiến',
-                    validators: {
-                        notEmpty: {
-                            message: 'tên sáng kiến không được bỏ trống'
-                        },
+        $('#defaultForm').on('submit', function (e) {
+            e.preventDefault();
 
-                        stringLength: {
-                            min: 10,
-                            max: 250,
-                            message: 'tên sáng kiến nhỏ nhất 10 ký tự và nhiều nhất 250 ký tự'
-                        },
+            var dutyDate = $.trim($('#txtDutyDate').val());
+            var dutyLeaderName = $.trim($('#txtDutyLeaderName').val());
 
-                    }
-                },
-               
-                No: {
-                    message: 'Bạn chưa nhập số quyết định.',
-                    validators: {
-                        notEmpty: {
-                            message: 'Bạn chưa nhập số quyết định'
-                        },
 
-                    }
-                },
-                Proposer: {
-                    message: 'Bạn chưa nhập người đề xuất.',
-                    validators: {
-                        notEmpty: {
-                            message: 'Bạn chưa nhập người đề xuất'
-                        },
-
-                    }
-                },
-                Unit: {
-                    message: 'Bạn chưa nhập đơn vị thực hiện.',
-                    validators: {
-                        notEmpty: {
-                            message: 'Bạn chưa nhập đơn vị thực hiện'
-                        },
-
-                    }
-                },
-                publictime: {
-                    message: 'Bạn chưa nhập ngày ban hành.',
-                    validators: {
-                        notEmpty: {
-                            message: 'Bạn chưa nhập ngày ban hành'
-                        },
-
-                    }
-                },
-                //description: {
-                //    message: 'Bạn chưa nhập hiệu quả đem lại.',
-                //    validators: {
-                //        notEmpty: {
-                //            message: 'Bạn chưa nhập hiệu quả đem lại'
-                //        },
-
-                //    }
-                //},
-                //filepath: {
-                //    validators: {
-                //        notEmpty: {
-                //            message: 'File không được bỏ trống'
-                //        }
-                //    }
-                //},
-                //Followers: {
-                //    message: 'Bạn chưa nhập người phụ trách theo dõi.',
-                //    validators: {
-                //        notEmpty: {
-                //            message: 'Bạn chưa nhập người phụ trách theo dõi'
-                //        },
-
-                //    }
-                //}
+            var LeaderName = $.trim($('#txtLeaderName').val());
+            
+           
+            if (dutyDate == '') {
+                alert('Vui lòng nhập Ngày trực');
+                $('#txtDutyDate').focus();
+                return false;
             }
-        })
-        .on('success.form.bv', function (e) {
-            // Prevent submit form
-            e.preventDefault();
 
-            var $form = $(e.target),
-                validator = $form.data('bootstrapValidator');
+            if (dutyLeaderName == '') {
+                alert('Vui lòng nhập Tên Trưởng nhóm trực');
+                $('#txtDutyLeaderName').focus();
+                return false;
+            }
+
+            if (LeaderName == '') {
+                alert('Vui lòng chọn lãnh đạo');
+                $('#txtDutyLeaderName').focus();
+                return false;
+            }
             SaveData();
-            $(".close").click(function () {
-                $(".alert-success").css("display", "none");
-            });
-        })
-        .on('error.form.bv', function (e) {
-            // Active the panel element containing the first invalid element
-            e.preventDefault();
-            var $form = $(e.target),
-            validator = $form.data('bootstrapValidator');
-            $(".alert-danger label").text("Có một vài lỗi trong khung nhập liệu dưới đây ! kiểm tra lại");
-            $(".alert-danger").css("display", "block");
-            $(".close").click(function () {
-                $(".alert-danger").css("display", "none");
-                $(".alert-success").css("display", "none");
-            });
         });
 
-        $("#btnReset").click(function () {
-            $('#defaultForm').data('bootstrapValidator').resetForm(true);
-            $(".alert-danger").css("display", "none");
-            $(".alert-success").css("display", "none");
-        });
-
-        //Save Data
         function SaveData() {
             var param = {
                 'Id': '@Model.Id',
-                'Name': $("#txtTitle").val(),
-                'Effective': $("#txtSummary").val(),
-                'FilePath': $("#txtFilePath").val(),
-                'Proposer': $("#txtProposer").val(),
-                'Code': $("#txtCode").val(),
-                'No': $("#txtNo").val(),
-                'Unit': $("#txtUnit").val(),
-                'SPublishDate': $('#txtPublicTime').val(),
-                'Status': $("#ddlStatus").val(),
-                'ProgressPercent': $("#txtProgressPercent").val(),
-                'Progress': $("#ddlProgress").val(),
-               
-                'Result': $("#ddlResult").val(),
-                'Mark': $('#txtMark').val(),
-                'Region': $('#ddlRegion').val(),
-               
-                'Effective': $("#txtSummary").val(),
-                'Followers': $('#txtFollowers').val(),
-                
+                'SDutyDate': $('#txtDutyDate').val(),
+                'GroupId': $('#ddlGroupId').val(),
+                'DutyLeaderName': $('#txtDutyLeaderName').val(),
+                'ClericalOfficerName': $('#txtClericalOfficerName').val(),
+                'IncomingSubmissionNo': $('#txtIncomingSubmissionNo').val(),
+                'IncomingDocumentType': $('#txtIncomingDocumentType').val(),
+                'IncomingDocumentDetail': $('#ddlIncomingDocumentDetail').val(),
+                'sReceivedDate': $('#txtReceivedDate').val(),
+                'ReceivedNo': $('#txtReceivedNo').val(),
+                'Sender': $('#txtSender').val(),
+                'IncomingDocumentNo': $('#txtIncomingDocumentNo').val(),
+                'SIncomingDocumentDate': $('#txtIncomingDocumentDate').val(),
+                'IncomingDocumentSummary': $('#txtIncomingDocumentSummary').val(),
+                'LeaderName': $('#txtLeaderName').val(),
+                'SLeaderReceivedDate': $('#txtLeaderReceivedDate').val(),
+                'AssignedOfficerName': $('#txtAssignedOfficerName').val(),
+                'AssignedOfficerSigned': $('#chkAssignedOfficerSigned').prop('checked'),
+                'SAssignedOfficerReceivedDate': $('#txtAssignedOfficerReceivedDate').val(),
+                'OutgoingDocumentType': $('#txtOutgoingDocumentType').val(),
+                'OutgoingDocumentNo': $('#txtOutgoingDocumentNo').val(),
+                'SOutgoingDocumentDate': $('#txtOutgoingDocumentDate').val(),
+                'OutgoingRecipient': $('#txtOutgoingRecipient').val(),
+                'IsDenunciation': $('#chkIsDenunciation').prop('checked'),
+                'IsComplaint': $('#chkIsComplaint').prop('checked'),
+                'IsFeedbackPetition': $('#chkIsFeedbackPetition').prop('checked'),
+                'IsMultiContentPetition': $('#chkIsMultiContentPetition').prop('checked'),
+                'PetitionerNameTaxCode': $('#txtPetitionerNameTaxCode').val(),
+                'IsRepeatedDenunciation': $('#chkIsRepeatedDenunciation').prop('checked'),
+                'IsAuthorizedComplaint': $('#chkIsAuthorizedComplaint').prop('checked'),
+                'IsHandledByInspection2': $('#chkIsHandledByInspection2').prop('checked'),
+                'ComplaintArea': $('#txtComplaintArea').val(),
+                'ComplaintTarget': $('#txtComplaintTarget').val(),
+                'PetitionContent': $('#txtPetitionContent').val(),
+                'CaseCount': $('#txtCaseCount').val(),
+                'IsPreviouslyResolved': $('#chkIsPreviouslyResolved').prop('checked'),
+                'FieldPolicy': $('#chkFieldPolicy').prop('checked'),
+                'FieldAdministrativeDecision': $('#chkFieldAdministrativeDecision').prop('checked'),
+                'FieldOfficialAdministrativeAct': $('#chkFieldOfficialAdministrativeAct').prop('checked'),
+                'FieldCorruption': $('#chkFieldCorruption').prop('checked'),
+                'FieldTaxEvasion': $('#chkFieldTaxEvasion').prop('checked'),
+                'FieldJustice': $('#chkFieldJustice').prop('checked'),
+                'FieldPartyOrganization': $('#chkFieldPartyOrganization').prop('checked'),
+                'FieldInspection': $('#chkFieldInspection').prop('checked'),
+                'FieldOther': $('#chkFieldOther').prop('checked'),
+                'DetailTaxRefund': $('#chkDetailTaxRefund').prop('checked'),
+                'DetailTaxDebt': $('#chkDetailTaxDebt').prop('checked'),
+                'DetailLand': $('#chkDetailLand').prop('checked'),
+                'DetailCIT': $('#chkDetailCIT').prop('checked'),
+                'DetailVAT': $('#chkDetailVAT').prop('checked'),
+                'DetailPIT': $('#chkDetailPIT').prop('checked'),
+                'DetailInvoice': $('#chkDetailInvoice').prop('checked'),
+                'DetailTaxExemption': $('#chkDetailTaxExemption').prop('checked'),
+                'DetailOther': $('#chkDetailOther').prop('checked'),
+                'SProposalSubmissionDate': $('#txtProposalSubmissionDate').val(),
+                'IsDuplicateResolvedPetition': $('#chkIsDuplicateResolvedPetition').prop('checked'),
+                'EligibleCaseCount': $('#txtEligibleCaseCount').val(),
+                'IneligibleCaseCount': $('#txtIneligibleCaseCount').val(),
+                'WithinAuthorityCaseCount': $('#txtWithinAuthorityCaseCount').val(),
+                'OutsideAuthorityCaseCount': $('#txtOutsideAuthorityCaseCount').val(),
+                'IsPetitionFiled': $('#chkIsPetitionFiled').prop('checked'),
+                'GuidanceDocumentNo': $('#txtGuidanceDocumentNo').val(),
+                'SGuidanceDocumentDate': $('#txtGuidanceDocumentDate').val(),
+                'TransferSlipNo': $('#txtTransferSlipNo').val(),
+                'STransferSlipDate': $('#txtTransferSlipDate').val(),
+                'TransferRecipient': $('#txtTransferRecipient').val(),
+                'ReminderDocumentNo': $('#txtReminderDocumentNo').val(),
+                'SReminderDocumentDate': $('#txtReminderDocumentDate').val(),
+                'ReportToInspection2No': $('#txtReportToInspection2No').val(),
+                'SReportToInspection2Date': $('#txtReportToInspection2Date').val(),
+                'NonAcceptanceNoticeNo': $('#txtNonAcceptanceNoticeNo').val(),
+                'SNonAcceptanceNoticeDate': $('#txtNonAcceptanceNoticeDate').val(),
+                'AcceptanceDecisionNo': $('#txtAcceptanceDecisionNo').val(),
+                'SAcceptanceDecisionDate': $('#txtAcceptanceDecisionDate').val(),
+                'VerificationDecisionNo': $('#txtVerificationDecisionNo').val(),
+                'SVerificationDecisionDate': $('#txtVerificationDecisionDate').val(),
+                'IsComplexCase': $('#chkIsComplexCase').prop('checked'),
+                'TemporarySuspensionDecisionNo': $('#txtTemporarySuspensionDecisionNo').val(),
+                'STemporarySuspensionDecisionDate': $('#txtTemporarySuspensionDecisionDate').val(),
+                'SuspensionDecisionNo': $('#txtSuspensionDecisionNo').val(),
+                'SuspensionDecisionDate': $('#txtSuspensionDecisionDate').val(),
+                'IsDialogue': $('#chkIsDialogue').prop('checked'),
+                'ResolutionDecisionNo': $('#txtResolutionDecisionNo').val(),
+                'SResolutionDecisionDate': $('#txtResolutionDecisionDate').val(),
+                'IsComplaintCorrect': $('#chkIsComplaintCorrect').prop('checked'),
+                'IsComplaintIncorrect': $('#chkIsComplaintIncorrect').prop('checked'),
+                'IsComplaintPartiallyCorrect': $('#chkIsComplaintPartiallyCorrect').prop('checked'),
+                'ProcessingStatusNote': $('#txtProcessingStatusNote').val()
+            };
 
-            }
             Utils.Loading();
             $.ajax({
                 type: 'POST',
                 url: "@Url.Action("SaveData")",
                 data: addAntiForgeryToken(param),
-            async: true,
-            success: function (data) {
-                Utils.UnLoading();
-                if (data.ResponseCode >= 0) {
-                    $("html,body").animate({ scrollTop: $('#TemplateContent').offset().top }, 'fast');
-                    $(".alert-success").show("slow");
-                    $(".alert-danger").hide("slow");
-                    setTimeout(function () { $(".alert-success").hide("slow"); GotoListpage(); }, 500);
-
-                }
-                else {
-                    $("html,body").animate({ scrollTop: $('#TemplateContent').offset().top }, 'fast');
-                    $("#ErrorMessage").text(data.Description);
+                async: true,
+                success: function (data) {
+                    Utils.UnLoading();
+                    if (data.ResponseCode >= 0) {
+                        $("html,body").animate({ scrollTop: 0 }, 'fast');
+                        $(".alert-success").show("slow");
+                        $(".alert-danger").hide("slow");
+                        setTimeout(function () {
+                            $(".alert-success").hide("slow");
+                            GotoListpage();
+                        }, 500);
+                    }
+                    else {
+                        $("html,body").animate({ scrollTop: 0 }, 'fast');
+                        $("#Errordiv center").text(data.Description || 'Có lỗi xảy ra');
+                        $(".alert-danger").show("slow");
+                        $(".alert-success").hide("slow");
+                        setTimeout(function () {
+                            $(".alert-danger").hide("slow");
+                        }, 2000);
+                    }
+                },
+                error: function () {
+                    Utils.UnLoading();
+                    $("html,body").animate({ scrollTop: 0 }, 'fast');
+                    $("#Errordiv center").text('Không thể lưu dữ liệu.');
                     $(".alert-danger").show("slow");
-                    $(".alert-success").hide("slow");
-                    setTimeout(function () { $(".alert-danger").hide("slow"); }, 2000);
                 }
-            }
-        });
-    };
+            });
+        }
     });
 </script>
+
 <style>
     .input-icon {
         position: relative;
         width: 100%;
+    }
+
+    .tab-content {
+        padding: 0 15px;
+    }
+
+    .tab-title {
+        margin-bottom: 20px;
+        font-weight: bold;
+        color: #31708f;
+    }
+
+    .checkbox {
+        margin-top: 7px;
+    }
+
+    textarea.form-control {
+        resize: vertical;
     }
 </style>

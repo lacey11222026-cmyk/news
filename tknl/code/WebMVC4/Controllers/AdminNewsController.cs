@@ -69,9 +69,9 @@ namespace WebMVC4.Controllers
         {
             var lstCate = _staticCategoryByUserList;
             lstCate.Insert(0, new CATEGORY_FULL { Id = 0, Name = "Trang chủ" });
-            lstCate.Insert(1, new CATEGORY_FULL { Id = -1, Name = "IGIP" });
-            lstCate.Insert(2, new CATEGORY_FULL { Id = OtherPage.EngPage, Name = "Trang chủ Tiếng Anh" });
-            lstCate.Insert(3, new CATEGORY_FULL { Id = 10002, Name = "IGIP Tiếng Anh" });
+            //lstCate.Insert(1, new CATEGORY_FULL { Id = -1, Name = "IGIP" });
+            lstCate.Insert(1, new CATEGORY_FULL { Id = OtherPage.EngPage, Name = "Trang chủ Tiếng Anh" });
+            //lstCate.Insert(3, new CATEGORY_FULL { Id = 10002, Name = "IGIP Tiếng Anh" });
             ViewBag.CategoryList = lstCate;
             if (categoryId == 0)
             {

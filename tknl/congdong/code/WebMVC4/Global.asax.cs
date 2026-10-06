@@ -68,10 +68,10 @@ namespace WebMVC4
 
             if (!Request.Url.Host.Contains("cms"))
             {
-                if (Convert.ToInt32(Application["TotalVisited"]) % 5 == 0)
+                if (Convert.ToInt32(Application["TotalVisited"]) % 3 == 0)
                 {
                     Application["TotalVisited"] = Convert.ToInt32(Application["TotalVisited"]);
-                    if (Convert.ToInt32(Application["TotalVisited"]) > 10000)
+                    if (Convert.ToInt32(Application["TotalVisited"]) > 1000)
                     {
                         WriteTotalVisited();
                     }
