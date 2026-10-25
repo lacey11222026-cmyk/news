@@ -1,0 +1,107 @@
+﻿@using DATA.ContentDB
+@using Card.CMS.Helper
+@model List<VanThu>
+@{ var currentGroupId = ViewBag.currentGroupId; var canViewAll = ViewBag.canViewAll; var total = (int)(ViewBag.TotalRecord ?? 0); var page = (int)(ViewBag.CurrentPage ?? 1); var size = (int)(ViewBag.PageSize ?? 50); }
+<table class="table table-bordered table-striped table-hover" style="min-width:1050px">
+    <thead>
+        <tr>
+            <th>STT</th>
+            <th>Mã đơn</th>
+            @if (canViewAll)
+            {
+                <th>Đơn vị</th>
+}
+            <th>Ngày báo cáo</th>
+            <th>Ngày CV đến</th>
+            <th>Số CV đến</th>
+            <th>Nguồn tiếp nhận</th>
+            <th>Loại đơn</th>
+            <th>Bước</th>
+            <th>Trạng thái</th>
+            <th>Thao tác</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model != null && Model.Count > 0)
+        {
+            for (var i = 0; i < Model.Count; i++)
+            {
+                var x = Model[i]; var done = x.IsCompleted == true; var canOpen = x.GroupId.HasValue && x.GroupId.Value == currentGroupId; var step = Math.Max(1, Math.Min(7, x.Step ?? 1)); var percent = done ? 100 : (int)Math.Round(step * 100.0 / 7);
+                <tr>
+                    <td>@((page-1)*size+i+1)</td>
+                    <td>@x.ReportCode</td>
+                    @if (canViewAll)
+                    {
+                        <td>@HtmlHelpers.GetGroupName(x.GroupId.GetValueOrDefault())</td>
+
+                    }
+                    <td>@(x.NgayBaoCao.HasValue ? x.NgayBaoCao.Value.ToString("dd/MM/yyyy") : "")</td>
+                    <td>@(x.NgayCvd.HasValue ? x.NgayCvd.Value.ToString("dd/MM/yyyy") : "")</td>
+                    <td>@x.SoCvDen</td>
+                    <td>@(x.NguonTiepNhan == 1 ? "Nhận trực tiếp" : x.NguonTiepNhan == 2 ? "Nơi khác chuyển đến" : "")</td>
+                    <td>@(x.LoaiDon == 1 ? "Tố cáo" : x.LoaiDon == 2 ? "Khiếu nại" : x.LoaiDon == 3 ? "Kiến nghị/phản ánh" : x.LoaiDon == 4 ? "Nhiều nội dung" : "Chưa phân loại")</td>
+                    <td style="min-width:130px">
+                        <div class="clearfix" style="margin-bottom:3px">
+                            <span class="pull-left" style="font-size:12px">Bước @step/7</span>
+                        </div>
+                        <div class="progress progress-xs" style="margin-bottom:0; background-color:#e5e9ed">
+                            <div class="progress-bar @(done ? "progress-bar-success" : "progress-bar-info")"
+                                 role="progressbar" aria-valuenow="@percent" aria-valuemin="0" aria-valuemax="100"
+                                 style="width:@(percent)%"></div>
+                        </div>
+                    </td>
+                    <td class="text-center" style="vertical-align:middle">
+                        @if (done)
+                        {
+                            <span class="label"
+                                  style="display:inline-block; padding:6px 10px;
+                     background-color:#dff0d8; color:#287a3e;
+                     font-size:12px; font-weight:normal;
+                     white-space:nowrap;">
+                                Đã kết thúc
+                            </span>
+                        }
+                        else
+                        {
+                            <span class="label"
+                                  style="display:inline-block; padding:6px 10px;
+                     background-color:#fcf8e3; color:#8a6d3b;
+                     font-size:12px; font-weight:normal;
+                     white-space:nowrap;">
+                                Đang nhập
+                            </span>
+                        }
+                    </td>
+
+                    <td class="text-center" style="vertical-align:middle">
+                        @if (canOpen)
+                        {
+                            <a class="btn btn-primary btn-xs"
+                               href="@Url.Action("GetDocumentDetail", new { id = x.Id })"
+                               style="min-width:105px;">
+                                <i class="fa @(done ? "fa-eye" : "fa-pencil-square-o")"></i>
+                                @(done ? "Xem" : "Tiếp tục nhập")
+                            </a>
+                        }
+                    </td>
+                </tr>
+            }
+        }
+        else
+        {
+            <tr><td colspan="@(canViewAll ? 11 : 10)" class="text-center">Không tìm thấy hồ sơ phù hợp.</td></tr>
+        }
+    </tbody>
+</table>
+<div class="row"><div class="col-sm-6">Tổng số: <strong>@total</strong> hồ sơ</div><div class="col-sm-6 text-right"><ul class="pagination" style="margin:0" id="docPager"></ul></div></div>
+<script>
+(function(){
+ var page=@page, size=@size, total=@total, pages=Math.ceil(total/size), $p=$('#docPager');
+ if(pages<=1)return;
+ function add(n,label,disabled,active){var li=$('<li/>').toggleClass('disabled',disabled).toggleClass('active',active);var a=$('<a href="javascript:;"/>').text(label);if(!disabled&&!active)a.on('click',function(){window.BindDataRequest(n);});li.append(a);$p.append(li);}
+ add(page-1,'«',page<=1,false);
+ var start=Math.max(1,page-2),end=Math.min(pages,start+4);start=Math.max(1,end-4);
+ for(var i=start;i<=end;i++)add(i,''+i,false,i===page);
+ add(page+1,'»',page>=pages,false);
+})();
+</script>

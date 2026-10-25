@@ -36,13 +36,16 @@ namespace WebMVC4.Controllers
 
         public ActionResult Index()
         {
-
+            var fromDate = new DateTime(DateTime.Now.Year, 1, 1);
+            var toDate = DateTime.Now;
+            ViewBag.fromDate = fromDate;
+            ViewBag.toDate = toDate;
 
             return View();
         }
        
         //Đơn tố cáo
-        public ActionResult ListDocument(string title, int? currentPage, int? pageSize, int? group)
+        public ActionResult ListDocument(string title, int? currentPage, int? pageSize, int? group, string fromDate, string endDate)
         {
 
             string Title = string.IsNullOrEmpty(title) ? string.Empty : title;
@@ -66,7 +69,7 @@ namespace WebMVC4.Controllers
                 ViewBag.TotalRecord = 0;
             }
 
-
+            ViewBag.canViewAll = CurrentFullUser.Group == 13;
 
             ViewBag.PageSize = RecordPerPage;
             ViewBag.CurrentPage = CurrPage;

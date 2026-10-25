@@ -73,11 +73,15 @@
                                     <div class="col-md-12">
                                         @foreach (string role in Model)
                                         {
-                                            <div class="col-md-4 data" style="padding-left:0px;">
-                                                <input type="checkbox" value="@role" name="chkRole" class="chkRole" />  @HtmlHelpers.GetRoleName(role)
+                                            if (role.ToLower() != "comment")
+                                            {
+                                                <div class="col-md-4 data" style="padding-left:0px;">
+                                                    <input type="checkbox" value="@role" name="chkRole" class="chkRole" />  @HtmlHelpers.GetRoleName(role)
 
-                                            </div>
-                                       
+                                                </div>
+                                            }
+
+
                                         }
                                     </div>
 

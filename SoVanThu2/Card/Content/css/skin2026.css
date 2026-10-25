@@ -1,0 +1,358 @@
+/* =========================================================
+   PAYMENT EDGE FULL FINAL
+   clean - bright - no radius - fintech style
+   ========================================================= */
+
+/* ===== RESET ===== */
+*,
+.box,
+.small-box,
+.info-box,
+.btn,
+.form-control,
+.navbar,
+.main-header .logo,
+.dropdown-menu {
+    border-radius: 0 !important;
+}
+
+/* ===== BODY ===== */
+html, body,
+.wrapper,
+.content-wrapper {
+    background: #f8fcff !important;
+    color: #16313f;
+}
+
+/* ===== HEADER ===== */
+.skin-blue .main-header .navbar {
+    background: linear-gradient(90deg, #00c6a7, #0aa1dd);
+    border: none;
+}
+
+.skin-blue .main-header .logo {
+    background: linear-gradient(90deg, #00bfa5, #009fd4);
+    color: #fff;
+    font-weight: 700;
+}
+
+/* ===== SIDEBAR ===== */
+.skin-blue .main-sidebar {
+    background: #1f3f4d;
+}
+
+.skin-blue .sidebar-menu > li > a {
+    color: #dff6fb;
+    border-left: 3px solid transparent;
+}
+
+.skin-blue .sidebar-menu > li > a:hover {
+    background: rgba(0,198,167,0.2);
+    color: #fff;
+}
+
+.skin-blue .sidebar-menu > li.active > a {
+    background: linear-gradient(90deg, #00c6a7, #0aa1dd);
+    color: #fff;
+    font-weight: 600;
+}
+
+/* ===== CONTENT HEADER ===== */
+.content-header {
+    background: #ffffff !important;
+    border-bottom: 1px solid #eef6fa;
+}
+
+/* ===== BOX ===== */
+.box {
+    background: #ffffff !important;
+    border: 1px solid #e6f2f6;
+    border-top: 3px solid #0aa1dd;
+    box-shadow: 0 2px 6px rgba(0, 120, 160, 0.06);
+}
+
+.box-header {
+    background: #ffffff !important;
+    border-bottom: 1px solid #eef6fa;
+}
+
+.box-footer {
+    background: #ffffff !important;
+    border-top: 1px solid #eef6fa;
+}
+
+/* =========================================================
+   DASHBOARD CARD (SMALL BOX)
+   ========================================================= */
+
+.small-box {
+    background: linear-gradient(135deg, #ffffff, #f4fbff) !important;
+    border: 1px solid #e3f2f8;
+    box-shadow: 0 4px 12px rgba(0, 150, 200, 0.08);
+    transition: all 0.2s ease;
+}
+
+.small-box:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(0, 150, 200, 0.12);
+}
+
+.small-box h3 {
+    font-size: 30px;
+    font-weight: 700;
+    color: #0aa1dd;
+}
+
+.small-box p {
+    color: #5f7d8a;
+}
+
+.small-box .icon {
+    color: rgba(0, 160, 200, 0.12);
+    font-size: 60px;
+}
+
+.small-box > .small-box-footer {
+    background: rgba(0, 160, 200, 0.04);
+    border-top: 1px solid #e6f2f6;
+    color: #0aa1dd !important;
+    font-weight: 600;
+}
+
+/* màu từng card */
+.card-blue { border-top: 3px solid #0aa1dd; }
+.card-green { border-top: 3px solid #20c997; }
+.card-yellow { border-top: 3px solid #f0ad4e; }
+.card-red { border-top: 3px solid #e35d6a; }
+
+.card-green h3 { color: #20c997; }
+.card-yellow h3 { color: #f0ad4e; }
+.card-red h3 { color: #e35d6a; }
+
+/* =========================================================
+   BUTTON
+   ========================================================= */
+.btn-primary {
+    background: linear-gradient(90deg, #00c6a7, #0aa1dd);
+    border: none;
+    color: #fff;
+}
+
+.btn-success {
+    background: #20c997;
+    border: none;
+}
+
+.btn-default {
+    background: #fff;
+    border: 1px solid #dceff5;
+}
+
+/* =========================================================
+   FORM
+   ========================================================= */
+.form-control {
+    background: #ffffff !important;
+    border: 1px solid #dceff5;
+}
+
+.form-control:focus {
+    border-color: #0aa1dd;
+    box-shadow: none;
+}
+
+/* =========================================================
+   TABLE TRANSACTION
+   ========================================================= */
+
+.table-transaction {
+    width: 100%;
+    background: #ffffff;
+    border: 1px solid #e6f2f6;
+}
+
+.table-transaction thead th {
+    background: #f4fbff;
+    color: #2a6073;
+    font-weight: 700;
+    padding: 12px;
+    border-bottom: 1px solid #dfeff5;
+}
+
+.table-transaction tbody td {
+    padding: 11px;
+    border-bottom: 1px solid #eef7fa;
+}
+
+.table-transaction tbody tr:hover td {
+    background: #f7fcff;
+}
+
+/* amount */
+.tx-amount {
+    font-weight: 700;
+    font-size: 15px;
+    text-align: right;
+}
+
+.tx-amount.credit { color: #10a760; }
+.tx-amount.debit { color: #e05a67; }
+.tx-amount.neutral { color: #0b8dbc; }
+
+/* fee */
+.tx-fee {
+    text-align: right;
+    color: #7b8e98;
+}
+
+/* status */
+.status-badge {
+    padding: 6px 10px;
+    font-size: 12px;
+    font-weight: 700;
+}
+
+.status-success {
+    background: #ecfbf3;
+    color: #179b59;
+}
+
+.status-pending {
+    background: #fff8e8;
+    color: #c68a07;
+}
+
+.status-failed {
+    background: #fff1f3;
+    color: #d94f5d;
+}
+
+/* type */
+.tx-type {
+    padding: 4px 8px;
+    font-size: 12px;
+    font-weight: 700;
+    background: #eef8ff;
+    color: #0a7fa8;
+}
+
+.tx-type.withdraw {
+    background: #fff3f4;
+    color: #d94f5d;
+}
+
+.tx-type.deposit {
+    background: #eefbf4;
+    color: #179b59;
+}
+
+/* ===== FOOTER ===== */
+.main-footer {
+    background: #ffffff !important;
+    border-top: 1px solid #e6f2f6;
+}
+
+/* ===== LOGIN ===== */
+.login-page {
+    background: linear-gradient(180deg, #e9fbff, #f8fdff);
+}
+
+.login-box-body {
+    background: #ffffff !important;
+    border: 1px solid #e6f2f6;
+    box-shadow: 0 4px 12px rgba(0, 120, 160, 0.08);
+}
+
+/* =========================================================
+   OVERRIDE ALL SMALL-BOX COLORS (FINTECH STYLE)
+   ========================================================= */
+
+/* base chung */
+.small-box[class*="bg-"] {
+    background: #ffffff !important;
+    border: 1px solid #e6f2f6;
+    box-shadow: 0 4px 12px rgba(0, 150, 200, 0.08);
+    color: #1f3440 !important;
+    position: relative;
+    overflow: hidden;
+}
+
+/* bỏ nền đậm cũ */
+.small-box[class*="bg-"] .icon {
+    opacity: 1 !important;
+}
+
+/* thanh accent bên trái */
+.small-box[class*="bg-"]::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 4px;
+    height: 100%;
+}
+
+/* số lớn */
+.small-box[class*="bg-"] h3 {
+    font-weight: 700;
+}
+
+/* footer */
+.small-box[class*="bg-"] > .small-box-footer {
+    background: #f7fcff;
+    border-top: 1px solid #e6f2f6;
+    font-weight: 600;
+}
+
+/* =========================================================
+   COLOR VARIANTS
+   ========================================================= */
+
+/* 🔵 BLUE (bg-aqua) */
+.small-box.bg-aqua::before { background: #0aa1dd; }
+.small-box.bg-aqua h3 { color: #0aa1dd; }
+.small-box.bg-aqua .icon { color: rgba(10,161,221,0.15); }
+.small-box.bg-aqua > .small-box-footer { color: #0aa1dd !important; }
+
+/* 🟢 GREEN */
+.small-box.bg-green::before { background: #20c997; }
+.small-box.bg-green h3 { color: #20c997; }
+.small-box.bg-green .icon { color: rgba(32,201,151,0.15); }
+.small-box.bg-green > .small-box-footer { color: #20c997 !important; }
+
+/* 🟡 YELLOW */
+.small-box.bg-yellow::before { background: #f0ad4e; }
+.small-box.bg-yellow h3 { color: #f0ad4e; }
+.small-box.bg-yellow .icon { color: rgba(240,173,78,0.15); }
+.small-box.bg-yellow > .small-box-footer { color: #f0ad4e !important; }
+
+/* 🔴 RED */
+.small-box.bg-red::before { background: #e35d6a; }
+.small-box.bg-red h3 { color: #e35d6a; }
+.small-box.bg-red .icon { color: rgba(227,93,106,0.15); }
+.small-box.bg-red > .small-box-footer { color: #e35d6a !important; }
+
+/* 🔵 LIGHT BLUE */
+.small-box.bg-light-blue::before { background: #3c8dbc; }
+.small-box.bg-light-blue h3 { color: #3c8dbc; }
+.small-box.bg-light-blue .icon { color: rgba(60,141,188,0.15); }
+
+/* 🟢 TEAL */
+.small-box.bg-teal::before { background: #20c997; }
+.small-box.bg-teal h3 { color: #20c997; }
+
+/* 🟣 PURPLE */
+.small-box.bg-purple::before { background: #6f42c1; }
+.small-box.bg-purple h3 { color: #6f42c1; }
+
+/* ⚫ GRAY */
+.small-box.bg-gray::before { background: #6c757d; }
+.small-box.bg-gray h3 { color: #6c757d; }
+
+/* =========================================================
+   HOVER EFFECT (rất đẹp)
+   ========================================================= */
+.small-box[class*="bg-"]:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(0, 150, 200, 0.12);
+}

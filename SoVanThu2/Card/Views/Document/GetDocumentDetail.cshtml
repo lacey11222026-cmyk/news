@@ -1,0 +1,807 @@
+﻿@model DATA.ContentDB.VanThu
+@using System
+
+<style>
+    .wizard-nav {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 7px;
+        margin-bottom: 20px
+    }
+
+        .wizard-nav .btn {
+            margin-bottom: 4px
+        }
+
+    .wizard-pane {
+        display: none
+    }
+
+        .wizard-pane.active {
+            display: block
+        }
+
+    .wizard-actions {
+        margin-top: 20px;
+        border-top: 1px solid #ddd;
+        padding-top: 15px
+    }
+
+    .wizard-field {
+        margin-bottom: 14px
+    }
+
+        .wizard-field label {
+            display: block;
+            font-weight: 600
+        }
+
+        .wizard-field .form-control {
+            max-width: 100%
+        }
+
+    .wizard-step-description {
+        margin: 8px 0 0;
+    }
+
+    .wizard-pane .box {
+        margin-bottom: 0;
+    }
+
+    .wizard-pane .box-body {
+        padding: 18px 15px 5px;
+    }
+
+    .wizard-actions {
+        margin-top: 15px;
+    }
+
+    .vt-required-star {
+        color: #dd4b39;
+        font-weight: bold;
+        margin-left: 3px;
+    }
+
+    .vt-related-grid {
+        margin-top: 8px;
+    }
+
+    .vt-related-item {
+        min-height: 32px;
+        margin-bottom: 4px;
+    }
+
+        .vt-related-item label {
+            display: inline-block;
+            font-weight: normal;
+            cursor: pointer;
+            line-height: 1.5;
+        }
+
+        .vt-related-item input {
+            vertical-align: middle;
+            margin: 0 5px 2px 0;
+        }
+
+    .vt-related-other {
+        margin-top: 8px;
+    }
+
+    .vt-error {
+        border-color: #dd4b39 !important;
+    }
+
+    .vt-error-message {
+        color: #dd4b39;
+        font-size: 12px;
+        margin-top: 4px;
+    }
+
+    #vtValidationSummary {
+        display: none;
+        margin-top: 12px;
+    }
+
+    .wizard-locked {
+        opacity: .7
+    }
+</style>
+<div class="container-fluid">
+    <h3>Quản lý đơn thư — 7 bước</h3><div class="alert alert-info">Lưu nháp và Tiếp tục đều yêu cầu nhập đủ các trường bắt buộc của bước hiện tại. Hồ sơ kết thúc sẽ không cho sửa.</div>
+    <form id="vanThuWizard" method="post">
+        @Html.AntiForgeryToken()
+        <input type="hidden" id="Id" name="Id" value="@Model.Id" /><input type="hidden" id="Step" name="Step" value="@(Model.Step ?? 1)" /><input type="hidden" id="IsCompleted" name="IsCompleted" value="@(Model.IsCompleted == true ? "true" : "false")" />
+
+        <div class="wizard-nav">
+            <button type="button" class="btn btn-default wizard-step-button" data-step="1">1. Thông tin đơn</button>
+            <button type="button" class="btn btn-default wizard-step-button" data-step="2">2. Điều kiện xử lý</button>
+            <button type="button" class="btn btn-default wizard-step-button" data-step="3">3. Thẩm quyền</button>
+            <button type="button" class="btn btn-default wizard-step-button" data-step="4">4. Phân loại đơn</button>
+            <button type="button" class="btn btn-default wizard-step-button" data-step="5">5. Kết quả xử lý chính</button>
+            <button type="button" class="btn btn-default wizard-step-button" data-step="6">6. Kết quả giải quyết</button>
+            <button type="button" class="btn btn-default wizard-step-button" data-step="7">7. Theo dõi, đôn đốc</button>
+        </div>
+        <section class="wizard-pane" data-pane="1">
+            <div class="box box-primary">
+                <div class="box-header with-border">
+                    <h3 class="box-title">Bước 1 — Thông tin đơn</h3>
+                    <p class="text-muted wizard-step-description">Thông tin tiếp nhận, người gửi, nội dung và lĩnh vực</p>
+                </div>
+                <div class="box-body">
+                    <div class="row">
+                        <div class="col-md-6 wizard-field">
+                            <label for="field_NgayBaoCao">Ngày báo cáo <span class="vt-required-star" aria-hidden="true">*</span></label>
+                            <input class="form-control wizard-date" id="field_NgayBaoCao" name="NgayBaoCao" type="text" placeholder="dd/MM/yyyy" value="@(Model.NgayBaoCao.HasValue ? Model.NgayBaoCao.Value.ToString("dd/MM/yyyy") : "")" />
+                        </div>
+                        <div class="col-md-6 wizard-field">
+                            <label for="field_NgayCvd">Ngày công văn đến <span class="vt-required-star" aria-hidden="true">*</span></label>
+                            <input class="form-control wizard-date" id="field_NgayCvd" name="NgayCvd" type="text" placeholder="dd/MM/yyyy" value="@(Model.NgayCvd.HasValue ? Model.NgayCvd.Value.ToString("dd/MM/yyyy") : "")" />
+                        </div>
+                        <div class="col-md-6 wizard-field">
+                            <label for="field_SoCvDen">Số công văn đến <span class="vt-required-star" aria-hidden="true">*</span></label>
+                            <input class="form-control" id="field_SoCvDen" name="SoCvDen" value="@Model.SoCvDen" />
+                        </div>
+                        <div class="col-md-6 wizard-field">
+                            <label for="field_NguonTiepNhan">Nguồn tiếp nhận <span class="vt-required-star" aria-hidden="true">*</span></label>
+                            <select class="form-control" id="field_NguonTiepNhan" name="NguonTiepNhan">
+                                <option value="">-- Chọn nguồn tiếp nhận --</option>
+                                <option value="1" @(Model.NguonTiepNhan == 1 ? "selected" : "")>1 - Nhận trực tiếp từ người viết đơn</option>
+                                <option value="2" @(Model.NguonTiepNhan == 2 ? "selected" : "")>2 - Nơi khác chuyển đến</option>
+                            </select>
+                        </div>
+                        <div class="col-md-6 wizard-field vt-conditional" data-condition="transfer" style="@(Model.NguonTiepNhan == 2 ? "" : "display:none;")">
+                            <label for="field_TransferSource">Nơi chuyển đơn <span class="vt-required-star" aria-hidden="true">*</span></label>
+                            <input class="form-control" id="field_TransferSource" name="TransferSource" value="@Model.TransferSource" />
+                        </div>
+                        <div class="col-md-6 wizard-field vt-conditional" data-condition="transfer" style="@(Model.NguonTiepNhan == 2 ? "" : "display:none;")">
+                            <label for="field_TransferSourceNo">Số phiếu chuyển đơn <span class="vt-required-star" aria-hidden="true">*</span></label>
+                            <input class="form-control" id="field_TransferSourceNo" name="TransferSourceNo" value="@Model.TransferSourceNo" />
+                        </div>
+                        <div class="col-md-6 wizard-field vt-conditional" data-condition="transfer" style="@(Model.NguonTiepNhan == 2 ? "" : "display:none;")">
+                            <label for="field_TransferSourceDate">Ngày phiếu chuyển đơn</label>
+                            <input class="form-control wizard-date" id="field_TransferSourceDate" name="TransferSourceDate" type="text" placeholder="dd/MM/yyyy" value="@(Model.TransferSourceDate.HasValue ? Model.TransferSourceDate.Value.ToString("dd/MM/yyyy") : "")" />
+                        </div>
+                        <div class="col-md-6 wizard-field">
+                            <label for="field_SoKyHieuVb">Số và ký hiệu văn bản</label>
+                            <input class="form-control" id="field_SoKyHieuVb" name="SoKyHieuVb" value="@Model.SoKyHieuVb" />
+                        </div>
+                        <div class="col-md-6 wizard-field">
+                            <label for="field_CbDuocGiao">Cán bộ được giao giải quyết</label>
+                            <input class="form-control" id="field_CbDuocGiao" name="CbDuocGiao" value="@Model.CbDuocGiao" />
+                        </div>
+                        <div class="col-md-6 wizard-field">
+                            <label for="field_TenNguoiGui">Tên người gửi đơn</label>
+                            <input class="form-control" id="field_TenNguoiGui" name="TenNguoiGui" value="@Model.TenNguoiGui" />
+                        </div>
+                        <div class="col-md-6 wizard-field">
+                            <label for="field_Mst">Mã số thuế</label>
+                            <input class="form-control" id="field_Mst" name="Mst" value="@Model.Mst" />
+                        </div>
+                        <div class="col-md-6 wizard-field">
+                            <label for="field_AffectedUnits">Phòng/Thuế cơ sở theo địa bàn bị KN/TC/PAKN (danh sách ID)</label>
+                            <input class="form-control" id="field_AffectedUnits" name="AffectedUnits" value="@Model.AffectedUnits" />
+                        </div>
+                        <div class="col-md-6 wizard-field">
+                            <label for="field_NoiDungDon">Nội dung đơn <span class="vt-required-star" aria-hidden="true">*</span></label>
+                            <textarea class="form-control" id="field_NoiDungDon" name="NoiDungDon" rows="3">@Model.NoiDungDon</textarea>
+                        </div>
+                        <div class="col-md-6 wizard-field">
+                            <label for="field_DonDaCoBanAn">Đơn đã có bản án của Tòa</label>
+                            <label style="font-weight:normal"><input type="checkbox" id="field_DonDaCoBanAn" name="DonDaCoBanAn" value="true" @(Model.DonDaCoBanAn == true ? "checked" : "") /> Có</label>
+                        </div>
+                        <div class="col-xs-12 wizard-field vt-related-fields">
+                            <label>Đặc điểm/lĩnh vực liên quan <span class="vt-required-star" aria-hidden="true">*</span></label>
+                            <div class="row vt-related-grid">
+                                <div class="col-xs-6 col-sm-4 col-md-3 vt-related-item">
+                                    <label for="field_RelatedField1"><input type="checkbox" id="field_RelatedField1" name="RelatedField1" value="true" @(Model.RelatedField1 == true ? "checked" : "") /> 1. Chế độ/chính sách</label>
+                                </div>
+                                <div class="col-xs-6 col-sm-4 col-md-3 vt-related-item">
+                                    <label for="field_RelatedField2"><input type="checkbox" id="field_RelatedField2" name="RelatedField2" value="true" @(Model.RelatedField2 == true ? "checked" : "") /> 2. QĐ hành chính của CQT</label>
+                                </div>
+                                <div class="col-xs-6 col-sm-4 col-md-3 vt-related-item">
+                                    <label for="field_RelatedField3"><input type="checkbox" id="field_RelatedField3" name="RelatedField3" value="true" @(Model.RelatedField3 == true ? "checked" : "") /> 3. Hành vi HC của CBCC</label>
+                                </div>
+                                <div class="col-xs-6 col-sm-4 col-md-3 vt-related-item">
+                                    <label for="field_RelatedField4"><input type="checkbox" id="field_RelatedField4" name="RelatedField4" value="true" @(Model.RelatedField4 == true ? "checked" : "") /> 4. Tham nhũng.</label>
+                                </div>
+                                <div class="col-xs-6 col-sm-4 col-md-3 vt-related-item">
+                                    <label for="field_RelatedField5"><input type="checkbox" id="field_RelatedField5" name="RelatedField5" value="true" @(Model.RelatedField5 == true ? "checked" : "") /> 5. Tư pháp.</label>
+                                </div>
+                                <div class="col-xs-6 col-sm-4 col-md-3 vt-related-item">
+                                    <label for="field_RelatedField6"><input type="checkbox" id="field_RelatedField6" name="RelatedField6" value="true" @(Model.RelatedField6 == true ? "checked" : "") /> 6. Trốn thuế.</label>
+                                </div>
+                                <div class="col-xs-6 col-sm-4 col-md-3 vt-related-item">
+                                    <label for="field_RelatedField7"><input type="checkbox" id="field_RelatedField7" name="RelatedField7" value="true" @(Model.RelatedField7 == true ? "checked" : "") /> 7. Đảng/đoàn thể;</label>
+                                </div>
+                                <div class="col-xs-6 col-sm-4 col-md-3 vt-related-item">
+                                    <label for="field_RelatedField8"><input type="checkbox" id="field_RelatedField8" name="RelatedField8" value="true" @(Model.RelatedField8 == true ? "checked" : "") /> 8. Kiểm tra Thuế;</label>
+                                </div>
+                                <div class="col-xs-6 col-sm-4 col-md-3 vt-related-item">
+                                    <label for="field_RelatedField9"><input type="checkbox" id="field_RelatedField9" name="RelatedField9" value="true" @(Model.RelatedField9 == true ? "checked" : "") /> 9. Hoàn thuế</label>
+                                </div>
+                                <div class="col-xs-6 col-sm-4 col-md-3 vt-related-item">
+                                    <label for="field_RelatedField10"><input type="checkbox" id="field_RelatedField10" name="RelatedField10" value="true" @(Model.RelatedField10 == true ? "checked" : "") /> 10. Nợ thuế</label>
+                                </div>
+                                <div class="col-xs-6 col-sm-4 col-md-3 vt-related-item">
+                                    <label for="field_RelatedField11"><input type="checkbox" id="field_RelatedField11" name="RelatedField11" value="true" @(Model.RelatedField11 == true ? "checked" : "") /> 11. Đất đai.</label>
+                                </div>
+                                <div class="col-xs-6 col-sm-4 col-md-3 vt-related-item">
+                                    <label for="field_RelatedField12"><input type="checkbox" id="field_RelatedField12" name="RelatedField12" value="true" @(Model.RelatedField12 == true ? "checked" : "") /> 12. TNDN</label>
+                                </div>
+                                <div class="col-xs-6 col-sm-4 col-md-3 vt-related-item">
+                                    <label for="field_RelatedField13"><input type="checkbox" id="field_RelatedField13" name="RelatedField13" value="true" @(Model.RelatedField13 == true ? "checked" : "") /> 13. GTGT</label>
+                                </div>
+                                <div class="col-xs-6 col-sm-4 col-md-3 vt-related-item">
+                                    <label for="field_RelatedField14"><input type="checkbox" id="field_RelatedField14" name="RelatedField14" value="true" @(Model.RelatedField14 == true ? "checked" : "") /> 14. TNCN</label>
+                                </div>
+                                <div class="col-xs-6 col-sm-4 col-md-3 vt-related-item">
+                                    <label for="field_RelatedField15"><input type="checkbox" id="field_RelatedField15" name="RelatedField15" value="true" @(Model.RelatedField15 == true ? "checked" : "") /> 15. Hóa đơn</label>
+                                </div>
+                                <div class="col-xs-6 col-sm-4 col-md-3 vt-related-item">
+                                    <label for="field_RelatedField16"><input type="checkbox" id="field_RelatedField16" name="RelatedField16" value="true" @(Model.RelatedField16 == true ? "checked" : "") /> 16. Miễn giảm</label>
+                                </div>
+                                <div class="col-xs-6 col-sm-4 col-md-3 vt-related-item">
+                                    <label for="field_RelatedField17"><input type="checkbox" id="field_RelatedField17" name="RelatedField17" value="true" @(Model.RelatedField17 == true ? "checked" : "") /> 17. Khai khống TNCN</label>
+                                </div>
+                                <div class="col-xs-6 col-sm-4 col-md-3 vt-related-item">
+                                    <label for="field_RelatedField18"><input type="checkbox" id="field_RelatedField18" name="RelatedField18" value="true" @(Model.RelatedField18 == true ? "checked" : "") /> 18. Mạo danh thành lập DN</label>
+                                </div>
+                                <div class="col-xs-6 col-sm-4 col-md-3 vt-related-item">
+                                    <label for="field_RelatedField19"><input type="checkbox" id="field_RelatedField19" name="RelatedField19" value="true" @(Model.RelatedField19 == true ? "checked" : "") /> 19. Khác.</label>
+                                </div>
+                            </div>
+                            <div class="vt-error-message" id="vtRelatedError" style="display:none"></div>
+                        </div>
+                        <div class="col-xs-12 wizard-field vt-related-other" id="vtRelatedOther" style="display:none;">
+                            <label for="field_RelatedFieldOtherText">Lĩnh vực khác (ghi rõ) <span class="vt-required-star" aria-hidden="true">*</span></label>
+                            <input class="form-control" id="field_RelatedFieldOtherText" name="RelatedFieldOtherText" value="@Model.RelatedFieldOtherText" />
+                        </div>
+                        <div class="col-md-6 wizard-field">
+                            <label for="field_CccdNguoiGuiDon">CCCD</label>
+                            <input class="form-control" id="field_CccdNguoiGuiDon" name="CccdNguoiGuiDon" value="@Model.CccdNguoiGuiDon" />
+                        </div>
+                        <div class="col-md-6 wizard-field">
+                            <label for="field_NgayDonThu">Ngày ghi trên đơn</label>
+                            <input class="form-control wizard-date" id="field_NgayDonThu" name="NgayDonThu" type="text" placeholder="dd/MM/yyyy" value="@(Model.NgayDonThu.HasValue ? Model.NgayDonThu.Value.ToString("dd/MM/yyyy") : "")" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="wizard-pane" data-pane="2">
+            <div class="box box-primary">
+                <div class="box-header with-border">
+                    <h3 class="box-title">Bước 2 — Điều kiện xử lý</h3>
+                    <p class="text-muted wizard-step-description">Đánh giá điều kiện xử lý, hình thức của đơn</p>
+                </div>
+                <div class="box-body">
+                    <div class="row">
+                        <div class="col-md-6 wizard-field">
+                            <label for="field_DieuKienXuLy">Kết quả đánh giá điều kiện <span class="vt-required-star" aria-hidden="true">*</span></label>
+                            <select class="form-control" id="field_DieuKienXuLy" name="DieuKienXuLy"><option value="">-- Chọn --</option><option value="1" @(Model.DieuKienXuLy == 1 ? "selected" : "")>Đủ điều kiện (DU)</option><option value="2" @(Model.DieuKienXuLy == 2 ? "selected" : "")>Không đủ điều kiện (KDU)</option><option value="3" @(Model.DieuKienXuLy == 3 ? "selected" : "")>Đơn trùng đã giải quyết (DONTRUNG)</option></select>
+                        </div>
+                        <div class="col-md-6 wizard-field">
+                            <label for="field_Kdk01">KĐK-01 — Không đáp ứng yêu cầu tại điểm a Khoản 2 TT05</label>
+                            <label style="font-weight:normal"><input type="checkbox" id="field_Kdk01" name="Kdk01" value="true" @(Model.Kdk01 == true ? "checked" : "") /> Có</label>
+                        </div>
+                        <div class="col-md-6 wizard-field">
+                            <label for="field_Kdk02">KĐK-02 — Gửi nhiều cơ quan</label>
+                            <label style="font-weight:normal"><input type="checkbox" id="field_Kdk02" name="Kdk02" value="true" @(Model.Kdk02 == true ? "checked" : "") /> Có</label>
+                        </div>
+                        <div class="col-md-6 wizard-field">
+                            <label for="field_Kdk03">KĐK-03 — Đơn Khiếu nại đã được hướng dẫn</label>
+                            <label style="font-weight:normal"><input type="checkbox" id="field_Kdk03" name="Kdk03" value="true" @(Model.Kdk03 == true ? "checked" : "") /> Có</label>
+                        </div>
+                        <div class="col-md-6 wizard-field">
+                            <label for="field_Kdk04">KĐK-04 — Nội dung chống đối/xúc phạm</label>
+                            <label style="font-weight:normal"><input type="checkbox" id="field_Kdk04" name="Kdk04" value="true" @(Model.Kdk04 == true ? "checked" : "") /> Có</label>
+                        </div>
+                        <div class="col-md-6 wizard-field">
+                            <label for="field_Kdk05">KĐK-05 — Đơn không thể đọc</label>
+                            <label style="font-weight:normal"><input type="checkbox" id="field_Kdk05" name="Kdk05" value="true" @(Model.Kdk05 == true ? "checked" : "") /> Có</label>
+                        </div>
+                        <div class="col-md-6 wizard-field">
+                            <label for="field_GhiChuDieuKien">Ghi chú điều kiện</label>
+                            <textarea class="form-control" id="field_GhiChuDieuKien" name="GhiChuDieuKien" rows="3">@Model.GhiChuDieuKien</textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="wizard-pane" data-pane="3">
+            <div class="box box-primary">
+                <div class="box-header with-border">
+                    <h3 class="box-title">Bước 3 — Thẩm quyền</h3>
+                    <p class="text-muted wizard-step-description">Xác định thuộc hoặc không thuộc thẩm quyền</p>
+                </div>
+                <div class="box-body">
+                    <div class="row">
+                        <div class="col-md-6 wizard-field">
+                            <label for="field_ThamQuyenDon">Kết luận thẩm quyền đơn <span class="vt-required-star" aria-hidden="true">*</span></label>
+                            <select class="form-control" id="field_ThamQuyenDon" name="ThamQuyenDon"><option value="">-- Chọn --</option><option value="1" @(Model.ThamQuyenDon == 1 ? "selected" : "")>Thuộc thẩm quyền (TQ)</option><option value="2" @(Model.ThamQuyenDon == 2 ? "selected" : "")>Không thuộc thẩm quyền (KTQ)</option></select>
+                        </div>
+                        <div class="col-md-6 wizard-field">
+                            <label for="field_GhiChuThamQuyen">Ghi chú thẩm quyền</label>
+                            <textarea class="form-control" id="field_GhiChuThamQuyen" name="GhiChuThamQuyen" rows="3">@Model.GhiChuThamQuyen</textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="wizard-pane" data-pane="4">
+            <div class="box box-primary">
+                <div class="box-header with-border">
+                    <h3 class="box-title">Bước 4 — Phân loại đơn</h3>
+                    <p class="text-muted wizard-step-description">Chọn loại đơn theo đúng nội dung đơn.</p>
+                </div>
+                <div class="box-body">
+                    <div class="row">
+                        <div class="col-md-6 wizard-field">
+                            <label for="field_LoaiDon">Loại đơn chính <span class="vt-required-star" aria-hidden="true">*</span></label>
+                            <select class="form-control" id="field_LoaiDon" name="LoaiDon"><option value="">-- Chọn --</option><option value="1" @(Model.LoaiDon == 1 ? "selected" : "")>Tố cáo (TC)</option><option value="2" @(Model.LoaiDon == 2 ? "selected" : "")>Khiếu nại (KN)</option><option value="3" @(Model.LoaiDon == 3 ? "selected" : "")>Kiến nghị, phản ánh (KNPA)</option><option value="4" @(Model.LoaiDon == 4 ? "selected" : "")>Đơn nhiều nội dung (NND)</option></select>
+                        </div>
+                        <div class="col-md-6 wizard-field vt-conditional" data-condition="tc">
+                            <label for="field_PhanLoaiTc">Phân loại chi tiết tố cáo <span class="vt-required-star" aria-hidden="true">*</span></label>
+                            <select class="form-control" id="field_PhanLoaiTc" name="PhanLoaiTc"><option value="">-- Chọn --</option><option value="1" @(Model.PhanLoaiTc == 1 ? "selected" : "")>Tố cáo NNT</option><option value="2" @(Model.PhanLoaiTc == 2 ? "selected" : "")>Tố cáo CQT/CBT</option><option value="3" @(Model.PhanLoaiTc == 3 ? "selected" : "")>Tố cáo TC/CN khác</option></select>
+                        </div>
+                        <div class="col-md-6 wizard-field vt-conditional" data-condition="tc">
+                            <label for="field_LanTc">Lần tố cáo <span class="vt-required-star" aria-hidden="true">*</span></label>
+                            <select class="form-control" id="field_LanTc" name="LanTc"><option value="">-- Chọn --</option><option value="1" @(Model.LanTc == 1 ? "selected" : "")>Tố cáo lần đầu</option><option value="2" @(Model.LanTc == 2 ? "selected" : "")>Tố cáo tiếp</option></select>
+                        </div>
+                        <div class="col-md-6 wizard-field vt-conditional" data-condition="kn">
+                            <label for="field_UyQuyenKn">Ủy quyền khiếu nại</label>
+                            <label style="font-weight:normal"><input type="checkbox" id="field_UyQuyenKn" name="UyQuyenKn" value="true" @(Model.UyQuyenKn == true ? "checked" : "") /> Có</label>
+                        </div>
+                        <div class="col-md-6 wizard-field vt-conditional" data-condition="kn">
+                            <label for="field_LanKn">Lần khiếu nại <span class="vt-required-star" aria-hidden="true">*</span></label>
+                            <select class="form-control" id="field_LanKn" name="LanKn"><option value="">-- Chọn --</option><option value="1" @(Model.LanKn == 1 ? "selected" : "")>Khiếu nại lần đầu</option><option value="2" @(Model.LanKn == 2 ? "selected" : "")>Khiếu nại lần 2</option></select>
+                        </div>
+                        <div class="col-md-6 wizard-field vt-conditional" data-condition="type">
+                            <label for="field_LinhVuc02Xld">Lĩnh vực theo biểu 02/XLD của Cục Thuế</label>
+                            <select class="form-control" id="field_LinhVuc02Xld" name="LinhVuc02Xld"><option value="">-- Chọn --</option><option value="1" @(Model.LinhVuc02Xld == 1 ? "selected" : "")>Đất đai</option><option value="2" @(Model.LinhVuc02Xld == 2 ? "selected" : "")>Chế độ, chính sách</option><option value="3" @(Model.LinhVuc02Xld == 3 ? "selected" : "")>Khác</option></select>
+                        </div>
+                        <div class="col-md-6 wizard-field vt-conditional" data-condition="knpa">
+                            <label for="field_KNPADetail">Phân loại chi tiết kiến nghị phản ánh <span class="vt-required-star" aria-hidden="true">*</span></label>
+                            <select class="form-control" id="field_KNPADetail" name="KNPADetail"><option value="">-- Chọn --</option><option value="1" @(Model.KNPADetail == 1 ? "selected" : "")>KNPA NNT</option><option value="2" @(Model.KNPADetail == 2 ? "selected" : "")>KNPA CQT/CBT</option><option value="3" @(Model.KNPADetail == 3 ? "selected" : "")>KNPA - Đơn rút</option></select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="wizard-pane" data-pane="5">
+            <div class="box box-primary">
+                <div class="box-header with-border">
+                    <h3 class="box-title">Bước 5 — Kết quả xử lý chính</h3>
+                    <p class="text-muted wizard-step-description">Lưu đơn, Phiếu chuyển, Phiếu hướng dẫn hoặc Thụ lý/Không thụ lý</p>
+                </div>
+                <div class="box-body">
+                    <div class="row">
+                        <div class="col-md-6 wizard-field">
+                            <label for="field_KetQuaXuLyChinh">Kết quả xử lý chính <span class="vt-required-star" aria-hidden="true">*</span></label>
+                            <select class="form-control" id="field_KetQuaXuLyChinh" name="KetQuaXuLyChinh"><option value="">-- Chọn --</option><option value="1" @(Model.KetQuaXuLyChinh == 1 ? "selected" : "")>Lưu đơn</option><option value="2" @(Model.KetQuaXuLyChinh == 2 ? "selected" : "")>Phiếu chuyển</option><option value="3" @(Model.KetQuaXuLyChinh == 3 ? "selected" : "")>Phiếu hướng dẫn</option><option value="4" @(Model.KetQuaXuLyChinh == 4 ? "selected" : "")>Thụ lý đơn</option><option value="5" @(Model.KetQuaXuLyChinh == 5 ? "selected" : "")>Không thụ lý đơn</option></select>
+                        </div>
+                        <div class="col-md-6 wizard-field vt-conditional" data-condition="chuyen">
+                            <label for="field_SoPhieuChuyen">Số Phiếu chuyển <span class="vt-required-star" aria-hidden="true">*</span></label>
+                            <input class="form-control" id="field_SoPhieuChuyen" name="SoPhieuChuyen" value="@Model.SoPhieuChuyen" />
+                        </div>
+                        <div class="col-md-6 wizard-field vt-conditional" data-condition="chuyen">
+                            <label for="field_NgayPhieuChuyen">Ngày Phiếu chuyển <span class="vt-required-star" aria-hidden="true">*</span></label>
+                            <input class="form-control wizard-date" id="field_NgayPhieuChuyen" name="NgayPhieuChuyen" type="text" placeholder="dd/MM/yyyy" value="@(Model.NgayPhieuChuyen.HasValue ? Model.NgayPhieuChuyen.Value.ToString("dd/MM/yyyy") : "")" />
+                        </div>
+                        <div class="col-md-6 wizard-field vt-conditional" data-condition="chuyen">
+                            <label for="field_NoiNhanPhieuChuyen">Nơi nhận Phiếu chuyển <span class="vt-required-star" aria-hidden="true">*</span></label>
+                            <input class="form-control" id="field_NoiNhanPhieuChuyen" name="NoiNhanPhieuChuyen" value="@Model.NoiNhanPhieuChuyen" />
+                        </div>
+                        <div class="col-md-6 wizard-field vt-conditional" data-condition="huongdan">
+                            <label for="field_SoPhieuHuongDan">Số Phiếu hướng dẫn <span class="vt-required-star" aria-hidden="true">*</span></label>
+                            <input class="form-control" id="field_SoPhieuHuongDan" name="SoPhieuHuongDan" value="@Model.SoPhieuHuongDan" />
+                        </div>
+                        <div class="col-md-6 wizard-field vt-conditional" data-condition="huongdan">
+                            <label for="field_NgayPhieuHuongDan">Ngày ban hành Phiếu hướng dẫn <span class="vt-required-star" aria-hidden="true">*</span></label>
+                            <input class="form-control wizard-date" id="field_NgayPhieuHuongDan" name="NgayPhieuHuongDan" type="text" placeholder="dd/MM/yyyy" value="@(Model.NgayPhieuHuongDan.HasValue ? Model.NgayPhieuHuongDan.Value.ToString("dd/MM/yyyy") : "")" />
+                        </div>
+                        <div class="col-md-6 wizard-field vt-conditional" data-condition="thuly">
+                            <label for="field_SoQdTbThuLy">Số Quyết định/Thông báo thụ lý <span class="vt-required-star" aria-hidden="true">*</span></label>
+                            <input class="form-control" id="field_SoQdTbThuLy" name="SoQdTbThuLy" value="@Model.SoQdTbThuLy" />
+                        </div>
+                        <div class="col-md-6 wizard-field vt-conditional" data-condition="thuly">
+                            <label for="field_NgayQdTbThuLy">Ngày Quyết định/Thông báo thụ lý <span class="vt-required-star" aria-hidden="true">*</span></label>
+                            <input class="form-control wizard-date" id="field_NgayQdTbThuLy" name="NgayQdTbThuLy" type="text" placeholder="dd/MM/yyyy" value="@(Model.NgayQdTbThuLy.HasValue ? Model.NgayQdTbThuLy.Value.ToString("dd/MM/yyyy") : "")" />
+                        </div>
+                        <div class="col-md-6 wizard-field vt-conditional" data-condition="khongthuly">
+                            <label for="field_NonAcceptanceNo">Số Quyết định/Thông báo không thụ lý <span class="vt-required-star" aria-hidden="true">*</span></label>
+                            <input class="form-control" id="field_NonAcceptanceNo" name="NonAcceptanceNo" value="@Model.NonAcceptanceNo" />
+                        </div>
+                        <div class="col-md-6 wizard-field vt-conditional" data-condition="khongthuly">
+                            <label for="field_NonAcceptanceDate">Ngày Quyết định/Thông báo không thụ lý <span class="vt-required-star" aria-hidden="true">*</span></label>
+                            <input class="form-control wizard-date" id="field_NonAcceptanceDate" name="NonAcceptanceDate" type="text" placeholder="dd/MM/yyyy" value="@(Model.NonAcceptanceDate.HasValue ? Model.NonAcceptanceDate.Value.ToString("dd/MM/yyyy") : "")" />
+                        </div>
+                        <div class="col-md-6 wizard-field vt-conditional" data-condition="thuly">
+                            <label for="field_SuspensionNo">Số Quyết định đình chỉ</label>
+                            <input class="form-control" id="field_SuspensionNo" name="SuspensionNo" value="@Model.SuspensionNo" />
+                        </div>
+                        <div class="col-md-6 wizard-field vt-conditional" data-condition="thuly">
+                            <label for="field_SuspensionDate">Ngày Quyết định đình chỉ</label>
+                            <input class="form-control wizard-date" id="field_SuspensionDate" name="SuspensionDate" type="text" placeholder="dd/MM/yyyy" value="@(Model.SuspensionDate.HasValue ? Model.SuspensionDate.Value.ToString("dd/MM/yyyy") : "")" />
+                        </div>
+                        <div class="col-md-6 wizard-field vt-conditional" data-condition="thuly">
+                            <label for="field_TemporarySuspensionNo">Số Quyết định tạm đình chỉ</label>
+                            <input class="form-control" id="field_TemporarySuspensionNo" name="TemporarySuspensionNo" value="@Model.TemporarySuspensionNo" />
+                        </div>
+                        <div class="col-md-6 wizard-field vt-conditional" data-condition="thuly">
+                            <label for="field_TemporarySuspensionDate">Ngày Quyết định tạm đình chỉ</label>
+                            <input class="form-control wizard-date" id="field_TemporarySuspensionDate" name="TemporarySuspensionDate" type="text" placeholder="dd/MM/yyyy" value="@(Model.TemporarySuspensionDate.HasValue ? Model.TemporarySuspensionDate.Value.ToString("dd/MM/yyyy") : "")" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="wizard-pane" data-pane="6">
+            <div class="box box-primary">
+                <div class="box-header with-border">
+                    <h3 class="box-title">Bước 6 — Kết quả giải quyết</h3>
+                    <p class="text-muted wizard-step-description">Kết quả, thời hạn và chỉ tiêu định lượng</p>
+                </div>
+                <div class="box-body">
+                    <div class="row">
+                        <div class="col-md-6 wizard-field vt-conditional" data-condition="resolution">
+                            <label for="field_ResolutionNo">Số Quyết định/Kết luận giải quyết đơn khiếu nại/tố cáo đã thụ lý</label>
+                            <input class="form-control" id="field_ResolutionNo" name="ResolutionNo" value="@Model.ResolutionNo" />
+                        </div>
+                        <div class="col-md-6 wizard-field vt-conditional" data-condition="resolution">
+                            <label for="field_ResolutionDate">Ngày Quyết định/Kết luận giải quyết đơn khiếu nại/tố cáo</label>
+                            <input class="form-control wizard-date" id="field_ResolutionDate" name="ResolutionDate" type="text" placeholder="dd/MM/yyyy" value="@(Model.ResolutionDate.HasValue ? Model.ResolutionDate.Value.ToString("dd/MM/yyyy") : "")" />
+                        </div>
+                        <div class="col-md-6 wizard-field">
+                            <label for="field_CaseStatus">Tình trạng hồ sơ <span class="vt-required-star" aria-hidden="true">*</span></label>
+                            <select class="form-control" id="field_CaseStatus" name="CaseStatus"><option value="">-- Chọn --</option><option value="1" @(Model.CaseStatus == 1 ? "selected" : "")>Giải quyết xong</option><option value="2" @(Model.CaseStatus == 2 ? "selected" : "")>Tồn</option></select>
+                        </div>
+                        <div class="col-md-6 wizard-field">
+                            <label for="field_DeadlineStatus">Đúng hạn/Quá hạn <span class="vt-required-star" aria-hidden="true">*</span></label>
+                            <select class="form-control" id="field_DeadlineStatus" name="DeadlineStatus"><option value="">-- Chọn --</option><option value="1" @(Model.DeadlineStatus == 1 ? "selected" : "")>Đúng hạn</option><option value="2" @(Model.DeadlineStatus == 2 ? "selected" : "")>Quá hạn</option></select>
+                        </div>
+                        <div class="col-md-6 wizard-field vt-conditional" data-condition="pending">
+                            <label for="field_PendingReason">Lý do tồn <span class="vt-required-star" aria-hidden="true">*</span></label>
+                            <input class="form-control" id="field_PendingReason" name="PendingReason" value="@Model.PendingReason" />
+                        </div>
+                        <div class="col-md-6 wizard-field">
+                            <label for="field_RecommendedRecoveryMoney">Kiến nghị thu hồi tiền</label>
+                            <input class="form-control" id="field_RecommendedRecoveryMoney" name="RecommendedRecoveryMoney" type="number" step="any" value="@Model.RecommendedRecoveryMoney" />
+                        </div>
+                        <div class="col-md-6 wizard-field">
+                            <label for="field_RecommendedRecoveryLand">Kiến nghị thu hồi đất m2</label>
+                            <input class="form-control" id="field_RecommendedRecoveryLand" name="RecommendedRecoveryLand" type="number" step="any" value="@Model.RecommendedRecoveryLand" />
+                        </div>
+                        <div class="col-md-6 wizard-field">
+                            <label for="field_RecommendedReturnMoney">Kiến nghị trả lại tiền</label>
+                            <input class="form-control" id="field_RecommendedReturnMoney" name="RecommendedReturnMoney" type="number" step="any" value="@Model.RecommendedReturnMoney" />
+                        </div>
+                        <div class="col-md-6 wizard-field">
+                            <label for="field_RecommendedReturnLand">Kiến nghị trả lại đất m2</label>
+                            <input class="form-control" id="field_RecommendedReturnLand" name="RecommendedReturnLand" type="number" step="any" value="@Model.RecommendedReturnLand" />
+                        </div>
+                        <div class="col-md-6 wizard-field" style="display:none">
+                            <label for="field_RecommendedAdministrativeAction">Kiến nghị xử lý hành chính (Tổ chức/cá nhân)</label>
+                            <input class="form-control" id="field_RecommendedAdministrativeAction" name="RecommendedAdministrativeAction" value="@Model.RecommendedAdministrativeAction" />
+                        </div>
+                        <div class="col-md-6 wizard-field">
+                            <label for="field_ActualRecoveryMoney">Đã thu hồi tiền</label>
+                            <input class="form-control" id="field_ActualRecoveryMoney" name="ActualRecoveryMoney" type="number" step="any" value="@Model.ActualRecoveryMoney" />
+                        </div>
+                        <div class="col-md-6 wizard-field">
+                            <label for="field_ActualRecoveryLand">Đã thu hồi đất m2</label>
+                            <input class="form-control" id="field_ActualRecoveryLand" name="ActualRecoveryLand" type="number" step="any" value="@Model.ActualRecoveryLand" />
+                        </div>
+                        <div class="col-md-6 wizard-field" style="display:none">
+                            <label for="field_InvestigationReferral">Chuyển cơ quan điều tra</label>
+                            <label style="font-weight:normal"><input type="checkbox" id="field_InvestigationReferral" name="InvestigationReferral" value="true" @(Model.InvestigationReferral == true ? "checked" : "") /> Có</label>
+                        </div>
+                        <div class="col-md-6 wizard-field">
+                            <label for="field_ResolutionResult">Kết quả giải quyết đơn</label>
+                            <select class="form-control" id="field_ResolutionResult" name="ResolutionResult"><option value="">-- Chọn --</option><option value="1" @(Model.ResolutionResult == 1 ? "selected" : "")>Đúng</option><option value="2" @(Model.ResolutionResult == 2 ? "selected" : "")>Sai</option><option value="3" @(Model.ResolutionResult == 3 ? "selected" : "")>Đúng một phần</option></select>
+                        </div>
+                        <div class="col-md-6 wizard-field">
+                            <label for="field_ActualReturnMoney">Đã trả lại tiền</label>
+                            <input class="form-control" id="field_ActualReturnMoney" name="ActualReturnMoney" type="number" step="any" value="@Model.ActualReturnMoney" />
+                        </div>
+                        <div class="col-md-6 wizard-field">
+                            <label for="field_ActualReturnLand">Đã trả lại đất m2</label>
+                            <input class="form-control" id="field_ActualReturnLand" name="ActualReturnLand" type="number" step="any" value="@Model.ActualReturnLand" />
+                        </div>
+                        <div class="col-md-6 wizard-field" style="display:none">
+                            <label for="field_ActualAdministrativeAction">Đã xử lý hành chính (Tổ chức/cá nhân)</label>
+                            <input class="form-control" id="field_ActualAdministrativeAction" name="ActualAdministrativeAction" value="@Model.ActualAdministrativeAction" />
+                        </div>
+                        <div class="col-md-6 wizard-field" style="display:none">
+                            <label for="field_ProsecutionStatus">Đã khởi tố</label>
+                            <input class="form-control" id="field_ProsecutionStatus" name="ProsecutionStatus" value="@Model.ProsecutionStatus" />
+                        </div>
+                        <div class="col-md-6 wizard-field vt-conditional" data-condition="knpa">
+                            <label for="field_ResponseLetterNo">Số công văn trả lời</label>
+                            <input class="form-control" id="field_ResponseLetterNo" name="ResponseLetterNo" value="@Model.ResponseLetterNo" />
+                        </div>
+                        <div class="col-md-6 wizard-field vt-conditional" data-condition="knpa">
+                            <label for="field_ResponseLetterDate">Ngày công văn trả lời</label>
+                            <input class="form-control wizard-date" id="field_ResponseLetterDate" name="ResponseLetterDate" type="text" placeholder="dd/MM/yyyy" value="@(Model.ResponseLetterDate.HasValue ? Model.ResponseLetterDate.Value.ToString("dd/MM/yyyy") : "")" />
+                        </div>
+                    </div>
+                    <div class="row wizard-metrics-row">
+                        <div class="col-md-4 wizard-field"><label for="field_RecommendedAdministrativeOrganizations">Kiến nghị xử lý hành chính – số tổ chức</label><input type="number" min="0" step="1" class="form-control" id="field_RecommendedAdministrativeOrganizations" name="RecommendedAdministrativeOrganizations" value="@(Model.RecommendedAdministrativeOrganizations.HasValue ? Model.RecommendedAdministrativeOrganizations.Value.ToString() : "0")" /></div>
+                        <div class="col-md-4 wizard-field"><label for="field_RecommendedAdministrativePersons">Kiến nghị xử lý hành chính – số cá nhân</label><input type="number" min="0" step="1" class="form-control" id="field_RecommendedAdministrativePersons" name="RecommendedAdministrativePersons" value="@(Model.RecommendedAdministrativePersons.HasValue ? Model.RecommendedAdministrativePersons.Value.ToString() : "0")" /></div>
+                        <div class="col-md-4 wizard-field"><label for="field_RecommendedAdministrativeOfficials">Kiến nghị xử lý hành chính – trong đó CBCC</label><input type="number" min="0" step="1" class="form-control" id="field_RecommendedAdministrativeOfficials" name="RecommendedAdministrativeOfficials" value="@(Model.RecommendedAdministrativeOfficials.HasValue ? Model.RecommendedAdministrativeOfficials.Value.ToString() : "0")" /></div>
+                        <div class="col-md-4 wizard-field"><label for="field_ActualAdministrativeOrganizations">Đã xử lý hành chính – số tổ chức</label><input type="number" min="0" step="1" class="form-control" id="field_ActualAdministrativeOrganizations" name="ActualAdministrativeOrganizations" value="@(Model.ActualAdministrativeOrganizations.HasValue ? Model.ActualAdministrativeOrganizations.Value.ToString() : "0")" /></div>
+                        <div class="col-md-4 wizard-field"><label for="field_ActualAdministrativePersons">Đã xử lý hành chính – số cá nhân</label><input type="number" min="0" step="1" class="form-control" id="field_ActualAdministrativePersons" name="ActualAdministrativePersons" value="@(Model.ActualAdministrativePersons.HasValue ? Model.ActualAdministrativePersons.Value.ToString() : "0")" /></div>
+                        <div class="col-md-4 wizard-field"><label for="field_ActualAdministrativeOfficials">Đã xử lý hành chính – trong đó CBCC</label><input type="number" min="0" step="1" class="form-control" id="field_ActualAdministrativeOfficials" name="ActualAdministrativeOfficials" value="@(Model.ActualAdministrativeOfficials.HasValue ? Model.ActualAdministrativeOfficials.Value.ToString() : "0")" /></div>
+                        <div class="col-md-4 wizard-field"><label for="field_InvestigationCases">Chuyển CQĐT – số vụ</label><input type="number" min="0" step="1" class="form-control" id="field_InvestigationCases" name="InvestigationCases" value="@(Model.InvestigationCases.HasValue ? Model.InvestigationCases.Value.ToString() : "0")" /></div>
+                        <div class="col-md-4 wizard-field"><label for="field_InvestigationPersons">Chuyển CQĐT – số người</label><input type="number" min="0" step="1" class="form-control" id="field_InvestigationPersons" name="InvestigationPersons" value="@(Model.InvestigationPersons.HasValue ? Model.InvestigationPersons.Value.ToString() : "0")" /></div>
+                        <div class="col-md-4 wizard-field"><label for="field_InvestigationOfficials">Chuyển CQĐT – trong đó CBCC</label><input type="number" min="0" step="1" class="form-control" id="field_InvestigationOfficials" name="InvestigationOfficials" value="@(Model.InvestigationOfficials.HasValue ? Model.InvestigationOfficials.Value.ToString() : "0")" /></div>
+                        <div class="col-md-4 wizard-field"><label for="field_ProsecutionCases">Đã khởi tố – số vụ</label><input type="number" min="0" step="1" class="form-control" id="field_ProsecutionCases" name="ProsecutionCases" value="@(Model.ProsecutionCases.HasValue ? Model.ProsecutionCases.Value.ToString() : "0")" /></div>
+                        <div class="col-md-4 wizard-field"><label for="field_ProsecutionPersons">Đã khởi tố – số người</label><input type="number" min="0" step="1" class="form-control" id="field_ProsecutionPersons" name="ProsecutionPersons" value="@(Model.ProsecutionPersons.HasValue ? Model.ProsecutionPersons.Value.ToString() : "0")" /></div>
+                        <div class="col-md-4 wizard-field"><label for="field_ProsecutionOfficials">Đã khởi tố – trong đó CBCC</label><input type="number" min="0" step="1" class="form-control" id="field_ProsecutionOfficials" name="ProsecutionOfficials" value="@(Model.ProsecutionOfficials.HasValue ? Model.ProsecutionOfficials.Value.ToString() : "0")" /></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="wizard-pane" data-pane="7">
+            <div class="box box-primary">
+                <div class="box-header with-border">
+                    <h3 class="box-title">Bước 7 — Theo dõi, đôn đốc</h3>
+                    <p class="text-muted wizard-step-description">Theo dõi báo cáo kết quả giải quyết đơn về nơi chuyển đơn</p>
+                </div>
+                <div class="box-body">
+                    <div class="row">
+                        <div class="col-md-6 wizard-field">
+                            <label for="field_PhieuChuyenBiTraLai">Phiếu chuyển bị trả lại</label>
+                            <label style="font-weight:normal"><input type="checkbox" id="field_PhieuChuyenBiTraLai" name="PhieuChuyenBiTraLai" value="true" @(Model.PhieuChuyenBiTraLai == true ? "checked" : "") /> Có</label>
+                        </div>
+                        <div class="col-md-6 wizard-field vt-conditional" data-condition="returned">
+                            <label for="field_LyDoTraLaiPhieuChuyen">Lý do trả lại Phiếu chuyển <span class="vt-required-star" aria-hidden="true">*</span></label>
+                            <textarea class="form-control" id="field_LyDoTraLaiPhieuChuyen" name="LyDoTraLaiPhieuChuyen" rows="3">@Model.LyDoTraLaiPhieuChuyen</textarea>
+                        </div>
+                        <div class="col-md-6 wizard-field">
+                            <label for="field_FollowupReportNo">Số công văn báo cáo kết quả giải quyết đơn</label>
+                            <input class="form-control" id="field_FollowupReportNo" name="FollowupReportNo" value="@Model.FollowupReportNo" />
+                        </div>
+                        <div class="col-md-6 wizard-field">
+                            <label for="field_FollowupReportDate">Ngày công văn báo cáo kết quả giải quyết đơn</label>
+                            <input class="form-control wizard-date" id="field_FollowupReportDate" name="FollowupReportDate" type="text" placeholder="dd/MM/yyyy" value="@(Model.FollowupReportDate.HasValue ? Model.FollowupReportDate.Value.ToString("dd/MM/yyyy") : "")" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <div id="vtValidationSummary" class="alert alert-danger" role="alert"></div>
+        <div class="wizard-actions"><button type="button" class="btn btn-default" id="wizardBack">← Quay lại</button> <button type="button" class="btn btn-info" id="wizardDraft">Lưu nháp</button> <button type="button" class="btn btn-primary" id="wizardNext">Tiếp tục →</button> <button type="button" class="btn btn-success" id="wizardFinish">Kết thúc hồ sơ</button><span id="wizardMessage" style="margin-left:12px"></span></div>
+    </form>
+</div>
+<script>
+(function($){
+    var priorThamQuyen = @(Model.ThamQuyenDon.HasValue ? Model.ThamQuyenDon.Value.ToString() : "0");
+    var priorLoaiDon = @(Model.LoaiDon.HasValue ? Model.LoaiDon.Value.ToString() : "0");
+    var priorKetQua = @(Model.KetQuaXuLyChinh.HasValue ? Model.KetQuaXuLyChinh.Value.ToString() : "0");
+    var priorDieuKien = @(Model.DieuKienXuLy.HasValue ? Model.DieuKienXuLy.Value.ToString() : "0");
+    var current = parseInt($('#Step').val(),10)||1;
+    var busy=false, locked=$('#IsCompleted').val()==='true';
+    var requiredByStep={1:[],2:['DieuKienXuLy'],3:['ThamQuyenDon'],4:['LoaiDon'],5:['KetQuaXuLyChinh'],6:['CaseStatus','DeadlineStatus'],7:[]};
+    function field(name){return $('#field_'+name);}
+    function val(name){return $.trim(field(name).val()||'');}
+    function checked(name){return field(name).is(':checked');}
+    function initDates(){
+        if(typeof $.fn.datetimepicker!=='function')return;
+        $('#vanThuWizard .wizard-date').each(function(){
+            var $x=$(this); if($x.data('DateTimePicker'))return;
+            $x.attr('autocomplete','off').attr('placeholder','dd/MM/yyyy');
+            $x.datetimepicker({format:'DD/MM/YYYY',pickTime:false,useCurrent:false});
+        });
+    }
+    function toggleRelatedOther(){
+        var show=checked('RelatedField19');
+        $('#vtRelatedOther').toggle(show);
+        if(!show){ field('RelatedFieldOtherText').val(''); }
+    }
+    function toggleConditions(){
+        var transfer=val('NguonTiepNhan')==='2',loai=val('LoaiDon')||String(priorLoaiDon),result=val('KetQuaXuLyChinh')||String(priorKetQua);
+        var state={transfer:transfer,tc:loai==='1',kn:loai==='2',knpa:loai==='3',type:loai==='1'||loai==='2'||loai==='3',
+            chuyen:result==='2',huongdan:result==='3',thuly:result==='4',khongthuly:result==='5',
+            resolution:(loai==='1'||loai==='2')&&result==='4',pending:val('CaseStatus')==='2',returned:checked('PhieuChuyenBiTraLai')};
+        $('.vt-conditional').each(function(){var $w=$(this),active=!!state[$w.attr('data-condition')];$w.toggle(active);$w.find(':input').prop('disabled',!active||locked);});
+        // Thay danh mục 02/XLD theo loại đơn, giữ giá trị nếu còn hợp lệ.
+        var $lv=field('LinhVuc02Xld'),currentValue=$lv.val();
+        var choices=loai==='1'? [['1','Hành chính'],['2','Tham nhũng'],['3','Tư pháp'],['4','Khác']]:[['1','Đất đai'],['2','Chế độ, chính sách'],['3','Khác']];
+        if(loai==='1'||loai==='2'||loai==='3'){
+            $lv.empty().append($('<option>').val('').text('-- Chọn --'));
+            $.each(choices,function(_,a){$lv.append($('<option>').val(a[0]).text(a[1]));});
+            $lv.val(currentValue);
+        }
+        // Không được chọn NND khi thuộc thẩm quyền.
+        field('LoaiDon').find('option[value="4"]').prop('disabled',(val('ThamQuyenDon')||String(priorThamQuyen))!=='2');
+    }
+    var validationMessages=[];
+    function clearErrors(){
+        $('#vanThuWizard .vt-error').removeClass('vt-error');
+        $('#vanThuWizard .vt-error-message').remove();
+        $('#vtValidationSummary').hide().empty();
+        validationMessages=[];
+    }
+    function error(name,message){
+        var $f=field(name), $box=$f.closest('.wizard-field');
+        var label=$box.find('label').first().text().replace(/\*/g,'').trim() || name;
+        var msg=message||'Vui lòng nhập trường bắt buộc';
+        validationMessages.push(label+': '+msg);
+        $f.addClass('vt-error');
+        if($box.length && !$box.find('.vt-error-message').length){
+            $box.append($('<div class="vt-error-message"></div>').text(msg));
+        }
+    }
+    function validDate(s){
+        if(!/^\d{2}\/\d{2}\/\d{4}$/.test(s))return false;
+        var a=s.split('/').map(Number),d=new Date(a[2],a[1]-1,a[0]);
+        return d.getFullYear()===a[2]&&d.getMonth()===a[1]-1&&d.getDate()===a[0];
+    }
+    function validateStep(){
+        clearErrors();var ok=true;
+        function require(n){if(!val(n)){error(n,'Vui lòng nhập trường bắt buộc');ok=false;}}
+        $.each(requiredByStep[current]||[],function(_,n){require(n);});
+        if(current===1){
+            // Bắt buộc kiểm tra theo đúng NAME trong form, không phụ thuộc class/datepicker.
+            var requiredStep1 = [
+                ['NgayBaoCao','Ngày báo cáo'],
+                ['NgayCvd','Ngày công văn đến'],
+                ['SoCvDen','Số công văn đến'],
+                ['NguonTiepNhan','Nguồn tiếp nhận'],
+                ['NoiDungDon','Nội dung đơn']
+            ];
+            $.each(requiredStep1,function(_,item){
+                var $control=$('#vanThuWizard [name="'+item[0]+'"]');
+                var value=$control.length ? $.trim(String($control.val()||'')) : '';
+                if(!value){
+                    if(!$control.hasClass('vt-error'))error(item[0],'Bắt buộc nhập '+item[1].toLowerCase());
+                    ok=false;
+                }
+            });
+            if(val('NguonTiepNhan') && ['1','2'].indexOf(val('NguonTiepNhan'))<0){error('NguonTiepNhan','Nguồn tiếp nhận không hợp lệ');ok=false;}
+            $.each(['NgayBaoCao','NgayCvd'],function(_,name){
+                if(val(name) && !validDate(val(name))){error(name,'Ngày không hợp lệ (dd/MM/yyyy)');ok=false;}
+            });
+        }
+        var $pane=$('.wizard-pane[data-pane="'+current+'"]');
+        $pane.find('input.wizard-date:enabled').each(function(){var s=$.trim($(this).val());if(s&&!validDate(s)){error($(this).attr('name'),'Ngày phải đúng dd/MM/yyyy');ok=false;}});
+        if(current===1){
+            var chosen=false;for(var i=1;i<=19;i++)if(checked('RelatedField'+i))chosen=true;
+            if(!chosen){error('RelatedField1','Phải chọn ít nhất một lĩnh vực');ok=false;}
+            if(checked('RelatedField19'))require('RelatedFieldOtherText');
+            if(val('NguonTiepNhan')==='2'){require('TransferSource');require('TransferSourceNo');}
+        }
+        if(current===2&&val('DieuKienXuLy')==='2'){
+            var hasReason=false;for(var j=1;j<=5;j++)if(checked('Kdk0'+j))hasReason=true;
+            if(!hasReason){error('Kdk01','Không đủ điều kiện: chọn ít nhất một lý do');ok=false;}
+        }
+        if(current===4){
+            var type=val('LoaiDon');if(type==='4'&&(val('ThamQuyenDon')||String(priorThamQuyen))!=='2'){error('LoaiDon','NND chỉ áp dụng với đơn không thuộc thẩm quyền');ok=false;}
+            if(type==='1'){require('PhanLoaiTc');require('LanTc');require('LinhVuc02Xld');}
+            if(type==='2'){require('LanKn');require('LinhVuc02Xld');}
+            if(type==='3'){require('KNPADetail');require('LinhVuc02Xld');}
+        }
+        if(current===5){
+            var result=val('KetQuaXuLyChinh');
+            if(result==='2')$.each(['SoPhieuChuyen','NgayPhieuChuyen','NoiNhanPhieuChuyen'],function(_,n){require(n);});
+            if(result==='3')$.each(['SoPhieuHuongDan','NgayPhieuHuongDan'],function(_,n){require(n);});
+            if(result==='4')$.each(['SoQdTbThuLy','NgayQdTbThuLy'],function(_,n){require(n);});
+            if(result==='5')$.each(['NonAcceptanceNo','NonAcceptanceDate'],function(_,n){require(n);});
+        }
+        if(current===6&&val('CaseStatus')==='2')require('PendingReason');
+        if(current===7&&checked('PhieuChuyenBiTraLai'))require('LyDoTraLaiPhieuChuyen');
+        if(!ok){
+            var $summary=$('#vtValidationSummary').empty();
+            $summary.append($('<strong></strong>').text('Vui lòng kiểm tra các trường sau:'));
+            var $ul=$('<ul style="margin:6px 0 0;"></ul>');
+            $.each(validationMessages,function(_,msg){$ul.append($('<li></li>').text(msg));});
+            $summary.append($ul).show();
+            // Không focus vào input ngày: datetimepicker có thể mở popup che các lỗi khác.
+            if($summary.length && $summary.offset())$('html, body').animate({scrollTop:Math.max(0,$summary.offset().top-100)},200);
+        }
+        return ok;
+    }
+    function render(){
+        $('.wizard-pane').hide().filter('[data-pane="'+current+'"]').show();
+        $('.wizard-step-button').removeClass('btn-primary').addClass('btn-default').prop('disabled',true);
+        $('.wizard-step-button[data-step="'+current+'"]').removeClass('btn-default').addClass('btn-primary');
+        $('#wizardBack').toggle(current>1&&!locked);$('#wizardNext').toggle(current<7&&!locked);
+        $('#wizardDraft').toggle(!locked);$('#wizardFinish').toggle(current===7&&!locked);
+        $('#Step').val(current);initDates();toggleConditions();
+    }
+    // Kiểm tra độc lập các trường tiếp nhận trước khi gọi AJAX.
+    // Không phụ thuộc vào current/requiredByStep hoặc sự kiện DateTimePicker.
+    function guardStep1Next(){
+        var $form = $('#vanThuWizard');
+        var fields = [
+            ['NgayBaoCao', 'Ngày báo cáo'],
+            ['NgayCvd', 'Ngày công văn đến'],
+            ['SoCvDen', 'Số công văn đến'],
+            ['NguonTiepNhan', 'Nguồn tiếp nhận'],
+            ['NoiDungDon', 'Nội dung đơn']
+        ];
+        var missing = [];
+        $.each(fields, function(_, item){
+            var $input = $form.find('[name="' + item[0] + '"]').first();
+            if (!$input.length || !$.trim(String($input.val() || ''))) {
+                missing.push(item[1]);
+                $input.addClass('vt-error');
+                var $box = $input.closest('.wizard-field');
+                if ($box.length && !$box.find('.vt-error-message').length) {
+                    $box.append($('<div class="vt-error-message"></div>').text('Bắt buộc nhập ' + item[1].toLowerCase()));
+                }
+            }
+        });
+        var selected = false;
+        for(var i=1;i<=19;i++){
+            if($form.find('[name="RelatedField'+i+'"]').is(':checked')) {selected=true;break;}
+        }
+        if(!selected) missing.push('Ít nhất một lĩnh vực liên quan');
+        if(missing.length){
+            $('#vtValidationSummary').empty()
+                .append($('<strong></strong>').text('Không thể lưu hoặc tiếp tục. Các trường bắt buộc chưa nhập:'))
+                .append($('<div></div>').text(missing.join('; '))).show();
+            $('html, body').animate({scrollTop:Math.max(0,$('#vtValidationSummary').offset().top-120)},200);
+            return false;
+        }
+        return true;
+    }
+    function save(direction){
+        if(busy||locked)return;
+        toggleConditions();
+        toggleRelatedOther();
+        if(direction==='next'||direction==='finish'||direction==='draft'){
+            // Áp dụng cùng validation cho Tiếp tục, Lưu nháp và Kết thúc.
+            if(current===1 && !guardStep1Next())return false;
+            if(!validateStep())return false;
+            // Chặn thêm một lần ở cửa gửi AJAX cho cả Lưu nháp.
+            if(current===1){
+                var mustHave=['NgayBaoCao','NgayCvd','SoCvDen','NguonTiepNhan'];
+                var missing=$.grep(mustHave,function(n){
+                    return !$.trim(String($('#vanThuWizard [name="'+n+'"]').val()||''));
+                });
+                if(missing.length){
+                    validateStep();
+                    alert('Không thể lưu: còn thiếu Ngày báo cáo, Ngày công văn đến, Số công văn đến hoặc Nguồn tiếp nhận.');
+                    return false;
+                }
+            }
+        }
+        busy=true;
+        var data=$('#vanThuWizard').find('input[type=hidden]').serializeArray();
+        data=data.concat($('.wizard-pane[data-pane="'+current+'"]').find(':input').serializeArray());
+        data.push({name:'direction',value:direction});$('#wizardMessage').text('Đang lưu...');
+        $.ajax({url:'@Url.Action("SaveData")',type:'POST',data:$.param(data),
+          success:function(r){if(r&&r.ResponseCode>=0&&r.Id>0){window.location.href='@Url.Action("GetDocumentDetail")'+'?Id='+encodeURIComponent(r.Id);}else alert((r&&r.Description)||'Lưu không thành công');},
+          error:function(){alert('Không thể kết nối máy chủ');},
+          complete:function(){busy=false;$('#wizardMessage').text('');}
+        });
+    }
+    $('#vanThuWizard').on('change','select,input[type=checkbox],input.wizard-date',function(){toggleConditions();});
+    $('#field_NguonTiepNhan').on('change select2:select select2:clear', function(){
+        toggleConditions();
+        toggleRelatedOther();
+        if (val('NguonTiepNhan')) {
+            $(this).removeClass('vt-error');
+            $(this).closest('.wizard-field').find('.vt-error-message').remove();
+        }
+    });
+    $('#vanThuWizard').on('submit',function(e){e.preventDefault();});
+    $('#wizardNext').off('click.vtRequired').on('click.vtRequired',function(e){
+        e.preventDefault();
+        // Nếu có script khác thay đổi biến current, vẫn dựa vào pane đang hiển thị.
+        var stepFromForm=parseInt($('#Step').val(),10)||1;
+        if(stepFromForm===1 && !guardStep1Next())return false;
+        save('next');
+        return false;
+    });
+    $('#wizardBack').on('click',function(){save('back');});
+    $('#wizardDraft').on('click',function(){save('draft');});
+    $('#wizardFinish').on('click',function(){if(confirm('Kết thúc và khóa hồ sơ?'))save('finish');});
+    if(locked)$('#vanThuWizard :input').not('[type=hidden]').prop('disabled',true);
+    render();
+    $('#vanThuWizard').on('change','#field_RelatedField19',toggleRelatedOther);
+    toggleRelatedOther();
+})(jQuery);
+</script>

@@ -2,10 +2,19 @@
 <meta http-equiv="REFRESH" content="1800">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
-<meta content="INDEX,FOLLOW" name="robots" />
+
 <link rel="shortcut icon" href="~/Content/images/logo.png?vs=01">
 <meta property="fb:app_id" content="3016204535291546" />
+@{
+    string controller = Convert.ToString(ViewContext.RouteData.Values["controller"]);
+    string action = Convert.ToString(ViewContext.RouteData.Values["action"]);
 
+  
+
+    bool isNoIndex =
+        controller.Equals("Product", StringComparison.OrdinalIgnoreCase) &&
+        action.Equals("Index", StringComparison.OrdinalIgnoreCase) ;
+}
 
 @if (string.IsNullOrEmpty(ViewBag.SiteTitle))
 {
@@ -52,25 +61,33 @@ else
 else
 {
     <link rel="canonical" href="@ViewBag.canonical" />
-          }
-    <meta name="copyright" content="xenangbactrungnam.com" />
-    <meta name="author" content="xenangbactrungnam.com" />
-    <meta http-equiv="audience" content="General" />
-    <meta name="resource-type" content="Document" />
-    <meta name="distribution" content="Global" />
-    <meta name="revisit-after" content="1 days" />
-    <meta name="GENERATOR" content="xenangbactrungnam.com" />
-    <meta property="og:site_name" content="xenangbactrungnam.com" />
+}
+<meta name="copyright" content="xenangbactrungnam.com" />
+<meta name="author" content="xenangbactrungnam.com" />
+<meta http-equiv="audience" content="General" />
+<meta name="resource-type" content="Document" />
+<meta name="distribution" content="Global" />
+<meta name="revisit-after" content="1 days" />
+<meta name="GENERATOR" content="xenangbactrungnam.com" />
+<meta property="og:site_name" content="xenangbactrungnam.com" />
 
-    <meta property="og:locale" content="vi_VN" />
-    <meta http-equiv="x-dns-prefetch-control" content="on">
-    <link rel="publisher" href="https://www.facebook.com/XenangNhatkomatsu/" />
-    <link rel="author" href="https://www.facebook.com/XenangNhatkomatsu/" />
+<meta property="og:locale" content="vi_VN" />
+<meta http-equiv="x-dns-prefetch-control" content="on">
+<link rel="publisher" href="https://www.facebook.com/XenangNhatkomatsu/" />
+<link rel="author" href="https://www.facebook.com/XenangNhatkomatsu/" />
 
-    <meta name="geo.region" content="VN" />
-    <meta name="geo.placename" content="Hanoi" />
-    <meta name="geo.position" content="20.975535;105.857447" />
-    <meta name="ICBM" content="20.975535, 105.857447" />
+<meta name="geo.region" content="VN" />
+<meta name="geo.placename" content="Hanoi" />
+<meta name="geo.position" content="20.975535;105.857447" />
+<meta name="ICBM" content="20.975535, 105.857447" />
 
 
-    <meta name="google-site-verification" content="Jk3_mJvdgExW2dNFUuy0peyA0D1KAyAuKBTa9JvR5_U" />
+<meta name="google-site-verification" content="Jk3_mJvdgExW2dNFUuy0peyA0D1KAyAuKBTa9JvR5_U" />
+@if (isNoIndex)
+{
+    <meta name="robots" content="noindex, follow" />
+}
+else
+{
+    <meta content="INDEX,FOLLOW" name="robots" />
+}

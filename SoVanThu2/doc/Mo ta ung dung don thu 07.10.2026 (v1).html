@@ -1,0 +1,787 @@
+<!doctype html>
+<html lang="vi"><html lang="vi"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="Hướng dẫn tương tác Giải pháp A cho người mới, có thể sửa và lưu từng nội dung."><title>Giải pháp A | Hướng dẫn người mới</title>
+<style>
+:root{--navy:#082746;--blue:#087fb6;--cyan:#18c7e7;--ink:#173248;--muted:#61788b;--line:#d2e2ec;--bg:#eef5f9;--green:#e5f4e9;--gold:#fff1c6;--shadow:0 12px 32px #08274612}*{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at 8% 0%,#d8eff8 0,transparent 35%),linear-gradient(180deg,#f5f9fc,#eaf2f7);font:15px/1.5 "Segoe UI",Arial,sans-serif;color:var(--ink)}button,input,textarea{font:inherit}button{cursor:pointer}.hero{background:radial-gradient(circle at 85% 15%,#0b6c91,transparent 28%),linear-gradient(120deg,#061b32,#0b3459 60%,#0d4268);color:#fff;padding:25px clamp(16px,4vw,54px);border-bottom:1px solid #1dd0f166}.hero-inner{max-width:1380px;margin:auto;display:flex;justify-content:space-between;gap:20px;align-items:center}.eyebrow{color:#8de9ff;font-size:11px;letter-spacing:.14em;text-transform:uppercase}.hero h1{margin:4px 0;font-size:clamp(25px,3vw,36px)}.hero p{margin:0;color:#deeff9}.toolbar{display:flex;gap:8px;flex-wrap:wrap;justify-content:flex-end}.toolbar button{border:1px solid #4acbe4;background:#0c456977;color:#fff;padding:9px 12px;border-radius:8px}.toolbar .primary{background:linear-gradient(120deg,#0bb8d8,#147baa);border-color:#5de5ff;font-weight:700}.toolbar .export{background:linear-gradient(120deg,#15a362,#0e7545);border-color:#1cbf75;font-weight:700;color:#fff}.toolbar .save{background:#d8f9e9;border-color:#4dbb8b;color:#124c39}.toolbar .cancel{background:#fff0e8;border-color:#dc9a79;color:#6d3422}.toolbar .restore{background:#fff7df;border-color:#e6c25a;color:#644b10}.toolbar button:disabled{opacity:.5;cursor:not-allowed}.page{max-width:1380px;margin:auto;padding:20px clamp(14px,3vw,34px) 40px}.intro,.fixed-panel,.step-card,.detail-card{background:#fff;border:1px solid var(--line);border-radius:14px;box-shadow:var(--shadow)}.intro{padding:17px 19px;margin-bottom:16px;border-left:4px solid var(--cyan)}.intro h2{margin:0 0 5px;color:var(--navy);font-size:18px}.intro p{margin:3px 0;color:#4c6375}.fixed-panel{padding:16px;margin-bottom:16px;border-top:4px solid #20bfd2}.section-title{display:flex;align-items:center;justify-content:space-between;gap:12px;margin:0 0 10px;color:#0b4569;font-size:17px}.fixed-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:9px}.tile{padding:11px;border:1px solid #cce4d7;border-radius:10px;background:linear-gradient(135deg,#f3fbf7,#edf7f2);min-height:75px}.tile-title{font-weight:700;color:#31583b}.tile-desc{font-size:13px;color:#496457}.controls{display:flex;gap:6px;flex-wrap:wrap}.item-tools button,.add-btn{border:1px solid #bdcedc;background:#fff;color:#315875;border-radius:7px;padding:5px 8px;font-size:12px}.item-tools .delete{color:#943f39;border-color:#e3c3bf}.add-btn{margin-top:9px;background:#f0faff;border-color:#a6d8e8;color:#075579;font-weight:650;padding:7px 10px}.step-map{background:#fff;border:1px solid var(--line);border-radius:14px;padding:16px;margin-bottom:16px;box-shadow:var(--shadow)}.step-list{display:grid;max-width:1000px;margin:auto}.step-row{display:flex;align-items:stretch;flex-direction:column}.step-select{display:flex;align-items:center;gap:12px;width:100%;text-align:left;border:1px solid #c1d9e7;border-left:4px solid #55b6d2;border-radius:11px;background:linear-gradient(100deg,#fff,#f4fbfe);padding:12px 15px;color:var(--ink)}.step-select.active{border-color:#12a5d2;border-left:5px solid #04b9dc;background:linear-gradient(100deg,#e9faff,#f7fcff);box-shadow:0 0 0 3px #16bbda20}.step-number{display:grid;place-items:center;flex:0 0 38px;height:38px;border-radius:12px;background:#dff4fb;color:#086c99;font-weight:800;font-size:16px}.step-words{flex:1}.step-title{display:block;font-weight:750;color:#123d5e}.step-short{display:block;font-size:12px;color:var(--muted)}.down{height:34px;display:grid;place-items:center;color:#0796bc;font-weight:800;font-size:24px}.step-edit{display:flex;gap:6px}.step-edit button{border:1px solid #bdcedc;background:#fff;border-radius:7px;color:#315875;padding:5px 8px;font-size:12px}.detail-card{overflow:hidden}.detail-head{padding:18px 20px;background:linear-gradient(110deg,#eaf7fc,#f9fcfe);border-bottom:1px solid #d4e6ef}.detail-head h2{margin:0 0 4px;color:var(--navy)}.detail-head p{margin:0;color:#536b7d}.block{padding:16px 20px;border-bottom:1px solid #edf1f4}.block:last-child{border:0}.block-head{display:flex;align-items:center;justify-content:space-between;gap:12px}.block h3{font-size:15px;color:#244966;margin:0}.explain{margin:9px 0 0;padding:11px 13px;border-left:3px solid #42a4cb;background:#f3f8fb;border-radius:8px;color:#3d596e}.entry{display:flex;gap:10px;align-items:flex-start;border:1px solid #dce6ed;border-radius:9px;padding:10px 11px;margin:8px 0;background:#fff}.entry-text{flex:1;min-width:0}.entry-title{display:block;font-weight:700;color:#2c4b61}.entry-body{margin-top:4px;color:#526879;font-size:13px;white-space:pre-wrap}.entry-tools{display:flex;gap:5px;flex-wrap:wrap}.entry-tools button{border:1px solid #bdcedc;background:#fff;border-radius:7px;padding:5px 8px;color:#315875;font-size:12px}.entry-tools .del{color:#943f39;border-color:#e3c3bf}.field{border:1px solid #dce5ec;border-radius:10px;margin:8px 0;overflow:hidden;background:#fff}.field summary{list-style:none;display:flex;align-items:center;gap:9px;padding:11px 12px;cursor:pointer;background:#f8fbfd}.field summary::-webkit-details-marker{display:none}.field-name{font-weight:700;flex:1}.field-kind{font-size:11px;color:#6b8092}.field-body{padding:8px 13px 13px;color:#4c5f71;font-size:13px}.field-body p{margin:7px 0}.field-tools{display:flex;gap:6px;margin:0 0 8px}.field-tools button{border:1px solid #bdcedc;background:#fff;border-radius:7px;padding:5px 8px;color:#315875;font-size:12px}.field-tools .del{color:#943f39;border-color:#e3c3bf}.req{font-weight:700;color:#76580d}.req.optional{color:#44704a}.tag{display:inline-block;padding:3px 8px;border-radius:20px;background:#fff1c6;color:#76580d;font-size:11px;font-weight:700}.tag.optional{background:#e5f4e9;color:#315b37}.modal-backdrop{position:fixed;inset:0;z-index:30;background:#061b32aa;display:grid;place-items:center;padding:16px}.modal{width:min(680px,100%);max-height:90vh;overflow:auto;background:#fff;border-radius:14px;padding:20px;box-shadow:0 18px 60px #00182f55}.modal h2{margin:0 0 12px;color:var(--navy);font-size:19px}.modal-fields{display:grid;gap:10px}.modal label{display:grid;gap:4px;color:#39566c;font-size:13px;font-weight:700}.modal input,.modal textarea{width:100%;border:1px solid #cbd9e3;border-radius:8px;padding:9px 10px;font:14px/1.4 "Segoe UI",Arial,sans-serif;color:var(--ink)}.modal textarea{min-height:72px;resize:vertical}.modal-actions{display:flex;gap:8px;justify-content:flex-end;margin-top:14px}.modal-actions button{border:1px solid #bdcedc;background:#fff;border-radius:8px;padding:8px 12px;color:#315875}.modal-actions .save-item{background:#0c82b2;color:#fff;border-color:#0c82b2}.status{font-size:12px;color:#d4f5ff;text-align:right;min-height:18px}.dirty{color:#a3472d}.empty{color:#718394;font-size:13px}.footer{text-align:center;color:#718394;font-size:12px;padding:18px}.changed{outline:2px solid #64d5ec}
+@media(max-width:850px){.hero-inner{display:block}.toolbar{justify-content:flex-start;margin-top:13px}.fixed-grid{grid-template-columns:1fr 1fr}}@media(max-width:520px){.fixed-grid{grid-template-columns:1fr}.entry{display:block}.entry-tools{margin-top:8px}.step-edit{display:none}.section-title{align-items:flex-start;flex-direction:column}}
+</style></head><body>
+<header class="hero"><div class="hero-inner"><div><div class="eyebrow">Giải pháp A · Hướng dẫn thao tác</div><h1>Hướng dẫn dành cho người mới</h1><p>Đi theo từng bước, mở mục cần xem và sửa nội dung ngay tại chỗ.</p></div><div><div class="toolbar"><button class="primary" id="saveBtn">Lưu nháp trên máy</button><button class="export" id="exportBtn">Xuất file gửi Zalo</button><button class="cancel" id="cancelBtn">Hủy sửa</button><button class="restore" id="restoreBtn">Về bản gốc</button><button id="printBtn">In / PDF</button></div><div class="status" id="status">Đang dùng nội dung đã lưu</div></div></div></header>
+<main class="page"><section class="intro"><h2>Cách sử dụng trang này</h2><p>Chọn một bước theo thứ tự từ 1 đến 7. Mỗi mục có nút <b>Sửa</b>; trường có thể sửa, xóa hoặc thêm ngay trong bước. Để gửi bản đã sửa cho người khác xem y hệt, hãy bấm <b>Xuất file gửi Zalo</b>.</p></section>
+<section class="fixed-panel"><div class="section-title"><span>Thông tin cố định — dùng xuyên suốt hồ sơ, không thuộc Bước 1–7</span></div><div id="fixedGrid" class="fixed-grid"><article class="tile"><div class="entry-tools"><button data-edit="fixed:0">Sửa</button><button class="del" data-delete="fixed:0">Xóa</button></div><div class="tile-title">Thuế cơ sở/Phòng</div><div class="tile-desc">Phân theo User của từng đơn vị, có 25 Thuế cơ sở và 15 Phòng (40 User). Mỗi User chỉ được cấp quyền rà soát và xem đơn thư của mình nhập, không được xem đơn thư của các đơn vị khác. Các CBCC trong một đơn vị sẽ dùng chung một user để nhập đơn thư. 
+- Quy tắc: Đơn nhập từ User nào sẽ tính là đơn thư của đơn vị ấy phát sinh, tính theo đầu vào Công văn đến.
+- Bổ sung: Cần thêm User của Bộ phận Tổng hợp (có thể lấy User của phòng KTr2 luôn) và Lãnh đạo được cấp quyền xem hết, tra cứu, tổng hợp.</div></article><article class="tile"><div class="entry-tools"><button data-edit="fixed:1">Sửa</button><button class="del" data-delete="fixed:1">Xóa</button></div><div class="tile-title">Mã đơn / tra cứu</div><div class="tile-desc">Dùng để nhận diện hoặc mở lại hồ sơ đã lưu (có thể để bằng hình thức Tên Thuế cơ sở + Số CVĐ + Năm, Ví dụ: TCS15-02535-2026)</div></article><article class="tile"><div class="entry-tools"><button data-edit="fixed:2">Sửa</button><button class="del" data-delete="fixed:2">Xóa</button></div><div class="tile-title">Ngày báo cáo</div><div class="tile-desc">Chọn ngày đơn vị báo cáo (Đây sẽ là mốc để tổng hợp lên kỳ báo cáo, ví dụ báo cáo đơn thư giao ban tháng, quý)</div></article><article class="tile"><div class="entry-tools"><button data-edit="fixed:3">Sửa</button><button class="del" data-delete="fixed:3">Xóa</button></div><div class="tile-title">Trạng thái chính</div><div class="tile-desc">Cho biết hồ sơ đang ở bước chính nào? Phân loại đơn, Thụ lý và xác minh đơn hay Đã giải quyết.</div></article><article class="tile"><div class="entry-tools"><button data-edit="fixed:4">Sửa</button><button class="del" data-delete="fixed:4">Xóa</button></div><div class="tile-title">Trạng thái gửi</div><div class="tile-desc">Cho biết hồ sơ là nháp, hoàn tất hay đã xác nhận gửi (khóa chỉnh sửa).</div></article></div><button class="add-btn" id="addFixed">＋ Thêm thông tin cố định</button></section>
+<section class="step-map"><div class="section-title"><span>Trình tự xử lý hồ sơ</span><span style="font-size:12px;color:#60788b">Đi từ Bước 1 đến Bước 7 theo chiều dọc</span></div><div id="stepList" class="step-list"><div class="step-row"><div class="step-select "><span class="step-number">1</span><button class="step-words" data-select-step="1" style="border:0;background:transparent;text-align:left;padding:0;color:inherit"><span class="step-title">Thông tin đơn</span><span class="step-short">Thông tin tiếp nhận, người gửi, nội dung và lĩnh vực</span></button><span class="step-edit"><button data-edit="step:0">Sửa tên bước</button></span></div><div class="down" aria-hidden="true">↓</div></div><div class="step-row"><div class="step-select "><span class="step-number">2</span><button class="step-words" data-select-step="2" style="border:0;background:transparent;text-align:left;padding:0;color:inherit"><span class="step-title">Điều kiện xử lý</span><span class="step-short">Đánh giá điều kiện xử lý, hình thức của đơn</span></button><span class="step-edit"><button data-edit="step:1">Sửa tên bước</button></span></div><div class="down" aria-hidden="true">↓</div></div><div class="step-row"><div class="step-select "><span class="step-number">3</span><button class="step-words" data-select-step="3" style="border:0;background:transparent;text-align:left;padding:0;color:inherit"><span class="step-title">Thẩm quyền</span><span class="step-short">Xác định thuộc hoặc không thuộc thẩm quyền</span></button><span class="step-edit"><button data-edit="step:2">Sửa tên bước</button></span></div><div class="down" aria-hidden="true">↓</div></div><div class="step-row"><div class="step-select "><span class="step-number">4</span><button class="step-words" data-select-step="4" style="border:0;background:transparent;text-align:left;padding:0;color:inherit"><span class="step-title">Phân loại đơn</span><span class="step-short">Chọn loại đơn theo đúng nội dung đơn.</span></button><span class="step-edit"><button data-edit="step:3">Sửa tên bước</button></span></div><div class="down" aria-hidden="true">↓</div></div><div class="step-row"><div class="step-select "><span class="step-number">5</span><button class="step-words" data-select-step="5" style="border:0;background:transparent;text-align:left;padding:0;color:inherit"><span class="step-title">Kết quả xử lý chính</span><span class="step-short">Lưu đơn, Phiếu chuyển, Phiếu hướng dẫn hoặc Thụ lý/Không thụ lý</span></button><span class="step-edit"><button data-edit="step:4">Sửa tên bước</button></span></div><div class="down" aria-hidden="true">↓</div></div><div class="step-row"><div class="step-select active"><span class="step-number">6</span><button class="step-words" data-select-step="6" style="border:0;background:transparent;text-align:left;padding:0;color:inherit"><span class="step-title">Kết quả giải quyết</span><span class="step-short">Kết quả, thời hạn và chỉ tiêu định lượng</span></button><span class="step-edit"><button data-edit="step:5">Sửa tên bước</button></span></div><div class="down" aria-hidden="true">↓</div></div><div class="step-row"><div class="step-select "><span class="step-number">7</span><button class="step-words" data-select-step="7" style="border:0;background:transparent;text-align:left;padding:0;color:inherit"><span class="step-title">Theo dõi, đôn đốc</span><span class="step-short">Theo dõi báo cáo kết quả giải quyết đơn về nơi chuyển đơn</span></button><span class="step-edit"><button data-edit="step:6">Sửa tên bước</button></span></div></div></div></section>
+<section id="detail" class="detail-card"><div class="detail-head"><div class="eyebrow" style="color:#1685a8">BƯỚC 6 / 7</div><h2>Kết quả giải quyết</h2><p>Kết quả, thời hạn và chỉ tiêu định lượng</p><div class="entry-tools" style="margin-top:10px"><button data-edit="step:5">Sửa tên / mô tả bước</button></div></div><section class="block"><div class="block-head"><h3>Bạn cần làm gì?</h3><div class="entry-tools"><button data-edit="process:5">Sửa hướng dẫn</button></div></div><div class="explain">Ghi nhận kết quả giải quyết đơn thư đúng/sai/đúng 1 phần và chỉ tiêu định lượng phát sinh.</div></section><section class="block"><div class="block-head"><h3>Lưu ý của bước</h3><div class="entry-tools"><button class="add-btn" data-add="rule:5">＋ Thêm lưu ý</button></div></div><div class="entry"><div class="entry-text">Tất cả các trường sẽ bắt buộc phải nhập nếu tích chọn "Giải quyết xong" ở trường "Tình trạng hồ sơ"</div><div class="entry-tools"><button data-edit="rule:5:0">Sửa</button><button class="del" data-delete="rule:5:0">Xóa</button></div></div></section><section class="block"><div class="block-head"><h3>Giải thích thuật ngữ</h3><div class="entry-tools"><button class="add-btn" data-add="term:5">＋ Thêm thuật ngữ</button></div></div><p class="empty">Chưa có thuật ngữ.</p></section><section class="block"><div class="block-head"><h3>Các trường trong bước (16)</h3><div class="entry-tools"><button class="add-btn" data-add="field:5">＋ Thêm trường</button></div></div><details class="field"><summary><span class="field-name">Số Quyết định/Kết luận giải quyết đơn khiếu nại/tố cáo đã thụ lý</span><span class="field-kind">Ô văn bản</span><span class="tag optional">Không bắt buộc</span></summary><div class="field-body"><div class="field-tools"><button data-edit="field:5:0">Sửa trường</button><button class="del" data-delete="field:5:0">Xóa trường</button></div><p><b>Mã trường:</b> </p><p><b>Cách điền:</b> Nhập số Quyết định giải quyết khiếu nại hoặc Kết luận giải quyết tố cáo đã thụ lý.</p><p><b>Bắt buộc:</b> <span class="req optional">Không bắt buộc. Trường này chỉ hiện khi các bước trước chọn: Bước 4 chọn Đơn KN hoặc đơn TC và Bước 5 chọn Thụ lý đơn.</span></p><p><b>Lựa chọn / kiểm tra:</b> Điền số QĐ/KL</p></div></details><details class="field"><summary><span class="field-name">Ngày Quyết định/Kết luận giải quyết đơn khiếu nại/tố cáo</span><span class="field-kind">Date picker</span><span class="tag optional">Không bắt buộc</span></summary><div class="field-body"><div class="field-tools"><button data-edit="field:5:1">Sửa trường</button><button class="del" data-delete="field:5:1">Xóa trường</button></div><p><b>Mã trường:</b> </p><p><b>Cách điền:</b> Chọn ngày hợp lệ.</p><p><b>Bắt buộc:</b> <span class="req optional">Không bắt buộc. Trường này chỉ hiện khi các bước trước chọn: Bước 4 chọn Đơn KN hoặc đơn TC và Bước 5 chọn Thụ lý đơn.</span></p><p><b>Lựa chọn / kiểm tra:</b> Ngày hợp lệ.</p></div></details><details class="field"><summary><span class="field-name">Tình trạng hồ sơ</span><span class="field-kind">Checkbox</span><span class="tag ">Xem điều kiện</span></summary><div class="field-body"><div class="field-tools"><button data-edit="field:5:2">Sửa trường</button><button class="del" data-delete="field:5:2">Xóa trường</button></div><p><b>Mã trường:</b> </p><p><b>Cách điền:</b> Chọn 1 trong 2 lựa chọn ở dưới để đánh giá hồ sơ đã giải quyết hay chưa.</p><p><b>Bắt buộc:</b> <span class="req ">Trường bắt buộc.</span></p><p><b>Lựa chọn / kiểm tra:</b> 1. Giải quyết xong
+2. Tồn</p></div></details><details class="field"><summary><span class="field-name">Đúng hạn/Quá hạn</span><span class="field-kind">Checkbox</span><span class="tag ">Xem điều kiện</span></summary><div class="field-body"><div class="field-tools"><button data-edit="field:5:3">Sửa trường</button><button class="del" data-delete="field:5:3">Xóa trường</button></div><p><b>Mã trường:</b> </p><p><b>Cách điền:</b> Đánh dấu theo đánh giá của đơn vị xử lý đơn. Trường hợp đánh dấu quá hạn sẽ nhảy ra ô văn bản để điền nguyên nhân giải quyết quá hạn.</p><p><b>Bắt buộc:</b> <span class="req ">Trường bắt buộc.</span></p><p><b>Lựa chọn / kiểm tra:</b> 1. Đúng hạn
+2. Quá hạn</p></div></details><details class="field"><summary><span class="field-name">Lý do tồn</span><span class="field-kind">Ô văn bản</span><span class="tag ">Xem điều kiện</span></summary><div class="field-body"><div class="field-tools"><button data-edit="field:5:4">Sửa trường</button><button class="del" data-delete="field:5:4">Xóa trường</button></div><p><b>Mã trường:</b> </p><p><b>Cách điền:</b> Nhánh hiện ra khi chọn "Tồn" ở checkbox "Tình trạng giải quyết" trên.
+Cách nhập: Ghi rõ tình trạng đang giải quyết ở bước nào, có nguyên nhân, khó khăn vướng mắc gì.</p><p><b>Bắt buộc:</b> <span class="req ">Trường bắt buộc</span></p><p><b>Lựa chọn / kiểm tra:</b> </p></div></details><details class="field"><summary><span class="field-name">Kiến nghị thu hồi cho nhà nước (Tiền trđ/Đất m2)</span><span class="field-kind">Ô văn bản</span><span class="tag optional">Không bắt buộc</span></summary><div class="field-body"><div class="field-tools"><button data-edit="field:5:5">Sửa trường</button><button class="del" data-delete="field:5:5">Xóa trường</button></div><p><b>Mã trường:</b> </p><p><b>Cách điền:</b> Nhập số tiền đơn vị Trđ hoặc số mét vuông Đất. Phải nhập cả đơn vị đo để phân biệt.</p><p><b>Bắt buộc:</b> <span class="req optional">Không bắt buộc. Không có nhập "0"</span></p><p><b>Lựa chọn / kiểm tra:</b> Số không âm.</p></div></details><details class="field"><summary><span class="field-name">Kiến nghị trả lại tổ chức, cá nhân (Tiền trđ/Đất m2)</span><span class="field-kind">Ô văn bản</span><span class="tag optional">Không bắt buộc</span></summary><div class="field-body"><div class="field-tools"><button data-edit="field:5:6">Sửa trường</button><button class="del" data-delete="field:5:6">Xóa trường</button></div><p><b>Mã trường:</b> TRA_LAI_TO_CHUC_TIEN_VND / TRA_LAI_TO_CHUC_TS_VND</p><p><b>Cách điền:</b> Nhập số tiền đơn vị Trđ hoặc số mét vuông Đất. Phải nhập cả đơn vị đo để phân biệt.</p><p><b>Bắt buộc:</b> <span class="req optional">Không bắt buộc. Không có điền "0"</span></p><p><b>Lựa chọn / kiểm tra:</b> Số không âm</p></div></details><details class="field"><summary><span class="field-name">Kiến nghị xử lý hành chính (Tổ chức/cá nhân)</span><span class="field-kind">Ô số theo từng box</span><span class="tag optional">Không bắt buộc</span></summary><div class="field-body"><div class="field-tools"><button data-edit="field:5:7">Sửa trường</button><button class="del" data-delete="field:5:7">Xóa trường</button></div><p><b>Mã trường:</b> </p><p><b>Cách điền:</b> Có 3 box: 1 là tổ chức, 2 là cá nhân và 3 là "Trong đó, số cán bộ công chức".
+User phải nhập đủ số theo ô văn bản ở mỗi box. Không có thì điền "0".</p><p><b>Bắt buộc:</b> <span class="req optional">Không bắt buộc.</span></p><p><b>Lựa chọn / kiểm tra:</b> Số không âm.</p></div></details><details class="field"><summary><span class="field-name">Đã thu hồi cho nhà nước (Tiền trđ/Đất m2)</span><span class="field-kind"></span><span class="tag optional">Không bắt buộc</span></summary><div class="field-body"><div class="field-tools"><button data-edit="field:5:8">Sửa trường</button><button class="del" data-delete="field:5:8">Xóa trường</button></div><p><b>Mã trường:</b> </p><p><b>Cách điền:</b> Nhập số tiền đơn vị Trđ hoặc số mét vuông Đất. Phải nhập cả đơn vị đo để phân biệt.</p><p><b>Bắt buộc:</b> <span class="req optional">Không bắt buộc. Không có điền "0"</span></p><p><b>Lựa chọn / kiểm tra:</b> Số không âm.</p></div></details><details class="field"><summary><span class="field-name">Chuyển cơ quan điều tra</span><span class="field-kind">Các ô số đi theo từng box</span><span class="tag optional">Không bắt buộc</span></summary><div class="field-body"><div class="field-tools"><button data-edit="field:5:9">Sửa trường</button><button class="del" data-delete="field:5:9">Xóa trường</button></div><p><b>Mã trường:</b> CHUYEN_CQDT_*</p><p><b>Cách điền:</b> Có 03 box: 1. Số vụ, 2. Số người, 3. "Trong đó, số cán bộ công chức"
+User phải nhập số vào đủ 03 box. Trường hợp không có ghi "0".</p><p><b>Bắt buộc:</b> <span class="req optional">Không bắt buộc.</span></p><p><b>Lựa chọn / kiểm tra:</b> Số nguyên không âm.</p></div></details><details class="field"><summary><span class="field-name">Kết quả giải quyết đơn</span><span class="field-kind">Tickbox</span><span class="tag optional">Không bắt buộc</span></summary><div class="field-body"><div class="field-tools"><button data-edit="field:5:10">Sửa trường</button><button class="del" data-delete="field:5:10">Xóa trường</button></div><p><b>Mã trường:</b> </p><p><b>Cách điền:</b> Tích chọn 1 trong 3 ô Đúng/Sai/Đúng 1 phần.</p><p><b>Bắt buộc:</b> <span class="req optional">Không bắt buộc.</span></p><p><b>Lựa chọn / kiểm tra:</b> 1. Đúng
+2. Sai
+3. Đúng 1 phần</p></div></details><details class="field"><summary><span class="field-name">Đã trả lại tổ chức, cá nhân (Tiền trđ/Đất m2)</span><span class="field-kind">Ô văn bản</span><span class="tag optional">Không bắt buộc</span></summary><div class="field-body"><div class="field-tools"><button data-edit="field:5:11">Sửa trường</button><button class="del" data-delete="field:5:11">Xóa trường</button></div><p><b>Mã trường:</b> </p><p><b>Cách điền:</b> Nhập số tiền đơn vị Trđ hoặc số mét vuông Đất. Phải nhập cả đơn vị đo để phân biệt.</p><p><b>Bắt buộc:</b> <span class="req optional">Không bắt buộc.</span></p><p><b>Lựa chọn / kiểm tra:</b> Số không âm.</p></div></details><details class="field"><summary><span class="field-name">Đã xử lý hành chính (Tổ chức/cá nhân)</span><span class="field-kind">Ô số theo từng box</span><span class="tag optional">Không bắt buộc</span></summary><div class="field-body"><div class="field-tools"><button data-edit="field:5:12">Sửa trường</button><button class="del" data-delete="field:5:12">Xóa trường</button></div><p><b>Mã trường:</b> </p><p><b>Cách điền:</b> Có 3 box: 1 là tổ chức, 2 là cá nhân và 3 là "Trong đó, số cán bộ công chức".
+User phải nhập đủ số theo ô văn bản ở mỗi box. Không có thì điền "0".</p><p><b>Bắt buộc:</b> <span class="req optional">Không bắt buộc.</span></p><p><b>Lựa chọn / kiểm tra:</b> Số không âm</p></div></details><details class="field"><summary><span class="field-name">Đã khởi tố</span><span class="field-kind">Ô số theo từng box</span><span class="tag optional">Không bắt buộc</span></summary><div class="field-body"><div class="field-tools"><button data-edit="field:5:13">Sửa trường</button><button class="del" data-delete="field:5:13">Xóa trường</button></div><p><b>Mã trường:</b> </p><p><b>Cách điền:</b> Có 03 box: 1. Số vụ, 2. Số người, 3. "Trong đó, số cán bộ công chức"
+User phải nhập số vào đủ 03 box. Trường hợp không có ghi "0".</p><p><b>Bắt buộc:</b> <span class="req optional">Không bắt buộc.</span></p><p><b>Lựa chọn / kiểm tra:</b> Số không âm</p></div></details><details class="field"><summary><span class="field-name">Số công văn trả lời</span><span class="field-kind">Ô văn bản</span><span class="tag optional">Không bắt buộc</span></summary><div class="field-body"><div class="field-tools"><button data-edit="field:5:14">Sửa trường</button><button class="del" data-delete="field:5:14">Xóa trường</button></div><p><b>Mã trường:</b> </p><p><b>Cách điền:</b> Nhánh này chỉ sinh ra khi đơn được nhập ở bước 4 là KNPA. 
+Cách nhập: Nhập số công văn trả lời.</p><p><b>Bắt buộc:</b> <span class="req optional">Không bắt buộc.</span></p><p><b>Lựa chọn / kiểm tra:</b> Nhập số công văn trả lời người gửi đơn</p></div></details><details class="field"><summary><span class="field-name">Ngày công văn trả lời</span><span class="field-kind">Date picker</span><span class="tag optional">Không bắt buộc</span></summary><div class="field-body"><div class="field-tools"><button data-edit="field:5:15">Sửa trường</button><button class="del" data-delete="field:5:15">Xóa trường</button></div><p><b>Mã trường:</b> </p><p><b>Cách điền:</b> Nhánh này chỉ sinh ra khi đơn được nhập ở Bước 4 là KNPA.
+Cách nhập: Chọn ngày ghi trên công văn trả lời</p><p><b>Bắt buộc:</b> <span class="req optional">Không bắt buộc.</span></p><p><b>Lựa chọn / kiểm tra:</b> Ngày hợp lệ.</p></div></details></section><div class="block"><div class="entry-tools"><button class="add-btn" data-add="step">＋ Thêm bước quy trình</button><button class="del" data-delete="step:5">Xóa bước này</button></div></div></section><div class="footer">Dùng “Xuất file gửi Zalo” để tạo ra một file tự chứa toàn bộ nội dung bạn đã thay đổi.</div></main>
+<div id="modalRoot"></div>
+<script>
+/* --- Bắt đầu vùng dữ liệu --- */
+window.APP_DATA = {
+  "STORE_KEY": "gpa_guide_1791356046460",
+  "STEPS": [
+    {
+      "id": 1,
+      "title": "Thông tin đơn",
+      "short": "Thông tin tiếp nhận, người gửi, nội dung và lĩnh vực",
+      "groups": [
+        "Định danh phiên làm việc",
+        "Thông tin văn bản và người gửi",
+        "Nội dung, số vụ việc và lĩnh vực"
+      ],
+      "process": "Tạo hồ sơ mới → nhập thông tin tiếp nhận → chuyển Bước 2. Có thể lưu nháp bất kỳ lúc nào. Phải điền một số trường bắt buộc trước khi chuyển Bước 2.",
+      "terms": [
+        "CV = Công văn ; CVĐ = Công văn đến",
+        "MST = Mã số thuế"
+      ],
+      "rules": [
+        "User dùng để đăng nhập, thời gian nhập, mã đơn là thông tin phiên làm việc.",
+        "Đơn đã bị khởi tố / đã có bản án: checkbox nhỏ, mặc định bỏ chọn.",
+        "Các trường ở từng bước được quy định cụ thể việc bắt buộc nhập hay không bắt buộc."
+      ],
+      "fields": [
+        {
+          "name": "Ngày báo cáo",
+          "code": "NGAY_BAO_CAO",
+          "control": "Date Picker",
+          "input": "Chọn ngày báo cáo đơn. Thiết kế thêm một ô bên cạnh ngày báo cáo để hiển thị kỳ báo cáo tương ứng cho User xem. Ví dụ: User chọn ngày báo cáo là 06/10/2026 -> ô sẽ hiển thị kỳ báo cáo tương ứng 2026-T10 (tháng 10 năm 2026) và 2026-Q4 (Quý 4 năm 2026).",
+          "req": "Trường bắt buộc.",
+          "options": "Ngày hợp lệ."
+        },
+        {
+          "name": "Ngày công văn đến",
+          "code": "NGAY_CVD",
+          "control": "Date picker",
+          "input": "Chọn ngày công văn đến (dựa vào dấu đỏ văn thư đóng CVĐ trên từng đơn).",
+          "req": "Trường bắt buộc.",
+          "options": "Ngày hợp lệ."
+        },
+        {
+          "name": "Số công văn đến",
+          "code": "SO_CV_DEN",
+          "control": "Ô văn bản",
+          "input": "Nhập số công văn đến.",
+          "req": "Trường bắt buộc.",
+          "options": "Văn bản; giữ nguyên ký hiệu và dấu."
+        },
+        {
+          "name": "Nguồn tiếp nhận",
+          "code": "NGUON_TIEP_NHAN",
+          "control": "Lựa chọn theo danh sách",
+          "input": "Chia 02 lựa chọn trong trường này: 1 là \"Nhận trực tiếp từ người viết đơn\", 2 là \"Nơi khác chuyển đến\". \nChọn mục 2 thì sẽ nhảy ra thêm 3 trường khác để điền là:\n- Nơi chuyển đơn\n- Số phiếu chuyển đơn\n- Ngày phiếu chuyển đơn",
+          "req": "Trường bắt buộc.",
+          "options": "Văn bản."
+        },
+        {
+          "name": "Số và ký hiệu văn bản",
+          "code": "SO_KY_HIEU_VB",
+          "control": "Ô văn bản",
+          "input": "Nhập số và ký hiệu nếu có.",
+          "req": "Không bắt buộc tại Bước 1.",
+          "options": "Văn bản."
+        },
+        {
+          "name": "Cán bộ được giao giải quyết",
+          "code": "CB_DUOC_GIAO",
+          "control": "Ô văn bản / danh sách cán bộ",
+          "input": "Chọn hoặc nhập cán bộ được giao.",
+          "req": "Không bắt buộc tại Bước 1.",
+          "options": "Danh sách cán bộ nếu hệ thống được tích hợp danh mục; tài liệu chưa chốt nguồn danh mục."
+        },
+        {
+          "name": "Tên người gửi đơn",
+          "code": "TEN_NGUOI_GUI",
+          "control": "Ô văn bản",
+          "input": "Nhập tên tổ chức/cá nhân gửi đơn.",
+          "req": "Không bắt buộc tại Bước 1.",
+          "options": "Văn bản."
+        },
+        {
+          "name": "Mã số thuế",
+          "code": "MST",
+          "control": "Ô văn bản",
+          "input": "Nhập MST nếu người gửi là tổ chức/cá nhân có MST.",
+          "req": "Không bắt buộc tại Bước 1.",
+          "options": "Lưu dưới dạng chuỗi để không mất số 0 đầu."
+        },
+        {
+          "name": "Phòng/Thuế cơ sở theo địa bàn bị KN/TC/PAKN",
+          "code": "PHONG_DOI_BI",
+          "control": "Danh sách chọn, có thể chọn nhiều",
+          "input": "Chọn đơn vị có liên quan (25 TCS và 15 phòng)",
+          "req": "Không bắt buộc.",
+          "options": "Không cho tự ý chỉnh sửa."
+        },
+        {
+          "name": "Nội dung đơn",
+          "code": "NOI_DUNG_DON",
+          "control": "Ô văn bản nhiều dòng",
+          "input": "Tóm tắt đầy đủ nội dung đơn.",
+          "req": "Trường bắt buộc.",
+          "options": "Văn bản; giới hạn độ dài do IT đề xuất."
+        },
+        {
+          "name": "Đơn đã có bản án của Tòa",
+          "code": "DON_DA_CO_BAN_AN",
+          "control": "Checkbox nhỏ",
+          "input": "Chỉ tích khi có bản án của Tòa.",
+          "req": "Không bắt buộc; mặc định bỏ chọn.",
+          "options": "Có / Không."
+        },
+        {
+          "name": "Đặc điểm/lĩnh vực liên quan",
+          "code": "LINH_VUC_*",
+          "control": "Các checkbox hoặc ô đánh dấu theo từng nhãn",
+          "input": "Tích X tại một hoặc nhiều lĩnh vực liên quan; có thể chọn nhiều lĩnh vực.\nĐây là mục để phục vụ báo cáo đột xuất theo yêu cầu của Lãnh đạo.",
+          "req": "Trường bắt buộc. Tích ít nhất một lựa chọn, trường hợp lựa chọn ô \"19. Khác\" thì bắt buộc phải tự điền lĩnh vực.",
+          "options": "1. Chế độ/chính sách\n2. QĐ hành chính của CQT\n3. Hành vi HC của CBCC\n4. Tham nhũng.\n5. Tư pháp.\n6. Trốn thuế.\n7. Đảng/đoàn thể; \n8. Kiểm tra Thuế; \n9. Hoàn thuế\n10. Nợ thuế\n11. Đất đai.\n12. TNDN\n13. GTGT\n14. TNCN\n15. Hóa đơn\n16. Miễn giảm\n17. Khai khống TNCN\n18. Mạo danh thành lập DN\n19. Khác."
+        },
+        {
+          "name": "CCCD",
+          "code": "CCCD_Nguoi_gui_don",
+          "control": "Ô nhập văn bản",
+          "input": "Điền CCCD của người gửi đơn nếu có.",
+          "req": "Không bắt buộc.",
+          "options": "Lưu dưới dạng chuỗi để không mất số 0 đầu."
+        },
+        {
+          "name": "Ngày ghi trên đơn",
+          "code": "Ngay_don_thu",
+          "control": "Date picker",
+          "input": "Chọn ngày được ghi trên đơn thư",
+          "req": "Không bắt buộc.",
+          "options": ""
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "title": "Điều kiện xử lý",
+      "short": "Đánh giá điều kiện xử lý, hình thức của đơn",
+      "groups": [
+        "Kết quả đánh giá",
+        "Lý do nếu không đủ điều kiện",
+        "Người và thời điểm đánh giá"
+      ],
+      "process": "Đủ điều kiện (DU) → Bước 3. Không đủ điều kiện (KDU) hoặc Trùng đã giải quyết (DONTRUNG) → dừng nhánh xử lý; tự động tích vào ô \"Lưu đơn\" ở Bước 5 Kết quả xử lý chính.",
+      "terms": [
+        "Đánh giá hình thức, không xét đúng sai nội dung",
+        "KĐK-01…05"
+      ],
+      "rules": [
+        "Nếu chọn KDU, phải chọn ít nhất một lý do KĐK-01…05.",
+        "KDU dừng luồng xử lý nghiệp vụ, tự động tích vào kết quả giải quyết \"Lưu đơn\" tại bước sau."
+      ],
+      "fields": [
+        {
+          "name": "Kết quả đánh giá điều kiện",
+          "code": "DIEU_KIEN_XU_LY",
+          "control": "Danh sách chọn",
+          "input": "Chọn kết quả đánh giá điều kiện xử lý cho đơn.",
+          "req": "Trường bắt buộc.",
+          "options": "Đủ điều kiện (DU) · Không đủ điều kiện (KDU). Đơn trùng đã giải quyết (DONTRUNG)"
+        },
+        {
+          "name": "KĐK-01 — Không đáp ứng yêu cầu tại điểm a Khoản 2 TT05",
+          "code": "KDK_01",
+          "control": "Checkbox",
+          "input": "Tích nếu đơn thiếu hình thức/thông tin bắt buộc theo quy định tại điểm a Khoản 2 TT05",
+          "req": "Chỉ bắt buộc khi kết quả KDU; cần tích ít nhất một lý do.",
+          "options": "Có / Không."
+        },
+        {
+          "name": "KĐK-02 — Gửi nhiều cơ quan",
+          "code": "KDK_02",
+          "control": "Checkbox",
+          "input": "Tích nếu gửi nhiều nơi nhưng có nơi/người có thẩm quyền giải quyết.",
+          "req": "Chỉ bắt buộc khi KDU; có thể chọn cùng lý do khác.",
+          "options": "Có / Không."
+        },
+        {
+          "name": "KĐK-03 — Đơn Khiếu nại đã được hướng dẫn",
+          "code": "KDK_03",
+          "control": "Checkbox",
+          "input": "Tích nếu đơn khiếu nại không thuộc thẩm quyền đã được hướng dẫn theo khoản 1 Điều 8 TT05.",
+          "req": "Chỉ bắt buộc khi KDU.",
+          "options": "Có / Không."
+        },
+        {
+          "name": "KĐK-04 — Nội dung chống đối/xúc phạm",
+          "code": "KDK_04",
+          "control": "Checkbox",
+          "input": "Tích nếu nội dung thuộc nhóm chống đối, chia rẽ, thô tục hoặc xúc phạm chủ trương của Đảng, chính sách pháp luật của Nhà nước.",
+          "req": "Chỉ bắt buộc khi KDU.",
+          "options": "Có / Không."
+        },
+        {
+          "name": "KĐK-05 — Đơn không thể đọc",
+          "code": "KDK_05",
+          "control": "Checkbox",
+          "input": "Tích nếu đơn rách nát, tẩy xóa hoặc không rõ, không đọc được.",
+          "req": "Chỉ bắt buộc khi KDU.",
+          "options": "Có / Không."
+        },
+        {
+          "name": "Ghi chú điều kiện",
+          "code": "GHI_CHU_DIEU_KIEN",
+          "control": "Văn bản nhiều dòng",
+          "input": "Giải thích ngắn khi cần.",
+          "req": "Không bắt buộc; chỉ dùng khi cần.",
+          "options": "Văn bản."
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "title": "Thẩm quyền",
+      "short": "Xác định thuộc hoặc không thuộc thẩm quyền",
+      "groups": [
+        "Kết luận thẩm quyền",
+        "Số vụ việc theo phạm vi (nếu áp dụng)",
+        "Ghi chú căn cứ"
+      ],
+      "process": "Trường hợp đơn thuộc TQ → Bước 4. Trường hợp đơn không thuộc TQ → Bước 4 theo hướng xử lý không thuộc TQ.",
+      "terms": [
+        "TQ = Thuộc thẩm quyền",
+        "KTQ = Không thuộc thẩm quyền"
+      ],
+      "rules": [
+        "Một số đơn có nhiều nội dung, trong đó có nội dung thuộc và nội dung không thuộc thẩm quyền. Căn cứ vào mẫu biểu tổng hợp báo cáo Cục Thuế, để thống nhất số liệu báo cáo đúng theo mẫu, đối với các đơn như trên, phân loại vào đơn không thuộc thẩm quyền."
+      ],
+      "fields": [
+        {
+          "name": "Kết luận thẩm quyền đơn",
+          "code": "THAM_QUYEN_DON",
+          "control": "Danh sách chọn",
+          "input": "Chọn phân loại thẩm quyền cho đơn",
+          "req": "Trường bắt buộc.",
+          "options": "1. Thuộc TQ\n2. Không thuộc TQ"
+        },
+        {
+          "name": "Ghi chú thẩm quyền",
+          "code": "GHI_CHU_THAM_QUYEN",
+          "control": "Văn bản nhiều dòng",
+          "input": "Ghi căn cứ hoặc nội dung cần lưu ý.",
+          "req": "Không bắt buộc.",
+          "options": "Văn bản."
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "title": "Phân loại đơn",
+      "short": "Chọn loại đơn theo đúng nội dung đơn.",
+      "groups": [
+        "Loại đơn chính",
+        "Thông tin riêng theo loại",
+        "Lĩnh vực theo biểu 02/XLD"
+      ],
+      "process": "Chọn một loại đơn trong các lựa chọn có sẵn. Nếu đổi lựa chọn thì cần nhập lại từ đầu các bước ở sau.",
+      "terms": [
+        "TC = Tố cáo",
+        "KN = Khiếu nại",
+        "KNPA = Kiến nghị, phản ánh",
+        "NND = Đơn có nhiều nội dung"
+      ],
+      "rules": [
+        "Danh mục loại đơn chính gồm TC, KN, KNPA, NND.",
+        "NND (Đơn nhiều nội dung) chỉ có thể chọn được khi ở bước 3 User chọn đơn không thuộc thẩm quyền.",
+        "Các trường riêng của loại khác phải ẩn hoặc xóa theo quy tắc; không để dữ liệu nhánh cũ bị lưu nhầm.",
+        "Các đơn rút khiếu nại, rút tố cáo hay rút KNPA thì được tính là đầu đơn KNPA."
+      ],
+      "fields": [
+        {
+          "name": "Loại đơn chính",
+          "code": "LOAI_DON",
+          "control": "Danh sách chọn",
+          "input": "Chọn đúng một loại đơn chính theo nội dung đã phân loại.",
+          "req": "Trường bắt buộc.",
+          "options": "1. TC\n2. KN\n3. KNPA\n4. NND"
+        },
+        {
+          "name": "Phân loại chi tiết tố cáo",
+          "code": "PHAN_LOAI_TC",
+          "control": "Danh sách chọn",
+          "input": "Chỉ hiện khi Loại đơn chính = TC.",
+          "req": "Áp dụng theo nhánh TC. Trường bắt buộc.",
+          "options": "1. Tố cáo NNT\n2. Tố cáo CQT/CBT\n3. Tố cáo TC/CN khác"
+        },
+        {
+          "name": "Lần tố cáo",
+          "code": "LAN_TC",
+          "control": "Danh sách chọn",
+          "input": "Chỉ hiện ở nhánh TC nếu ở trường Loại đơn chính chọn TC.",
+          "req": "Chỉ hiện nhánh ở TC. Trường bắt buộc.",
+          "options": "1. TC lần đầu\n2. TC tiếp"
+        },
+        {
+          "name": "Ủy quyền khiếu nại",
+          "code": "UY_QUYEN_KN",
+          "control": "Checkbox Có-Không",
+          "input": "Chỉ hiện khi Loại đơn chính = KN.",
+          "req": "Không bắt buộc. Áp dụng ở nhánh KN.",
+          "options": "Mặc định bỏ chọn. Nếu tích checkbox là có ủy quyền."
+        },
+        {
+          "name": "Lần khiếu nại",
+          "code": "LAN_KN",
+          "control": "Danh sách chọn",
+          "input": "Chỉ hiện khi Loại đơn chính = KN.",
+          "req": "Áp dụng ở nhánh KN. Trường bắt buộc.",
+          "options": "1. Khiếu nại lần đầu\n2. Khiếu nại lần 2"
+        },
+        {
+          "name": "Lĩnh vực theo biểu 02/XLD của Cục Thuế",
+          "code": "LINH_VUC_02_XLD",
+          "control": "Danh sách chọn",
+          "input": "Chọn lĩnh vực để tự động tạo báo cáo đầu ra theo biểu 02/XLD của Cục Thuế.",
+          "req": "Chỉ áp dụng theo nhánh đối với từng loại đơn chính (mô tả lựa chọn ở dưới).",
+          "options": "1. KN: Chọn 1 trong 3 lĩnh vực: Đất đai/Chế độ, chính sách/Khác\n2. TC: Chọn 1 trong 4 lĩnh vực: Hành chính/Tham nhũng/Tư pháp/Khác\n3. KNPA: Chọn 1 trong 3 lĩnh vực: Đất đai/Chế độ, chính sách/Khác"
+        },
+        {
+          "name": "Phân loại chi tiết kiến nghị phản ánh",
+          "code": "",
+          "control": "Checbox",
+          "input": "Nhánh sinh ra khi lựa chọn loại đơn chính là KNPA (kiến nghị phản ánh), chi tiết sinh ra 03 checkbox là 1. KNPA NNT; 2. KNPA CQT/CBT; 3. KNPA - Đơn rút",
+          "req": "Trường bắt buộc.",
+          "options": "Tích chọn vào 01 trong 03 ô checkbox ở trên."
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "title": "Kết quả xử lý chính",
+      "short": "Lưu đơn, Phiếu chuyển, Phiếu hướng dẫn hoặc Thụ lý/Không thụ lý",
+      "groups": [
+        "Ngày trình phiếu",
+        "Kết quả chính và trường đi kèm",
+        "Nhánh Khiếu nại / Tố cáo nếu thụ lý"
+      ],
+      "process": "Chọn một kết quả chính, sau đó nhánh thông tin chi tiết sẽ hiện theo kết quả đã chọn. \n- Lưu đơn (tự động tích khi chọn KDU hoặc DONTRUNG ở bước 2).\n- Phiếu chuyển sẽ hiện nhánh số Phiếu chuyển/ngày phiếu chuyển/nơi nhận phiếu chuyển;\n- Phiếu hướng dẫn sẽ hiện nhánh số phiếu hướng dẫn/ngày phiếu hướng dẫn.\n- Thụ lý đơn/Không thụ lý đơn sẽ hiện nhánh Số Quyết định/Thông báo và Ngày Quyết định/Thông báo",
+      "terms": [],
+      "rules": [
+        "Đơn nhiều nội dung (NND) bị khóa ở kết quả Phiếu hướng dẫn.",
+        "Đơn khiếu nại không thuộc thẩm quyền bị khóa ở kết quả Phiếu hướng dẫn.",
+        "Lưu đơn (tự động tích khi chọn KDK hoặc DONTRUNG ở bước 2)"
+      ],
+      "fields": [
+        {
+          "name": "Kết quả xử lý chính",
+          "code": "KET_QUA_XU_LY_CHINH",
+          "control": "Danh sách chọn",
+          "input": "Chọn đúng một hướng xử lý chính.",
+          "req": "Trường bắt buộc. Sau khi chọn sẽ phân nhánh thông tin chi tiết để User điền thêm.",
+          "options": "1. Lưu đơn \n2. Phiếu chuyển\n3. Phiếu hướng dẫn.\n4. Thụ lý đơn.\n5. Không thụ lý đơn.\nNguyên tắc thêm: Đơn NND, Đơn KN không thuộc thẩm quyền chỉ được chọn Phiếu hướng dẫn."
+        },
+        {
+          "name": "Số Phiếu chuyển",
+          "code": "SO_PHIEU_CHUYEN",
+          "control": "Ô văn bản",
+          "input": "Nhánh chỉ hiện khi chọn Phiếu chuyển.",
+          "req": "Bắt buộc theo lựa chọn Phiếu chuyển.",
+          "options": "Văn bản/số ký hiệu."
+        },
+        {
+          "name": "Ngày Phiếu chuyển",
+          "code": "NGAY_PHIEU_CHUYEN",
+          "control": "Date picker",
+          "input": "Nhánh chỉ hiện khi chọn Phiếu chuyển.",
+          "req": "Bắt buộc theo lựa chọn Phiếu chuyển.",
+          "options": "Ngày hợp lệ."
+        },
+        {
+          "name": "Nơi nhận Phiếu chuyển",
+          "code": "NOI_NHAN_PHIEU_CHUYEN",
+          "control": "Ô văn bản / danh sách đơn vị",
+          "input": "Nhánh chỉ hiện khi chọn Phiếu chuyển.",
+          "req": "Bắt buộc theo lựa chọn Phiếu chuyển.",
+          "options": "Đơn vị nhận phiếu chuyển."
+        },
+        {
+          "name": "Số Phiếu hướng dẫn",
+          "code": "SO_PHIEU_HUONG_DAN",
+          "control": "Ô văn bản",
+          "input": "Nhánh chỉ hiện khi chọn Phiếu hướng dẫn.",
+          "req": "Bắt buộc theo lựa chọn Phiếu hướng dẫn.",
+          "options": "Văn bản/số ký hiệu."
+        },
+        {
+          "name": "Ngày ban hành Phiếu hướng dẫn",
+          "code": "NGAY_PHIEU_HUONG_DAN",
+          "control": "Date picker",
+          "input": "Nhánh chỉ hiện khi chọn Phiếu hướng dẫn.",
+          "req": "Bắt buộc theo lựa chọn Phiếu hướng dẫn.",
+          "options": "Ngày hợp lệ."
+        },
+        {
+          "name": "Số Quyết định/Thông báo thụ lý",
+          "code": "SO_QD_TB_THU_LY",
+          "control": "Ô văn bản",
+          "input": "Chỉ hiện trong nhánh khi chọn Thụ lý đơn",
+          "req": "Trường bắt buộc.",
+          "options": "Số văn bản."
+        },
+        {
+          "name": "Ngày Quyết định/Thông báo thụ lý",
+          "code": "NGAY_QD_TB_THU_LY",
+          "control": "Date picker",
+          "input": "Nhánh chỉ hiện khi chọn Thụ lý đơn.",
+          "req": "Trường bắt buộc.",
+          "options": "Ngày hợp lệ."
+        },
+        {
+          "name": "Số Quyết định/Thông báo không thụ lý",
+          "code": "",
+          "control": "Ô văn bản",
+          "input": "Nhánh chỉ hiện khi chọn Không thụ lý đơn",
+          "req": "Trường bắt buộc.",
+          "options": "Số văn bản."
+        },
+        {
+          "name": "Ngày Quyết định/Thông báo không thụ lý",
+          "code": "",
+          "control": "Date picker",
+          "input": "Nhánh chỉ hiện khi chọn Không thụ lý đơn.",
+          "req": "Trường bắt buộc.",
+          "options": "Ngày hợp lệ."
+        },
+        {
+          "name": "Số Quyết định đình chỉ",
+          "code": "",
+          "control": "Ô văn bản",
+          "input": "Nhánh chỉ hiện khi chọn Thụ lý đơn. Điền số Quyết định đình chỉ.",
+          "req": "Không bắt buộc.",
+          "options": "Điền khi có Quyết định đình chỉ, thường do người gửi đơn viết văn bản xin rút đơn đã gửi trước đó."
+        },
+        {
+          "name": "Ngày Quyết định đình chỉ",
+          "code": "",
+          "control": "Date picker",
+          "input": "Nhánh chỉ hiện khi chọn Thụ lý đơn. Chọn ngày quyết định đình chỉ",
+          "req": "Không bắt buộc.",
+          "options": "Ngày hợp lệ. Điền khi có Quyết định đình chỉ."
+        },
+        {
+          "name": "Số Quyết định tạm đình chỉ",
+          "code": "",
+          "control": "Ô văn bản",
+          "input": "Nhánh chỉ hiện khi chọn Thụ lý đơn. Nhập số quyết định tạm đình chỉ.",
+          "req": "Không bắt buộc.",
+          "options": "Nhập khi có Quyết định tạm đình chỉ giải quyết."
+        },
+        {
+          "name": "Ngày Quyết định tạm đình chỉ",
+          "code": "",
+          "control": "Date picker",
+          "input": "Nhánh chỉ hiện khi chọn Thụ lý đơn. Chọn ngày trên Quyết định tạm đình chỉ.",
+          "req": "Không bắt buộc.",
+          "options": "Nhập khi có Quyết định tạm đình chỉ."
+        }
+      ]
+    },
+    {
+      "id": 6,
+      "title": "Kết quả giải quyết",
+      "short": "Kết quả, thời hạn và chỉ tiêu định lượng",
+      "groups": [
+        "Kết quả giải quyết",
+        "Cờ hoàn thành và thời hạn",
+        "Thu hồi, trả lại, kiến nghị, chuyển CQĐT"
+      ],
+      "process": "Ghi nhận kết quả giải quyết đơn thư đúng/sai/đúng 1 phần và chỉ tiêu định lượng phát sinh.",
+      "terms": [],
+      "rules": [
+        "Tất cả các trường sẽ bắt buộc phải nhập nếu tích chọn \"Giải quyết xong\" ở trường \"Tình trạng hồ sơ\""
+      ],
+      "fields": [
+        {
+          "name": "Số Quyết định/Kết luận giải quyết đơn khiếu nại/tố cáo đã thụ lý",
+          "code": "",
+          "control": "Ô văn bản",
+          "input": "Nhập số Quyết định giải quyết khiếu nại hoặc Kết luận giải quyết tố cáo đã thụ lý.",
+          "req": "Không bắt buộc. Trường này chỉ hiện khi các bước trước chọn: Bước 4 chọn Đơn KN hoặc đơn TC và Bước 5 chọn Thụ lý đơn.",
+          "options": "Điền số QĐ/KL"
+        },
+        {
+          "name": "Ngày Quyết định/Kết luận giải quyết đơn khiếu nại/tố cáo",
+          "code": "",
+          "control": "Date picker",
+          "input": "Chọn ngày hợp lệ.",
+          "req": "Không bắt buộc. Trường này chỉ hiện khi các bước trước chọn: Bước 4 chọn Đơn KN hoặc đơn TC và Bước 5 chọn Thụ lý đơn.",
+          "options": "Ngày hợp lệ."
+        },
+        {
+          "name": "Tình trạng hồ sơ",
+          "code": "",
+          "control": "Checkbox",
+          "input": "Chọn 1 trong 2 lựa chọn ở dưới để đánh giá hồ sơ đã giải quyết hay chưa.",
+          "req": "Trường bắt buộc.",
+          "options": "1. Giải quyết xong\n2. Tồn"
+        },
+        {
+          "name": "Đúng hạn/Quá hạn",
+          "code": "",
+          "control": "Checkbox",
+          "input": "Đánh dấu theo đánh giá của đơn vị xử lý đơn. Trường hợp đánh dấu quá hạn sẽ nhảy ra ô văn bản để điền nguyên nhân giải quyết quá hạn.",
+          "req": "Trường bắt buộc.",
+          "options": "1. Đúng hạn\n2. Quá hạn"
+        },
+        {
+          "name": "Lý do tồn",
+          "code": "",
+          "control": "Ô văn bản",
+          "input": "Nhánh hiện ra khi chọn \"Tồn\" ở checkbox \"Tình trạng giải quyết\" trên.\nCách nhập: Ghi rõ tình trạng đang giải quyết ở bước nào, có nguyên nhân, khó khăn vướng mắc gì.",
+          "req": "Trường bắt buộc",
+          "options": ""
+        },
+        {
+          "name": "Kiến nghị thu hồi cho nhà nước (Tiền trđ/Đất m2)",
+          "code": "",
+          "control": "Ô văn bản",
+          "input": "Nhập số tiền đơn vị Trđ hoặc số mét vuông Đất. Phải nhập cả đơn vị đo để phân biệt.",
+          "req": "Không bắt buộc. Không có nhập \"0\"",
+          "options": "Số không âm."
+        },
+        {
+          "name": "Kiến nghị trả lại tổ chức, cá nhân (Tiền trđ/Đất m2)",
+          "code": "TRA_LAI_TO_CHUC_TIEN_VND / TRA_LAI_TO_CHUC_TS_VND",
+          "control": "Ô văn bản",
+          "input": "Nhập số tiền đơn vị Trđ hoặc số mét vuông Đất. Phải nhập cả đơn vị đo để phân biệt.",
+          "req": "Không bắt buộc. Không có điền \"0\"",
+          "options": "Số không âm"
+        },
+        {
+          "name": "Kiến nghị xử lý hành chính (Tổ chức/cá nhân)",
+          "code": "",
+          "control": "Ô số theo từng box",
+          "input": "Có 3 box: 1 là tổ chức, 2 là cá nhân và 3 là \"Trong đó, số cán bộ công chức\".\nUser phải nhập đủ số theo ô văn bản ở mỗi box. Không có thì điền \"0\".",
+          "req": "Không bắt buộc.",
+          "options": "Số không âm."
+        },
+        {
+          "name": "Đã thu hồi cho nhà nước (Tiền trđ/Đất m2)",
+          "code": "",
+          "control": "",
+          "input": "Nhập số tiền đơn vị Trđ hoặc số mét vuông Đất. Phải nhập cả đơn vị đo để phân biệt.",
+          "req": "Không bắt buộc. Không có điền \"0\"",
+          "options": "Số không âm."
+        },
+        {
+          "name": "Chuyển cơ quan điều tra",
+          "code": "CHUYEN_CQDT_*",
+          "control": "Các ô số đi theo từng box",
+          "input": "Có 03 box: 1. Số vụ, 2. Số người, 3. \"Trong đó, số cán bộ công chức\"\nUser phải nhập số vào đủ 03 box. Trường hợp không có ghi \"0\".",
+          "req": "Không bắt buộc.",
+          "options": "Số nguyên không âm."
+        },
+        {
+          "name": "Kết quả giải quyết đơn",
+          "code": "",
+          "control": "Tickbox",
+          "input": "Tích chọn 1 trong 3 ô Đúng/Sai/Đúng 1 phần.",
+          "req": "Không bắt buộc.",
+          "options": "1. Đúng\n2. Sai\n3. Đúng 1 phần"
+        },
+        {
+          "name": "Đã trả lại tổ chức, cá nhân (Tiền trđ/Đất m2)",
+          "code": "",
+          "control": "Ô văn bản",
+          "input": "Nhập số tiền đơn vị Trđ hoặc số mét vuông Đất. Phải nhập cả đơn vị đo để phân biệt.",
+          "req": "Không bắt buộc.",
+          "options": "Số không âm."
+        },
+        {
+          "name": "Đã xử lý hành chính (Tổ chức/cá nhân)",
+          "code": "",
+          "control": "Ô số theo từng box",
+          "input": "Có 3 box: 1 là tổ chức, 2 là cá nhân và 3 là \"Trong đó, số cán bộ công chức\".\nUser phải nhập đủ số theo ô văn bản ở mỗi box. Không có thì điền \"0\".",
+          "req": "Không bắt buộc.",
+          "options": "Số không âm"
+        },
+        {
+          "name": "Đã khởi tố",
+          "code": "",
+          "control": "Ô số theo từng box",
+          "input": "Có 03 box: 1. Số vụ, 2. Số người, 3. \"Trong đó, số cán bộ công chức\"\nUser phải nhập số vào đủ 03 box. Trường hợp không có ghi \"0\".",
+          "req": "Không bắt buộc.",
+          "options": "Số không âm"
+        },
+        {
+          "name": "Số công văn trả lời",
+          "code": "",
+          "control": "Ô văn bản",
+          "input": "Nhánh này chỉ sinh ra khi đơn được nhập ở bước 4 là KNPA. \nCách nhập: Nhập số công văn trả lời.",
+          "req": "Không bắt buộc.",
+          "options": "Nhập số công văn trả lời người gửi đơn"
+        },
+        {
+          "name": "Ngày công văn trả lời",
+          "code": "",
+          "control": "Date picker",
+          "input": "Nhánh này chỉ sinh ra khi đơn được nhập ở Bước 4 là KNPA.\nCách nhập: Chọn ngày ghi trên công văn trả lời",
+          "req": "Không bắt buộc.",
+          "options": "Ngày hợp lệ."
+        }
+      ]
+    },
+    {
+      "id": 7,
+      "title": "Theo dõi, đôn đốc",
+      "short": "Theo dõi báo cáo kết quả giải quyết đơn về nơi chuyển đơn",
+      "groups": [
+        "Phiếu chuyển bị trả lại",
+        "Đánh giá địa bàn và tuân thủ",
+        "Quá hạn, ghi chú"
+      ],
+      "process": "Ghi thông tin giám sát sau chuyển/giải quyết. Đây là lớp theo dõi song song với trạng thái chính.",
+      "terms": [],
+      "rules": [],
+      "fields": [
+        {
+          "name": "Phiếu chuyển bị trả lại",
+          "code": "PHIEU_CHUYEN_BI_TRA_LAI",
+          "control": "Checkbox",
+          "input": "Đánh dấu nếu Phiếu chuyển bị trả lại.",
+          "req": "Không bắt buộc; chỉ phát sinh khi có Phiếu chuyển.",
+          "options": "Tích checkbox"
+        },
+        {
+          "name": "Lý do trả lại Phiếu chuyển",
+          "code": "LY_DO_TRA_LAI_PHIEU_CHUYEN",
+          "control": "Văn bản nhiều dòng",
+          "input": "Nhánh hiện ra khi tích ở trường \"Phiếu chuyển bị trả lại\". \nCách nhập: Ghi lý do cơ quan nhận trả lại.",
+          "req": "Trường bắt buộc.",
+          "options": "Văn bản."
+        },
+        {
+          "name": "Số công văn báo cáo kết quả giải quyết đơn",
+          "code": "",
+          "control": "Ô văn bản",
+          "input": "Ghi số công văn",
+          "req": "Không bắt buộc.",
+          "options": "Văn bản."
+        },
+        {
+          "name": "Ngày công văn báo cáo kết quả giải quyết đơn",
+          "code": "",
+          "control": "Date picker",
+          "input": "Chọn ngày ghi trên công văn báo cáo",
+          "req": "Không bắt buộc",
+          "options": "Ngày hợp lệ"
+        }
+      ]
+    }
+  ],
+  "FIXED": [
+    {
+      "title": "Thuế cơ sở/Phòng",
+      "desc": "Phân theo User của từng đơn vị, có 25 Thuế cơ sở và 15 Phòng (40 User). Mỗi User chỉ được cấp quyền rà soát và xem đơn thư của mình nhập, không được xem đơn thư của các đơn vị khác. Các CBCC trong một đơn vị sẽ dùng chung một user để nhập đơn thư. \n- Quy tắc: Đơn nhập từ User nào sẽ tính là đơn thư của đơn vị ấy phát sinh, tính theo đầu vào Công văn đến.\n- Bổ sung: Cần thêm User của Bộ phận Tổng hợp (có thể lấy User của phòng KTr2 luôn) và Lãnh đạo được cấp quyền xem hết, tra cứu, tổng hợp."
+    },
+    {
+      "title": "Mã đơn / tra cứu",
+      "desc": "Dùng để nhận diện hoặc mở lại hồ sơ đã lưu (có thể để bằng hình thức Tên Thuế cơ sở + Số CVĐ + Năm, Ví dụ: TCS15-02535-2026)"
+    },
+    {
+      "title": "Ngày báo cáo",
+      "desc": "Chọn ngày đơn vị báo cáo (Đây sẽ là mốc để tổng hợp lên kỳ báo cáo, ví dụ báo cáo đơn thư giao ban tháng, quý)"
+    },
+    {
+      "title": "Trạng thái chính",
+      "desc": "Cho biết hồ sơ đang ở bước chính nào? Phân loại đơn, Thụ lý và xác minh đơn hay Đã giải quyết."
+    },
+    {
+      "title": "Trạng thái gửi",
+      "desc": "Cho biết hồ sơ là nháp, hoàn tất hay đã xác nhận gửi (khóa chỉnh sửa)."
+    }
+  ]
+};
+/* --- Kết thúc vùng dữ liệu --- */
+
+const STORE = window.APP_DATA.STORE_KEY;
+const BASE = {
+  steps: JSON.parse(JSON.stringify(window.APP_DATA.STEPS)),
+  fixed: JSON.parse(JSON.stringify(window.APP_DATA.FIXED))
+};
+let saved=loadSaved();let draft=JSON.parse(JSON.stringify(saved));let activeStep=1;let isDirty=false;let returnFocus=null;
+function loadSaved(){try{const x=JSON.parse(localStorage.getItem(STORE)||'null');return x&&Array.isArray(x.steps)&&Array.isArray(x.fixed)?x:JSON.parse(JSON.stringify(BASE))}catch(_){return JSON.parse(JSON.stringify(BASE))}}
+function esc(x){return String(x??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
+function markDirty(){isDirty=true;document.getElementById('status').textContent='Có thay đổi chưa lưu';document.getElementById('status').classList.add('dirty')}
+function render(){renderFixed();renderSteps();renderDetail();document.getElementById('status').textContent=isDirty?'Có thay đổi chưa lưu':'Đang dùng nội dung đã lưu';document.getElementById('status').classList.toggle('dirty',isDirty)}
+function renderFixed(){const box=document.getElementById('fixedGrid');box.innerHTML=draft.fixed.map((x,i)=>`<article class="tile"><div class="entry-tools"><button data-edit="fixed:${i}">Sửa</button><button class="del" data-delete="fixed:${i}">Xóa</button></div><div class="tile-title">${esc(x.title)}</div><div class="tile-desc">${esc(x.desc)}</div></article>`).join('');wireEntryTools(box)}
+function renderSteps(){const box=document.getElementById('stepList');box.innerHTML=draft.steps.map((s,i)=>`<div class="step-row"><div class="step-select ${s.id===activeStep?'active':''}"><span class="step-number">${i+1}</span><button class="step-words" data-select-step="${s.id}" style="border:0;background:transparent;text-align:left;padding:0;color:inherit"><span class="step-title">${esc(s.title)}</span><span class="step-short">${esc(s.short)}</span></button><span class="step-edit"><button data-edit="step:${i}">Sửa tên bước</button></span></div>${i<draft.steps.length-1?'<div class="down" aria-hidden="true">↓</div>':''}</div>`).join('');box.querySelectorAll('[data-select-step]').forEach(b=>b.onclick=()=>{activeStep=+b.dataset.selectStep;renderSteps();renderDetail()});wireEntryTools(box)}
+function renderDetail(){const s=draft.steps.find(x=>x.id===activeStep)||draft.steps[0];if(!s){document.getElementById('detail').innerHTML='<p class="empty">Chưa có bước nào. Hãy thêm lại bước trong bản gốc.</p>';return}const idx=draft.steps.indexOf(s);const detail=document.getElementById('detail');detail.innerHTML=`<div class="detail-head"><div class="eyebrow" style="color:#1685a8">BƯỚC ${idx+1} / ${draft.steps.length}</div><h2>${esc(s.title)}</h2><p>${esc(s.short)}</p><div class="entry-tools" style="margin-top:10px"><button data-edit="step:${idx}">Sửa tên / mô tả bước</button></div></div><section class="block"><div class="block-head"><h3>Bạn cần làm gì?</h3><div class="entry-tools"><button data-edit="process:${idx}">Sửa hướng dẫn</button></div></div><div class="explain">${esc(s.process)}</div></section><section class="block"><div class="block-head"><h3>Lưu ý của bước</h3><div class="entry-tools"><button class="add-btn" data-add="rule:${idx}">＋ Thêm lưu ý</button></div></div>${s.rules.length?s.rules.map((t,j)=>`<div class="entry"><div class="entry-text">${esc(t)}</div><div class="entry-tools"><button data-edit="rule:${idx}:${j}">Sửa</button><button class="del" data-delete="rule:${idx}:${j}">Xóa</button></div></div>`).join(''):'<p class="empty">Chưa có lưu ý.</p>'}</section><section class="block"><div class="block-head"><h3>Giải thích thuật ngữ</h3><div class="entry-tools"><button class="add-btn" data-add="term:${idx}">＋ Thêm thuật ngữ</button></div></div>${s.terms.length?s.terms.map((t,j)=>`<div class="entry"><div class="entry-text">${esc(t)}</div><div class="entry-tools"><button data-edit="term:${idx}:${j}">Sửa</button><button class="del" data-delete="term:${idx}:${j}">Xóa</button></div></div>`).join(''):'<p class="empty">Chưa có thuật ngữ.</p>'}</section><section class="block"><div class="block-head"><h3>Các trường trong bước (${s.fields.length})</h3><div class="entry-tools"><button class="add-btn" data-add="field:${idx}">＋ Thêm trường</button></div></div>${s.fields.length?s.fields.map((f,j)=>`<details class="field"><summary><span class="field-name">${esc(f.name)}</span><span class="field-kind">${esc(f.control)}</span><span class="tag ${f.req.startsWith('Không bắt buộc')?'optional':''}">${f.req.startsWith('Không bắt buộc')?'Không bắt buộc':'Xem điều kiện'}</span></summary><div class="field-body"><div class="field-tools"><button data-edit="field:${idx}:${j}">Sửa trường</button><button class="del" data-delete="field:${idx}:${j}">Xóa trường</button></div><p><b>Mã trường:</b> ${esc(f.code)}</p><p><b>Cách điền:</b> ${esc(f.input)}</p><p><b>Bắt buộc:</b> <span class="req ${f.req.startsWith('Không bắt buộc')?'optional':''}">${esc(f.req)}</span></p><p><b>Lựa chọn / kiểm tra:</b> ${esc(f.options)}</p></div></details>`).join(''):'<p class="empty">Bước này chưa có trường. Dùng nút “Thêm trường” để tạo trường mới.</p>'}</section><div class="block"><div class="entry-tools"><button class="add-btn" data-add="step">＋ Thêm bước quy trình</button>${draft.steps.length>1?`<button class="del" data-delete="step:${idx}">Xóa bước này</button>`:''}</div></div>`;wireEntryTools(detail)}
+function wireEntryTools(root){root.querySelectorAll('[data-edit]').forEach(b=>b.onclick=()=>editItem(b.dataset.edit));root.querySelectorAll('[data-delete]').forEach(b=>b.onclick=()=>deleteItem(b.dataset.delete));root.querySelectorAll('[data-add]').forEach(b=>b.onclick=()=>addItem(b.dataset.add))}
+function editor(title,fields,callback){returnFocus=document.activeElement;document.getElementById('modalRoot').innerHTML=`<div class="modal-backdrop" id="backdrop"><section class="modal" role="dialog" aria-modal="true"><h2>${esc(title)}</h2><div class="modal-fields">${fields.map((f,i)=>`<label>${esc(f.label)}${f.multiline?`<textarea data-i="${i}">${esc(f.value)}</textarea>`:`<input data-i="${i}" value="${esc(f.value)}">`}</label>`).join('')}</div><div class="modal-actions"><button id="modalCancel">Hủy sửa mục</button><button class="save-item" id="modalSave">Xong</button></div></section></div>`;const modal=document.querySelector('.modal');modal.querySelector('input,textarea')?.focus();document.getElementById('modalCancel').onclick=closeEditor;document.getElementById('backdrop').onclick=e=>{if(e.target.id==='backdrop')closeEditor()};document.getElementById('modalSave').onclick=()=>{const vals=[...modal.querySelectorAll('[data-i]')].map(x=>x.value.trim());callback(vals);closeEditor();markDirty();render()}}
+function closeEditor(){document.getElementById('modalRoot').innerHTML='';returnFocus?.focus?.()}
+function editItem(key){const [type,a,b]=key.split(':').map((x,i)=>i?Number(x):x);let item,fields=[];if(type==='fixed'){item=draft.fixed[a];fields=[{label:'Tên mục',value:item.title},{label:'Giải thích',value:item.desc,multiline:true}]}else if(type==='step'){item=draft.steps[a];fields=[{label:'Tên bước',value:item.title},{label:'Mô tả ngắn',value:item.short,multiline:true}]}else if(type==='process'){item=draft.steps[a];fields=[{label:'Hướng dẫn thao tác',value:item.process,multiline:true}]}else if(type==='rule'){item=draft.steps[a].rules;fields=[{label:'Nội dung lưu ý',value:item[b],multiline:true}]}else if(type==='term'){item=draft.steps[a].terms;fields=[{label:'Thuật ngữ / giải thích',value:item[b],multiline:true}]}else if(type==='field'){item=draft.steps[a].fields[b];fields=[{label:'Tên trường',value:item.name},{label:'Mã trường',value:item.code},{label:'Loại điều khiển',value:item.control},{label:'Cách điền',value:item.input,multiline:true},{label:'Bắt buộc / điều kiện',value:item.req,multiline:true},{label:'Lựa chọn / kiểm tra',value:item.options,multiline:true}]}
+editor('Sửa nội dung',fields,v=>{if(type==='fixed'){item.title=v[0];item.desc=v[1]}else if(type==='step'){item.title=v[0];item.short=v[1]}else if(type==='process')item.process=v[0];else if(type==='rule'||type==='term')item[b]=v[0];if(type==='field')Object.assign(item,{name:v[0],code:v[1],control:v[2],input:v[3],req:v[4],options:v[5]})})}
+function deleteItem(key){const [type,a,b]=key.split(':').map((x,i)=>i?Number(x):x);if(!confirm('Xóa mục này khỏi bản đang chỉnh sửa?'))return;if(type==='fixed')draft.fixed.splice(a,1);else if(type==='step'){draft.steps.splice(a,1);draft.steps.forEach((step,i)=>step.id=i+1);activeStep=draft.steps[Math.min(a,draft.steps.length-1)]?.id||1}else if(type==='rule')draft.steps[a].rules.splice(b,1);else if(type==='term')draft.steps[a].terms.splice(b,1);else if(type==='field')draft.steps[a].fields.splice(b,1);markDirty();render()}
+function addItem(key){const [type,a]=key.split(':');if(type==='fixed'){draft.fixed.push({title:'Thông tin mới',desc:'Nhập mô tả cho mục này.'})}else if(type==='step'){const id=Math.max(0,...draft.steps.map(x=>x.id))+1;draft.steps.push({id,title:`Bước ${id} mới`,short:'Mô tả ngắn cho bước.',groups:[],process:'Mô tả các thao tác cần thực hiện.',terms:[],rules:[],fields:[]});activeStep=id}else if(type==='rule'){draft.steps[+a].rules.push('Lưu ý mới');}else if(type==='term'){draft.steps[+a].terms.push('Thuật ngữ — giải thích');}else if(type==='field'){draft.steps[+a].fields.push({name:'Trường mới',code:'FIELD_NEW',control:'Ô nhập',input:'Mô tả cách nhập.',req:'Cần xác nhận nghiệp vụ.',options:'Nhập lựa chọn hoặc quy tắc kiểm tra.'})}markDirty();render()}
+
+// Nút lưu nháp: chỉ lưu trên trình duyệt của máy hiện tại
+document.getElementById('addFixed').onclick=()=>addItem('fixed');
+document.getElementById('saveBtn').onclick=()=>{try{localStorage.setItem(STORE,JSON.stringify(draft));saved=JSON.parse(JSON.stringify(draft));isDirty=false;render();alert('Đã lưu nháp. (Lưu ý: nội dung này chỉ lưu trên máy của bạn, chưa được đóng gói vào file để gửi đi)')}catch(_){alert('Không lưu được. Kiểm tra cài đặt lưu trữ của trình duyệt.')}};
+
+// TÍNH NĂNG MỚI: XUẤT FILE ĐỂ GỬI
+document.getElementById('exportBtn').onclick=()=>{
+  const exportData = {
+    STORE_KEY: 'gpa_guide_' + Date.now(), // Đổi mã lưu trữ để chắc chắn máy người nhận sẽ dùng nội dung mới
+    STEPS: draft.steps,
+    FIXED: draft.fixed
+  };
+  
+  // Nén an toàn dữ liệu để nhúng vào html
+  const jsonStr = JSON.stringify(exportData, null, 2).replace(/</g, '\\u003c');
+  const newDataBlock = `window.APP_DATA = ${jsonStr};`;
+  
+  // Lấy mã HTML hiện tại và tráo đổi khối dữ liệu gốc thành khối vừa sửa
+  const htmlStr = document.documentElement.outerHTML;
+  const newHtmlStr = "<!doctype html>\n<html lang=\"vi\">" + 
+    htmlStr.replace(
+      /\/\* --- Bắt đầu vùng dữ liệu --- \*\/[\s\S]*?\/\* --- Kết thúc vùng dữ liệu --- \*\//,
+      "/* --- Bắt đầu vùng dữ liệu --- */\n" + newDataBlock + "\n/* --- Kết thúc vùng dữ liệu --- */"
+    ) + "</html>";
+  
+  // Kích hoạt tiến trình tải xuống
+  const blob = new Blob([newHtmlStr], {type: 'text/html;charset=utf-8'});
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = 'Giai_phap_A_da_sua.html';
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  URL.revokeObjectURL(url);
+  
+  // Đánh dấu lưu thành công
+  try {
+      localStorage.setItem(exportData.STORE_KEY, JSON.stringify(draft));
+      window.APP_DATA = exportData;
+  } catch(e) {}
+  saved=JSON.parse(JSON.stringify(draft));
+  isDirty=false;
+  render();
+  
+  alert('Đã tạo thành công File HTML chứa toàn bộ thay đổi của bạn!\n\nHãy lấy file [Giai_phap_A_da_sua.html] vừa tải xuống để gửi Zalo cho người khác. Họ sẽ xem được nội dung giống hệt bạn!');
+};
+
+document.getElementById('cancelBtn').onclick=()=>{if(!isDirty)return;if(!confirm('Hủy mọi thay đổi chưa lưu và quay về bản đã lưu?'))return;draft=JSON.parse(JSON.stringify(saved));activeStep=draft.steps[0]?.id||1;isDirty=false;render()};
+document.getElementById('restoreBtn').onclick=()=>{if(!confirm('Khôi phục nội dung gốc ban đầu của file? Các thay đổi đã lưu sẽ bị xóa bỏ.'))return;draft=JSON.parse(JSON.stringify(BASE));activeStep=1;isDirty=true;render()};
+document.getElementById('printBtn').onclick=()=>window.print();
+render();
+</script>
+```eof
+
+Từ giờ, để chia sẻ nội dung đã chỉnh sửa cho người khác, bạn chỉ cần thao tác:
+1. Chỉnh sửa nội dung bạn muốn.
+2. Bấm vào nút màu xanh lá **"Xuất file gửi Zalo"** ở phía trên cùng bên phải.
+3. Trình duyệt sẽ tải về một file có tên `Giai_phap_A_da_sua.html`.
+4. Gửi file vừa tải đó qua Zalo. Người nhận mở lên đảm bảo sẽ thấy toàn bộ nội dung y hệt bản mới nhất bạn vừa làm.</body></html></html>

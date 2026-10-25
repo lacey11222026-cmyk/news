@@ -1,0 +1,504 @@
+﻿@using Card.Data.DTO
+@model Users
+@{
+    List<Groups> ListGroup = ViewBag.GroupList;
+    Users CurrentUser = ViewBag.CurrentUser;
+}
+
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="box box-primary">
+            <div class="box-header">
+                @if (Model.UserID > 0)
+                {
+                    <i class="fa fa-fw fa-user-md"></i><span>Cập Nhật User</span>
+                }
+                else
+                {
+                    <i class="fa fa-fw fa-user-plus"></i><span>Thêm mới User</span>
+                }
+            </div>
+            <form id="defaultForm" method="post" class="form-horizontal">
+                <div class="panel-group" id="steps">
+                    <div class="messager-body">
+                        <div class="alert alert-success display-hide alert-dismissable">
+                            <button type="button" class="close" data-close="alert" aria-hidden="true">×</button>
+                            <span class="glyphicon glyphicon-ok"></span>
+                            <label>Đã lưu dữ liệu thành công !!!</label>
+                        </div>
+                        <div class="alert alert-danger display-hide alert-dismissable">
+                            <button type="button" class="close" data-close="alert" aria-hidden="true">×</button>
+                            <span class="glyphicon glyphicon-warning-sign"></span>
+                            <label id="ErrorMessage">Có một vài lỗi trong khung nhập liệu dưới đây ! kiểm tra lại</label>
+                        </div>
+                    </div>
+                    <div class="panel">
+
+                        <div class="form-body">
+                            <div class="form-group">
+                                <label for="txtUserName" class="control-label col-md-4">UserName :<span class="required">*</span></label>
+                                <div class="col-md-4">
+                                    <div class="input-icon right">
+                                        @if (Model.UserID > 0)
+                                        {
+                                            <input type="text" id="txtUserName" readonly="readonly" maxlength="30" name="username" value="@Model.Username" class="form-control" placeholder="Nhập tên Tài Khoản" />
+                                        }
+                                        else
+                                        {
+                                            <input type="text" id="txtUserName" maxlength="30" name="username" value="@Model.Username" class="form-control" placeholder="Nhập tên Tài Khoản" />
+                                        }
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="txtFullName" class="control-label col-md-4">FullName :<span class="required">*</span></label>
+                                <div class="col-md-4">
+                                    <div class="input-icon right">
+                                        <input type="text" id="txtFullName" name="fullname" maxlength="50" value="@Model.FullName" class="form-control" placeholder="Nhập họ tên" />
+                                    </div>
+                                </div>
+                            </div>
+                           
+                            @if (Model.UserID == 0)
+                            {
+                                <div class="form-group">
+                                    <label for="txtpassword" class="control-label col-md-4">Mật khẩu :</label>
+                                    <div class="col-md-4">
+                                        <div class="input-icon right">
+                                            <input type="password" id="txtpassword" name="Password" maxlength="20" autocomplete="new-password" value="@Model.Password" class="form-control" placeholder="Nhập mật khẩu" />
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                            }
+
+                            <div class="form-group" style="display:none">
+                                <label for="txtEmail" class="control-label col-md-4">Email :<span class="required">*</span></label>
+                                <div class="col-md-4">
+                                    <div class="input-icon right">
+                                        <input type="text" id="txtEmail" name="Email" maxlength="150" value="@Model.Email" class="form-control" placeholder="Nhập địa chỉ Email" data-rule-required="true" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group" style="display:none">
+                                <label for="txtMobile" class="control-label col-md-4">Email :<span class="required">*</span></label>
+                                <div class="col-md-4">
+                                    <div class="input-icon right">
+                                        <input type="text" id="txtEmail" name="Email" maxlength="150" value="@Model.Mobile" class="form-control" placeholder="Nhập số điệnt haoij" data-rule-required="true" />
+                                    </div>
+                                </div>
+                            </div>
+                            
+                           
+                            
+                            <div class="form-group" @if (Model.Type == 4) { @Html.Raw("style='display:none'") ; }>
+                                <label class="control-label col-md-4" for="cbxType">Phòng ban :</label>
+                                <div class="col-md-4">
+                                    <select class="form-control" id="ddlGroup">
+
+                                        <option value="1" @(Model.Group == 1 ? "selected" : "")>Văn phòng</option>
+                                        <option value="2" @(Model.Group == 2 ? "selected" : "")>Phòng Tổ chức cán bộ</option>
+                                        <option value="3" @(Model.Group == 3 ? "selected" : "")>Phòng Quản trị dữ liệu và quản lý rủi ro</option>
+                                        <option value="4" @(Model.Group == 4 ? "selected" : "")>Phòng Thuế cá nhân, hộ kinh doanh và thu khác</option>
+                                        <option value="5" @(Model.Group == 5 ? "selected" : "")>Phòng Quản lý các khoản thu từ đất</option>
+                                        <option value="6" @(Model.Group == 6 ? "selected" : "")>Phòng Nghiệp vụ, dự toán, pháp chế</option>
+
+                                        <option value="7" @(Model.Group == 7 ? "selected" : "")>Phòng Quản lý, hỗ trợ doanh nghiệp số 1</option>
+                                        <option value="8" @(Model.Group == 8 ? "selected" : "")>Phòng Quản lý, hỗ trợ doanh nghiệp số 2</option>
+                                        <option value="9" @(Model.Group == 9 ? "selected" : "")>Phòng Quản lý, hỗ trợ doanh nghiệp số 3</option>
+                                        <option value="10" @(Model.Group == 10 ? "selected" : "")>Phòng Quản lý, hỗ trợ doanh nghiệp số 4</option>
+                                        <option value="11" @(Model.Group == 11 ? "selected" : "")>Phòng Quản lý, hỗ trợ doanh nghiệp số 5</option>
+
+                                        <option value="12" @(Model.Group == 12 ? "selected" : "")>Phòng Kiểm tra số 1</option>
+                                        <option value="13" @(Model.Group == 13 ? "selected" : "")>Phòng Kiểm tra số 2</option>
+                                        <option value="14" @(Model.Group == 14 ? "selected" : "")>Phòng Kiểm tra số 3</option>
+                                        <option value="15" @(Model.Group == 15 ? "selected" : "")>Phòng Kiểm tra số 4</option>
+                                        <option value="16" @(Model.Group == 16 ? "selected" : "")>Phòng Kiểm tra số 5</option>
+
+                                        <option value="17" @(Model.Group == 17 ? "selected" : "")>Thuế cơ sở 1 TP Hà Nội</option>
+                                        <option value="18" @(Model.Group == 18 ? "selected" : "")>Thuế cơ sở 2 TP Hà Nội</option>
+                                        <option value="19" @(Model.Group == 19 ? "selected" : "")>Thuế cơ sở 3 TP Hà Nội</option>
+                                        <option value="20" @(Model.Group == 20 ? "selected" : "")>Thuế cơ sở 4 TP Hà Nội</option>
+                                        <option value="21" @(Model.Group == 21 ? "selected" : "")>Thuế cơ sở 5 TP Hà Nội</option>
+                                        <option value="22" @(Model.Group == 22 ? "selected" : "")>Thuế cơ sở 6 TP Hà Nội</option>
+                                        <option value="23" @(Model.Group == 23 ? "selected" : "")>Thuế cơ sở 7 TP Hà Nội</option>
+                                        <option value="24" @(Model.Group == 24 ? "selected" : "")>Thuế cơ sở 8 TP Hà Nội</option>
+                                        <option value="25" @(Model.Group == 25 ? "selected" : "")>Thuế cơ sở 9 TP Hà Nội</option>
+                                        <option value="26" @(Model.Group == 26 ? "selected" : "")>Thuế cơ sở 10 TP Hà Nội</option>
+                                        <option value="27" @(Model.Group == 27 ? "selected" : "")>Thuế cơ sở 11 TP Hà Nội</option>
+                                        <option value="28" @(Model.Group == 28 ? "selected" : "")>Thuế cơ sở 12 TP Hà Nội</option>
+                                        <option value="29" @(Model.Group == 29 ? "selected" : "")>Thuế cơ sở 13 TP Hà Nội</option>
+                                        <option value="30" @(Model.Group == 30 ? "selected" : "")>Thuế cơ sở 14 TP Hà Nội</option>
+                                        <option value="31" @(Model.Group == 31 ? "selected" : "")>Thuế cơ sở 15 TP Hà Nội</option>
+                                        <option value="32" @(Model.Group == 32 ? "selected" : "")>Thuế cơ sở 16 TP Hà Nội</option>
+                                        <option value="33" @(Model.Group == 33 ? "selected" : "")>Thuế cơ sở 17 TP Hà Nội</option>
+                                        <option value="34" @(Model.Group == 34 ? "selected" : "")>Thuế cơ sở 18 TP Hà Nội</option>
+                                        <option value="35" @(Model.Group == 35 ? "selected" : "")>Thuế cơ sở 19 TP Hà Nội</option>
+                                        <option value="36" @(Model.Group == 36 ? "selected" : "")>Thuế cơ sở 20 TP Hà Nội</option>
+                                        <option value="37" @(Model.Group == 37 ? "selected" : "")>Thuế cơ sở 21 TP Hà Nội</option>
+                                        <option value="38" @(Model.Group == 38 ? "selected" : "")>Thuế cơ sở 22 TP Hà Nội</option>
+                                        <option value="39" @(Model.Group == 39 ? "selected" : "")>Thuế cơ sở 23 TP Hà Nội</option>
+                                        <option value="40" @(Model.Group == 40 ? "selected" : "")>Thuế cơ sở 24 TP Hà Nội</option>
+                                        <option value="41" @(Model.Group == 41 ? "selected" : "")>Thuế cơ sở 25 TP Hà Nội</option>
+
+                                    </select>
+                                </div>
+                            </div>
+                          
+                          
+                         
+                            <div class="form-group">
+                                <label class="control-label col-md-4" for="cbxIsActive">Trạng thái :</label>
+                                <div class="col-md-4">
+                                    <div class="checkbox">
+                                        <input type="checkbox" id="cbxIsActive" class="cbxIsDisplay" @(Model.Status ? "checked=\"checked\"" : "") />
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="panel-footer form-horizontal">
+                            <div class="form-group submit">
+                                <button type="submit" class="btn btn-primary" id="btnSave"><i class="fa fa-save"></i> Lưu lại</button>
+                                <button type="button" class="btn btn-primary" id="btnReset"><i class="fa fa-refresh"></i> Làm mới</button>
+                                <button type="button" class="btn btn-default" id="btnBack" onclick="GotoListpage();"><i class="fa fa-backward"></i> Back</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+
+
+    function formatPrice(price) {
+        var fixedToSix = (Math.round(price * 1000000) / 1000000);
+        return (Math.round(fixedToSix) == fixedToSix + 0.000001 ? fixedToSix + 0.000001 : fixedToSix);
+    }
+    Number.prototype.formatMoney = function (c, d, t) {
+        var n = this,
+            c = isNaN(c = Math.abs(c)) ? 2 : c,
+            d = d == undefined ? "." : d,
+            t = t == undefined ? "," : t,
+            s = n < 0 ? "-" : "",
+            i = parseInt(n = Math.abs(+n || 0).toFixed(c)) + "",
+            j = (j = i.length) > 3 ? j % 3 : 0;
+        return s + (j ? i.substr(0, j) + t : "") + i.substr(j).replace(/(\d{3})(?=\d)/g, "$1" + t) + (c ? d + Math.abs(n - i).toFixed(c).slice(2) : "");
+    };
+
+    var unformat = function (value, decimal) {
+        // Recursively unformat arrays:
+        //            if (isArray(value)) {
+        //                return map(value, function (val) {
+        //                    return unformat(val, decimal);
+        //                });
+        //            }
+        // Fails silently (need decent errors):
+        value = value || 0;
+        // Return the value as-is if it's already a number:
+        if (typeof value === "number") return value;
+        // Default decimal point is "." but could be set to eg. "," in opts:
+        decimal = decimal || ",";
+        // Build regex to strip out everything except digits, decimal point and minus sign:
+        var regex = new RegExp("[^0-9-" + decimal + "]", ["g"]),
+            unformatted = parseFloat(
+                ("" + value)
+                    .replace(/\((.*)\)/, "-$1") // replace bracketed values with negatives
+                    .replace(regex, '') // strip out any cruft
+                    .replace(decimal, ',') // make sure decimal point is standard
+            );
+        // This will fail silently which may cause trouble, let's wait and see:
+        return !isNaN(unformatted) ? unformatted : 0;
+    };
+    var DocTienBangChu = function (SoTien) {
+        var ChuSo = new Array(" không ", " một ", " hai ", " ba ", " bốn ", " năm ", " sáu ", " bảy ", " tám ", " chín ");
+        var Tien = new Array("", " nghìn", " triệu", " tỷ", " nghìn tỷ", " triệu tỷ");
+        var lan = 0;
+        var i = 0;
+        var so = 0;
+        var KetQua = "";
+        var tmp = "";
+        var ViTri = new Array();
+        if (SoTien < 0) return "Số tiền âm !";
+        if (SoTien == 0) return "Không";
+        if (SoTien > 0) {
+            so = SoTien;
+        }
+        else {
+            so = -SoTien;
+        }
+        if (SoTien > 8999999999999999) {
+            //SoTien = 0;
+            return "Số quá lớn!";
+        }
+        ViTri[5] = Math.floor(so / 1000000000000000);
+        if (isNaN(ViTri[5]))
+            ViTri[5] = "0";
+        so = so - parseFloat(ViTri[5].toString()) * 1000000000000000;
+        ViTri[4] = Math.floor(so / 1000000000000);
+        if (isNaN(ViTri[4]))
+            ViTri[4] = "0";
+        so = so - parseFloat(ViTri[4].toString()) * 1000000000000;
+        ViTri[3] = Math.floor(so / 1000000000);
+        if (isNaN(ViTri[3]))
+            ViTri[3] = "0";
+        so = so - parseFloat(ViTri[3].toString()) * 1000000000;
+        ViTri[2] = parseInt(so / 1000000);
+        if (isNaN(ViTri[2]))
+            ViTri[2] = "0";
+        ViTri[1] = parseInt((so % 1000000) / 1000);
+        if (isNaN(ViTri[1]))
+            ViTri[1] = "0";
+        ViTri[0] = parseInt(so % 1000);
+        if (isNaN(ViTri[0]))
+            ViTri[0] = "0";
+        if (ViTri[5] > 0) {
+            lan = 5;
+        }
+        else if (ViTri[4] > 0) {
+            lan = 4;
+        }
+        else if (ViTri[3] > 0) {
+            lan = 3;
+        }
+        else if (ViTri[2] > 0) {
+            lan = 2;
+        }
+        else if (ViTri[1] > 0) {
+            lan = 1;
+        }
+        else {
+            lan = 0;
+        }
+        for (i = lan; i >= 0; i--) {
+            tmp = DocSo3ChuSo(ViTri[i]);
+            KetQua += tmp;
+            if (ViTri[i] > 0) KetQua += Tien[i];
+            if ((i > 0) && (tmp.length > 0)) KetQua += ',';//&& (!string.IsNullOrEmpty(tmp))
+        }
+        if (KetQua.substring(KetQua.length - 1) == ',') {
+            KetQua = KetQua.substring(0, KetQua.length - 1);
+        }
+        KetQua = KetQua.substring(1, 2).toUpperCase() + KetQua.substring(2);
+        //KetQua += " GG";
+        return KetQua;//.substring(0, 1);//.toUpperCase();// + KetQua.substring(1);
+    }
+    //Hàm chuyển số thành chữ
+    var DocSo3ChuSo = function (baso) {
+        var ChuSo = new Array(" không ", " một ", " hai ", " ba ", " bốn ", " năm ", " sáu ", " bảy ", " tám ", " chín ");
+        var Tien = new Array("", " nghìn", " triệu", " tỷ", " nghìn tỷ", " triệu tỷ");
+        var tram;
+        var chuc;
+        var donvi;
+        var KetQua = "";
+        tram = parseInt(baso / 100);
+        chuc = parseInt((baso % 100) / 10);
+        donvi = baso % 10;
+        if (tram == 0 && chuc == 0 && donvi == 0) return "";
+        if (tram != 0) {
+            KetQua += ChuSo[tram] + " trăm ";
+            if ((chuc == 0) && (donvi != 0)) KetQua += " linh ";
+        }
+        if ((chuc != 0) && (chuc != 1)) {
+            KetQua += ChuSo[chuc] + " mươi";
+            if ((chuc == 0) && (donvi != 0)) KetQua = KetQua + " linh ";
+        }
+        if (chuc == 1) KetQua += " mười ";
+        switch (donvi) {
+            case 1:
+                if ((chuc != 0) && (chuc != 1)) {
+                    KetQua += " mốt ";
+                }
+                else {
+                    KetQua += ChuSo[donvi];
+                }
+                break;
+            case 5:
+                if (chuc == 0) {
+                    KetQua += ChuSo[donvi];
+                }
+                else {
+                    KetQua += " lăm ";
+                }
+                break;
+            default:
+                if (donvi != 0) {
+                    KetQua += ChuSo[donvi];
+                }
+                break;
+        }
+        return KetQua;
+    }
+</script>
+<script type="text/javascript">
+    $("#txtMaxDay").keyup(function () {
+        var val = $(this).val();
+        if (val) {
+
+            val = unformat(val, 0);
+            $(this).val(val);
+
+            var price = parseInt(val);
+            var textMoneyVND = DocTienBangChu(price) + " đồng";
+            var formatMoneyVNDVal = price.formatMoney(0, '', '.') + " VNĐ";
+            $("#textMoneyVND").html(formatMoneyVNDVal + " (" + textMoneyVND + ")");
+        }
+    }).blur(function () {
+        var val = $(this).val();
+        if (val) {
+
+            val = unformat(val, 0);
+            $(this).val(val);
+
+            var price = parseInt(val);
+            var textMoneyVND = DocTienBangChu(price) + " đồng";
+            var formatMoneyVNDVal = price.formatMoney(0, '', '.') + " VNĐ";
+            $("#textMoneyVND").html(formatMoneyVNDVal + " (" + textMoneyVND + ")");
+        }
+    });
+    $("#txtMaxDay").change(function () {
+        var val = $(this).val();
+        if (val) {
+
+            val = unformat(val, 0);
+            $(this).val(val);
+
+            var price = parseInt(val);
+            var textMoneyVND = DocTienBangChu(price) + " đồng";
+            var formatMoneyVNDVal = price.formatMoney(0, '', '.') + " VNĐ";
+            $("#textMoneyVND").html(formatMoneyVNDVal + " (" + textMoneyVND + ")");
+        }
+    });
+    function GotoListpage() {
+        window.location = "@Url.Action("ManagerUser")";
+    }
+        $(document).ready(function () {
+            $("button.close").click(function () {
+                $(this).parent().css("display", "none");
+            });
+            $('#defaultForm').bootstrapValidator({
+                message: 'This value is not valid',
+                //live: 'submitted',
+                feedbackIcons: {
+                    valid: 'glyphicon glyphicon-ok',
+                    invalid: 'glyphicon glyphicon-remove',
+                    validating: 'glyphicon glyphicon-refresh'
+                },
+                fields: {
+
+                    username: {
+                        message: 'The username is not valid',
+                        validators: {
+                            notEmpty: {
+                                message: 'Username không được bỏ trống'
+                            },
+                            regexp: {
+                                regexp: /^[a-zA-Z0-9\._]+$/,
+                                message: 'Username gồm ký tự alphabeta hoặc số'
+                            },
+                            stringLength: {
+                                min: 3,
+                                max: 30,
+                                message: 'Tên nhỏ nhất 3 ký tự và nhiều nhất 30 ký tự'
+                            },
+
+                        }
+                    },
+                    fullname: {
+                        message: 'Bạn chưa nhập họ tên.',
+                        validators: {
+                            notEmpty: {
+                                message: 'Bạn chưa nhập họ tên'
+                            },
+                            stringLength: {
+                                min: 3,
+                                max: 50,
+                                message: 'họ tên dài từ 3 đến 50 ký tự'
+                            },
+                            regexp: {
+                                regexp: /^[a-zA-Z0-9áàảãạăắằẳẵặâấầẩẫậđéèẻẽẹêếềểễệíìỉĩịóòỏõọôốồổỗộơớờởỡợúùủũụưứừửựýỳỷỹỵÁÀẢÃẠĂẮẰẲẴẶÂẤẦẨẪẬĐÉÈẺẼẸÊẾỀỂỄỆÍÌỈĨỊÓÒỎÕỌÔỐỒỔỖỘƠỚỜỞỠỢÚÙỦŨỤƯỨỪỬỰÝỲỶỸỴ\.\-\_\s]+$/,
+                                message: 'Họ tên không được nhập các ký tự đặc biệt'
+                            },
+                        }
+                    },
+                  
+
+                }
+            })
+            .on('success.form.bv', function (e) {
+                // Prevent submit form
+                e.preventDefault();
+
+                var $form = $(e.target),
+                    validator = $form.data('bootstrapValidator');
+                SaveData();
+                $(".close").click(function () {
+                    $(".alert-success").css("display", "none");
+                });
+            })
+            .on('error.form.bv', function (e) {
+                // Active the panel element containing the first invalid element
+                e.preventDefault();
+                var $form = $(e.target),
+                validator = $form.data('bootstrapValidator');
+                $(".alert-danger label").text("Có một vài lỗi trong khung nhập liệu dưới đây ! kiểm tra lại");
+                $(".alert-danger").css("display", "block");
+                $(".close").click(function () {
+                    $(".alert-danger").css("display", "none");
+                    $(".alert-success").css("display", "none");
+                });
+            });
+
+            $("#btnReset").click(function () {
+                $('#defaultForm').data('bootstrapValidator').resetForm(true);
+                $(".alert-danger").css("display", "none");
+                $(".alert-success").css("display", "none");
+            });
+            //Save Data
+            function SaveData() {
+                var param = {
+                    'UserID': '@Model.UserID',
+                    'Username': $("#txtUserName").val(),
+                    'FullName': $("#txtFullName").val(),
+                    'Config': '',
+                    'Password': $("#txtpassword").val(),
+                    'Password2': '',
+                    'Type': $("#ddlType").val(),
+                    'Group': $("#ddlGroup").val(),
+                    'Password': $("#txtpassword").val(),
+                    'Status': $("#cbxIsActive").is(":checked") ? true : false,
+                    
+                }
+                Utils.Loading();
+                $.ajax({
+                    type: 'POST',
+                    url: "@Url.Action("SaveDataUser")",
+                    data: addAntiForgeryToken(param),
+                    async: true,
+                    success: function (data) {
+                        Utils.UnLoading();
+                        if (data.ResponseCode >= 0) {
+
+                            $(".alert-success").show("slow");
+                            $(".alert-danger").hide("slow");
+                            setTimeout(function () { $(".alert-success").hide("slow"); GotoListpage(); }, 2000);
+                        }
+                        else {
+
+                            $("#ErrorMessage").text(data.Description);
+                            $(".alert-danger").show("slow");
+                            $(".alert-success").hide("slow");
+                            setTimeout(function () { $(".alert-danger").hide("slow"); }, 5000);
+                        }
+                    }
+                });
+            };
+        });
+
+        @*var activemenu = $('.sidebar-menu #menu_@(permission.FunctionID)');
+        activemenu.addClass("active");*@
+
+</script>

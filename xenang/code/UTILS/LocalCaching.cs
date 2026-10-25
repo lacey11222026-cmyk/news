@@ -83,7 +83,8 @@ namespace UTILS
         {
             try
             {
-                return CacheManager.GetData ( key );
+                return null;
+                // return CacheManager.GetData ( key );
             }
             catch ( Exception e )
             {

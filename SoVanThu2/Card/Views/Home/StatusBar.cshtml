@@ -1,0 +1,51 @@
+﻿@model Card.Data.DTO.Users
+@using Card.Utility
+@{
+    var P1Ussd = int.Parse(Config.GetAppsetting("P1Ussd"));
+}
+    <div class="row" style="font-weight:bold;font-size:14px;">
+        @*<div class="col-sm-4 col-xs-4">
+            VTT Trả trước : <span class="label label-success" style="padding:2px 2px;font-size: 14px;float:right"><b>@(100 - Model.PercentVTT -P1Ussd)% </b></span>
+        </div>*@
+        @if (Model.UserAPI != "chu_dl1_api")
+        {
+            <div class="col-sm-6 col-xs-6">
+                MY Viettel- FTTH-Home Phone : <span class="label label-success" style="padding:2px 2px;font-size: 14px;float:right"><b>@(100 - Model.PercentVTT)% </b></span>
+            </div>
+            <div class="col-sm-6 col-xs-6">
+                Viettel Trả sau nạp hộ : <span class="label label-success" style="padding:2px 2px;font-size: 14px;float:right"><b>@(100 - Model.PercentVTT- P1Ussd  )% </b></span>
+            </div>
+        }
+        else
+        {
+            <div class="col-sm-6 col-xs-6">
+               VTT : <span class="label label-success" style="padding:2px 2px;font-size: 14px;float:right"><b>@(100 - Model.PercentVTT)% </b></span>
+            </div>
+            
+        }
+
+        @*<div class="col-sm-6 col-xs-6">
+            Home Phone : <span class="label label-success" style="padding:2px 2px;font-size: 14px;float:right"><b>@(100 - Model.PercentVTT- P1Ussd  )% </b></span>
+        </div>*@
+    </div>
+<div class="row" style="font-weight:bold;font-size:14px;">
+
+    <div class="col-sm-6 col-xs-6">
+        Vina : <span class="label label-success" style="padding:2px 2px;font-size: 14px;float:right"><b>@(100 - Model.PercentVNP)% </b></span>
+    </div>
+    <div class="col-sm-6 col-xs-6">
+        Mobi: <span class="label label-success" style="padding:2px 2px;font-size: 14px;float:right"><b>@(100 - Model.PercentVMS)% </b></span>
+    </div>
+    @*<div class="col-sm-4 col-xs-4">
+        FTTH-199 : <span class="label label-success" style="padding:2px 2px;font-size: 14px;float:right"><b>@(100 - Model.PercentVTT - P1Ussd)% </b></span>
+    </div>*@
+</div>
+<style>
+    @@media (max-width: 640px) {
+        #StatusBard .row {
+            font-size:12px !important;
+            margin-bottom:10px;
+        }
+    }
+</style>
+<!-- /.row -->

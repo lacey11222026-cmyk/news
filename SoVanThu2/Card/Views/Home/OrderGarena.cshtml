@@ -1,0 +1,306 @@
+﻿@model Card.Data.DTO.Users
+@{ViewBag.Title = "Nạp nhiều đơn Garena"; }
+@if (ViewBag.Order && Model.Type > 2)
+{
+    <div class="row">
+        <div class="col-md-5 FormOrder">
+
+            <div class="box box-primary">
+                <div class="box-header with-border">
+                    <h3 class="box-title" style="font-size:150%;font-weight:bold">Tạo đơn Garena</h3>
+                    <div class="box-tools pull-right">
+                        <button type="button" class="btn btn-box-tool" onclick="javascript:location.reload()" title="làm mới">
+                            <i class="fa fa-history"></i>
+                        </button>
+
+                    </div>
+
+                </div>
+                <div class="box-body maxheight01">
+                    <h4><b>Chiết khấu hiện tại</b></h4>
+                    <div id="StatusBard">
+                        @{ Html.RenderAction("StatusBarGame", "Home", new { user = Model });}
+                    </div>
+                    <div style="border-bottom:1px solid #ccc">
+
+                    </div>
+                    <br />
+                    <h4><b>Chiết khấu đua đang chạy</b></h4>
+                    <h5>
+                        Thời gian cập nhật lúc  @DateTime.Now.AddMilliseconds(-100).ToString("HH:mm") cập nhật 15p  1 lần
+
+                    </h5>
+                    <div id="TopCkBar">
+                        @{ Html.RenderAction("TopCkBar", "Home", new { type = 2 });}
+                    </div>
+                    <div style="border-bottom:1px solid #ccc">
+
+                    </div>
+                    <div class="form-body">
+                        <div class="panel-group" id="steps">
+
+                            <div class="panel">
+                                <div class="form-group">
+                                    <label for="fileName" class="text-info ng-binding">Chọn file</label>
+                                    <input type="file" id="excelfile" uploader="uploader" name="fileName">
+                                    <div style="font-weight:bold;margin-top:10px">Lưu ý: mỗi đơn chỉ tối đa chứ 1000 giao dịch. Vui lòng tách file và tách đơn</div>
+                                </div>
+                                <div class="form-group" style="font-size:150%;font-weight:bold">
+
+                                    <br />Tải file mẫu tại <a href="~/Content/OrderGarena.xlsx?vs=202001" target="_blank">đây</a>
+
+                                </div>
+                                <div class="form-group">
+
+                                    <img src="~/Content/OrderGanera.PNG?vs=?vs=202005" style="width:89%" />
+                                    <br /><br />
+                                    <img src="~/Content/OrderGanera2.PNG?vs=10201905" style="width:89%" />
+
+                                </div>
+                                <div class="form-group">
+                                    <label for="groupName" class="text-info ng-binding">Tên đơn:</label>
+
+                                    <input type="text" class="form-control" placeholder="Nhập tên đơn(thêm vào cuối đơn)" id="txtOrderNo" maxlength="10">
+
+                                </div>
+                                <div class="form-group">
+                                    <label for="groupName" class="text-info ng-binding">Mật khẩu bán hàng:</label>
+
+                                    <input type="password" class="form-control" placeholder="Nhập mật khẩu bán hàng" id="txtPassword2" value="@ViewBag.MKBH" autocomplete="new-password">
+
+                                </div>
+                                <div class="form-group submit">
+                                    <button type="button" class="btn btn-primary" onclick="validateData()" id="btnSave"><i class="fa fa-save"></i> Cập nhập</button>
+
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <!-- /.box -->
+
+        </div>
+        <div class="col-md-7 nopadding">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="box">
+                        <div class="box-header with-border">
+                            <h3 class="box-title">Danh sách giao dịch </h3>
+                            <div class="box-tools pull-right">
+                                <button type="button" class="btn btn-box-tool" onclick="javascript:location.reload()" title="làm mới">
+                                    <i class="fa fa-history"></i>
+                                </button>
+
+                            </div>
+                        </div>
+                        <div class="box-body maxheight01">
+                            @{ Html.RenderAction("ListTransactionOrder", "Home", new { Telco = "GARENA" });}
+                        </div>
+                    </div>
+                    <!-- /.col -->
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="~/Content/js/jquery.matchHeight.js"></script>
+    <script>
+        $('.maxheight01').matchHeight();
+    </script>
+    <style>
+        .content-wrapper {
+            background-color: #ecf0f5;
+        }
+    </style>
+}
+else
+{
+    <script>
+        location.href = '/Report'
+    </script>
+}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.7.7/xlsx.core.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xls/0.7.4-a/xls.core.min.js"></script>
+<script src="~/Content/js/jquery.matchHeight.js"></script>
+<script>
+    $('.maxheight01').matchHeight();
+
+    function validateData() {
+
+        if (!ValidateControls("Vui nhập mật khẩu bán hàng", "#txtPassword2")) {
+            return false;
+        }
+        ExportToTable();
+    }
+    function ExportToTable() {
+        var regex = /^(.*?)+(.xlsx|.xls)$/;
+        /*Checks whether the file is a valid excel file*/
+        if (regex.test($("#excelfile").val().toLowerCase())) {
+            var xlsxflag = false; /*Flag for checking whether excel is .xls format or .xlsx format*/
+            if ($("#excelfile").val().toLowerCase().indexOf(".xlsx") > 0) {
+                xlsxflag = true;
+            }
+            /*Checks whether the browser supports HTML5*/
+            if (typeof (FileReader) != "undefined") {
+                var reader = new FileReader();
+                reader.onload = function (e) {
+                    var data = e.target.result;
+                    /*Converts the excel data in to object*/
+                    if (xlsxflag) {
+                        var workbook = XLSX.read(data, { type: 'binary' });
+                    }
+                    else {
+                        var workbook = XLS.read(data, { type: 'binary' });
+                    }
+                    /*Gets all the sheetnames of excel in to a variable*/
+                    var sheet_name_list = workbook.SheetNames;
+
+                    var cnt = 0; /*This is used for restricting the script to consider only first sheet of excel*/
+                    sheet_name_list.forEach(function (y) { /*Iterate through all sheets*/
+                        /*Convert the cell value to Json*/
+                        if (xlsxflag) {
+                            var exceljson = XLSX.utils.sheet_to_json(workbook.Sheets[y]);
+                        }
+                        else {
+                            var exceljson = XLS.utils.sheet_to_row_object_array(workbook.Sheets[y]);
+                        }
+                        if (exceljson.length > 0 && cnt == 0) {
+                            var jsonResult = BindTable(exceljson);
+                            SaveData(jsonResult);
+                            cnt++;
+
+
+
+                        }
+                    });
+                    $('#exceltable').show();
+                }
+                if (xlsxflag) {/*If excel file is .xlsx extension than creates a Array Buffer from excel*/
+                    reader.readAsArrayBuffer($("#excelfile")[0].files[0]);
+                }
+                else {
+                    reader.readAsBinaryString($("#excelfile")[0].files[0]);
+                }
+            }
+            else {
+                alert("Sorry! Your browser does not support HTML5!");
+            }
+        }
+        else {
+            alert("Please upload a valid Excel file!");
+        }
+    }
+    function SaveData(jsonResult)
+    {
+        var datatemp = "<br><br><b>Dữ liệu mẫu</b> TK: " + jsonResult[0].Mobile;
+
+        datatemp += "| FullName:" + jsonResult[0].FullName;
+        datatemp += "| Password:" + jsonResult[0].Password;
+        datatemp += "| Amount:" + jsonResult[0].Amount;
+        
+        datatemp += "| AmountMinAll:" + jsonResult[0].AmountMinAll;
+          datatemp += "| TopupType:" + jsonResult[0].TopupType;
+        bootbox.confirm("<b>Bạn chắc chắn tạo đơn ???</b> " + datatemp, function (result) {
+            if (!result) {
+                return;
+            }
+             $.ajax({
+                type: 'POST',
+                url: "@Url.Action("OrderGarena")",
+                 data: JSON.stringify(jsonResult),
+                contentType: 'application/json; charset=utf-8',
+                dataType: 'json',
+                async: true,
+                success: function (data) {
+                    Utils.UnLoading();
+                    if (data.ResponseCode >= 0) {
+
+                        $('.modal ').modal('hide');
+
+                        location.reload();
+                    }
+                    else {
+
+                        showmess(data.Description, "error", "btn-danger");
+                    }
+                }
+            });
+        });
+
+    }
+    function BindTable(jsondata) {/*Function used to convert the JSON array to Html Table*/
+        var columns = BindTableHeader(jsondata); /*Gets all the column headings of Excel*/
+        var jsonResult = [];
+        var columnMobile = 0;
+        var columnName = 1;
+       // var columnTopupType = 2;
+        var columnAmount = 2;
+        var columnAmountMinAll = 3;
+        var columnAmountMin = 4;
+        var columnPassword = 5;
+        var columnTopupType = 6;
+        console.log(jsondata);
+        for (var i = 0; i < jsondata.length; i++) {
+
+            var param = {
+                'Mobile': jsondata[i]['Account'],
+                'FullName': jsondata[i]['FullName'] != undefined ? jsondata[i]['FullName'] : '',
+                'Amount': jsondata[i]['Amount'] != undefined ?  jsondata[i]['Amount']: '',
+                'AmountMinAll': jsondata[i]['AmountMinAll'] != undefined ? jsondata[i]['AmountMinAll'] : '',
+                'AmountMin':  '0',
+
+                'TopupType': jsondata[i]['TopupType'] != undefined ? jsondata[i]['TopupType']:'9',
+                 'Password': jsondata[i]['Password'] != undefined ? jsondata[i]['Password']:'',
+                'Ussd':'0',
+                'Password2': $("#txtPassword2").val(),
+                'OrderNo': $("#txtOrderNo").val(),
+            };
+
+
+            //console.log(jsondata[i][columns[columnAmountMin]]);
+            //console.log(param);
+            jsonResult.push(param);
+            //var row$ = $('<tr/>');
+            //for (var colIndex = 0; colIndex < columns.length; colIndex++) {
+            //    var cellValue = jsondata[i][columns[colIndex]];
+            //    //if (cellValue == null)
+            //    //    cellValue = "";
+            //    row$.append($('<td/>').html(cellValue));
+            //}
+            //$(tableid).append(row$);
+        }
+        return jsonResult;
+    }
+    function BindTableHeader(jsondata) {/*Function used to get all column names from JSON and bind the html table header*/
+        var columnSet = [];
+        //var headerTr$ = $('<tr/>');
+        for (var i = 0; i < jsondata.length; i++) {
+            var rowHash = jsondata[i];
+            for (var key in rowHash) {
+                if (rowHash.hasOwnProperty(key)) {
+                    if ($.inArray(key, columnSet) == -1) {/*Adding each unique column names to a variable array*/
+                        columnSet.push(key);
+                        //headerTr$.append($('<th/>').html(key));
+                    }
+                }
+            }
+        }
+        //$(tableid).append(headerTr$);
+        return columnSet;
+    }
+    function showmess(mess, type, ButtonClass) {
+        swal({
+            title: '',
+            text: mess,
+            type: type,
+            confirmButtonClass: ButtonClass,
+            closeOnConfirm: false,
+            allowOutsideClick: true
+        },
+            function (isConfirm) {
+                location.reload();
+            });
+    }
+</script>

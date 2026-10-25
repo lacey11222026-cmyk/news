@@ -1,150 +1,48 @@
 ﻿@using DATA.ContentDB
-@using UTILS
 @model List<VanThu>
-@using WebMVC4.Helper
-
-<table class="table table-striped table-bordered table-hover dataTable no-footer" id="dataTables">
-    <thead>
-        <tr class="rowsao">
-            @*<th>ID</th>*@
-           
-            <th class="texttable">Ngày trực</th>
-            <th class="">Tên trường nhóm trực</th>
-
-            <th class="">
-                Số phiếu trình văn bản
-            </th>
-            <th class="">
-                Chi tiết phân loại văn bản
-            </th>
-            <th>
-                Ngày đến văn thư Thuế TP Hà Nội
-            </th>
-            <th class="">
-                Số đến Văn thư Thuế TP Hà Nội
-            </th>
-           
-            <th class="">
-                Nơi gửi
-            </th>
-            <th class="">
-                Trích yếu văn bản
-            </th>
-           
-            <th>Thao Tác</th>
-        </tr>
-    </thead>
-    @if (Model != null && Model.Count > 0)
-    {
-        for (int i = 0; i < Model.Count; i++)
+@{ var canViewAll = CurrentFullUser.Group == 13; var total = (int)(ViewBag.TotalRecord ?? 0); var page = (int)(ViewBag.CurrentPage ?? 1); var size = (int)(ViewBag.PageSize ?? 50); }
+<table class="table table-bordered table-striped table-hover" style="min-width:1050px">
+    <thead><tr><th>STT</th><th>Mã đơn</th>@if (canViewAll)
+    {<th>Đơn vị</th>}<th>Ngày báo cáo</th><th>Ngày CV đến</th><th>Số CV đến</th><th>Nguồn tiếp nhận</th><th>Loại đơn</th><th>Bước</th><th>Trạng thái</th><th>Thao tác</th></tr></thead>
+    <tbody>
+        @if (Model != null && Model.Count > 0)
         {
-            var obj = Model[i];
-            <tr>
-
-
-                <td>
-                    <a href="@Url.Action("GetDocumentDetail",new {id=obj.Id })" title="Edit">@obj.DutyDate.GetValueOrDefault().ToString("dd/MM/yyyy")</a>
-                </td>
-                <td class="">@obj.DutyLeaderName</td>
-               
-                <td class="texttable"> @Html.Raw(obj.IncomingSubmissionNo)</td>
-                <td class="texttable">@Html.Raw(obj.IncomingDocumentDetail.GetValueOrDefault())</td>
-                <td class="">@HtmlHelpers.GetDateDocument(obj.ReceivedDate)</td>
-
-                <td class="">@obj.ReceivedNo</td>
-
-
-                <td class="">@obj.Sender</td>
-
-                <td class="">@obj.IncomingDocumentSummary</td>
-                <td style="text-align: center">
-                    <a href="javascript:;" title="Delete" onclick="DeleteData('@Utils.Base64Encode(obj.Id)','@obj.IncomingDocumentSummary')"><i class="fa fa-trash-o"></i></a>
-
-                </td>
-
-            </tr>
+            for (var i = 0; i < Model.Count; i++)
+            {
+                var x = Model[i]; var done = x.IsCompleted == true;
+                <tr>
+                    <td>@((page-1)*size+i+1)</td>
+                    <td>@x.ReportCode</td>
+                    @if (canViewAll)
+                    {
+                        <td>@(x.GroupId.HasValue ? x.GroupId.Value.ToString() : "")</td>
+}
+                    <td>@(x.NgayBaoCao.HasValue ? x.NgayBaoCao.Value.ToString("dd/MM/yyyy") : "")</td>
+                    <td>@(x.NgayCvd.HasValue ? x.NgayCvd.Value.ToString("dd/MM/yyyy") : "")</td>
+                    <td>@x.SoCvDen</td>
+                    <td>@(x.NguonTiepNhan == 1 ? "Nhận trực tiếp" : x.NguonTiepNhan == 2 ? "Nơi khác chuyển đến" : "")</td>
+                    <td>@(x.LoaiDon == 1 ? "Tố cáo" : x.LoaiDon == 2 ? "Khiếu nại" : x.LoaiDon == 3 ? "Kiến nghị/phản ánh" : x.LoaiDon == 4 ? "Nhiều nội dung" : "Chưa phân loại")</td>
+                    <td>@(x.Step ?? 1)/7</td>
+                    <td>@(done ? "Đã kết thúc" : "Đang nhập")</td>
+                    <td><a class="btn btn-xs btn-primary" href="@Url.Action("GetDocumentDetail", new { id=x.Id })">@(done ? "Xem" : "Tiếp tục nhập")</a></td>
+                </tr>
+            }
         }
-    }
+        else
+        {
+            <tr><td colspan="@(canViewAll ? 11 : 10)" class="text-center">Không tìm thấy hồ sơ phù hợp.</td></tr>
+}
+    </tbody>
 </table>
-<script type="text/javascript">
-    var PageOnSize = '@ViewBag.PageSize';
-    var CurrentPage = '@ViewBag.CurrentPage';
-    function BindDataRequest(currentPage) {
-        var params = {
-            title: $("#txtTitle").val(),
-            group: $("#ddlGroupId").val(),
-            currentPage: currentPage,
-            pageSize: PageOnSize
-        };
-        var urlRequestAns = '@Url.Action("ListDocument")';
-        Utils.Loading();
-        $.ajax({
-            type: 'GET',
-            url: urlRequestAns,
-            data: params,
-            success: function (data) {
-                $("#ListDocument").html(data);
-                Utils.UnLoading();
-            },
-            error: function () {
-                Utils.UnLoading();
-            }
-        });
-    };
-    $(document).ready(function () {
-
-
-        $("#pager").pager({
-            pagenumber: CurrentPage,
-            pagecount: Math.ceil('@ViewBag.TotalRecord' / PageOnSize),
-            buttonClickCallback: function (page) { BindDataRequest(page); }
-        });
-
-
-    });
-
-    function DeleteData(id,title) {
-
-        bootbox.confirm("Bạn chắc chắn muốn dữ liệu này ??? ", function (result) {
-            if (result == true) {
-                var postdata= {
-                    '_id': id,
-                    'Title': title,
-                };
-                Utils.Loading();
-                $.ajax({
-                    type: 'POST',
-                    url:"@Url.Action("Delete")",
-                    data: addAntiForgeryToken(postdata),
-                    success: function (data) {
-                        Utils.UnLoading();
-                        if (data.ResponseCode >= 0) {
-                            bootbox.alert(data.Description);
-                            BindDataRequest(CurrentPage);
-                        }
-                        else {
-                            bootbox.alert(data.Description);
-                            return;
-                        }
-                    }
-                });
-            }
-        });
-
-    }
-
+<div class="row"><div class="col-sm-6">Tổng số: <strong>@total</strong> hồ sơ</div><div class="col-sm-6 text-right"><ul class="pagination" style="margin:0" id="docPager"></ul></div></div>
+<script>
+(function(){
+ var page=@page, size=@size, total=@total, pages=Math.ceil(total/size), $p=$('#docPager');
+ if(pages<=1)return;
+ function add(n,label,disabled,active){var li=$('<li/>').toggleClass('disabled',disabled).toggleClass('active',active);var a=$('<a href="javascript:;"/>').text(label);if(!disabled&&!active)a.on('click',function(){window.BindDataRequest(n);});li.append(a);$p.append(li);}
+ add(page-1,'«',page<=1,false);
+ var start=Math.max(1,page-2),end=Math.min(pages,start+4);start=Math.max(1,end-4);
+ for(var i=start;i<=end;i++)add(i,''+i,false,i===page);
+ add(page+1,'»',page>=pages,false);
+})();
 </script>
-<style>
-    .table-responsive {
-        overflow-x: auto;
-    }
-
-    .table {
-        width: 99%;
-        max-width: 99%;
-    }
-
-        .table > thead > tr > td, .table > thead > tr > th {
-            padding: 8px 2px;
-        }
-</style>
