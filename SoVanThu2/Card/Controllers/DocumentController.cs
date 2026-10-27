@@ -1,18 +1,18 @@
 ﻿using Antlr.Runtime.Misc;
-using Card.Data.DTO;
-using Card.Data.Service;
 using Card.CMS.Filter;
 using Card.CMS.Models;
-
+using Card.Data.DTO;
+using Card.Data.Service;
 using Card.Utility;
+using DATA.ContentDB;
 using OfficeOpenXml.FormulaParsing.Excel.Functions.Math;
+using ServiceStack.Common.Utils;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using DATA.ContentDB;
 
 namespace Card.CMS.Controllers
 {
@@ -141,6 +141,42 @@ namespace Card.CMS.Controllers
 
                     doc.NgayBaoCao = ngayBaoCao;
                     doc.ReportCode = Helper.HtmlHelpers.GetGroupCode(CurrentFullUser.Group) + "-" + SoCvDenStr + "-" + ngayBaoCao.ToString("yyyy");
+                }
+                if (doc.Id > 0)
+                {
+                    // Lấy thông tin thật từ database, không tin dữ liệu từ form
+                    var existing = VanThuDAL.GetDetail(doc.Id);
+
+                    if (existing == null)
+                    {
+                        return Json(new
+                        {
+                            ResponseCode = -404,
+
+                            Description = "Không tìm thấy hồ sơ."
+                        });
+                    }
+
+                    // Hồ sơ đã kết thúc: chỉ được xem
+                    if (existing.IsCompleted == true)
+                    {
+                        return Json(new
+                        {
+                            ResponseCode = -403,
+                            Description = "Hồ sơ đã kết thúc, không được phép chỉnh sửa."
+                        });
+                    }
+
+                    // Chỉ đơn vị sở hữu mới được chỉnh sửa
+                    // Group 13 xem tổng hợp, không tự động có quyền sửa đơn vị khác
+                    if (existing.GroupId != groupId)
+                    {
+                        return Json(new
+                        {
+                            ResponseCode = -403,
+                            Description = "Bạn không có quyền chỉnh sửa hồ sơ của đơn vị khác."
+                        });
+                    }
                 }
 
 

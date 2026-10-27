@@ -9,11 +9,14 @@
     string controller = Convert.ToString(ViewContext.RouteData.Values["controller"]);
     string action = Convert.ToString(ViewContext.RouteData.Values["action"]);
 
-  
+
+    int page = 1;
+    int.TryParse(Request.QueryString["Page"], out page);
 
     bool isNoIndex =
         controller.Equals("Product", StringComparison.OrdinalIgnoreCase) &&
-        action.Equals("Index", StringComparison.OrdinalIgnoreCase) ;
+        action.Equals("Index", StringComparison.OrdinalIgnoreCase) &&
+        page > 1;
 }
 
 @if (string.IsNullOrEmpty(ViewBag.SiteTitle))

@@ -107,7 +107,7 @@
     }
 </style>
 <div class="container-fluid">
-    <h3>Quản lý đơn thư — 7 bước</h3><div class="alert alert-info">Lưu nháp và Tiếp tục đều yêu cầu nhập đủ các trường bắt buộc của bước hiện tại. Hồ sơ kết thúc sẽ không cho sửa.</div>
+    <h3>Quản lý đơn thư — 7 bước</h3><div class="alert alert-info">Lưu nháp và Tiếp tục đều yêu cầu nhập đủ các trường bắt buộc của bước hiện tại. Hồ sơ đã kết thúc chỉ cho xem các bước, không cho chỉnh sửa.</div>
     <form id="vanThuWizard" method="post">
         @Html.AntiForgeryToken()
         <input type="hidden" id="Id" name="Id" value="@Model.Id" /><input type="hidden" id="Step" name="Step" value="@(Model.Step ?? 1)" /><input type="hidden" id="IsCompleted" name="IsCompleted" value="@(Model.IsCompleted == true ? "true" : "false")" />
@@ -158,7 +158,7 @@
                             <input class="form-control" id="field_TransferSourceNo" name="TransferSourceNo" value="@Model.TransferSourceNo" />
                         </div>
                         <div class="col-md-6 wizard-field vt-conditional" data-condition="transfer" style="@(Model.NguonTiepNhan == 2 ? "" : "display:none;")">
-                            <label for="field_TransferSourceDate">Ngày phiếu chuyển đơn</label>
+                            <label for="field_TransferSourceDate">Ngày phiếu chuyển đơn <span class="vt-required-star" aria-hidden="true">*</span></label>
                             <input class="form-control wizard-date" id="field_TransferSourceDate" name="TransferSourceDate" type="text" placeholder="dd/MM/yyyy" value="@(Model.TransferSourceDate.HasValue ? Model.TransferSourceDate.Value.ToString("dd/MM/yyyy") : "")" />
                         </div>
                         <div class="col-md-6 wizard-field">
@@ -670,7 +670,7 @@
             var chosen=false;for(var i=1;i<=19;i++)if(checked('RelatedField'+i))chosen=true;
             if(!chosen){error('RelatedField1','Phải chọn ít nhất một lĩnh vực');ok=false;}
             if(checked('RelatedField19'))require('RelatedFieldOtherText');
-            if(val('NguonTiepNhan')==='2'){require('TransferSource');require('TransferSourceNo');}
+            if(val('NguonTiepNhan')==='2'){require('TransferSource');require('TransferSourceNo');require('TransferSourceDate');}
         }
         if(current===2&&val('DieuKienXuLy')==='2'){
             var hasReason=false;for(var j=1;j<=5;j++)if(checked('Kdk0'+j))hasReason=true;
@@ -704,7 +704,7 @@
     }
     function render(){
         $('.wizard-pane').hide().filter('[data-pane="'+current+'"]').show();
-        $('.wizard-step-button').removeClass('btn-primary').addClass('btn-default').prop('disabled',true);
+        $('.wizard-step-button').removeClass('btn-primary').addClass('btn-default').prop('disabled',!locked);
         $('.wizard-step-button[data-step="'+current+'"]').removeClass('btn-default').addClass('btn-primary');
         $('#wizardBack').toggle(current>1&&!locked);$('#wizardNext').toggle(current<7&&!locked);
         $('#wizardDraft').toggle(!locked);$('#wizardFinish').toggle(current===7&&!locked);
@@ -738,6 +738,23 @@
             if($form.find('[name="RelatedField'+i+'"]').is(':checked')) {selected=true;break;}
         }
         if(!selected) missing.push('Ít nhất một lĩnh vực liên quan');
+        if ($.trim(String($form.find('[name="NguonTiepNhan"]').val() || '')) === '2') {
+            $.each([
+                ['TransferSource', 'Nơi chuyển đơn'],
+                ['TransferSourceNo', 'Số phiếu chuyển đơn'],
+                ['TransferSourceDate', 'Ngày phiếu chuyển đơn']
+            ], function(_, item) {
+                var $input = $form.find('[name="' + item[0] + '"]').first();
+                if (!$input.length || !$.trim(String($input.val() || ''))) {
+                    missing.push(item[1]);
+                    $input.addClass('vt-error');
+                    var $box = $input.closest('.wizard-field');
+                    if ($box.length && !$box.find('.vt-error-message').length) {
+                        $box.append($('<div class="vt-error-message"></div>').text('Bắt buộc nhập ' + item[1].toLowerCase()));
+                    }
+                }
+            });
+        }
         if(missing.length){
             $('#vtValidationSummary').empty()
                 .append($('<strong></strong>').text('Không thể lưu hoặc tiếp tục. Các trường bắt buộc chưa nhập:'))
@@ -799,7 +816,14 @@
     $('#wizardBack').on('click',function(){save('back');});
     $('#wizardDraft').on('click',function(){save('draft');});
     $('#wizardFinish').on('click',function(){if(confirm('Kết thúc và khóa hồ sơ?'))save('finish');});
-    if(locked)$('#vanThuWizard :input').not('[type=hidden]').prop('disabled',true);
+    // Hồ sơ đã kết thúc: chỉ đọc, cho phép xem mọi tab mà không gửi AJAX lưu.
+    if(locked){
+        $('#vanThuWizard :input').not('[type=hidden]').prop('disabled',true);
+        $('.wizard-step-button').on('click',function(){
+            var step=parseInt($(this).attr('data-step'),10);
+            if(step>=1 && step<=7){ current=step; render(); }
+        });
+    }
     render();
     $('#vanThuWizard').on('change','#field_RelatedField19',toggleRelatedOther);
     toggleRelatedOther();

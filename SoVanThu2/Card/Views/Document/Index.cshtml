@@ -62,7 +62,7 @@
                     }
                     <div class="col-md-2 col-sm-6 form-group"><label>Từ ngày báo cáo</label><input type="text" id="fromDate" class="form-control search-date" placeholder="dd/MM/yyyy" autocomplete="off" /></div>
                     <div class="col-md-2 col-sm-6 form-group"><label>Đến ngày báo cáo</label><input type="text" id="toDate" class="form-control search-date" placeholder="dd/MM/yyyy" autocomplete="off" /></div>
-                    <div class="col-md-2 col-sm-12 form-group"><label>&nbsp;</label><div><button id="btnSearch" type="button" class="btn btn-info"><i class="fa fa-search"></i> Tìm kiếm</button> <a href="@Url.Action("GetDocumentDetail", new { id = 0 })" class="btn btn-success" title="Thêm đơn mới"><i class="fa fa-plus"></i> Thêm đơn mới</a></div></div>
+                    <div class="col-md-2 col-sm-12 form-group"><label>&nbsp;</label><div><button id="btnSearch" type="button" class="btn btn-info"><i class="fa fa-search"></i> Tìm kiếm</button> <a href="@Url.Action("GetDocumentDetail")" class="btn btn-success" title="Thêm đơn mới"><i class="fa fa-plus"></i> Thêm đơn mới</a></div></div>
                 </div><div id="searchError" class="text-danger" style="display:none"></div>
             </div>
             <div class="box-body table-responsive"><div id="ListDocument">@Html.Action("ListDocument")</div><div id="pager" class="dataTables_paginate"></div></div>
