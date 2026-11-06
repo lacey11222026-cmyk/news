@@ -515,7 +515,7 @@ namespace WebMVC4.Controllers
             //ViewBag.orthercategory = orthercategory;
             return View(newsobj);
         }
-
+        [OutputCache(Duration = 120, VaryByParam = "*", VaryByCustom = "browser")]
         public ActionResult Detail(long Id, string Title, string CateName)
         {
             var newsobj = new ContentBO().GetContentFull(Id);

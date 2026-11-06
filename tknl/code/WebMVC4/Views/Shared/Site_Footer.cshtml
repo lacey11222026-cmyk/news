@@ -18,52 +18,54 @@
         </nav>
         <div class="mt20 f-content container">
             <div class="row">
-                <div class="col-md-8 col-xs-12">
+                <div class="col-md-6 col-xs-12">
                     <div class="f-content01">
                         <div><img src="@(StaticSiteUrl)/Content/images/logo-bottom.png"></div>
                         <div class="f-add">
-                            <h2>
-                                Bản quyền thuộc Cục Đổi mới sáng tạo, Chuyển đổi
-
-                                xanh và Khuyến công, Bộ Công Thương
-                            </h2>
-                            <p>
-                                Chịu trách nhiệm nội dung: Cục Đổi mới sáng tạo, Chuyển đổi xanh và Khuyến công, Bộ Công Thương<br />
-                                Giấy phép số 148/GP-TTĐT do Cục Quản lý Phát thanh, Truyền hình và Thông tin điện tử, Bộ thông tin và  Truyền thông cấp ngày 3/8/2019<br />
-                                Ghi rõ nguồn: <a href="https://tietkiemnangluong.com.vn/">tietkiemnangluong.com.vn</a> | <a href="http://vneec.gov.vn/">vneec.gov.vn</a> khi sử dụng thông tin từ website này. <br>
-
-
-
-                                @*Phát triển bởi <a href="https://vtkmedia.vn/"><img src="@(StaticSiteUrl)/Content/images/logo-vtk.png"></a>*@
+                            <h2>Bản quyền thuộc Cục Năng lượng – Dầu khí, Bộ Công Thương</h2>
+                            <p class="mt10">
+                                Địa chỉ: 54 Hai Bà trưng, Phường Cửa Nam, Hà Nội, Việt Nam<br>
+                                Chịu trách nhiệm nội dung: Phó Cục trưởng Đặng Hải Dũng<br>
+                                Điện thoại: 024. 22202358<br>
+                                Thư điện tử: vneec.gov@gmail.com<br>
                             </p>
                         </div>
                     </div>
                 </div>
-                <div class="col-md-4 col-xs-12">
-                    <ul class="f-link-list">
-                        @*<li><a href="http://tietkiemnangluong.com.vn/"><img src="@(StaticSiteUrl)/Content/images/icon-vn.png"></a></li>*@
-                        <li><a href="http://vneec.gov.vn/"><img src="@(StaticSiteUrl)/Content/images/icon-en.png"></a></li>
-                        <li><a href="https://www.youtube.com/channel/UCFfXHgMRa5zwPhGltIv89LQ"><img src="@(StaticSiteUrl)/Content/images/icon-you.png" style="width:24px !important" /></a></li>
-                        <li><a href="https://www.facebook.com/vptknl2019/"><img src="@(StaticSiteUrl)/Content/images/icon-face02.png?vs=2021"></a></li>
-                    </ul>
-                    <div class="total mt20">
-                        <span>Tổng số lượt truy cập </span>
-                        <ul>
-                            @foreach (var s in HttpContext.Current.Application["TotalVisited"].ToString().Select(c => c.ToString()).ToList())
-                            {
-                                <li>@s</li>
-                            }
-                        </ul>
-                        <div style="margin-top:10px">
-                            <img src="https://scp.gov.vn/content/img/img-footer.jpg" alt="">
-                        </div>
+                <div class="col-md-6 col-xs-12">
+                    <div>
+                        <img src="https://scp.gov.vn/content/img/img-footer.jpg" alt="" height="65">
                     </div>
-
+                    <div class="f-add mt10">
+                        <p>
+                            Giấy phép hoạt động số 148/GP-TTĐT do Cục Phát thanh truyền hình và Thông tin điện tử, Bộ Thông tin và Truyền thông <span style="display: inline-block;">cấp ngày 13 tháng 8 năm 2019</span><br>
+                            Ghi rõ nguồn: <a href="https://tietkiemnangluong.com.vn/">tietkiemnangluong.com.vn</a> | <a href="http://vneec.gov.vn/">vneec.gov.vn</a> khi sử dụng thông tin từ website này. <br>
+                        </p>
+                    </div>
+                    <div class="f-access">
+                        <div class="total mt10">
+                            <span>Tổng số lượt truy cập </span>
+                            <ul>
+                                @foreach (var s in HttpContext.Current.Application["TotalVisited"].ToString().Select(c => c.ToString()).ToList())
+                                {
+                                    <li>@s</li>
+                                }
+                            </ul>
+                        </div>
+                        <ul class="f-link-list mt10">
+                            <li><a href="http://tietkiemnangluong.com.vn/"><img src="@(StaticSiteUrl)/Content/images/icon-vn.png"></a></li>
+                            <li><a href="http://vneec.gov.vn/"><img src="@(StaticSiteUrl)/Content/images/icon-en.png"></a></li>
+                            <li><a href="https://www.youtube.com/channel/UCFfXHgMRa5zwPhGltIv89LQ"><img src="@(StaticSiteUrl)/Content/images/icon-youtube.png"></a></li>
+                            <li><a href="https://www.facebook.com/vptknl2019/"><img src="@(StaticSiteUrl)/Content/images/icon-face.png"></a></li>
+                        </ul>
+                    </div>
                 </div>
             </div>
         </div>
     </div><!-- end container-->
 </footer>
+
+
 <div class="fix-bottom">
     <a href="https://m.me/vptknl2019"><img src="/img/icon_mess.svg" alt=""></a>
 </div>

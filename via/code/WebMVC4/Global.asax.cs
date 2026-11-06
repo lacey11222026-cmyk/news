@@ -35,6 +35,50 @@ namespace WebMVC4
         //    //  Code that runs on application shutdown
         //    WriteTotalVisited();
         //}
+
+        protected void Application_BeginRequest(object sender, EventArgs e)
+        {
+            HttpContext context = HttpContext.Current;
+            HttpRequest request = context.Request;
+
+            // Lấy đường dẫn gốc, ưu tiên URL chưa chuẩn hóa
+            string rawUrl = request.ServerVariables["UNENCODED_URL"];
+
+            if (string.IsNullOrEmpty(rawUrl))
+                rawUrl = request.RawUrl;
+
+            if (string.IsNullOrEmpty(rawUrl))
+                return;
+
+            // Chỉ xử lý URL bắt đầu bằng //
+            if (!rawUrl.StartsWith("//"))
+                return;
+
+            // Tách path và query string
+            int queryIndex = rawUrl.IndexOf('?');
+
+            string path = queryIndex >= 0
+                ? rawUrl.Substring(0, queryIndex)
+                : rawUrl;
+
+            string query = queryIndex >= 0
+                ? rawUrl.Substring(queryIndex)
+                : "";
+
+            // Chuẩn hóa dấu / ở đầu URL
+            string newPath = "/" + path.TrimStart('/');
+
+            // Giữ nguyên domain và HTTPS
+            string newUrl = request.Url.GetLeftPart(
+                UriPartial.Authority) + newPath + query;
+
+            // Redirect 301
+            context.Response.Clear();
+            context.Response.StatusCode = 301;
+            context.Response.RedirectLocation = newUrl;
+            context.ApplicationInstance.CompleteRequest();
+        }
+
         protected void Application_Error(object sender, EventArgs e)
         {
             Exception exception = Server.GetLastError();
